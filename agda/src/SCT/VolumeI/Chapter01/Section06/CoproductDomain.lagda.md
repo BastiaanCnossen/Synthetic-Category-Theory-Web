@@ -34,22 +34,22 @@ module ProductDomain (T C D : CAT) where
   right = productMap (id T) (in₂ {C} {D})
   inverse = IsEquiv.inverse distribute-isEquiv
 
-  inverse-left : NatIso (inverse ∘ left) in₁
+  inverse-left : =₁ (inverse ∘ left) in₁
   inverse-left = equiv-reflect distribute-isEquiv _ _
     (invIso (copair-β₁ left right) ∙ FunctorLift.comparison (equiv-lift distribute-isEquiv left))
-  inverse-right : NatIso (inverse ∘ right) in₂
+  inverse-right : =₁ (inverse ∘ right) in₂
   inverse-right = equiv-reflect distribute-isEquiv _ _
     (invIso (copair-β₂ left right) ∙ FunctorLift.comparison (equiv-lift distribute-isEquiv right))
 
   join : {E : CAT} → MAP (T × C) E → MAP (T × D) E → MAP (T × (C ⊔ D)) E
   join f g = copair f g ∘ inverse
-  join-left : {E : CAT} (f : MAP (T × C) E) (g : MAP (T × D) E) → NatIso (join f g ∘ left) f
+  join-left : {E : CAT} (f : MAP (T × C) E) (g : MAP (T × D) E) → =₁ (join f g ∘ left) f
   join-left f g = copair-β₁ f g ∙ ((copair f g ◁ inverse-left) ∙ comp-assoc left inverse (copair f g))
-  join-right : {E : CAT} (f : MAP (T × C) E) (g : MAP (T × D) E) → NatIso (join f g ∘ right) g
+  join-right : {E : CAT} (f : MAP (T × C) E) (g : MAP (T × D) E) → =₁ (join f g ∘ right) g
   join-right f g = copair-β₂ f g ∙ ((copair f g ◁ inverse-right) ∙ comp-assoc right inverse (copair f g))
 
   reflect : {E : CAT} (f g : MAP (T × (C ⊔ D)) E) →
-    NatIso (f ∘ left) (g ∘ left) → NatIso (f ∘ right) (g ∘ right) → NatIso f g
+    =₁ (f ∘ left) (g ∘ left) → =₁ (f ∘ right) (g ∘ right) → =₁ f g
   reflect f g α β = FunctorLift.lift (preWhisker-lift distribute distribute-isEquiv
     (coproduct-reflect _ _
       (invIso (comp-assoc in₁ distribute g) ∙
@@ -72,25 +72,25 @@ module CoproductDomain (C D E : CAT) where
   backward : MAP Target Source
   backward = funCurry (Domain.join (funUncurry pr₁) (funUncurry pr₂))
 
-  backward-left : NatIso (left ∘ backward) pr₁
+  backward-left : =₁ (left ∘ backward) pr₁
   backward-left = funReflect _ _ (Domain.join-left (funUncurry pr₁) (funUncurry pr₂) ∙
     ((funCurry-β (Domain.join (funUncurry pr₁) (funUncurry pr₂)) ▷ Domain.left) ∙ funPre-uncurry in₁ backward))
-  backward-right : NatIso (right ∘ backward) pr₂
+  backward-right : =₁ (right ∘ backward) pr₂
   backward-right = funReflect _ _ (Domain.join-right (funUncurry pr₁) (funUncurry pr₂) ∙
     ((funCurry-β (Domain.join (funUncurry pr₁) (funUncurry pr₂)) ▷ Domain.right) ∙ funPre-uncurry in₂ backward))
 
   restrict-reflect : {T : CAT} (f g : MAP T Source) →
-    NatIso (left ∘ f) (left ∘ g) → NatIso (right ∘ f) (right ∘ g) → NatIso f g
+    =₁ (left ∘ f) (left ∘ g) → =₁ (right ∘ f) (right ∘ g) → =₁ f g
   restrict-reflect {T} f g α β = funReflect f g (ProductDomain.reflect T C D _ _
     (funPre-uncurry in₁ g ∙ (funUncurry-cong α ∙ invIso (funPre-uncurry in₁ f)))
     (funPre-uncurry in₂ g ∙ (funUncurry-cong β ∙ invIso (funPre-uncurry in₂ f))))
 
-  forward-backward : NatIso (forward ∘ backward) (id Target)
+  forward-backward : =₁ (forward ∘ backward) (id Target)
   forward-backward = pair-iso
     (invIso (comp-unitʳ pr₁) ∙ (backward-left ∙ project-pair₁ left right backward))
     (invIso (comp-unitʳ pr₂) ∙ (backward-right ∙ project-pair₂ left right backward))
 
-  backward-forward : NatIso (backward ∘ forward) (id Source)
+  backward-forward : =₁ (backward ∘ forward) (id Source)
   backward-forward = restrict-reflect _ _
     (invIso (comp-unitʳ left) ∙
       (pair-β₁ left right ∙ ((backward-left ▷ forward) ∙ invIso (comp-assoc forward backward left))))

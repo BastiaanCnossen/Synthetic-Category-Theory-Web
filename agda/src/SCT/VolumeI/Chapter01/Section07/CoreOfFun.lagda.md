@@ -28,7 +28,7 @@ module CoreOfFun (C D : CAT) where
   comparison : MAP (Map C D) (Core (Fun C D))
   comparison = Lift.lift
 
-  inclusion-comparison : NatIso (coreInclusion (Fun C D) ∘ comparison) (mappingInclusion C D)
+  inclusion-comparison : =₁ (coreInclusion (Fun C D) ∘ comparison) (mappingInclusion C D)
   inclusion-comparison = Lift.comparison
 
   comparison-on-maps : (X : CAT) → isAn X → IsEquiv (mapPost {C = X} comparison)

@@ -8,7 +8,7 @@ def check(site):
     if not (site/'index.html').is_file(): raise ValueError('Distribution index is missing')
     info=json.loads((site/'build-info.json').read_text(encoding='utf-8'))
     allowed=set(info['published_modules'])
-    root_files={'.nojekyll','index.html','basic-vocabulary.html','equivalences.html',
+    root_files={'.nojekyll','index.html','basic-vocabulary.html','equivalences.html','mapping-animae.html',
                 'chapter-introduction.html','code-index.html','formalization.html',
                 'build-report.html','outside-selection.html','book.pdf','build-info.json','validation.json'}
     asset_files={'reader-shell.css','reader.css','reader.js','favicon.svg','Agda.css','math-config.js','agda-context.js'}

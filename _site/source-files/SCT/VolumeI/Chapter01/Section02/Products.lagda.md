@@ -30,23 +30,23 @@ open Coherence.Composition V T P S
 open Specialization V T P PL S
 
 pair-η : {X C D : CAT} (h : MAP X (C × D))
-  → NatIso (pair (pr₁ ∘ h) (pr₂ ∘ h)) h
+  → =₁ (pair (pr₁ ∘ h) (pr₂ ∘ h)) h
 pair-η h = pair-iso (pair-β₁ (pr₁ ∘ h) (pr₂ ∘ h))
                         (pair-β₂ (pr₁ ∘ h) (pr₂ ∘ h))
 
-pair-projections : {C D : CAT} → NatIso (pair pr₁ pr₂) (id (C × D))
+pair-projections : {C D : CAT} → =₁ (pair pr₁ pr₂) (id (C × D))
 pair-projections = pair-iso
   (invIso (comp-unitʳ pr₁) ∙ pair-β₁ pr₁ pr₂)
   (invIso (comp-unitʳ pr₂) ∙ pair-β₂ pr₁ pr₂)
 
 project-pair₁ : {R X C D : CAT}
   (f : MAP X C) (g : MAP X D) (r : MAP R X)
-  → NatIso (pr₁ ∘ (pair f g ∘ r)) (f ∘ r)
+  → =₁ (pr₁ ∘ (pair f g ∘ r)) (f ∘ r)
 project-pair₁ f g r = (pair-β₁ f g ▷ r) ∙ invIso (comp-assoc r (pair f g) pr₁)
 
 project-pair₂ : {R X C D : CAT}
   (f : MAP X C) (g : MAP X D) (r : MAP R X)
-  → NatIso (pr₂ ∘ (pair f g ∘ r)) (g ∘ r)
+  → =₁ (pr₂ ∘ (pair f g ∘ r)) (g ∘ r)
 project-pair₂ f g r = (pair-β₂ f g ▷ r) ∙ invIso (comp-assoc r (pair f g) pr₂)
 ```
 
@@ -57,7 +57,7 @@ two inverse comparisons are the same calculation on different products.
 swap : {C D : CAT} → MAP (C × D) (D × C)
 swap = pair pr₂ pr₁
 
-swap-swap : (C D : CAT) → NatIso (swap ∘ swap) (id (C × D))
+swap-swap : (C D : CAT) → =₁ (swap ∘ swap) (id (C × D))
 swap-swap C D = pair-iso
   --! begin swap-swap-first-projection
   (invIso (comp-unitʳ pr₁) ∙ (pair-β₂ pr₂ pr₁ ∙ project-pair₁ pr₂ pr₁ swap))
@@ -77,7 +77,7 @@ product-unit-inverse : (C : CAT) → MAP C (C × One)
 product-unit-inverse C = pair (id C) (terminate C)
 
 product-unit-section : (C : CAT)
-  → NatIso (product-unit-inverse C ∘ pr₁) (id (C × One))
+  → =₁ (product-unit-inverse C ∘ pr₁) (id (C × One))
 product-unit-section C = pair-iso
   --! begin product-unit-first-projection
   (invIso (comp-unitʳ pr₁) ∙
@@ -106,33 +106,33 @@ module Associativity (C D E : CAT) where
   backward : MAP (C × (D × E)) ((C × D) × E)
   backward = pair (pair pr₁ (pr₁ ∘ pr₂)) (pr₂ ∘ pr₂)
 
-  forward-first : NatIso (pr₁ ∘ forward) (pr₁ ∘ pr₁)
+  forward-first : =₁ (pr₁ ∘ forward) (pr₁ ∘ pr₁)
   forward-first = pair-β₁ (pr₁ ∘ pr₁) (pair (pr₂ ∘ pr₁) pr₂)
 
-  forward-second : NatIso ((pr₁ ∘ pr₂) ∘ forward) (pr₂ ∘ pr₁)
+  forward-second : =₁ ((pr₁ ∘ pr₂) ∘ forward) (pr₂ ∘ pr₁)
   forward-second = pair-β₁ (pr₂ ∘ pr₁) pr₂ ∙
     ((pr₁ ◁ pair-β₂ (pr₁ ∘ pr₁) (pair (pr₂ ∘ pr₁) pr₂)) ∙
       comp-assoc forward pr₂ pr₁)
 
-  forward-third : NatIso ((pr₂ ∘ pr₂) ∘ forward) pr₂
+  forward-third : =₁ ((pr₂ ∘ pr₂) ∘ forward) pr₂
   forward-third = pair-β₂ (pr₂ ∘ pr₁) pr₂ ∙
     ((pr₂ ◁ pair-β₂ (pr₁ ∘ pr₁) (pair (pr₂ ∘ pr₁) pr₂)) ∙
       comp-assoc forward pr₂ pr₂)
 
-  backward-first : NatIso ((pr₁ ∘ pr₁) ∘ backward) pr₁
+  backward-first : =₁ ((pr₁ ∘ pr₁) ∘ backward) pr₁
   backward-first = pair-β₁ pr₁ (pr₁ ∘ pr₂) ∙
     ((pr₁ ◁ pair-β₁ (pair pr₁ (pr₁ ∘ pr₂)) (pr₂ ∘ pr₂)) ∙
       comp-assoc backward pr₁ pr₁)
 
-  backward-second : NatIso ((pr₂ ∘ pr₁) ∘ backward) (pr₁ ∘ pr₂)
+  backward-second : =₁ ((pr₂ ∘ pr₁) ∘ backward) (pr₁ ∘ pr₂)
   backward-second = pair-β₂ pr₁ (pr₁ ∘ pr₂) ∙
     ((pr₂ ◁ pair-β₁ (pair pr₁ (pr₁ ∘ pr₂)) (pr₂ ∘ pr₂)) ∙
       comp-assoc backward pr₁ pr₂)
 
-  backward-third : NatIso (pr₂ ∘ backward) (pr₂ ∘ pr₂)
+  backward-third : =₁ (pr₂ ∘ backward) (pr₂ ∘ pr₂)
   backward-third = pair-β₂ (pair pr₁ (pr₁ ∘ pr₂)) (pr₂ ∘ pr₂)
 
-  backward-forward : NatIso (backward ∘ forward) (id ((C × D) × E))
+  backward-forward : =₁ (backward ∘ forward) (id ((C × D) × E))
   backward-forward = pair-projections ∙
     (pair-cong (pair-η pr₁) (idIso pr₂) ∙
       (pair-cong
@@ -140,7 +140,7 @@ module Associativity (C D E : CAT) where
         forward-third ∙
         pair-pre (pair pr₁ (pr₁ ∘ pr₂)) (pr₂ ∘ pr₂) forward))
 
-  forward-backward : NatIso (forward ∘ backward) (id (C × (D × E)))
+  forward-backward : =₁ (forward ∘ backward) (id (C × (D × E)))
   forward-backward = pair-projections ∙
     (pair-cong (idIso pr₁) (pair-η pr₂) ∙
       (pair-cong backward-first
@@ -162,12 +162,12 @@ are compared by their two projections, with the external associators visible.
 productMap : {C C′ D D′ : CAT} → MAP C C′ → MAP D D′ → MAP (C × D) (C′ × D′)
 productMap f g = pair (f ∘ pr₁) (g ∘ pr₂)
 
-productMap-id : (C D : CAT) → NatIso (productMap (id C) (id D)) (id (C × D))
+productMap-id : (C D : CAT) → =₁ (productMap (id C) (id D)) (id (C × D))
 productMap-id C D = pair-projections ∙ pair-cong (comp-unitˡ pr₁) (comp-unitˡ pr₂)
 
 productMap-comp : {C C′ C″ D D′ D″ : CAT}
   (f : MAP C C′) (f′ : MAP C′ C″) (g : MAP D D′) (g′ : MAP D′ D″)
-  → NatIso (productMap f′ g′ ∘ productMap f g) (productMap (f′ ∘ f) (g′ ∘ g))
+  → =₁ (productMap f′ g′ ∘ productMap f g) (productMap (f′ ∘ f) (g′ ∘ g))
 productMap-comp f f′ g g′ = pair-cong
   (invIso (comp-assoc pr₁ f f′) ∙
     ((f′ ◁ pair-β₁ (f ∘ pr₁) (g ∘ pr₂)) ∙ comp-assoc (productMap f g) pr₁ f′))

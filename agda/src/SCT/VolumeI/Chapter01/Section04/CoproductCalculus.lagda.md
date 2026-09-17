@@ -20,14 +20,14 @@ open Coproducts.CoproductStructure B
 open import SCT.VolumeI.Chapter01.Section04.Copairing 𝒯 M B public
 
 copair-pre₁ : {X C D E : CAT} (f : MAP C E) (g : MAP D E) (h : MAP X C)
-  → NatIso (copair f g ∘ (in₁ ∘ h)) (f ∘ h)
+  → =₁ (copair f g ∘ (in₁ ∘ h)) (f ∘ h)
 copair-pre₁ f g h = (copair-β₁ f g ▷ h) ∙ invIso (comp-assoc h in₁ (copair f g))
 
 copair-pre₂ : {X C D E : CAT} (f : MAP C E) (g : MAP D E) (h : MAP X D)
-  → NatIso (copair f g ∘ (in₂ ∘ h)) (g ∘ h)
+  → =₁ (copair f g ∘ (in₂ ∘ h)) (g ∘ h)
 copair-pre₂ f g h = (copair-β₂ f g ▷ h) ∙ invIso (comp-assoc h in₂ (copair f g))
 
-copair-inclusions : (C D : CAT) → NatIso (copair (in₁ {C} {D}) in₂) (id (C ⊔ D))
+copair-inclusions : (C D : CAT) → =₁ (copair (in₁ {C} {D}) in₂) (id (C ⊔ D))
 copair-inclusions C D = coproduct-reflect _ _
   (invIso (comp-unitˡ in₁) ∙ copair-β₁ in₁ in₂)
   (invIso (comp-unitˡ in₂) ∙ copair-β₂ in₁ in₂)
@@ -36,15 +36,15 @@ coproductMap : {C C′ D D′ : CAT} → MAP C C′ → MAP D D′ → MAP (C �
 coproductMap f g = copair (in₁ ∘ f) (in₂ ∘ g)
 
 coproductMap-cong : {C C′ D D′ : CAT} {f f′ : MAP C C′} {g g′ : MAP D D′}
-  → NatIso f f′ → NatIso g g′ → NatIso (coproductMap f g) (coproductMap f′ g′)
+  → =₁ f f′ → =₁ g g′ → =₁ (coproductMap f g) (coproductMap f′ g′)
 coproductMap-cong α β = copair-cong (in₁ ◁ α) (in₂ ◁ β)
 
-coproductMap-id : (C D : CAT) → NatIso (coproductMap (id C) (id D)) (id (C ⊔ D))
+coproductMap-id : (C D : CAT) → =₁ (coproductMap (id C) (id D)) (id (C ⊔ D))
 coproductMap-id C D = copair-inclusions C D ∙ copair-cong (comp-unitʳ in₁) (comp-unitʳ in₂)
 
 coproductMap-comp : {C C′ C″ D D′ D″ : CAT}
   (f : MAP C C′) (f′ : MAP C′ C″) (g : MAP D D′) (g′ : MAP D′ D″)
-  → NatIso (coproductMap f′ g′ ∘ coproductMap f g) (coproductMap (f′ ∘ f) (g′ ∘ g))
+  → =₁ (coproductMap f′ g′ ∘ coproductMap f g) (coproductMap (f′ ∘ f) (g′ ∘ g))
 coproductMap-comp f f′ g g′ =
   copair-cong (comp-assoc f f′ in₁ ∙ copair-pre₁ (in₁ ∘ f′) (in₂ ∘ g′) f)
     (comp-assoc g g′ in₂ ∙ copair-pre₂ (in₁ ∘ f′) (in₂ ∘ g′) g) ∙

@@ -31,7 +31,7 @@ module Extensions {A B C D : CAT}
   (s : Square u l r v) (universal : IsPushout s) (E : CAT) where
   module U = UniversalCone (mappingOut s E) (universal E)
   ordinary = squareCocone s
-  evaluate : (h : ObjAbs (Map D E)) →
+  evaluate : (h : Obj-abs (Map D E)) →
     CoconeIso (DC.decodeRestriction {u = u} {v = l} (conePre h (mappingOut s E)))
       (coconePost (decodeMap h) ordinary)
   evaluate = Evaluation.Evaluation.comparison 𝒯 M P s
@@ -61,7 +61,7 @@ module Extensions {A B C D : CAT}
         (coconeIso-compose Φ
         (coconeIso-compose (cocone-action ordinary (decode-name f)) (evaluate f′)))))
 
-      comparison : NatIso f g
+      comparison : =₁ f g
       comparison = decode-name g ∙
         (decodeMapIso (U.reflect f′ g′ named-comparison) ∙ invIso (decode-name f))
 

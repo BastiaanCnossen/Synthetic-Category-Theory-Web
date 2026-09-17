@@ -30,7 +30,7 @@ open Iterated vocabulary terminal products productLaws composition vertical whis
 open Structural vocabulary terminal products productLaws composition whiskering
   using (preWhisker-id-at; postWhisker-id-at)
 
-module Naturality {A B : CAT} {u v : MAP A B} (α : NatIso u v) where
+module Naturality {A B : CAT} {u v : MAP A B} (α : =₁ u v) where
   module U = Unit.Coordinates 𝒯 M u
   module V = Unit.Coordinates 𝒯 M v
   IA = oneProduct-in A
@@ -44,28 +44,28 @@ module Naturality {A B : CAT} {u v : MAP A B} (α : NatIso u v) where
   tv = transport-pre pr₂ IB (oneProduct-retraction B) v
 
   abstract
-    head-square : Iso₂ (V.endpoint ∙ ((α ▷ pr₂) ▷ IA)) (α ∙ U.endpoint)
+    head-square : =₂ (V.endpoint ∙ ((α ▷ pr₂) ▷ IA)) (α ∙ U.endpoint)
     head-square = paste-squares U.head V.head (comp-unitʳ u) (comp-unitʳ v)
       ((α ▷ pr₂) ▷ IA) (α ▷ id A) α
       (lift-base-outer pr₂ (id A) IA (oneProduct-retraction A) α) (preWhisker-id-at α)
 
-    source-change : Iso₂ (V.source ∙ (pr₂ ◁ source-action)) (α ∙ U.source)
+    source-change : =₂ (V.source ∙ (pr₂ ◁ source-action)) (α ∙ U.source)
     source-change = paste-squares ru rv U.endpoint V.endpoint
       (pr₂ ◁ source-action) ((α ▷ pr₂) ▷ IA) α
       (pre-square-projection pr₂ δ (α ▷ pr₂) U.base V.base IA
         (pair-cong-triangle₂ (idIso (id One) ▷ pr₁) (α ▷ pr₂))) head-square
 
-    target-change : Iso₂ (V.target ∙ (pr₂ ◁ target-action)) (α ∙ U.target)
+    target-change : =₂ (V.target ∙ (pr₂ ◁ target-action)) (α ∙ U.target)
     target-change = paste-squares tu tv (comp-unitˡ u) (comp-unitˡ v)
       (pr₂ ◁ target-action) (id B ◁ α) α
       (substitution-square-projection pr₂ IB (id B) (oneProduct-retraction B) α)
       (postWhisker-id-at α)
 
-    second : Iso₂ (pr₂ ◁ (V.value ∙ source-action)) (pr₂ ◁ (target-action ∙ U.value))
+    second : =₂ (pr₂ ◁ (V.value ∙ source-action)) (pr₂ ◁ (target-action ∙ U.value))
     second = invIso (projected-square pr₂ target-action U.value V.value source-action
       U.target V.target α U.source V.source
       target-change U.projection₂ V.projection₂ source-change)
 
-    comparison : Iso₂ (V.value ∙ source-action) (target-action ∙ U.value)
+    comparison : =₂ (V.value ∙ source-action) (target-action ∙ U.value)
     comparison = pair-iso-extensionality (terminal-Iso₂ _ _) second
 ```

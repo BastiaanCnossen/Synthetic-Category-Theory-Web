@@ -25,27 +25,27 @@ module Coordinates {X A B : CAT} (u : MAP A B) where
   source-step = productMap u (id X)
   target-step = productRestriction X u
 
-  first-source-base : NatIso (pr₁ ∘ (source-step ∘ input)) (u ∘ pr₂)
+  first-source-base : =₁ (pr₁ ∘ (source-step ∘ input)) (u ∘ pr₂)
   first-source-base = PS.compose-base pr₁ source-step
     (pair-β₁ (u ∘ pr₁) (id X ∘ pr₂)) input
     (PS.lift-base u pr₁ input (pair-β₁ pr₂ pr₁))
 
-  first-target-base : NatIso (pr₁ ∘ (output ∘ target-step)) (u ∘ pr₂)
+  first-target-base : =₁ (pr₁ ∘ (output ∘ target-step)) (u ∘ pr₂)
   first-target-base = PS.compose-base pr₁ output (pair-β₁ pr₂ pr₁)
     target-step (pair-β₂ (id X ∘ pr₁) (u ∘ pr₂))
 
-  second-source-base : NatIso (pr₂ ∘ (source-step ∘ input)) pr₁
+  second-source-base : =₁ (pr₂ ∘ (source-step ∘ input)) pr₁
   second-source-base = PS.compose-base pr₂ source-step
     (comp-unitˡ pr₂ ∙ pair-β₂ (u ∘ pr₁) (id X ∘ pr₂)) input (pair-β₂ pr₂ pr₁)
 
-  second-target-base : NatIso (pr₂ ∘ (output ∘ target-step)) pr₁
+  second-target-base : =₁ (pr₂ ∘ (output ∘ target-step)) pr₁
   second-target-base = PS.compose-base pr₂ output (pair-β₂ pr₂ pr₁)
     target-step (comp-unitˡ pr₁ ∙ pair-β₁ (id X ∘ pr₁) (u ∘ pr₂))
 
   first = invIso first-target-base ∙ first-source-base
   second = invIso second-target-base ∙ second-source-base
 
-  value : NatIso (source-step ∘ input) (output ∘ target-step)
+  value : =₁ (source-step ∘ input) (output ∘ target-step)
   value = pair-iso first second
 
   abstract
@@ -58,7 +58,7 @@ module Coordinates {X A B : CAT} (u : MAP A B) where
       isoComp-cong (idIso second-target-base) (pair-iso-β₂ first second)
 
 swap-restriction : {X A B : CAT} (u : MAP A B) →
-  NatIso (productMap u (id X) ∘ swap {X} {A})
+  =₁ (productMap u (id X) ∘ swap {X} {A})
     (swap {X} {B} ∘ productRestriction X u)
 swap-restriction = Coordinates.value
 ```

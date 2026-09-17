@@ -22,19 +22,19 @@ open import SCT.VolumeI.Chapter01.Section05.ComparisonSquares 𝒯
 module Encoding {C D E T : CAT} {f : MAP C E} {g : MAP D E}
   (s t : Cone f g T) where
 
-  Left = Cone.left s ≅ Cone.left t
-  Right = Cone.right s ≅ Cone.right t
-  Middle = (f ∘ Cone.left s) ≅ (g ∘ Cone.right t)
+  Left = Cone.left s ＝ Cone.left t
+  Right = Cone.right s ＝ Cone.right t
+  Middle = (f ∘ Cone.left s) ＝ (g ∘ Cone.right t)
   leftMap : MAP Left Middle
   leftMap = const (Cone.match t) ∙ postWhisker f
   rightMap : MAP Right Middle
   rightMap = postWhisker g ∙ const (Cone.match s)
 
-  leftEvaluation : (α : ObjAbs Left)
-    → NatIso (leftMap ∘ α) (Cone.match t ∙ (f ◁ α))
+  leftEvaluation : (α : Obj-abs Left)
+    → =₁ (leftMap ∘ α) (Cone.match t ∙ (f ◁ α))
   leftEvaluation α = left-evaluation (Cone.match t) (postWhisker f) α
-  rightEvaluation : (β : ObjAbs Right)
-    → NatIso (rightMap ∘ β) ((g ◁ β) ∙ Cone.match s)
+  rightEvaluation : (β : Obj-abs Right)
+    → =₁ (rightMap ∘ β) ((g ◁ β) ∙ Cone.match s)
   rightEvaluation β = right-evaluation (postWhisker g) (Cone.match s) β
 
   encode : ConeIso s t → Cone leftMap rightMap One

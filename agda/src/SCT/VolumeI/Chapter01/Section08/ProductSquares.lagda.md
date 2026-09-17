@@ -21,7 +21,7 @@ productRestriction X f = productMap (id X) f
 
 productRestriction-comp : (X : CAT) {A B C : CAT}
   (f : MAP A B) (g : MAP B C) →
-  NatIso (productRestriction X g ∘ productRestriction X f) (productRestriction X (g ∘ f))
+  =₁ (productRestriction X g ∘ productRestriction X f) (productRestriction X (g ∘ f))
 productRestriction-comp X f g =
   productMap-cong (comp-unitˡ (id X)) (idIso (g ∘ f)) ∙
     productMap-comp (id X) (id X) f g
@@ -43,7 +43,7 @@ restrictionCocone {X = X} s h = coconePost h (productCocone X s)
 
 restriction-action : {A B C D E X : CAT}
   {u : MAP A B} {l : MAP A C} {r : MAP B D} {v : MAP C D}
-  (s : Square u l r v) {h k : MAP (X × D) E} → NatIso h k →
+  (s : Square u l r v) {h k : MAP (X × D) E} → =₁ h k →
   CoconeIso (restrictionCocone s h) (restrictionCocone s k)
 restriction-action {X = X} s = cocone-action (productCocone X s)
 ```

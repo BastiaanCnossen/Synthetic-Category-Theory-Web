@@ -60,7 +60,7 @@ module FunctorPullback {C D E : CAT} (T : CAT) (f : MAP C E) (g : MAP D E) where
 
   opaque
     reflect : {X : CAT} → (h k : MAP X S) →
-      ConeIso (conePre h square) (conePre k square) → NatIso h k
+      ConeIso (conePre h square) (conePre k square) → =₁ h k
     reflect h k Φ = funIsoReflect h k (pullback-reflect {f = f} {g = g} (funUncurry h) (funUncurry k)
       (coneIso-compose (MappedCone.evaluate T original k)
         (coneIso-compose (uncurryConeIso {f = f} {g = g} Φ) (coneIso-inverse (MappedCone.evaluate T original h)))))

@@ -81,7 +81,7 @@ module Composite {X A B C : CAT} (f : MAP A B) (g : MAP B C) where
           (PS.compose-base pr₁ Lg (RF.restriction-base X g) Lf (RF.restriction-base X f))
           (RF.restriction-base X (g ∘ f)) χ (RF.compositor X f g))
 
-      comparison : Iso₂ (pr₂ ◁ short) (pr₂ ◁ long)
+      comparison : =₂ (pr₂ ◁ short) (pr₂ ◁ long)
       comparison = cancel-left-reflect final (invIso long-square ∙ short-square)
 
   module First where
@@ -113,12 +113,12 @@ module Composite {X A B C : CAT} (f : MAP A B) (g : MAP B C) where
     η = comp-assoc (pr₂ {X} {A}) f g
 
     abstract
-      composite-source : Iso₂ final (η ∙ SingleComposite.first-source-base)
+      composite-source : =₂ final (η ∙ SingleComposite.first-source-base)
       composite-source = change-middle pr₁ Rgf SA (RF.parameter-base (g ∘ f) X)
         (PS.lift-base (g ∘ f) pr₁ SA (pair-β₁ pr₂ pr₁))
         (comp-assoc pr₁ f g) bA η (lift-assoc pr₁ pr₂ SA (pair-β₁ pr₂ pr₁) f g)
 
-      composite-target : Iso₂ middle (η ∙ SingleComposite.first-target-base)
+      composite-target : =₂ middle (η ∙ SingleComposite.first-target-base)
       composite-target = isoComp-assoc-at η (RS.restriction-base X (g ∘ f))
         ((bC ▷ Lgf) ∙ invIso (comp-assoc Lgf SC pr₁))
 
@@ -142,10 +142,10 @@ module Composite {X A B C : CAT} (f : MAP A B) (g : MAP B C) where
         (PS.post-square pr₁ SC bC (PS.compose-base pr₂ Lg bLg Lf bLf)
           (RS.composite-base X f g) χ (RS.compositor X f g))
 
-      comparison : Iso₂ (pr₁ ◁ short) (pr₁ ◁ long)
+      comparison : =₂ (pr₁ ◁ short) (pr₁ ◁ long)
       comparison = cancel-left-reflect final (invIso long-square ∙ short-square)
 
   abstract
-    comparison : Iso₂ short long
+    comparison : =₂ short long
     comparison = pair-iso-extensionality First.comparison Second.comparison
 ```

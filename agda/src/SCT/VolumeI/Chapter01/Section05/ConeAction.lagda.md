@@ -27,8 +27,8 @@ open FamilyProduct vocabulary terminal products productLaws composition vertical
   using (paste-family-squares)
 
 cone-action-family : {A C D E S T : CAT} {f : MAP C E} {g : MAP D E}
-  (s : Cone f g T) {h k : MAP S T} (δ : MAP A (h ≅ k))
-  → NatIso
+  (s : Cone f g T) {h k : MAP S T} (δ : MAP A (h ＝ k))
+  → =₁
       (const (Cone.match (conePre k s)) ∙ (f ◁ (Cone.left s ◁ δ)))
       ((g ◁ (Cone.right s ◁ δ)) ∙ const (Cone.match (conePre h s)))
 cone-action-family {f = f} {g} s {h} {k} δ =
@@ -61,28 +61,28 @@ module Action {C D E S T : CAT} {f : MAP C E} {g : MAP D E}
   p = Cone.left s
   q = Cone.right s
 
-  left-evaluation : NatIso (Boundary.leftMap ∘ postWhisker p)
+  left-evaluation : =₁ (Boundary.leftMap ∘ postWhisker p)
     (const rightMatch ∙ (f ◁ postWhisker p))
   left-evaluation = isoComp-evaluate (const rightMatch) (postWhisker f) (postWhisker p)
     (const-pre rightMatch (postWhisker p)) (idIso _)
 
-  right-evaluation : NatIso (Boundary.rightMap ∘ postWhisker q)
+  right-evaluation : =₁ (Boundary.rightMap ∘ postWhisker q)
     ((g ◁ postWhisker q) ∙ const leftMatch)
   right-evaluation = isoComp-evaluate (postWhisker g) (const leftMatch) (postWhisker q)
     (idIso _) (const-pre leftMatch (postWhisker q))
 
-  matching : NatIso (Boundary.leftMap ∘ postWhisker p) (Boundary.rightMap ∘ postWhisker q)
+  matching : =₁ (Boundary.leftMap ∘ postWhisker p) (Boundary.rightMap ∘ postWhisker q)
   matching = invIso right-evaluation ∙
     (isoComp-cong (postWhisker g ◁ comp-unitʳ (postWhisker q)) (idIso _) ∙
-    (cone-action-family s (id (h ≅ k)) ∙
+    (cone-action-family s (id (h ＝ k)) ∙
     (invIso (isoComp-cong (idIso _) (postWhisker f ◁ comp-unitʳ (postWhisker p))) ∙
       left-evaluation)))
 
-  universal : Cone Boundary.leftMap Boundary.rightMap (h ≅ k)
+  universal : Cone Boundary.leftMap Boundary.rightMap (h ＝ k)
   universal = record { left = postWhisker p ; right = postWhisker q ; match = matching }
 
 cone-action : {C D E S T : CAT} {f : MAP C E} {g : MAP D E}
-  (s : Cone f g T) {h k : MAP S T} → NatIso h k → ConeIso (conePre h s) (conePre k s)
+  (s : Cone f g T) {h k : MAP S T} → =₁ h k → ConeIso (conePre h s) (conePre k s)
 cone-action s {h} {k} δ = Action.Boundary.decode s h k (conePre δ (Action.universal s h k))
 ```
 

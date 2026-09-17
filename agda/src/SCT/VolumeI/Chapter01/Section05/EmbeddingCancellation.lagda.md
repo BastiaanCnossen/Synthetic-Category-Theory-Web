@@ -46,10 +46,10 @@ module Cancellation {C D E D′ E′ C′ : CAT}
   section : MAP (Pullback f v) C′
   section = Outer.factor (Paste.flatten (pbCone f v))
 
-  section-projection : NatIso (u ∘ section) p
+  section-projection : =₁ (u ∘ section) p
   section-projection = ConeIso.leftIso (Outer.factor-β (Paste.flatten (pbCone f v)))
 
-  section-law : NatIso (comparison ∘ section) (id (Pullback f v))
+  section-law : =₁ (comparison ∘ section) (id (Pullback f v))
   section-law = embedding-reflect p projection-isEmbedding _ _
     (invIso (comp-unitʳ p) ∙ (section-projection ∙
       ((pbLift-β₁ top ▷ section) ∙ invIso (comp-assoc section comparison p))))

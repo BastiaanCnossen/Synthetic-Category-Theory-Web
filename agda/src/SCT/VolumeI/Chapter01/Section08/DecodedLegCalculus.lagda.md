@@ -20,19 +20,19 @@ open PU vocabulary terminal products productLaws composition vertical whiskering
 open Isomorphisms vocabulary terminal products productLaws composition vertical whiskering using (cancel-inverse)
 
 decoded-leg : {R S : CAT} {x₀ x₁ x₂ y₀ y₁ y₂ : MAP R S}
-  (p : NatIso x₀ x₁) (q : NatIso y₀ y₁)
-  (a : NatIso x₁ x₂) (b : NatIso y₁ y₂) (γ : NatIso x₂ y₂)
-  (z : NatIso x₀ y₀) (w : NatIso x₁ y₁) →
-  Iso₂ (q ∙ z) (w ∙ p) →
-  Iso₂ z (invIso q ∙ (invIso b ∙ (γ ∙ (a ∙ p)))) →
-  Iso₂ (changeEndpoints a b w) γ
+  (p : =₁ x₀ x₁) (q : =₁ y₀ y₁)
+  (a : =₁ x₁ x₂) (b : =₁ y₁ y₂) (γ : =₁ x₂ y₂)
+  (z : =₁ x₀ y₀) (w : =₁ x₁ y₁) →
+  =₂ (q ∙ z) (w ∙ p) →
+  =₂ z (invIso q ∙ (invIso b ∙ (γ ∙ (a ∙ p)))) →
+  =₂ (changeEndpoints a b w) γ
 decoded-leg p q a b γ z w natural image-β =
   square-to-changeEndpoints a b w γ square
   where
-  image : Iso₂ (q ∙ z) (invIso b ∙ (γ ∙ (a ∙ p)))
+  image : =₂ (q ∙ z) (invIso b ∙ (γ ∙ (a ∙ p)))
   image = cancel-inverse q (invIso b ∙ (γ ∙ (a ∙ p))) ∙
     isoComp-cong (idIso q) image-β
-  square : Iso₂ (b ∙ w) (γ ∙ a)
+  square : =₂ (b ∙ w) (γ ∙ a)
   square = cancel-right-reflect p
     (invIso (isoComp-assoc-at γ a p) ∙
       (cancel-inverse b (γ ∙ (a ∙ p)) ∙

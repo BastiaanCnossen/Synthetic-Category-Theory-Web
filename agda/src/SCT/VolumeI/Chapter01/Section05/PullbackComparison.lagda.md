@@ -28,9 +28,9 @@ module IsoComparison {C D E T : CAT} {f : MAP C E} {g : MAP D E}
   leftMatch = Cone.match (conePre h (pbCone f g))
   rightMatch = Cone.match (conePre k (pbCone f g))
 
-  Left = (pb₁ ∘ h) ≅ (pb₁ ∘ k)
-  Right = (pb₂ ∘ h) ≅ (pb₂ ∘ k)
-  Middle = (f ∘ (pb₁ ∘ h)) ≅ (g ∘ (pb₂ ∘ k))
+  Left = (pb₁ ∘ h) ＝ (pb₁ ∘ k)
+  Right = (pb₂ ∘ h) ＝ (pb₂ ∘ k)
+  Middle = (f ∘ (pb₁ ∘ h)) ＝ (g ∘ (pb₂ ∘ k))
 
   leftMap : MAP Left Middle
   leftMap = const rightMatch ∙ postWhisker f
@@ -44,22 +44,22 @@ module IsoComparison {C D E T : CAT} {f : MAP C E} {g : MAP D E}
   target-isAn : isAn Target
   target-isAn = pullback-isAn leftMap rightMap (iso-isAn _ _) (iso-isAn _ _) (iso-isAn _ _)
 
-  left-evaluation : NatIso (leftMap ∘ postWhisker pb₁)
+  left-evaluation : =₁ (leftMap ∘ postWhisker pb₁)
     (const rightMatch ∙ (f ◁ postWhisker pb₁))
   left-evaluation = isoComp-evaluate (const rightMatch) (postWhisker f) (postWhisker pb₁)
     (const-pre rightMatch (postWhisker pb₁)) (idIso _)
 
-  right-evaluation : NatIso (rightMap ∘ postWhisker pb₂)
+  right-evaluation : =₁ (rightMap ∘ postWhisker pb₂)
     ((g ◁ postWhisker pb₂) ∙ const leftMatch)
   right-evaluation = isoComp-evaluate (postWhisker g) (const leftMatch) (postWhisker pb₂)
     (idIso _) (const-pre leftMatch (postWhisker pb₂))
 
-  matching : NatIso (leftMap ∘ postWhisker pb₁) (rightMap ∘ postWhisker pb₂)
+  matching : =₁ (leftMap ∘ postWhisker pb₁) (rightMap ∘ postWhisker pb₂)
   matching = A.matching
 
-  comparisonCone : Cone leftMap rightMap (h ≅ k)
+  comparisonCone : Cone leftMap rightMap (h ＝ k)
   comparisonCone = A.universal
 
-  forward : MAP (h ≅ k) Target
+  forward : MAP (h ＝ k) Target
   forward = pbLift comparisonCone
 ```

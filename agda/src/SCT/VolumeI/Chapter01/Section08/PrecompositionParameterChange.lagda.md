@@ -38,23 +38,23 @@ module ParameterChange {X Y A B E : CAT}
   composite-image = e ◁ productMap-separate (k ∘ h) f
 
   abstract
-    mixed-image : Iso₂ (composite-image ∙ input-action) (output-action ∙ pasted-image)
+    mixed-image : =₂ (composite-image ∙ input-action) (output-action ∙ pasted-image)
 
     mixed-image = post-square e (paste Sk Sh) (productMap-separate (k ∘ h) f)
       (LZ ◁ κA) (κB ▷ LX) (separate-substitution h k f)
   abstract
-    normalize-input : Iso₂ (mapPre-uncurry f (k ∘ h) ∙ τ)
+    normalize-input : =₂ (mapPre-uncurry f (k ∘ h) ∙ τ)
       (output-associator ∙ (composite-image ∙ composite-input))
 
     normalize-input = append-five output-associator composite-image
       (comp-assoc KHA LZ e) (β ▷ KHA) v τ
   abstract
-    move-product : Iso₂ (composite-image ∙ (input-action ∙ z))
+    move-product : =₂ (composite-image ∙ (input-action ∙ z))
       (output-action ∙ (pasted-image ∙ z))
 
     move-product = append-square composite-image input-action output-action pasted-image z mixed-image
   abstract
-    close-output : Iso₂
+    close-output : =₂
       ((w ▷ LX) ∙ (output-associator ∙ (output-action ∙ (pasted-image ∙ z))))
       (Pasted.evaluation-action ∙ u)
 
@@ -62,7 +62,7 @@ module ParameterChange {X Y A B E : CAT}
       pasted-image z Pasted.target-evaluation Pasted.evaluation-action Pasted.source-evaluation u
       output-endpoint pasted-evaluation source-endpoint
   abstract
-    comparison : Iso₂
+    comparison : =₂
       ((w ▷ LX) ∙ (mapPre-uncurry f (k ∘ h) ∙ τ))
       (Pasted.evaluation-action ∙ u)
     comparison = close-output ∙

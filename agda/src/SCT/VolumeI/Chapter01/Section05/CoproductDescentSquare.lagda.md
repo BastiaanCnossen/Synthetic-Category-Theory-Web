@@ -63,7 +63,7 @@ module DescentSquare {C D Γ Γ′ : CAT} (f : MAP C Γ) (g : MAP D Γ) (φ : MA
   square : Cone (copair f g) φ (Pullback f φ ⊔ Pullback g φ)
   square = coneRetarget original left right left-comparison right-comparison
 
-  matching-comparison : Iso₂ (Cone.match square) (Cone.match direct-square)
+  matching-comparison : =₂ (Cone.match square) (Cone.match direct-square)
   matching-comparison = coneRetarget-match Copaired.comparison
 
   direct-square-isPullback : IsPullback direct-square

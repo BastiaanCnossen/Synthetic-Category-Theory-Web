@@ -19,7 +19,7 @@ open import SCT.VolumeI.Chapter01.Section05.InverseCalculus 𝒯
 open PN vocabulary terminal products productLaws composition vertical whiskering using (move-square)
 
 cone-match-change : {C D E T : CAT} {f : MAP C E} {g : MAP D E}
-  (p : MAP T C) (q : MAP T D) (τ τ′ : NatIso (f ∘ p) (g ∘ q)) → Iso₂ τ τ′ →
+  (p : MAP T C) (q : MAP T D) (τ τ′ : =₁ (f ∘ p) (g ∘ q)) → =₂ τ τ′ →
   ConeIso (record { left = p ; right = q ; match = τ })
           (record { left = p ; right = q ; match = τ′ })
 cone-match-change {f = f} {g} p q τ τ′ κ = record

@@ -16,13 +16,13 @@ module SCT.VolumeI.Chapter01.Section05.Fibers
 open Setup 𝒯
 open Laws.PullbackStructure P
 
-Fiber : {C D : CAT} → MAP C D → ObjAbs D → CAT
+Fiber : {C D : CAT} → MAP C D → Obj-abs D → CAT
 Fiber f x = Pullback f x
 
-fiber-inclusion : {C D : CAT} (f : MAP C D) (x : ObjAbs D) → MAP (Fiber f x) C
+fiber-inclusion : {C D : CAT} (f : MAP C D) (x : Obj-abs D) → MAP (Fiber f x) C
 fiber-inclusion f x = pb₁
 
-fiber-match : {C D : CAT} (f : MAP C D) (x : ObjAbs D)
-  → NatIso (f ∘ fiber-inclusion f x) (x ∘ pb₂)
+fiber-match : {C D : CAT} (f : MAP C D) (x : Obj-abs D)
+  → =₁ (f ∘ fiber-inclusion f x) (x ∘ pb₂)
 fiber-match f x = pbMatch
 ```

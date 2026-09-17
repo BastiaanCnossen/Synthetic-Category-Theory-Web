@@ -26,7 +26,7 @@ open Functoriality 𝒯 M F
 
 private
   uncurry-cong : {X C D : CAT} {f g : MAP X (Fun C D)}
-    → NatIso f g → NatIso (funUncurry f) (funUncurry g)
+    → =₁ f g → =₁ (funUncurry f) (funUncurry g)
   uncurry-cong {C = C} α = funEval ◁ productMap-cong α (idIso (id C))
 
 module ProductComparison (E C D : CAT) where
@@ -40,7 +40,7 @@ module ProductComparison (E C D : CAT) where
   backward : MAP Target Source
   backward = funCurry (pair (funUncurry pr₁) (funUncurry pr₂))
 
-  backward-β : NatIso (funUncurry backward)
+  backward-β : =₁ (funUncurry backward)
     (pair (funUncurry pr₁) (funUncurry pr₂))
   backward-β = funCurry-β _
 ```
@@ -50,17 +50,17 @@ coordinate the beta comparison reduces the claim to the projection of a
 pair, and reflection through uncurrying finishes the comparison.
 
 ```agda
-  forward-backward-first : NatIso (funPost pr₁ ∘ backward) pr₁
+  forward-backward-first : =₁ (funPost pr₁ ∘ backward) pr₁
   forward-backward-first = funReflect _ _
     (pair-β₁ (funUncurry pr₁) (funUncurry pr₂) ∙
       ((pr₁ ◁ backward-β) ∙ funPost-uncurry pr₁ backward))
 
-  forward-backward-second : NatIso (funPost pr₂ ∘ backward) pr₂
+  forward-backward-second : =₁ (funPost pr₂ ∘ backward) pr₂
   forward-backward-second = funReflect _ _
     (pair-β₂ (funUncurry pr₁) (funUncurry pr₂) ∙
       ((pr₂ ◁ backward-β) ∙ funPost-uncurry pr₂ backward))
 
-  forward-backward : NatIso (forward ∘ backward) (id Target)
+  forward-backward : =₁ (forward ∘ backward) (id Target)
   forward-backward = pair-iso
     (invIso (comp-unitʳ pr₁) ∙
       (forward-backward-first ∙ project-pair₁ (funPost pr₁) (funPost pr₂) backward))
@@ -73,7 +73,7 @@ pair gives the two uncurried postcomposition functors. Their beta
 comparisons identify the resulting pair with evaluation.
 
 ```agda
-  substituted-pair : NatIso
+  substituted-pair : =₁
     (pair (funUncurry pr₁) (funUncurry pr₂) ∘ productMap forward (id E))
     (pair (funUncurry (funPost pr₁)) (funUncurry (funPost pr₂)))
   substituted-pair =
@@ -83,13 +83,13 @@ comparisons identify the resulting pair with evaluation.
       (invIso (funUncurry-pre pr₂ forward)) ∙
       pair-pre (funUncurry pr₁) (funUncurry pr₂) (productMap forward (id E)))
 
-  backward-forward-uncurried : NatIso (funUncurry (backward ∘ forward)) funEval
+  backward-forward-uncurried : =₁ (funUncurry (backward ∘ forward)) funEval
   backward-forward-uncurried = pair-η funEval ∙
     (pair-cong (funPost-β pr₁) (funPost-β pr₂) ∙
     (substituted-pair ∙
     ((backward-β ▷ productMap forward (id E)) ∙ funUncurry-pre backward forward)))
 
-  backward-forward : NatIso (backward ∘ forward) (id Source)
+  backward-forward : =₁ (backward ∘ forward) (id Source)
   backward-forward = funReflect _ _
     (invIso (funUncurry-id E (C × D)) ∙ backward-forward-uncurried)
 

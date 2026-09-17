@@ -32,37 +32,37 @@ record FunctorSquare (C D C′ D′ : CAT) : Set m where
     left : MAP C C′
     right : MAP D D′
     bottom : MAP C′ D′
-    cell : NatIso (right ∘ top) (bottom ∘ left)
+    cell : =₁ (right ∘ top) (bottom ∘ left)
 
 record FunctorTriangle (C D E : CAT) : Set m where
   field
     first : MAP C D
     second : MAP D E
     diagonal : MAP C E
-    cell : NatIso diagonal (second ∘ first)
+    cell : =₁ diagonal (second ∘ first)
 
 record NatIsoSquare {C D : CAT} (f g f′ g′ : MAP C D) : Set m where
   field
-    top : NatIso f g
-    bottom : NatIso f′ g′
-    left : NatIso f f′
-    right : NatIso g g′
-    cell : Iso₂ (right ∙ top) (bottom ∙ left)
+    top : =₁ f g
+    bottom : =₁ f′ g′
+    left : =₁ f f′
+    right : =₁ g g′
+    cell : =₂ (right ∙ top) (bottom ∙ left)
 
 record NatIsoTriangle {C D : CAT} (f g h : MAP C D) : Set m where
   field
-    first : NatIso f g
-    second : NatIso g h
-    diagonal : NatIso f h
-    cell : Iso₂ diagonal (second ∙ first)
+    first : =₁ f g
+    second : =₁ g h
+    diagonal : =₁ f h
+    cell : =₂ diagonal (second ∙ first)
 
-record Iso₂Square {C D : CAT} {f g : MAP C D} (α β α′ β′ : NatIso f g) : Set m where
+record Iso₂Square {C D : CAT} {f g : MAP C D} (α β α′ β′ : =₁ f g) : Set m where
   field
-    top : Iso₂ α β
-    bottom : Iso₂ α′ β′
-    left : Iso₂ α α′
-    right : Iso₂ β β′
-    cell : Iso₃ (right ∙ top) (bottom ∙ left)
+    top : =₂ α β
+    bottom : =₂ α′ β′
+    left : =₂ α α′
+    right : =₂ β β′
+    cell : =₃ (right ∙ top) (bottom ∙ left)
 
 record Span (C D : CAT) : Set (c ⊔ m) where
   field
@@ -73,14 +73,14 @@ record Span (C D : CAT) : Set (c ⊔ m) where
 record SpanMap {C D : CAT} (U Z : Span C D) : Set m where
   field
     functor : MAP (Span.apex U) (Span.apex Z)
-    leftIso : NatIso (Span.left Z ∘ functor) (Span.left U)
-    rightIso : NatIso (Span.right Z ∘ functor) (Span.right U)
+    leftIso : =₁ (Span.left Z ∘ functor) (Span.left U)
+    rightIso : =₁ (Span.right Z ∘ functor) (Span.right U)
 
 record SpanMapIso {C D : CAT} {U Z : Span C D} (h k : SpanMap U Z) : Set m where
   field
-    comparison : NatIso (SpanMap.functor h) (SpanMap.functor k)
-    leftCompat : Iso₂ (SpanMap.leftIso k ∙ (Span.left Z ◁ comparison)) (SpanMap.leftIso h)
-    rightCompat : Iso₂ (SpanMap.rightIso k ∙ (Span.right Z ◁ comparison)) (SpanMap.rightIso h)
+    comparison : =₁ (SpanMap.functor h) (SpanMap.functor k)
+    leftCompat : =₂ (SpanMap.leftIso k ∙ (Span.left Z ◁ comparison)) (SpanMap.leftIso h)
+    rightCompat : =₂ (SpanMap.rightIso k ∙ (Span.right Z ◁ comparison)) (SpanMap.rightIso h)
 
 productSpan : (C D : CAT) → Span C D
 productSpan C D = record { apex = C × D ; left = pr₁ ; right = pr₂ }
@@ -97,7 +97,7 @@ module Uniqueness (VC : Coherence.VerticalCoherence V T P S) where
 
   private
     cancel : {C D : CAT} {f g h : MAP C D}
-      (β : NatIso g h) (α : NatIso f h) → Iso₂ (β ∙ (invIso β ∙ α)) α
+      (β : =₁ g h) (α : =₁ f h) → =₂ (β ∙ (invIso β ∙ α)) α
     cancel β α = isoComp-unitˡ-at α ∙
       (isoComp-cong (isoComp-inverseʳ-at β) (idIso α)
        ∙ invIso (isoComp-assoc-at β (invIso β) α))

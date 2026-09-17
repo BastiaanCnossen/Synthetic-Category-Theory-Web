@@ -39,12 +39,12 @@ projection-embedding f ep = equiv-cancel-left (diagonal f) pb₁ ep
   (equiv-transport (invIso (pbLift-β₁ (diagonalCone f))) (id-isEquiv _))
 
 embedding-legs : {C D : CAT} (f : MAP C D) → IsEmbedding f →
-  NatIso (pb₁ {f = f} {f}) pb₂
+  =₁ (pb₁ {f = f} {f}) pb₂
 embedding-legs f ef = FunctorLift.lift (preWhisker-lift (diagonal f) ef
   (invIso (pbLift-β₂ (diagonalCone f)) ∙ pbLift-β₁ (diagonalCone f)))
 
 embedding-reflect : {C D T : CAT} (f : MAP C D) → IsEmbedding f →
-  (h k : MAP T C) → NatIso (f ∘ h) (f ∘ k) → NatIso h k
+  (h k : MAP T C) → =₁ (f ∘ h) (f ∘ k) → =₁ h k
 embedding-reflect f ef h k α = pbLift-β₂ s ∙
   ((embedding-legs f ef ▷ pbLift s) ∙ invIso (pbLift-β₁ s))
   where
@@ -52,7 +52,7 @@ embedding-reflect f ef h k α = pbLift-β₂ s ∙
   s = record { left = h ; right = k ; match = α }
 
 embedding-with-section : {C D : CAT} (f : MAP C D) → IsEmbedding f →
-  (s : MAP D C) → NatIso (f ∘ s) (id D) → IsEquiv f
+  (s : MAP D C) → =₁ (f ∘ s) (id D) → IsEquiv f
 embedding-with-section f ef s ε = record
   { inverse = s
   ; sectionIso = embedding-reflect f ef _ _

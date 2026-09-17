@@ -72,11 +72,11 @@ def compiler_anchors(pre,available):
     for child in pre.children:
         if not isinstance(child,str):
             anchor=child.attrs.get('id')
-            if anchor and line in available: anchors[anchor]=line
+            if anchor and line in available: anchors.setdefault(anchor,line)
         line+=(child if isinstance(child,str) else child.text()).count('\n')
     return anchors
 
-def build_reader_data(agda,manifest):
+def build_reader_data(agda,manifest,site=SITE):
     data={'modules':{},'passages':{}}
     all_passages=manifest['passages']+manifest.get('reverse_only',[])
     for p in all_passages:
@@ -116,6 +116,10 @@ def build_reader_data(agda,manifest):
                           len(d['focus']) if direct else len(d['range']))
                     if pid not in candidates or rank<candidates[pid]: candidates[pid]=rank
             line['targets']=[{'id':pid,'rank':list(rank)} for pid,rank in sorted(candidates.items(),key=lambda item:(item[1],item[0]))]
+    from module_navigation import module_tree, module_label
+    data['module_tree']=module_tree(data['modules'])
+    for module,payload in data['modules'].items():
+        payload['label']=module_label(module)
     dump(BUILD/'agda-context.json',data)
-    write(SITE/'assets/agda-context.js','window.SCT_AGDA = '+json.dumps(data,ensure_ascii=False)+';\n')
+    write(site/'assets/agda-context.js','window.SCT_AGDA = '+json.dumps(data,ensure_ascii=False)+';\n')
     return data

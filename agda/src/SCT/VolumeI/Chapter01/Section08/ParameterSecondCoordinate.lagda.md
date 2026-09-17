@@ -27,7 +27,7 @@ open PN vocabulary terminal products productLaws composition vertical whiskering
 module PS = Projections 𝒯
 
 parameter-over : {X Y A B : CAT} (h : MAP X Y) (f : MAP A B) →
-  NatIso ((f ∘ pr₂) ∘ productMap h (id A)) (f ∘ pr₂)
+  =₁ ((f ∘ pr₂) ∘ productMap h (id A)) (f ∘ pr₂)
 parameter-over {A = A} h f = PS.lift-base f pr₂ (productMap h (id A)) (parameter-base h A)
 
 compositor : {X Y Z : CAT} (h : MAP X Y) (k : MAP Y Z) (A : CAT) →
@@ -107,6 +107,6 @@ module Mixed {X Y Z A B : CAT} (h : MAP X Y) (k : MAP Y Z) (f : MAP A B) where
         (PS.compose-base (f ∘ pr₂) KA (parameter-over k f) HA (parameter-over h f))
         (parameter-over (k ∘ h) f) κA (compositor-over h k f))
 
-    comparison : Iso₂ (pr₂ ◁ long) (pr₂ ◁ short)
+    comparison : =₂ (pr₂ ◁ long) (pr₂ ◁ short)
     comparison = cancel-left-reflect final (invIso short-square ∙ long-square)
 ```

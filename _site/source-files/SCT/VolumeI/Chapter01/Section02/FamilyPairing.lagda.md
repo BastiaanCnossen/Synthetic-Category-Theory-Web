@@ -40,8 +40,8 @@ open Parameterized V T P PL S VC using (assoc; unitʳ; const-comp; const-cong; l
 open PairingCoherence V T P PL S VC W using (equiv-reflect; pair-cong-id)
 
 module Lift {A X C D : CAT} {f g : MAP X (C × D)}
-  (α : MAP A ((pr₁ ∘ f) ≅ (pr₁ ∘ g)))
-  (β : MAP A ((pr₂ ∘ f) ≅ (pr₂ ∘ g))) where
+  (α : MAP A ((pr₁ ∘ f) ＝ (pr₁ ∘ g)))
+  (β : MAP A ((pr₂ ∘ f) ＝ (pr₂ ∘ g))) where
 
   private
     comparison = product-isoMap f g
@@ -49,55 +49,55 @@ module Lift {A X C D : CAT} {f g : MAP X (C × D)}
     back = IsEquiv.inverse witness
     input = pair α β
 
-  lift : MAP A (f ≅ g)
+  lift : MAP A (f ＝ g)
   lift = back ∘ input
 
-  image : NatIso (comparison ∘ lift) input
+  image : =₁ (comparison ∘ lift) input
   image = comp-unitˡ input ∙
     (invIso (IsEquiv.retractionIso witness ▷ input) ∙
       invIso (comp-assoc input back comparison))
 
-  β₁ : NatIso (pr₁ ◁ lift) α
+  β₁ : =₁ (pr₁ ◁ lift) α
   β₁ = ((pair-β₁ α β ∙ (pr₁ ◁ image)) ∙ comp-assoc lift comparison pr₁)
     ∙ invIso (pair-β₁ (postWhisker pr₁) (postWhisker pr₂) ▷ lift)
 
-  β₂ : NatIso (pr₂ ◁ lift) β
+  β₂ : =₁ (pr₂ ◁ lift) β
   β₂ = ((pair-β₂ α β ∙ (pr₂ ◁ image)) ∙ comp-assoc lift comparison pr₂)
     ∙ invIso (pair-β₂ (postWhisker pr₁) (postWhisker pr₂) ▷ lift)
 
 family-extensionality : {A X C D : CAT} {f g : MAP X (C × D)}
-  {α β : MAP A (f ≅ g)}
-  → NatIso (pr₁ ◁ α) (pr₁ ◁ β) → NatIso (pr₂ ◁ α) (pr₂ ◁ β) → NatIso α β
+  {α β : MAP A (f ＝ g)}
+  → =₁ (pr₁ ◁ α) (pr₁ ◁ β) → =₁ (pr₂ ◁ α) (pr₂ ◁ β) → =₁ α β
 family-extensionality {f = f} {g} {α} {β} p q =
   equiv-reflect (product-isoMap-isEquiv f g)
     (invIso (pair-pre (postWhisker pr₁) (postWhisker pr₂) β) ∙
       (pair-cong p q ∙ pair-pre (postWhisker pr₁) (postWhisker pr₂) α))
 
 pairing : {A X C D : CAT} {f f′ : MAP X C} {g g′ : MAP X D}
-  → MAP A (f ≅ f′) → MAP A (g ≅ g′) → MAP A (pair f g ≅ pair f′ g′)
+  → MAP A (f ＝ f′) → MAP A (g ＝ g′) → MAP A (pair f g ＝ pair f′ g′)
 pairing {f = f} {f′} {g} {g′} α β = Lift.lift
   (const (invIso (pair-β₁ f′ g′)) ∙ (α ∙ const (pair-β₁ f g)))
   (const (invIso (pair-β₂ f′ g′)) ∙ (β ∙ const (pair-β₂ f g)))
 
 pairing-β₁ : {A X C D : CAT} {f f′ : MAP X C} {g g′ : MAP X D}
-  (α : MAP A (f ≅ f′)) (β : MAP A (g ≅ g′))
-  → NatIso (pr₁ ◁ pairing α β)
+  (α : MAP A (f ＝ f′)) (β : MAP A (g ＝ g′))
+  → =₁ (pr₁ ◁ pairing α β)
       (const (invIso (pair-β₁ f′ g′)) ∙ (α ∙ const (pair-β₁ f g)))
 pairing-β₁ {f = f} {f′} {g} {g′} α β = Lift.β₁
   (const (invIso (pair-β₁ f′ g′)) ∙ (α ∙ const (pair-β₁ f g)))
   (const (invIso (pair-β₂ f′ g′)) ∙ (β ∙ const (pair-β₂ f g)))
 
 pairing-β₂ : {A X C D : CAT} {f f′ : MAP X C} {g g′ : MAP X D}
-  (α : MAP A (f ≅ f′)) (β : MAP A (g ≅ g′))
-  → NatIso (pr₂ ◁ pairing α β)
+  (α : MAP A (f ＝ f′)) (β : MAP A (g ＝ g′))
+  → =₁ (pr₂ ◁ pairing α β)
       (const (invIso (pair-β₂ f′ g′)) ∙ (β ∙ const (pair-β₂ f g)))
 pairing-β₂ {f = f} {f′} {g} {g′} α β = Lift.β₂
   (const (invIso (pair-β₁ f′ g′)) ∙ (α ∙ const (pair-β₁ f g)))
   (const (invIso (pair-β₂ f′ g′)) ∙ (β ∙ const (pair-β₂ f g)))
 
 post-composition : {A X C D : CAT} {f g h : MAP X C}
-  (u : MAP C D) (β : MAP A (g ≅ h)) (α : MAP A (f ≅ g))
-  → NatIso (u ◁ (β ∙ α)) ((u ◁ β) ∙ (u ◁ α))
+  (u : MAP C D) (β : MAP A (g ＝ h)) (α : MAP A (f ＝ g))
+  → =₁ (u ◁ (β ∙ α)) ((u ◁ β) ∙ (u ◁ α))
 post-composition {f = f} {g} {h} u β α =
   let input = pair β α
   in specialize (postWhisker-isoComp f g h u) input
@@ -108,14 +108,14 @@ post-composition {f = f} {g} {h} u β α =
       (postWhisker-evaluate u pr₂ input (pair-β₂ β α)))
 
 reassociate-four : {A X C : CAT} {f g h i j : MAP X C}
-  (δ : MAP A (i ≅ j)) (γ : MAP A (h ≅ i)) (β : MAP A (g ≅ h)) (α : MAP A (f ≅ g))
-  → NatIso ((δ ∙ γ) ∙ (β ∙ α)) (δ ∙ ((γ ∙ β) ∙ α))
+  (δ : MAP A (i ＝ j)) (γ : MAP A (h ＝ i)) (β : MAP A (g ＝ h)) (α : MAP A (f ＝ g))
+  → =₁ ((δ ∙ γ) ∙ (β ∙ α)) (δ ∙ ((γ ∙ β) ∙ α))
 reassociate-four δ γ β α = isoComp-cong (idIso δ) (invIso (assoc γ β α)) ∙ assoc δ γ (β ∙ α)
 
 conjugate-composition : {A X C : CAT} {p₀ p₁ p₂ f₀ f₁ f₂ : MAP X C}
-  (c₀ : NatIso p₀ f₀) (c₁ : NatIso p₁ f₁) (c₂ : NatIso p₂ f₂)
-  (α₂ : MAP A (f₁ ≅ f₂)) (α₁ : MAP A (f₀ ≅ f₁))
-  → NatIso (const (invIso c₂) ∙ ((α₂ ∙ α₁) ∙ const c₀))
+  (c₀ : =₁ p₀ f₀) (c₁ : =₁ p₁ f₁) (c₂ : =₁ p₂ f₂)
+  (α₂ : MAP A (f₁ ＝ f₂)) (α₁ : MAP A (f₀ ＝ f₁))
+  → =₁ (const (invIso c₂) ∙ ((α₂ ∙ α₁) ∙ const c₀))
       ((const (invIso c₂) ∙ (α₂ ∙ const c₁)) ∙ (const (invIso c₁) ∙ (α₁ ∙ const c₀)))
 conjugate-composition c₀ c₁ c₂ α₂ α₁ =
   let cancel = unitʳ α₂ ∙
@@ -131,9 +131,9 @@ conjugate-composition c₀ c₁ c₂ α₂ α₁ =
 
 pairing-composition : {A X C D : CAT}
   {f₀ f₁ f₂ : MAP X C} {g₀ g₁ g₂ : MAP X D}
-  (α₂ : MAP A (f₁ ≅ f₂)) (α₁ : MAP A (f₀ ≅ f₁))
-  (β₂ : MAP A (g₁ ≅ g₂)) (β₁ : MAP A (g₀ ≅ g₁))
-  → NatIso (pairing (α₂ ∙ α₁) (β₂ ∙ β₁)) (pairing α₂ β₂ ∙ pairing α₁ β₁)
+  (α₂ : MAP A (f₁ ＝ f₂)) (α₁ : MAP A (f₀ ＝ f₁))
+  (β₂ : MAP A (g₁ ＝ g₂)) (β₁ : MAP A (g₀ ＝ g₁))
+  → =₁ (pairing (α₂ ∙ α₁) (β₂ ∙ β₁)) (pairing α₂ β₂ ∙ pairing α₁ β₁)
 pairing-composition {f₀ = f₀} {f₁} {f₂} {g₀} {g₁} {g₂} α₂ α₁ β₂ β₁ =
   family-extensionality
     (invIso (post-composition pr₁ (pairing α₂ β₂) (pairing α₁ β₁)) ∙
@@ -146,7 +146,7 @@ pairing-composition {f₀ = f₀} {f₁} {f₂} {g₀} {g₁} {g₂} α₂ α₁
           pairing-β₂ (α₂ ∙ α₁) (β₂ ∙ β₁))))
 
 pairing-absolute : {X C D : CAT} {f f′ : MAP X C} {g g′ : MAP X D}
-  (α : NatIso f f′) (β : NatIso g g′) → Iso₂ (pairing α β) (pair-cong α β)
+  (α : =₁ f f′) (β : =₁ g g′) → =₂ (pairing α β) (pair-cong α β)
 pairing-absolute {f = f} {f′} {g} {g′} α β =
   let first = isoComp-cong (const-One (invIso (pair-β₁ f′ g′)))
         (isoComp-cong (idIso α) (const-One (pair-β₁ f g)))
@@ -156,8 +156,8 @@ pairing-absolute {f = f} {f′} {g} {g′} α β =
   in back ◁ pair-cong first second
 
 pairing-cong : {A X C D : CAT} {f f′ : MAP X C} {g g′ : MAP X D}
-  {α α′ : MAP A (f ≅ f′)} {β β′ : MAP A (g ≅ g′)}
-  → NatIso α α′ → NatIso β β′ → NatIso (pairing α β) (pairing α′ β′)
+  {α α′ : MAP A (f ＝ f′)} {β β′ : MAP A (g ＝ g′)}
+  → =₁ α α′ → =₁ β β′ → =₁ (pairing α β) (pairing α′ β′)
 pairing-cong {f = f} {f′} {g} {g′} p q =
   let first = isoComp-cong (idIso (const (invIso (pair-β₁ f′ g′))))
         (isoComp-cong p (idIso (const (pair-β₁ f g))))
@@ -167,22 +167,22 @@ pairing-cong {f = f} {f′} {g} {g′} p q =
   in back ◁ pair-cong first second
 
 pairing-triangle₁ : {A X C D : CAT} {f f′ : MAP X C} {g g′ : MAP X D}
-  (α : MAP A (f ≅ f′)) (β : MAP A (g ≅ g′))
-  → NatIso (const (pair-β₁ f′ g′) ∙ (pr₁ ◁ pairing α β)) (α ∙ const (pair-β₁ f g))
+  (α : MAP A (f ＝ f′)) (β : MAP A (g ＝ g′))
+  → =₁ (const (pair-β₁ f′ g′) ∙ (pr₁ ◁ pairing α β)) (α ∙ const (pair-β₁ f g))
 pairing-triangle₁ {f = f} {f′} {g} {g′} α β =
   left-cancelʳ (pair-β₁ f′ g′) (α ∙ const (pair-β₁ f g)) ∙
     isoComp-cong (idIso (const (pair-β₁ f′ g′))) (pairing-β₁ α β)
 
 pairing-triangle₂ : {A X C D : CAT} {f f′ : MAP X C} {g g′ : MAP X D}
-  (α : MAP A (f ≅ f′)) (β : MAP A (g ≅ g′))
-  → NatIso (const (pair-β₂ f′ g′) ∙ (pr₂ ◁ pairing α β)) (β ∙ const (pair-β₂ f g))
+  (α : MAP A (f ＝ f′)) (β : MAP A (g ＝ g′))
+  → =₁ (const (pair-β₂ f′ g′) ∙ (pr₂ ◁ pairing α β)) (β ∙ const (pair-β₂ f g))
 pairing-triangle₂ {f = f} {f′} {g} {g′} α β =
   left-cancelʳ (pair-β₂ f′ g′) (β ∙ const (pair-β₂ f g)) ∙
     isoComp-cong (idIso (const (pair-β₂ f′ g′))) (pairing-β₂ α β)
 
 pairing-pre : {A B X C D : CAT} {f f′ : MAP X C} {g g′ : MAP X D}
-  (α : MAP A (f ≅ f′)) (β : MAP A (g ≅ g′)) (r : MAP B A)
-  → NatIso (pairing α β ∘ r) (pairing (α ∘ r) (β ∘ r))
+  (α : MAP A (f ＝ f′)) (β : MAP A (g ＝ g′)) (r : MAP B A)
+  → =₁ (pairing α β ∘ r) (pairing (α ∘ r) (β ∘ r))
 pairing-pre {f = f} {f′} {g} {g′} α β r =
   let first = const (invIso (pair-β₁ f′ g′)) ∙ (α ∙ const (pair-β₁ f g))
       second = const (invIso (pair-β₂ f′ g′)) ∙ (β ∙ const (pair-β₂ f g))
@@ -197,25 +197,25 @@ pairing-pre {f = f} {f′} {g} {g′} α β r =
     comp-assoc r (pair first second) back
 
 pairing-constant : {A X C D : CAT} {f f′ : MAP X C} {g g′ : MAP X D}
-  (α : NatIso f f′) (β : NatIso g g′)
-  → NatIso (pairing (const {P = A} α) (const β)) (const (pair-cong α β))
+  (α : =₁ f f′) (β : =₁ g g′)
+  → =₁ (pairing (const {P = A} α) (const β)) (const (pair-cong α β))
 pairing-constant {A} α β = (pairing-absolute α β ▷ terminate A) ∙
   invIso (pairing-pre α β (terminate A))
 
 pairing-identity : {A X C D : CAT} (f : MAP X C) (g : MAP X D)
-  → NatIso (pairing (const {P = A} (idIso f)) (const (idIso g))) (const (idIso (pair f g)))
+  → =₁ (pairing (const {P = A} (idIso f)) (const (idIso g))) (const (idIso (pair f g)))
 pairing-identity f g = const-cong (pair-cong-id f g) ∙ pairing-constant (idIso f) (idIso g)
 
-post-constant : {A X C D : CAT} {f g : MAP X C} (u : MAP C D) (α : NatIso f g)
-  → NatIso (u ◁ const {P = A} α) (const (u ◁ α))
+post-constant : {A X C D : CAT} {f g : MAP X C} (u : MAP C D) (α : =₁ f g)
+  → =₁ (u ◁ const {P = A} α) (const (u ◁ α))
 post-constant {A} u α = invIso (comp-assoc (terminate A) α (postWhisker u))
 
-pre-constant : {A R X C : CAT} {f g : MAP X C} (α : NatIso f g) (r : MAP R X)
-  → NatIso (const {P = A} α ▷ r) (const (α ▷ r))
+pre-constant : {A R X C : CAT} {f g : MAP X C} (α : =₁ f g) (r : MAP R X)
+  → =₁ (const {P = A} α ▷ r) (const (α ▷ r))
 pre-constant {A} α r = invIso (comp-assoc (terminate A) α (preWhisker r))
 
 pairing-at : {A X C D : CAT} {f f′ : MAP X C} {g g′ : MAP X D}
-  (α : MAP A (f ≅ f′)) (β : MAP A (g ≅ g′))
-  → NatIso (pairing pr₁ pr₂ ∘ pair α β) (pairing α β)
+  (α : MAP A (f ＝ f′)) (β : MAP A (g ＝ g′))
+  → =₁ (pairing pr₁ pr₂ ∘ pair α β) (pairing α β)
 pairing-at α β = pairing-cong (pair-β₁ α β) (pair-β₂ α β) ∙ pairing-pre pr₁ pr₂ (pair α β)
 ```

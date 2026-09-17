@@ -18,17 +18,17 @@ open import SCT.VolumeI.Chapter01.Section03.DecodingNaturality 𝒯 M public usi
 import SCT.VolumeI.Chapter01.Section03.DecodingNaturality as DN
 
 decodePre-absolute : {B C E : CAT} (i : MAP B C)
-  {u v : ObjAbs (Map C E)} (γ : NatIso u v) →
-  Iso₂ (decodePre i v ∙ decodeMapIso (mapPre i ◁ γ))
+  {u v : Obj-abs (Map C E)} (γ : =₁ u v) →
+  =₂ (decodePre i v ∙ decodeMapIso (mapPre i ◁ γ))
     ((decodeMapIso γ ▷ i) ∙ decodePre i u)
 decodePre-absolute i {u} {v} γ =
   isoComp-cong (idIso (decodeMapIso γ ▷ i)) (const-One (decodePre i u)) ∙
   (DN.decodePre-natural 𝒯 M i γ ∙
     invIso (isoComp-cong (const-One (decodePre i v)) (idIso (decodeMapIso (mapPre i ◁ γ)))))
 
-decodeMapIso-comp : {C E : CAT} {u v w : ObjAbs (Map C E)}
-  (β : NatIso v w) (α : NatIso u v) →
-  Iso₂ (decodeMapIso (β ∙ α)) (decodeMapIso β ∙ decodeMapIso α)
+decodeMapIso-comp : {C E : CAT} {u v w : Obj-abs (Map C E)}
+  (β : =₁ v w) (α : =₁ u v) →
+  =₂ (decodeMapIso (β ∙ α)) (decodeMapIso β ∙ decodeMapIso α)
 decodeMapIso-comp {C} β α =
   isoComp-cong (invIso (decodeMapIso-at β)) (invIso (decodeMapIso-at α)) ∙
   (preWhisker-isoComp-at (mapUncurryIso β) (mapUncurryIso α) (oneProduct-in C) ∙

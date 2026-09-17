@@ -22,9 +22,9 @@ open PN vocabulary terminal products productLaws composition vertical whiskering
 open Isomorphisms vocabulary terminal products productLaws composition vertical whiskering using (cancel-inverse)
 
 append-five : {X Y : CAT} {a₀ a₁ a₂ a₃ a₄ a₅ a₆ : MAP X Y}
-  (A : NatIso a₅ a₆) (B : NatIso a₄ a₅) (C : NatIso a₃ a₄)
-  (D : NatIso a₂ a₃) (E : NatIso a₁ a₂) (F : NatIso a₀ a₁) →
-  Iso₂ ((A ∙ (B ∙ (C ∙ (D ∙ E)))) ∙ F)
+  (A : =₁ a₅ a₆) (B : =₁ a₄ a₅) (C : =₁ a₃ a₄)
+  (D : =₁ a₂ a₃) (E : =₁ a₁ a₂) (F : =₁ a₀ a₁) →
+  =₂ ((A ∙ (B ∙ (C ∙ (D ∙ E)))) ∙ F)
     (A ∙ (B ∙ (C ∙ (D ∙ (E ∙ F)))))
 append-five A B C D E F =
   isoComp-cong (idIso A) (isoComp-cong (idIso B) (isoComp-cong (idIso C) (isoComp-assoc-at D E F))) ∙
@@ -33,18 +33,18 @@ append-five A B C D E F =
     isoComp-assoc-at A (B ∙ (C ∙ (D ∙ E))) F))
 
 append-square : {X Y : CAT} {a₀ a₁ a₂ a₃ b : MAP X Y}
-  (U : NatIso a₂ a₃) (V : NatIso a₁ a₂) (W : NatIso b a₃)
-  (P : NatIso a₁ b) (z : NatIso a₀ a₁) →
-  Iso₂ (U ∙ V) (W ∙ P) → Iso₂ (U ∙ (V ∙ z)) (W ∙ (P ∙ z))
+  (U : =₁ a₂ a₃) (V : =₁ a₁ a₂) (W : =₁ b a₃)
+  (P : =₁ a₁ b) (z : =₁ a₀ a₁) →
+  =₂ (U ∙ V) (W ∙ P) → =₂ (U ∙ (V ∙ z)) (W ∙ (P ∙ z))
 append-square U V W P z square = isoComp-assoc-at W P z ∙
   (isoComp-cong square (idIso z) ∙ invIso (isoComp-assoc-at U V z))
 
 compose-evaluated-pasting : {X Y : CAT} {a₀ a₁ a₂ a₃ a₄ a₅ b : MAP X Y}
-  (W : NatIso a₄ a₅) (O : NatIso a₃ a₄) (A : NatIso a₂ a₃)
-  (P : NatIso a₁ a₂) (Z : NatIso a₀ a₁) (T : NatIso a₂ a₅)
-  (R : NatIso b a₅) (S : NatIso a₁ b) (U : NatIso a₀ b) →
-  Iso₂ (W ∙ (O ∙ A)) T → Iso₂ (T ∙ P) (R ∙ S) → Iso₂ (S ∙ Z) U →
-  Iso₂ (W ∙ (O ∙ (A ∙ (P ∙ Z)))) (R ∙ U)
+  (W : =₁ a₄ a₅) (O : =₁ a₃ a₄) (A : =₁ a₂ a₃)
+  (P : =₁ a₁ a₂) (Z : =₁ a₀ a₁) (T : =₁ a₂ a₅)
+  (R : =₁ b a₅) (S : =₁ a₁ b) (U : =₁ a₀ b) →
+  =₂ (W ∙ (O ∙ A)) T → =₂ (T ∙ P) (R ∙ S) → =₂ (S ∙ Z) U →
+  =₂ (W ∙ (O ∙ (A ∙ (P ∙ Z)))) (R ∙ U)
 compose-evaluated-pasting W O A P Z T R S U output pasted source =
   isoComp-cong (idIso R) source ∙
   (isoComp-assoc-at R S Z ∙
@@ -55,8 +55,8 @@ compose-evaluated-pasting W O A P Z T R S U output pasted source =
     isoComp-cong (idIso W) (invIso (isoComp-assoc-at O A (P ∙ Z))))))))
 
 cancel-evaluation-route : {X Y : CAT} {a₀ a₁ a₂ a₃ a₄ : MAP X Y}
-  (d : NatIso a₃ a₄) (c : NatIso a₂ a₃) (b : NatIso a₁ a₂) (a : NatIso a₀ a₁) →
-  Iso₂ ((d ∙ (c ∙ (b ∙ a))) ∙ (invIso a ∙ (invIso b ∙ invIso c))) d
+  (d : =₁ a₃ a₄) (c : =₁ a₂ a₃) (b : =₁ a₁ a₂) (a : =₁ a₀ a₁) →
+  =₂ ((d ∙ (c ∙ (b ∙ a))) ∙ (invIso a ∙ (invIso b ∙ invIso c))) d
 cancel-evaluation-route d c b a =
   isoComp-unitʳ-at d ∙
   (isoComp-cong (idIso d) (isoComp-inverseʳ-at c) ∙
@@ -68,9 +68,9 @@ cancel-evaluation-route d c b a =
   (isoComp-cong (idIso d) (isoComp-assoc-at c (b ∙ a) (invIso a ∙ (invIso b ∙ invIso c))) ∙
     isoComp-assoc-at d (c ∙ (b ∙ a)) (invIso a ∙ (invIso b ∙ invIso c)))))))
 cancel-evaluation-pairs : {X Y : CAT} {a₀ a₁ a₂ a₃ a₄ a₅ : MAP X Y}
-  (a : NatIso a₁ a₂) (b : NatIso a₂ a₃) (c : NatIso a₃ a₄) (d : NatIso a₄ a₅)
-  (u : NatIso a₀ a₁) →
-  Iso₂ (((invIso a ∙ invIso b) ∙ (invIso c ∙ invIso d)) ∙
+  (a : =₁ a₁ a₂) (b : =₁ a₂ a₃) (c : =₁ a₃ a₄) (d : =₁ a₄ a₅)
+  (u : =₁ a₀ a₁) →
+  =₂ (((invIso a ∙ invIso b) ∙ (invIso c ∙ invIso d)) ∙
     (d ∙ (c ∙ (b ∙ (a ∙ u))))) u
 cancel-evaluation-pairs a b c d u =
   cancel-left a u ∙
@@ -83,9 +83,9 @@ cancel-evaluation-pairs a b c d u =
     isoComp-assoc-at (invIso a ∙ invIso b) (invIso c ∙ invIso d)
       (d ∙ (c ∙ (b ∙ (a ∙ u)))))))
 changeEndpoints-compose : {X Y : CAT} {a₀ a₁ a₂ b₀ b₁ b₂ : MAP X Y}
-  (p : NatIso a₀ a₁) (q : NatIso a₁ a₂) (r : NatIso b₀ b₁) (s : NatIso b₁ b₂)
-  (γ : NatIso a₀ b₀) →
-  Iso₂ (changeEndpoints (q ∙ p) (s ∙ r) γ)
+  (p : =₁ a₀ a₁) (q : =₁ a₁ a₂) (r : =₁ b₀ b₁) (s : =₁ b₁ b₂)
+  (γ : =₁ a₀ b₀) →
+  =₂ (changeEndpoints (q ∙ p) (s ∙ r) γ)
     (changeEndpoints q s (changeEndpoints p r γ))
 changeEndpoints-compose p q r s γ =
   isoComp-cong (idIso s) (invIso (isoComp-assoc-at r (γ ∙ invIso p) (invIso q))) ∙
@@ -94,23 +94,23 @@ changeEndpoints-compose p q r s γ =
     isoComp-cong (idIso (s ∙ r)) (isoComp-cong (idIso γ) (inverse-composite q p))))
 
 close-evaluation-square : {X Y : CAT} {a₀ a₁ a₂ a₃ b₀ b₁ b₂ b₃ : MAP X Y}
-  (A : NatIso a₀ a₁) (B : NatIso b₀ b₁)
-  (L : NatIso a₁ a₂) (R : NatIso b₁ b₂)
-  (a : NatIso a₂ a₃) (b : NatIso b₂ b₃)
-  (γ : NatIso a₀ b₀) (δ : NatIso a₃ b₃) →
-  Iso₂ (δ ∙ (a ∙ (L ∙ A))) ((b ∙ (R ∙ B)) ∙ γ) →
-  Iso₂ ((invIso b ∙ (δ ∙ a)) ∙ L) (R ∙ changeEndpoints A B γ)
+  (A : =₁ a₀ a₁) (B : =₁ b₀ b₁)
+  (L : =₁ a₁ a₂) (R : =₁ b₁ b₂)
+  (a : =₁ a₂ a₃) (b : =₁ b₂ b₃)
+  (γ : =₁ a₀ b₀) (δ : =₁ a₃ b₃) →
+  =₂ (δ ∙ (a ∙ (L ∙ A))) ((b ∙ (R ∙ B)) ∙ γ) →
+  =₂ ((invIso b ∙ (δ ∙ a)) ∙ L) (R ∙ changeEndpoints A B γ)
 close-evaluation-square A B L R a b γ δ square =
   encoded-restriction-square A B L R target γ image
   where
   target = invIso b ∙ (δ ∙ a)
-  compact : Iso₂ (target ∙ (L ∙ A)) ((R ∙ B) ∙ γ)
+  compact : =₂ (target ∙ (L ∙ A)) ((R ∙ B) ∙ γ)
   compact = cancel-left b ((R ∙ B) ∙ γ) ∙
     (isoComp-cong (idIso (invIso b))
       (isoComp-assoc-at b (R ∙ B) γ ∙ square) ∙
     (isoComp-cong (idIso (invIso b)) (isoComp-assoc-at δ a (L ∙ A)) ∙
       isoComp-assoc-at (invIso b) (δ ∙ a) (L ∙ A)))
-  image : Iso₂ γ (invIso (R ∙ B) ∙ (target ∙ (L ∙ A)))
+  image : =₂ γ (invIso (R ∙ B) ∙ (target ∙ (L ∙ A)))
   image = isoComp-cong (idIso (invIso (R ∙ B))) (invIso compact) ∙
     invIso (cancel-left (R ∙ B) γ)
 ```

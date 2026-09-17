@@ -57,7 +57,7 @@ module MappingPullback {C D E : CAT} (T : CAT) (f : MAP C E) (g : MAP D E) where
 
   opaque
     reflect : {X : CAT} → isAn X → (h k : MAP X S) →
-      ConeIso (conePre h square) (conePre k square) → NatIso h k
+      ConeIso (conePre h square) (conePre k square) → =₁ h k
     reflect xAn h k Φ = mapReflect xAn h k (pullback-reflect {f = f} {g = g} (mapUncurry h) (mapUncurry k)
       (coneIso-compose (MappedCone.evaluate T original k)
         (coneIso-compose (uncurryConeIso {f = f} {g = g} Φ) (coneIso-inverse (MappedCone.evaluate T original h)))))
@@ -75,7 +75,7 @@ module MappingPullback {C D E : CAT} (T : CAT) (f : MAP C E) (g : MAP D E) where
 
 mappedCone-factorization : {C D E S : CAT} {f : MAP C E} {g : MAP D E}
   (T : CAT) (s : Cone f g S) →
-  NatIso (pbLift (mappedCone T s)) (pbLift (mappedCone T (pbCone f g)) ∘ mapPost (pbLift s))
+  =₁ (pbLift (mappedCone T s)) (pbLift (mappedCone T (pbCone f g)) ∘ mapPost (pbLift s))
 mappedCone-factorization {f = f} {g} T s = pbLift-pre (mapPost (pbLift s)) (mappedCone T (pbCone f g)) ∙
   invIso (pbLift-cong (coneIso-compose (mappedCone-iso T (pbLift-β s))
     (mappedCone-pre T (pbLift s) (pbCone f g))))

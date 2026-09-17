@@ -12,14 +12,15 @@ const data = window.SCT_AGDA;
 let rail, activeTrigger, activeId, lastModule, moduleGroups;
 let definitionHistory=[];
 const exploredDefinitions=new Map();
-const roles = {assumption:'Assumption', definition:'Definition', derived:'Derived result'};
+const roles = {assumption:'Assumption, type checked', definition:'Definition, checked', derived:'Derivation, checked'};
 if (data && document.querySelector('.agda-trigger')) {
   document.body.classList.add('side-reader-ready');
   rail = document.createElement('aside');
   rail.id = 'agda-reader'; rail.className = 'agda-reader'; rail.hidden = true;
   rail.setAttribute('aria-label', 'Agda code reader');
   rail.innerHTML = `<header class="agda-reader-header"><div><span class="eyebrow">Agda</span><h2 id="agda-reader-title"></h2></div><button class="reader-close" type="button" aria-label="Close Agda panel" title="Close (Escape)">×</button></header>
-    <div class="reader-toolbar"><button class="reader-back" type="button" disabled>Back in code</button><label class="declaration-picker">Module <select class="module-picker" aria-label="Related Agda module"></select></label><span class="reader-role"></span><button type="button" class="reader-copy">Copy selection</button><a class="reader-module-link">Full module ↗</a></div>
+    <div class="reader-toolbar"><button class="reader-back" type="button" disabled>Back in code</button><span class="reader-role"></span><button type="button" class="reader-copy">Copy selection</button><a class="reader-module-link">Full module ↗</a></div>
+    <details class="module-browser"><summary class="module-picker" aria-label="Choose Agda module">Choose module</summary><div class="module-menu"><div class="module-tree"></div></div></details>
     <div class="reader-location"></div><pre class="Agda reader-code" tabindex="0" aria-label="Agda source; relevant lines highlighted"></pre>
     <div class="reader-backlink"><span class="reader-message" role="status">Click a code line to find its book passage.</span><select class="book-picker" aria-label="Corresponding book passage" hidden></select><textarea class="reader-copy-fallback" aria-label="Selected Agda lines to copy" readonly hidden></textarea></div>
     <footer class="reader-bottom"><details><summary>Correspondence</summary><p class="reader-note"></p><p class="reader-check-note"></p></details></footer>`;
@@ -32,10 +33,16 @@ if (data && document.querySelector('.agda-trigger')) {
     const code=rail.querySelector('.reader-code'); code.scrollTop=previous.top; code.scrollLeft=previous.left;
     rail.querySelector('.reader-back').disabled=!definitionHistory.length;
   });
-  rail.querySelector('.module-picker').addEventListener('change', event => {
+  rail.querySelector('.module-tree').addEventListener('click', event => {
+    const choice=event.target.closest('button[data-module]'); if (!choice) return;
     rememberCodeView();
-    renderModule(event.target.value);
+    renderModule(choice.dataset.module);
     rail.querySelector('.reader-back').disabled=false;
+    rail.querySelector('.module-browser').open=false;
+    rail.querySelector('.module-picker').focus({preventScroll:true});
+  });
+  document.addEventListener('click', event => {
+    if (!event.target.closest('.module-browser')) rail.querySelector('.module-browser').open=false;
   });
   rail.querySelector('.book-picker').addEventListener('change', event => {
     const code=rail.querySelector('.reader-code');
@@ -72,7 +79,12 @@ if (data && document.querySelector('.agda-trigger')) {
     setTimeout(()=> { event.target.textContent='Copy selection'; },2000);
   });
   document.addEventListener('keydown',event=> {
-    if (event.key==='Escape' && !rail.hidden) { event.preventDefault(); closeReader(true); }
+    if (event.key==='Escape' && !rail.hidden) {
+      event.preventDefault();
+      const browser=rail.querySelector('.module-browser');
+      if (browser.open) { browser.open=false; rail.querySelector('.module-picker').focus({preventScroll:true}); }
+      else closeReader(true);
+    }
   });
   document.querySelectorAll('.agda-trigger').forEach(trigger => {
     trigger.setAttribute('aria-controls','agda-reader'); trigger.setAttribute('aria-expanded','false');
@@ -138,17 +150,7 @@ function openReader(id) {
   rail.querySelector('.reader-note').textContent=passage.note || 'This passage is linked to the displayed declaration.';
   moduleGroups=new Map();
   passage.declarations.forEach(d=> { if (!moduleGroups.has(d.module)) moduleGroups.set(d.module,[]); moduleGroups.get(d.module).push(d); });
-  const select=rail.querySelector('.module-picker'); select.replaceChildren();
-  [['Related to this passage',module=>moduleGroups.has(module)],
-   ['Other checked modules',module=>!moduleGroups.has(module) && data.modules[module].checked],
-   ['Source-only modules',module=>!data.modules[module].checked]].forEach(([label,include])=> {
-    const group=document.createElement('optgroup'); group.label=label;
-    Object.keys(data.modules).sort().filter(include).forEach(module=> {
-      const option=document.createElement('option'); option.value=module;
-      option.textContent=module.replace('SCT.VolumeI.Chapter01.',''); group.append(option);
-    });
-    if (group.children.length) select.append(group);
-  });
+  buildModuleBrowser();
   rail.querySelector('.reader-message').textContent='Click a symbol for its definition; click a line number for its book passage.';
   rail.querySelector('.book-picker').hidden=true;
   rail.querySelector('.reader-copy-fallback').hidden=true;
@@ -160,6 +162,43 @@ function openReader(id) {
   }
 }
 let currentDefinition;
+function buildModuleBrowser() {
+  const tree=rail.querySelector('.module-tree'); tree.replaceChildren();
+  function append(node,parent) {
+    node.modules.forEach(module=> {
+      const button=document.createElement('button'); button.type='button';
+      button.className='module-choice'; button.dataset.module=module;
+      button.textContent=data.modules[module].label; button.title=module;
+      if (moduleGroups.has(module)) {
+        const hint=document.createElement('span'); hint.className='module-related';
+        hint.textContent='Related to passage'; button.append(hint);
+      }
+      parent.append(button);
+    });
+    node.children.forEach(child=> {
+      const group=document.createElement('details'); group.className='module-group';
+      const summary=document.createElement('summary'); summary.textContent=child.label;
+      const contents=document.createElement('div'); contents.className='module-group-content';
+      group.append(summary,contents); parent.append(group); append(child,contents);
+    });
+  }
+  append(data.module_tree,tree);
+  rail.querySelector('.module-menu').scrollTop=0;
+}
+function selectModuleInBrowser(module) {
+  const picker=rail.querySelector('.module-picker');
+  picker.textContent='Module: '+module.replace('SCT.VolumeI.Chapter01.','');
+  picker.title=module;
+  rail.querySelectorAll('.module-choice').forEach(button=> {
+    const selected=button.dataset.module===module;
+    button.setAttribute('aria-pressed',String(selected));
+    if (selected) {
+      for (let node=button.parentElement;node && !node.classList.contains('module-browser');node=node.parentElement) {
+        if (node.tagName==='DETAILS') node.open=true;
+      }
+    }
+  });
+}
 function renderModule(module,definition) {
   definition=definition || (!moduleGroups.has(module) ? exploredDefinitions.get(module) : undefined);
   if (!definition && !moduleGroups.has(module)) definition={moduleOnly:true,href:data.modules[module].href,label:module.replace('SCT.VolumeI.Chapter01.','')};
@@ -170,9 +209,10 @@ function renderModule(module,definition) {
   rail.querySelector('.reader-message').textContent='Click a symbol for its definition; click a line number for its book passage.';
   rail.querySelector('.reader-copy-fallback').hidden=true;
   const code=rail.querySelector('.reader-code');
-  rail.querySelector('.module-picker').value=module;
+  selectModuleInBrowser(module);
   rail.querySelector('h2').textContent=definition ? (definition.moduleOnly ? '' : 'Definition: ')+definition.label : data.passages[activeId].title;
-  rail.querySelector('.reader-role').textContent=!data.modules[module].checked ? 'Source only, outside this check' : definition ? 'Checked source' : [...new Set(declarations.map(d=>roles[d.role]))].join(', ');
+  const statusDeclarations=definition ? (definition.moduleOnly ? [] : Object.values(data.passages).flatMap(p=>p.declarations).filter(d=>d.module===module && d.name===definition.label && d.range.includes(definition.line))) : declarations;
+  rail.querySelector('.reader-role').textContent=!data.modules[module].checked ? 'Source only, outside this check' : statusDeclarations.length ? [...new Set(statusDeclarations.map(d=>roles[d.role]))].join(' · ') : 'Checked source';
   rail.querySelector('.reader-check-note').textContent=data.modules[module].checked ? 'Checked against the supplied interface. Contextual validity is explained in the Agda guide.' : 'This module was not included in the web edition aggregate check. Compiled definition links are unavailable.';
   rail.querySelector('.reader-note').textContent=definition ? 'Browsing '+module+'.' : data.passages[activeId].note;
   const link=rail.querySelector('.reader-module-link'); link.href=definition ? definition.href : declarations[0].href;
@@ -208,11 +248,6 @@ function jumpToDefinition(symbol) {
   rememberCodeView();
   const definition={line,href:symbol.getAttribute('href'),label:symbol.textContent};
   exploredDefinitions.set(module,definition);
-  const picker=rail.querySelector('.module-picker');
-  if (![...picker.options].some(option=>option.value===module)) {
-    const option=document.createElement('option'); option.value=module;
-    option.textContent=module.replace('SCT.VolumeI.Chapter01.','')+' (definition)'; picker.append(option);
-  }
   renderModule(module,definition);
   rail.querySelector('.reader-back').disabled=false;
   return true;
@@ -284,11 +319,20 @@ window.addEventListener('hashchange',revealHash);
 window.addEventListener('popstate',revealHash);
 window.addEventListener('load',()=> (window.MathJax?.startup?.promise || Promise.resolve()).then(revealHash));
 const codeSearch=document.querySelector('#code-search');
+let searchDisclosureState;
 if (codeSearch) codeSearch.addEventListener('input',()=> {
   const query=codeSearch.value.trim().toLocaleLowerCase(); let count=0;
+  if (query && !searchDisclosureState) searchDisclosureState=new Map([...document.querySelectorAll('.module-group, .symbol-index')].map(group=>[group,group.open]));
   document.querySelectorAll('.code-index-entry, .symbol-entry').forEach(entry=> {
-    entry.hidden=!entry.textContent.toLocaleLowerCase().includes(query); if (!entry.hidden) count++;
+    let context=entry.textContent;
+    for (let node=entry.parentElement;node;node=node.parentElement) if (node.dataset.label) context+=' '+node.dataset.label;
+    entry.hidden=!context.toLocaleLowerCase().includes(query); if (!entry.hidden) count++;
+  });
+  document.querySelectorAll('.module-group').forEach(group=> {
+    group.hidden=!!query && ![...group.querySelectorAll('.code-index-entry')].some(entry=>!entry.hidden);
+    if (query && !group.hidden) group.open=true;
   });
   document.querySelector('#search-count').textContent=query ? `${count} matching modules or declarations` : '';
   if (query) document.querySelector('.symbol-index').open=true;
+  else if (searchDisclosureState) { searchDisclosureState.forEach((open,group)=> { group.open=open; }); searchDisclosureState=undefined; }
 });

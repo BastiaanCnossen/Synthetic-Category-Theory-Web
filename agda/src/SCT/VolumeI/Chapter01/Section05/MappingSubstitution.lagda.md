@@ -20,7 +20,7 @@ open import SCT.VolumeI.Chapter01.Section05.EvaluationSubstitution 𝒯 using (m
 
 mapPost-uncurry-pre-proof : {X Y T C D : CAT} (f : MAP C D)
   (u : MAP X (Map T C)) (r : MAP Y X) →
-  Iso₂ ((f ◁ mapUncurry-pre u r) ∙
+  =₂ ((f ◁ mapUncurry-pre u r) ∙
     (mapPost-uncurry f (u ∘ r) ∙ mapUncurryIso (comp-assoc r u (mapPost f))))
     (comp-assoc (productMap r (id T)) (mapUncurry u) f ∙
       ((mapPost-uncurry f u ▷ productMap r (id T)) ∙ mapUncurry-pre (mapPost f ∘ u) r))
@@ -57,17 +57,17 @@ mapPost-uncurry-pre-proof {X} {Y} {T} {C} {D} f u r =
   x = mapUncurry-pre F u ▷ R
   y = mapUncurry-pre (F ∘ u) r
   K = x ∙ y
-  iteration : Iso₂ (mapUncurry-pre F (u ∘ r) ∙ mapUncurryIso (comp-assoc r u F))
+  iteration : =₂ (mapUncurry-pre F (u ∘ r) ∙ mapUncurryIso (comp-assoc r u F))
     (Aκ ∙ (assocA ∙ K))
   iteration = mapUncurry-pre-iterated F u r
-  core : Iso₂ (action ∙ (Eval.N Q ∙ (Aκ ∙ assocA)))
+  core : =₂ (action ∙ (Eval.N Q ∙ (Aκ ∙ assocA)))
     (targetAssoc ∙ (Eval.N S ▷ R))
   core = Eval.transport
 
 abstract
   mapPost-uncurry-pre : {X Y T C D : CAT} (f : MAP C D)
     (u : MAP X (Map T C)) (r : MAP Y X) →
-    Iso₂ ((f ◁ mapUncurry-pre u r) ∙
+    =₂ ((f ◁ mapUncurry-pre u r) ∙
       (mapPost-uncurry f (u ∘ r) ∙ mapUncurryIso (comp-assoc r u (mapPost f))))
       (comp-assoc (productMap r (id T)) (mapUncurry u) f ∙
         ((mapPost-uncurry f u ▷ productMap r (id T)) ∙ mapUncurry-pre (mapPost f ∘ u) r))

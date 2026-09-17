@@ -29,7 +29,7 @@ module FromInitial (I : InitialStructure) (S : StrictInitial I) where
   open Initiality I
   open Strictness I S
 
-  empty-domain-iso : {X D : CAT} (f g : MAP (X × Zero) D) → NatIso f g
+  empty-domain-iso : {X D : CAT} (f g : MAP (X × Zero) D) → =₁ f g
   empty-domain-iso {X} f g = FunctorLift.lift (preWhisker-lift
     (IsEquiv.inverse (product-zero-isEquiv X)) (equiv-inverse (product-zero-isEquiv X))
     (initial-iso _ _))

@@ -44,7 +44,7 @@ module Evaluation {A₀ A₁ A₂ A₃ B₀ B₁ B₂ B₃ E : CAT}
   κ12 = productMap-comp f₁ f₂ g₁ g₂
   κ012-left = productMap-comp f₀ (f₂ ∘ f₁) g₀ (g₂ ∘ g₁)
   κ012-right = productMap-comp (f₁ ∘ f₀) f₂ (g₁ ∘ g₀) g₂
-  associator : NatIso leftTriple rightTriple
+  associator : =₁ leftTriple rightTriple
   associator = productMap-cong (comp-assoc f₀ f₁ f₂) (comp-assoc g₀ g₁ g₂)
   firstStep = evaluation-step e p s (invIso κ12)
   secondStep = evaluation-step e ps t (invIso κ012-left)
@@ -54,7 +54,7 @@ module Evaluation {A₀ A₁ A₂ A₃ B₀ B₁ B₂ B₃ E : CAT}
     (comp-assoc t s (e ∘ p) ∙ ((firstStep ▷ t) ∙ secondStep))
 
   abstract
-    law : Iso₂ together successively
+    law : =₂ together successively
     law = invIso
       (let a = invIso κ12
            b = invIso κ012-left

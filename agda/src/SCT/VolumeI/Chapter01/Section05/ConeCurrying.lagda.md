@@ -41,7 +41,7 @@ module CurryCone {X T C D E : CAT} {f : MAP C E} {g : MAP D E}
     { left = left ; right = right
     ; match = mapReflect xAn _ _ rawMatch }
 
-  match-β : Iso₂ (Cone.match (uncurryCone value)) desired
+  match-β : =₂ (Cone.match (uncurryCone value)) desired
   match-β = cancel-right leftChange desired ∙
     (isoComp-cong (cancel-inverse rightChange (desired ∙ leftChange)) (idIso (invIso leftChange)) ∙
     (invIso (isoComp-assoc-at rightChange rawMatch (invIso leftChange)) ∙

@@ -22,15 +22,15 @@ record CoconeExtensionProperty {A B C D : CAT} {u : MAP A B} {l : MAP A C}
     factor : (E : CAT) → Cocone u l E → MAP D E
     factor-β : (E : CAT) (t : Cocone u l E) → CoconeIso (coconePost (factor E t) s) t
     reflect : (E : CAT) (f g : MAP D E) →
-      CoconeIso (coconePost f s) (coconePost g s) → NatIso f g
+      CoconeIso (coconePost f s) (coconePost g s) → =₁ f g
 
 record CoconeComparisonLift {A B C D E : CAT} {u : MAP A B} {l : MAP A C}
   (s : Cocone u l D) (f g : MAP D E)
   (Φ : CoconeIso (coconePost f s) (coconePost g s)) : Set m where
   field
-    lift : NatIso f g
-    left-image : Iso₂ (lift ▷ Cocone.left s) (CoconeIso.leftIso Φ)
-    right-image : Iso₂ (lift ▷ Cocone.right s) (CoconeIso.rightIso Φ)
+    lift : =₁ f g
+    left-image : =₂ (lift ▷ Cocone.left s) (CoconeIso.leftIso Φ)
+    right-image : =₂ (lift ▷ Cocone.right s) (CoconeIso.rightIso Φ)
 ```
 
 The second record retains the two prescribed leg comparisons. Mere

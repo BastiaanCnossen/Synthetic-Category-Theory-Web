@@ -24,8 +24,8 @@ record CospanMap {C D E C′ D′ E′ : CAT}
     left : MAP C C′
     right : MAP D D′
     base : MAP E E′
-    leftSquare : NatIso (f′ ∘ left) (base ∘ f)
-    rightSquare : NatIso (g′ ∘ right) (base ∘ g)
+    leftSquare : =₁ (f′ ∘ left) (base ∘ f)
+    rightSquare : =₁ (g′ ∘ right) (base ∘ g)
 
   mapCone : {T : CAT} → Cone f g T → Cone f′ g′ T
   mapCone s = record

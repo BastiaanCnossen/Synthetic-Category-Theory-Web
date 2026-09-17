@@ -43,27 +43,27 @@ open IteratedPairing V T P PL S VC W PT using
   (hcomp-idOuter; hcomp-idInner; pentagon-whiskered)
 
 cancel-right-reflect : {X C : CAT} {f g h : MAP X C}
-  (a : NatIso f g) {α β : NatIso g h}
-  → Iso₂ (α ∙ a) (β ∙ a) → Iso₂ α β
+  (a : =₁ f g) {α β : =₁ g h}
+  → =₂ (α ∙ a) (β ∙ a) → =₂ α β
 cancel-right-reflect a {α} {β} p = cancel-right a β ∙
   (isoComp-cong p (idIso (invIso a)) ∙ invIso (cancel-right a α))
 
-preWhisker-id-reflect : {X C : CAT} {f g : MAP X C} {α β : NatIso f g}
-  → Iso₂ (α ▷ id X) (β ▷ id X) → Iso₂ α β
+preWhisker-id-reflect : {X C : CAT} {f g : MAP X C} {α β : =₁ f g}
+  → =₂ (α ▷ id X) (β ▷ id X) → =₂ α β
 preWhisker-id-reflect {f = f} {g} {α} {β} p =
   cancel-right-reflect (comp-unitʳ f)
     (preWhisker-id-at β ∙
       (isoComp-cong (idIso (comp-unitʳ g)) p ∙ invIso (preWhisker-id-at α)))
 
 triangle-whiskered : {X C D : CAT} (f : MAP X C) (g : MAP C D)
-  → Iso₂ (comp-unitʳ g ▷ f)
+  → =₂ (comp-unitʳ g ▷ f)
       ((g ◁ comp-unitˡ f) ∙ comp-assoc f (id C) g)
 triangle-whiskered f g =
   isoComp-cong (hcomp-idOuter g (comp-unitˡ f)) (idIso (comp-assoc f (id _) g)) ∙
     (comp-triangle f g ∙ invIso (hcomp-idInner (comp-unitʳ g) f))
 
 right-unitor-comp : {X K C : CAT} (h : MAP X K) (π : MAP K C)
-  → Iso₂ (comp-unitʳ (π ∘ h))
+  → =₂ (comp-unitʳ (π ∘ h))
       ((π ◁ comp-unitʳ h) ∙ comp-assoc (id X) h π)
 right-unitor-comp {X} h π =
   let I = id X
@@ -99,8 +99,8 @@ claim to naturality of the right unitor and the compatibility just proved.
 
 ```agda
 unit-square-projection : {X K C : CAT} (π : MAP K C)
-  (h : MAP X K) (f : MAP X C) (b : NatIso (π ∘ h) f)
-  → Iso₂
+  (h : MAP X K) (f : MAP X C) (b : =₁ (π ∘ h) f)
+  → =₂
       (comp-unitʳ f ∙ ((b ▷ id X) ∙ invIso (comp-assoc (id X) h π)))
       (b ∙ (π ◁ comp-unitʳ h))
 unit-square-projection {X} π h f b =
@@ -114,11 +114,11 @@ unit-square-projection {X} π h f b =
 
 unit-projection : {X K C : CAT} (π : MAP K C)
   (h h′ : MAP X K) (f : MAP X C)
-  (b : NatIso (π ∘ h) f) (c′ : NatIso (π ∘ h′) (f ∘ id X))
-  (ρ : NatIso h′ h) (τ : NatIso (h ∘ id X) h′)
-  → Iso₂ (b ∙ (π ◁ ρ)) (comp-unitʳ f ∙ c′)
-  → Iso₂ (c′ ∙ (π ◁ τ)) ((b ▷ id X) ∙ invIso (comp-assoc (id X) h π))
-  → Iso₂ (π ◁ (ρ ∙ τ)) (π ◁ comp-unitʳ h)
+  (b : =₁ (π ∘ h) f) (c′ : =₁ (π ∘ h′) (f ∘ id X))
+  (ρ : =₁ h′ h) (τ : =₁ (h ∘ id X) h′)
+  → =₂ (b ∙ (π ◁ ρ)) (comp-unitʳ f ∙ c′)
+  → =₂ (c′ ∙ (π ◁ τ)) ((b ▷ id X) ∙ invIso (comp-assoc (id X) h π))
+  → =₂ (π ◁ (ρ ∙ τ)) (π ◁ comp-unitʳ h)
 unit-projection π h h′ f b c′ ρ τ top bottom =
   cancel-left-reflect b
     (unit-square-projection π h f b ∙
@@ -127,7 +127,7 @@ unit-projection π h h′ f b c′ ρ τ top bottom =
     (isoComp-cong top (idIso (π ◁ τ)) ∙ project-composite π ρ τ b))))
 
 pair-pre-id : {X C D : CAT} (f : MAP X C) (g : MAP X D)
-  → Iso₂
+  → =₂
       (pair-cong (comp-unitʳ f) (comp-unitʳ g) ∙ pair-pre f g (id X))
       (comp-unitʳ (pair f g))
 pair-pre-id {X} f g =

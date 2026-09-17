@@ -29,12 +29,12 @@ record RetractDiagram {C D C′ D′ : CAT} (f : MAP C D) (f′ : MAP C′ D′)
     h : MAP C′ C
     k : MAP D D′
     j : MAP D′ D
-    leftSquare : NatIso (f′ ∘ g) (k ∘ f)
-    rightSquare : NatIso (f ∘ h) (j ∘ f′)
-    α : NatIso (id C) (h ∘ g)
-    β : NatIso (j ∘ k) (id D)
+    leftSquare : =₁ (f′ ∘ g) (k ∘ f)
+    rightSquare : =₁ (f ∘ h) (j ∘ f′)
+    α : =₁ (id C) (h ∘ g)
+    β : =₁ (j ∘ k) (id D)
 
-  loop : NatIso f f
+  loop : =₁ f f
   loop = comp-unitˡ f ∙ ((β ▷ f) ∙
     (invIso (comp-assoc f k j) ∙ ((j ◁ leftSquare) ∙
     (comp-assoc g f′ j ∙ ((rightSquare ▷ g) ∙
@@ -43,7 +43,7 @@ record RetractDiagram {C D C′ D′ : CAT} (f : MAP C D) (f′ : MAP C′ D′)
 record Retract {C D C′ D′ : CAT} (f : MAP C D) (f′ : MAP C′ D′) : Set m where
   field
     diagram : RetractDiagram f f′
-    compatibility : Iso₂ (idIso f) (RetractDiagram.loop diagram)
+    compatibility : =₂ (idIso f) (RetractDiagram.loop diagram)
 
 retract-isEquiv : {C D C′ D′ : CAT} {f : MAP C D} {f′ : MAP C′ D′}
   → Retract f f′ → IsEquiv f′ → IsEquiv f

@@ -28,7 +28,7 @@ module Pasting {A B X Z Q : CAT} (f : MAP A B) (g : MAP B Z) (h : MAP X Z)
   module Paste = PasteCones f g t
 
   factorization : {T : CAT} (s : Cone f (Cone.left t) T) →
-    NatIso (pbLift (Paste.flatten s)) (N.flatten ∘ pbLift s)
+    =₁ (pbLift (Paste.flatten s)) (N.flatten ∘ pbLift s)
   factorization s = pullback-reflect _ _
     (coneIso-compose (coneIso-inverse image) (pbLift-β (Paste.flatten s)))
     where

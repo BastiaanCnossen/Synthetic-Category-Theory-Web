@@ -24,22 +24,22 @@ funUncurry-isoMap-isEquiv {T} {C} {D} f g = evaluation-isoMap-isEquiv funEval T 
 
 abstract
   funUncurry-lift : {T C D : CAT} (f g : MAP T (Fun C D))
-    (α : NatIso (funUncurry f) (funUncurry g)) → FunctorLift (funUncurry-isoMap f g) α
+    (α : =₁ (funUncurry f) (funUncurry g)) → FunctorLift (funUncurry-isoMap f g) α
   funUncurry-lift f g = equiv-lift (funUncurry-isoMap-isEquiv f g)
 
   funIsoReflect : {T C D : CAT} (f g : MAP T (Fun C D)) →
-    NatIso (funUncurry f) (funUncurry g) → NatIso f g
+    =₁ (funUncurry f) (funUncurry g) → =₁ f g
   funIsoReflect f g α = FunctorLift.lift (funUncurry-lift f g α)
 
   funIsoReflect-β : {T C D : CAT} (f g : MAP T (Fun C D))
-    (α : NatIso (funUncurry f) (funUncurry g)) → Iso₂ (funUncurryIso (funIsoReflect f g α)) α
+    (α : =₁ (funUncurry f) (funUncurry g)) → =₂ (funUncurryIso (funIsoReflect f g α)) α
   funIsoReflect-β f g α = FunctorLift.comparison (funUncurry-lift f g α)
 
-funReflect-Iso₂ : {T C D : CAT} {f g : MAP T (Fun C D)} (α β : NatIso f g) →
-  Iso₂ (funUncurryIso α) (funUncurryIso β) → Iso₂ α β
+funReflect-Iso₂ : {T C D : CAT} {f g : MAP T (Fun C D)} (α β : =₁ f g) →
+  =₂ (funUncurryIso α) (funUncurryIso β) → =₂ α β
 funReflect-Iso₂ {f = f} {g} α β = equiv-reflect (funUncurry-isoMap-isEquiv f g) α β
 
-funUncurry-Iso₂-lift : {T C D : CAT} {f g : MAP T (Fun C D)} (α β : NatIso f g)
-  (p : Iso₂ (funUncurryIso α) (funUncurryIso β)) → FunctorLift (postWhisker (funUncurry-isoMap f g)) p
+funUncurry-Iso₂-lift : {T C D : CAT} {f g : MAP T (Fun C D)} (α β : =₁ f g)
+  (p : =₂ (funUncurryIso α) (funUncurryIso β)) → FunctorLift (postWhisker (funUncurry-isoMap f g)) p
 funUncurry-Iso₂-lift {f = f} {g} α β = postWhisker-lift (funUncurry-isoMap f g) (funUncurry-isoMap-isEquiv f g)
 ```

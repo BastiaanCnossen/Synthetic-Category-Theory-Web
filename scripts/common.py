@@ -18,13 +18,13 @@ CHAPTER = 'Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex'
 MASTER = 'Volume I - Synthetic Category Theory/Book_Vol_I.tex'
 
 def selected_source(source):
-    """Select chapter opening and Sections 1.1 and 1.2 by their existing labels."""
+    """Select chapter opening and Sections 1.1–1.3 by their existing labels."""
     body = source.split(r'\begin{document}', 1)[1].split(r'\end{document}', 1)[0]
     sections = list(re.finditer(r'\\section\{([^}]+)\}\s*\\label\[section\]\{([^}]+)\}', body))
-    expected = ['sec:External_Theory', 'sec:Equivalence_Of_Categories']
-    if [m[2] for m in sections[:2]] != expected or len(sections) < 3:
+    expected = ['sec:External_Theory', 'sec:Equivalence_Of_Categories', 'sec:Mapping_Animae']
+    if [m[2] for m in sections[:3]] != expected or len(sections) < 4:
         raise ValueError('The selected manuscript sections changed; review the selection')
-    return body[:sections[2].start()]
+    return body[:sections[3].start()]
 
 def read(path):
     return Path(path).read_text(encoding='utf-8-sig')

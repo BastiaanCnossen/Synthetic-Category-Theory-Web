@@ -29,11 +29,11 @@ open Isomorphisms vocabulary terminal products productLaws composition vertical 
 module PS = Projections 𝒯
 
 parameter-over : {X Y Z : CAT} (h : MAP X Y) (k : MAP Y Z) (A : CAT) →
-  NatIso ((k ∘ pr₁) ∘ productMap h (id A)) (k ∘ (h ∘ pr₁))
+  =₁ ((k ∘ pr₁) ∘ productMap h (id A)) (k ∘ (h ∘ pr₁))
 parameter-over h k A = PS.lift-base k pr₁ (productMap h (id A)) (parameter-base h A)
 
 composite-base : {X Y Z : CAT} (h : MAP X Y) (k : MAP Y Z) (A : CAT) →
-  NatIso (pr₁ ∘ productMap (k ∘ h) (id A)) (k ∘ (h ∘ pr₁))
+  =₁ (pr₁ ∘ productMap (k ∘ h) (id A)) (k ∘ (h ∘ pr₁))
 composite-base h k A = comp-assoc pr₁ h k ∙ parameter-base (k ∘ h) A
 
 compositor : {X Y Z : CAT} (h : MAP X Y) (k : MAP Y Z) (A : CAT) →
@@ -94,12 +94,12 @@ module Mixed {X Y Z A B : CAT} (h : MAP X Y) (k : MAP Y Z) (f : MAP A B) where
   oldTarget = PS.compose-base pr₁ Zf bZf KHA (parameter-base (k ∘ h) A)
   η = comp-assoc (pr₁ {X} {A}) h k
 
-  composite-source : Iso₂ final (η ∙ oldSource)
+  composite-source : =₂ final (η ∙ oldSource)
   composite-source = change-middle pr₁ KHB Xf (parameter-base (k ∘ h) B)
     (restriction-over (k ∘ h) f) (comp-assoc pr₁ h k) bXf η
     (lift-assoc pr₁ pr₁ Xf (restriction-base X f) h k)
 
-  composite-target : Iso₂ middle (η ∙ oldTarget)
+  composite-target : =₂ middle (η ∙ oldTarget)
   composite-target = isoComp-assoc-at η (parameter-base (k ∘ h) A)
     ((bZf ▷ KHA) ∙ invIso (comp-assoc KHA Zf pr₁))
 
@@ -124,6 +124,6 @@ module Mixed {X Y Z A B : CAT} (h : MAP X Y) (k : MAP Y Z) (f : MAP A B) where
       (PS.post-square pr₁ Zf bZf (PS.compose-base pr₁ KA bKA HA bHA)
         (composite-base h k A) κA (compositor h k A))
 
-    comparison : Iso₂ (pr₁ ◁ long) (pr₁ ◁ short)
+    comparison : =₂ (pr₁ ◁ long) (pr₁ ◁ short)
     comparison = cancel-left-reflect final (invIso short-square ∙ long-square)
 ```

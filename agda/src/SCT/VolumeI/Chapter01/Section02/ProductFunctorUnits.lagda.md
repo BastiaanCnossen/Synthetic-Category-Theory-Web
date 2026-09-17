@@ -51,15 +51,15 @@ open PairingUnits V T P PL S VC W PT
 open ProductFunctorCoherence V T P PL S VC W
 open Isomorphisms V T P PL S VC W using (cancel-inverse)
 
-postWhisker-id-reflect : {X C : CAT} {f g : MAP X C} {α β : NatIso f g}
-  → Iso₂ (id C ◁ α) (id C ◁ β) → Iso₂ α β
+postWhisker-id-reflect : {X C : CAT} {f g : MAP X C} {α β : =₁ f g}
+  → =₂ (id C ◁ α) (id C ◁ β) → =₂ α β
 postWhisker-id-reflect {f = f} {g} {α} {β} p =
   cancel-right-reflect (comp-unitˡ f)
     (postWhisker-id-at β ∙
       (isoComp-cong (idIso (comp-unitˡ g)) p ∙ invIso (postWhisker-id-at α)))
 
 left-unitor-comp : {X K C : CAT} (f : MAP X K) (g : MAP K C)
-  → Iso₂ (comp-unitˡ (g ∘ f) ∙ comp-assoc f g (id C)) (comp-unitˡ g ▷ f)
+  → =₂ (comp-unitˡ (g ∘ f) ∙ comp-assoc f g (id C)) (comp-unitˡ g ▷ f)
 left-unitor-comp {C = C} f g =
   let I = id C
       A = comp-assoc f g I
@@ -86,21 +86,21 @@ left-unitor-comp {C = C} f g =
     (cancel-right-reflect tail (invIso right-normal ∙ left-normal))
 
 pair-projections-triangle₁ : {C D : CAT}
-  → Iso₂ (comp-unitʳ pr₁ ∙ (pr₁ ◁ pair-projections {C} {D})) (pair-β₁ pr₁ pr₂)
+  → =₂ (comp-unitʳ pr₁ ∙ (pr₁ ◁ pair-projections {C} {D})) (pair-β₁ pr₁ pr₂)
 pair-projections-triangle₁ = cancel-inverse (comp-unitʳ pr₁) (pair-β₁ pr₁ pr₂) ∙
   isoComp-cong (idIso (comp-unitʳ pr₁))
     (pair-iso-β₁ (invIso (comp-unitʳ pr₁) ∙ pair-β₁ pr₁ pr₂)
       (invIso (comp-unitʳ pr₂) ∙ pair-β₂ pr₁ pr₂))
 
 pair-projections-triangle₂ : {C D : CAT}
-  → Iso₂ (comp-unitʳ pr₂ ∙ (pr₂ ◁ pair-projections {C} {D})) (pair-β₂ pr₁ pr₂)
+  → =₂ (comp-unitʳ pr₂ ∙ (pr₂ ◁ pair-projections {C} {D})) (pair-β₂ pr₁ pr₂)
 pair-projections-triangle₂ = cancel-inverse (comp-unitʳ pr₂) (pair-β₂ pr₁ pr₂) ∙
   isoComp-cong (idIso (comp-unitʳ pr₂))
     (pair-iso-β₂ (invIso (comp-unitʳ pr₁) ∙ pair-β₁ pr₁ pr₂)
       (invIso (comp-unitʳ pr₂) ∙ pair-β₂ pr₁ pr₂))
 
 productMap-id-triangle₁ : (C D : CAT)
-  → Iso₂ (comp-unitʳ pr₁ ∙ (pr₁ ◁ productMap-id C D))
+  → =₂ (comp-unitʳ pr₁ ∙ (pr₁ ◁ productMap-id C D))
       (comp-unitˡ pr₁ ∙ pair-β₁ (id C ∘ pr₁) (id D ∘ pr₂))
 productMap-id-triangle₁ C D =
   pair-cong-triangle₁ (comp-unitˡ pr₁) (comp-unitˡ pr₂) ∙
@@ -110,7 +110,7 @@ productMap-id-triangle₁ C D =
       (pair-cong (comp-unitˡ pr₁) (comp-unitˡ pr₂)) (comp-unitʳ pr₁))
 
 productMap-id-triangle₂ : (C D : CAT)
-  → Iso₂ (comp-unitʳ pr₂ ∙ (pr₂ ◁ productMap-id C D))
+  → =₂ (comp-unitʳ pr₂ ∙ (pr₂ ◁ productMap-id C D))
       (comp-unitˡ pr₂ ∙ pair-β₂ (id C ∘ pr₁) (id D ∘ pr₂))
 productMap-id-triangle₂ C D =
   pair-cong-triangle₂ (comp-unitˡ pr₁) (comp-unitˡ pr₂) ∙
@@ -121,8 +121,8 @@ productMap-id-triangle₂ C D =
 
 coordinate-left-unit : {R X K C : CAT}
   (ρ : MAP R X) (f : MAP X C) (π : MAP K C) (h : MAP R K)
-  (b : NatIso (π ∘ h) (f ∘ ρ))
-  → Iso₂ ((comp-unitˡ f ▷ ρ) ∙ coordinate-comparison ρ f π h b (id C))
+  (b : =₁ (π ∘ h) (f ∘ ρ))
+  → =₂ ((comp-unitˡ f ▷ ρ) ∙ coordinate-comparison ρ f π h b (id C))
       (b ∙ (comp-unitˡ π ▷ h))
 coordinate-left-unit ρ f π h b =
   let A = comp-assoc ρ f (id _)
@@ -139,8 +139,8 @@ coordinate-left-unit ρ f π h b =
 pair-pre-cong-triangle₁ : {R X C D : CAT}
   (f : MAP X C) (g : MAP X D) (r : MAP R X)
   {f′ : MAP R C} {g′ : MAP R D}
-  (α : NatIso (f ∘ r) f′) (β : NatIso (g ∘ r) g′)
-  → Iso₂ (pair-β₁ f′ g′ ∙ (pr₁ ◁ (pair-cong α β ∙ pair-pre f g r)))
+  (α : =₁ (f ∘ r) f′) (β : =₁ (g ∘ r) g′)
+  → =₂ (pair-β₁ f′ g′ ∙ (pr₁ ◁ (pair-cong α β ∙ pair-pre f g r)))
       (α ∙ ((pair-β₁ f g ▷ r) ∙ invIso (comp-assoc r (pair f g) pr₁)))
 pair-pre-cong-triangle₁ f g r {f′} {g′} α β =
   isoComp-cong (idIso α) (pair-pre-triangle₁ f g r) ∙
@@ -151,8 +151,8 @@ pair-pre-cong-triangle₁ f g r {f′} {g′} α β =
 pair-pre-cong-triangle₂ : {R X C D : CAT}
   (f : MAP X C) (g : MAP X D) (r : MAP R X)
   {f′ : MAP R C} {g′ : MAP R D}
-  (α : NatIso (f ∘ r) f′) (β : NatIso (g ∘ r) g′)
-  → Iso₂ (pair-β₂ f′ g′ ∙ (pr₂ ◁ (pair-cong α β ∙ pair-pre f g r)))
+  (α : =₁ (f ∘ r) f′) (β : =₁ (g ∘ r) g′)
+  → =₂ (pair-β₂ f′ g′ ∙ (pr₂ ◁ (pair-cong α β ∙ pair-pre f g r)))
       (β ∙ ((pair-β₂ f g ▷ r) ∙ invIso (comp-assoc r (pair f g) pr₂)))
 pair-pre-cong-triangle₂ f g r {f′} {g′} α β =
   isoComp-cong (idIso β) (pair-pre-triangle₂ f g r) ∙
@@ -162,17 +162,17 @@ pair-pre-cong-triangle₂ f g r {f′} {g′} α β =
 
 left-unit-projection : {R X K C : CAT}
   (ρ : MAP R X) (f : MAP X C) (π : MAP K C) (h h′ : MAP R K)
-  (J : MAP K K) (δ : NatIso J (id K))
-  (b : NatIso (π ∘ h) (f ∘ ρ))
-  (b′ : NatIso (π ∘ h′) ((id C ∘ f) ∘ ρ))
-  (bJ : NatIso (π ∘ J) (id C ∘ π))
-  (out : NatIso h′ h) (step : NatIso (J ∘ h) h′)
-  → Iso₂ (comp-unitʳ π ∙ (π ◁ δ)) (comp-unitˡ π ∙ bJ)
-  → Iso₂ (b ∙ (π ◁ out)) ((comp-unitˡ f ▷ ρ) ∙ b′)
-  → Iso₂ (b′ ∙ (π ◁ step))
+  (J : MAP K K) (δ : =₁ J (id K))
+  (b : =₁ (π ∘ h) (f ∘ ρ))
+  (b′ : =₁ (π ∘ h′) ((id C ∘ f) ∘ ρ))
+  (bJ : =₁ (π ∘ J) (id C ∘ π))
+  (out : =₁ h′ h) (step : =₁ (J ∘ h) h′)
+  → =₂ (comp-unitʳ π ∙ (π ◁ δ)) (comp-unitˡ π ∙ bJ)
+  → =₂ (b ∙ (π ◁ out)) ((comp-unitˡ f ▷ ρ) ∙ b′)
+  → =₂ (b′ ∙ (π ◁ step))
       (coordinate-comparison ρ f π h b (id C) ∙
         ((bJ ▷ h) ∙ invIso (comp-assoc h J π)))
-  → Iso₂ (π ◁ (out ∙ step)) (π ◁ (comp-unitˡ h ∙ (δ ▷ h)))
+  → =₂ (π ◁ (out ∙ step)) (π ◁ (comp-unitˡ h ∙ (δ ▷ h)))
 left-unit-projection ρ f π h h′ J δ b b′ bJ out step unit-triangle out-triangle step-triangle =
   let transport = (bJ ▷ h) ∙ invIso (comp-assoc h J π)
       e = coordinate-comparison ρ f π h b (id _)
@@ -195,7 +195,7 @@ left-unit-projection ρ f π h h′ J δ b b′ bJ out step unit-triangle out-tr
   in cancel-left-reflect b (invIso right-normal ∙ left-normal)
 
 productMap-unitˡ : {C C′ D D′ : CAT} (f : MAP C C′) (g : MAP D D′)
-  → Iso₂
+  → =₂
       (productMap-cong (comp-unitˡ f) (comp-unitˡ g) ∙
         productMap-comp f (id C′) g (id D′))
       (comp-unitˡ (productMap f g) ∙ (productMap-id C′ D′ ▷ productMap f g))
@@ -225,10 +225,10 @@ productMap-unitˡ {C} {C′} {D} {D′} f g =
       (pair-pre-cong-triangle₂ (id C′ ∘ pr₁) (id D′ ∘ pr₂) h e k))
 
 coordinate-right-unit : {R C D : CAT}
-  (ρ : MAP R C) (f : MAP C D) (J : MAP R R) (δ : NatIso J (id R))
-  (bJ : NatIso (ρ ∘ J) (id C ∘ ρ))
-  → Iso₂ (comp-unitʳ ρ ∙ (ρ ◁ δ)) (comp-unitˡ ρ ∙ bJ)
-  → Iso₂
+  (ρ : MAP R C) (f : MAP C D) (J : MAP R R) (δ : =₁ J (id R))
+  (bJ : =₁ (ρ ∘ J) (id C ∘ ρ))
+  → =₂ (comp-unitʳ ρ ∙ (ρ ◁ δ)) (comp-unitˡ ρ ∙ bJ)
+  → =₂
       ((comp-unitʳ f ▷ ρ) ∙ coordinate-comparison ρ (id C) ρ J bJ f)
       (comp-unitʳ (f ∘ ρ) ∙ ((f ∘ ρ) ◁ δ))
 coordinate-right-unit ρ f J δ bJ unit-triangle =
@@ -251,9 +251,9 @@ coordinate-right-unit ρ f J δ bJ unit-triangle =
       invIso (isoComp-assoc-at (comp-unitʳ f ▷ ρ) (invIso A) ((f ◁ bJ) ∙ B))))))))
 
 right-unit-square-projection : {R K C : CAT}
-  (π : MAP K C) (h : MAP R K) (F : MAP R C) (b : NatIso (π ∘ h) F)
-  (J : MAP R R) (δ : NatIso J (id R))
-  → Iso₂ (b ∙ (π ◁ (comp-unitʳ h ∙ (h ◁ δ))))
+  (π : MAP K C) (h : MAP R K) (F : MAP R C) (b : =₁ (π ∘ h) F)
+  (J : MAP R R) (δ : =₁ J (id R))
+  → =₂ (b ∙ (π ◁ (comp-unitʳ h ∙ (h ◁ δ))))
       (comp-unitʳ F ∙ ((F ◁ δ) ∙ ((b ▷ J) ∙ invIso (comp-assoc J h π))))
 right-unit-square-projection π h F b J δ =
   let A = comp-assoc (id _) h π
@@ -270,17 +270,17 @@ right-unit-square-projection π h F b J δ =
 
 right-unit-projection : {R X K C : CAT}
   (ρ : MAP R X) (f : MAP X C) (π : MAP K C) (h h′ : MAP R K)
-  (J : MAP R R) (δ : NatIso J (id R))
-  (b : NatIso (π ∘ h) (f ∘ ρ))
-  (b′ : NatIso (π ∘ h′) ((f ∘ id X) ∘ ρ))
-  (bJ : NatIso (ρ ∘ J) (id X ∘ ρ))
-  (out : NatIso h′ h) (step : NatIso (h ∘ J) h′)
-  → Iso₂ (comp-unitʳ ρ ∙ (ρ ◁ δ)) (comp-unitˡ ρ ∙ bJ)
-  → Iso₂ (b ∙ (π ◁ out)) ((comp-unitʳ f ▷ ρ) ∙ b′)
-  → Iso₂ (b′ ∙ (π ◁ step))
+  (J : MAP R R) (δ : =₁ J (id R))
+  (b : =₁ (π ∘ h) (f ∘ ρ))
+  (b′ : =₁ (π ∘ h′) ((f ∘ id X) ∘ ρ))
+  (bJ : =₁ (ρ ∘ J) (id X ∘ ρ))
+  (out : =₁ h′ h) (step : =₁ (h ∘ J) h′)
+  → =₂ (comp-unitʳ ρ ∙ (ρ ◁ δ)) (comp-unitˡ ρ ∙ bJ)
+  → =₂ (b ∙ (π ◁ out)) ((comp-unitʳ f ▷ ρ) ∙ b′)
+  → =₂ (b′ ∙ (π ◁ step))
       (coordinate-comparison ρ (id X) ρ J bJ f ∙
         ((b ▷ J) ∙ invIso (comp-assoc J h π)))
-  → Iso₂ (π ◁ (out ∙ step)) (π ◁ (comp-unitʳ h ∙ (h ◁ δ)))
+  → =₂ (π ◁ (out ∙ step)) (π ◁ (comp-unitʳ h ∙ (h ◁ δ)))
 right-unit-projection ρ f π h h′ J δ b b′ bJ out step unit-triangle out-triangle step-triangle =
   let transport = (b ▷ J) ∙ invIso (comp-assoc J h π)
       e = coordinate-comparison ρ (id _) ρ J bJ f
@@ -295,7 +295,7 @@ right-unit-projection ρ f π h h′ J δ b b′ bJ out step unit-triangle out-t
     (invIso (right-unit-square-projection π h (f ∘ ρ) b J δ) ∙ left-normal)
 
 productMap-unitʳ : {C C′ D D′ : CAT} (f : MAP C C′) (g : MAP D D′)
-  → Iso₂
+  → =₂
       (productMap-cong (comp-unitʳ f) (comp-unitʳ g) ∙
         productMap-comp (id C) f (id D) g)
       (comp-unitʳ (productMap f g) ∙ (productMap f g ◁ productMap-id C D))

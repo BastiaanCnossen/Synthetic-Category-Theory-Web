@@ -65,18 +65,18 @@ module CompositorEvaluation {X A B C E : CAT} (f : MAP A B) (g : MAP B C) (h : M
   normalized-source = invIso uk ∙ source-base
 
   abstract
-    inverse-square : Iso₂ (normalized-source ∙ (e ◁ invIso Shg)) (invIso qg ∙ target-base)
+    inverse-square : =₂ (normalized-source ∙ (e ◁ invIso Shg)) (invIso qg ∙ target-base)
     inverse-square = Project.projection-inverse-action 𝒯 M e normalized-source target-base Shg qg Restriction.square
 
-    normalize-inverse-square : Iso₂ (uk ∙ (normalized-source ∙ (e ◁ invIso Shg)))
+    normalize-inverse-square : =₂ (uk ∙ (normalized-source ∙ (e ◁ invIso Shg)))
       (source-base ∙ (e ◁ invIso Shg))
     normalize-inverse-square = isoComp-cong (cancel-inverse uk source-base) (idIso (e ◁ invIso Shg)) ∙
       invIso (isoComp-assoc-at uk normalized-source (e ◁ invIso Shg))
 
-    square : Iso₂ (source-base ∙ (e ◁ invIso Shg))
+    square : =₂ (source-base ∙ (e ◁ invIso Shg))
       (uk ∙ (invIso qg ∙ target-base))
     square = isoComp-cong (idIso uk) inverse-square ∙ invIso normalize-inverse-square
-    pasted-evaluation : Iso₂
+    pasted-evaluation : =₂
       (Pasted.target-evaluation ∙ (e ◁ paste (invIso Shg) (invIso Shf)))
       (Pasted.evaluation-action ∙ Pasted.source-evaluation)
     pasted-evaluation = Pasted.project-paste square
@@ -90,11 +90,11 @@ module CompositorEvaluation {X A B C E : CAT} (f : MAP A B) (g : MAP B C) (h : M
   after = comp-assoc Xf HB Uf
 
   abstract
-    parameter-tail : Iso₂ (Change.Pasted.evaluation-action ∙ u₀)
+    parameter-tail : =₂ (Change.Pasted.evaluation-action ∙ u₀)
       (invIso after ∙ (across ∙ (before ∙ tail)))
     parameter-tail = append-four (invIso after) across before (funPre-uncurry f Fg ▷ HA) u₀
 
-    core-action : Iso₂ (Pasted.evaluation-action ∙ r) tail
+    core-action : =₂ (Pasted.evaluation-action ∙ r) tail
     core-action = cancel-mate before across after (Uf ◁ invIso Shf) (uk ▷ Xf) r tail
       (post-inverse Uf Shf) (parameter-tail ∙ Change.comparison)
 
@@ -104,10 +104,10 @@ module CompositorEvaluation {X A B C E : CAT} (f : MAP A B) (g : MAP B C) (h : M
   z = a₃ ∙ (a₂ ∙ (a₁ ∙ r))
 
   abstract
-    source-endpoint : Iso₂ (Pasted.source-evaluation ∙ z) r
+    source-endpoint : =₂ (Pasted.source-evaluation ∙ z) r
     source-endpoint = cancel-three-images a₁ a₂ a₃ r (invIso qg ▷ Xf)
       (idIso U ▷ (Xg ∘ Xf)) (pre-inverse qg Xf) (preWhisker-idIso U (Xg ∘ Xf))
-    core-transfer : Iso₂
+    core-transfer : =₂
       ((Pasted.target-evaluation ∙ (e ◁ paste (invIso Shg) (invIso Shf))) ∙ z) tail
     core-transfer = close-paste Pasted.target-evaluation
       (e ◁ paste (invIso Shg) (invIso Shf)) z Pasted.evaluation-action

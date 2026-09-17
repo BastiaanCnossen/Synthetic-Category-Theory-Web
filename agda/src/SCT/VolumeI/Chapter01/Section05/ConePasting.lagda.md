@@ -32,7 +32,7 @@ module PasteCones {A B X Z Q : CAT} (f : MAP A B) (g : MAP B Z) {h : MAP X Z}
         ((g ◁ Cone.match s) ∙ comp-assoc (Cone.left s) f g) }
 
   flatten-match : {T : CAT} (s : Cone f u T) →
-    Iso₂ (Cone.match (compositeCone f g (flatten s)))
+    =₂ (Cone.match (compositeCone f g (flatten s)))
       (Cone.match (conePre (Cone.right s) t) ∙ (g ◁ Cone.match s))
   flatten-match s = cancel-right assocLeft (ν ∙ ρ) ∙
     isoComp-cong (invIso (isoComp-assoc-at ν ρ assocLeft)) (idIso (invIso assocLeft))

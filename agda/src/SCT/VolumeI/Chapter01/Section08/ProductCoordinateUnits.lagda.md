@@ -21,8 +21,8 @@ open PairingUnits vocabulary terminal products productLaws composition vertical 
 
 coordinate-inner-unit : {R K C D : CAT}
   (ρ : MAP R C) (π : MAP K C) (H : MAP R K)
-  (b : NatIso (π ∘ H) (id C ∘ ρ)) (f : MAP C D) →
-  Iso₂ ((comp-unitʳ f ▷ ρ) ∙ coordinate-comparison ρ (id C) π H b f)
+  (b : =₁ (π ∘ H) (id C ∘ ρ)) (f : MAP C D) →
+  =₂ ((comp-unitʳ f ▷ ρ) ∙ coordinate-comparison ρ (id C) π H b f)
     ((f ◁ (comp-unitˡ ρ ∙ b)) ∙ comp-assoc H π f)
 coordinate-inner-unit ρ π H b f =
   let A = comp-assoc ρ (id _) f

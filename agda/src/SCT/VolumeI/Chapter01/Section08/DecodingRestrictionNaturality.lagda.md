@@ -27,7 +27,7 @@ open Structural vocabulary terminal products productLaws composition whiskering
 open PN vocabulary terminal products productLaws composition vertical whiskering using (move-square)
 
 module Restriction {A B E : CAT} {f g : MAP A B}
-  (α : NatIso f g) (h : ObjAbs (Map B E)) where
+  (α : =₁ f g) (h : Obj-abs (Map B E)) where
   S = oneProduct-in A
   T = oneProduct-in B
   e = mapUncurry h
@@ -54,20 +54,20 @@ module Restriction {A B E : CAT} {f g : MAP A B}
   action₄ = decodeMap h ◁ Lα
 
   abstract
-    first : Iso₂ (r₁g ∙ action₀) (action₁ ∙ r₁f)
+    first : =₂ (r₁g ∙ action₀) (action₁ ∙ r₁f)
     first = preWhisker-isoComp-at (e ◁ Rα) qf S ∙
       ((preWhisker S ◁ mapPre-cong-at α h) ∙
         invIso (preWhisker-isoComp-at qg (mapUncurryIso (mapPre-cong α ▷ h)) S))
 
-    middle : Iso₂ (r₃g ∙ action₂) (action₃ ∙ r₃f)
+    middle : =₂ (r₃g ∙ action₂) (action₃ ∙ r₃f)
     middle = post-square e (oneProduct-natural f) (oneProduct-natural g)
       (Rα ▷ S) (T ◁ Lα) (Unit.Naturality.comparison 𝒯 M α)
 
-    last : Iso₂ (r₄g ∙ action₃) (action₄ ∙ r₄f)
+    last : =₂ (r₄g ∙ action₃) (action₄ ∙ r₄f)
     last = move-square (comp-assoc Lg T e) action₄ action₃
       (comp-assoc Lf T e) (postWhisker-comp-at Lα T e)
 
-    comparison : Iso₂ (decodePre g h ∙ decodeMapIso (mapPre-cong α ▷ h))
+    comparison : =₂ (decodePre g h ∙ decodeMapIso (mapPre-cong α ▷ h))
       ((decodeMap h ◁ Lα) ∙ decodePre f h)
     comparison = paste-squares (r₃f ∙ (r₂f ∙ r₁f)) (r₃g ∙ (r₂g ∙ r₁g))
       r₄f r₄g action₀ action₃ action₄

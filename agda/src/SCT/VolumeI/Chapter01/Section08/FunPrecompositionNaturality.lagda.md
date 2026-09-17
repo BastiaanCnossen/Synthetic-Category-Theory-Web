@@ -31,15 +31,15 @@ open Parameterized.WhiskeringLaws vocabulary terminal products productLaws compo
 open FamilyNaturality vocabulary terminal products productLaws composition vertical whiskering
   using (family-move-square; family-interchange-fixedOuter)
 
-constant-unit-square : {A C D : CAT} {f g : MAP C D} (β : NatIso f g)
-  (u : MAP A (f ≅ f)) → NatIso u (const (idIso f)) →
-  NatIso (const β ∙ u) (const (idIso g) ∙ const β)
+constant-unit-square : {A C D : CAT} {f g : MAP C D} (β : =₁ f g)
+  (u : MAP A (f ＝ f)) → =₁ u (const (idIso f)) →
+  =₁ (const β ∙ u) (const (idIso g) ∙ const β)
 constant-unit-square β u p = invIso (unitˡ (const β)) ∙
   (unitʳ (const β) ∙ isoComp-cong (idIso (const β)) p)
 
 productMap-separate-inputs : {A X Y B C : CAT} {u v : MAP X Y}
-  (γ : MAP A (u ≅ v)) (i : MAP B C) →
-  NatIso (const (productMap-separate v i) ∙ (productMap (id Y) i ◁ productFamily γ (const (idIso (id B)))))
+  (γ : MAP A (u ＝ v)) (i : MAP B C) →
+  =₁ (const (productMap-separate v i) ∙ (productMap (id Y) i ◁ productFamily γ (const (idIso (id B)))))
     ((productFamily γ (const (idIso (id C))) ▷ productMap (id X) i) ∙ const (productMap-separate u i))
 productMap-separate-inputs {X = X} {Y} {B} {C} {u} {v} γ i =
   paste-family-squares (invIso r₃u ∙ (r₂u ∙ r₁u)) (invIso r₃v ∙ (r₂v ∙ r₁v))
@@ -80,8 +80,8 @@ productMap-separate-inputs {X = X} {Y} {B} {C} {u} {v} γ i =
     (productMap-comp-family-outer (id X) i γ identityC)
 
 funPre-uncurry-inputs : {A X B C E : CAT} (i : MAP B C)
-  {u v : MAP X (Fun C E)} (γ : MAP A (u ≅ v)) →
-  NatIso (const (funPre-uncurry i v) ∙ uncurryFamily (funPre i ◁ γ))
+  {u v : MAP X (Fun C E)} (γ : MAP A (u ＝ v)) →
+  =₁ (const (funPre-uncurry i v) ∙ uncurryFamily (funPre i ◁ γ))
     ((uncurryFamily γ ▷ productMap (id X) i) ∙ const (funPre-uncurry i u))
 funPre-uncurry-inputs {X = X} {B} {C} {E} i {u} {v} γ =
   paste-family-squares (r₄u ∙ (r₃u ∙ (r₂u ∙ r₁u))) (r₄v ∙ (r₃v ∙ (r₂v ∙ r₁v)))
@@ -124,8 +124,8 @@ funPre-uncurry-inputs {X = X} {B} {C} {E} i {u} {v} γ =
   action₅ = uncurryFamily γ ▷ R
 
 funPre-uncurry-natural : {X B C E : CAT} (i : MAP B C)
-  {u v : MAP X (Fun C E)} (γ : NatIso u v) →
-  Iso₂ (funPre-uncurry i v ∙ funUncurryIso (funPre i ◁ γ))
+  {u v : MAP X (Fun C E)} (γ : =₁ u v) →
+  =₂ (funPre-uncurry i v ∙ funUncurryIso (funPre i ◁ γ))
     ((funUncurryIso γ ▷ productMap (id X) i) ∙ funPre-uncurry i u)
 funPre-uncurry-natural {X} i {u} {v} γ =
   isoComp-cong (preWhisker (productMap (id X) i) ◁ uncurryFamily-absolute γ)

@@ -34,14 +34,14 @@ record PullbackData : Set (c ⊔ m ⊔ a) where
   pb₂ : {C D E : CAT} {f : MAP C E} {g : MAP D E} → MAP (Pullback f g) D
   pb₂ {f = f} {g} = Cone.right (pbCone f g)
 
-  pbMatch : {C D E : CAT} {f : MAP C E} {g : MAP D E} → NatIso (f ∘ pb₁) (g ∘ pb₂)
+  pbMatch : {C D E : CAT} {f : MAP C E} {g : MAP D E} → =₁ (f ∘ pb₁) (g ∘ pb₂)
   pbMatch {f = f} {g} = Cone.match (pbCone f g)
 
   pbLift-β₁ : {C D E T : CAT} {f : MAP C E} {g : MAP D E} (s : Cone f g T)
-    → NatIso (pb₁ ∘ pbLift s) (Cone.left s)
+    → =₁ (pb₁ ∘ pbLift s) (Cone.left s)
   pbLift-β₁ s = ConeIso.leftIso (pbLift-β s)
 
   pbLift-β₂ : {C D E T : CAT} {f : MAP C E} {g : MAP D E} (s : Cone f g T)
-    → NatIso (pb₂ ∘ pbLift s) (Cone.right s)
+    → =₁ (pb₂ ∘ pbLift s) (Cone.right s)
   pbLift-β₂ s = ConeIso.rightIso (pbLift-β s)
 ```

@@ -38,22 +38,22 @@ open Isomorphisms vocabulary terminal products productLaws composition vertical 
   using (reassociateFour)
 
 exchange-middle : {X Y : CAT} {a b c d e c′ : MAP X Y}
-  (δ : NatIso d e) (γ : NatIso c d) (β : NatIso b c) (α : NatIso a b)
-  (γ′ : NatIso c′ d) (β′ : NatIso b c′)
-  → Iso₂ (γ ∙ β) (γ′ ∙ β′)
-  → Iso₂ ((δ ∙ γ) ∙ (β ∙ α)) ((δ ∙ γ′) ∙ (β′ ∙ α))
+  (δ : =₁ d e) (γ : =₁ c d) (β : =₁ b c) (α : =₁ a b)
+  (γ′ : =₁ c′ d) (β′ : =₁ b c′)
+  → =₂ (γ ∙ β) (γ′ ∙ β′)
+  → =₂ ((δ ∙ γ) ∙ (β ∙ α)) ((δ ∙ γ′) ∙ (β′ ∙ α))
 exchange-middle δ γ β α γ′ β′ p =
   invIso (reassociateFour δ γ′ β′ α) ∙
     (isoComp-cong (idIso δ) (isoComp-cong p (idIso α)) ∙ reassociateFour δ γ β α)
 
 evaluation-step : {R X Z D : CAT} (e : MAP Z D) (p : MAP X Z) (s : MAP R X)
-  {q : MAP R Z} → NatIso q (p ∘ s) → NatIso (e ∘ q) ((e ∘ p) ∘ s)
+  {q : MAP R Z} → =₁ q (p ∘ s) → =₁ (e ∘ q) ((e ∘ p) ∘ s)
 evaluation-step e p s a = invIso (comp-assoc s p e) ∙ (e ◁ a)
 
 evaluation-step-iterated : {Q R X Z D : CAT}
   (e : MAP Z D) (p : MAP X Z) (s : MAP R X) (t : MAP Q R)
-  {q : MAP R Z} {r : MAP Q Z} (a : NatIso q (p ∘ s)) (b : NatIso r (q ∘ t))
-  → Iso₂
+  {q : MAP R Z} {r : MAP Q Z} (a : =₁ q (p ∘ s)) (b : =₁ r (q ∘ t))
+  → =₂
       (comp-assoc t s (e ∘ p) ∙
         ((evaluation-step e p s a ▷ t) ∙ evaluation-step e q t b))
       (invIso (comp-assoc (s ∘ t) p e) ∙
@@ -92,24 +92,24 @@ module Iteration {W Y X C D : CAT}
   F h = productMap h (id C)
 
   κ : {A B Z : CAT} (h : MAP B Z) (r : MAP A B)
-    → NatIso (F h ∘ F r) (F (h ∘ r))
+    → =₁ (F h ∘ F r) (F (h ∘ r))
   κ = slice-comparison
 
   ProductAssociativity : Set m
-  ProductAssociativity = Iso₂
+  ProductAssociativity = =₂
     (κ f (σ ∘ τ) ∙ ((F f ◁ κ σ τ) ∙ comp-assoc (F τ) (F σ) (F f)))
     (productMap-cong (comp-assoc τ σ f) (idIso (id C)) ∙
       (κ (f ∘ σ) τ ∙ (κ f σ ▷ F τ)))
 
-  together : NatIso (funUncurry ((f ∘ σ) ∘ τ)) (funUncurry f ∘ F (σ ∘ τ))
+  together : =₁ (funUncurry ((f ∘ σ) ∘ τ)) (funUncurry f ∘ F (σ ∘ τ))
   together = funUncurry-pre f (σ ∘ τ) ∙ funUncurryIso (comp-assoc τ σ f)
 
-  successively : NatIso (funUncurry ((f ∘ σ) ∘ τ)) (funUncurry f ∘ F (σ ∘ τ))
+  successively : =₁ (funUncurry ((f ∘ σ) ∘ τ)) (funUncurry f ∘ F (σ ∘ τ))
   successively = (funUncurry f ◁ κ σ τ) ∙
     (comp-assoc (F τ) (F σ) (funUncurry f) ∙
       ((funUncurry-pre f σ ▷ F τ) ∙ funUncurry-pre (f ∘ σ) τ))
 
-  transfer : ProductAssociativity → Iso₂ together successively
+  transfer : ProductAssociativity → =₂ together successively
   transfer product-assoc = invIso
     (isoComp-cong (idIso (funUncurry-pre f (σ ∘ τ))) (invIso (funUncurryIso-at (comp-assoc τ σ f))) ∙
     let p = F f

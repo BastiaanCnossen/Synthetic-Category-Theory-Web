@@ -25,7 +25,7 @@ open ProductAssociativity 𝒯 M using (slice-comparison-assoc)
 
 funUncurry-pre-iterated : {W Y X C D : CAT}
   (f : MAP X (Fun C D)) (σ : MAP Y X) (τ : MAP W Y)
-  → Iso₂ (Iteration.together f σ τ) (Iteration.successively f σ τ)
+  → =₂ (Iteration.together f σ τ) (Iteration.successively f σ τ)
 funUncurry-pre-iterated {C = C} f σ τ = Iteration.transfer f σ τ
   (slice-comparison-assoc C f σ τ)
 ```

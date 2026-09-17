@@ -26,7 +26,7 @@ pullbackSwap : {C D E : CAT} (f : MAP C E) (g : MAP D E) →
 pullbackSwap f g = pbLift (coneSwap (pbCone f g))
 
 pullbackSwap-swap : {C D E : CAT} (f : MAP C E) (g : MAP D E) →
-  NatIso (pullbackSwap g f ∘ pullbackSwap f g) (id (Pullback f g))
+  =₁ (pullbackSwap g f ∘ pullbackSwap f g) (id (Pullback f g))
 pullbackSwap-swap f g = pullback-reflect _ _
   (coneIso-compose (coneIso-inverse (conePre-id (pbCone f g)))
     (coneIso-compose (coneSwap-swap (pbCone f g))
@@ -43,7 +43,7 @@ pullbackSwap-isEquiv f g = record
   ; retractionIso = invIso (pullbackSwap-swap g f) }
 
 pullbackSwap-factorization : {C D E T : CAT} {f : MAP C E} {g : MAP D E}
-  (s : Cone f g T) → NatIso (pbLift (coneSwap s)) (pullbackSwap f g ∘ pbLift s)
+  (s : Cone f g T) → =₁ (pbLift (coneSwap s)) (pullbackSwap f g ∘ pbLift s)
 pullbackSwap-factorization {f = f} {g} s = pullback-reflect _ _
   (coneIso-compose (coneIso-inverse image) (pbLift-β (coneSwap s)))
   where

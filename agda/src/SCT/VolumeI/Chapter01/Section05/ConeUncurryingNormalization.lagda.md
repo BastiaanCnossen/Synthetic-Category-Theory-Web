@@ -25,8 +25,8 @@ open import SCT.VolumeI.Chapter01.Section03.CoherenceTransport 𝒯 using (chang
 open PN vocabulary terminal products productLaws composition vertical whiskering using (move-square)
 
 endpoints-iterated : {C D : CAT} {u v u′ v′ u″ v″ : MAP C D}
-  (p : NatIso u u′) (q : NatIso v v′) (p′ : NatIso u′ u″) (q′ : NatIso v′ v″) (α : NatIso u v) →
-  Iso₂ (changeEndpoints p′ q′ (changeEndpoints p q α)) (changeEndpoints (p′ ∙ p) (q′ ∙ q) α)
+  (p : =₁ u u′) (q : =₁ v v′) (p′ : =₁ u′ u″) (q′ : =₁ v′ v″) (α : =₁ u v) →
+  =₂ (changeEndpoints p′ q′ (changeEndpoints p q α)) (changeEndpoints (p′ ∙ p) (q′ ∙ q) α)
 endpoints-iterated p q p′ q′ α = isoComp-cong (idIso (q′ ∙ q))
     (isoComp-cong (idIso α) (invIso (inverse-composite p′ p)) ∙ isoComp-assoc-at α (invIso p) (invIso p′)) ∙
   (invIso (isoComp-assoc-at q′ q ((α ∙ invIso p) ∙ invIso p′)) ∙
@@ -59,7 +59,7 @@ module Restriction {X Y T C D E : CAT} {f : MAP C E} {g : MAP D E}
   rawTarget = changeEndpoints Ef′ Eg′ (mapUncurryIso {C = T} {D = E} τ ▷ R)
 
   abstract
-    source-normal : Iso₂ (Cone.match source) rawSource
+    source-normal : =₂ (Cone.match source) rawSource
     source-normal = endpoints-iterated (mapUncurryIso {C = T} {D = E} af) (mapUncurryIso {C = T} {D = E} ag)
         (mapPost-uncurry {C = T} f (p ∘ r)) (mapPost-uncurry {C = T} g (q ∘ r)) (mapUncurryIso {C = T} {D = E} (τ ▷ r)) ∙
       isoComp-cong (idIso (mapPost-uncurry {C = T} g (q ∘ r)))
@@ -70,7 +70,7 @@ module Restriction {X Y T C D E : CAT} {f : MAP C E} {g : MAP D E}
             mapUncurryIso-comp {C = T} {D = E} ag ((τ ▷ r) ∙ invIso af))
           (idIso (invIso (mapPost-uncurry {C = T} f (p ∘ r)))))
   
-    target-normal : Iso₂ (Cone.match target) rawTarget
+    target-normal : =₂ (Cone.match target) rawTarget
     target-normal = endpoints-iterated (mapPost-uncurry {C = T} f p ▷ R) (mapPost-uncurry {C = T} g q ▷ R)
         (comp-assoc R (mapUncurry p) f) (comp-assoc R (mapUncurry q) g) (mapUncurryIso {C = T} {D = E} τ ▷ R) ∙
       isoComp-cong (idIso (comp-assoc R (mapUncurry q) g))

@@ -20,8 +20,8 @@ open import SCT.VolumeI.Chapter01.Section05.PullbackSquares 𝒯 P
 open import SCT.VolumeI.Chapter01.Section05.PullbackLifting 𝒯 P
 
 coneIso-over-One : {C D T : CAT} {f : MAP C One} {g : MAP D One}
-  (s t : Cone f g T) → NatIso (Cone.left s) (Cone.left t) →
-  NatIso (Cone.right s) (Cone.right t) → ConeIso s t
+  (s t : Cone f g T) → =₁ (Cone.left s) (Cone.left t) →
+  =₁ (Cone.right s) (Cone.right t) → ConeIso s t
 coneIso-over-One s t α β = record
   { leftIso = α ; rightIso = β
   ; compatible = equiv-reflect (terminalIso-isEquiv _ _) _ _ (terminal-iso _ _) }
@@ -37,11 +37,11 @@ module TerminalBase {C D : CAT} (f : MAP C One) (g : MAP D One) where
   fromProduct : MAP (C × D) (Pullback f g)
   fromProduct = pbLift productCone
 
-  to-from : NatIso (toProduct ∘ fromProduct) (id (C × D))
+  to-from : =₁ (toProduct ∘ fromProduct) (id (C × D))
   to-from = pair-projections ∙
     (pair-cong (pbLift-β₁ productCone) (pbLift-β₂ productCone) ∙ pair-pre pb₁ pb₂ fromProduct)
 
-  from-to : NatIso (fromProduct ∘ toProduct) (id (Pullback f g))
+  from-to : =₁ (fromProduct ∘ toProduct) (id (Pullback f g))
   from-to = pullback-reflect _ _ (coneIso-over-One _ _
     (invIso (comp-unitʳ pb₁) ∙
       (pair-β₁ pb₁ pb₂ ∙ ((pbLift-β₁ productCone ▷ toProduct) ∙
@@ -72,11 +72,11 @@ module TerminalBase {C D : CAT} (f : MAP C One) (g : MAP D One) where
   fromSwapped-isEquiv : IsEquiv fromSwapped
   fromSwapped-isEquiv = equiv-compose (swap {D} {C}) fromProduct (swap-isEquiv D C) productCone-isPullback
 
-  fromSwapped-β₁ : NatIso (pb₁ ∘ fromSwapped) (pr₂ {D} {C})
+  fromSwapped-β₁ : =₁ (pb₁ ∘ fromSwapped) (pr₂ {D} {C})
   fromSwapped-β₁ = pair-β₁ pr₂ pr₁ ∙
     ((pbLift-β₁ productCone ▷ swap {D} {C}) ∙ invIso (comp-assoc (swap {D} {C}) fromProduct pb₁))
 
-  fromSwapped-β₂ : NatIso (pb₂ ∘ fromSwapped) (pr₁ {D} {C})
+  fromSwapped-β₂ : =₁ (pb₂ ∘ fromSwapped) (pr₁ {D} {C})
   fromSwapped-β₂ = pair-β₂ pr₂ pr₁ ∙
     ((pbLift-β₂ productCone ▷ swap {D} {C}) ∙ invIso (comp-assoc (swap {D} {C}) fromProduct pb₂))
 module PullbackProduct (C D : CAT) = TerminalBase (terminate C) (terminate D)

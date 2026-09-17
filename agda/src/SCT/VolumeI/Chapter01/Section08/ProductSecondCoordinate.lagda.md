@@ -28,19 +28,19 @@ open Isomorphisms vocabulary terminal products productLaws composition vertical 
 module PS = Projections 𝒯
 
 restriction-base : (X : CAT) {A B : CAT} (f : MAP A B) →
-  NatIso (pr₂ ∘ productRestriction X f) (f ∘ pr₂)
+  =₁ (pr₂ ∘ productRestriction X f) (f ∘ pr₂)
 restriction-base X f = pair-β₂ (id X ∘ pr₁) (f ∘ pr₂)
 
 parameter-base : {X Y : CAT} (h : MAP X Y) (A : CAT) →
-  NatIso (pr₂ ∘ productMap h (id A)) pr₂
+  =₁ (pr₂ ∘ productMap h (id A)) pr₂
 parameter-base h A = comp-unitˡ pr₂ ∙ pair-β₂ (h ∘ pr₁) (id A ∘ pr₂)
 
 restriction-over : {A B C : CAT} (X : CAT) (f : MAP A B) (g : MAP B C) →
-  NatIso ((g ∘ pr₂) ∘ productRestriction X f) (g ∘ (f ∘ pr₂))
+  =₁ ((g ∘ pr₂) ∘ productRestriction X f) (g ∘ (f ∘ pr₂))
 restriction-over X f g = PS.lift-base g pr₂ (productRestriction X f) (restriction-base X f)
 
 composite-base : {A B C : CAT} (X : CAT) (f : MAP A B) (g : MAP B C) →
-  NatIso (pr₂ ∘ productRestriction X (g ∘ f)) (g ∘ (f ∘ pr₂))
+  =₁ (pr₂ ∘ productRestriction X (g ∘ f)) (g ∘ (f ∘ pr₂))
 composite-base X f g = comp-assoc pr₂ f g ∙ restriction-base X (g ∘ f)
 
 compositor : {A B C : CAT} (X : CAT) (f : MAP A B) (g : MAP B C) →
@@ -123,12 +123,12 @@ module Mixed {X Y A B C : CAT} (h : MAP X Y) (f : MAP A B) (g : MAP B C) where
   oldTarget = PS.compose-base pr₂ HC bHC Xgf (restriction-base X (g ∘ f))
   η = comp-assoc (pr₂ {X} {A}) f g
 
-  composite-source : Iso₂ final (η ∙ oldSource)
+  composite-source : =₂ final (η ∙ oldSource)
   composite-source = change-middle pr₂ Ygf HA (restriction-base Y (g ∘ f))
     (PS.lift-base (g ∘ f) pr₂ HA (parameter-base h A)) (comp-assoc pr₂ f g) bHA η
     (lift-assoc pr₂ pr₂ HA (parameter-base h A) f g)
 
-  composite-target : Iso₂ middle (η ∙ oldTarget)
+  composite-target : =₂ middle (η ∙ oldTarget)
   composite-target = isoComp-assoc-at η (restriction-base X (g ∘ f))
     ((bHC ▷ Xgf) ∙ invIso (comp-assoc Xgf HC pr₂))
 
@@ -156,6 +156,6 @@ module Mixed {X Y A B C : CAT} (h : MAP X Y) (f : MAP A B) (g : MAP B C) where
       (PS.post-square pr₂ HC bHC (PS.compose-base pr₂ Xg bXg Xf bXf)
         (composite-base X f g) χX (compositor X f g))
 
-    comparison : Iso₂ (pr₂ ◁ short) (pr₂ ◁ long)
+    comparison : =₂ (pr₂ ◁ short) (pr₂ ◁ long)
     comparison = cancel-left-reflect final (invIso long-square ∙ short-square)
 ```

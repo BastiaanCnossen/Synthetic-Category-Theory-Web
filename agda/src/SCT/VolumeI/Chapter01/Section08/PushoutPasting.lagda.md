@@ -63,7 +63,7 @@ module Pasting {A₁ A₂ A₃ B₁ B₂ B₃ : CAT}
             (coconeIso-inverse (postcomparison value)))
 
       reflect : (F G : MAP B₃ E) →
-        CoconeIso (coconePost F (squareCocone outer)) (coconePost G (squareCocone outer)) → NatIso F G
+        CoconeIso (coconePost F (squareCocone outer)) (coconePost G (squareCocone outer)) → =₁ F G
       reflect F G Φ = Right.Compare.comparison F G
         (Left.ReflectFlattened.comparison
           (coconeIso-compose (coconeIso-inverse (postcomparison G))
@@ -89,7 +89,7 @@ module Pasting {A₁ A₂ A₃ B₁ B₂ B₃ : CAT}
           (coconeIso-compose Extension.comparison (postcomparison value))
 
       reflect : (F G : MAP B₃ E) →
-        CoconeIso (coconePost F (squareCocone right)) (coconePost G (squareCocone right)) → NatIso F G
+        CoconeIso (coconePost F (squareCocone right)) (coconePost G (squareCocone right)) → =₁ F G
       reflect F G Φ = Outer.Compare.comparison F G
         (coconeIso-compose (postcomparison G)
           (coconeIso-compose (Paste.flatten-iso Φ) (coconeIso-inverse (postcomparison F))))

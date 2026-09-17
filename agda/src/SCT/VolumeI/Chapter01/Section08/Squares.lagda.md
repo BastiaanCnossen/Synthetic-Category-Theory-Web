@@ -19,7 +19,7 @@ open Setup 𝒯
 record Square {A B C D : CAT}
   (u : MAP A B) (l : MAP A C) (r : MAP B D) (v : MAP C D) : Set m where
   field
-    commute : NatIso (r ∘ u) (v ∘ l)
+    commute : =₁ (r ∘ u) (v ∘ l)
 
 module PastedSquare {A₁ A₂ A₃ B₁ B₂ B₃ : CAT}
   {g₁ : MAP A₁ A₂} {g₂ : MAP A₂ A₃}

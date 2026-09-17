@@ -20,17 +20,17 @@ open PN vocabulary terminal products productLaws composition vertical whiskering
 
 abstract
   append-four : {X Y : CAT} {a₀ a₁ a₂ a₃ a₄ a₅ : MAP X Y}
-    (A : NatIso a₄ a₅) (B : NatIso a₃ a₄) (C : NatIso a₂ a₃)
-    (D : NatIso a₁ a₂) (E : NatIso a₀ a₁) →
-    Iso₂ ((A ∙ (B ∙ (C ∙ D))) ∙ E) (A ∙ (B ∙ (C ∙ (D ∙ E))))
+    (A : =₁ a₄ a₅) (B : =₁ a₃ a₄) (C : =₁ a₂ a₃)
+    (D : =₁ a₁ a₂) (E : =₁ a₀ a₁) →
+    =₂ ((A ∙ (B ∙ (C ∙ D))) ∙ E) (A ∙ (B ∙ (C ∙ (D ∙ E))))
   append-four A B C D E = isoComp-cong (idIso A) (isoComp-cong (idIso B) (isoComp-assoc-at C D E)) ∙
     (isoComp-cong (idIso A) (isoComp-assoc-at B (C ∙ D) E) ∙ isoComp-assoc-at A (B ∙ (C ∙ D)) E)
 
   cancel-mate : {X Y : CAT} {a₀ a₁ a₂ a₃ a₄ a₅ : MAP X Y}
-    (A : NatIso a₅ a₄) (B : NatIso a₄ a₃) (C : NatIso a₂ a₃)
-    (B⁻ : NatIso a₃ a₄) (U : NatIso a₁ a₂) (r : NatIso a₀ a₁) (tail : NatIso a₀ a₅) →
-    Iso₂ B⁻ (invIso B) → Iso₂ (U ∙ r) (invIso C ∙ (B ∙ (A ∙ tail))) →
-    Iso₂ ((invIso A ∙ (B⁻ ∙ (C ∙ U))) ∙ r) tail
+    (A : =₁ a₅ a₄) (B : =₁ a₄ a₃) (C : =₁ a₂ a₃)
+    (B⁻ : =₁ a₃ a₄) (U : =₁ a₁ a₂) (r : =₁ a₀ a₁) (tail : =₁ a₀ a₅) →
+    =₂ B⁻ (invIso B) → =₂ (U ∙ r) (invIso C ∙ (B ∙ (A ∙ tail))) →
+    =₂ ((invIso A ∙ (B⁻ ∙ (C ∙ U))) ∙ r) tail
   cancel-mate A B C B⁻ U r tail inverse square = cancel-left A tail ∙
     (isoComp-cong (idIso (invIso A))
       (cancel-left B (A ∙ tail) ∙ isoComp-cong inverse (idIso (B ∙ (A ∙ tail)))) ∙
@@ -39,8 +39,8 @@ abstract
       append-four (invIso A) B⁻ C U r)))
 
   cancel-three : {X Y : CAT} {a₀ a₁ a₂ a₃ a₄ : MAP X Y}
-    (A : NatIso a₁ a₂) (B : NatIso a₂ a₃) (C : NatIso a₃ a₄) (u : NatIso a₀ a₁) →
-    Iso₂ (((invIso A ∙ invIso B) ∙ invIso C) ∙ (C ∙ (B ∙ (A ∙ u)))) u
+    (A : =₁ a₁ a₂) (B : =₁ a₂ a₃) (C : =₁ a₃ a₄) (u : =₁ a₀ a₁) →
+    =₂ (((invIso A ∙ invIso B) ∙ invIso C) ∙ (C ∙ (B ∙ (A ∙ u)))) u
   cancel-three A B C u = cancel-left A u ∙
     (isoComp-cong (idIso (invIso A)) (cancel-left B (A ∙ u)) ∙
     (isoComp-assoc-at (invIso A) (invIso B) (B ∙ (A ∙ u)) ∙
@@ -48,10 +48,10 @@ abstract
       isoComp-assoc-at (invIso A ∙ invIso B) (invIso C) (C ∙ (B ∙ (A ∙ u))))))
 
   cancel-three-images : {X Y : CAT} {a₀ a₁ a₂ a₃ a₄ : MAP X Y}
-    (A : NatIso a₁ a₂) (B : NatIso a₂ a₃) (C : NatIso a₃ a₄) (u : NatIso a₀ a₁)
-    (A⁻ : NatIso a₂ a₁) (I : NatIso a₃ a₃) →
-    Iso₂ A⁻ (invIso A) → Iso₂ I (idIso a₃) →
-    Iso₂ (((A⁻ ∙ invIso B) ∙ (I ∙ invIso C)) ∙ (C ∙ (B ∙ (A ∙ u)))) u
+    (A : =₁ a₁ a₂) (B : =₁ a₂ a₃) (C : =₁ a₃ a₄) (u : =₁ a₀ a₁)
+    (A⁻ : =₁ a₂ a₁) (I : =₁ a₃ a₃) →
+    =₂ A⁻ (invIso A) → =₂ I (idIso a₃) →
+    =₂ (((A⁻ ∙ invIso B) ∙ (I ∙ invIso C)) ∙ (C ∙ (B ∙ (A ∙ u)))) u
   cancel-three-images A B C u A⁻ I inverse identity = cancel-three A B C u ∙
     isoComp-cong
       (isoComp-cong (isoComp-cong inverse (idIso (invIso B)))
@@ -59,10 +59,10 @@ abstract
       (idIso (C ∙ (B ∙ (A ∙ u))))
 
   close-paste : {X Y : CAT} {a₀ a₁ a₂ a₃ a₄ : MAP X Y}
-    (T : NatIso a₄ a₃) (P : NatIso a₁ a₄) (z : NatIso a₀ a₁)
-    (R : NatIso a₂ a₃) (S : NatIso a₁ a₂) (r : NatIso a₀ a₂) (t : NatIso a₀ a₃) →
-    Iso₂ (T ∙ P) (R ∙ S) → Iso₂ (S ∙ z) r → Iso₂ (R ∙ r) t →
-    Iso₂ ((T ∙ P) ∙ z) t
+    (T : =₁ a₄ a₃) (P : =₁ a₁ a₄) (z : =₁ a₀ a₁)
+    (R : =₁ a₂ a₃) (S : =₁ a₁ a₂) (r : =₁ a₀ a₂) (t : =₁ a₀ a₃) →
+    =₂ (T ∙ P) (R ∙ S) → =₂ (S ∙ z) r → =₂ (R ∙ r) t →
+    =₂ ((T ∙ P) ∙ z) t
   close-paste T P z R S r t pasted source action = action ∙
     (isoComp-cong (idIso R) source ∙
       (isoComp-assoc-at R S z ∙ isoComp-cong pasted (idIso z)))

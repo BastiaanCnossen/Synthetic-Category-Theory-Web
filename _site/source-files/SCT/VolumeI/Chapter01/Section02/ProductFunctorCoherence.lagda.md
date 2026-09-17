@@ -40,19 +40,19 @@ open Structural V T P PL S W
 open PairingNaturality V T P PL S VC W using (move-square; pair-pre-natural-inputs; pair-pre-natural-substitution)
 
 productMap-cong : {C C′ D D′ : CAT} {f f′ : MAP C C′} {g g′ : MAP D D′}
-  → NatIso f f′ → NatIso g g′ → NatIso (productMap f g) (productMap f′ g′)
+  → =₁ f f′ → =₁ g g′ → =₁ (productMap f g) (productMap f′ g′)
 productMap-cong α β = pair-cong (α ▷ pr₁) (β ▷ pr₂)
 
 productMap-cong-id : {C C′ D D′ : CAT} (f : MAP C C′) (g : MAP D D′)
-  → Iso₂ (productMap-cong (idIso f) (idIso g)) (idIso (productMap f g))
+  → =₂ (productMap-cong (idIso f) (idIso g)) (idIso (productMap f g))
 productMap-cong-id f g = pair-cong-id (f ∘ pr₁) (g ∘ pr₂) ∙
   pair-cong-Iso₂ (preWhisker-idIso f pr₁) (preWhisker-idIso g pr₂)
 
 productMap-cong-comp : {C C′ D D′ : CAT}
   {f₀ f₁ f₂ : MAP C C′} {g₀ g₁ g₂ : MAP D D′}
-  (α₂ : NatIso f₁ f₂) (α₁ : NatIso f₀ f₁)
-  (β₂ : NatIso g₁ g₂) (β₁ : NatIso g₀ g₁)
-  → Iso₂ (productMap-cong (α₂ ∙ α₁) (β₂ ∙ β₁))
+  (α₂ : =₁ f₁ f₂) (α₁ : =₁ f₀ f₁)
+  (β₂ : =₁ g₁ g₂) (β₁ : =₁ g₀ g₁)
+  → =₂ (productMap-cong (α₂ ∙ α₁) (β₂ ∙ β₁))
       (productMap-cong α₂ β₂ ∙ productMap-cong α₁ β₁)
 productMap-cong-comp α₂ α₁ β₂ β₁ =
   pair-cong-comp (α₂ ▷ pr₁) (α₁ ▷ pr₁) (β₂ ▷ pr₂) (β₁ ▷ pr₂) ∙
@@ -61,21 +61,21 @@ productMap-cong-comp α₂ α₁ β₂ β₁ =
 
 productMap-cong-Iso₂ : {C C′ D D′ : CAT}
   {f f′ : MAP C C′} {g g′ : MAP D D′}
-  {α α′ : NatIso f f′} {β β′ : NatIso g g′}
-  → Iso₂ α α′ → Iso₂ β β′
-  → Iso₂ (productMap-cong α β) (productMap-cong α′ β′)
+  {α α′ : =₁ f f′} {β β′ : =₁ g g′}
+  → =₂ α α′ → =₂ β β′
+  → =₂ (productMap-cong α β) (productMap-cong α′ β′)
 productMap-cong-Iso₂ p q = pair-cong-Iso₂ (preWhisker pr₁ ◁ p) (preWhisker pr₂ ◁ q)
 
 productIsoMap : {C C′ D D′ : CAT}
   (f f′ : MAP C C′) (g g′ : MAP D D′)
-  → MAP ((f ≅ f′) × (g ≅ g′)) (productMap f g ≅ productMap f′ g′)
+  → MAP ((f ＝ f′) × (g ＝ g′)) (productMap f g ＝ productMap f′ g′)
 productIsoMap f f′ g g′ = pairIsoMap (f ∘ pr₁) (f′ ∘ pr₁) (g ∘ pr₂) (g′ ∘ pr₂)
   ∘ pair (preWhisker pr₁ ∘ pr₁) (preWhisker pr₂ ∘ pr₂)
 
 productIsoMap-at : {C C′ D D′ : CAT}
   {f f′ : MAP C C′} {g g′ : MAP D D′}
-  (α : NatIso f f′) (β : NatIso g g′)
-  → Iso₂ (productIsoMap f f′ g g′ ∘ pair α β) (productMap-cong α β)
+  (α : =₁ f f′) (β : =₁ g g′)
+  → =₂ (productIsoMap f f′ g g′ ∘ pair α β) (productMap-cong α β)
 productIsoMap-at {f = f} {f′} {g} {g′} α β =
   let input = pair (preWhisker pr₁ ∘ pr₁) (preWhisker pr₂ ∘ pr₂)
       output = pairIsoMap (f ∘ pr₁) (f′ ∘ pr₁) (g ∘ pr₂) (g′ ∘ pr₂)
@@ -93,11 +93,11 @@ their specified vertical comparisons.
 
 ```agda
 paste-squares : {X Y : CAT} {a a′ b b′ c c′ : MAP X Y}
-  (u : NatIso a b) (u′ : NatIso a′ b′)
-  (v : NatIso b c) (v′ : NatIso b′ c′)
-  (α : NatIso a a′) (β : NatIso b b′) (γ : NatIso c c′)
-  → Iso₂ (u′ ∙ α) (β ∙ u) → Iso₂ (v′ ∙ β) (γ ∙ v)
-  → Iso₂ ((v′ ∙ u′) ∙ α) (γ ∙ (v ∙ u))
+  (u : =₁ a b) (u′ : =₁ a′ b′)
+  (v : =₁ b c) (v′ : =₁ b′ c′)
+  (α : =₁ a a′) (β : =₁ b b′) (γ : =₁ c c′)
+  → =₂ (u′ ∙ α) (β ∙ u) → =₂ (v′ ∙ β) (γ ∙ v)
+  → =₂ ((v′ ∙ u′) ∙ α) (γ ∙ (v ∙ u))
 paste-squares u u′ v v′ α β γ p q =
   isoComp-assoc-at γ v u ∙
   (isoComp-cong q (idIso u) ∙
@@ -106,12 +106,12 @@ paste-squares u u′ v v′ α β γ p q =
 
 pair-square : {X C D : CAT}
   {a a′ b b′ : MAP X C} {d d′ e e′ : MAP X D}
-  (u : NatIso a b) (u′ : NatIso a′ b′)
-  (v : NatIso d e) (v′ : NatIso d′ e′)
-  (α : NatIso a a′) (β : NatIso b b′)
-  (γ : NatIso d d′) (δ : NatIso e e′)
-  → Iso₂ (u′ ∙ α) (β ∙ u) → Iso₂ (v′ ∙ γ) (δ ∙ v)
-  → Iso₂ (pair-cong u′ v′ ∙ pair-cong α γ)
+  (u : =₁ a b) (u′ : =₁ a′ b′)
+  (v : =₁ d e) (v′ : =₁ d′ e′)
+  (α : =₁ a a′) (β : =₁ b b′)
+  (γ : =₁ d d′) (δ : =₁ e e′)
+  → =₂ (u′ ∙ α) (β ∙ u) → =₂ (v′ ∙ γ) (δ ∙ v)
+  → =₂ (pair-cong u′ v′ ∙ pair-cong α γ)
       (pair-cong β δ ∙ pair-cong u v)
 pair-square u u′ v v′ α β γ δ p q =
   pair-cong-comp β u δ v ∙
@@ -119,15 +119,15 @@ pair-square u u′ v v′ α β γ δ p q =
 
 coordinate-comparison : {R X K C D : CAT}
   (ρ : MAP R X) (f : MAP X C) (π : MAP K C) (h : MAP R K)
-  → NatIso (π ∘ h) (f ∘ ρ) → (F : MAP C D)
-  → NatIso ((F ∘ π) ∘ h) ((F ∘ f) ∘ ρ)
+  → =₁ (π ∘ h) (f ∘ ρ) → (F : MAP C D)
+  → =₁ ((F ∘ π) ∘ h) ((F ∘ f) ∘ ρ)
 coordinate-comparison ρ f π h b F =
   invIso (comp-assoc ρ f F) ∙ ((F ◁ b) ∙ comp-assoc h π F)
 
 coordinate-outer-natural : {R X K C D : CAT}
   (ρ : MAP R X) (f : MAP X C) (π : MAP K C) (h : MAP R K)
-  (b : NatIso (π ∘ h) (f ∘ ρ)) {F F′ : MAP C D} (θ : NatIso F F′)
-  → Iso₂
+  (b : =₁ (π ∘ h) (f ∘ ρ)) {F F′ : MAP C D} (θ : =₁ F F′)
+  → =₂
       (coordinate-comparison ρ f π h b F′ ∙ ((θ ▷ π) ▷ h))
       (((θ ▷ f) ▷ ρ) ∙ coordinate-comparison ρ f π h b F)
 coordinate-outer-natural ρ f π h b {F} {F′} θ =
@@ -145,8 +145,8 @@ coordinate-outer-natural ρ f π h b {F} {F′} θ =
 productMap-comp-natural-outer : {C C′ C″ D D′ D″ : CAT}
   (f : MAP C C′) (g : MAP D D′)
   {F F′ : MAP C′ C″} {G G′ : MAP D′ D″}
-  (θ : NatIso F F′) (ψ : NatIso G G′)
-  → Iso₂
+  (θ : =₁ F F′) (ψ : =₁ G G′)
+  → =₂
       (productMap-comp f F′ g G′ ∙ (productMap-cong θ ψ ▷ productMap f g))
       (productMap-cong (θ ▷ f) (ψ ▷ g) ∙ productMap-comp f F g G)
 productMap-comp-natural-outer f g {F} {F′} {G} {G′} θ ψ =
@@ -172,10 +172,10 @@ productMap-comp-natural-outer f g {F} {F′} {G} {G′} θ ψ =
 coordinate-inner-natural : {R X K C D : CAT}
   (ρ : MAP R X) (π : MAP K C) (F : MAP C D)
   {f f′ : MAP X C} {h h′ : MAP R K}
-  (b : NatIso (π ∘ h) (f ∘ ρ)) (b′ : NatIso (π ∘ h′) (f′ ∘ ρ))
-  (α : NatIso f f′) (δ : NatIso h h′)
-  → Iso₂ (b′ ∙ (π ◁ δ)) ((α ▷ ρ) ∙ b)
-  → Iso₂
+  (b : =₁ (π ∘ h) (f ∘ ρ)) (b′ : =₁ (π ∘ h′) (f′ ∘ ρ))
+  (α : =₁ f f′) (δ : =₁ h h′)
+  → =₂ (b′ ∙ (π ◁ δ)) ((α ▷ ρ) ∙ b)
+  → =₂
       (coordinate-comparison ρ f′ π h′ b′ F ∙ ((F ∘ π) ◁ δ))
       (((F ◁ α) ▷ ρ) ∙ coordinate-comparison ρ f π h b F)
 coordinate-inner-natural ρ π F {f} {f′} {h} {h′} b b′ α δ square =
@@ -193,8 +193,8 @@ coordinate-inner-natural ρ π F {f} {f′} {h} {h′} b b′ α δ square =
 
 productMap-comp-natural-inner : {C C′ C″ D D′ D″ : CAT}
   {f f′ : MAP C C′} {g g′ : MAP D D′}
-  (α : NatIso f f′) (β : NatIso g g′) (F : MAP C′ C″) (G : MAP D′ D″)
-  → Iso₂
+  (α : =₁ f f′) (β : =₁ g g′) (F : MAP C′ C″) (G : MAP D′ D″)
+  → =₂
       (productMap-comp f′ F g′ G ∙ (productMap F G ◁ productMap-cong α β))
       (productMap-cong (F ◁ α) (G ◁ β) ∙ productMap-comp f F g G)
 productMap-comp-natural-inner {f = f} {f′} {g} {g′} α β F G =
@@ -226,9 +226,9 @@ productMap-comp-natural-inner {f = f} {f′} {g} {g′} α β F G =
 productMap-comp-natural : {C C′ C″ D D′ D″ : CAT}
   {f f′ : MAP C C′} {g g′ : MAP D D′}
   {F F′ : MAP C′ C″} {G G′ : MAP D′ D″}
-  (α : NatIso f f′) (β : NatIso g g′)
-  (θ : NatIso F F′) (ψ : NatIso G G′)
-  → Iso₂
+  (α : =₁ f f′) (β : =₁ g g′)
+  (θ : =₁ F F′) (ψ : =₁ G G′)
+  → =₂
       (productMap-comp f′ F′ g′ G′ ∙ (productMap-cong θ ψ ⋆ productMap-cong α β))
       (productMap-cong (θ ⋆ α) (ψ ⋆ β) ∙ productMap-comp f F g G)
 productMap-comp-natural {f = f} {f′} {g} {g′} {F} {F′} {G} {G′} α β θ ψ =
@@ -248,18 +248,18 @@ productMap-comp-natural {f = f} {f′} {g} {g′} {F} {F′} {G} {G′} α β θ
 
 productMap-cong-pre : {R C C′ D D′ : CAT}
   {f f′ : MAP C C′} {g g′ : MAP D D′}
-  (α : NatIso f f′) (β : NatIso g g′) (r : MAP R (C × D))
-  → Iso₂
+  (α : =₁ f f′) (β : =₁ g g′) (r : MAP R (C × D))
+  → =₂
       (pair-pre (f′ ∘ pr₁) (g′ ∘ pr₂) r ∙ (productMap-cong α β ▷ r))
       (pair-cong ((α ▷ pr₁) ▷ r) ((β ▷ pr₂) ▷ r) ∙
         pair-pre (f ∘ pr₁) (g ∘ pr₂) r)
 productMap-cong-pre α β r = invIso (pair-pre-natural-inputs (α ▷ pr₁) (β ▷ pr₂) r)
 
 prewhisker-square : {R X Y : CAT} {f f′ g g′ : MAP X Y}
-  (u : NatIso f g) (u′ : NatIso f′ g′)
-  (α : NatIso f f′) (β : NatIso g g′)
-  → Iso₂ (u′ ∙ α) (β ∙ u) → (r : MAP R X)
-  → Iso₂ ((u′ ▷ r) ∙ (α ▷ r)) ((β ▷ r) ∙ (u ▷ r))
+  (u : =₁ f g) (u′ : =₁ f′ g′)
+  (α : =₁ f f′) (β : =₁ g g′)
+  → =₂ (u′ ∙ α) (β ∙ u) → (r : MAP R X)
+  → =₂ ((u′ ▷ r) ∙ (α ▷ r)) ((β ▷ r) ∙ (u ▷ r))
 prewhisker-square u u′ α β p r = preWhisker-isoComp-at β u r ∙
   ((preWhisker r ◁ p) ∙ invIso (preWhisker-isoComp-at u′ α r))
 ```

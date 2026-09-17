@@ -58,23 +58,23 @@ module ParameterChange {X Y A B E : CAT}
   right-tail = invIso uk ∙ ((invIso β ▷ KA) ∙ invIso c₀)
 
   abstract
-    square : Iso₂
+    square : =₂
       ((((idIso (funUncurry k) ▷ LY) ∙ t) ∙ d))
       (qk ∙ right-tail)
 
     square = invIso normalize-right ∙ normalize-left
       where
-      normalize-left : Iso₂ (((idIso (funUncurry k) ▷ LY) ∙ t) ∙ d) (t ∙ d)
+      normalize-left : =₂ (((idIso (funUncurry k) ▷ LY) ∙ t) ∙ d) (t ∙ d)
       normalize-left = isoComp-cong
         (isoComp-unitˡ-at t ∙ isoComp-cong (preWhisker-idIso (funUncurry k) LY) (idIso t)) (idIso d)
-      normalize-right : Iso₂ (qk ∙ right-tail) (t ∙ d)
+      normalize-right : =₂ (qk ∙ right-tail) (t ∙ d)
       normalize-right = cancel-evaluation-route (t ∙ d) c₀ b₀ uk ∙
         isoComp-cong (invIso (isoComp-assoc-at t d (c₀ ∙ (b₀ ∙ uk))))
           (isoComp-cong (idIso (invIso uk))
             (isoComp-cong (pre-inverse β KA) (idIso (invIso c₀))))
 
   abstract
-    pasted-evaluation : Iso₂ (Pasted.target-evaluation ∙ (funEval ◁ paste Sk Sh))
+    pasted-evaluation : =₂ (Pasted.target-evaluation ∙ (funEval ◁ paste Sk Sh))
       (Pasted.evaluation-action ∙ Pasted.source-evaluation)
 
     pasted-evaluation = Pasted.project-paste square
@@ -96,7 +96,7 @@ module ParameterChange {X Y A B E : CAT}
   z = a₄ ∙ (a₃ ∙ (a₂ ∙ (a₁ ∙ u)))
 
   abstract
-    source-endpoint : Iso₂ (Pasted.source-evaluation ∙ z) u
+    source-endpoint : =₂ (Pasted.source-evaluation ∙ z) u
 
     source-endpoint = cancel-evaluation-pairs a₁ a₂ a₃ a₄ u ∙
       isoComp-cong
@@ -109,7 +109,7 @@ module ParameterChange {X Y A B E : CAT}
   input-action = e ◁ (LZ ◁ κA)
 
   abstract
-    input-square : Iso₂
+    input-square : =₂
       (comp-assoc KHA LZ e ∙ ((β ▷ KHA) ∙ (U ◁ κA)))
       (input-action ∙ (a₄ ∙ a₃))
 
@@ -119,7 +119,7 @@ module ParameterChange {X Y A B E : CAT}
         isoComp-cong (idIso (comp-assoc KHA LZ e)) (interchange-at β κA)))
 
   abstract
-    input-endpoint : Iso₂ composite-input (input-action ∙ z)
+    input-endpoint : =₂ composite-input (input-action ∙ z)
 
     input-endpoint =
       isoComp-cong (idIso input-action) (isoComp-assoc-at a₄ a₃ (a₂ ∙ (a₁ ∙ u))) ∙
@@ -134,7 +134,7 @@ module ParameterChange {X Y A B E : CAT}
   output-associator = invIso (comp-assoc LX KHB e)
   output-action = e ◁ (κB ▷ LX)
   abstract
-    output-endpoint : Iso₂
+    output-endpoint : =₂
       ((w ▷ LX) ∙ (output-associator ∙ output-action)) Pasted.target-evaluation
 
     output-endpoint = invIso normalize-target ∙
@@ -144,22 +144,22 @@ module ParameterChange {X Y A B E : CAT}
           (move-square (comp-assoc LX KHB e) ((e ◁ κB) ▷ LX) output-action
             (comp-assoc LX (KB ∘ HB) e) (whisker-mixed-at κB LX e))))
       where
-      final-associator : NatIso (e ∘ ((KB ∘ HB) ∘ LX)) ((e ∘ (KB ∘ HB)) ∘ LX)
+      final-associator : =₁ (e ∘ ((KB ∘ HB) ∘ LX)) ((e ∘ (KB ∘ HB)) ∘ LX)
       final-associator = invIso (comp-assoc LX (KB ∘ HB) e)
-      before : NatIso (e ∘ (KB ∘ HB)) ((e ∘ KB) ∘ HB)
+      before : =₁ (e ∘ (KB ∘ HB)) ((e ∘ KB) ∘ HB)
       before = invIso (comp-assoc HB KB e)
-      image-cancellation : Iso₂ ((e ◁ invIso κB) ∙ (e ◁ κB)) (idIso (e ∘ (KB ∘ HB)))
+      image-cancellation : =₂ ((e ◁ invIso κB) ∙ (e ◁ κB)) (idIso (e ∘ (KB ∘ HB)))
       image-cancellation = postWhisker-idIso e (KB ∘ HB) ∙
         ((postWhisker e ◁ isoComp-inverseˡ-at κB) ∙
           invIso (postWhisker-isoComp-at e (invIso κB) κB))
-      cancellation : Iso₂ (w ∙ (e ◁ κB)) before
+      cancellation : =₂ (w ∙ (e ◁ κB)) before
       cancellation = isoComp-unitʳ-at before ∙
         (isoComp-cong (idIso before) image-cancellation ∙
           isoComp-assoc-at before (e ◁ invIso κB) (e ◁ κB))
-      restricted-cancellation : Iso₂ ((w ▷ LX) ∙ ((e ◁ κB) ▷ LX)) (before ▷ LX)
+      restricted-cancellation : =₂ ((w ▷ LX) ∙ ((e ◁ κB) ▷ LX)) (before ▷ LX)
       restricted-cancellation = (preWhisker LX ◁ cancellation) ∙
         invIso (preWhisker-isoComp-at w (e ◁ κB) LX)
-      normalize-target : Iso₂ Pasted.target-evaluation ((before ▷ LX) ∙ final-associator)
+      normalize-target : =₂ Pasted.target-evaluation ((before ▷ LX) ∙ final-associator)
       normalize-target = isoComp-cong
         (preWhisker LX ◁ (isoComp-unitˡ-at before ∙
           isoComp-cong (preWhisker-idIso (funUncurry k) HB) (idIso before)))

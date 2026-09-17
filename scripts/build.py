@@ -1,7 +1,9 @@
 """Rebuild the web edition. Run outside the Windows sandbox for MiKTeX."""
 from common import *
 from prepare import prepare
-import argparse, subprocess, shutil, time
+from authored_pages import require_authored_pages, AUTHORED_PAGES
+from publish_site import publish_generated_pages
+import argparse, subprocess, shutil, time, tempfile
 
 AGGREGATE='SCT.WebEdition'
 
@@ -15,11 +17,8 @@ def run(args, cwd=BUILD):
 
 def build(frozen=False, reuse=False):
     previous=json.loads(read(SNAP/'inputs.json')) if (SNAP/'inputs.json').exists() else None
-    # Rebuild the distribution from an empty, explicitly bounded output tree.
-    output=SITE.resolve()
-    if output.parent!=ROOT.resolve() or output.name!='_site': raise ValueError('Unsafe distribution directory')
-    if output.exists(): shutil.rmtree(output)
-    output.mkdir()
+    # Keep the current preview available throughout checking and conversion.
+    require_authored_pages(SITE)
     prepare(frozen)
     state=json.loads(read(SNAP/'inputs.json'))
     fingerprint=digest(json.dumps(state['files'],sort_keys=True))
@@ -45,13 +44,23 @@ def build(frozen=False, reuse=False):
         output=run(args,SNAP/'agda')
         version=run(['agda','--version']).splitlines()[0]
         dump(receipt,{'input_hash':fingerprint,'agda':version,'command':args,'aggregate':AGGREGATE,'checked':True})
-    convert()
-    from assemble import assemble
-    assemble()
-    from validate import validate
-    validate()
+    with tempfile.TemporaryDirectory(prefix='site-stage-',dir=BUILD) as temporary:
+        stage=Path(temporary)
+        for name in AUTHORED_PAGES: shutil.copyfile(SITE/name,stage/name)
+        convert(site=stage)
+        from assemble import assemble
+        assemble(site=stage)
+        from validate import validate
+        validate(site=stage)
+        # An author may have edited a hand-written page during the build.
+        changed=False
+        for name in AUTHORED_PAGES:
+            if (stage/name).read_bytes()!=(SITE/name).read_bytes():
+                shutil.copyfile(SITE/name,stage/name); changed=True
+        if changed: validate(site=stage)
+        publish_generated_pages(stage,SITE,ROOT)
 
-def convert():
+def convert(site=SITE):
     # Actual LaTeX, Biber and TeX4ht determine numbering and citations.
     run(['pdflatex','-interaction=nonstopmode','-halt-on-error','reference-chapter.tex'])
     aux=read(BUILD/'reference-chapter.aux')
@@ -71,12 +80,12 @@ def convert():
     run(['make4ht','-a','warning','-f','html5','-d','html','pilot.tex','mathjax,charset=utf-8'])
     run(['biber','pilot'])
     run(['make4ht','-a','warning','-f','html5','-d','html','pilot.tex','mathjax,charset=utf-8'])
-    convert_diagrams()
-    shutil.copyfile(BUILD/'pilot-pdf.pdf',SITE/'book.pdf')
+    convert_diagrams(site=site)
+    shutil.copyfile(BUILD/'pilot-pdf.pdf',site/'book.pdf')
 
-def convert_diagrams():
+def convert_diagrams(site=SITE):
     for d in json.loads(read(BUILD/'selection.json'))['diagrams']:
-        stem=d['id']; svg=SITE/'assets/diagrams'/f'{stem}.svg'
+        stem=d['id']; svg=site/'assets/diagrams'/f'{stem}.svg'
         # Include the full preamble in the cache identity, not merely the diagram.
         sha=digest(read(BUILD/(stem+'.tex'))+read(BUILD/'preamble.tex'))
         cache=BUILD/(stem+'.sha256')

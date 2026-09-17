@@ -32,8 +32,8 @@ open import SCT.VolumeI.Chapter01.Section05.PastingLemma 𝒯 P using (module Pa
 open PN vocabulary terminal products productLaws composition vertical whiskering using (cancel-right)
 
 prefix-assoc : {C D : CAT} {f₀ f₁ f₂ f₃ f₄ : MAP C D}
-  (a₃ : NatIso f₃ f₄) (a₂ : NatIso f₂ f₃) (a₁ : NatIso f₁ f₂) (a₀ : NatIso f₀ f₁) →
-  Iso₂ (a₃ ∙ (a₂ ∙ (a₁ ∙ a₀))) ((a₃ ∙ (a₂ ∙ a₁)) ∙ a₀)
+  (a₃ : =₁ f₃ f₄) (a₂ : =₁ f₂ f₃) (a₁ : =₁ f₁ f₂) (a₀ : =₁ f₀ f₁) →
+  =₂ (a₃ ∙ (a₂ ∙ (a₁ ∙ a₀))) ((a₃ ∙ (a₂ ∙ a₁)) ∙ a₀)
 prefix-assoc a₃ a₂ a₁ a₀ = invIso (isoComp-assoc-at a₃ (a₂ ∙ a₁) a₀) ∙
   isoComp-cong (idIso a₃) (invIso (isoComp-assoc-at a₂ a₁ a₀))
 
@@ -76,12 +76,12 @@ module CospanEquivalence {C D E C′ D′ E′ : CAT}
     fr = α ▷ p
     assocLeft = comp-assoc p u f′
     prefix = ar ∙ (br ∙ cr)
-    σ-normal : Iso₂ σ ((Cone.match pasted ∙ fr) ∙ invIso assocLeft)
+    σ-normal : =₂ σ ((Cone.match pasted ∙ fr) ∙ invIso assocLeft)
     σ-normal = invIso (isoComp-assoc-at (Cone.match pasted) fr (invIso assocLeft)) ∙
       (invIso (isoComp-assoc-at prefix (dr ∙ er) (fr ∙ invIso assocLeft)) ∙
       (isoComp-cong (idIso prefix) (invIso (isoComp-assoc-at dr er (fr ∙ invIso assocLeft))) ∙
         prefix-assoc ar br cr (dr ∙ (er ∙ (fr ∙ invIso assocLeft)))))
-    normalized : Iso₂ (σ ∙ assocLeft) (Cone.match pasted ∙ fr)
+    normalized : =₂ (σ ∙ assocLeft) (Cone.match pasted ∙ fr)
     normalized = isoComp-unitʳ-at (Cone.match pasted ∙ fr) ∙
       (isoComp-cong (idIso (Cone.match pasted ∙ fr)) (isoComp-inverseˡ-at assocLeft) ∙
       (isoComp-assoc-at (Cone.match pasted ∙ fr) (invIso assocLeft) assocLeft ∙
@@ -108,7 +108,7 @@ module CospanEquivalence {C D E C′ D′ E′ : CAT}
     ν = Cone.match (conePre H target)
     inverseImage = postWhisker-idIso f′ (u ∘ p) ∙
       ((postWhisker f′ ◁ isoComp-inverseʳ-at legLeft) ∙ invIso (postWhisker-isoComp-at f′ legLeft (invIso legLeft)))
-    cancel : Iso₂ (((g′ ◁ ρ) ∙ ν) ∙ (f′ ◁ invIso legLeft)) σ
+    cancel : =₂ (((g′ ◁ ρ) ∙ ν) ∙ (f′ ◁ invIso legLeft)) σ
     cancel = isoComp-unitʳ-at σ ∙
       (isoComp-cong (idIso σ) inverseImage ∙
       (isoComp-assoc-at σ (f′ ◁ legLeft) (f′ ◁ invIso legLeft) ∙

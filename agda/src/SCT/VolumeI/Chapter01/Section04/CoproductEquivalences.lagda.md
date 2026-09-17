@@ -24,7 +24,7 @@ open import SCT.VolumeI.Chapter01.Section04.CoproductCalculus 𝒯 M B
 coproductSwap : {C D : CAT} → MAP (C ⊔ D) (D ⊔ C)
 coproductSwap = copair in₂ in₁
 
-coproductSwap-swap : (C D : CAT) → NatIso
+coproductSwap-swap : (C D : CAT) → =₁
   (coproductSwap {D} {C} ∘ coproductSwap {C} {D}) (id (C ⊔ D))
 coproductSwap-swap C D = copair-inclusions C D ∙
   (copair-cong (copair-β₂ in₂ in₁) (copair-β₁ in₂ in₁) ∙ copair-post in₂ in₁ coproductSwap)

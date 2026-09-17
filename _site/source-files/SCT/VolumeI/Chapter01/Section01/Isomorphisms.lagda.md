@@ -33,33 +33,33 @@ open Specialization.Units V T P PL S VC
 open Specialization.Whiskering V T P PL S W
 
 cancel-inverse : {C D : CAT} {f g h : MAP C D}
-  (β : NatIso g h) (α : NatIso f h)
-  → Iso₂ (β ∙ (invIso β ∙ α)) α
+  (β : =₁ g h) (α : =₁ f h)
+  → =₂ (β ∙ (invIso β ∙ α)) α
 cancel-inverse β α = isoComp-unitˡ-at α ∙
   (isoComp-cong (isoComp-inverseʳ-at β) (idIso α)
    ∙ invIso (isoComp-assoc-at β (invIso β) α))
 
 reassociateFour : {C D : CAT} {f g h i j : MAP C D}
-  (δ : NatIso i j) (γ : NatIso h i) (β : NatIso g h) (α : NatIso f g)
-  → Iso₂ ((δ ∙ γ) ∙ (β ∙ α)) (δ ∙ ((γ ∙ β) ∙ α))
+  (δ : =₁ i j) (γ : =₁ h i) (β : =₁ g h) (α : =₁ f g)
+  → =₂ ((δ ∙ γ) ∙ (β ∙ α)) (δ ∙ ((γ ∙ β) ∙ α))
 reassociateFour δ γ β α =
   isoComp-cong (idIso δ) (invIso (isoComp-assoc-at γ β α))
   ∙ isoComp-assoc-at δ γ (β ∙ α)
 
 hcomp-idIso : {C D E : CAT} (g : MAP D E) (f : MAP C D)
-  → Iso₂ (idIso g ⋆ idIso f) (idIso (g ∘ f))
+  → =₂ (idIso g ⋆ idIso f) (idIso (g ∘ f))
 hcomp-idIso g f = isoComp-unitˡ-at (idIso (g ∘ f))
   ∙ isoComp-cong (preWhisker-idIso g f) (postWhisker-idIso g f)
 
 hcomp-interchange : {C D E : CAT} {f f′ : MAP C D} {g g′ : MAP D E}
-  (β : NatIso g g′) (α : NatIso f f′)
-  → Iso₂ (β ⋆ α) ((g′ ◁ α) ∙ (β ▷ f))
+  (β : =₁ g g′) (α : =₁ f f′)
+  → =₂ (β ⋆ α) ((g′ ◁ α) ∙ (β ▷ f))
 hcomp-interchange = interchange-at
 
 hcomp-isoComp : {C D E : CAT} {f₀ f₁ f₂ : MAP C D} {g₀ g₁ g₂ : MAP D E}
-  (β₂ : NatIso g₁ g₂) (β₁ : NatIso g₀ g₁)
-  (α₂ : NatIso f₁ f₂) (α₁ : NatIso f₀ f₁)
-  → Iso₂ ((β₂ ∙ β₁) ⋆ (α₂ ∙ α₁)) ((β₂ ⋆ α₂) ∙ (β₁ ⋆ α₁))
+  (β₂ : =₁ g₁ g₂) (β₁ : =₁ g₀ g₁)
+  (α₂ : =₁ f₁ f₂) (α₁ : =₁ f₀ f₁)
+  → =₂ ((β₂ ∙ β₁) ⋆ (α₂ ∙ α₁)) ((β₂ ⋆ α₂) ∙ (β₁ ⋆ α₁))
 hcomp-isoComp {f₁ = f₁} {f₂} {g₀ = g₀} {g₁} β₂ β₁ α₂ α₁ =
   let δ = β₂ ▷ f₂
       γ = β₁ ▷ f₂

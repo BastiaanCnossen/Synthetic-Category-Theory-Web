@@ -24,8 +24,8 @@ open import SCT.VolumeI.Chapter01.Section05.ConeCompatibilityRestriction 𝒯
 open import SCT.VolumeI.Chapter01.Section05.ComparisonSquares 𝒯
 
 coproduct-reflect-Iso₂ : {C D E : CAT} {h k : MAP (C ⊔ D) E}
-  (α β : NatIso h k) → Iso₂ (α ▷ in₁) (β ▷ in₁)
-  → Iso₂ (α ▷ in₂) (β ▷ in₂) → Iso₂ α β
+  (α β : =₁ h k) → =₂ (α ▷ in₁) (β ▷ in₁)
+  → =₂ (α ▷ in₂) (β ▷ in₂) → =₂ α β
 coproduct-reflect-Iso₂ {h = h} {k} α β p q =
   equiv-reflect (coproductIsoRestriction-isEquiv h k) α β
     (invIso (pair-pre (preWhisker in₁) (preWhisker in₂) β) ∙
@@ -33,11 +33,11 @@ coproduct-reflect-Iso₂ {h = h} {k} α β p q =
 
 coproduct-cone-comparison : {A B C D E : CAT} {f : MAP A E} {g : MAP B E}
   (s t : Cone f g (C ⊔ D))
-  (α : NatIso (Cone.left s) (Cone.left t)) (β : NatIso (Cone.right s) (Cone.right t))
+  (α : =₁ (Cone.left s) (Cone.left t)) (β : =₁ (Cone.right s) (Cone.right t))
   (Φ₁ : ConeIso (conePre in₁ s) (conePre in₁ t))
   (Φ₂ : ConeIso (conePre in₂ s) (conePre in₂ t))
-  → Iso₂ (ConeIso.leftIso Φ₁) (α ▷ in₁) → Iso₂ (ConeIso.rightIso Φ₁) (β ▷ in₁)
-  → Iso₂ (ConeIso.leftIso Φ₂) (α ▷ in₂) → Iso₂ (ConeIso.rightIso Φ₂) (β ▷ in₂)
+  → =₂ (ConeIso.leftIso Φ₁) (α ▷ in₁) → =₂ (ConeIso.rightIso Φ₁) (β ▷ in₁)
+  → =₂ (ConeIso.leftIso Φ₂) (α ▷ in₂) → =₂ (ConeIso.rightIso Φ₂) (β ▷ in₂)
   → ConeIso s t
 coproduct-cone-comparison {f = f} {g} s t α β Φ₁ Φ₂ l₁ r₁ l₂ r₂ = record
   { leftIso = α ; rightIso = β

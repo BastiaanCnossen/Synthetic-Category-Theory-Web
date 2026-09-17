@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>SCT.VolumeI.Chapter01.Section03.Everything | Synthetic category theory</title>
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../assets/reader-shell.css"><link rel="stylesheet" href="../assets/reader.css"><link rel="stylesheet" href="../assets/Agda.css">
+<script defer src="../assets/reader.js"></script></head>
+<body class=""><a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><a class="collection-return" href="../index.html">Synthetic category theory</a><p class="eyebrow">Volume I · Experimental web edition</p><h1>SCT.VolumeI.Chapter01.Section03.Everything</h1></header>
+<div class="reader-grid"><aside class="reader-nav" aria-label="Book navigation"><details open><summary>Contents</summary><nav><a href="../index.html">Overview</a><a href="../chapter-introduction.html">Chapter introduction</a><a href="../basic-vocabulary.html">1.1 · The basic vocabulary</a><a href="../equivalences.html">1.2 · Equivalences of categories</a><a href="../mapping-animae.html">1.3 · Mapping animae</a><a href="../code-index.html">All Agda code</a><a href="../formalization.html">Agda guide</a><a href="../build-report.html">Build details</a></nav></details>
+<details class="settings"><summary>Reading preferences</summary><label><input id="collapse-proofs" type="checkbox"> Collapse book proofs</label><label><input id="hide-agda-links" type="checkbox"> Hide links to Agda code</label><a href="../book.pdf">Read the web edition PDF</a></details></aside>
+<main id="main" class="notes-page" tabindex="-1"><p class="module-caption">Complete compiler-highlighted source. Follow a symbol to its declaration.</p><pre class="Agda"><a id="1" class="Symbol">{-#</a> <a id="5" class="Keyword">OPTIONS</a> <a id="13" class="Pragma">--safe</a> <a id="20" class="Pragma">--without-K</a> <a id="32" class="Symbol">#-}</a>
+<a id="36" class="Keyword">module</a> <a id="43" href="SCT.VolumeI.Chapter01.Section03.Everything.html" class="Module">SCT.VolumeI.Chapter01.Section03.Everything</a> <a id="86" class="Keyword">where</a>
+
+<a id="93" class="Keyword">import</a> <a id="100" href="SCT.VolumeI.Chapter01.Section03.AbsoluteObjects.html" class="Module">SCT.VolumeI.Chapter01.Section03.AbsoluteObjects</a>
+<a id="148" class="Keyword">import</a> <a id="155" href="SCT.VolumeI.Chapter01.Section03.ApplicationRestriction.html" class="Module">SCT.VolumeI.Chapter01.Section03.ApplicationRestriction</a>
+<a id="210" class="Keyword">import</a> <a id="217" href="SCT.VolumeI.Chapter01.Section03.ApplicationRouteNormalization.html" class="Module">SCT.VolumeI.Chapter01.Section03.ApplicationRouteNormalization</a>
+<a id="279" class="Keyword">import</a> <a id="286" href="SCT.VolumeI.Chapter01.Section03.Coherence.html" class="Module">SCT.VolumeI.Chapter01.Section03.Coherence</a>
+<a id="328" class="Keyword">import</a> <a id="335" href="SCT.VolumeI.Chapter01.Section03.CoherenceTransport.html" class="Module">SCT.VolumeI.Chapter01.Section03.CoherenceTransport</a>
+<a id="386" class="Keyword">import</a> <a id="393" href="SCT.VolumeI.Chapter01.Section03.ComparisonCancellation.html" class="Module">SCT.VolumeI.Chapter01.Section03.ComparisonCancellation</a>
+<a id="448" class="Keyword">import</a> <a id="455" href="SCT.VolumeI.Chapter01.Section03.Compatibility.html" class="Module">SCT.VolumeI.Chapter01.Section03.Compatibility</a>
+<a id="501" class="Keyword">import</a> <a id="508" href="SCT.VolumeI.Chapter01.Section03.Composition.html" class="Module">SCT.VolumeI.Chapter01.Section03.Composition</a>
+<a id="552" class="Keyword">import</a> <a id="559" href="SCT.VolumeI.Chapter01.Section03.CompositionInputBaseCalculus.html" class="Module">SCT.VolumeI.Chapter01.Section03.CompositionInputBaseCalculus</a>
+<a id="620" class="Keyword">import</a> <a id="627" href="SCT.VolumeI.Chapter01.Section03.CompositionInputCalculus.html" class="Module">SCT.VolumeI.Chapter01.Section03.CompositionInputCalculus</a>
+<a id="684" class="Keyword">import</a> <a id="691" href="SCT.VolumeI.Chapter01.Section03.CompositionInputParameterChange.html" class="Module">SCT.VolumeI.Chapter01.Section03.CompositionInputParameterChange</a>
+<a id="755" class="Keyword">import</a> <a id="762" href="SCT.VolumeI.Chapter01.Section03.CompositionNaturality.html" class="Module">SCT.VolumeI.Chapter01.Section03.CompositionNaturality</a>
+<a id="816" class="Keyword">import</a> <a id="823" href="SCT.VolumeI.Chapter01.Section03.CompositionParameterChange.html" class="Module">SCT.VolumeI.Chapter01.Section03.CompositionParameterChange</a>
+<a id="882" class="Keyword">import</a> <a id="889" href="SCT.VolumeI.Chapter01.Section03.CompositionPentagon.html" class="Module">SCT.VolumeI.Chapter01.Section03.CompositionPentagon</a>
+<a id="941" class="Keyword">import</a> <a id="948" href="SCT.VolumeI.Chapter01.Section03.CompositionRestrictionCalculus.html" class="Module">SCT.VolumeI.Chapter01.Section03.CompositionRestrictionCalculus</a>
+<a id="1011" class="Keyword">import</a> <a id="1018" href="SCT.VolumeI.Chapter01.Section03.Currying.html" class="Module">SCT.VolumeI.Chapter01.Section03.Currying</a>
+<a id="1059" class="Keyword">import</a> <a id="1066" href="SCT.VolumeI.Chapter01.Section03.DecodingNaturality.html" class="Module">SCT.VolumeI.Chapter01.Section03.DecodingNaturality</a>
+<a id="1117" class="Keyword">import</a> <a id="1124" href="SCT.VolumeI.Chapter01.Section03.EquivalenceDetection.html" class="Module">SCT.VolumeI.Chapter01.Section03.EquivalenceDetection</a>
+<a id="1177" class="Keyword">import</a> <a id="1184" href="SCT.VolumeI.Chapter01.Section03.EvaluationInputChange.html" class="Module">SCT.VolumeI.Chapter01.Section03.EvaluationInputChange</a>
+<a id="1238" class="Keyword">import</a> <a id="1245" href="SCT.VolumeI.Chapter01.Section03.EvaluationParameterChange.html" class="Module">SCT.VolumeI.Chapter01.Section03.EvaluationParameterChange</a>
+<a id="1303" class="Keyword">import</a> <a id="1310" href="SCT.VolumeI.Chapter01.Section03.Functoriality.html" class="Module">SCT.VolumeI.Chapter01.Section03.Functoriality</a>
+<a id="1356" class="Keyword">import</a> <a id="1363" href="SCT.VolumeI.Chapter01.Section03.IdentityParameterChange.html" class="Module">SCT.VolumeI.Chapter01.Section03.IdentityParameterChange</a>
+<a id="1419" class="Keyword">import</a> <a id="1426" href="SCT.VolumeI.Chapter01.Section03.InternalCoherence.html" class="Module">SCT.VolumeI.Chapter01.Section03.InternalCoherence</a>
+<a id="1476" class="Keyword">import</a> <a id="1483" href="SCT.VolumeI.Chapter01.Section03.InternalPentagon.html" class="Module">SCT.VolumeI.Chapter01.Section03.InternalPentagon</a>
+<a id="1532" class="Keyword">import</a> <a id="1539" href="SCT.VolumeI.Chapter01.Section03.IteratedCompatibility.html" class="Module">SCT.VolumeI.Chapter01.Section03.IteratedCompatibility</a>
+<a id="1593" class="Keyword">import</a> <a id="1600" href="SCT.VolumeI.Chapter01.Section03.MappingAnimae.html" class="Module">SCT.VolumeI.Chapter01.Section03.MappingAnimae</a>
+<a id="1646" class="Keyword">import</a> <a id="1653" href="SCT.VolumeI.Chapter01.Section03.MappingProofCalculus.html" class="Module">SCT.VolumeI.Chapter01.Section03.MappingProofCalculus</a>
+<a id="1706" class="Keyword">import</a> <a id="1713" href="SCT.VolumeI.Chapter01.Section03.NestedApplicationRestriction.html" class="Module">SCT.VolumeI.Chapter01.Section03.NestedApplicationRestriction</a>
+<a id="1774" class="Keyword">import</a> <a id="1781" href="SCT.VolumeI.Chapter01.Section03.ParameterChange.html" class="Module">SCT.VolumeI.Chapter01.Section03.ParameterChange</a>
+<a id="1829" class="Keyword">import</a> <a id="1836" href="SCT.VolumeI.Chapter01.Section03.ParameterChangeNaturality.html" class="Module">SCT.VolumeI.Chapter01.Section03.ParameterChangeNaturality</a>
+<a id="1894" class="Keyword">import</a> <a id="1901" href="SCT.VolumeI.Chapter01.Section03.ParameterSquareNaturality.html" class="Module">SCT.VolumeI.Chapter01.Section03.ParameterSquareNaturality</a>
+<a id="1959" class="Keyword">import</a> <a id="1966" href="SCT.VolumeI.Chapter01.Section03.ParameterSquarePasting.html" class="Module">SCT.VolumeI.Chapter01.Section03.ParameterSquarePasting</a>
+<a id="2021" class="Keyword">import</a> <a id="2028" href="SCT.VolumeI.Chapter01.Section03.ParameterSquareUnits.html" class="Module">SCT.VolumeI.Chapter01.Section03.ParameterSquareUnits</a>
+<a id="2081" class="Keyword">import</a> <a id="2088" href="SCT.VolumeI.Chapter01.Section03.Points.html" class="Module">SCT.VolumeI.Chapter01.Section03.Points</a>
+<a id="2127" class="Keyword">import</a> <a id="2134" href="SCT.VolumeI.Chapter01.Section03.PrecompositionNaturality.html" class="Module">SCT.VolumeI.Chapter01.Section03.PrecompositionNaturality</a>
+<a id="2191" class="Keyword">import</a> <a id="2198" href="SCT.VolumeI.Chapter01.Section03.ProductAssociativity.html" class="Module">SCT.VolumeI.Chapter01.Section03.ProductAssociativity</a>
+<a id="2251" class="Keyword">import</a> <a id="2258" href="SCT.VolumeI.Chapter01.Section03.Products.html" class="Module">SCT.VolumeI.Chapter01.Section03.Products</a>
+<a id="2299" class="Keyword">import</a> <a id="2306" href="SCT.VolumeI.Chapter01.Section03.ProductSecondCoordinate.html" class="Module">SCT.VolumeI.Chapter01.Section03.ProductSecondCoordinate</a>
+<a id="2362" class="Keyword">import</a> <a id="2369" href="SCT.VolumeI.Chapter01.Section03.ProductSubstitution.html" class="Module">SCT.VolumeI.Chapter01.Section03.ProductSubstitution</a>
+<a id="2421" class="Keyword">import</a> <a id="2428" href="SCT.VolumeI.Chapter01.Section03.ProjectionSquares.html" class="Module">SCT.VolumeI.Chapter01.Section03.ProjectionSquares</a>
+<a id="2478" class="Keyword">import</a> <a id="2485" href="SCT.VolumeI.Chapter01.Section03.ProofCalculus.html" class="Module">SCT.VolumeI.Chapter01.Section03.ProofCalculus</a>
+<a id="2531" class="Keyword">import</a> <a id="2538" href="SCT.VolumeI.Chapter01.Section03.RetainedCompositionBaseChange.html" class="Module">SCT.VolumeI.Chapter01.Section03.RetainedCompositionBaseChange</a>
+<a id="2600" class="Keyword">import</a> <a id="2607" href="SCT.VolumeI.Chapter01.Section03.RetainedCompositionParameterChange.html" class="Module">SCT.VolumeI.Chapter01.Section03.RetainedCompositionParameterChange</a>
+<a id="2674" class="Keyword">import</a> <a id="2681" href="SCT.VolumeI.Chapter01.Section03.RetainedCompositionRoutes.html" class="Module">SCT.VolumeI.Chapter01.Section03.RetainedCompositionRoutes</a>
+<a id="2739" class="Keyword">import</a> <a id="2746" href="SCT.VolumeI.Chapter01.Section03.RetainedIdentityParameterChange.html" class="Module">SCT.VolumeI.Chapter01.Section03.RetainedIdentityParameterChange</a>
+<a id="2810" class="Keyword">import</a> <a id="2817" href="SCT.VolumeI.Chapter01.Section03.RetainedParameterChangeProjections.html" class="Module">SCT.VolumeI.Chapter01.Section03.RetainedParameterChangeProjections</a>
+<a id="2884" class="Keyword">import</a> <a id="2891" href="SCT.VolumeI.Chapter01.Section03.Setup.html" class="Module">SCT.VolumeI.Chapter01.Section03.Setup</a>
+<a id="2929" class="Keyword">import</a> <a id="2936" href="SCT.VolumeI.Chapter01.Section03.Specialization.html" class="Module">SCT.VolumeI.Chapter01.Section03.Specialization</a>
+<a id="2983" class="Keyword">import</a> <a id="2990" href="SCT.VolumeI.Chapter01.Section03.SubstitutionCoherence.html" class="Module">SCT.VolumeI.Chapter01.Section03.SubstitutionCoherence</a>
+<a id="3044" class="Keyword">import</a> <a id="3051" href="SCT.VolumeI.Chapter01.Section03.UncurriedIdentityParameterChange.html" class="Module">SCT.VolumeI.Chapter01.Section03.UncurriedIdentityParameterChange</a>
+<a id="3116" class="Keyword">import</a> <a id="3123" href="SCT.VolumeI.Chapter01.Section03.Uncurrying.html" class="Module">SCT.VolumeI.Chapter01.Section03.Uncurrying</a>
+<a id="3166" class="Keyword">import</a> <a id="3173" href="SCT.VolumeI.Chapter01.Section03.UniversalAssociatorRestriction.html" class="Module">SCT.VolumeI.Chapter01.Section03.UniversalAssociatorRestriction</a>
+<a id="3236" class="Keyword">import</a> <a id="3243" href="SCT.VolumeI.Chapter01.Section03.UniversalCoherence.html" class="Module">SCT.VolumeI.Chapter01.Section03.UniversalCoherence</a>
+<a id="3294" class="Keyword">import</a> <a id="3301" href="SCT.VolumeI.Chapter01.Section03.UniversalCoherenceCalculus.html" class="Module">SCT.VolumeI.Chapter01.Section03.UniversalCoherenceCalculus</a>
+<a id="3360" class="Keyword">import</a> <a id="3367" href="SCT.VolumeI.Chapter01.Section03.UniversalUnitCalculus.html" class="Module">SCT.VolumeI.Chapter01.Section03.UniversalUnitCalculus</a>
+<a id="3421" class="Keyword">import</a> <a id="3428" href="SCT.VolumeI.Chapter01.Section03.UniversalUnitChange.html" class="Module">SCT.VolumeI.Chapter01.Section03.UniversalUnitChange</a>
+</pre></main></div>
+<footer>Experimental web edition · Generated from annotated LaTeX and Agda sources. <a href="../build-report.html">Build details</a></footer></body></html>

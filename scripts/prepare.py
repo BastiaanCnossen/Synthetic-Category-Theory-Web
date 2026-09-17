@@ -39,7 +39,7 @@ def prepare(frozen=False):
     stop=len(body)
     write(BUILD/'selected-source.tex',body)
     sections=list(re.finditer(r'\\section\{([^}]+)\}\s*\\label\[section\]\{([^}]+)\}',body))
-    if [m[2] for m in sections] != ['sec:External_Theory','sec:Equivalence_Of_Categories']: raise ValueError('Selected section boundary changed; review selection')
+    if [m[2] for m in sections] != ['sec:External_Theory','sec:Equivalence_Of_Categories','sec:Mapping_Animae']: raise ValueError('Selected section boundary changed; review selection')
     # A standalone faithful PDF is built from precisely the same selected source.
     preamble=read(SNAP/'preamble.tex')
     write(BUILD/'preamble.tex',preamble)
@@ -107,6 +107,6 @@ def prepare(frozen=False):
     # Keep references and bibliography delegated to the actual TeX packages.
     write(BUILD/'pilot.tex',wrapper+body+'\n\\printbibliography\n\\end{document}\n')
     dump(BUILD/'selection.json',{'chapter':CHAPTER,'sections':[{'title':m[1],'label':m[2]} for m in sections],'diagrams':diagrams,'source_characters':stop,'labels':re.findall(r'\\label(?:\[[^\]]+\])?\{([^}]+)\}',body)})
-    print(f'Prepared 2 sections, {len(diagrams)} diagram displays, {len(inventory["files"])} pinned inputs.')
+    print(f'Prepared {len(sections)} sections, {len(diagrams)} diagram displays, {len(inventory["files"])} pinned inputs.')
 
 if __name__=='__main__': prepare('--frozen' in sys.argv)

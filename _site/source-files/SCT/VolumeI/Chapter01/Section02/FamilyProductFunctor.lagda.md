@@ -44,36 +44,36 @@ open FamilyNaturality V T P PL S VC W using
    family-pair-pre-inputs; family-pair-pre-substitution)
 
 productFamily : {A C C′ D D′ : CAT} {f f′ : MAP C C′} {g g′ : MAP D D′}
-  → MAP A (f ≅ f′) → MAP A (g ≅ g′)
-  → MAP A (productMap f g ≅ productMap f′ g′)
+  → MAP A (f ＝ f′) → MAP A (g ＝ g′)
+  → MAP A (productMap f g ＝ productMap f′ g′)
 productFamily α β = pairing (α ▷ pr₁) (β ▷ pr₂)
 
 productFamily-absolute : {C C′ D D′ : CAT} {f f′ : MAP C C′} {g g′ : MAP D D′}
-  (α : NatIso f f′) (β : NatIso g g′)
-  → Iso₂ (productFamily α β) (productMap-cong α β)
+  (α : =₁ f f′) (β : =₁ g g′)
+  → =₂ (productFamily α β) (productMap-cong α β)
 productFamily-absolute α β = pairing-absolute (α ▷ pr₁) (β ▷ pr₂)
 
 productFamily-β₁ : {A C C′ D D′ : CAT} {f f′ : MAP C C′} {g g′ : MAP D D′}
-  (α : MAP A (f ≅ f′)) (β : MAP A (g ≅ g′))
-  → NatIso (pr₁ ◁ productFamily α β)
+  (α : MAP A (f ＝ f′)) (β : MAP A (g ＝ g′))
+  → =₁ (pr₁ ◁ productFamily α β)
       (const (invIso (pair-β₁ (f′ ∘ pr₁) (g′ ∘ pr₂))) ∙
         ((α ▷ pr₁) ∙ const (pair-β₁ (f ∘ pr₁) (g ∘ pr₂))))
 productFamily-β₁ α β = pairing-β₁ (α ▷ pr₁) (β ▷ pr₂)
 
 productFamily-β₂ : {A C C′ D D′ : CAT} {f f′ : MAP C C′} {g g′ : MAP D D′}
-  (α : MAP A (f ≅ f′)) (β : MAP A (g ≅ g′))
-  → NatIso (pr₂ ◁ productFamily α β)
+  (α : MAP A (f ＝ f′)) (β : MAP A (g ＝ g′))
+  → =₁ (pr₂ ◁ productFamily α β)
       (const (invIso (pair-β₂ (f′ ∘ pr₁) (g′ ∘ pr₂))) ∙
         ((β ▷ pr₂) ∙ const (pair-β₂ (f ∘ pr₁) (g ∘ pr₂))))
 productFamily-β₂ α β = pairing-β₂ (α ▷ pr₁) (β ▷ pr₂)
 
 paste-family-squares : {A X Y : CAT} {a a′ b b′ c c′ : MAP X Y}
-  (u : NatIso a b) (u′ : NatIso a′ b′)
-  (v : NatIso b c) (v′ : NatIso b′ c′)
-  (α : MAP A (a ≅ a′)) (β : MAP A (b ≅ b′)) (γ : MAP A (c ≅ c′))
-  → NatIso (const u′ ∙ α) (β ∙ const u)
-  → NatIso (const v′ ∙ β) (γ ∙ const v)
-  → NatIso (const (v′ ∙ u′) ∙ α) (γ ∙ const (v ∙ u))
+  (u : =₁ a b) (u′ : =₁ a′ b′)
+  (v : =₁ b c) (v′ : =₁ b′ c′)
+  (α : MAP A (a ＝ a′)) (β : MAP A (b ＝ b′)) (γ : MAP A (c ＝ c′))
+  → =₁ (const u′ ∙ α) (β ∙ const u)
+  → =₁ (const v′ ∙ β) (γ ∙ const v)
+  → =₁ (const (v′ ∙ u′) ∙ α) (γ ∙ const (v ∙ u))
 paste-family-squares u u′ v v′ α β γ p q =
   isoComp-cong (idIso γ) (const-comp v u) ∙
   (assoc γ (const v) (const u) ∙
@@ -85,13 +85,13 @@ paste-family-squares u u′ v v′ α β γ p q =
 
 pair-family-square : {A X C D : CAT}
   {a a′ b b′ : MAP X C} {d d′ e e′ : MAP X D}
-  (u : NatIso a b) (u′ : NatIso a′ b′)
-  (v : NatIso d e) (v′ : NatIso d′ e′)
-  (α : MAP A (a ≅ a′)) (β : MAP A (b ≅ b′))
-  (γ : MAP A (d ≅ d′)) (δ : MAP A (e ≅ e′))
-  → NatIso (const u′ ∙ α) (β ∙ const u)
-  → NatIso (const v′ ∙ γ) (δ ∙ const v)
-  → NatIso (const (pair-cong u′ v′) ∙ pairing α γ)
+  (u : =₁ a b) (u′ : =₁ a′ b′)
+  (v : =₁ d e) (v′ : =₁ d′ e′)
+  (α : MAP A (a ＝ a′)) (β : MAP A (b ＝ b′))
+  (γ : MAP A (d ＝ d′)) (δ : MAP A (e ＝ e′))
+  → =₁ (const u′ ∙ α) (β ∙ const u)
+  → =₁ (const v′ ∙ γ) (δ ∙ const v)
+  → =₁ (const (pair-cong u′ v′) ∙ pairing α γ)
       (pairing β δ ∙ const (pair-cong u v))
 pair-family-square u u′ v v′ α β γ δ p q =
   isoComp-cong (idIso _) (pairing-constant u v) ∙
@@ -101,8 +101,8 @@ pair-family-square u u′ v v′ α β γ δ p q =
     isoComp-cong (invIso (pairing-constant u′ v′)) (idIso _))))
 
 family-pre-composition : {A B C D : CAT} {f g h : MAP C D}
-  (τ : MAP A (g ≅ h)) (σ : MAP A (f ≅ g)) (k : MAP B C)
-  → NatIso ((τ ∙ σ) ▷ k) ((τ ▷ k) ∙ (σ ▷ k))
+  (τ : MAP A (g ＝ h)) (σ : MAP A (f ＝ g)) (k : MAP B C)
+  → =₁ ((τ ∙ σ) ▷ k) ((τ ▷ k) ∙ (σ ▷ k))
 family-pre-composition {f = f} {g} {h} τ σ k =
   let point = pair τ σ
   in specialize (preWhisker-isoComp f g h k) point
@@ -114,9 +114,9 @@ family-pre-composition {f = f} {g} {h} τ σ k =
 
 productFamily-composition : {A C C′ D D′ : CAT}
   {f₀ f₁ f₂ : MAP C C′} {g₀ g₁ g₂ : MAP D D′}
-  (α₂ : MAP A (f₁ ≅ f₂)) (α₁ : MAP A (f₀ ≅ f₁))
-  (β₂ : MAP A (g₁ ≅ g₂)) (β₁ : MAP A (g₀ ≅ g₁))
-  → NatIso (productFamily (α₂ ∙ α₁) (β₂ ∙ β₁))
+  (α₂ : MAP A (f₁ ＝ f₂)) (α₁ : MAP A (f₀ ＝ f₁))
+  (β₂ : MAP A (g₁ ＝ g₂)) (β₁ : MAP A (g₀ ＝ g₁))
+  → =₁ (productFamily (α₂ ∙ α₁) (β₂ ∙ β₁))
       (productFamily α₂ β₂ ∙ productFamily α₁ β₁)
 productFamily-composition α₂ α₁ β₂ β₁ =
   pairing-composition (α₂ ▷ pr₁) (α₁ ▷ pr₁) (β₂ ▷ pr₂) (β₁ ▷ pr₂) ∙
@@ -124,19 +124,19 @@ productFamily-composition α₂ α₁ β₂ β₁ =
 
 productFamily-cong : {A C C′ D D′ : CAT}
   {f f′ : MAP C C′} {g g′ : MAP D D′}
-  {α α′ : MAP A (f ≅ f′)} {β β′ : MAP A (g ≅ g′)}
-  → NatIso α α′ → NatIso β β′ → NatIso (productFamily α β) (productFamily α′ β′)
+  {α α′ : MAP A (f ＝ f′)} {β β′ : MAP A (g ＝ g′)}
+  → =₁ α α′ → =₁ β β′ → =₁ (productFamily α β) (productFamily α′ β′)
 productFamily-cong p q = pairing-cong (preWhisker pr₁ ◁ p) (preWhisker pr₂ ◁ q)
 
 productFamily-constant : {A C C′ D D′ : CAT}
   {f f′ : MAP C C′} {g g′ : MAP D D′}
-  (α : NatIso f f′) (β : NatIso g g′)
-  → NatIso (productFamily (const {P = A} α) (const β)) (const (productMap-cong α β))
+  (α : =₁ f f′) (β : =₁ g g′)
+  → =₁ (productFamily (const {P = A} α) (const β)) (const (productMap-cong α β))
 productFamily-constant α β = pairing-constant (α ▷ pr₁) (β ▷ pr₂) ∙
   pairing-cong (pre-constant α pr₁) (pre-constant β pr₂)
 
 productFamily-identity : {A C C′ D D′ : CAT} (f : MAP C C′) (g : MAP D D′)
-  → NatIso (productFamily (const {P = A} (idIso f)) (const (idIso g)))
+  → =₁ (productFamily (const {P = A} (idIso f)) (const (idIso g)))
       (const (idIso (productMap f g)))
 productFamily-identity f g = pairing-identity (f ∘ pr₁) (g ∘ pr₂) ∙
   pairing-cong
@@ -145,8 +145,8 @@ productFamily-identity f g = pairing-identity (f ∘ pr₁) (g ∘ pr₂) ∙
 
 coordinate-outer-family : {A R X K C D : CAT}
   (ρ : MAP R X) (f : MAP X C) (π : MAP K C) (h : MAP R K)
-  (b : NatIso (π ∘ h) (f ∘ ρ)) {F F′ : MAP C D} (θ : MAP A (F ≅ F′))
-  → NatIso
+  (b : =₁ (π ∘ h) (f ∘ ρ)) {F F′ : MAP C D} (θ : MAP A (F ＝ F′))
+  → =₁
       (const (coordinate-comparison ρ f π h b F′) ∙ ((θ ▷ π) ▷ h))
       (((θ ▷ f) ▷ ρ) ∙ const (coordinate-comparison ρ f π h b F))
 coordinate-outer-family ρ f π h b {F} {F′} θ =
@@ -164,10 +164,10 @@ coordinate-outer-family ρ f π h b {F} {F′} θ =
 coordinate-inner-family : {A R X K C D : CAT}
   (ρ : MAP R X) (π : MAP K C) (F : MAP C D)
   {f f′ : MAP X C} {h h′ : MAP R K}
-  (b : NatIso (π ∘ h) (f ∘ ρ)) (b′ : NatIso (π ∘ h′) (f′ ∘ ρ))
-  (α : MAP A (f ≅ f′)) (δ : MAP A (h ≅ h′))
-  → NatIso (const b′ ∙ (π ◁ δ)) ((α ▷ ρ) ∙ const b)
-  → NatIso
+  (b : =₁ (π ∘ h) (f ∘ ρ)) (b′ : =₁ (π ∘ h′) (f′ ∘ ρ))
+  (α : MAP A (f ＝ f′)) (δ : MAP A (h ＝ h′))
+  → =₁ (const b′ ∙ (π ◁ δ)) ((α ▷ ρ) ∙ const b)
+  → =₁
       (const (coordinate-comparison ρ f′ π h′ b′ F) ∙ ((F ∘ π) ◁ δ))
       (((F ◁ α) ▷ ρ) ∙ const (coordinate-comparison ρ f π h b F))
 coordinate-inner-family ρ π F {f} {f′} {h} {h′} b b′ α δ square =
@@ -189,8 +189,8 @@ coordinate-inner-family ρ π F {f} {f′} {h} {h′} b b′ α δ square =
 productMap-comp-family-outer : {A C C′ C″ D D′ D″ : CAT}
   (f : MAP C C′) (g : MAP D D′)
   {F F′ : MAP C′ C″} {G G′ : MAP D′ D″}
-  (θ : MAP A (F ≅ F′)) (ψ : MAP A (G ≅ G′))
-  → NatIso
+  (θ : MAP A (F ＝ F′)) (ψ : MAP A (G ＝ G′))
+  → =₁
       (const (productMap-comp f F′ g G′) ∙ (productFamily θ ψ ▷ productMap f g))
       (productFamily (θ ▷ f) (ψ ▷ g) ∙ const (productMap-comp f F g G))
 productMap-comp-family-outer f g {F} {F′} {G} {G′} θ ψ =
@@ -215,8 +215,8 @@ productMap-comp-family-outer f g {F} {F′} {G} {G′} θ ψ =
 
 productMap-comp-family-inner : {A C C′ C″ D D′ D″ : CAT}
   {f f′ : MAP C C′} {g g′ : MAP D D′}
-  (α : MAP A (f ≅ f′)) (β : MAP A (g ≅ g′)) (F : MAP C′ C″) (G : MAP D′ D″)
-  → NatIso
+  (α : MAP A (f ＝ f′)) (β : MAP A (g ＝ g′)) (F : MAP C′ C″) (G : MAP D′ D″)
+  → =₁
       (const (productMap-comp f′ F g′ G) ∙ (productMap F G ◁ productFamily α β))
       (productFamily (F ◁ α) (G ◁ β) ∙ const (productMap-comp f F g G))
 productMap-comp-family-inner {f = f} {f′} {g} {g′} α β F G =
@@ -248,9 +248,9 @@ productMap-comp-family-inner {f = f} {f′} {g} {g′} α β F G =
 productMap-comp-family : {A C C′ C″ D D′ D″ : CAT}
   {f f′ : MAP C C′} {g g′ : MAP D D′}
   {F F′ : MAP C′ C″} {G G′ : MAP D′ D″}
-  (α : MAP A (f ≅ f′)) (β : MAP A (g ≅ g′))
-  (θ : MAP A (F ≅ F′)) (ψ : MAP A (G ≅ G′))
-  → NatIso
+  (α : MAP A (f ＝ f′)) (β : MAP A (g ＝ g′))
+  (θ : MAP A (F ＝ F′)) (ψ : MAP A (G ＝ G′))
+  → =₁
       (const (productMap-comp f′ F′ g′ G′) ∙ (productFamily θ ψ ⋆ productFamily α β))
       (productFamily (θ ⋆ α) (ψ ⋆ β) ∙ const (productMap-comp f F g G))
 productMap-comp-family {f = f} {f′} {g} {g′} {F} {F′} {G} {G′} α β θ ψ =
@@ -270,8 +270,8 @@ productMap-comp-family {f = f} {f′} {g} {g′} {F} {F′} {G} {G′} α β θ 
 
 productFamily-pre : {A R C C′ D D′ : CAT}
   {f f′ : MAP C C′} {g g′ : MAP D D′}
-  (α : MAP A (f ≅ f′)) (β : MAP A (g ≅ g′)) (r : MAP R (C × D))
-  → NatIso
+  (α : MAP A (f ＝ f′)) (β : MAP A (g ＝ g′)) (r : MAP R (C × D))
+  → =₁
       (const (pair-pre (f′ ∘ pr₁) (g′ ∘ pr₂) r) ∙ (productFamily α β ▷ r))
       (pairing ((α ▷ pr₁) ▷ r) ((β ▷ pr₂) ▷ r) ∙
         const (pair-pre (f ∘ pr₁) (g ∘ pr₂) r))
@@ -287,21 +287,21 @@ module UniversalComposition {C C′ C″ D D′ D″ : CAT}
   (F F′ : MAP C′ C″) (G G′ : MAP D′ D″) where
 
   source : CAT
-  source = ((F ≅ F′) × (G ≅ G′)) × ((f ≅ f′) × (g ≅ g′))
+  source = ((F ＝ F′) × (G ＝ G′)) × ((f ＝ f′) × (g ＝ g′))
 
-  firstOuter : MAP source (F ≅ F′)
+  firstOuter : MAP source (F ＝ F′)
   firstOuter = pr₁ ∘ pr₁
 
-  secondOuter : MAP source (G ≅ G′)
+  secondOuter : MAP source (G ＝ G′)
   secondOuter = pr₂ ∘ pr₁
 
-  firstInner : MAP source (f ≅ f′)
+  firstInner : MAP source (f ＝ f′)
   firstInner = pr₁ ∘ pr₂
 
-  secondInner : MAP source (g ≅ g′)
+  secondInner : MAP source (g ＝ g′)
   secondInner = pr₂ ∘ pr₂
 
-  comparison : NatIso
+  comparison : =₁
     (const (productMap-comp f′ F′ g′ G′) ∙
       (productFamily firstOuter secondOuter ⋆ productFamily firstInner secondInner))
     (productFamily (firstOuter ⋆ firstInner) (secondOuter ⋆ secondInner) ∙

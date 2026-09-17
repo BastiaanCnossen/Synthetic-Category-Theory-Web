@@ -26,28 +26,28 @@ open FN vocabulary terminal products productLaws composition vertical whiskering
   using (family-substitution-square-projection)
 
 change-map-evaluate : {A C D : CAT} {f f′ g g′ : MAP C D}
-  (p : NatIso f f′) (q : NatIso g g′) (u : MAP A (f ≅ g)) →
-  NatIso (changeEndpoints-map p q ∘ u) (const q ∙ (u ∙ const (invIso p)))
+  (p : =₁ f f′) (q : =₁ g g′) (u : MAP A (f ＝ g)) →
+  =₁ (changeEndpoints-map p q ∘ u) (const q ∙ (u ∙ const (invIso p)))
 change-map-evaluate p q u = isoComp-cong (idIso (const q)) (right-evaluate (invIso p) u) ∙
   (left-evaluate q (rightMultiply (invIso p) ∘ u) ∙
     comp-assoc u (rightMultiply (invIso p)) (leftMultiply q))
 
 family-square-to-map : {A C D : CAT} {f f′ g g′ : MAP C D}
-  (p : NatIso f f′) (q : NatIso g g′) (u : MAP A (f ≅ g)) (v : MAP A (f′ ≅ g′)) →
-  NatIso (const q ∙ u) (v ∙ const p) → NatIso (changeEndpoints-map p q ∘ u) v
+  (p : =₁ f f′) (q : =₁ g g′) (u : MAP A (f ＝ g)) (v : MAP A (f′ ＝ g′)) →
+  =₁ (const q ∙ u) (v ∙ const p) → =₁ (changeEndpoints-map p q ∘ u) v
 family-square-to-map p q u v κ = right-cancel p v ∙
   (isoComp-cong κ (idIso (const (invIso p))) ∙
   (invIso (assoc (const q) u (const (invIso p))) ∙ change-map-evaluate p q u))
 
 change-map-square : {A C D : CAT} {f f′ g g′ : MAP C D}
-  (p : NatIso f f′) (q : NatIso g g′) (u : MAP A (f ≅ g)) →
-  NatIso (const q ∙ u) ((changeEndpoints-map p q ∘ u) ∙ const p)
+  (p : =₁ f f′) (q : =₁ g g′) (u : MAP A (f ＝ g)) →
+  =₁ (const q ∙ u) ((changeEndpoints-map p q ∘ u) ∙ const p)
 change-map-square p q u = isoComp-cong (invIso (change-map-evaluate p q u)) (idIso (const p)) ∙
   (invIso (assoc (const q) (u ∙ const (invIso p)) (const p)) ∙
     isoComp-cong (idIso (const q)) (invIso (right-cancelʳ p u)))
 
 pair-after : {A B C D E : CAT} (f : MAP B D) (g : MAP C E) (u : MAP A B) (v : MAP A C) →
-  NatIso (productMap f g ∘ pair u v) (pair (f ∘ u) (g ∘ v))
+  =₁ (productMap f g ∘ pair u v) (pair (f ∘ u) (g ∘ v))
 pair-after f g u v = pair-cong
   ((f ◁ pair-β₁ u v) ∙ comp-assoc (pair u v) pr₁ f)
   ((g ◁ pair-β₂ u v) ∙ comp-assoc (pair u v) pr₂ g) ∙
@@ -69,10 +69,10 @@ pair-after-isEquiv f g u v ef eg e = equiv-transport (pair-after f g u v)
 
 pair-squares-isEquiv : {A C D C′ D′ : CAT}
   {f₁ f₁′ g₁ g₁′ : MAP C D} {f₂ f₂′ g₂ g₂′ : MAP C′ D′}
-  (p₁ : NatIso f₁ f₁′) (q₁ : NatIso g₁ g₁′) (p₂ : NatIso f₂ f₂′) (q₂ : NatIso g₂ g₂′)
-  (u₁ : MAP A (f₁ ≅ g₁)) (u₂ : MAP A (f₂ ≅ g₂))
-  (v₁ : MAP A (f₁′ ≅ g₁′)) (v₂ : MAP A (f₂′ ≅ g₂′)) →
-  NatIso (const q₁ ∙ u₁) (v₁ ∙ const p₁) → NatIso (const q₂ ∙ u₂) (v₂ ∙ const p₂) →
+  (p₁ : =₁ f₁ f₁′) (q₁ : =₁ g₁ g₁′) (p₂ : =₁ f₂ f₂′) (q₂ : =₁ g₂ g₂′)
+  (u₁ : MAP A (f₁ ＝ g₁)) (u₂ : MAP A (f₂ ＝ g₂))
+  (v₁ : MAP A (f₁′ ＝ g₁′)) (v₂ : MAP A (f₂′ ＝ g₂′)) →
+  =₁ (const q₁ ∙ u₁) (v₁ ∙ const p₁) → =₁ (const q₂ ∙ u₂) (v₂ ∙ const p₂) →
   IsEquiv (pair u₁ u₂) → IsEquiv (pair v₁ v₂)
 pair-squares-isEquiv p₁ q₁ p₂ q₂ u₁ u₂ v₁ v₂ κ₁ κ₂ e = equiv-transport
   (pair-cong (family-square-to-map p₁ q₁ u₁ v₁ κ₁) (family-square-to-map p₂ q₂ u₂ v₂ κ₂))
@@ -94,9 +94,9 @@ paired-post-isEquiv F G e u v = pair-squares-isEquiv bu bv cu cv
   cu = (pair-β₂ F G ▷ u) ∙ invIso (comp-assoc u H pr₂)
   cv = (pair-β₂ F G ▷ v) ∙ invIso (comp-assoc v H pr₂)
   leftSquare = isoComp-cong (comp-unitʳ (postWhisker F)) (idIso (const bu)) ∙
-    (family-substitution-square-projection pr₁ H F (pair-β₁ F G) (id (u ≅ v)) ∙
+    (family-substitution-square-projection pr₁ H F (pair-β₁ F G) (id (u ＝ v)) ∙
       isoComp-cong (idIso (const bv)) (postWhisker pr₁ ◁ invIso (comp-unitʳ (postWhisker H))))
   rightSquare = isoComp-cong (comp-unitʳ (postWhisker G)) (idIso (const cu)) ∙
-    (family-substitution-square-projection pr₂ H G (pair-β₂ F G) (id (u ≅ v)) ∙
+    (family-substitution-square-projection pr₂ H G (pair-β₂ F G) (id (u ＝ v)) ∙
       isoComp-cong (idIso (const cv)) (postWhisker pr₂ ◁ invIso (comp-unitʳ (postWhisker H))))
 ```

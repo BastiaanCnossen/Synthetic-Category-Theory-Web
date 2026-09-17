@@ -44,20 +44,20 @@ open PairingNaturality V T P PL S VC W using
   (move-square; project-composite; pre-square-projection)
 
 hcomp-idOuter : {C D E : CAT} {f f′ : MAP C D}
-  (g : MAP D E) (α : NatIso f f′)
-  → Iso₂ (idIso g ⋆ α) (g ◁ α)
+  (g : MAP D E) (α : =₁ f f′)
+  → =₂ (idIso g ⋆ α) (g ◁ α)
 hcomp-idOuter {f′ = f′} g α = isoComp-unitˡ-at (g ◁ α) ∙
   isoComp-cong (preWhisker-idIso g f′) (idIso (g ◁ α))
 
 hcomp-idInner : {C D E : CAT} {g g′ : MAP D E}
-  (β : NatIso g g′) (f : MAP C D)
-  → Iso₂ (β ⋆ idIso f) (β ▷ f)
+  (β : =₁ g g′) (f : MAP C D)
+  → =₂ (β ⋆ idIso f) (β ▷ f)
 hcomp-idInner {g = g} β f = isoComp-unitʳ-at (β ▷ f) ∙
   isoComp-cong (idIso (β ▷ f)) (postWhisker-idIso g f)
 
 pentagon-whiskered : {A B C D E : CAT}
   (f : MAP A B) (g : MAP B C) (h : MAP C D) (k : MAP D E)
-  → Iso₂ (comp-assoc (g ∘ f) h k ∙ comp-assoc f g (k ∘ h))
+  → =₂ (comp-assoc (g ∘ f) h k ∙ comp-assoc f g (k ∘ h))
       ((k ◁ comp-assoc f g h) ∙
         (comp-assoc f (h ∘ g) k ∙ (comp-assoc g h k ▷ f)))
 pentagon-whiskered f g h k =
@@ -69,30 +69,30 @@ pentagon-whiskered f g h k =
     ∙ comp-pentagon f g h k)
 
 leftMultiply-at : {C D : CAT} {f g h : MAP C D}
-  (β : NatIso g h) (α : NatIso f g)
-  → Iso₂ (leftMultiply β ∘ α) (β ∙ α)
+  (β : =₁ g h) (α : =₁ f g)
+  → =₂ (leftMultiply β ∘ α) (β ∙ α)
 leftMultiply-at β α = isoComp-cong (const-One β) (idIso α) ∙ left-evaluate β α
 
 rightMultiply-at : {C D : CAT} {f g h : MAP C D}
-  (β : NatIso f g) (α : NatIso g h)
-  → Iso₂ (rightMultiply β ∘ α) (α ∙ β)
+  (β : =₁ f g) (α : =₁ g h)
+  → =₂ (rightMultiply β ∘ α) (α ∙ β)
 rightMultiply-at β α = isoComp-cong (idIso α) (const-One β) ∙ right-evaluate β α
 
 cancel-left : {C D : CAT} {f g h : MAP C D}
-  (β : NatIso g h) {α α′ : NatIso f g}
-  → Iso₂ (β ∙ α) (β ∙ α′) → Iso₂ α α′
+  (β : =₁ g h) {α α′ : =₁ f g}
+  → =₂ (β ∙ α) (β ∙ α′) → =₂ α α′
 cancel-left β {α} {α′} p = equiv-reflect (leftMultiply-isEquiv β)
   (invIso (leftMultiply-at β α′) ∙ (p ∙ leftMultiply-at β α))
 
 cancel-right : {C D : CAT} {f g h : MAP C D}
-  (β : NatIso f g) {α α′ : NatIso g h}
-  → Iso₂ (α ∙ β) (α′ ∙ β) → Iso₂ α α′
+  (β : =₁ f g) {α α′ : =₁ g h}
+  → =₂ (α ∙ β) (α′ ∙ β) → =₂ α α′
 cancel-right β {α} {α′} p = equiv-reflect (rightMultiply-isEquiv β)
   (invIso (rightMultiply-at β α′) ∙ (p ∙ rightMultiply-at β α))
 
 pre-assoc-at : {A B C D : CAT} {f g : MAP C D}
-  (α : NatIso f g) (σ : MAP B C) (τ : MAP A B)
-  → Iso₂ (comp-assoc τ σ g ∙ ((α ▷ σ) ▷ τ))
+  (α : =₁ f g) (σ : MAP B C) (τ : MAP A B)
+  → =₂ (comp-assoc τ σ g ∙ ((α ▷ σ) ▷ τ))
       ((α ▷ (σ ∘ τ)) ∙ comp-assoc τ σ f)
 pre-assoc-at {f = f} {g} α σ τ =
   specialize (preWhisker-comp f g σ τ) α
@@ -105,8 +105,8 @@ pre-assoc-at {f = f} {g} α σ τ =
       (const-evaluate (comp-assoc τ σ f) α))
 
 mixed-at : {A B C D : CAT} {f g : MAP B C}
-  (u : MAP C D) (α : NatIso f g) (τ : MAP A B)
-  → Iso₂ (comp-assoc τ g u ∙ ((u ◁ α) ▷ τ))
+  (u : MAP C D) (α : =₁ f g) (τ : MAP A B)
+  → =₂ (comp-assoc τ g u ∙ ((u ◁ α) ▷ τ))
       ((u ◁ (α ▷ τ)) ∙ comp-assoc τ f u)
 mixed-at {f = f} {g} u α τ =
   specialize (whisker-mixed f g τ u) α
@@ -120,8 +120,8 @@ mixed-at {f = f} {g} u α τ =
       (const-evaluate (comp-assoc τ f u) α))
 
 pre-inverse-at : {A B C : CAT} {f g : MAP B C}
-  (α : NatIso f g) (τ : MAP A B)
-  → Iso₂ (invIso α ▷ τ) (invIso (α ▷ τ))
+  (α : =₁ f g) (τ : MAP A B)
+  → =₂ (invIso α ▷ τ) (invIso (α ▷ τ))
 pre-inverse-at {f = f} α τ = cancel-right (α ▷ τ)
   (invIso (isoComp-inverseˡ-at (α ▷ τ)) ∙
     (preWhisker-idIso f τ ∙
@@ -129,8 +129,8 @@ pre-inverse-at {f = f} α τ = cancel-right (α ▷ τ)
         invIso (preWhisker-isoComp-at (invIso α) α τ))))
 
 inverse-tail : {C D : CAT} {f g h : MAP C D}
-  (β : NatIso g h) (α : NatIso f g)
-  → Iso₂ ((β ∙ α) ∙ (invIso α ∙ invIso β)) (idIso h)
+  (β : =₁ g h) (α : =₁ f g)
+  → =₂ ((β ∙ α) ∙ (invIso α ∙ invIso β)) (idIso h)
 inverse-tail β α = isoComp-inverseʳ-at β ∙
   (isoComp-cong (idIso β)
     (isoComp-unitˡ-at (invIso β) ∙
@@ -138,10 +138,10 @@ inverse-tail β α = isoComp-inverseʳ-at β ∙
     reassociateFour β α (invIso α) (invIso β))
 
 solve-pentagon : {C D : CAT} {x₀ x₁ x₂ x₃ x₄ : MAP C D}
-  (A : NatIso x₁ x₄) (B : NatIso x₀ x₁)
-  (C′ : NatIso x₃ x₄) (D′ : NatIso x₂ x₃) (E : NatIso x₀ x₂)
-  → Iso₂ (A ∙ B) (C′ ∙ (D′ ∙ E))
-  → Iso₂ (B ∙ (invIso E ∙ invIso D′)) (invIso A ∙ C′)
+  (A : =₁ x₁ x₄) (B : =₁ x₀ x₁)
+  (C′ : =₁ x₃ x₄) (D′ : =₁ x₂ x₃) (E : =₁ x₀ x₂)
+  → =₂ (A ∙ B) (C′ ∙ (D′ ∙ E))
+  → =₂ (B ∙ (invIso E ∙ invIso D′)) (invIso A ∙ C′)
 solve-pentagon A B C′ D′ E p =
   let tail = invIso E ∙ invIso D′
       cleared = isoComp-unitʳ-at C′ ∙
@@ -151,14 +151,14 @@ solve-pentagon A B C′ D′ E p =
   in cancel-left A (invIso (cancel-inverse A C′) ∙ cleared)
 
 transport-pre : {R X K C : CAT} (u : MAP K C)
-  (p : MAP X K) {f : MAP X C} (β : NatIso (u ∘ p) f)
-  (σ : MAP R X) → NatIso (u ∘ (p ∘ σ)) (f ∘ σ)
+  (p : MAP X K) {f : MAP X C} (β : =₁ (u ∘ p) f)
+  (σ : MAP R X) → =₁ (u ∘ (p ∘ σ)) (f ∘ σ)
 transport-pre u p β σ = (β ▷ σ) ∙ invIso (comp-assoc σ p u)
 
 transport-pre-assoc : {Q R X K C : CAT}
   (u : MAP K C) (p : MAP X K) (f : MAP X C)
-  (β : NatIso (u ∘ p) f) (σ : MAP R X) (τ : MAP Q R)
-  → Iso₂
+  (β : =₁ (u ∘ p) f) (σ : MAP R X) (τ : MAP Q R)
+  → =₂
       ((comp-assoc τ σ f ∙ (transport-pre u p β σ ▷ τ)) ∙
         invIso (comp-assoc τ (p ∘ σ) u))
       (transport-pre u p β (σ ∘ τ) ∙ (u ◁ comp-assoc τ σ p))
@@ -196,24 +196,24 @@ module Boundaries {Q R X C D : CAT}
   target : MAP Q (C × D)
   target = pair (f ∘ (σ ∘ τ)) (g ∘ (σ ∘ τ))
 
-  together : NatIso source target
+  together : =₁ source target
   together = pair-pre f g (σ ∘ τ) ∙ comp-assoc τ σ (pair f g)
 
-  successively : NatIso source target
+  successively : =₁ source target
   successively = pair-cong (comp-assoc τ σ f) (comp-assoc τ σ g) ∙
     (pair-pre (f ∘ σ) (g ∘ σ) τ ∙ (pair-pre f g σ ▷ τ))
 
   project-successively : {Z : CAT} (π : MAP (C × D) Z) (z : MAP X Z)
-    (b₀ : NatIso (π ∘ pair f g) z)
-    (b₁ : NatIso (π ∘ pair (f ∘ σ) (g ∘ σ)) (z ∘ σ))
-    (b₂ : NatIso (π ∘ pair ((f ∘ σ) ∘ τ) ((g ∘ σ) ∘ τ)) ((z ∘ σ) ∘ τ))
-    (b₃ : NatIso (π ∘ target) (z ∘ (σ ∘ τ)))
-    → Iso₂ (b₁ ∙ (π ◁ pair-pre f g σ)) (transport-pre π (pair f g) b₀ σ)
-    → Iso₂ (b₂ ∙ (π ◁ pair-pre (f ∘ σ) (g ∘ σ) τ))
+    (b₀ : =₁ (π ∘ pair f g) z)
+    (b₁ : =₁ (π ∘ pair (f ∘ σ) (g ∘ σ)) (z ∘ σ))
+    (b₂ : =₁ (π ∘ pair ((f ∘ σ) ∘ τ) ((g ∘ σ) ∘ τ)) ((z ∘ σ) ∘ τ))
+    (b₃ : =₁ (π ∘ target) (z ∘ (σ ∘ τ)))
+    → =₂ (b₁ ∙ (π ◁ pair-pre f g σ)) (transport-pre π (pair f g) b₀ σ)
+    → =₂ (b₂ ∙ (π ◁ pair-pre (f ∘ σ) (g ∘ σ) τ))
         (transport-pre π (pair (f ∘ σ) (g ∘ σ)) b₁ τ)
-    → Iso₂ (b₃ ∙ (π ◁ pair-cong (comp-assoc τ σ f) (comp-assoc τ σ g)))
+    → =₂ (b₃ ∙ (π ◁ pair-cong (comp-assoc τ σ f) (comp-assoc τ σ g)))
         (comp-assoc τ σ z ∙ b₂)
-    → Iso₂ (b₃ ∙ (π ◁ successively))
+    → =₂ (b₃ ∙ (π ◁ successively))
         (transport-pre π (pair f g) b₀ (σ ∘ τ) ∙ (π ◁ comp-assoc τ σ (pair f g)))
   project-successively π z b₀ b₁ b₂ b₃ first second last =
     let before = pair-pre f g σ
@@ -238,17 +238,17 @@ module Boundaries {Q R X C D : CAT}
         (invIso (comp-assoc τ (pair f g ∘ σ) π))) ∙ outer-normal)
 
   project-together : {Z : CAT} (π : MAP (C × D) Z) (z : MAP X Z)
-    (b₀ : NatIso (π ∘ pair f g) z)
-    (b₃ : NatIso (π ∘ target) (z ∘ (σ ∘ τ)))
-    → Iso₂ (b₃ ∙ (π ◁ pair-pre f g (σ ∘ τ)))
+    (b₀ : =₁ (π ∘ pair f g) z)
+    (b₃ : =₁ (π ∘ target) (z ∘ (σ ∘ τ)))
+    → =₂ (b₃ ∙ (π ◁ pair-pre f g (σ ∘ τ)))
         (transport-pre π (pair f g) b₀ (σ ∘ τ))
-    → Iso₂ (b₃ ∙ (π ◁ together))
+    → =₂ (b₃ ∙ (π ◁ together))
         (transport-pre π (pair f g) b₀ (σ ∘ τ) ∙ (π ◁ comp-assoc τ σ (pair f g)))
   project-together π z b₀ b₃ triangle =
     isoComp-cong triangle (idIso _) ∙
       project-composite π (pair-pre f g (σ ∘ τ)) (comp-assoc τ σ (pair f g)) b₃
 
-  compatibility : Iso₂ together successively
+  compatibility : =₂ together successively
   compatibility = pair-iso-extensionality
     (cancel-left (pair-β₁ (f ∘ (σ ∘ τ)) (g ∘ (σ ∘ τ)))
       (invIso (project-successively pr₁ f
@@ -277,7 +277,7 @@ module Boundaries {Q R X C D : CAT}
 
 pair-pre-iterated : {Q R X C D : CAT}
   (f : MAP X C) (g : MAP X D) (σ : MAP R X) (τ : MAP Q R)
-  → Iso₂ (Boundaries.together f g σ τ) (Boundaries.successively f g σ τ)
+  → =₂ (Boundaries.together f g σ τ) (Boundaries.successively f g σ τ)
 pair-pre-iterated = Boundaries.compatibility
 ```
 

@@ -23,7 +23,7 @@ opaque
   cone-isPullback-from-lifting : {C D E S : CAT} {f : MAP C E} {g : MAP D E}
     (s : Cone f g S) (inverse : MAP (Pullback f g) S) →
     ConeIso (conePre inverse s) (pbCone f g) →
-    ((h k : MAP S S) → ConeIso (conePre h s) (conePre k s) → NatIso h k) →
+    ((h k : MAP S S) → ConeIso (conePre h s) (conePre k s) → =₁ h k) →
     IsPullback s
   cone-isPullback-from-lifting {S = S} {f = f} {g = g} s inverse β reflect = record
     { inverse = inverse

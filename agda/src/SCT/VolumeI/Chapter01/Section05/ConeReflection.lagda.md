@@ -38,7 +38,7 @@ module ReflectCone {X T C D E : CAT} {f : MAP C E} {g : MAP D E}
   α = mapUncurryIso (mapPost f ◁ left)
   β = mapUncurryIso (mapPost g ◁ right)
 
-  rawSquare : Iso₂ (τt ∙ α) (β ∙ τs)
+  rawSquare : =₂ (τt ∙ α) (β ∙ τs)
   rawSquare = changeEndpoints-reflect fs gt _ _
     (changeEndpoints-comp fs gs gt β τs ∙
     (isoComp-cong

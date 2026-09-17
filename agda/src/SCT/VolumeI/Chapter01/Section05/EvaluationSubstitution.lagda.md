@@ -24,20 +24,20 @@ open PN vocabulary terminal products productLaws composition vertical whiskering
 open import SCT.VolumeI.Chapter01.Section03.ProjectionSquares 𝒯 using (post-inverse)
 
 module Evaluation {X Y Z C D : CAT} (e : MAP Z C) (f : MAP C D)
-  (A : MAP Z D) (β : NatIso A (f ∘ e)) (s : MAP Y Z) (t : MAP X Y)
-  (q : MAP X Z) (κ : NatIso (s ∘ t) q) where
+  (A : MAP Z D) (β : =₁ A (f ∘ e)) (s : MAP Y Z) (t : MAP X Y)
+  (q : MAP X Z) (κ : =₁ (s ∘ t) q) where
 
-  N : {W : CAT} (z : MAP W Z) → NatIso (A ∘ z) (f ∘ (e ∘ z))
+  N : {W : CAT} (z : MAP W Z) → =₁ (A ∘ z) (f ∘ (e ∘ z))
   N z = comp-assoc z e f ∙ (β ▷ z)
 
-  natural : Iso₂ (N q ∙ (A ◁ κ)) ((f ◁ (e ◁ κ)) ∙ N (s ∘ t))
+  natural : =₂ (N q ∙ (A ◁ κ)) ((f ◁ (e ◁ κ)) ∙ N (s ∘ t))
   natural = isoComp-assoc-at (f ◁ (e ◁ κ)) (comp-assoc (s ∘ t) e f) (β ▷ (s ∘ t)) ∙
     (isoComp-cong (postWhisker-comp-at κ e f) (idIso (β ▷ (s ∘ t))) ∙
     (invIso (isoComp-assoc-at (comp-assoc q e f) ((f ∘ e) ◁ κ) (β ▷ (s ∘ t))) ∙
     (isoComp-cong (idIso (comp-assoc q e f)) (interchange-at β κ) ∙
       isoComp-assoc-at (comp-assoc q e f) (β ▷ q) (A ◁ κ))))
 
-  iterated : Iso₂ (N (s ∘ t) ∙ comp-assoc t s A)
+  iterated : =₂ (N (s ∘ t) ∙ comp-assoc t s A)
     ((f ◁ comp-assoc t s e) ∙ (comp-assoc t (e ∘ s) f ∙ (N s ▷ t)))
   iterated = isoComp-cong (idIso (f ◁ comp-assoc t s e))
       (isoComp-cong (idIso (comp-assoc t (e ∘ s) f))
@@ -55,10 +55,10 @@ module Evaluation {X Y Z C D : CAT} (e : MAP Z C) (f : MAP C D)
     (isoComp-cong (idIso (comp-assoc (s ∘ t) e f)) (invIso (preWhisker-comp-at β s t)) ∙
       isoComp-assoc-at (comp-assoc (s ∘ t) e f) (β ▷ (s ∘ t)) (comp-assoc t s A)))))))
 
-  V : NatIso (e ∘ q) ((e ∘ s) ∘ t)
+  V : =₁ (e ∘ q) ((e ∘ s) ∘ t)
   V = invIso (comp-assoc t s e) ∙ (e ◁ invIso κ)
 
-  transport : Iso₂
+  transport : =₂
     ((f ◁ V) ∙ (N q ∙ ((A ◁ κ) ∙ comp-assoc t s A)))
     (comp-assoc t (e ∘ s) f ∙ (N s ▷ t))
   transport = cancel-left fa result ∙

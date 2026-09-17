@@ -24,8 +24,8 @@ open import SCT.VolumeI.Chapter01.Section05.Cones 𝒯
 open PN vocabulary terminal products productLaws composition vertical whiskering using (move-square)
 
 mapPre-uncurry-natural : {X B C E : CAT} (i : MAP B C)
-  {u v : MAP X (Map C E)} (γ : NatIso u v) →
-  Iso₂ (mapPre-uncurry i v ∙ mapUncurryIso (mapPre i ◁ γ))
+  {u v : MAP X (Map C E)} (γ : =₁ u v) →
+  =₂ (mapPre-uncurry i v ∙ mapUncurryIso (mapPre i ◁ γ))
     ((mapUncurryIso γ ▷ productMap (id X) i) ∙ mapPre-uncurry i u)
 mapPre-uncurry-natural {X} i {u} {v} γ =
   isoComp-cong (preWhisker (productMap (id X) i) ◁ uncurryFamily-absolute γ)
@@ -94,7 +94,7 @@ module CurryRestriction {X A B C E : CAT} {u : MAP A B} {v : MAP A C}
   value = record { left = left ; right = right ; match = mapReflect xAn _ _ rawMatch }
 
   abstract
-    match-β : Iso₂ (Cocone.match (uncurryRestriction {u = u} {v = v} value)) desired
+    match-β : =₂ (Cocone.match (uncurryRestriction {u = u} {v = v} value)) desired
     match-β = cancel-right leftChange desired ∙
       (isoComp-cong (cancel-inverse rightChange (desired ∙ leftChange)) (idIso (invIso leftChange)) ∙
       (invIso (isoComp-assoc-at rightChange rawMatch (invIso leftChange)) ∙
@@ -125,7 +125,7 @@ module ReflectRestriction {X A B C E : CAT} {u : MAP A B} {v : MAP A C}
   β = mapUncurryIso (mapPre v ◁ right)
 
   abstract
-    rawSquare : Iso₂ (τt ∙ α) (β ∙ τs)
+    rawSquare : =₂ (τt ∙ α) (β ∙ τs)
     rawSquare = changeEndpoints-reflect fs gt _ _
       (changeEndpoints-comp fs gs gt β τs ∙
       (isoComp-cong

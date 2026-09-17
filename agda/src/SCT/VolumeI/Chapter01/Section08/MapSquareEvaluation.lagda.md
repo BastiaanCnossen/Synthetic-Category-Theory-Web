@@ -33,7 +33,7 @@ open PN vocabulary terminal products productLaws composition vertical whiskering
 
 CompositorAt : {X A B C E : CAT} (f : MAP A B) (g : MAP B C)
   (h : MAP X (Map C E)) → Set m
-CompositorAt {X} f g h = Iso₂
+CompositorAt {X} f g h = =₂
   (mapPre-uncurry (g ∘ f) h ∙ mapUncurryIso (mapPre-comp f g ▷ h))
   ((mapUncurry h ◁ productRestriction-comp X f g) ∙
     (comp-assoc (productRestriction X f) (productRestriction X g) (mapUncurry h) ∙
@@ -88,29 +88,29 @@ module Evaluation {A B C D E X : CAT}
   δ = e ◁ Cocone.match (productCocone X s)
 
   restricted-comp : {f g k : MAP (Map D E) (Map A E)}
-    (β : NatIso g k) (α : NatIso f g) →
-    Iso₂ (mapUncurryIso ((β ∙ α) ▷ h))
+    (β : =₁ g k) (α : =₁ f g) →
+    =₂ (mapUncurryIso ((β ∙ α) ▷ h))
       (mapUncurryIso (β ▷ h) ∙ mapUncurryIso (α ▷ h))
   restricted-comp β α = mapUncurryIso-comp (β ▷ h) (α ▷ h) ∙
     mapUncurry-Iso₂ (preWhisker-isoComp-at β α h)
 
-  restricted-inverse : {f g : MAP (Map D E) (Map A E)} (α : NatIso f g) →
-    Iso₂ (mapUncurryIso (invIso α ▷ h)) (invIso (mapUncurryIso (α ▷ h)))
+  restricted-inverse : {f g : MAP (Map D E) (Map A E)} (α : =₁ f g) →
+    =₂ (mapUncurryIso (invIso α ▷ h)) (invIso (mapUncurryIso (α ▷ h)))
   restricted-inverse α = mapUncurryIso-inverse (α ▷ h) ∙ mapUncurry-Iso₂ (pre-inverse α h)
 
-  raw-normal : Iso₂ raw (invIso kv ∙ (image ∙ kr))
+  raw-normal : =₂ raw (invIso kv ∙ (image ∙ kr))
   raw-normal = isoComp-cong (restricted-inverse κv) (restricted-comp α κr) ∙
     restricted-comp (invIso κv) (α ∙ κr)
 
-  product-normal : Iso₂ δ (invIso ev ∙ (ea ∙ er))
+  product-normal : =₂ δ (invIso ev ∙ (ea ∙ er))
   product-normal = isoComp-cong (post-inverse e pv) (postWhisker-isoComp-at e pa pr) ∙
     postWhisker-isoComp-at e (invIso pv) (pa ∙ pr)
 
-  source-normal : Iso₂ (changeEndpoints leftEndpoint rightEndpoint raw) (Cocone.match source)
+  source-normal : =₂ (changeEndpoints leftEndpoint rightEndpoint raw) (Cocone.match source)
   source-normal = changeEndpoints-cong qu ql (invIso inner-normal) ∙
     changeEndpoints-compose Ar qu Av ql raw
     where
-    inner-normal : Iso₂ (mapUncurryIso (Cone.match (conePre h (mappingOut s E))))
+    inner-normal : =₂ (mapUncurryIso (Cone.match (conePre h (mappingOut s E))))
       (changeEndpoints Ar Av raw)
     inner-normal = isoComp-cong (idIso Av)
       (isoComp-cong (idIso raw) (mapUncurryIso-inverse ar) ∙
@@ -118,7 +118,7 @@ module Evaluation {A B C D E X : CAT}
       mapUncurryIso-comp av ((τ ▷ h) ∙ invIso ar)
 
   abstract
-    evaluated-square : Iso₂ (δ ∙ leftTotal) (rightTotal ∙ raw)
+    evaluated-square : =₂ (δ ∙ leftTotal) (rightTotal ∙ raw)
     evaluated-square = isoComp-cong (idIso rightTotal) (invIso raw-normal) ∙
       (paste-squares (image ∙ kr) (ea ∙ er) (invIso kv) (invIso ev)
         leftTotal qvl rightTotal

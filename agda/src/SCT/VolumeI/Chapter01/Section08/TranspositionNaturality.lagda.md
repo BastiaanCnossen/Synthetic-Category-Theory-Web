@@ -27,17 +27,17 @@ open FN vocabulary terminal products productLaws composition vertical whiskering
   using (family-interchange-fixedInner; family-move-square)
 
 transposeFamily : {K X C E : CAT} {f g : MAP C (Fun X E)} →
-  MAP K (f ≅ g) → MAP K (transpose f ≅ transpose g)
+  MAP K (f ＝ g) → MAP K (transpose f ＝ transpose g)
 transposeFamily γ = uncurryFamily γ ▷ swap
 
-transposeFamily-at : {K X C E : CAT} {f g : MAP C (Fun X E)} (γ : MAP K (f ≅ g)) →
-  NatIso (transpose-isoMap f g ∘ γ) (transposeFamily γ)
+transposeFamily-at : {K X C E : CAT} {f g : MAP C (Fun X E)} (γ : MAP K (f ＝ g)) →
+  =₁ (transpose-isoMap f g ∘ γ) (transposeFamily γ)
 transposeFamily-at {f = f} {g} γ = (preWhisker swap ◁ uncurryFamily-at γ) ∙
   comp-assoc γ (funUncurry-isoMap f g) (preWhisker swap)
 
 transpose-pre-family : {K X A B E : CAT} (i : MAP A B)
-  {f g : MAP B (Fun X E)} (γ : MAP K (f ≅ g)) →
-  NatIso (const (transpose-pre i g) ∙ transposeFamily (γ ▷ i))
+  {f g : MAP B (Fun X E)} (γ : MAP K (f ＝ g)) →
+  =₁ (const (transpose-pre i g) ∙ transposeFamily (γ ▷ i))
     ((transposeFamily γ ▷ productMap (id X) i) ∙ const (transpose-pre i f))
 transpose-pre-family {X = X} i {f} {g} γ =
   paste-family-squares (r₃f ∙ (r₂f ∙ r₁f)) (r₃g ∙ (r₂g ∙ r₁g)) r₄f r₄g action₀ action₃ action₄
@@ -68,8 +68,8 @@ transpose-pre-family {X = X} i {f} {g} γ =
   action₄ = transposeFamily γ ▷ R
 
 transpose-pre-natural : {X A B E : CAT} (i : MAP A B)
-  {f g : MAP B (Fun X E)} (γ : NatIso f g) →
-  Iso₂ (transpose-pre i g ∙ transposeIso (γ ▷ i))
+  {f g : MAP B (Fun X E)} (γ : =₁ f g) →
+  =₂ (transpose-pre i g ∙ transposeIso (γ ▷ i))
     ((transposeIso γ ▷ productMap (id X) i) ∙ transpose-pre i f)
 transpose-pre-natural {X} i {f} {g} γ =
   isoComp-cong (preWhisker (productMap (id X) i) ◁ invIso (transposeFamily-at γ))

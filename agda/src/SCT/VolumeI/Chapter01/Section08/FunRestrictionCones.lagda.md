@@ -85,7 +85,7 @@ module CurryRestriction {X A B C E : CAT} {u : MAP A B} {v : MAP A C}
   value = record { left = left ; right = right ; match = funIsoReflect _ _ rawMatch }
 
   abstract
-    match-β : Iso₂ (Cocone.match (uncurryRestriction {u = u} {v = v} value)) desired
+    match-β : =₂ (Cocone.match (uncurryRestriction {u = u} {v = v} value)) desired
     match-β = cancel-right leftChange desired ∙
       (isoComp-cong (cancel-inverse rightChange (desired ∙ leftChange)) (idIso (invIso leftChange)) ∙
       (invIso (isoComp-assoc-at rightChange rawMatch (invIso leftChange)) ∙
@@ -116,7 +116,7 @@ module ReflectRestriction {X A B C E : CAT} {u : MAP A B} {v : MAP A C}
   β = funUncurryIso (funPre v ◁ right)
 
   abstract
-    rawSquare : Iso₂ (τt ∙ α) (β ∙ τs)
+    rawSquare : =₂ (τt ∙ α) (β ∙ τs)
     rawSquare = changeEndpoints-reflect fs gt _ _
       (changeEndpoints-comp fs gs gt β τs ∙
       (isoComp-cong

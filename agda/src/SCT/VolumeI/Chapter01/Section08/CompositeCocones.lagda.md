@@ -41,9 +41,9 @@ compositeCoconeIso f g {h} {s} {t} Φ = record
 
 compositeCocone-compatible : {A B C D E : CAT} (f : MAP A B) (g : MAP B C) {h : MAP A D}
   (s t : Cocone (g ∘ f) h E)
-  (α : NatIso (Cocone.left s) (Cocone.left t))
-  (β : NatIso (Cocone.right s) (Cocone.right t)) →
-  Iso₂ (Cocone.match (compositeCocone f g t) ∙ ((α ▷ g) ▷ f))
+  (α : =₁ (Cocone.left s) (Cocone.left t))
+  (β : =₁ (Cocone.right s) (Cocone.right t)) →
+  =₂ (Cocone.match (compositeCocone f g t) ∙ ((α ▷ g) ▷ f))
     ((β ▷ h) ∙ Cocone.match (compositeCocone f g s)) → CoconeIso s t
 compositeCocone-compatible f g {h} s t α β κ = record
   { leftIso = α ; rightIso = β

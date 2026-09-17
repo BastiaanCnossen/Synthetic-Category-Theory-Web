@@ -29,6 +29,6 @@ module _ {C D : CAT} where
 ```
 
 ```agda
-funUncurry-id : (C D : CAT) → NatIso (funUncurry (id (Fun C D))) (funEval {C} {D})
+funUncurry-id : (C D : CAT) → =₁ (funUncurry (id (Fun C D))) (funEval {C} {D})
 funUncurry-id C D = Representing.uncurry-id (funEval {C} {D}) (funUniversal C D)
 ```

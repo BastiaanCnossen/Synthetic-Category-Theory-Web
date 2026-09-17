@@ -23,16 +23,16 @@ record ProductData : Set (c ⊔ m ⊔ a) where
     pr₂ : {C D : CAT} → MAP (C × D) D
     pair : {P C D : CAT} → MAP P C → MAP P D → MAP P (C × D)
     pair-β₁ : {P C D : CAT} (f : MAP P C) (g : MAP P D)
-      → NatIso (pr₁ ∘ pair f g) f
+      → =₁ (pr₁ ∘ pair f g) f
     pair-β₂ : {P C D : CAT} (f : MAP P C) (g : MAP P D)
-      → NatIso (pr₂ ∘ pair f g) g
+      → =₁ (pr₂ ∘ pair f g) g
     product-isAn : {C D : CAT} → isAn C → isAn D → isAn (C × D)
 
 module Comparison (P : ProductData) where
   open ProductData P
 
   product-isoMap : {T C D : CAT} (f g : MAP T (C × D))
-    → MAP (f ≅ g) (((pr₁ ∘ f) ≅ (pr₁ ∘ g)) × ((pr₂ ∘ f) ≅ (pr₂ ∘ g)))
+    → MAP (f ＝ g) (((pr₁ ∘ f) ＝ (pr₁ ∘ g)) × ((pr₂ ∘ f) ＝ (pr₂ ∘ g)))
   product-isoMap f g = pair (postWhisker pr₁) (postWhisker pr₂)
 
 record ProductLaws (P : ProductData) : Set (c ⊔ m) where

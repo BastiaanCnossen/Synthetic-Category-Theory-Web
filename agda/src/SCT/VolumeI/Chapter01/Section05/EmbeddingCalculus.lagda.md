@@ -32,7 +32,7 @@ open import SCT.VolumeI.Chapter01.Section05.CospanEquivalences 𝒯 P using (mod
 equivalence-isEmbedding : {C D : CAT} (f : MAP C D) → IsEquiv f → IsEmbedding f
 equivalence-isEmbedding f ef = projection-embedding f (pullback-equivalence f f ef)
 
-embedding-cong : {C D : CAT} {f g : MAP C D} → NatIso f g → IsEmbedding f → IsEmbedding g
+embedding-cong : {C D : CAT} {f g : MAP C D} → =₁ f g → IsEmbedding f → IsEmbedding g
 embedding-cong {C} {D} {f} {g} α ef = projection-embedding g
   (equiv-cancel-right F.pullbackMap pb₁ E.pullbackMap-isEquiv
     (equiv-transport (invIso (comp-unitˡ pb₁ ∙ pbLift-β₁ (F.mapCone (pbCone f f))))

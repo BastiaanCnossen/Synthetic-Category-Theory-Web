@@ -38,18 +38,18 @@ module Coordinates {C D E : CAT} (f : MAP C E) (g : MAP D E) where
   Δ : MAP E (E × E)
   Δ = pair (id E) (id E)
 
-  left₁ : {T : CAT} (u : MAP T (C × D)) → NatIso (pr₁ ∘ (F ∘ u)) (f ∘ (pr₁ ∘ u))
+  left₁ : {T : CAT} (u : MAP T (C × D)) → =₁ (pr₁ ∘ (F ∘ u)) (f ∘ (pr₁ ∘ u))
   left₁ u = comp-assoc u pr₁ f ∙ project-pair₁ (f ∘ pr₁) (g ∘ pr₂) u
-  left₂ : {T : CAT} (u : MAP T (C × D)) → NatIso (pr₂ ∘ (F ∘ u)) (g ∘ (pr₂ ∘ u))
+  left₂ : {T : CAT} (u : MAP T (C × D)) → =₁ (pr₂ ∘ (F ∘ u)) (g ∘ (pr₂ ∘ u))
   left₂ u = comp-assoc u pr₂ g ∙ project-pair₂ (f ∘ pr₁) (g ∘ pr₂) u
-  right₁ : {T : CAT} (v : MAP T E) → NatIso (pr₁ ∘ (Δ ∘ v)) v
+  right₁ : {T : CAT} (v : MAP T E) → =₁ (pr₁ ∘ (Δ ∘ v)) v
   right₁ v = comp-unitˡ v ∙ project-pair₁ (id E) (id E) v
-  right₂ : {T : CAT} (v : MAP T E) → NatIso (pr₂ ∘ (Δ ∘ v)) v
+  right₂ : {T : CAT} (v : MAP T E) → =₁ (pr₂ ∘ (Δ ∘ v)) v
   right₂ v = comp-unitˡ v ∙ project-pair₂ (id E) (id E) v
 
-  edge₁ : {T : CAT} (t : Cone F Δ T) → NatIso (f ∘ (pr₁ ∘ Cone.left t)) (Cone.right t)
+  edge₁ : {T : CAT} (t : Cone F Δ T) → =₁ (f ∘ (pr₁ ∘ Cone.left t)) (Cone.right t)
   edge₁ t = right₁ (Cone.right t) ∙ ((pr₁ ◁ Cone.match t) ∙ invIso (left₁ (Cone.left t)))
-  edge₂ : {T : CAT} (t : Cone F Δ T) → NatIso (g ∘ (pr₂ ∘ Cone.left t)) (Cone.right t)
+  edge₂ : {T : CAT} (t : Cone F Δ T) → =₁ (g ∘ (pr₂ ∘ Cone.left t)) (Cone.right t)
   edge₂ t = right₂ (Cone.right t) ∙ ((pr₂ ◁ Cone.match t) ∙ invIso (left₂ (Cone.left t)))
 
   from : {T : CAT} → Cone F Δ T → Cone f g T
@@ -65,8 +65,8 @@ coordinate comparisons reconstruct a full cone comparison.
 ```agda
 
   opaque
-    left₁-natural : {T : CAT} {u u′ : MAP T (C × D)} (L : NatIso u u′)
-      → Iso₂ (left₁ u′ ∙ (pr₁ ◁ (F ◁ L))) ((f ◁ (pr₁ ◁ L)) ∙ left₁ u)
+    left₁-natural : {T : CAT} {u u′ : MAP T (C × D)} (L : =₁ u u′)
+      → =₂ (left₁ u′ ∙ (pr₁ ◁ (F ◁ L))) ((f ◁ (pr₁ ◁ L)) ∙ left₁ u)
     left₁-natural {u = u} {u′} L = paste-squares
       (project-pair₁ (f ∘ pr₁) (g ∘ pr₂) u) (project-pair₁ (f ∘ pr₁) (g ∘ pr₂) u′)
       (comp-assoc u pr₁ f) (comp-assoc u′ pr₁ f)
@@ -74,8 +74,8 @@ coordinate comparisons reconstruct a full cone comparison.
       (substitution-square-projection pr₁ F (f ∘ pr₁) (pair-β₁ (f ∘ pr₁) (g ∘ pr₂)) L)
       (postWhisker-comp-at L pr₁ f)
 
-    left₂-natural : {T : CAT} {u u′ : MAP T (C × D)} (L : NatIso u u′)
-      → Iso₂ (left₂ u′ ∙ (pr₂ ◁ (F ◁ L))) ((g ◁ (pr₂ ◁ L)) ∙ left₂ u)
+    left₂-natural : {T : CAT} {u u′ : MAP T (C × D)} (L : =₁ u u′)
+      → =₂ (left₂ u′ ∙ (pr₂ ◁ (F ◁ L))) ((g ◁ (pr₂ ◁ L)) ∙ left₂ u)
     left₂-natural {u = u} {u′} L = paste-squares
       (project-pair₂ (f ∘ pr₁) (g ∘ pr₂) u) (project-pair₂ (f ∘ pr₁) (g ∘ pr₂) u′)
       (comp-assoc u pr₂ g) (comp-assoc u′ pr₂ g)
@@ -83,16 +83,16 @@ coordinate comparisons reconstruct a full cone comparison.
       (substitution-square-projection pr₂ F (g ∘ pr₂) (pair-β₂ (f ∘ pr₁) (g ∘ pr₂)) L)
       (postWhisker-comp-at L pr₂ g)
 
-    right₁-natural : {T : CAT} {v v′ : MAP T E} (R : NatIso v v′)
-      → Iso₂ (right₁ v′ ∙ (pr₁ ◁ (Δ ◁ R))) (R ∙ right₁ v)
+    right₁-natural : {T : CAT} {v v′ : MAP T E} (R : =₁ v v′)
+      → =₂ (right₁ v′ ∙ (pr₁ ◁ (Δ ◁ R))) (R ∙ right₁ v)
     right₁-natural {v = v} {v′} R = paste-squares
       (project-pair₁ (id E) (id E) v) (project-pair₁ (id E) (id E) v′)
       (comp-unitˡ v) (comp-unitˡ v′) (pr₁ ◁ (Δ ◁ R)) (id E ◁ R) R
       (substitution-square-projection pr₁ Δ (id E) (pair-β₁ (id E) (id E)) R)
       (postWhisker-id-at R)
 
-    right₂-natural : {T : CAT} {v v′ : MAP T E} (R : NatIso v v′)
-      → Iso₂ (right₂ v′ ∙ (pr₂ ◁ (Δ ◁ R))) (R ∙ right₂ v)
+    right₂-natural : {T : CAT} {v v′ : MAP T E} (R : =₁ v v′)
+      → =₂ (right₂ v′ ∙ (pr₂ ◁ (Δ ◁ R))) (R ∙ right₂ v)
     right₂-natural {v = v} {v′} R = paste-squares
       (project-pair₂ (id E) (id E) v) (project-pair₂ (id E) (id E) v′)
       (comp-unitˡ v) (comp-unitˡ v′) (pr₂ ◁ (Δ ◁ R)) (id E ◁ R) R
@@ -101,7 +101,7 @@ coordinate comparisons reconstruct a full cone comparison.
 
   opaque
     coordinate₁ : {T : CAT} {s t : Cone F Δ T} (Φ : ConeIso s t)
-      → Iso₂ (edge₁ t ∙ (f ◁ (pr₁ ◁ ConeIso.leftIso Φ))) (ConeIso.rightIso Φ ∙ edge₁ s)
+      → =₂ (edge₁ t ∙ (f ◁ (pr₁ ◁ ConeIso.leftIso Φ))) (ConeIso.rightIso Φ ∙ edge₁ s)
     coordinate₁ {s = s} {t} Φ = transport-square
       (left₁ (Cone.left s)) (left₁ (Cone.left t)) (right₁ (Cone.right s)) (right₁ (Cone.right t))
       (pr₁ ◁ Cone.match s) (pr₁ ◁ Cone.match t)
@@ -111,7 +111,7 @@ coordinate comparisons reconstruct a full cone comparison.
       (post-square pr₁ (Cone.match s) (Cone.match t) (F ◁ ConeIso.leftIso Φ) (Δ ◁ ConeIso.rightIso Φ) (ConeIso.compatible Φ))
 
     coordinate₂ : {T : CAT} {s t : Cone F Δ T} (Φ : ConeIso s t)
-      → Iso₂ (edge₂ t ∙ (g ◁ (pr₂ ◁ ConeIso.leftIso Φ))) (ConeIso.rightIso Φ ∙ edge₂ s)
+      → =₂ (edge₂ t ∙ (g ◁ (pr₂ ◁ ConeIso.leftIso Φ))) (ConeIso.rightIso Φ ∙ edge₂ s)
     coordinate₂ {s = s} {t} Φ = transport-square
       (left₂ (Cone.left s)) (left₂ (Cone.left t)) (right₂ (Cone.right s)) (right₂ (Cone.right t))
       (pr₂ ◁ Cone.match s) (pr₂ ◁ Cone.match t)
@@ -121,9 +121,9 @@ coordinate comparisons reconstruct a full cone comparison.
       (post-square pr₂ (Cone.match s) (Cone.match t) (F ◁ ConeIso.leftIso Φ) (Δ ◁ ConeIso.rightIso Φ) (ConeIso.compatible Φ))
 
   cone-from-coordinates : {T : CAT} (s t : Cone F Δ T)
-    (L : NatIso (Cone.left s) (Cone.left t)) (R : NatIso (Cone.right s) (Cone.right t))
-    → Iso₂ (edge₁ t ∙ (f ◁ (pr₁ ◁ L))) (R ∙ edge₁ s)
-    → Iso₂ (edge₂ t ∙ (g ◁ (pr₂ ◁ L))) (R ∙ edge₂ s)
+    (L : =₁ (Cone.left s) (Cone.left t)) (R : =₁ (Cone.right s) (Cone.right t))
+    → =₂ (edge₁ t ∙ (f ◁ (pr₁ ◁ L))) (R ∙ edge₁ s)
+    → =₂ (edge₂ t ∙ (g ◁ (pr₂ ◁ L))) (R ∙ edge₂ s)
     → ConeIso s t
   cone-from-coordinates s t L R e₁ e₂ = record
     { leftIso = L ; rightIso = R
@@ -164,17 +164,17 @@ The first coordinate equation is precisely the recovered compatibility.
     where
     l = ConeIso.leftIso Φ
     r = ConeIso.rightIso Φ
-    L : NatIso (Cone.left s) (Cone.left t)
+    L : =₁ (Cone.left s) (Cone.left t)
     L = pair-iso l r
-    R : NatIso (Cone.right s) (Cone.right t)
+    R : =₁ (Cone.right s) (Cone.right t)
     R = edge₂ t ∙ ((g ◁ r) ∙ invIso (edge₂ s))
-    first : Iso₂ (edge₁ t ∙ (f ◁ l)) (R ∙ edge₁ s)
+    first : =₂ (edge₁ t ∙ (f ◁ l)) (R ∙ edge₁ s)
     first = invIso (isoComp-assoc-at (edge₂ t) ((g ◁ r) ∙ invIso (edge₂ s)) (edge₁ s)) ∙
       (isoComp-cong (idIso (edge₂ t)) (invIso (isoComp-assoc-at (g ◁ r) (invIso (edge₂ s)) (edge₁ s))) ∙
       (isoComp-cong (idIso (edge₂ t)) (ConeIso.compatible Φ) ∙
       (isoComp-assoc-at (edge₂ t) (invIso (edge₂ t) ∙ edge₁ t) (f ◁ l) ∙
         isoComp-cong (invIso (cancel-inverse (edge₂ t) (edge₁ t))) (idIso (f ◁ l)))))
-    second : Iso₂ (edge₂ t ∙ (g ◁ r)) (R ∙ edge₂ s)
+    second : =₂ (edge₂ t ∙ (g ◁ r)) (R ∙ edge₂ s)
     second = invIso (isoComp-assoc-at (edge₂ t) ((g ◁ r) ∙ invIso (edge₂ s)) (edge₂ s)) ∙
       isoComp-cong (idIso (edge₂ t)) (invIso
         (isoComp-unitʳ-at (g ◁ r) ∙
@@ -203,12 +203,12 @@ with those beta comparisons as its legs.
     value = record { left = u ; right = v ; match = pair-iso first second }
 
     opaque
-      edge₁-comparison : Iso₂ (edge₁ value) α
+      edge₁-comparison : =₂ (edge₁ value) α
       edge₁-comparison = decode-encode (left₁ u) (right₁ v) α ∙
         isoComp-cong (idIso (right₁ v))
           (isoComp-cong (pair-iso-β₁ first second) (idIso (invIso (left₁ u))))
 
-      edge₂-comparison : Iso₂ (edge₂ value) β
+      edge₂-comparison : =₂ (edge₂ value) β
       edge₂-comparison = decode-encode (left₂ u) (right₂ v) β ∙
         isoComp-cong (idIso (right₂ v))
           (isoComp-cong (pair-iso-β₂ first second) (idIso (invIso (left₂ u))))

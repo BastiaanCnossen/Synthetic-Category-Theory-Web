@@ -29,8 +29,8 @@ open Structural vocabulary terminal products productLaws composition whiskering
 open PN vocabulary terminal products productLaws composition vertical whiskering using (move-square)
 
 uncurry-restriction : {X A B E : CAT} (h : MAP B (Fun X E))
-  {f g : MAP A B} (α : NatIso f g) →
-  Iso₂ (funUncurry-pre h g ∙ funUncurryIso (h ◁ α))
+  {f g : MAP A B} (α : =₁ f g) →
+  =₂ (funUncurry-pre h g ∙ funUncurryIso (h ◁ α))
     ((funUncurry h ◁ productMap-cong α (idIso (id X))) ∙ funUncurry-pre h f)
 uncurry-restriction {X} h {f} {g} α =
   isoComp-cong (postWhisker (funUncurry h) ◁
@@ -42,7 +42,7 @@ uncurry-restriction {X} h {f} {g} α =
       (invIso (uncurryFamily-absolute (h ◁ α))))
 
 module Restriction {X A B E : CAT} {f g : MAP A B}
-  (α : NatIso f g) (h : MAP B (Fun X E)) where
+  (α : =₁ f g) (h : MAP B (Fun X E)) where
   S = swap {X} {A}
   T = swap {X} {B}
   e = funUncurry h
@@ -69,20 +69,20 @@ module Restriction {X A B E : CAT} {f g : MAP A B}
   action₄ = transpose h ◁ Lα
 
   abstract
-    first : Iso₂ (r₁g ∙ action₀) (action₁ ∙ r₁f)
+    first : =₂ (r₁g ∙ action₀) (action₁ ∙ r₁f)
     first = preWhisker-isoComp-at (e ◁ Rα) qf S ∙
       ((preWhisker S ◁ uncurry-restriction h α) ∙
         invIso (preWhisker-isoComp-at qg (funUncurryIso (h ◁ α)) S))
 
-    middle : Iso₂ (r₃g ∙ action₂) (action₃ ∙ r₃f)
+    middle : =₂ (r₃g ∙ action₂) (action₃ ∙ r₃f)
     middle = post-square e (swap-restriction f) (swap-restriction g)
       (Rα ▷ S) (T ◁ Lα) (Swap.Naturality.comparison 𝒯 α)
 
-    last : Iso₂ (r₄g ∙ action₃) (action₄ ∙ r₄f)
+    last : =₂ (r₄g ∙ action₃) (action₄ ∙ r₄f)
     last = move-square (comp-assoc Lg T e) action₄ action₃
       (comp-assoc Lf T e) (postWhisker-comp-at Lα T e)
 
-    comparison : Iso₂ (transpose-pre g h ∙ transposeIso (h ◁ α))
+    comparison : =₂ (transpose-pre g h ∙ transposeIso (h ◁ α))
       ((transpose h ◁ Lα) ∙ transpose-pre f h)
     comparison = paste-squares (r₃f ∙ (r₂f ∙ r₁f)) (r₃g ∙ (r₂g ∙ r₁g))
       r₄f r₄g action₀ action₃ action₄

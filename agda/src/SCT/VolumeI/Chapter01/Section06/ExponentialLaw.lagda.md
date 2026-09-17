@@ -47,25 +47,25 @@ module ExponentialLaw (X C D : CAT) where
   backward : MAP Flat Nested
   backward = funCurry backwardFirstCurry
 
-  forward-β : NatIso (funUncurry forward) forwardEvaluation
+  forward-β : =₁ (funUncurry forward) forwardEvaluation
   forward-β = funCurry-β forwardEvaluation
 
-  backward-β : NatIso (doubleUncurry backward) backwardEvaluation
+  backward-β : =₁ (doubleUncurry backward) backwardEvaluation
   backward-β = funCurry-β backwardEvaluation ∙
     funUncurry-cong (funCurry-β backwardFirstCurry)
 
   doubleUncurry-pre : {R Z : CAT} (f : MAP Z Nested) (σ : MAP R Z)
-    → NatIso (doubleUncurry (f ∘ σ))
+    → =₁ (doubleUncurry (f ∘ σ))
         (doubleUncurry f ∘ productMap (productMap σ (id X)) (id C))
   doubleUncurry-pre f σ = funUncurry-pre (funUncurry f) (productMap σ (id X)) ∙
     funUncurry-cong (funUncurry-pre f σ)
 
   doubleReflect : {Z : CAT} (f g : MAP Z Nested)
-    → NatIso (doubleUncurry f) (doubleUncurry g) → NatIso f g
+    → =₁ (doubleUncurry f) (doubleUncurry g) → =₁ f g
   doubleReflect f g α = funReflect f g
     (funReflect (funUncurry f) (funUncurry g) α)
 
-  doubleUncurry-id : NatIso (doubleUncurry (id Nested)) doubleEvaluation
+  doubleUncurry-id : =₁ (doubleUncurry (id Nested)) doubleEvaluation
   doubleUncurry-id = funUncurry-cong (funUncurry-id X (Fun C D))
 ```
 
@@ -74,38 +74,38 @@ Each proof separates beta reduction from reassociation of the three factors.
 
 ```agda
   forward-represents : {Z : CAT} (f : MAP Z Nested)
-    → NatIso (funUncurry (forward ∘ f))
+    → =₁ (funUncurry (forward ∘ f))
         (doubleUncurry f ∘ Associativity.backward Z X C)
   forward-represents {Z} f =
     let changePair = productMap f (id (X × C))
         changeTriple = productMap (productMap f (id X)) (id C)
         regroup = Associativity.backward Z X C
 
-        substitute : NatIso (funUncurry (forward ∘ f)) (forwardEvaluation ∘ changePair)
+        substitute : =₁ (funUncurry (forward ∘ f)) (forwardEvaluation ∘ changePair)
         substitute = (forward-β ▷ changePair) ∙ funUncurry-pre forward f
 
-        regroupParameters : NatIso (forwardEvaluation ∘ changePair)
+        regroupParameters : =₁ (forwardEvaluation ∘ changePair)
           ((doubleEvaluation ∘ changeTriple) ∘ regroup)
         regroupParameters = invIso (comp-assoc regroup changeTriple doubleEvaluation) ∙
           ((doubleEvaluation ◁ Reassociation.backward-natural f) ∙
             comp-assoc changePair (Associativity.backward Nested X C) doubleEvaluation)
 
-        evaluate : NatIso (doubleEvaluation ∘ changeTriple) (doubleUncurry f)
+        evaluate : =₁ (doubleEvaluation ∘ changeTriple) (doubleUncurry f)
         evaluate = invIso (funUncurry-pre (funEval {X} {Fun C D}) (productMap f (id X)))
     in (evaluate ▷ regroup) ∙ (regroupParameters ∙ substitute)
 
   backward-represents : {Z : CAT} (f : MAP Z Flat)
-    → NatIso (doubleUncurry (backward ∘ f))
+    → =₁ (doubleUncurry (backward ∘ f))
         (funUncurry f ∘ Associativity.forward Z X C)
   backward-represents {Z} f =
     let changePair = productMap f (id (X × C))
         changeTriple = productMap (productMap f (id X)) (id C)
         regroup = Associativity.forward Z X C
 
-        substitute : NatIso (doubleUncurry (backward ∘ f)) (backwardEvaluation ∘ changeTriple)
+        substitute : =₁ (doubleUncurry (backward ∘ f)) (backwardEvaluation ∘ changeTriple)
         substitute = (backward-β ▷ changeTriple) ∙ doubleUncurry-pre backward f
 
-        regroupParameters : NatIso (backwardEvaluation ∘ changeTriple)
+        regroupParameters : =₁ (backwardEvaluation ∘ changeTriple)
           (funUncurry f ∘ regroup)
         regroupParameters = invIso (comp-assoc regroup changePair funEval) ∙
           ((funEval ◁ Reassociation.forward-natural f) ∙
@@ -118,10 +118,10 @@ exactly as in the book. Reflection applies to arbitrary parameters, including `F
 `Nested`, and `Nested × X`.
 
 ```agda
-  forward-backward : NatIso (forward ∘ backward) (id Flat)
+  forward-backward : =₁ (forward ∘ backward) (id Flat)
   forward-backward =
     let regroup = Associativity.backward Flat X C
-        uncurriedComparison : NatIso (funUncurry (forward ∘ backward))
+        uncurriedComparison : =₁ (funUncurry (forward ∘ backward))
           (funUncurry (id Flat))
         uncurriedComparison = invIso (funUncurry-id (X × C) D) ∙
           (comp-unitʳ funEval ∙
@@ -130,10 +130,10 @@ exactly as in the book. Reflection applies to arbitrary parameters, including `F
           ((backward-β ▷ regroup) ∙ forward-represents backward))))
     in funReflect (forward ∘ backward) (id Flat) uncurriedComparison
 
-  backward-forward : NatIso (backward ∘ forward) (id Nested)
+  backward-forward : =₁ (backward ∘ forward) (id Nested)
   backward-forward =
     let regroup = Associativity.forward Nested X C
-        uncurriedComparison : NatIso (doubleUncurry (backward ∘ forward))
+        uncurriedComparison : =₁ (doubleUncurry (backward ∘ forward))
           (doubleUncurry (id Nested))
         uncurriedComparison = invIso doubleUncurry-id ∙
           (comp-unitʳ doubleEvaluation ∙

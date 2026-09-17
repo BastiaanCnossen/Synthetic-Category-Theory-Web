@@ -28,9 +28,9 @@ open Structural vocabulary terminal products productLaws composition whiskering
 open PN vocabulary terminal products productLaws composition vertical whiskering using (move-square)
 open Isomorphisms vocabulary terminal products productLaws composition vertical whiskering using (cancel-inverse)
 module CongruenceAt {X A B E : CAT} {f g : MAP A B}
-  (α : NatIso f g) (h : MAP X (Fun B E)) where
+  (α : =₁ f g) (h : MAP X (Fun B E)) where
 
-  γ : NatIso (funPre {D = E} f) (funPre g)
+  γ : =₁ (funPre {D = E} f) (funPre g)
   γ = preCong α
   HA = productMap h (id A)
   HB = productMap h (id B)
@@ -44,10 +44,10 @@ module CongruenceAt {X A B E : CAT} {f g : MAP A B}
   βg = funPre-β {D = E} g
   evaluatedImage = funEval ◁ largeImage
 
-  liftedImage : Iso₂ (funUncurryIso γ) (invIso βg ∙ (evaluatedImage ∙ βf))
+  liftedImage : =₂ (funUncurryIso γ) (invIso βg ∙ (evaluatedImage ∙ βf))
   liftedImage = preCong-β α
 
-  betaSquare : Iso₂ (βg ∙ funUncurryIso γ) (evaluatedImage ∙ βf)
+  betaSquare : =₂ (βg ∙ funUncurryIso γ) (evaluatedImage ∙ βf)
   betaSquare = cancel-inverse βg (evaluatedImage ∙ βf) ∙
     isoComp-cong (idIso βg) liftedImage
 
@@ -78,7 +78,7 @@ module CongruenceAt {X A B E : CAT} {f g : MAP A B}
     (comp-assoc Lf HB funEval) (postWhisker-comp-at smallImage HB funEval)
 
   abstract
-    law : Iso₂ (funPre-uncurry g h ∙ funUncurryIso (γ ▷ h))
+    law : =₂ (funPre-uncurry g h ∙ funUncurryIso (γ ▷ h))
       ((funUncurry h ◁ productMap-cong (idIso (id X)) α) ∙ funPre-uncurry f h)
     law = paste-squares (r₄f ∙ (r₃f ∙ (r₂f ∙ r₁f))) (r₄g ∙ (r₃g ∙ (r₂g ∙ r₁g)))
       r₅f r₅g action₀ action₄ action₅
@@ -87,8 +87,8 @@ module CongruenceAt {X A B E : CAT} {f g : MAP A B}
           (paste-squares r₁f r₁g r₂f r₂g action₀ action₁ action₂ step₁ step₂) step₃) step₄) step₅
 
 preCong-at : {X A B E : CAT} {f g : MAP A B}
-  (α : NatIso f g) (h : MAP X (Fun B E)) →
-  Iso₂ (funPre-uncurry g h ∙ funUncurryIso (preCong α ▷ h))
+  (α : =₁ f g) (h : MAP X (Fun B E)) →
+  =₂ (funPre-uncurry g h ∙ funUncurryIso (preCong α ▷ h))
     ((funUncurry h ◁ productMap-cong (idIso (id X)) α) ∙ funPre-uncurry f h)
 preCong-at = CongruenceAt.law
 ```

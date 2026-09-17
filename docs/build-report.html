@@ -1,8 +1,0 @@
-<p>This web edition includes the chapter introduction and Sections 1.1 and 1.2. LaTeX remains authoritative. The generated pages, checked Agda modules, diagrams, and local MathJax assets form one distribution.</p>
-<h2>Conversion and verification</h2>
-<ol><li>TeX4ht converts the selected manuscript using its mathematical preamble, theorem counters, and citation package. The downloadable PDF uses the manuscript print class.</li><li>TikZ diagrams are compiled to SVG. Existing source labels become stable HTML anchors, and categorical-scope underlining is retained.</li><li>Agda checks the publication aggregate and its entire dependency closure with <code>--safe --without-K</code>. Displayed code is compared with the compiler output.</li><li>Validation checks declaration ranges, bidirectional passage links, local resources, and matching PDF/HTML counters.</li></ol>
-<h2>Publication scope</h2>
-<p>The module browser includes the checked modules supporting these sections. Later sections and investigations are not included in this distribution. The public source repository may contain further work; inclusion there does not imply that it was checked for this edition.</p>
-<p><a href="build-info.json">Build summary</a> · <a href="validation.json">Validation results</a>.</p>
-<h2>Visibility and limitations</h2>
-<p>Every page requests <code>noindex, nofollow</code>. This is a crawler hint, not access control. Source and visual review of the mathematical correspondences remain necessary: typechecking does not establish that a formal statement captures every intention of the prose.</p>

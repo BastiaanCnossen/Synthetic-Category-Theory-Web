@@ -88,18 +88,18 @@ module Nested {A B X Z : CAT} (f : MAP A B) (g : MAP B Z) (h : MAP X Z) where
     imageInverse = preWhisker-idIso (f ∘ outerLeft) flatten ∙
       ((preWhisker flatten ◁ isoComp-inverseʳ-at δ) ∙
         invIso (preWhisker-isoComp-at δ (invIso δ) flatten))
-    cancelTransport : Iso₂ (δF ∙ ω) (invIso assocLeft)
+    cancelTransport : =₂ (δF ∙ ω) (invIso assocLeft)
     cancelTransport = isoComp-unitˡ-at (invIso assocLeft) ∙
       (isoComp-cong imageInverse (idIso (invIso assocLeft)) ∙
       (invIso (isoComp-assoc-at d d′ (invIso assocLeft)) ∙
       (isoComp-cong (idIso d) (cancel-left assocRight (d′ ∙ invIso assocLeft)) ∙
         isoComp-assoc-at d (invIso assocRight) ω)))
-    cancel : Iso₂ ((κ ∙ δF) ∙ ω) (ρ ∙ (f ◁ α))
+    cancel : =₂ ((κ ∙ δF) ∙ ω) (ρ ∙ (f ◁ α))
     cancel = cancel-right assocLeft (ρ ∙ (f ◁ α)) ∙
       (isoComp-cong (invIso (isoComp-assoc-at ρ (f ◁ α) assocLeft)) (idIso (invIso assocLeft)) ∙
       (isoComp-cong (idIso κ) cancelTransport ∙ isoComp-assoc-at κ δF ω))
 
-  insert-flatten : NatIso (insert ∘ flatten) (id N)
+  insert-flatten : =₁ (insert ∘ flatten) (id N)
   insert-flatten = pullback-reflect _ _
     (coneIso-compose (coneIso-inverse (conePre-id nestedCone))
     (coneIso-compose insertion-comparison
@@ -118,13 +118,13 @@ module Nested {A B X Z : CAT} (f : MAP A B) (g : MAP B Z) (h : MAP X Z) where
     σ = Cone.match innerCone
     inverseImage = postWhisker-idIso g (f ∘ outerLeft) ∙
       ((postWhisker g ◁ isoComp-inverseʳ-at δ) ∙ invIso (postWhisker-isoComp-at g δ (invIso δ)))
-    cancel : Iso₂ (((h ◁ ε) ∙ ν) ∙ (g ◁ invIso δ)) σ
+    cancel : =₂ (((h ◁ ε) ∙ ν) ∙ (g ◁ invIso δ)) σ
     cancel = isoComp-unitʳ-at σ ∙
       (isoComp-cong (idIso σ) inverseImage ∙
       (isoComp-assoc-at σ (g ◁ δ) (g ◁ invIso δ) ∙
         isoComp-cong (invIso (ConeIso.compatible (pbLift-β innerCone))) (idIso (g ◁ invIso δ))))
 
-  flatten-insert : NatIso (flatten ∘ insert) (id Outer)
+  flatten-insert : =₁ (flatten ∘ insert) (id Outer)
   flatten-insert = pullback-reflect _ _
     (coneIso-compose (coneIso-inverse (conePre-id outerCone))
     (coneIso-compose flatten-insertion

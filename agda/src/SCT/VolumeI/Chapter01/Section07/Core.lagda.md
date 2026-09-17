@@ -40,7 +40,7 @@ module CoreLift {X C : CAT} (xAn : isAn X) (f : MAP X C) where
   point = FunctorLift.lift chosen
   lift : MAP X (Core C)
   lift = decodeMap point
-  comparison : NatIso (coreInclusion C ∘ lift) f
+  comparison : =₁ (coreInclusion C ∘ lift) f
   comparison = unnamedIso (FunctorLift.comparison chosen ∙
     ((mapPost (coreInclusion C) ◁ name-decode point) ∙ invIso (mapPost-name (coreInclusion C) lift)))
 

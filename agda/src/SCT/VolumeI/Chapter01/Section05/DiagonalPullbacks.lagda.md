@@ -48,7 +48,7 @@ module DiagonalPullback {C D E : CAT} (f : MAP C E) (g : MAP D E) where
         (coneIso-compose (Original.factor-β (from target)) (recover-direct-pre inverse s))
 
       reflect-comparisons : (h k : MAP T T)
-        → ConeIso (conePre h direct) (conePre k direct) → NatIso h k
+        → ConeIso (conePre h direct) (conePre k direct) → =₁ h k
       reflect-comparisons h k Φ = Original.reflect h k
         (coneIso-compose (recover-direct-pre k s)
           (coneIso-compose (from-iso Φ) (coneIso-inverse (recover-direct-pre h s))))
@@ -62,10 +62,10 @@ module DiagonalPullback {C D E : CAT} (f : MAP C E) (g : MAP D E) where
   forward-isEquiv : IsEquiv forward
   forward-isEquiv = Universal.isPullback source (pbCone-isPullback f g)
 
-  forward-left : NatIso (pb₁ ∘ forward) (pair (pb₁ {f = f} {g}) pb₂)
+  forward-left : =₁ (pb₁ ∘ forward) (pair (pb₁ {f = f} {g}) pb₂)
   forward-left = pbLift-β₁ (Direct.value source)
 
-  forward-right : NatIso (pb₂ ∘ forward) (g ∘ pb₂ {f = f} {g})
+  forward-right : =₁ (pb₂ ∘ forward) (g ∘ pb₂ {f = f} {g})
   forward-right = pbLift-β₂ (Direct.value source)
 
   module Square {T : CAT} (s : Cone f g T) where
@@ -92,10 +92,10 @@ module DiagonalPullback {C D E : CAT} (f : MAP C E) (g : MAP D E) where
     right-comparison = ConeIso.rightIso comparison
     transported = coneRetarget original left right left-comparison right-comparison
 
-    matching-comparison : Iso₂ (Cone.match transported) (Cone.match value)
+    matching-comparison : =₂ (Cone.match transported) (Cone.match value)
     matching-comparison = coneRetarget-match comparison
 
-    factorization : NatIso (pbLift value) induced
+    factorization : =₁ (pbLift value) induced
     factorization = pullback-η induced ∙ invIso (pbLift-cong comparison)
 
     preserve : IsPullback s → IsPullback value

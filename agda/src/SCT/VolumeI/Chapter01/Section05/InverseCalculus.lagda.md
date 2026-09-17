@@ -21,26 +21,26 @@ open PU vocabulary terminal products productLaws composition vertical whiskering
   using (cancel-right-reflect)
 
 isoInverse-unique : {C D : CAT} {f g : MAP C D}
-  (α : NatIso f g) (β : NatIso g f) → Iso₂ (β ∙ α) (idIso f) → Iso₂ (invIso α) β
+  (α : =₁ f g) (β : =₁ g f) → =₂ (β ∙ α) (idIso f) → =₂ (invIso α) β
 isoInverse-unique α β p = cancel-right-reflect α (invIso p ∙ isoComp-inverseˡ-at α)
 
-inverse-identity : {C D : CAT} (f : MAP C D) → Iso₂ (invIso (idIso f)) (idIso f)
+inverse-identity : {C D : CAT} (f : MAP C D) → =₂ (invIso (idIso f)) (idIso f)
 inverse-identity f = isoInverse-unique (idIso f) (idIso f) (isoComp-unitˡ-at (idIso f))
 
-inverse-inverse : {C D : CAT} {f g : MAP C D} (α : NatIso f g) →
-  Iso₂ (invIso (invIso α)) α
+inverse-inverse : {C D : CAT} {f g : MAP C D} (α : =₁ f g) →
+  =₂ (invIso (invIso α)) α
 inverse-inverse α = isoInverse-unique (invIso α) α (isoComp-inverseʳ-at α)
 
 inverse-composite : {C D : CAT} {f g h : MAP C D}
-  (β : NatIso g h) (α : NatIso f g) →
-  Iso₂ (invIso (β ∙ α)) (invIso α ∙ invIso β)
+  (β : =₁ g h) (α : =₁ f g) →
+  =₂ (invIso (β ∙ α)) (invIso α ∙ invIso β)
 inverse-composite β α = isoInverse-unique (β ∙ α) (invIso α ∙ invIso β)
   (isoComp-inverseˡ-at α ∙
     (isoComp-cong (idIso (invIso α)) (cancel-left β α) ∙
       isoComp-assoc-at (invIso α) (invIso β) (β ∙ α)))
 
-pre-inverse : {C D T : CAT} {f g : MAP C D} (α : NatIso f g) (r : MAP T C) →
-  Iso₂ (invIso α ▷ r) (invIso (α ▷ r))
+pre-inverse : {C D T : CAT} {f g : MAP C D} (α : =₁ f g) (r : MAP T C) →
+  =₂ (invIso α ▷ r) (invIso (α ▷ r))
 pre-inverse {f = f} α r = invIso (isoInverse-unique (α ▷ r) (invIso α ▷ r)
   (preWhisker-idIso f r ∙
     ((preWhisker r ◁ isoComp-inverseˡ-at α) ∙

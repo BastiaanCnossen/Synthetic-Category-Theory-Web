@@ -24,15 +24,15 @@ open import SCT.VolumeI.Chapter01.Section03.ParameterSquarePasting 𝒯 using (p
 open PN vocabulary terminal products productLaws composition vertical whiskering using (cancel-left-reflect)
 module PS = Projections 𝒯
 
-restriction-base : (X : CAT) {A B : CAT} (f : MAP A B) → NatIso (pr₁ ∘ productRestriction X f) pr₁
+restriction-base : (X : CAT) {A B : CAT} (f : MAP A B) → =₁ (pr₁ ∘ productRestriction X f) pr₁
 restriction-base X f = comp-unitˡ pr₁ ∙ pair-β₁ (id X ∘ pr₁) (f ∘ pr₂)
 
 parameter-base : {X Y : CAT} (h : MAP X Y) (A : CAT) →
-  NatIso (pr₁ ∘ productMap h (id A)) (h ∘ pr₁)
+  =₁ (pr₁ ∘ productMap h (id A)) (h ∘ pr₁)
 parameter-base h A = pair-β₁ (h ∘ pr₁) (id A ∘ pr₂)
 
 restriction-over : {X Y A B : CAT} (h : MAP X Y) (f : MAP A B) →
-  NatIso ((h ∘ pr₁) ∘ productRestriction X f) (h ∘ pr₁)
+  =₁ ((h ∘ pr₁) ∘ productRestriction X f) (h ∘ pr₁)
 restriction-over {X} h f = PS.lift-base h pr₁ (productRestriction X f) (restriction-base X f)
 
 compositor : {A B C : CAT} (X : CAT) (f : MAP A B) (g : MAP B C) →
@@ -128,7 +128,7 @@ module Mixed {X Y A B C : CAT} (h : MAP X Y) (f : MAP A B) (g : MAP B C) where
         (PS.compose-base (h ∘ pr₁) Xg (restriction-over h g) Xf (restriction-over h f))
         (restriction-over h (g ∘ f)) χX (compositor-over h f g))
 
-    comparison : Iso₂ (pr₁ ◁ short) (pr₁ ◁ long)
+    comparison : =₂ (pr₁ ◁ short) (pr₁ ◁ long)
     comparison = cancel-left-reflect final (invIso long-square ∙ short-square)
 ```
 

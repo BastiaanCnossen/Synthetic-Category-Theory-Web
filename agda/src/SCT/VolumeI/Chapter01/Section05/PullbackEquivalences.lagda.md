@@ -20,7 +20,7 @@ open import SCT.VolumeI.Chapter01.Section05.PullbackSquares 𝒯 P
 open import SCT.VolumeI.Chapter01.Section05.PullbackLifting 𝒯 P
 
 coneIso-from-left : {C D E T : CAT} {f : MAP C E} {g : MAP D E} → IsEquiv g →
-  (s t : Cone f g T) → NatIso (Cone.left s) (Cone.left t) → ConeIso s t
+  (s t : Cone f g T) → =₁ (Cone.left s) (Cone.left t) → ConeIso s t
 coneIso-from-left {f = f} {g} eg s t α = record
   { leftIso = α
   ; rightIso = FunctorLift.lift chosen
@@ -48,10 +48,10 @@ module BaseChangeEquivalence {C D E : CAT} (f : MAP C E) (g : MAP D E)
   inverse : MAP C (Pullback f g)
   inverse = pbLift inverseCone
 
-  inverse-image : NatIso (pb₁ ∘ inverse) (id C)
+  inverse-image : =₁ (pb₁ ∘ inverse) (id C)
   inverse-image = pbLift-β₁ inverseCone
 
-  inverse-section : NatIso (inverse ∘ pb₁) (id (Pullback f g))
+  inverse-section : =₁ (inverse ∘ pb₁) (id (Pullback f g))
   inverse-section = pullback-reflect _ _ (coneIso-from-left eg _ _
     (invIso (comp-unitʳ pb₁) ∙
       (comp-unitˡ pb₁ ∙ ((inverse-image ▷ pb₁) ∙ invIso (comp-assoc pb₁ inverse pb₁)))))

@@ -41,20 +41,20 @@ module Triple {X A B C : CAT}
   parameters : MAP X ((C × B) × A)
   parameters = pair (pair γ β) α
 
-  first : NatIso ((pr₁ ∘ pr₁) ∘ parameters) γ
+  first : =₁ ((pr₁ ∘ pr₁) ∘ parameters) γ
   first = pair-β₁ γ β ∙
     ((pr₁ ◁ pair-β₁ (pair γ β) α) ∙ comp-assoc parameters pr₁ pr₁)
 
-  second : NatIso ((pr₂ ∘ pr₁) ∘ parameters) β
+  second : =₁ ((pr₂ ∘ pr₁) ∘ parameters) β
   second = pair-β₂ γ β ∙
     ((pr₂ ◁ pair-β₁ (pair γ β) α) ∙ comp-assoc parameters pr₁ pr₂)
 
-  third : NatIso (pr₂ ∘ parameters) α
+  third : =₁ (pr₂ ∘ parameters) α
   third = pair-β₂ (pair γ β) α
 
 isoComp-assoc-family : {X C D : CAT} {f g h k : MAP C D}
-  (γ : MAP X (h ≅ k)) (β : MAP X (g ≅ h)) (α : MAP X (f ≅ g))
-  → NatIso ((γ ∙ β) ∙ α) (γ ∙ (β ∙ α))
+  (γ : MAP X (h ＝ k)) (β : MAP X (g ＝ h)) (α : MAP X (f ＝ g))
+  → =₁ ((γ ∙ β) ∙ α) (γ ∙ (β ∙ α))
 isoComp-assoc-family {f = f} {g} {h} {k} γ β α =
   let open Triple γ β α
   in specialize (isoComp-assoc f g h k) parameters
@@ -64,8 +64,8 @@ isoComp-assoc-family {f = f} {g} {h} {k} γ β α =
       (isoComp-evaluate (pr₂ ∘ pr₁) pr₂ parameters second third))
 
 postWhisker-isoComp-family : {X C D E : CAT} {f g h : MAP C D}
-  (u : MAP D E) (τ : MAP X (g ≅ h)) (σ : MAP X (f ≅ g))
-  → NatIso (u ◁ (τ ∙ σ)) ((u ◁ τ) ∙ (u ◁ σ))
+  (u : MAP D E) (τ : MAP X (g ＝ h)) (σ : MAP X (f ＝ g))
+  → =₁ (u ◁ (τ ∙ σ)) ((u ◁ τ) ∙ (u ◁ σ))
 postWhisker-isoComp-family {f = f} {g} {h} u τ σ =
   let parameters = pair τ σ
   in specialize (postWhisker-isoComp f g h u) parameters
@@ -76,8 +76,8 @@ postWhisker-isoComp-family {f = f} {g} {h} u τ σ =
       (postWhisker-evaluate u pr₂ parameters (pair-β₂ τ σ)))
 
 preWhisker-isoComp-family : {X B C D : CAT} {f g h : MAP C D}
-  (τ : MAP X (g ≅ h)) (σ : MAP X (f ≅ g)) (k : MAP B C)
-  → NatIso ((τ ∙ σ) ▷ k) ((τ ▷ k) ∙ (σ ▷ k))
+  (τ : MAP X (g ＝ h)) (σ : MAP X (f ＝ g)) (k : MAP B C)
+  → =₁ ((τ ∙ σ) ▷ k) ((τ ▷ k) ∙ (σ ▷ k))
 preWhisker-isoComp-family {f = f} {g} {h} τ σ k =
   let parameters = pair τ σ
   in specialize (preWhisker-isoComp f g h k) parameters
@@ -88,9 +88,9 @@ preWhisker-isoComp-family {f = f} {g} {h} τ σ k =
       (preWhisker-evaluate pr₂ k parameters (pair-β₂ τ σ)))
 
 reassociateFour-family : {X C D : CAT} {f g h i j : MAP C D}
-  (δ : MAP X (i ≅ j)) (γ : MAP X (h ≅ i))
-  (β : MAP X (g ≅ h)) (α : MAP X (f ≅ g))
-  → NatIso ((δ ∙ γ) ∙ (β ∙ α)) (δ ∙ ((γ ∙ β) ∙ α))
+  (δ : MAP X (i ＝ j)) (γ : MAP X (h ＝ i))
+  (β : MAP X (g ＝ h)) (α : MAP X (f ＝ g))
+  → =₁ ((δ ∙ γ) ∙ (β ∙ α)) (δ ∙ ((γ ∙ β) ∙ α))
 reassociateFour-family δ γ β α =
   isoComp-cong (idIso δ) (invIso (isoComp-assoc-family γ β α))
   ∙ isoComp-assoc-family δ γ (β ∙ α)
@@ -102,9 +102,9 @@ using joint interchange. Both outside factors retain the same common parameter.
 ```agda
 hcomp-isoComp-family : {X C D E : CAT}
   {f₀ f₁ f₂ : MAP C D} {g₀ g₁ g₂ : MAP D E}
-  (β₂ : MAP X (g₁ ≅ g₂)) (β₁ : MAP X (g₀ ≅ g₁))
-  (α₂ : MAP X (f₁ ≅ f₂)) (α₁ : MAP X (f₀ ≅ f₁))
-  → NatIso ((β₂ ∙ β₁) ⋆ (α₂ ∙ α₁)) ((β₂ ⋆ α₂) ∙ (β₁ ⋆ α₁))
+  (β₂ : MAP X (g₁ ＝ g₂)) (β₁ : MAP X (g₀ ＝ g₁))
+  (α₂ : MAP X (f₁ ＝ f₂)) (α₁ : MAP X (f₀ ＝ f₁))
+  → =₁ ((β₂ ∙ β₁) ⋆ (α₂ ∙ α₁)) ((β₂ ⋆ α₂) ∙ (β₁ ⋆ α₁))
 hcomp-isoComp-family {f₁ = f₁} {f₂} {g₀ = g₀} {g₁} β₂ β₁ α₂ α₁ =
   let δ = β₂ ▷ f₂
       γ = β₁ ▷ f₂
@@ -124,27 +124,27 @@ module FourInputs {C D E : CAT}
   (f₀ f₁ f₂ : MAP C D) (g₀ g₁ g₂ : MAP D E) where
 
   Parameter : CAT
-  Parameter = ((g₁ ≅ g₂) × (g₀ ≅ g₁)) × ((f₁ ≅ f₂) × (f₀ ≅ f₁))
+  Parameter = ((g₁ ＝ g₂) × (g₀ ＝ g₁)) × ((f₁ ＝ f₂) × (f₀ ＝ f₁))
 
-  β₂ : MAP Parameter (g₁ ≅ g₂)
+  β₂ : MAP Parameter (g₁ ＝ g₂)
   β₂ = pr₁ ∘ pr₁
 
-  β₁ : MAP Parameter (g₀ ≅ g₁)
+  β₁ : MAP Parameter (g₀ ＝ g₁)
   β₁ = pr₂ ∘ pr₁
 
-  α₂ : MAP Parameter (f₁ ≅ f₂)
+  α₂ : MAP Parameter (f₁ ＝ f₂)
   α₂ = pr₁ ∘ pr₂
 
-  α₁ : MAP Parameter (f₀ ≅ f₁)
+  α₁ : MAP Parameter (f₀ ＝ f₁)
   α₁ = pr₂ ∘ pr₂
 
-  preserve-first : MAP Parameter ((g₀ ∘ f₀) ≅ (g₂ ∘ f₂))
+  preserve-first : MAP Parameter ((g₀ ∘ f₀) ＝ (g₂ ∘ f₂))
   preserve-first = (β₂ ∙ β₁) ⋆ (α₂ ∙ α₁)
 
-  compose-first : MAP Parameter ((g₀ ∘ f₀) ≅ (g₂ ∘ f₂))
+  compose-first : MAP Parameter ((g₀ ∘ f₀) ＝ (g₂ ∘ f₂))
   compose-first = (β₂ ⋆ α₂) ∙ (β₁ ⋆ α₁)
 
-  preservation : NatIso preserve-first compose-first
+  preservation : =₁ preserve-first compose-first
   preservation = hcomp-isoComp-family β₂ β₁ α₂ α₁
 ```
 

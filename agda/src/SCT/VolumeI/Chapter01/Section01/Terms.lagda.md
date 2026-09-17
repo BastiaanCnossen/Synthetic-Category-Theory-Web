@@ -25,10 +25,10 @@ substitute : {B C D : CAT} → Term C D → MAP B C → Term B D
 substitute = _∘_
 ```
 
-`ObjAbs C = MAP One C` is defined in `Vocabulary`. The future name `Obj` is
+`Obj-abs C = MAP One C` is defined in `Vocabulary`. The future name `Obj` is
 reserved for objects parameterized by an anima. A term can have any categorical
 source; it is not automatically an object in that proposed restricted sense.
 
 For `f g : MAP X C`, an identification between the whole expressions is
-`NatIso f g`. A functor into the fixed anima `(f ≅ g)` is a different term,
+`=₁ f g`. A functor into the fixed anima `(f ＝ g)` is a different term,
 whose target is that anima. These two uses of parameters are kept distinct.

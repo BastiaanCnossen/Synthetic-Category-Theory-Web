@@ -31,8 +31,8 @@ open import SCT.VolumeI.Chapter01.Section03.ProjectionSquares 𝒯 using (post-i
 open import SCT.VolumeI.Chapter01.Section05.InverseCalculus 𝒯 using (pre-inverse)
 open PN vocabulary terminal products productLaws composition vertical whiskering using (move-square)
 
-transposeIso-inverse : {X C E : CAT} {f g : MAP C (Fun X E)} (α : NatIso f g) →
-  Iso₂ (transposeIso (invIso α)) (invIso (transposeIso α))
+transposeIso-inverse : {X C E : CAT} {f g : MAP C (Fun X E)} (α : =₁ f g) →
+  =₂ (transposeIso (invIso α)) (invIso (transposeIso α))
 transposeIso-inverse α = (isoInv ◁ invIso (transposeIso-at α)) ∙
   (pre-inverse (funUncurryIso α) swap ∙
   ((preWhisker swap ◁ funUncurryIso-inverse α) ∙ transposeIso-at (invIso α)))
@@ -75,15 +75,15 @@ module Evaluation {X A B C D E : CAT}
   δ = e ◁ Cocone.match (productCocone X s)
 
   abstract
-    raw-normal : Iso₂ raw (invIso kv ∙ (image ∙ kr))
+    raw-normal : =₂ raw (invIso kv ∙ (image ∙ kr))
     raw-normal = isoComp-cong (transposeIso-inverse av) (transposeIso-comp α ar) ∙
       transposeIso-comp (invIso av) (α ∙ ar)
 
-    product-normal : Iso₂ δ (invIso ev ∙ (ea ∙ er))
+    product-normal : =₂ δ (invIso ev ∙ (ea ∙ er))
     product-normal = isoComp-cong (post-inverse e pv) (postWhisker-isoComp-at e pa pr) ∙
       postWhisker-isoComp-at e (invIso pv) (pa ∙ pr)
 
-    evaluated-square : Iso₂ (δ ∙ leftTotal) (rightTotal ∙ raw)
+    evaluated-square : =₂ (δ ∙ leftTotal) (rightTotal ∙ raw)
     evaluated-square = isoComp-cong (idIso rightTotal) (invIso raw-normal) ∙
       (paste-squares (image ∙ kr) (ea ∙ er) (invIso kv) (invIso ev)
         leftTotal qvl rightTotal

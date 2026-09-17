@@ -2,7 +2,7 @@
 
 This follows `def:Cone_Diagram_On`. A comparison retains the two leg
 isomorphisms and their matching compatibility. Comparing such comparisons
-also retains the next compatibility, as an `Iso₃`.
+also retains the next compatibility, as an `=₃`.
 
 ```agda
 {-# OPTIONS --safe --without-K #-}
@@ -19,26 +19,26 @@ record Cone {C D E : CAT} (f : MAP C E) (g : MAP D E) (T : CAT) : Set m where
   field
     left : MAP T C
     right : MAP T D
-    match : NatIso (f ∘ left) (g ∘ right)
+    match : =₁ (f ∘ left) (g ∘ right)
 
 record ConeIso {C D E T : CAT} {f : MAP C E} {g : MAP D E}
   (s t : Cone f g T) : Set m where
   field
-    leftIso : NatIso (Cone.left s) (Cone.left t)
-    rightIso : NatIso (Cone.right s) (Cone.right t)
-    compatible : Iso₂ (Cone.match t ∙ (f ◁ leftIso)) ((g ◁ rightIso) ∙ Cone.match s)
+    leftIso : =₁ (Cone.left s) (Cone.left t)
+    rightIso : =₁ (Cone.right s) (Cone.right t)
+    compatible : =₂ (Cone.match t ∙ (f ◁ leftIso)) ((g ◁ rightIso) ∙ Cone.match s)
 
 record ConeIso₂ {C D E T : CAT} {f : MAP C E} {g : MAP D E}
   {s t : Cone f g T} (Φ Ψ : ConeIso s t) : Set m where
   field
-    leftId : Iso₂ (ConeIso.leftIso Φ) (ConeIso.leftIso Ψ)
-    rightId : Iso₂ (ConeIso.rightIso Φ) (ConeIso.rightIso Ψ)
+    leftId : =₂ (ConeIso.leftIso Φ) (ConeIso.leftIso Ψ)
+    rightId : =₂ (ConeIso.rightIso Φ) (ConeIso.rightIso Ψ)
 
   leftBoundary = isoComp-cong (idIso (Cone.match t)) (postWhisker f ◁ leftId)
   rightBoundary = isoComp-cong (postWhisker g ◁ rightId) (idIso (Cone.match s))
 
   field
-    compatible : Iso₃ (ConeIso.compatible Ψ ∙ leftBoundary)
+    compatible : =₃ (ConeIso.compatible Ψ ∙ leftBoundary)
       (rightBoundary ∙ ConeIso.compatible Φ)
 
 conePre : {C D E S T : CAT} {f : MAP C E} {g : MAP D E}

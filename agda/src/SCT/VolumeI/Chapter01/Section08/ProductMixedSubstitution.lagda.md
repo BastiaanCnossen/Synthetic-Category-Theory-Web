@@ -28,7 +28,7 @@ open Pairing vocabulary terminal products productLaws composition vertical whisk
 
 abstract
   separate-composition : {X Y A B C : CAT} (h : MAP X Y) (f : MAP A B) (g : MAP B C) →
-    Iso₂
+    =₂
       ((productRestriction-comp Y f g ▷ productMap h (id A)) ∙
         paste (invIso (productMap-separate h g)) (invIso (productMap-separate h f)))
       (invIso (productMap-separate h (g ∘ f)) ∙
@@ -37,7 +37,7 @@ abstract
     (First.Mixed.comparison 𝒯 M h f g) (Second.Mixed.comparison 𝒯 M h f g)
 
   separate-substitution : {X Y Z A B : CAT} (h : MAP X Y) (k : MAP Y Z) (f : MAP A B) →
-    Iso₂
+    =₂
       (productMap-separate (k ∘ h) f ∙
         (productRestriction Z f ◁ slice-comparison {C = A} k h))
       ((slice-comparison {C = B} k h ▷ productRestriction X f) ∙

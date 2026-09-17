@@ -12,20 +12,20 @@ open import Agda.Primitive using (Level; lsuc; _⊔_)
 
 record Vocabulary (c m a : Level) : Set (lsuc (c ⊔ m ⊔ a)) where
   infixr 30 _∘_
-  infix 10 _≅_
+  infix 10 _＝_
   field
     CAT : Set c
     isAn : CAT → Set a
     MAP : CAT → CAT → Set m
     id : (C : CAT) → MAP C C
     _∘_ : {C D E : CAT} → MAP D E → MAP C D → MAP C E
-    _≅_ : {C D : CAT} → MAP C D → MAP C D → CAT
-    iso-isAn : {C D : CAT} (f g : MAP C D) → isAn (f ≅ g)
+    _＝_ : {C D : CAT} → MAP C D → MAP C D → CAT
+    iso-isAn : {C D : CAT} (f g : MAP C D) → isAn (f ＝ g)
     postWhisker : {C D E : CAT} {f g : MAP C D}
-      (u : MAP D E) → MAP (f ≅ g) ((u ∘ f) ≅ (u ∘ g))
+      (u : MAP D E) → MAP (f ＝ g) ((u ∘ f) ＝ (u ∘ g))
     preWhisker : {B C D : CAT} {f g : MAP C D}
-      (k : MAP B C) → MAP (f ≅ g) ((f ∘ k) ≅ (g ∘ k))
-    isoInv : {C D : CAT} {f g : MAP C D} → MAP (f ≅ g) (g ≅ f)
+      (k : MAP B C) → MAP (f ＝ g) ((f ∘ k) ＝ (g ∘ k))
+    isoInv : {C D : CAT} {f g : MAP C D} → MAP (f ＝ g) (g ＝ f)
 
     One : CAT
     one-isAn : isAn One
@@ -35,24 +35,24 @@ record Vocabulary (c m a : Level) : Set (lsuc (c ⊔ m ⊔ a)) where
       category : CAT
       witness : isAn category
 
-  ObjAbs : CAT → Set m
-  ObjAbs C = MAP One C
+  Obj-abs : CAT → Set m
+  Obj-abs C = MAP One C
 
-  NatIso : {C D : CAT} → MAP C D → MAP C D → Set m
-  NatIso f g = ObjAbs (f ≅ g)
+  =₁ : {C D : CAT} → MAP C D → MAP C D → Set m
+  =₁ f g = Obj-abs (f ＝ g)
 
-  Iso₂ : {C D : CAT} {f g : MAP C D} → NatIso f g → NatIso f g → Set m
-  Iso₂ α β = NatIso α β
+  =₂ : {C D : CAT} {f g : MAP C D} → =₁ f g → =₁ f g → Set m
+  =₂ α β = =₁ α β
 
-  Iso₃ : {C D : CAT} {f g : MAP C D} {α β : NatIso f g}
-    → Iso₂ α β → Iso₂ α β → Set m
-  Iso₃ p q = NatIso p q
+  =₃ : {C D : CAT} {f g : MAP C D} {α β : =₁ f g}
+    → =₂ α β → =₂ α β → Set m
+  =₃ p q = =₁ p q
 
   record IsEquiv {C D : CAT} (f : MAP C D) : Set m where
     field
       inverse : MAP D C
-      sectionIso : NatIso (id C) (inverse ∘ f)
-      retractionIso : NatIso (id D) (f ∘ inverse)
+      sectionIso : =₁ (id C) (inverse ∘ f)
+      retractionIso : =₁ (id D) (f ∘ inverse)
 
   record Equiv (C D : CAT) : Set m where
     field
@@ -60,7 +60,7 @@ record Vocabulary (c m a : Level) : Set (lsuc (c ⊔ m ⊔ a)) where
       isEquiv : IsEquiv functor
 ```
 
-`ObjAbs C` means an **absolute object**, a functor from `One`. The name `Obj`
+`Obj-abs C` means an **absolute object**, a functor from `One`. The name `Obj`
 is reserved for the proposed notion of an object with an anima as parameter;
 this pilot does not choose its bundling convention or alter the manuscript.
 
@@ -74,13 +74,13 @@ module Operations {c m a : Level} (V : Vocabulary c m a) where
   infixr 35 _◁_ _▷_
 
   _◁_ : {P C D E : CAT} {f g : MAP C D}
-    → (u : MAP D E) → MAP P (f ≅ g) → MAP P ((u ∘ f) ≅ (u ∘ g))
+    → (u : MAP D E) → MAP P (f ＝ g) → MAP P ((u ∘ f) ＝ (u ∘ g))
   u ◁ α = postWhisker u ∘ α
 
   _▷_ : {P B C D : CAT} {f g : MAP C D}
-    → MAP P (f ≅ g) → (k : MAP B C) → MAP P ((f ∘ k) ≅ (g ∘ k))
+    → MAP P (f ＝ g) → (k : MAP B C) → MAP P ((f ∘ k) ＝ (g ∘ k))
   α ▷ k = preWhisker k ∘ α
 
-  invIso : {P C D : CAT} {f g : MAP C D} → MAP P (f ≅ g) → MAP P (g ≅ f)
+  invIso : {P C D : CAT} {f g : MAP C D} → MAP P (f ＝ g) → MAP P (g ＝ f)
   invIso α = isoInv ∘ α
 ```

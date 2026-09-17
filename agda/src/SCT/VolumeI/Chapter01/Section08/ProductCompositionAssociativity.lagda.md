@@ -32,28 +32,28 @@ module CoordinateAssociativity
   (π₀ : MAP K₀ A₀) (π₁ : MAP K₁ A₁) (π₂ : MAP K₂ A₂)
   (f₀ : MAP A₀ A₁) (f₁ : MAP A₁ A₂) (f₂ : MAP A₂ A₃)
   (h : MAP K₁ K₂) (k : MAP K₀ K₁) (l : MAP K₀ K₂)
-  (κ : NatIso (h ∘ k) l)
-  (b : NatIso (π₂ ∘ h) (f₁ ∘ π₁))
-  (d : NatIso (π₁ ∘ k) (f₀ ∘ π₀))
-  (b′ : NatIso (π₂ ∘ l) ((f₁ ∘ f₀) ∘ π₀)) where
+  (κ : =₁ (h ∘ k) l)
+  (b : =₁ (π₂ ∘ h) (f₁ ∘ π₁))
+  (d : =₁ (π₁ ∘ k) (f₀ ∘ π₀))
+  (b′ : =₁ (π₂ ∘ l) ((f₁ ∘ f₀) ∘ π₀)) where
 
-  middle : NatIso ((f₁ ∘ π₁) ∘ k) ((f₁ ∘ f₀) ∘ π₀)
+  middle : =₁ ((f₁ ∘ π₁) ∘ k) ((f₁ ∘ f₀) ∘ π₀)
   middle = coordinate-comparison π₀ f₀ π₁ k d f₁
-  firstStep : NatIso ((f₂ ∘ π₂) ∘ h) ((f₂ ∘ f₁) ∘ π₁)
+  firstStep : =₁ ((f₂ ∘ π₂) ∘ h) ((f₂ ∘ f₁) ∘ π₁)
   firstStep = coordinate-comparison π₁ f₁ π₂ h b f₂
-  secondStep : NatIso (((f₂ ∘ f₁) ∘ π₁) ∘ k) (((f₂ ∘ f₁) ∘ f₀) ∘ π₀)
+  secondStep : =₁ (((f₂ ∘ f₁) ∘ π₁) ∘ k) (((f₂ ∘ f₁) ∘ f₀) ∘ π₀)
   secondStep = coordinate-comparison π₀ f₀ π₁ k d (f₂ ∘ f₁)
-  direct : NatIso ((f₂ ∘ π₂) ∘ l) ((f₂ ∘ (f₁ ∘ f₀)) ∘ π₀)
+  direct : =₁ ((f₂ ∘ π₂) ∘ l) ((f₂ ∘ (f₁ ∘ f₀)) ∘ π₀)
   direct = coordinate-comparison π₀ (f₁ ∘ f₀) π₂ l b′ f₂
-  short : NatIso (((f₂ ∘ π₂) ∘ h) ∘ k) ((f₂ ∘ (f₁ ∘ f₀)) ∘ π₀)
+  short : =₁ (((f₂ ∘ π₂) ∘ h) ∘ k) ((f₂ ∘ (f₁ ∘ f₀)) ∘ π₀)
   short = direct ∙ (((f₂ ∘ π₂) ◁ κ) ∙ comp-assoc k h (f₂ ∘ π₂))
-  long : NatIso (((f₂ ∘ π₂) ∘ h) ∘ k) ((f₂ ∘ (f₁ ∘ f₀)) ∘ π₀)
+  long : =₁ (((f₂ ∘ π₂) ∘ h) ∘ k) ((f₂ ∘ (f₁ ∘ f₀)) ∘ π₀)
   long = (comp-assoc f₀ f₁ f₂ ▷ π₀) ∙ (secondStep ∙ (firstStep ▷ k))
 
   abstract
     comparison :
-      Iso₂ (b′ ∙ (π₂ ◁ κ))
-        (middle ∙ ((b ▷ k) ∙ invIso (comp-assoc k h π₂))) → Iso₂ short long
+      =₂ (b′ ∙ (π₂ ◁ κ))
+        (middle ∙ ((b ▷ k) ∙ invIso (comp-assoc k h π₂))) → =₂ short long
     comparison projection =
       let outside = invIso (comp-assoc π₀ (f₁ ∘ f₀) f₂)
           leftImage = f₂ ◁ b′
@@ -111,14 +111,14 @@ module ProductCompositor
   module Second = CoordinateAssociativity pr₂ pr₂ pr₂ g₀ g₁ g₂ h k l κ b₂ d₂ b′₂
 
   abstract
-    first-coordinate : Iso₂ First.short First.long
+    first-coordinate : =₂ First.short First.long
     first-coordinate = First.comparison
       (pair-pre-cong-triangle₁ (f₁ ∘ pr₁) (g₁ ∘ pr₂) k First.middle Second.middle)
-    second-coordinate : Iso₂ Second.short Second.long
+    second-coordinate : =₂ Second.short Second.long
     second-coordinate = Second.comparison
       (pair-pre-cong-triangle₂ (f₁ ∘ pr₁) (g₁ ∘ pr₂) k First.middle Second.middle)
 
-    law : Iso₂
+    law : =₂
       (productMap-comp (f₁ ∘ f₀) f₂ (g₁ ∘ g₀) g₂ ∙
         ((productMap f₂ g₂ ◁ productMap-comp f₀ f₁ g₀ g₁) ∙
           comp-assoc (productMap f₀ g₀) (productMap f₁ g₁) (productMap f₂ g₂)))

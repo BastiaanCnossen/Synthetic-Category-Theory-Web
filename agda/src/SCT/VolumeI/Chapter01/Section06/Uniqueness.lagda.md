@@ -27,14 +27,14 @@ module Uniqueness {F G C D : CAT} (e : MAP (F × C) D) (e′ : MAP (G × C) D)
   backward : MAP F G
   backward = Right.curry e
 
-  evaluation-comparison : NatIso (Left.uncurry forward) e′
+  evaluation-comparison : =₁ (Left.uncurry forward) e′
   evaluation-comparison = Left.curry-β e′
 
-  forward-backward : NatIso (forward ∘ backward) (id F)
+  forward-backward : =₁ (forward ∘ backward) (id F)
   forward-backward = Left.reflect _ _ (invIso Left.uncurry-id ∙
     (Right.curry-β e ∙ ((evaluation-comparison ▷ productMap backward (id C)) ∙ Left.uncurry-pre forward backward)))
 
-  backward-forward : NatIso (backward ∘ forward) (id G)
+  backward-forward : =₁ (backward ∘ forward) (id G)
   backward-forward = Right.reflect _ _ (invIso Right.uncurry-id ∙
     (evaluation-comparison ∙ ((Right.curry-β e ▷ productMap forward (id C)) ∙ Right.uncurry-pre backward forward)))
 

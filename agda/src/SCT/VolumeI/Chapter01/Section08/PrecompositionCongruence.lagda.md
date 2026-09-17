@@ -28,17 +28,17 @@ open Isomorphisms vocabulary terminal products productLaws composition vertical 
   using (cancel-inverse)
 
 identity-source-square : {C D : CAT} {f g : MAP C D}
-  (β : NatIso f g) (u : NatIso f f) → Iso₂ u (idIso f) →
-  Iso₂ (β ∙ u) (idIso g ∙ β)
+  (β : =₁ f g) (u : =₁ f f) → =₂ u (idIso f) →
+  =₂ (β ∙ u) (idIso g ∙ β)
 identity-source-square β u p = invIso (isoComp-unitˡ-at β) ∙
   (isoComp-unitʳ-at β ∙ isoComp-cong (idIso β) p)
 
 product-comparison-square : {C C′ D D′ : CAT}
   {a a′ b b′ : MAP C C′} {d d′ e e′ : MAP D D′}
-  (u : NatIso a b) (u′ : NatIso a′ b′) (v : NatIso d e) (v′ : NatIso d′ e′)
-  (α : NatIso a a′) (β : NatIso b b′) (γ : NatIso d d′) (δ : NatIso e e′) →
-  Iso₂ (u′ ∙ α) (β ∙ u) → Iso₂ (v′ ∙ γ) (δ ∙ v) →
-  Iso₂ (productMap-cong u′ v′ ∙ productMap-cong α γ)
+  (u : =₁ a b) (u′ : =₁ a′ b′) (v : =₁ d e) (v′ : =₁ d′ e′)
+  (α : =₁ a a′) (β : =₁ b b′) (γ : =₁ d d′) (δ : =₁ e e′) →
+  =₂ (u′ ∙ α) (β ∙ u) → =₂ (v′ ∙ γ) (δ ∙ v) →
+  =₂ (productMap-cong u′ v′ ∙ productMap-cong α γ)
     (productMap-cong β δ ∙ productMap-cong u v)
 product-comparison-square u u′ v v′ α β γ δ p q =
   productMap-cong-comp β u δ v ∙
@@ -47,8 +47,8 @@ product-comparison-square u u′ v v′ α β γ δ p q =
 open import SCT.VolumeI.Chapter01.Section08.CoconePostcomposition 𝒯 using (post-square)
 
 productMap-separate-second : {X Y A B : CAT} (h : MAP X Y)
-  {f g : MAP A B} (α : NatIso f g) →
-  Iso₂ (productMap-separate h g ∙
+  {f g : MAP A B} (α : =₁ f g) →
+  =₂ (productMap-separate h g ∙
     (productMap-cong (idIso (id Y)) α ▷ productMap h (id A)))
     ((productMap h (id B) ◁ productMap-cong (idIso (id X)) α) ∙ productMap-separate h f)
 productMap-separate-second {X} {Y} {A} {B} h {f} {g} α =
@@ -92,9 +92,9 @@ Their composite is the required comparison at an arbitrary parameter map.
 
 ```agda
 module CongruenceAt {X A B E : CAT} {f g : MAP A B}
-  (α : NatIso f g) (h : MAP X (Map B E)) where
+  (α : =₁ f g) (h : MAP X (Map B E)) where
 
-  γ : NatIso (mapPre {D = E} f) (mapPre g)
+  γ : =₁ (mapPre {D = E} f) (mapPre g)
   γ = mapPre-cong α
   HA = productMap h (id A)
   HB = productMap h (id B)
@@ -108,10 +108,10 @@ module CongruenceAt {X A B E : CAT} {f g : MAP A B}
   βg = mapPre-β {D = E} g
   evaluatedImage = mapEval ◁ largeImage
 
-  liftedImage : Iso₂ (mapUncurryIso γ) (invIso βg ∙ (evaluatedImage ∙ βf))
+  liftedImage : =₂ (mapUncurryIso γ) (invIso βg ∙ (evaluatedImage ∙ βf))
   liftedImage = mapReflect-β (map-isAn B E) _ _ (invIso βg ∙ (evaluatedImage ∙ βf))
 
-  betaSquare : Iso₂ (βg ∙ mapUncurryIso γ) (evaluatedImage ∙ βf)
+  betaSquare : =₂ (βg ∙ mapUncurryIso γ) (evaluatedImage ∙ βf)
   betaSquare = cancel-inverse βg (evaluatedImage ∙ βf) ∙
     isoComp-cong (idIso βg) liftedImage
 
@@ -142,7 +142,7 @@ module CongruenceAt {X A B E : CAT} {f g : MAP A B}
     (comp-assoc Lf HB mapEval) (postWhisker-comp-at smallImage HB mapEval)
 
   abstract
-    law : Iso₂ (mapPre-uncurry g h ∙ mapUncurryIso (γ ▷ h))
+    law : =₂ (mapPre-uncurry g h ∙ mapUncurryIso (γ ▷ h))
       ((mapUncurry h ◁ productMap-cong (idIso (id X)) α) ∙ mapPre-uncurry f h)
     law = paste-squares (r₄f ∙ (r₃f ∙ (r₂f ∙ r₁f))) (r₄g ∙ (r₃g ∙ (r₂g ∙ r₁g)))
       r₅f r₅g action₀ action₄ action₅
@@ -151,8 +151,8 @@ module CongruenceAt {X A B E : CAT} {f g : MAP A B}
           (paste-squares r₁f r₁g r₂f r₂g action₀ action₁ action₂ step₁ step₂) step₃) step₄) step₅
 
 mapPre-cong-at : {X A B E : CAT} {f g : MAP A B}
-  (α : NatIso f g) (h : MAP X (Map B E)) →
-  Iso₂ (mapPre-uncurry g h ∙ mapUncurryIso (mapPre-cong α ▷ h))
+  (α : =₁ f g) (h : MAP X (Map B E)) →
+  =₂ (mapPre-uncurry g h ∙ mapUncurryIso (mapPre-cong α ▷ h))
     ((mapUncurry h ◁ productMap-cong (idIso (id X)) α) ∙ mapPre-uncurry f h)
 mapPre-cong-at = CongruenceAt.law
 ```

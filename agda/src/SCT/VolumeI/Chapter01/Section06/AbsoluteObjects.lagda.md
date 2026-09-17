@@ -3,7 +3,7 @@
 The remark following `def:Currying` uses the equivalence between `One × C`
 and `C`. Naming curries the functor composed with the second projection;
 decoding evaluates after inserting the terminal coordinate. Both inverse
-comparisons are derived. The name `ObjAbs` keeps its established meaning.
+comparisons are derived. The name `Obj-abs` keeps its established meaning.
 
 ```agda
 {-# OPTIONS --safe --without-K #-}
@@ -21,19 +21,19 @@ open import SCT.VolumeI.Chapter01.Section03.Points 𝒯 M using
   (oneProduct-in; oneProduct-section; oneProduct-retraction)
 open import SCT.VolumeI.Chapter01.Section06.Currying 𝒯 M ℱ
 
-nameFun : {C D : CAT} → MAP C D → ObjAbs (Fun C D)
+nameFun : {C D : CAT} → MAP C D → Obj-abs (Fun C D)
 nameFun f = funCurry (f ∘ pr₂)
 
-decodeFun : {C D : CAT} → ObjAbs (Fun C D) → MAP C D
+decodeFun : {C D : CAT} → Obj-abs (Fun C D) → MAP C D
 decodeFun {C} a = funUncurry a ∘ oneProduct-in C
 
-decode-nameFun : {C D : CAT} (f : MAP C D) → NatIso (decodeFun (nameFun f)) f
+decode-nameFun : {C D : CAT} (f : MAP C D) → =₁ (decodeFun (nameFun f)) f
 decode-nameFun {C} f = comp-unitʳ f ∙
   ((f ◁ oneProduct-retraction C) ∙
     (comp-assoc (oneProduct-in C) pr₂ f ∙
       (funCurry-β (f ∘ pr₂) ▷ oneProduct-in C)))
 
-name-decodeFun : {C D : CAT} (a : ObjAbs (Fun C D)) → NatIso (nameFun (decodeFun a)) a
+name-decodeFun : {C D : CAT} (a : Obj-abs (Fun C D)) → =₁ (nameFun (decodeFun a)) a
 name-decodeFun {C} a = funReflect _ a
   (comp-unitʳ (funUncurry a) ∙
     ((funUncurry a ◁ oneProduct-section C) ∙

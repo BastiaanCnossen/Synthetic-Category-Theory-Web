@@ -37,23 +37,23 @@ module Cases {X C D E : CAT} (f : MAP (X × C) E) (g : MAP (X × D) E) where
   cases : MAP (X × (C ⊔ D)) E
   cases = copair f g ∘ inverse
 
-  inverse-left : NatIso (inverse ∘ left) in₁
+  inverse-left : =₁ (inverse ∘ left) in₁
   inverse-left = comp-unitˡ in₁ ∙
     ((invIso (IsEquiv.sectionIso e) ▷ in₁) ∙
     (invIso (comp-assoc in₁ Distribution.distribute inverse) ∙
       (inverse ◁ invIso (copair-β₁ left right))))
 
-  inverse-right : NatIso (inverse ∘ right) in₂
+  inverse-right : =₁ (inverse ∘ right) in₂
   inverse-right = comp-unitˡ in₂ ∙
     ((invIso (IsEquiv.sectionIso e) ▷ in₂) ∙
     (invIso (comp-assoc in₂ Distribution.distribute inverse) ∙
       (inverse ◁ invIso (copair-β₂ left right))))
 
-  cases-β₁ : NatIso (cases ∘ left) f
+  cases-β₁ : =₁ (cases ∘ left) f
   cases-β₁ = copair-β₁ f g ∙
     ((copair f g ◁ inverse-left) ∙ comp-assoc left inverse (copair f g))
 
-  cases-β₂ : NatIso (cases ∘ right) g
+  cases-β₂ : =₁ (cases ∘ right) g
   cases-β₂ = copair-β₂ f g ∙
     ((copair f g ◁ inverse-right) ∙ comp-assoc right inverse (copair f g))
 ```

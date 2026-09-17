@@ -27,13 +27,13 @@ untranspose : {X C E : CAT} → MAP (X × C) E → MAP C (Fun X E)
 untranspose f = funCurry (f ∘ swap)
 
 abstract
-  transpose-β : {X C E : CAT} (f : MAP (X × C) E) → NatIso (transpose (untranspose f)) f
+  transpose-β : {X C E : CAT} (f : MAP (X × C) E) → =₁ (transpose (untranspose f)) f
   transpose-β {X} {C} f = comp-unitʳ f ∙
     ((f ◁ swap-swap X C) ∙
       (comp-assoc swap swap f ∙ (funCurry-β (f ∘ swap) ▷ swap)))
 
 transpose-isoMap : {X C E : CAT} (f g : MAP C (Fun X E)) →
-  MAP (f ≅ g) (transpose f ≅ transpose g)
+  MAP (f ＝ g) (transpose f ＝ transpose g)
 transpose-isoMap f g = preWhisker swap ∘ funUncurry-isoMap f g
 
 transpose-isoMap-isEquiv : {X C E : CAT} (f g : MAP C (Fun X E)) →
@@ -44,16 +44,16 @@ transpose-isoMap-isEquiv {X} {C} f g = equiv-compose
   (preWhisker-isEquiv swap (swap-isEquiv X C) (funUncurry f) (funUncurry g))
 
 transposeIso : {X C E : CAT} {f g : MAP C (Fun X E)} →
-  NatIso f g → NatIso (transpose f) (transpose g)
+  =₁ f g → =₁ (transpose f) (transpose g)
 transposeIso {f = f} {g} α = transpose-isoMap f g ∘ α
 
-transposeIso-at : {X C E : CAT} {f g : MAP C (Fun X E)} (α : NatIso f g) →
-  Iso₂ (transposeIso α) (funUncurryIso α ▷ swap)
+transposeIso-at : {X C E : CAT} {f g : MAP C (Fun X E)} (α : =₁ f g) →
+  =₂ (transposeIso α) (funUncurryIso α ▷ swap)
 transposeIso-at {f = f} {g} α = comp-assoc α (funUncurry-isoMap f g) (preWhisker swap)
 
 transposeIso-comp : {X C E : CAT} {f g h : MAP C (Fun X E)}
-  (β : NatIso g h) (α : NatIso f g) →
-  Iso₂ (transposeIso (β ∙ α)) (transposeIso β ∙ transposeIso α)
+  (β : =₁ g h) (α : =₁ f g) →
+  =₂ (transposeIso (β ∙ α)) (transposeIso β ∙ transposeIso α)
 transposeIso-comp β α =
   isoComp-cong (invIso (transposeIso-at β)) (invIso (transposeIso-at α)) ∙
   (preWhisker-isoComp-at (funUncurryIso β) (funUncurryIso α) swap ∙
@@ -61,19 +61,19 @@ transposeIso-comp β α =
 
 abstract
   transpose-reflect : {X C E : CAT} (f g : MAP C (Fun X E)) →
-    NatIso (transpose f) (transpose g) → NatIso f g
+    =₁ (transpose f) (transpose g) → =₁ f g
   transpose-reflect f g α = FunctorLift.lift (equiv-lift (transpose-isoMap-isEquiv f g) α)
 
   transpose-reflect-β : {X C E : CAT} (f g : MAP C (Fun X E))
-    (α : NatIso (transpose f) (transpose g)) → Iso₂ (transposeIso (transpose-reflect f g α)) α
+    (α : =₁ (transpose f) (transpose g)) → =₂ (transposeIso (transpose-reflect f g α)) α
   transpose-reflect-β f g α = FunctorLift.comparison (equiv-lift (transpose-isoMap-isEquiv f g) α)
 
-transpose-reflect-Iso₂ : {X C E : CAT} {f g : MAP C (Fun X E)} (α β : NatIso f g) →
-  Iso₂ (transposeIso α) (transposeIso β) → Iso₂ α β
+transpose-reflect-Iso₂ : {X C E : CAT} {f g : MAP C (Fun X E)} (α β : =₁ f g) →
+  =₂ (transposeIso α) (transposeIso β) → =₂ α β
 transpose-reflect-Iso₂ {f = f} {g} α β = equiv-reflect (transpose-isoMap-isEquiv f g) α β
 
 transpose-pre : {X A B E : CAT} (u : MAP A B) (f : MAP B (Fun X E)) →
-  NatIso (transpose (f ∘ u)) (transpose f ∘ productMap (id X) u)
+  =₁ (transpose (f ∘ u)) (transpose f ∘ productMap (id X) u)
 transpose-pre {X} u f = invIso (comp-assoc (productMap (id X) u) swap (funUncurry f)) ∙
   ((funUncurry f ◁ swap-restriction u) ∙
   (comp-assoc swap (productMap u (id X)) (funUncurry f) ∙

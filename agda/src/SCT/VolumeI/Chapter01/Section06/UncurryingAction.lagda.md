@@ -32,16 +32,16 @@ module _ {C D : CAT} where
       uncurryIso-comp to funUncurryIso-comp)
 
 funUncurry-Iso₂ : {T C D : CAT} {f g : MAP T (Fun C D)}
-  {α β : NatIso f g} → Iso₂ α β → Iso₂ (funUncurryIso α) (funUncurryIso β)
+  {α β : =₁ f g} → =₂ α β → =₂ (funUncurryIso α) (funUncurryIso β)
 funUncurry-Iso₂ {f = f} {g} p = funUncurry-isoMap f g ◁ p
 
-uncurryFamily-absolute : {T C D : CAT} {f g : MAP T (Fun C D)} (α : NatIso f g) →
-  Iso₂ (uncurryFamily α) (funUncurryIso α)
+uncurryFamily-absolute : {T C D : CAT} {f g : MAP T (Fun C D)} (α : =₁ f g) →
+  =₂ (uncurryFamily α) (funUncurryIso α)
 uncurryFamily-absolute α = invIso (uncurryFamily-at α)
 
 funUncurry-pre-inputs : {Y X C D : CAT} {f g : MAP X (Fun C D)}
-  (α : NatIso f g) (r : MAP Y X) →
-  Iso₂ (funUncurry-pre g r ∙ funUncurryIso (α ▷ r))
+  (α : =₁ f g) (r : MAP Y X) →
+  =₂ (funUncurry-pre g r ∙ funUncurryIso (α ▷ r))
     ((funUncurryIso α ▷ productMap r (id C)) ∙ funUncurry-pre f r)
 funUncurry-pre-inputs {C = C} {f = f} {g} α r =
   isoComp-cong (preWhisker (productMap r (id C)) ◁ uncurryFamily-absolute α)
@@ -49,8 +49,8 @@ funUncurry-pre-inputs {C = C} {f = f} {g} α r =
   (uncurry-pre-inputs α r ∙
     invIso (isoComp-cong (const-One (funUncurry-pre g r)) (uncurryFamily-absolute (α ▷ r))))
 
-funUncurryIso-inverse : {T C D : CAT} {f g : MAP T (Fun C D)} (α : NatIso f g) →
-  Iso₂ (funUncurryIso (invIso α)) (invIso (funUncurryIso α))
+funUncurryIso-inverse : {T C D : CAT} {f g : MAP T (Fun C D)} (α : =₁ f g) →
+  =₂ (funUncurryIso (invIso α)) (invIso (funUncurryIso α))
 funUncurryIso-inverse {f = f} α = cancel-right-reflect (funUncurryIso α)
   (invIso (isoComp-inverseˡ-at (funUncurryIso α)) ∙
   (funUncurryIso-id f ∙

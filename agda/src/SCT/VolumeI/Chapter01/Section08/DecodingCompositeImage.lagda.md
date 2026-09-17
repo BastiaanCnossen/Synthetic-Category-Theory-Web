@@ -19,7 +19,7 @@ open import SCT.VolumeI.Chapter01.Section08.ProductSquares 𝒯
 open import SCT.VolumeI.Chapter01.Section08.EvaluationMateCalculus 𝒯 using (append-four)
 
 module CompositorImage {A B C E : CAT}
-  (f : MAP A B) (g : MAP B C) (h : ObjAbs (Map C E)) where
+  (f : MAP A B) (g : MAP B C) (h : Obj-abs (Map C E)) where
   e = mapUncurry h
   HA = oneProduct-in A
   HC = oneProduct-in C
@@ -46,11 +46,11 @@ module CompositorImage {A B C E : CAT}
   prefix = r₄ ∙ (r₃ ∙ r₂)
 
   abstract
-    normalize : Iso₂ (decodePre (g ∘ f) h) (prefix ∙ r₁)
+    normalize : =₂ (decodePre (g ∘ f) h) (prefix ∙ r₁)
     normalize = invIso (isoComp-assoc-at r₄ (r₃ ∙ r₂) r₁) ∙
       isoComp-cong (idIso r₄) (invIso (isoComp-assoc-at r₃ r₂ r₁))
 
-    restricted : Iso₂ (r₁ ∙ action) ((leading ▷ HA) ∙ τ)
+    restricted : =₂ (r₁ ∙ action) ((leading ▷ HA) ∙ τ)
     restricted = isoComp-cong (idIso (leading ▷ HA)) (invIso (decodeMapIso-at input-associator)) ∙
       (preWhisker-isoComp-at leading uncurried-associator HA ∙
       ((preWhisker HA ◁
@@ -59,7 +59,7 @@ module CompositorImage {A B C E : CAT}
       (invIso (preWhisker-isoComp-at ν image HA) ∙
         isoComp-cong (idIso r₁) (decodeMapIso-at compositor))))
 
-    law : Iso₂ (decodePre (g ∘ f) h ∙ decodeMapIso compositor)
+    law : =₂ (decodePre (g ∘ f) h ∙ decodeMapIso compositor)
       (prefix ∙ ((leading ▷ HA) ∙ τ))
     law = isoComp-cong (idIso prefix) restricted ∙
       (isoComp-assoc-at prefix r₁ action ∙ isoComp-cong normalize (idIso action))

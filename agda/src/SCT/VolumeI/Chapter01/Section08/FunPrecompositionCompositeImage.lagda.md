@@ -32,21 +32,21 @@ module CompositorImage {X A B C E : CAT}
   LgQ = productMap (id Q) g
   LgfQ = productMap (id Q) (g ∘ f)
   LgfX = productMap (id X) (g ∘ f)
-  κ : NatIso (funPre {D = E} f ∘ funPre g) (funPre (g ∘ f))
+  κ : =₁ (funPre {D = E} f ∘ funPre g) (funPre (g ∘ f))
   κ = preComp f g
   β = funPre-β {D = E} (g ∘ f)
 
-  leading : NatIso (funUncurry (funPre {D = E} f ∘ funPre g)) (funEval ∘ LgfQ)
+  leading : =₁ (funUncurry (funPre {D = E} f ∘ funPre g)) (funEval ∘ LgfQ)
   leading = (funEval ◁ productRestriction-comp Q f g) ∙
     (comp-assoc LfQ LgQ funEval ∙ ((funPre-β g ▷ LfQ) ∙ funPre-uncurry f (funPre g)))
-  raw : NatIso (funUncurry (funPre {D = E} f ∘ funPre g)) (funUncurry (funPre (g ∘ f)))
+  raw : =₁ (funUncurry (funPre {D = E} f ∘ funPre g)) (funUncurry (funPre (g ∘ f)))
   raw = invIso β ∙ leading
 
-  liftedImage : Iso₂ (funUncurryIso κ) raw
+  liftedImage : =₂ (funUncurryIso κ) raw
   liftedImage = preComp-β f g
-  betaSquare : Iso₂ (β ∙ funUncurryIso κ) leading
+  betaSquare : =₂ (β ∙ funUncurryIso κ) leading
   betaSquare = cancel-inverse β leading ∙ isoComp-cong (idIso β) liftedImage
-  restrictedBetaSquare : Iso₂ ((β ▷ HA) ∙ (funUncurryIso κ ▷ HA)) (leading ▷ HA)
+  restrictedBetaSquare : =₂ ((β ▷ HA) ∙ (funUncurryIso κ ▷ HA)) (leading ▷ HA)
   restrictedBetaSquare = (preWhisker HA ◁ betaSquare) ∙
     invIso (preWhisker-isoComp-at β (funUncurryIso κ) HA)
 
@@ -60,14 +60,14 @@ module CompositorImage {X A B C E : CAT}
   action = funUncurryIso (κ ▷ h)
   restrictedAction = funUncurryIso κ ▷ HA
 
-  normalize : Iso₂ (funPre-uncurry (g ∘ f) h) (prefix ∙ (r₂ ∙ r₁))
+  normalize : =₂ (funPre-uncurry (g ∘ f) h) (prefix ∙ (r₂ ∙ r₁))
   normalize = invIso (isoComp-assoc-at r₅ (r₄ ∙ r₃) (r₂ ∙ r₁)) ∙
     isoComp-cong (idIso r₅) (invIso (isoComp-assoc-at r₄ r₃ (r₂ ∙ r₁)))
-  restrictionSquare : Iso₂ (r₁ ∙ action) (restrictedAction ∙ sourceSubstitution)
+  restrictionSquare : =₂ (r₁ ∙ action) (restrictedAction ∙ sourceSubstitution)
   restrictionSquare = funUncurry-pre-inputs κ h
 
   abstract
-    law : Iso₂ (funPre-uncurry (g ∘ f) h ∙ funUncurryIso (preComp f g ▷ h))
+    law : =₂ (funPre-uncurry (g ∘ f) h ∙ funUncurryIso (preComp f g ▷ h))
       (prefix ∙ ((leading ▷ HA) ∙ funUncurry-pre (funPre f ∘ funPre g) h))
     law = isoComp-cong (idIso prefix)
       (isoComp-cong restrictedBetaSquare (idIso sourceSubstitution)) ∙

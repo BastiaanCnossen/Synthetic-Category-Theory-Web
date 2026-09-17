@@ -36,33 +36,33 @@ module CoproductAssociativity (C D E : CAT) where
   backward : MAP Target Source
   backward = copair (in₁ ∘ in₁) backward-right
 
-  backward-forward-left : NatIso (backward ∘ forward-left) in₁
+  backward-forward-left : =₁ (backward ∘ forward-left) in₁
   backward-forward-left = copair-η in₁ ∙
     (copair-cong (copair-β₁ (in₁ ∘ in₁) backward-right)
       (copair-β₁ (in₁ ∘ in₂) in₂ ∙ copair-pre₂ (in₁ ∘ in₁) backward-right in₁) ∙
       copair-post in₁ (in₂ ∘ in₁) backward)
 
-  backward-forward-right : NatIso (backward ∘ (in₂ ∘ in₂)) in₂
+  backward-forward-right : =₁ (backward ∘ (in₂ ∘ in₂)) in₂
   backward-forward-right = copair-β₂ (in₁ ∘ in₂) in₂ ∙
     copair-pre₂ (in₁ ∘ in₁) backward-right in₂
 
-  backward-forward : NatIso (backward ∘ forward) (id Source)
+  backward-forward : =₁ (backward ∘ forward) (id Source)
   backward-forward = copair-inclusions (C ⊔ D) E ∙
     (copair-cong backward-forward-left backward-forward-right ∙
       copair-post forward-left (in₂ ∘ in₂) backward)
 
-  forward-backward-left : NatIso (forward ∘ (in₁ ∘ in₁)) in₁
+  forward-backward-left : =₁ (forward ∘ (in₁ ∘ in₁)) in₁
   forward-backward-left = copair-β₁ in₁ (in₂ ∘ in₁) ∙
     copair-pre₁ forward-left (in₂ ∘ in₂) in₁
 
-  forward-backward-right : NatIso (forward ∘ backward-right) in₂
+  forward-backward-right : =₁ (forward ∘ backward-right) in₂
   forward-backward-right = copair-η in₂ ∙
     (copair-cong
       (copair-β₂ in₁ (in₂ ∘ in₁) ∙ copair-pre₁ forward-left (in₂ ∘ in₂) in₂)
       (copair-β₂ forward-left (in₂ ∘ in₂)) ∙
       copair-post (in₁ ∘ in₂) in₂ forward)
 
-  forward-backward : NatIso (forward ∘ backward) (id Target)
+  forward-backward : =₁ (forward ∘ backward) (id Target)
   forward-backward = copair-inclusions C (D ⊔ E) ∙
     (copair-cong forward-backward-left forward-backward-right ∙
       copair-post (in₁ ∘ in₁) backward-right forward)

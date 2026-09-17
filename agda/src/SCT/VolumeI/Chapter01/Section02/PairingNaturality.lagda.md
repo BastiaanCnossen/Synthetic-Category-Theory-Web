@@ -35,28 +35,28 @@ open PairingCoherence V T P PL S VC W
 open Structural V T P PL S W
 
 cancel-left : {X C : CAT} {f g h : MAP X C}
-  (b : NatIso g h) (α : NatIso f g)
-  → Iso₂ (invIso b ∙ (b ∙ α)) α
+  (b : =₁ g h) (α : =₁ f g)
+  → =₂ (invIso b ∙ (b ∙ α)) α
 cancel-left b α = isoComp-unitˡ-at α ∙
   (isoComp-cong (isoComp-inverseˡ-at b) (idIso α) ∙
     invIso (isoComp-assoc-at (invIso b) b α))
 
 cancel-right : {X C : CAT} {f g h : MAP X C}
-  (a : NatIso f g) (α : NatIso g h)
-  → Iso₂ ((α ∙ a) ∙ invIso a) α
+  (a : =₁ f g) (α : =₁ g h)
+  → =₂ ((α ∙ a) ∙ invIso a) α
 cancel-right a α = isoComp-unitʳ-at α ∙
   (isoComp-cong (idIso α) (isoComp-inverseʳ-at a) ∙
     isoComp-assoc-at α a (invIso a))
 
 cancel-left-reflect : {X C : CAT} {f g h : MAP X C}
-  (b : NatIso g h) {α β : NatIso f g}
-  → Iso₂ (b ∙ α) (b ∙ β) → Iso₂ α β
+  (b : =₁ g h) {α β : =₁ f g}
+  → =₂ (b ∙ α) (b ∙ β) → =₂ α β
 cancel-left-reflect b {α} {β} p = cancel-left b β ∙
   (isoComp-cong (idIso (invIso b)) p ∙ invIso (cancel-left b α))
 
 move-square : {X C : CAT} {f g f′ g′ : MAP X C}
-  (b : NatIso g g′) (u : NatIso f g) (v : NatIso f′ g′) (a : NatIso f f′)
-  → Iso₂ (b ∙ u) (v ∙ a) → Iso₂ (invIso b ∙ v) (u ∙ invIso a)
+  (b : =₁ g g′) (u : =₁ f g) (v : =₁ f′ g′) (a : =₁ f f′)
+  → =₂ (b ∙ u) (v ∙ a) → =₂ (invIso b ∙ v) (u ∙ invIso a)
 move-square b u v a p =
   let solved = isoComp-cong (idIso (invIso b)) p ∙ invIso (cancel-left b u)
       rearranged = invIso (isoComp-assoc-at (invIso b) v a) ∙ solved
@@ -64,9 +64,9 @@ move-square b u v a p =
        isoComp-cong rearranged (idIso (invIso a)))
 
 project-composite : {X K C : CAT} {h₀ h₁ h₂ : MAP X K} {z : MAP X C}
-  (π : MAP K C) (β : NatIso h₁ h₂) (α : NatIso h₀ h₁)
-  (b : NatIso (π ∘ h₂) z)
-  → Iso₂ (b ∙ (π ◁ (β ∙ α))) ((b ∙ (π ◁ β)) ∙ (π ◁ α))
+  (π : MAP K C) (β : =₁ h₁ h₂) (α : =₁ h₀ h₁)
+  (b : =₁ (π ∘ h₂) z)
+  → =₂ (b ∙ (π ◁ (β ∙ α))) ((b ∙ (π ◁ β)) ∙ (π ◁ α))
 project-composite π β α b = invIso (isoComp-assoc-at b (π ◁ β) (π ◁ α)) ∙
   isoComp-cong (idIso b) (postWhisker-isoComp-at π β α)
 ```
@@ -77,10 +77,10 @@ square past a fixed substitution and accounts for the associator at a projection
 ```agda
 pre-square-projection : {R X K C : CAT} (π : MAP K C)
   {h h′ : MAP X K} {f f′ : MAP X C}
-  (δ : NatIso h h′) (α : NatIso f f′)
-  (b : NatIso (π ∘ h) f) (b′ : NatIso (π ∘ h′) f′)
-  (r : MAP R X) → Iso₂ (b′ ∙ (π ◁ δ)) (α ∙ b)
-  → Iso₂
+  (δ : =₁ h h′) (α : =₁ f f′)
+  (b : =₁ (π ∘ h) f) (b′ : =₁ (π ∘ h′) f′)
+  (r : MAP R X) → =₂ (b′ ∙ (π ◁ δ)) (α ∙ b)
+  → =₂
       (((b′ ▷ r) ∙ invIso (comp-assoc r h′ π)) ∙ (π ◁ (δ ▷ r)))
       ((α ▷ r) ∙ ((b ▷ r) ∙ invIso (comp-assoc r h π)))
 pre-square-projection π {h} {h′} δ α b b′ r square =
@@ -95,9 +95,9 @@ pre-square-projection π {h} {h′} δ α b b′ r square =
       isoComp-assoc-at (b′ ▷ r) (invIso (comp-assoc r h′ π)) (π ◁ (δ ▷ r)))))
 
 substitution-square-projection : {R X K C : CAT} (π : MAP K C)
-  (h : MAP X K) (f : MAP X C) (b : NatIso (π ∘ h) f)
-  {r s : MAP R X} (γ : NatIso r s)
-  → Iso₂
+  (h : MAP X K) (f : MAP X C) (b : =₁ (π ∘ h) f)
+  {r s : MAP R X} (γ : =₁ r s)
+  → =₂
       (((b ▷ s) ∙ invIso (comp-assoc s h π)) ∙ (π ◁ (h ◁ γ)))
       ((f ◁ γ) ∙ ((b ▷ r) ∙ invIso (comp-assoc r h π)))
 substitution-square-projection π h f b {r} {s} γ =
@@ -115,15 +115,15 @@ keeps the common target comparison explicit, so cancellation is justified.
 
 ```agda
 projected-square : {X K C : CAT} {h₀ h₁ h₂ h₃ : MAP X K} {z₁ z₃ : MAP X C}
-  (π : MAP K C) (ρ : NatIso h₁ h₃) (τ : NatIso h₀ h₁)
-  (υ : NatIso h₂ h₃) (δ : NatIso h₀ h₂)
-  (b : NatIso (π ∘ h₁) z₁) (c : NatIso (π ∘ h₃) z₃)
-  (α : NatIso z₁ z₃) (q : NatIso (π ∘ h₀) z₁) (q′ : NatIso (π ∘ h₂) z₃)
-  → Iso₂ (c ∙ (π ◁ ρ)) (α ∙ b)
-  → Iso₂ (b ∙ (π ◁ τ)) q
-  → Iso₂ (c ∙ (π ◁ υ)) q′
-  → Iso₂ (q′ ∙ (π ◁ δ)) (α ∙ q)
-  → Iso₂ (π ◁ (ρ ∙ τ)) (π ◁ (υ ∙ δ))
+  (π : MAP K C) (ρ : =₁ h₁ h₃) (τ : =₁ h₀ h₁)
+  (υ : =₁ h₂ h₃) (δ : =₁ h₀ h₂)
+  (b : =₁ (π ∘ h₁) z₁) (c : =₁ (π ∘ h₃) z₃)
+  (α : =₁ z₁ z₃) (q : =₁ (π ∘ h₀) z₁) (q′ : =₁ (π ∘ h₂) z₃)
+  → =₂ (c ∙ (π ◁ ρ)) (α ∙ b)
+  → =₂ (b ∙ (π ◁ τ)) q
+  → =₂ (c ∙ (π ◁ υ)) q′
+  → =₂ (q′ ∙ (π ◁ δ)) (α ∙ q)
+  → =₂ (π ◁ (ρ ∙ τ)) (π ◁ (υ ∙ δ))
 projected-square π ρ τ υ δ b c α q q′ top left bottom square =
   let left-normal = isoComp-cong (idIso α) left ∙
         (isoComp-assoc-at α b (π ◁ τ) ∙
@@ -133,8 +133,8 @@ projected-square π ρ τ υ δ b c α q q′ top left bottom square =
   in cancel-left-reflect c (invIso right-normal ∙ left-normal)
 
 pair-pre-natural-inputs : {R X C D : CAT} {f f′ : MAP X C} {g g′ : MAP X D}
-  (α : NatIso f f′) (β : NatIso g g′) (r : MAP R X)
-  → Iso₂ (pair-cong (α ▷ r) (β ▷ r) ∙ pair-pre f g r)
+  (α : =₁ f f′) (β : =₁ g g′) (r : MAP R X)
+  → =₂ (pair-cong (α ▷ r) (β ▷ r) ∙ pair-pre f g r)
           (pair-pre f′ g′ r ∙ (pair-cong α β ▷ r))
 pair-pre-natural-inputs {f = f} {f′} {g} {g′} α β r =
   let input = pair-cong α β
@@ -160,8 +160,8 @@ pair-pre-natural-inputs {f = f} {f′} {g} {g′} α β r =
         (pair-cong-triangle₂ α β)))
 
 pair-pre-natural-substitution : {R X C D : CAT}
-  (f : MAP X C) (g : MAP X D) {r s : MAP R X} (γ : NatIso r s)
-  → Iso₂ (pair-cong (f ◁ γ) (g ◁ γ) ∙ pair-pre f g r)
+  (f : MAP X C) (g : MAP X D) {r s : MAP R X} (γ : =₁ r s)
+  → =₂ (pair-cong (f ◁ γ) (g ◁ γ) ∙ pair-pre f g r)
           (pair-pre f g s ∙ (pair f g ◁ γ))
 pair-pre-natural-substitution f g {r} {s} γ =
   let input = pair f g ◁ γ
@@ -186,8 +186,8 @@ pair-pre-natural-substitution f g {r} {s} γ =
 
 pair-pre-natural : {R X C D : CAT}
   {f f′ : MAP X C} {g g′ : MAP X D} {r s : MAP R X}
-  (α : NatIso f f′) (β : NatIso g g′) (γ : NatIso r s)
-  → Iso₂ (pair-cong (α ⋆ γ) (β ⋆ γ) ∙ pair-pre f g r)
+  (α : =₁ f f′) (β : =₁ g g′) (γ : =₁ r s)
+  → =₂ (pair-cong (α ⋆ γ) (β ⋆ γ) ∙ pair-pre f g r)
           (pair-pre f′ g′ s ∙ (pair-cong α β ⋆ γ))
 pair-pre-natural {f = f} {f′} {g} {g′} {r} {s} α β γ =
   let outer = pair-cong (α ▷ s) (β ▷ s)

@@ -34,7 +34,7 @@ module PasteCocones {A₁ A₂ A₃ B₁ B₂ : CAT}
         ((Cocone.match s ▷ g₁) ∙ invIso (comp-assoc g₁ g₂ (Cocone.left s))) }
 
   flatten-match : {E : CAT} (s : Cocone g₂ f₂ E) →
-    Iso₂ (Cocone.match (compositeCocone g₁ g₂ (flatten s)))
+    =₂ (Cocone.match (compositeCocone g₁ g₂ (flatten s)))
       (Cocone.match (coconePost (Cocone.right s) ordinary) ∙ (Cocone.match s ▷ g₁))
   flatten-match s = isoComp-cong (idIso ν)
     (isoComp-unitʳ-at ρ ∙
@@ -68,7 +68,7 @@ module PasteCocones {A₁ A₂ A₃ B₁ B₂ : CAT}
     ρt = Cocone.match t ▷ g₁
     νs = Cocone.match (coconePost (Cocone.right s) ordinary)
     νt = Cocone.match (coconePost (Cocone.right t) ordinary)
-    restricted : Iso₂ (ρt ∙ ((α ▷ g₂) ▷ g₁)) (((β ▷ f₂) ▷ g₁) ∙ ρs)
+    restricted : =₂ (ρt ∙ ((α ▷ g₂) ▷ g₁)) (((β ▷ f₂) ▷ g₁) ∙ ρs)
     restricted = preWhisker-isoComp-at (β ▷ f₂) (Cocone.match s) g₁ ∙
       ((preWhisker g₁ ◁ CoconeIso.compatible Φ) ∙
         invIso (preWhisker-isoComp-at (Cocone.match t) (α ▷ g₂) g₁))

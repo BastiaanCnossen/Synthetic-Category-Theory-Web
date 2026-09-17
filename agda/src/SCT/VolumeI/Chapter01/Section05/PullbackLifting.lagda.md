@@ -35,17 +35,17 @@ module Lift {C D E T : CAT} {f : MAP C E} {g : MAP D E}
   pointCone : Cone J.leftMap J.rightMap One
   pointCone = Encoding.encode Φ
 
-  point : ObjAbs J.Target
+  point : Obj-abs J.Target
   point = pbLift pointCone
 
   chosen : FunctorLift J.forward point
   chosen = equiv-lift (pullback-isoMap-isEquiv h k) point
 
   abstract
-    lift : NatIso h k
+    lift : =₁ h k
     lift = FunctorLift.lift chosen
 
-    image : NatIso (J.forward ∘ lift) point
+    image : =₁ (J.forward ∘ lift) point
     image = FunctorLift.comparison chosen
 
   opaque
@@ -80,14 +80,14 @@ module Lift {C D E T : CAT} {f : MAP C E} {g : MAP D E}
       (Encoding.decode (conePre lift J.comparisonCone)) Φ
     comparison-image = Encoding.decode-into (conePre lift J.comparisonCone) Φ encoded-image
 
-  left-image : Iso₂ (pb₁ {f = f} {g = g} ◁ lift) α
+  left-image : =₂ (pb₁ {f = f} {g = g} ◁ lift) α
   left-image = ConeIso₂.leftId comparison-image
 
-  right-image : Iso₂ (pb₂ {f = f} {g = g} ◁ lift) β
+  right-image : =₂ (pb₂ {f = f} {g = g} ◁ lift) β
   right-image = ConeIso₂.rightId comparison-image
 
 pullback-reflect : {C D E T : CAT} {f : MAP C E} {g : MAP D E}
   (h k : MAP T (Pullback f g))
-  → ConeIso (conePre h (pbCone f g)) (conePre k (pbCone f g)) → NatIso h k
+  → ConeIso (conePre h (pbCone f g)) (conePre k (pbCone f g)) → =₁ h k
 pullback-reflect = Lift.lift
 ```

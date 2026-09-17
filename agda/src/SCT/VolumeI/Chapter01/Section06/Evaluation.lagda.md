@@ -22,16 +22,16 @@ module Evaluation {F C D : CAT} (e : MAP (F × C) D) where
   uncurry : {T : CAT} → MAP T F → MAP (T × C) D
   uncurry {T} g = e ∘ productMap g (id C)
 
-  uncurry-cong : {T : CAT} {g h : MAP T F} → NatIso g h → NatIso (uncurry g) (uncurry h)
+  uncurry-cong : {T : CAT} {g h : MAP T F} → =₁ g h → =₁ (uncurry g) (uncurry h)
   uncurry-cong α = e ◁ productMap-cong α (idIso (id C))
 
   uncurry-pre : {S T : CAT} (g : MAP T F) (r : MAP S T) →
-    NatIso (uncurry (g ∘ r)) (uncurry g ∘ productMap r (id C))
+    =₁ (uncurry (g ∘ r)) (uncurry g ∘ productMap r (id C))
   uncurry-pre g r = invIso (comp-assoc (productMap r (id C)) (productMap g (id C)) e) ∙
     (e ◁ invIso (productMap-cong (idIso (g ∘ r)) (comp-unitˡ (id C)) ∙
       productMap-comp r g (id C) (id C)))
 
-  uncurry-id : NatIso (uncurry (id F)) e
+  uncurry-id : =₁ (uncurry (id F)) e
   uncurry-id = comp-unitʳ e ∙ (e ◁ productMap-id F C)
 
   module At (T : CAT) where
@@ -43,7 +43,7 @@ module Evaluation {F C D : CAT} (e : MAP (F × C) D) where
     forward = mapCurry (map-isAn T F) evaluation
 
     represents : {X : CAT} (g : MAP X parameter) →
-      NatIso (mapUncurry (forward ∘ g))
+      =₁ (mapUncurry (forward ∘ g))
         (uncurry (mapUncurry g) ∘ Associativity.backward X T C)
     represents {X} g =
       (invIso (uncurry-pre mapEval (productMap g (id T))) ▷ Associativity.backward X T C) ∙
@@ -54,7 +54,7 @@ module Evaluation {F C D : CAT} (e : MAP (F × C) D) where
       ((mapCurry-β (map-isAn T F) evaluation ▷ productMap g (id (T × C))) ∙
         mapUncurry-pre forward g))))
 
-    terminal-regroup : NatIso
+    terminal-regroup : =₁
       (Associativity.backward One T C ∘ oneProduct-in (T × C))
       (productMap (oneProduct-in T) (id C))
     terminal-regroup = pair-cong
@@ -67,14 +67,14 @@ module Evaluation {F C D : CAT} (e : MAP (F × C) D) where
         ((pr₂ ◁ oneProduct-retraction (T × C)) ∙ comp-assoc (oneProduct-in (T × C)) (pr₂ {One} {T × C}) (pr₂ {T} {C}))) ∙
       pair-pre (pair pr₁ (pr₁ ∘ pr₂)) (pr₂ ∘ pr₂) (oneProduct-in (T × C))
 
-    decode-forward : (p : ObjAbs parameter) →
-      NatIso (decodeMap (forward ∘ p)) (uncurry (decodeMap p))
+    decode-forward : (p : Obj-abs parameter) →
+      =₁ (decodeMap (forward ∘ p)) (uncurry (decodeMap p))
     decode-forward p = invIso (uncurry-pre (mapUncurry p) (oneProduct-in T)) ∙
       (((uncurry (mapUncurry p)) ◁ terminal-regroup) ∙
       (comp-assoc (oneProduct-in (T × C)) (Associativity.backward One T C) (uncurry (mapUncurry p)) ∙
         (represents p ▷ oneProduct-in (T × C))))
 
-    specialize-β : (g : MAP T F) → NatIso (specializeMap forward g) (uncurry g)
+    specialize-β : (g : MAP T F) → =₁ (specializeMap forward g) (uncurry g)
     specialize-β g = uncurry-cong (decode-name g) ∙ decode-forward (nameMap g)
 ```
 

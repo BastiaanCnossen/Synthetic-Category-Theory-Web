@@ -25,17 +25,17 @@ module Compatible = Setup 𝒯 M ℱ
 
 abstract
   funUncurryIso-comp : {X C D : CAT} {f g h : MAP X (Fun C D)}
-    (β : NatIso g h) (α : NatIso f g) →
-    Iso₂ (funUncurryIso (β ∙ α)) (funUncurryIso β ∙ funUncurryIso α)
+    (β : =₁ g h) (α : =₁ f g) →
+    =₂ (funUncurryIso (β ∙ α)) (funUncurryIso β ∙ funUncurryIso α)
   funUncurryIso-comp = Original.funUncurryIso-comp
 
-  funUncurryIso-inverse : {X C D : CAT} {f g : MAP X (Fun C D)} (α : NatIso f g) →
-    Iso₂ (funUncurryIso (invIso α)) (invIso (funUncurryIso α))
+  funUncurryIso-inverse : {X C D : CAT} {f g : MAP X (Fun C D)} (α : =₁ f g) →
+    =₂ (funUncurryIso (invIso α)) (invIso (funUncurryIso α))
   funUncurryIso-inverse = Change.funUncurryIso-inverse
 
   funUncurry-pre-inputs : {Y X C D : CAT} {f g : MAP X (Fun C D)}
-    (α : NatIso f g) (σ : MAP Y X) →
-    Iso₂ (funUncurry-pre g σ ∙ funUncurryIso (α ▷ σ))
+    (α : =₁ f g) (σ : MAP Y X) →
+    =₂ (funUncurry-pre g σ ∙ funUncurryIso (α ▷ σ))
       ((funUncurryIso α ▷ productMap σ (id C)) ∙ funUncurry-pre f σ)
   funUncurry-pre-inputs = Compatible.funUncurry-pre-inputs
 ```

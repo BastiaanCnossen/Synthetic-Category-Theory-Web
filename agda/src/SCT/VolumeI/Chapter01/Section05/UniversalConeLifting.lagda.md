@@ -36,17 +36,17 @@ module UniversalLift {C D E T S : CAT} {f : MAP C E} {g : MAP D E}
   module Chosen = Lift (l ∘ h) (l ∘ k) comparison
   lifted = postWhisker-lift l et Chosen.lift
   abstract
-    lift : NatIso h k
+    lift : =₁ h k
     lift = FunctorLift.lift lifted
 
-    image : Iso₂ (l ◁ lift) Chosen.lift
+    image : =₂ (l ◁ lift) Chosen.lift
     image = FunctorLift.comparison lifted
 
   projection-image : {B : CAT} (π : MAP (Pullback f g) B) (q : MAP T B)
-    (b : NatIso (π ∘ l) q) (α : NatIso (q ∘ h) (q ∘ k)) →
-    Iso₂ (π ◁ Chosen.lift)
+    (b : =₁ (π ∘ l) q) (α : =₁ (q ∘ h) (q ∘ k)) →
+    =₂ (π ◁ Chosen.lift)
       (invIso ((b ▷ k) ∙ invIso (comp-assoc k l π)) ∙
-        (α ∙ ((b ▷ h) ∙ invIso (comp-assoc h l π)))) → Iso₂ (q ◁ lift) α
+        (α ∙ ((b ▷ h) ∙ invIso (comp-assoc h l π)))) → =₂ (q ◁ lift) α
   projection-image π q b α prescribed = cancel-right-reflect bh
     (cancel-inverse bk (α ∙ bh) ∙
     (isoComp-cong (idIso bk) prescribed ∙
@@ -56,9 +56,9 @@ module UniversalLift {C D E T S : CAT} {f : MAP C E} {g : MAP D E}
     bh = (b ▷ h) ∙ invIso (comp-assoc h l π)
     bk = (b ▷ k) ∙ invIso (comp-assoc k l π)
 
-  left-image : Iso₂ (Cone.left t ◁ lift) (ConeIso.leftIso Φ)
+  left-image : =₂ (Cone.left t ◁ lift) (ConeIso.leftIso Φ)
   left-image = projection-image pb₁ (Cone.left t) (ConeIso.leftIso β) (ConeIso.leftIso Φ) Chosen.left-image
 
-  right-image : Iso₂ (Cone.right t ◁ lift) (ConeIso.rightIso Φ)
+  right-image : =₂ (Cone.right t ◁ lift) (ConeIso.rightIso Φ)
   right-image = projection-image pb₂ (Cone.right t) (ConeIso.rightIso β) (ConeIso.rightIso Φ) Chosen.right-image
 ```

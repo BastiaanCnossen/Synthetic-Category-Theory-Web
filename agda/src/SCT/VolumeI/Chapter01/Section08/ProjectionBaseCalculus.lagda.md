@@ -21,8 +21,8 @@ open Iterated vocabulary terminal products productLaws composition vertical whis
 open Structural vocabulary terminal products productLaws composition whiskering using (postWhisker-comp-at; preWhisker-comp-at)
 
 lift-assoc : {R K A B C : CAT} (π : MAP K A) (ρ : MAP R A)
-  (H : MAP R K) (b : NatIso (π ∘ H) ρ) (f : MAP A B) (g : MAP B C) →
-  Iso₂ (comp-assoc ρ f g ∙ lift-base (g ∘ f) π H b)
+  (H : MAP R K) (b : =₁ (π ∘ H) ρ) (f : MAP A B) (g : MAP B C) →
+  =₂ (comp-assoc ρ f g ∙ lift-base (g ∘ f) π H b)
     (lift-base g (f ∘ π) H (lift-base f π H b) ∙ (comp-assoc π f g ▷ H))
 lift-assoc π ρ H b f g =
   let O = comp-assoc ρ f g
@@ -42,9 +42,9 @@ lift-assoc π ρ H b f g =
       invIso (isoComp-assoc-at O I B))))))
 
 lift-base-outer : {R K A B : CAT} (π : MAP K A) (ρ : MAP R A)
-  (H : MAP R K) (b : NatIso (π ∘ H) ρ)
-  {f g : MAP A B} (α : NatIso f g) →
-  Iso₂ (lift-base g π H b ∙ ((α ▷ π) ▷ H))
+  (H : MAP R K) (b : =₁ (π ∘ H) ρ)
+  {f g : MAP A B} (α : =₁ f g) →
+  =₂ (lift-base g π H b ∙ ((α ▷ π) ▷ H))
     ((α ▷ ρ) ∙ lift-base f π H b)
 lift-base-outer π ρ H b {f} {g} α =
   let F = comp-assoc H π f
@@ -58,10 +58,10 @@ lift-base-outer π ρ H b {f} {g} α =
 
 change-middle : {X Y Z C : CAT} (π : MAP Z C) (k : MAP Y Z) (j : MAP X Y)
   {q q′ : MAP Y C} {r r′ : MAP X C}
-  (b : NatIso (π ∘ k) q) (d : NatIso (q ∘ j) r)
-  (α : NatIso q q′) (d′ : NatIso (q′ ∘ j) r′) (η : NatIso r r′) →
-  Iso₂ (η ∙ d) (d′ ∙ (α ▷ j)) →
-  Iso₂ (compose-base π k (α ∙ b) j d′) (η ∙ compose-base π k b j d)
+  (b : =₁ (π ∘ k) q) (d : =₁ (q ∘ j) r)
+  (α : =₁ q q′) (d′ : =₁ (q′ ∘ j) r′) (η : =₁ r r′) →
+  =₂ (η ∙ d) (d′ ∙ (α ▷ j)) →
+  =₂ (compose-base π k (α ∙ b) j d′) (η ∙ compose-base π k b j d)
 change-middle π k j b d α d′ η p =
   let I = invIso (comp-assoc j k π)
       T = (b ▷ j) ∙ I

@@ -91,8 +91,8 @@
       "declarations": [
         {
           "module": "Section01.Vocabulary",
-          "name": "_≅_",
-          "qualified": "Vocabulary._≅_",
+          "name": "_＝_",
+          "qualified": "Vocabulary._＝_",
           "role": "assumption"
         },
         {
@@ -226,8 +226,8 @@
       "declarations": [
         {
           "module": "Section01.Vocabulary",
-          "name": "ObjAbs",
-          "qualified": "Vocabulary.ObjAbs",
+          "name": "Obj-abs",
+          "qualified": "Vocabulary.Obj-abs",
           "role": "definition"
         }
       ],
@@ -241,8 +241,8 @@
       "declarations": [
         {
           "module": "Section01.Vocabulary",
-          "name": "NatIso",
-          "qualified": "Vocabulary.NatIso",
+          "name": "=₁",
+          "qualified": "Vocabulary.=₁",
           "role": "definition"
         }
       ],
@@ -256,8 +256,8 @@
       "declarations": [
         {
           "module": "Section01.Vocabulary",
-          "name": "Iso₂",
-          "qualified": "Vocabulary.Iso₂",
+          "name": "=₂",
+          "qualified": "Vocabulary.=₂",
           "role": "definition"
         }
       ],
@@ -1210,8 +1210,8 @@
       "declarations": [
         {
           "module": "Section01.Vocabulary",
-          "name": "NatIso",
-          "qualified": "Vocabulary.NatIso",
+          "name": "=₁",
+          "qualified": "Vocabulary.=₁",
           "role": "definition"
         }
       ],
@@ -2828,6 +2828,1137 @@
       ],
       "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
       "page": "equivalences"
+    },
+    {
+      "id": "mapping-axiom",
+      "title": "Evaluation and currying",
+      "note": "The data and laws are supplied assumptions. Their derived consequences are checked relative to this interface.",
+      "declarations": [
+        {
+          "module": "Section03.MappingAnimae",
+          "name": "MappingAnimae",
+          "qualified": "MappingAnimae",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae",
+      "tex_label": "post:Evaluation_And_Currying_For_Mapping_Animae"
+    },
+    {
+      "id": "mapping-anima",
+      "title": "The mapping anima",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.MappingAnimae",
+          "name": "Map",
+          "qualified": "MappingData.Map",
+          "role": "assumption"
+        },
+        {
+          "module": "Section03.MappingAnimae",
+          "name": "map-isAn",
+          "qualified": "MappingData.map-isAn",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-evaluation",
+      "title": "The evaluation functor",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.MappingAnimae",
+          "name": "mapEval",
+          "qualified": "MappingData.mapEval",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-currying",
+      "title": "Currying with an anima parameter",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.MappingAnimae",
+          "name": "mapCurry",
+          "qualified": "MappingData.mapCurry",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-beta",
+      "title": "The currying beta comparison",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.MappingAnimae",
+          "name": "mapCurry-β",
+          "qualified": "MappingData.mapCurry-β",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-uncurry-definition",
+      "title": "Definition of uncurrying",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.MappingAnimae",
+          "name": "mapUncurry",
+          "qualified": "MappingData.mapUncurry",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-iso-action",
+      "title": "Uncurrying on isomorphism animae",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.MappingAnimae",
+          "name": "mapUncurry-isoMap",
+          "qualified": "MappingData.mapUncurry-isoMap",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-iso-equivalence",
+      "title": "The uncurrying action is an equivalence",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.MappingAnimae",
+          "name": "mapUncurry-isoMap-isEquiv",
+          "qualified": "MappingLaws.mapUncurry-isoMap-isEquiv",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-parameter-scope",
+      "title": "The anima-parameter hypothesis",
+      "note": "Currying and reflection require an anima witness for the parameter. This interface does not assert currying for an arbitrary category.",
+      "declarations": [
+        {
+          "module": "Section03.MappingAnimae",
+          "name": "mapCurry",
+          "qualified": "MappingData.mapCurry",
+          "role": "assumption"
+        },
+        {
+          "module": "Section03.MappingAnimae",
+          "name": "mapUncurry-isoMap-isEquiv",
+          "qualified": "MappingLaws.mapUncurry-isoMap-isEquiv",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-name",
+      "title": "Representing a functor by a point",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Points",
+          "name": "nameMap",
+          "qualified": "nameMap",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-decode",
+      "title": "Decoding a point",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Points",
+          "name": "decodeMap",
+          "qualified": "decodeMap",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-decode-name",
+      "title": "Decoding the representative",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Points",
+          "name": "decode-name",
+          "qualified": "decode-name",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-points-isomorphisms",
+      "title": "Isomorphisms between represented functors",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Points",
+          "name": "decodeMap-isoMap-isEquiv",
+          "qualified": "decodeMap-isoMap-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-name-decode",
+      "title": "Representing a decoded point",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Points",
+          "name": "name-decode",
+          "qualified": "name-decode",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-specialization",
+      "title": "Specialization",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Specialization",
+          "name": "specializeMap",
+          "qualified": "specializeMap",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-specialization-composition",
+      "title": "Specialization preserves identity and composition",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Specialization",
+          "name": "specializeMap-id",
+          "qualified": "specializeMap-id",
+          "role": "derived"
+        },
+        {
+          "module": "Section03.Specialization",
+          "name": "specializeMap-comp",
+          "qualified": "specializeMap-comp",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-specialization-action",
+      "title": "Specialization on isomorphisms and identifications",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Specialization",
+          "name": "specializeMapIso",
+          "qualified": "specializeMapIso",
+          "role": "derived"
+        },
+        {
+          "module": "Section03.Specialization",
+          "name": "specializeMap-Iso₂",
+          "qualified": "specializeMap-Iso₂",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-specialization-lifting",
+      "title": "Lifting and reflection through specialization",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Specialization",
+          "name": "specializeMap-isoMap-isEquiv",
+          "qualified": "specializeMap-isoMap-isEquiv",
+          "role": "derived"
+        },
+        {
+          "module": "Section03.Specialization",
+          "name": "specializeMap-reflect-β",
+          "qualified": "specializeMap-reflect-β",
+          "role": "derived"
+        },
+        {
+          "module": "Section03.Specialization",
+          "name": "specializeMap-Iso₂-lift",
+          "qualified": "specializeMap-Iso₂-lift",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-uncurrying",
+      "title": "The uncurrying equivalence",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Uncurrying",
+          "name": "mapUncurrying",
+          "qualified": "mapUncurrying",
+          "role": "derived"
+        },
+        {
+          "module": "Section03.Uncurrying",
+          "name": "mapUncurrying-isEquiv",
+          "qualified": "mapUncurrying-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae",
+      "tex_label": "prop:Uncurrying_For_Mapping_Animae"
+    },
+    {
+      "id": "mapping-double-evaluation",
+      "title": "Double evaluation in the uncurrying proof",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Uncurrying",
+          "name": "doubleEvaluation",
+          "qualified": "ExponentialLaw.doubleEvaluation",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-uncurry-forward",
+      "title": "Constructing the uncurrying functor",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Uncurrying",
+          "name": "forward",
+          "qualified": "ExponentialLaw.forward",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-uncurry-backward",
+      "title": "Constructing its inverse",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Uncurrying",
+          "name": "backwardFirstCurry",
+          "qualified": "ExponentialLaw.backwardFirstCurry",
+          "role": "derived"
+        },
+        {
+          "module": "Section03.Uncurrying",
+          "name": "backward",
+          "qualified": "ExponentialLaw.backward",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-uncurry-inverse-laws",
+      "title": "The two inverse comparisons",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Uncurrying",
+          "name": "forward-backward",
+          "qualified": "ExponentialLaw.forward-backward",
+          "role": "derived"
+        },
+        {
+          "module": "Section03.Uncurrying",
+          "name": "backward-forward",
+          "qualified": "ExponentialLaw.backward-forward",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-post",
+      "title": "Postcomposition",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Functoriality",
+          "name": "mapPost",
+          "qualified": "mapPost",
+          "role": "definition"
+        },
+        {
+          "module": "Section03.Functoriality",
+          "name": "mapPost-β",
+          "qualified": "mapPost-β",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-pre",
+      "title": "Precomposition",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Functoriality",
+          "name": "mapPre",
+          "qualified": "mapPre",
+          "role": "definition"
+        },
+        {
+          "module": "Section03.Functoriality",
+          "name": "mapPre-β",
+          "qualified": "mapPre-β",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-post-cong",
+      "title": "Postcomposition of a natural isomorphism",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Functoriality",
+          "name": "mapPost-cong",
+          "qualified": "mapPost-cong",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-pre-cong",
+      "title": "Precomposition of a natural isomorphism",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Functoriality",
+          "name": "mapPre-cong",
+          "qualified": "mapPre-cong",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-products",
+      "title": "Mapping into a product",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Products",
+          "name": "forward",
+          "qualified": "ProductComparison.forward",
+          "role": "derived"
+        },
+        {
+          "module": "Section03.Products",
+          "name": "forward-isEquiv",
+          "qualified": "ProductComparison.forward-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae",
+      "tex_label": "prop:Map_Commutes_With_Products"
+    },
+    {
+      "id": "mapping-products-inverse",
+      "title": "Constructing the product comparison inverse",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Products",
+          "name": "backward",
+          "qualified": "ProductComparison.backward",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-products-inverse-laws",
+      "title": "The product comparison inverse laws",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Products",
+          "name": "forward-backward",
+          "qualified": "ProductComparison.forward-backward",
+          "role": "derived"
+        },
+        {
+          "module": "Section03.Products",
+          "name": "backward-forward",
+          "qualified": "ProductComparison.backward-forward",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-substitution",
+      "title": "Uncurrying and substitution",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Currying",
+          "name": "mapUncurry-pre",
+          "qualified": "mapUncurry-pre",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae",
+      "tex_label": "eq:Uncurrying_Substitution"
+    },
+    {
+      "id": "mapping-naturality",
+      "title": "Naturality of the substitution comparison",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Compatibility",
+          "name": "mapUncurry-pre-natural",
+          "qualified": "mapUncurry-pre-natural",
+          "role": "derived"
+        },
+        {
+          "module": "Section03.Compatibility",
+          "name": "uncurry-pre-natural-action",
+          "qualified": "uncurry-pre-natural-action",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-iso-composition",
+      "title": "Uncurrying preserves identity and composition",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Currying",
+          "name": "mapUncurryIso-id",
+          "qualified": "mapUncurryIso-id",
+          "role": "derived"
+        },
+        {
+          "module": "Section03.Currying",
+          "name": "mapUncurryIso-comp",
+          "qualified": "mapUncurryIso-comp",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-iterated-substitution",
+      "title": "Iterated substitution",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.SubstitutionCoherence",
+          "name": "mapUncurry-pre-iterated",
+          "qualified": "mapUncurry-pre-iterated",
+          "role": "derived"
+        },
+        {
+          "module": "Section03.Compatibility",
+          "name": "comparison",
+          "qualified": "JointNaturality.comparison",
+          "role": "derived"
+        },
+        {
+          "module": "Section03.Compatibility",
+          "name": "comparison",
+          "qualified": "JointComposition.comparison",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-composition",
+      "title": "Composition in the mapping anima",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Composition",
+          "name": "mapComp",
+          "qualified": "mapComp",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-composition-beta",
+      "title": "Evaluation of composition",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Composition",
+          "name": "mapComp-β",
+          "qualified": "mapComp-β",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae",
+      "tex_label": "eq:Mapping_Composition_Evaluation"
+    },
+    {
+      "id": "mapping-identity",
+      "title": "The representing identity",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Composition",
+          "name": "mapId",
+          "qualified": "mapId",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-identity-beta",
+      "title": "Evaluation of the representing identity",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Composition",
+          "name": "mapId-β",
+          "qualified": "mapId-β",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae",
+      "tex_label": "eq:Mapping_Identity_Evaluation"
+    },
+    {
+      "id": "mapping-terms",
+      "title": "Composition of terms",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Composition",
+          "name": "composeTerm",
+          "qualified": "composeTerm",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-application",
+      "title": "Application of a term",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Composition",
+          "name": "applyTerm",
+          "qualified": "applyTerm",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-retained",
+      "title": "Evaluation retaining its parameter",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.InternalCoherence",
+          "name": "retained",
+          "qualified": "RetainedEvaluation.retained",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-retained-laws",
+      "title": "Retained composition and identity comparisons",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.InternalCoherence",
+          "name": "retained-compose",
+          "qualified": "RetainedEvaluation.retained-compose",
+          "role": "derived"
+        },
+        {
+          "module": "Section03.InternalCoherence",
+          "name": "retained-identity",
+          "qualified": "RetainedEvaluation.retained-identity",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-parameter-change",
+      "title": "Evaluation and change of parameter",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.RetainedCompositionParameterChange",
+          "name": "retained-compose-parameter-change",
+          "qualified": "retained-compose-parameter-change",
+          "role": "derived"
+        },
+        {
+          "module": "Section03.RetainedIdentityParameterChange",
+          "name": "retained-identity-parameter-change",
+          "qualified": "retained-identity-parameter-change",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae",
+      "tex_label": "lem:Retained_Evaluation_Parameter_Change"
+    },
+    {
+      "id": "mapping-composition-parameter",
+      "title": "Composition and change of parameter",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Composition",
+          "name": "composeTerm-pre",
+          "qualified": "composeTerm-pre",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae",
+      "tex_label": "eq:Mapping_Composition_Parameter_Change"
+    },
+    {
+      "id": "mapping-associator",
+      "title": "Constructing the universal associator",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.InternalCoherence",
+          "name": "mapComp-assoc",
+          "qualified": "mapComp-assoc",
+          "role": "derived"
+        },
+        {
+          "module": "Section03.InternalCoherence",
+          "name": "compose-assoc",
+          "qualified": "compose-assoc",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-unitors",
+      "title": "Constructing the universal unitors",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.InternalCoherence",
+          "name": "mapComp-unitˡ",
+          "qualified": "mapComp-unitˡ",
+          "role": "derived"
+        },
+        {
+          "module": "Section03.InternalCoherence",
+          "name": "mapComp-unitʳ",
+          "qualified": "mapComp-unitʳ",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-restriction",
+      "title": "Restricting universal associator and unitors",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.UniversalAssociatorRestriction",
+          "name": "universal-assoc",
+          "qualified": "universal-assoc",
+          "role": "derived"
+        },
+        {
+          "module": "Section03.UniversalUnitChange",
+          "name": "universal-unitˡ",
+          "qualified": "universal-unitˡ",
+          "role": "derived"
+        },
+        {
+          "module": "Section03.UniversalUnitChange",
+          "name": "universal-unitʳ",
+          "qualified": "universal-unitʳ",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae",
+      "tex_label": "lem:Restriction_Of_Universal_Composition_Comparisons"
+    },
+    {
+      "id": "mapping-triangle",
+      "title": "The universal triangle identity",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Coherence",
+          "name": "law",
+          "qualified": "UniversalTriangle.law",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae",
+      "tex_label": "eq:Mapping_Composition_Triangle"
+    },
+    {
+      "id": "mapping-pentagon",
+      "title": "The universal pentagon identity",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Coherence",
+          "name": "law",
+          "qualified": "UniversalPentagon.law",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae",
+      "tex_label": "eq:Mapping_Composition_Pentagon"
+    },
+    {
+      "id": "mapping-pentagon-reflection",
+      "title": "Reflecting the pentagon through uncurrying",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Coherence",
+          "name": "pentagon",
+          "qualified": "pentagon",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-triangle-reflection",
+      "title": "Reflecting the triangle through uncurrying",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Coherence",
+          "name": "triangle",
+          "qualified": "triangle",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-contextual-coherence",
+      "title": "Restricting the whole coherence identity",
+      "note": "These declarations prewhisker the universal identities and retain their endpoint comparisons. They do not separately normalize the triangle and pentagon at an arbitrary non-anima parameter.",
+      "declarations": [
+        {
+          "module": "Section03.Coherence",
+          "name": "in-context",
+          "qualified": "UniversalTriangle.in-context",
+          "role": "derived"
+        },
+        {
+          "module": "Section03.Coherence",
+          "name": "in-context",
+          "qualified": "UniversalPentagon.in-context",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-post-composition",
+      "title": "Postcomposition respects composition",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Functoriality",
+          "name": "mapPost-comp",
+          "qualified": "mapPost-comp",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae",
+      "tex_label": "prop:Postcomposition_Respects_Composition"
+    },
+    {
+      "id": "mapping-pre-composition",
+      "title": "Precomposition respects composition",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Functoriality",
+          "name": "mapPre-comp",
+          "qualified": "mapPre-comp",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae",
+      "tex_label": "prop:Precomposition_Respects_Composition"
+    },
+    {
+      "id": "mapping-detect-equivalences",
+      "title": "Detecting equivalences with mapping animae",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.EquivalenceDetection",
+          "name": "post-tests-all",
+          "qualified": "post-tests-all",
+          "role": "derived"
+        },
+        {
+          "module": "Section03.EquivalenceDetection",
+          "name": "pre-tests-all",
+          "qualified": "pre-tests-all",
+          "role": "derived"
+        },
+        {
+          "module": "Section03.Functoriality",
+          "name": "mapPost-isEquiv",
+          "qualified": "mapPost-isEquiv",
+          "role": "derived"
+        },
+        {
+          "module": "Section03.Functoriality",
+          "name": "mapPre-isEquiv",
+          "qualified": "mapPre-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae",
+      "tex_label": "prop:Check_Equivalences_On_Mapping_Spaces"
+    },
+    {
+      "id": "mapping-anima-tests",
+      "title": "Testing only against animae",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.EquivalenceDetection",
+          "name": "post-tests-animae",
+          "qualified": "post-tests-animae",
+          "role": "derived"
+        },
+        {
+          "module": "Section03.EquivalenceDetection",
+          "name": "pre-tests-animae",
+          "qualified": "pre-tests-animae",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-preserve-equivalences",
+      "title": "Postcomposition preserves equivalences",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.Functoriality",
+          "name": "mapPost-isEquiv",
+          "qualified": "mapPost-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-choose-inverse",
+      "title": "Finding a section by specialization",
+      "note": "The implementation performs the corresponding naming and decoding lift directly.",
+      "declarations": [
+        {
+          "module": "Section03.EquivalenceDetection",
+          "name": "mapPost-section",
+          "qualified": "mapPost-section",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-inverse-reflection",
+      "title": "Reflecting the second inverse comparison",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.EquivalenceDetection",
+          "name": "mapPost-reflect",
+          "qualified": "mapPost-reflect",
+          "role": "derived"
+        },
+        {
+          "module": "Section03.EquivalenceDetection",
+          "name": "post-tests-isEquiv",
+          "qualified": "post-tests-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-absolute-objects",
+      "title": "Absolute objects and the terminal context",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.AbsoluteObjects",
+          "name": "forward",
+          "qualified": "TerminalContext.forward",
+          "role": "derived"
+        },
+        {
+          "module": "Section03.AbsoluteObjects",
+          "name": "forward-isEquiv",
+          "qualified": "TerminalContext.forward-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae",
+      "tex_label": "prop:Absolute_Objects_And_Terminal_Context"
+    },
+    {
+      "id": "mapping-absolute-inverse",
+      "title": "Evaluation as the inverse for absolute objects",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.AbsoluteObjects",
+          "name": "backward",
+          "qualified": "TerminalContext.backward",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
+    },
+    {
+      "id": "mapping-absolute-inverse-laws",
+      "title": "The two comparisons for absolute objects",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section03.AbsoluteObjects",
+          "name": "backward-forward",
+          "qualified": "TerminalContext.backward-forward",
+          "role": "derived"
+        },
+        {
+          "module": "Section03.AbsoluteObjects",
+          "name": "forward-backward",
+          "qualified": "TerminalContext.forward-backward",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "mapping-animae"
     }
   ],
   "reverse_only": [
@@ -2840,8 +3971,8 @@
       "declarations": [
         {
           "module": "Section01.Vocabulary",
-          "name": "Iso₃",
-          "qualified": "Vocabulary.Iso₃",
+          "name": "=₃",
+          "qualified": "Vocabulary.=₃",
           "role": "definition"
         }
       ]

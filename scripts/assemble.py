@@ -3,10 +3,28 @@ from common import *
 from urllib.parse import quote, unquote
 import copy, textwrap, shutil
 from pilot_model import declaration_range, prelude
+from authored_pages import require_authored_pages
 
 MANIFEST=json.loads(read(ROOT/'correspondence.json'))
 PREFIX=MANIFEST['module_prefix']
-ROLES={'assumption':'Assumption · boundary checked','derived':'Derived · checked against supplied interface','definition':'Definition · checked'}
+ROLES={'assumption':'Assumption, type checked','derived':'Derivation, checked','definition':'Definition, checked'}
+
+def unique_agda_ids(pre):
+    """Keep the first of Agda's repeated empty aliases for local modules.
+
+    Numeric declaration anchors are unique and remain untouched. Browser
+    fragments already resolve repeated named anchors to their first occurrence.
+    """
+    seen={}
+    for anchor in pre.all('a'):
+        name=anchor.attrs.get('id')
+        if not name: continue
+        if name in seen:
+            first=seen[name]
+            if name.isdigit() or anchor.text() or first.text() or set(anchor.attrs)!={'id'} or set(first.attrs)!={'id'}:
+                raise ValueError('Unexpected duplicate compiler anchor: '+name)
+            del anchor.attrs['id']
+        else: seen[name]=anchor
 
 def math_config():
     source=comments(read(SNAP/'preamble.tex')); macros={}
@@ -22,12 +40,12 @@ def math_config():
 
 def page(title, content, current='', math=True, prefix=''):
     navigation=[]
-    for slug,label in [('index','Overview'),('basic-vocabulary','1.1 · The basic vocabulary'),('equivalences','1.2 · Equivalences of categories'),('code-index','All Agda code'),('formalization','Agda guide'),('build-report','Build and coverage')]:
+    for slug,label in [('index','Overview'),('chapter-introduction','Chapter introduction'),('basic-vocabulary','1.1 · The basic vocabulary'),('equivalences','1.2 · Equivalences of categories'),('mapping-animae','1.3 · Mapping animae'),('code-index','All Agda code'),('formalization','Agda guide'),('build-report','Build details')]:
         active=' aria-current="page"' if current==slug else ''
         navigation.append(f'<a{active} href="{prefix}{slug}.html">{label}</a>')
     nav=''.join(navigation)
     scripts=f'<script src="{prefix}assets/math-config.js"></script><script defer src="{prefix}vendor/mathjax/tex-chtml.js"></script>' if math else ''
-    has_passages=current in ('basic-vocabulary','equivalences')
+    has_passages=current in ('basic-vocabulary','equivalences','mapping-animae')
     reader_script=f'<script defer src="{prefix}assets/agda-context.js"></script>' if has_passages else ''
     body_class='has-passages' if has_passages else ''
     return f'''<!doctype html>
@@ -129,20 +147,20 @@ class Agda:
         context=f'<details class="mapping-note"><summary>About this correspondence</summary>{note}<p class="scope-note">{escape(MANIFEST["scope_note"])}</p></details>'
         return f'<details class="agda-panel agda-inline" id="agda-{p["id"]}"><summary><span class="agda-tag">Agda</span> {escape(p["title"])}</summary><div class="agda-content">{content}{context}<p class="panel-return"><a href="#text-{p["id"]}">Return to this passage</a> · <a class="permalink" href="#agda-{p["id"]}">Panel link</a></p></div></details>'
 
-def assemble():
-    SITE.mkdir(exist_ok=True)
+def assemble(site=SITE):
+    require_authored_pages(site)
     for name in ('reader-shell.css','reader.css','reader.js','favicon.svg'):
-        (SITE/'assets').mkdir(exist_ok=True)
-        shutil.copyfile(ROOT/'assets'/name,SITE/'assets'/name)
+        (site/'assets').mkdir(exist_ok=True)
+        shutil.copyfile(ROOT/'assets'/name,site/'assets'/name)
     vendor_files=json.loads(read(ROOT/'scripts/vendor-files.json'))
     for relative,sha in vendor_files.items():
         source=ROOT/'vendor'/relative
         if digest(source.read_bytes())!=sha: raise ValueError('Vendored asset changed: '+relative)
-        target=SITE/'vendor'/relative
+        target=site/'vendor'/relative
         target.parent.mkdir(parents=True,exist_ok=True)
         shutil.copyfile(source,target)
-    write(SITE/'.nojekyll','')
-    dump(SITE/'validation.json',{'status':'pending'})
+    write(site/'.nojekyll','')
+    dump(site/'validation.json',{'status':'pending'})
     receipt=json.loads(read(BUILD/'check.json'))
     inputs=json.loads(read(SNAP/'inputs.json'))
     if not receipt['checked'] or receipt['input_hash']!=digest(json.dumps(inputs['files'],sort_keys=True)): raise ValueError('Checked input receipt is stale')
@@ -204,15 +222,18 @@ def assemble():
         parent.children.insert(parent.children.index(last)+1,panel)
         inserted[id(target)]=panel
     from reader_context import build_reader_data
-    build_reader_data(agda,MANIFEST)
+    build_reader_data(agda,MANIFEST,site=site)
     # Native proof disclosure leaves the manuscript proof displayed initially.
     for proof in list(body.all('div')):
         if proof.has('proof'):
             proof.replace('<details class="book-proof" open><summary>Proof</summary><div class="proof-content">'+''.join(c.html() if isinstance(c,Node) else escape(c) for c in proof.children)+'</div></details>')
     # Split only at top-level section headings after all semantic joins.
     children=body.children; headings=[i for i,n in enumerate(children) if isinstance(n,Node) and n.has('sectionHead')]
-    if len(headings)!=2: raise ValueError(f'Expected two top-level section headings, got {len(headings)}')
-    segments={'chapter-introduction':children[:headings[0]],'basic-vocabulary':children[headings[0]:headings[1]],'equivalences':children[headings[1]:]}
+    section_slugs=['basic-vocabulary','equivalences','mapping-animae']
+    if len(headings)!=len(section_slugs): raise ValueError(f'Expected {len(section_slugs)} top-level section headings, got {len(headings)}')
+    boundaries=headings+[len(children)]
+    segments={'chapter-introduction':children[:headings[0]]}
+    segments.update({slug:children[boundaries[i]:boundaries[i+1]] for i,slug in enumerate(section_slugs)})
     route={}
     for slug,nodes in segments.items():
         root=Node(); root.children=nodes
@@ -236,19 +257,22 @@ def assemble():
             fragment=aliases.get(fragment,fragment)
             if fragment not in route: raise ValueError(f'Unresolved TeX fragment: {href}')
             a.attrs['href']=route[fragment]+'#'+fragment
-    titles={'chapter-introduction':'The language of synthetic category theory','basic-vocabulary':'The basic vocabulary','equivalences':'Equivalences of categories'}
+    titles={'chapter-introduction':'The language of synthetic category theory','basic-vocabulary':'The basic vocabulary','equivalences':'Equivalences of categories','mapping-animae':'Mapping animae'}
     for slug,nodes in segments.items():
         content=''.join(n.html() if isinstance(n,Node) else escape(n) for n in nodes)
         if slug!='chapter-introduction':
             content='<p class="agda-help">Click dotted-underlined prose to read its Agda code alongside the book. <a href="code-index.html">Browse all code</a>.</p>'+content
-        content+='<nav class="page-turns">'+('<a href="basic-vocabulary.html">← The basic vocabulary</a>' if slug=='equivalences' else '<a href="equivalences.html">Equivalences of categories →</a>')+'</nav>'
-        write(SITE/(slug+'.html'),page(titles[slug],content,slug))
-    write(SITE/'assets/math-config.js','window.MathJax = '+json.dumps(math_config(),ensure_ascii=False)+';\n')
-    shutil.copyfile(BUILD/'agda/Agda.css',SITE/'assets/Agda.css')
+        order=list(segments); index=order.index(slug); turns=[]
+        if index: turns.append(f'<a href="{order[index-1]}.html">← {titles[order[index-1]]}</a>')
+        if index+1<len(order): turns.append(f'<a href="{order[index+1]}.html">{titles[order[index+1]]} →</a>')
+        content+='<nav class="page-turns">'+''.join(turns)+'</nav>'
+        write(site/(slug+'.html'),page(titles[slug],content,slug))
+    write(site/'assets/math-config.js','window.MathJax = '+json.dumps(math_config(),ensure_ascii=False)+';\n')
+    shutil.copyfile(BUILD/'agda/Agda.css',site/'assets/Agda.css')
     # Keep all dependency modules and compiler anchors in the same release.
-    (SITE/'agda').mkdir(exist_ok=True)
+    (site/'agda').mkdir(exist_ok=True)
     current_modules={f.name for f in (BUILD/'agda').glob('*.html')}
-    for stale in (SITE/'agda').glob('*.html'):
+    for stale in (site/'agda').glob('*.html'):
         if stale.name not in current_modules: stale.unlink()
     passages={p['id']:p for p in MANIFEST['passages']+MANIFEST.get('reverse_only',[])}
     def reverse_links(module):
@@ -257,29 +281,17 @@ def assemble():
         return '<details class="module-book-passages"><summary>Corresponding book passages</summary><ul>'+''.join('<li><a href="../'+p['page']+'.html#text-'+p['id']+'">'+escape(p['title'])+'</a></li>' for p in linked)+'</ul></details>'
     for file in (BUILD/'agda').glob('*.html'):
         source_tree=parse(read(file)); pre=next(source_tree.all('pre'))
+        unique_agda_ids(pre)
         content='<p class="module-caption">Complete compiler-highlighted source. Follow a symbol to its declaration.</p>'+reverse_links(file.stem)+pre.html()
-        write(SITE/'agda'/file.name,page(file.stem,content,math=False,prefix='../'))
+        write(site/'agda'/file.name,page(file.stem,content,math=False,prefix='../'))
     from source_index import build_index
-    inventory=build_index(page,current_modules,MANIFEST)
+    inventory=build_index(page,current_modules,MANIFEST,site=site)
     dump(BUILD/'build-info.json',{'inputs':inputs,'correspondence_hash':digest((ROOT/'correspondence.json').read_bytes()),'verification':receipt,'passages':agda.resolved,'source_inventory':inventory,'selection':{'sections':selection['sections'],'diagrams':[d['id'] for d in selection['diagrams']]}})
-    landing='''<p class="lede">The opening of the book, with optional access to its Agda formalization.</p>
-<p>This experimental site renders Sections 1.1 and 1.2 from the annotated manuscript. The mathematical text and proofs are readable on their own. Click a subtly underlined passage to reveal its Agda code. Code stays hidden until requested. Hovering identifies the associated declarations.</p>
-<h2>About this experiment</h2>\n<p>This site is an experiment carried out by Bastiaan Cnossen. It renders two sections of the opening chapter of <em>Synthetic category theory</em>, a book in preparation with Denis-Charles Cisinski and Tashi Walde, together with an Agda formalization of the same material. The conversion pipeline, the reader interface, and the presentation around the mathematics were produced with substantial AI assistance.</p>\n<p>My coauthors are aware of the experiment. They have not endorsed it, and in particular do not necessarily endorse its AI-generated nature. Responsibility for this site rests with me alone; the mathematics is drawn from the joint manuscript, and any error introduced by the conversion is mine.</p>\n<div class="chapter-card-grid"><article class="chapter-card"><p class="eyebrow">Section 1.1</p><h2><a href="basic-vocabulary.html">The basic vocabulary</a></h2><p>Categories, functors, natural isomorphisms, and the coherence axioms.</p></article><article class="chapter-card"><p class="eyebrow">Section 1.2</p><h2><a href="equivalences.html">Equivalences of categories</a></h2><p>Equivalence calculus and finite compatibility of products.</p></article></div>
-<p><a href="chapter-introduction.html">Read the chapter introduction</a> · <a href="book.pdf">Download the web edition PDF</a></p>
-<h2>Try the formalization</h2><ol><li><a href="basic-vocabulary.html#agda-joint-interchange">Joint interchange</a>: a primitive field, with derived restrictions.</li><li><a href="equivalences.html#agda-composite-of-equivalences">Composition of equivalences</a>: a checked signature and its proof.</li><li><a href="equivalences.html#lem:Finite_Compatibility_Of_Products">Finite compatibility of products</a>: four clauses, each linked to several formal declarations.</li></ol>
-<p>This edition contains 135 explicit passage links. The <a href="code-index.html">complete Agda index</a> also exposes checked supporting source. Absence of a passage link does not imply missing formalization. <a href="formalization.html">Read the integration guide</a>.</p>'''
-    landing=landing.replace('135 explicit passage links',str(len(MANIFEST['passages']))+' explicit passage links')
-    write(SITE/'index.html',page('Synthetic category theory',landing,'index'))
     external='<p>These references point to exercises later in the same chapter. Their numbers are obtained from a fresh LaTeX compilation of the complete source chapter. Their full statements are outside the current web selection.</p>'
     for e in json.loads(read(BUILD/'external.json')):
         external+=f'<section id="{e["label"]}"><h2>Exercise {e["number"]}</h2><p>This exercise is outside the current web selection.</p></section>'
-    write(SITE/'outside-selection.html',page('References beyond the selection',external))
-    for slug,title in [('formalization','Reading the Agda formalization'),('build-report','Build and coverage')]:
-        content=read(ROOT/'docs'/(slug+'.html'))
-        if slug=='build-report':
-            content+=f'<h2>Recorded build</h2><p>{escape(receipt["agda"])}. Aggregate: <code>{receipt["aggregate"]}</code>.</p><p>{len(agda.resolved)} declaration mappings; {len(selection["diagrams"])} SVG diagram displays.</p>'
-        write(SITE/(slug+'.html'),page(title,content,slug))
-    dump(SITE/'build-info.json',{'agda':receipt['agda'],'aggregate':receipt['aggregate'],'declaration_mappings':len(agda.resolved),'published_modules':[e['module'] for e in inventory],'compiled_modules':sorted(file.stem for file in (BUILD/'agda').glob('*.html')),'diagrams':[d['id'] for d in selection['diagrams']]})
+    write(site/'outside-selection.html',page('References beyond the selection',external))
+    dump(site/'build-info.json',{'agda':receipt['agda'],'aggregate':receipt['aggregate'],'declaration_mappings':len(agda.resolved),'published_modules':[e['module'] for e in inventory],'compiled_modules':sorted(file.stem for file in (BUILD/'agda').glob('*.html')),'diagrams':[d['id'] for d in selection['diagrams']]})
     print(f'Assembled web edition with {len(agda.resolved)} checked declaration mappings.')
 
 if __name__=='__main__': assemble()

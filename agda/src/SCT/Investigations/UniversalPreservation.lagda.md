@@ -33,24 +33,24 @@ open Joint V T P PL S VC W
 module Boundary {C D E : CAT}
   (f₀ f₁ f₂ : MAP C D) (g₀ g₁ g₂ : MAP D E) where
   Parameter : CAT
-  Parameter = ((g₁ ≅ g₂) × (g₀ ≅ g₁)) × ((f₁ ≅ f₂) × (f₀ ≅ f₁))
-  β₂ : MAP Parameter (g₁ ≅ g₂)
+  Parameter = ((g₁ ＝ g₂) × (g₀ ＝ g₁)) × ((f₁ ＝ f₂) × (f₀ ＝ f₁))
+  β₂ : MAP Parameter (g₁ ＝ g₂)
   β₂ = pr₁ ∘ pr₁
-  β₁ : MAP Parameter (g₀ ≅ g₁)
+  β₁ : MAP Parameter (g₀ ＝ g₁)
   β₁ = pr₂ ∘ pr₁
-  α₂ : MAP Parameter (f₁ ≅ f₂)
+  α₂ : MAP Parameter (f₁ ＝ f₂)
   α₂ = pr₁ ∘ pr₂
-  α₁ : MAP Parameter (f₀ ≅ f₁)
+  α₁ : MAP Parameter (f₀ ＝ f₁)
   α₁ = pr₂ ∘ pr₂
-  first : MAP Parameter ((g₀ ∘ f₀) ≅ (g₂ ∘ f₂))
+  first : MAP Parameter ((g₀ ∘ f₀) ＝ (g₂ ∘ f₂))
   first = (β₂ ∙ β₁) ⋆ (α₂ ∙ α₁)
-  second : MAP Parameter ((g₀ ∘ f₀) ≅ (g₂ ∘ f₂))
+  second : MAP Parameter ((g₀ ∘ f₀) ＝ (g₂ ∘ f₂))
   second = (β₂ ⋆ α₂) ∙ (β₁ ⋆ α₁)
 
 record UniversalPreservation : Set (c ⊔ m) where
   field
     preserve : {C D E : CAT} (f₀ f₁ f₂ : MAP C D) (g₀ g₁ g₂ : MAP D E)
-      → NatIso (Boundary.first f₀ f₁ f₂ g₀ g₁ g₂) (Boundary.second f₀ f₁ f₂ g₀ g₁ g₂)
+      → =₁ (Boundary.first f₀ f₁ f₂ g₀ g₁ g₂) (Boundary.second f₀ f₁ f₂ g₀ g₁ g₂)
 
 family-to-universal : FamilyPreservation → UniversalPreservation
 family-to-universal H = record
@@ -59,10 +59,10 @@ family-to-universal H = record
       (Boundary.α₂ f₀ f₁ f₂ g₀ g₁ g₂) (Boundary.α₁ f₀ f₁ f₂ g₀ g₁ g₂) }
 
 hcomp-evaluate : {A B C D E : CAT} {f f′ : MAP C D} {g g′ : MAP D E}
-  (β : MAP B (g ≅ g′)) (α : MAP B (f ≅ f′)) (r : MAP A B)
-  {β′ : MAP A (g ≅ g′)} {α′ : MAP A (f ≅ f′)}
-  → NatIso (β ∘ r) β′ → NatIso (α ∘ r) α′
-  → NatIso ((β ⋆ α) ∘ r) (β′ ⋆ α′)
+  (β : MAP B (g ＝ g′)) (α : MAP B (f ＝ f′)) (r : MAP A B)
+  {β′ : MAP A (g ＝ g′)} {α′ : MAP A (f ＝ f′)}
+  → =₁ (β ∘ r) β′ → =₁ (α ∘ r) α′
+  → =₁ ((β ⋆ α) ∘ r) (β′ ⋆ α′)
 hcomp-evaluate β α r b a = hcomp-cong b a ∙ hcomp-pre β α r
 
 universal-to-family : UniversalPreservation → FamilyPreservation
@@ -70,9 +70,9 @@ universal-to-family H = record { preserve = restrict }
   where
   restrict : {A C D E : CAT}
     {f₀ f₁ f₂ : MAP C D} {g₀ g₁ g₂ : MAP D E}
-    (β₂ : MAP A (g₁ ≅ g₂)) (β₁ : MAP A (g₀ ≅ g₁))
-    (α₂ : MAP A (f₁ ≅ f₂)) (α₁ : MAP A (f₀ ≅ f₁))
-    → NatIso ((β₂ ∙ β₁) ⋆ (α₂ ∙ α₁)) ((β₂ ⋆ α₂) ∙ (β₁ ⋆ α₁))
+    (β₂ : MAP A (g₁ ＝ g₂)) (β₁ : MAP A (g₀ ＝ g₁))
+    (α₂ : MAP A (f₁ ＝ f₂)) (α₁ : MAP A (f₀ ＝ f₁))
+    → =₁ ((β₂ ∙ β₁) ⋆ (α₂ ∙ α₁)) ((β₂ ⋆ α₂) ∙ (β₁ ⋆ α₁))
   restrict {f₀ = f₀} {f₁} {f₂} {g₀} {g₁} {g₂} β₂ β₁ α₂ α₁ =
     let module B = Boundary f₀ f₁ f₂ g₀ g₁ g₂
         outer = pair β₂ β₁

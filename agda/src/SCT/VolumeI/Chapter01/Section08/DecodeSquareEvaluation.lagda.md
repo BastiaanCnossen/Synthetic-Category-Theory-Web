@@ -35,14 +35,14 @@ open import SCT.VolumeI.Chapter01.Section08.ProductSquares 𝒯
 open import SCT.VolumeI.Chapter01.Section08.EvaluationSquares 𝒯
 open PN vocabulary terminal products productLaws composition vertical whiskering using (move-square)
 
-decodeMapIso-inverse : {C E : CAT} {f g : ObjAbs (Map C E)} (α : NatIso f g) →
-  Iso₂ (decodeMapIso (invIso α)) (invIso (decodeMapIso α))
+decodeMapIso-inverse : {C E : CAT} {f g : Obj-abs (Map C E)} (α : =₁ f g) →
+  =₂ (decodeMapIso (invIso α)) (invIso (decodeMapIso α))
 decodeMapIso-inverse {C} α = (isoInv ◁ invIso (decodeMapIso-at α)) ∙
   (pre-inverse (mapUncurryIso α) (oneProduct-in C) ∙
   ((preWhisker (oneProduct-in C) ◁ mapUncurryIso-inverse α) ∙ decodeMapIso-at (invIso α)))
 module Evaluation {A B C D E : CAT}
   {u : MAP A B} {l : MAP A C} {r : MAP B D} {v : MAP C D}
-  (s : Square u l r v) (h : ObjAbs (Map D E))
+  (s : Square u l r v) (h : Obj-abs (Map D E))
   where
 
   source = decodeRestriction {u = u} {v = l} (conePre h (mappingOut s E))
@@ -85,28 +85,28 @@ module Evaluation {A B C D E : CAT}
   left-composition = invIso (isoComp-unitˡ-at leftTotal) ∙ DC.CompositorEvaluation.comparison 𝒯 M u r h
   right-composition = invIso (isoComp-unitˡ-at rightTotal) ∙ DC.CompositorEvaluation.comparison 𝒯 M l v h
   restricted-comp : {f g k : MAP (Map D E) (Map A E)}
-    (β : NatIso g k) (α : NatIso f g) →
-    Iso₂ (decodeMapIso ((β ∙ α) ▷ h))
+    (β : =₁ g k) (α : =₁ f g) →
+    =₂ (decodeMapIso ((β ∙ α) ▷ h))
       (decodeMapIso (β ▷ h) ∙ decodeMapIso (α ▷ h))
   restricted-comp β α = decodeMapIso-comp (β ▷ h) (α ▷ h) ∙
     (decodeMap-isoMap _ _ ◁_) (preWhisker-isoComp-at β α h)
 
-  restricted-inverse : {f g : MAP (Map D E) (Map A E)} (α : NatIso f g) →
-    Iso₂ (decodeMapIso (invIso α ▷ h)) (invIso (decodeMapIso (α ▷ h)))
+  restricted-inverse : {f g : MAP (Map D E) (Map A E)} (α : =₁ f g) →
+    =₂ (decodeMapIso (invIso α ▷ h)) (invIso (decodeMapIso (α ▷ h)))
   restricted-inverse α = decodeMapIso-inverse (α ▷ h) ∙ (decodeMap-isoMap _ _ ◁_) (pre-inverse α h)
 
-  raw-normal : Iso₂ raw (invIso kv ∙ (image ∙ kr))
+  raw-normal : =₂ raw (invIso kv ∙ (image ∙ kr))
   raw-normal = isoComp-cong (restricted-inverse κv) (restricted-comp α κr) ∙
     restricted-comp (invIso κv) (α ∙ κr)
 
-  product-normal : Iso₂ δ (invIso ev ∙ (ea ∙ er))
+  product-normal : =₂ δ (invIso ev ∙ (ea ∙ er))
   product-normal = isoComp-cong (invIso (inverse-identity (e ∘ (v ∘ l))))
     (invIso (isoComp-unitʳ-at ea)) ∙ invIso (isoComp-unitˡ-at ea)
-  source-normal : Iso₂ (changeEndpoints leftEndpoint rightEndpoint raw) (Cocone.match source)
+  source-normal : =₂ (changeEndpoints leftEndpoint rightEndpoint raw) (Cocone.match source)
   source-normal = changeEndpoints-cong qu ql (invIso inner-normal) ∙
     changeEndpoints-compose Ar qu Av ql raw
     where
-    inner-normal : Iso₂ (decodeMapIso (Cone.match (conePre h (mappingOut s E))))
+    inner-normal : =₂ (decodeMapIso (Cone.match (conePre h (mappingOut s E))))
       (changeEndpoints Ar Av raw)
     inner-normal = isoComp-cong (idIso Av)
       (isoComp-cong (idIso raw) (decodeMapIso-inverse ar) ∙
@@ -114,7 +114,7 @@ module Evaluation {A B C D E : CAT}
       decodeMapIso-comp av ((τ ▷ h) ∙ invIso ar)
 
   abstract
-    evaluated-square : Iso₂ (δ ∙ leftTotal) (rightTotal ∙ raw)
+    evaluated-square : =₂ (δ ∙ leftTotal) (rightTotal ∙ raw)
     evaluated-square = isoComp-cong (idIso rightTotal) (invIso raw-normal) ∙
       (paste-squares (image ∙ kr) (ea ∙ er) (invIso kv) (invIso ev)
         leftTotal qvl rightTotal

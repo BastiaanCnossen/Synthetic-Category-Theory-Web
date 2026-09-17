@@ -54,8 +54,8 @@ coneIso-inverse {f = f} {g} {s} {t} Φ = record
 
 coneIso-adjust : {C D E T : CAT} {f : MAP C E} {g : MAP D E}
   {s t : Cone f g T} (Φ : ConeIso s t)
-  (α : NatIso (Cone.left s) (Cone.left t)) (β : NatIso (Cone.right s) (Cone.right t)) →
-  Iso₂ (ConeIso.leftIso Φ) α → Iso₂ (ConeIso.rightIso Φ) β → ConeIso s t
+  (α : =₁ (Cone.left s) (Cone.left t)) (β : =₁ (Cone.right s) (Cone.right t)) →
+  =₂ (ConeIso.leftIso Φ) α → =₂ (ConeIso.rightIso Φ) β → ConeIso s t
 coneIso-adjust {f = f} {g} {s} {t} Φ α β l r = record
   { leftIso = α ; rightIso = β
   ; compatible = isoComp-cong (postWhisker g ◁ r) (idIso (Cone.match s)) ∙
@@ -63,13 +63,13 @@ coneIso-adjust {f = f} {g} {s} {t} Φ α β l r = record
 
 coneRetarget : {C D E T : CAT} {f : MAP C E} {g : MAP D E}
   (s : Cone f g T) (p : MAP T C) (q : MAP T D) →
-  NatIso (Cone.left s) p → NatIso (Cone.right s) q → Cone f g T
+  =₁ (Cone.left s) p → =₁ (Cone.right s) q → Cone f g T
 coneRetarget {f = f} {g} s p q α β = record
   { left = p ; right = q ; match = (g ◁ β) ∙ (Cone.match s ∙ invIso (f ◁ α)) }
 
 coneRetarget-β : {C D E T : CAT} {f : MAP C E} {g : MAP D E}
   (s : Cone f g T) (p : MAP T C) (q : MAP T D)
-  (α : NatIso (Cone.left s) p) (β : NatIso (Cone.right s) q) →
+  (α : =₁ (Cone.left s) p) (β : =₁ (Cone.right s) q) →
   ConeIso s (coneRetarget s p q α β)
 coneRetarget-β {f = f} {g} s p q α β = record
   { leftIso = α ; rightIso = β
@@ -81,7 +81,7 @@ coneRetarget-β {f = f} {g} s p q α β = record
 
 coneRetarget-match : {C D E T : CAT} {f : MAP C E} {g : MAP D E}
   {s t : Cone f g T} (Φ : ConeIso s t)
-  → Iso₂ (Cone.match (coneRetarget s (Cone.left t) (Cone.right t)
+  → =₂ (Cone.match (coneRetarget s (Cone.left t) (Cone.right t)
       (ConeIso.leftIso Φ) (ConeIso.rightIso Φ))) (Cone.match t)
 coneRetarget-match {f = f} {g} {s} {t} Φ = invIso
   (isoComp-assoc-at (g ◁ ConeIso.rightIso Φ) (Cone.match s) (invIso (f ◁ ConeIso.leftIso Φ)) ∙

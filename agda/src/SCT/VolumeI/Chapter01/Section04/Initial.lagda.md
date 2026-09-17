@@ -29,13 +29,13 @@ contractible-source {C} {D} f e h = equiv-transport
   (equiv-compose f (terminate D) e h)
 
 contractible-iso : {C X : CAT} → IsContractible C
-  → (f g : MAP X C) → IsContractible (f ≅ g)
+  → (f g : MAP X C) → IsContractible (f ＝ g)
 contractible-iso {C} e f g = contractible-source (postWhisker (terminate C))
   (postWhisker-isEquiv (terminate C) e f g)
   (terminalIso-isEquiv (terminate C ∘ f) (terminate C ∘ g))
 
 contractible-compare : {C X : CAT} → IsContractible C
-  → (f g : MAP X C) → NatIso f g
+  → (f g : MAP X C) → =₁ f g
 contractible-compare {C} e f g = equiv-reflect e f g (terminal-iso _ _)
 
 module Initiality (I : InitialStructure) where
@@ -45,15 +45,15 @@ module Initiality (I : InitialStructure) where
   initiate C = decodeMap (IsEquiv.inverse (maps-from-zero-contractible C))
 
   initialIso-contractible : {C : CAT} (f g : MAP Zero C)
-    → IsContractible (f ≅ g)
+    → IsContractible (f ＝ g)
   initialIso-contractible {C} f g = contractible-source (nameMap-isoMap f g)
     (nameMap-isoMap-isEquiv f g)
     (contractible-iso (maps-from-zero-contractible C) (nameMap f) (nameMap g))
 
-  initial-iso : {C : CAT} (f g : MAP Zero C) → NatIso f g
+  initial-iso : {C : CAT} (f g : MAP Zero C) → =₁ f g
   initial-iso f g = IsEquiv.inverse (initialIso-contractible f g)
 
-  initial-Iso₂ : {C : CAT} {f g : MAP Zero C} (α β : NatIso f g) → Iso₂ α β
+  initial-Iso₂ : {C : CAT} {f g : MAP Zero C} (α β : =₁ f g) → =₂ α β
   initial-Iso₂ {f = f} {g} = contractible-compare (initialIso-contractible f g)
 ```
 

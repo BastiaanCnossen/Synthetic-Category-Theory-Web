@@ -47,9 +47,9 @@ compositeConeIso f g {h} {s} {t} Φ = record
   At = comp-assoc (Cone.left t) f g
 
 compositeCone-compatible : {A B X Z T : CAT} (f : MAP A B) (g : MAP B Z) {h : MAP X Z}
-  (s t : Cone (g ∘ f) h T) (α : NatIso (Cone.left s) (Cone.left t))
-  (β : NatIso (Cone.right s) (Cone.right t)) →
-  Iso₂ (Cone.match (compositeCone f g t) ∙ (g ◁ (f ◁ α)))
+  (s t : Cone (g ∘ f) h T) (α : =₁ (Cone.left s) (Cone.left t))
+  (β : =₁ (Cone.right s) (Cone.right t)) →
+  =₂ (Cone.match (compositeCone f g t) ∙ (g ◁ (f ◁ α)))
     ((h ◁ β) ∙ Cone.match (compositeCone f g s)) → ConeIso s t
 compositeCone-compatible f g {h} s t α β κ = record
   { leftIso = α ; rightIso = β

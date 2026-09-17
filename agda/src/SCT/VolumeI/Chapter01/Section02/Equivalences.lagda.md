@@ -25,12 +25,12 @@ open Coherence.Composition V T P S
 record Section {C D : CAT} (f : MAP C D) : Set m where
   field
     section : MAP D C
-    comparison : NatIso (f ∘ section) (id D)
+    comparison : =₁ (f ∘ section) (id D)
 
 record Retraction {C D : CAT} (f : MAP C D) : Set m where
   field
     retraction : MAP D C
-    comparison : NatIso (id C) (retraction ∘ f)
+    comparison : =₁ (id C) (retraction ∘ f)
 
 equiv-section : {C D : CAT} {f : MAP C D} → IsEquiv f → Section f
 equiv-section e = record
@@ -44,7 +44,7 @@ equiv-retraction e = record
 
 section-retraction-iso : {C D : CAT} {f : MAP C D}
   (s : Section f) (r : Retraction f)
-  → NatIso (Section.section s) (Retraction.retraction r)
+  → =₁ (Section.section s) (Retraction.retraction r)
 section-retraction-iso {f = f} s r =
   let u = Section.section s
       v = Retraction.retraction r
@@ -59,7 +59,7 @@ section-retraction-isEquiv {f = f} s r = record
   ; retractionIso = invIso (Section.comparison s) }
 
 inverse-unique : {C D : CAT} {f : MAP C D} (e e′ : IsEquiv f)
-  → NatIso (IsEquiv.inverse e) (IsEquiv.inverse e′)
+  → =₁ (IsEquiv.inverse e) (IsEquiv.inverse e′)
 inverse-unique e e′ = section-retraction-iso (equiv-section e) (equiv-retraction e′)
 ```
 
@@ -70,11 +70,11 @@ isomorphisms. It does not assume an inverse functor on an isomorphism anima.
 record FunctorLift {C D X : CAT} (f : MAP C D) (d : MAP X D) : Set m where
   field
     lift : MAP X C
-    comparison : NatIso (f ∘ lift) d
+    comparison : =₁ (f ∘ lift) d
 
 record NaiveBijection {C D : CAT} (f : MAP C D) : Set (c ⊔ m) where
   field
-    reflect : {X : CAT} (u v : MAP X C) → NatIso (f ∘ u) (f ∘ v) → NatIso u v
+    reflect : {X : CAT} (u v : MAP X C) → =₁ (f ∘ u) (f ∘ v) → =₁ u v
     lift : {X : CAT} (d : MAP X D) → FunctorLift f d
 
 naive-bijection-isEquiv : {C D : CAT} {f : MAP C D}
@@ -92,10 +92,10 @@ naive-bijection-isEquiv {C} {D} {f} b =
   in record { inverse = g ; sectionIso = invIso η ; retractionIso = invIso ε }
 
 equiv-reflect : {C D X : CAT} {f : MAP C D} (e : IsEquiv f)
-  (u v : MAP X C) → NatIso (f ∘ u) (f ∘ v) → NatIso u v
+  (u v : MAP X C) → =₁ (f ∘ u) (f ∘ v) → =₁ u v
 equiv-reflect {f = f} e u v α =
   let g = IsEquiv.inverse e
-      comparison : (w : MAP _ _) → NatIso w (g ∘ (f ∘ w))
+      comparison : (w : MAP _ _) → =₁ w (g ∘ (f ∘ w))
       comparison w = comp-assoc w f g ∙ ((IsEquiv.sectionIso e ▷ w) ∙ invIso (comp-unitˡ w))
   in invIso (comparison v) ∙ ((g ◁ α) ∙ comparison u)
 
@@ -122,7 +122,7 @@ equiv-inverse {f = f} e = record
   { inverse = f ; sectionIso = IsEquiv.retractionIso e ; retractionIso = IsEquiv.sectionIso e }
 
 equiv-transport : {C D : CAT} {f g : MAP C D}
-  → NatIso f g → IsEquiv f → IsEquiv g
+  → =₁ f g → IsEquiv f → IsEquiv g
 equiv-transport α e = record
   { inverse = IsEquiv.inverse e
   ; sectionIso = (IsEquiv.inverse e ◁ α) ∙ IsEquiv.sectionIso e
@@ -136,13 +136,13 @@ equiv-compose {C} {D} {E} f g ef eg =
       v : MAP E D
       v = IsEquiv.inverse eg
       --! begin equiv-compose-left
-      left : NatIso ((u ∘ v) ∘ (g ∘ f)) (id C)
+      left : =₁ ((u ∘ v) ∘ (g ∘ f)) (id C)
       left = invIso (IsEquiv.sectionIso ef) ∙
         ((u ◁ comp-unitˡ f) ∙ ((u ◁ (invIso (IsEquiv.sectionIso eg) ▷ f)) ∙
         ((u ◁ invIso (comp-assoc f g v)) ∙ comp-assoc (g ∘ f) v u)))
       --! end equiv-compose-left
       --! begin equiv-compose-right
-      right : NatIso ((g ∘ f) ∘ (u ∘ v)) (id E)
+      right : =₁ ((g ∘ f) ∘ (u ∘ v)) (id E)
       right = invIso (IsEquiv.retractionIso eg) ∙
         ((g ◁ comp-unitˡ v) ∙ ((g ◁ (invIso (IsEquiv.retractionIso ef) ▷ v)) ∙
         ((g ◁ invIso (comp-assoc v u f)) ∙ comp-assoc (u ∘ v) f g)))

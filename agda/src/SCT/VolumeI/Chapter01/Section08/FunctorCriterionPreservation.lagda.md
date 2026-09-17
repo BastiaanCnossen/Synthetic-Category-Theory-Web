@@ -85,11 +85,11 @@ module Preservation {A B C D : CAT}
       ordinary-comparison = TC.ReflectTransposedCocone.comparison
         (coconePost h′ ordinary) (coconePost k′ ordinary) transposed-comparison
 
-      extension-comparison : NatIso h′ k′
+      extension-comparison : =₁ h′ k′
       extension-comparison = CoconeExtensionProperty.reflect extensions (Fun X E)
         h′ k′ ordinary-comparison
 
-      comparison : NatIso h k
+      comparison : =₁ h k
       comparison = funIsoReflect h k
         (transpose-β (funUncurry k) ∙
           (transposeIso extension-comparison ∙ invIso (transpose-β (funUncurry h))))

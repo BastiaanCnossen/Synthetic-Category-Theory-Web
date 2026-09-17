@@ -136,15 +136,27 @@ def tex_markers(source, html=False, registry=None):
 
 def scopes(source):
     """Record/module scopes with explicit layout boundaries, excluding let blocks."""
+    # Literate prose between Agda fences does not end an indented module.
+    # Mask it without moving offsets used by compiler declaration anchors.
+    if '```agda' in source:
+        code=False; masked=[]
+        for line in source.splitlines(keepends=True):
+            fence=line.startswith('```')
+            if fence: code=line.startswith('```agda')
+            masked.append(line if code and not fence else re.sub(r'[^\r\n]', ' ', line))
+        layout=''.join(masked)
+    else:
+        layout=source
     result=[]
-    for m in re.finditer(r'^( *)(record|module)\s+([^\s{(:]+)',source,re.M):
-        indent=len(m[1]); end=source.find('where',m.end())
+    for m in re.finditer(r'^( *)(record|module)\s+([^\s{(:]+)',layout,re.M):
+        indent=len(m[1]); end=layout.find('where',m.end())
         if end<0: continue
         header=source[m.start():end+5]
         # A scope ends at a non-comment declaration at its own layout level.
         boundary=len(source)
-        for line in re.finditer(r'^([^\n]*)(?:\n|$)',source[end+5:],re.M):
+        for line in re.finditer(r'^([^\n]*)(?:\n|$)',layout[end+5:],re.M):
             value=line[1]; at=end+5+line.start()
+            if source.startswith('```',at) and m[2]=='record': boundary=at; break
             if at==end+5 or not value.strip(): continue
             if value.startswith('```') and m[2]=='record': boundary=at; break
             if value.lstrip().startswith('--'):

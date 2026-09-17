@@ -39,11 +39,11 @@ module PrescribedComparison {A B C D E : CAT}
 
   ordinary : Cocone u l D
   ordinary = squareCocone s
-  f′ : ObjAbs (Map D E)
+  f′ : Obj-abs (Map D E)
   f′ = nameMap f
-  g′ : ObjAbs (Map D E)
+  g′ : Obj-abs (Map D E)
   g′ = nameMap g
-  evaluate : (h : ObjAbs (Map D E)) →
+  evaluate : (h : Obj-abs (Map D E)) →
     CoconeIso (DC.decodeRestriction {u = u} {v = l} (conePre h (mappingOut s E)))
       (coconePost (decodeMap h) ordinary)
   evaluate = Evaluation.Evaluation.comparison 𝒯 M P s
@@ -61,36 +61,36 @@ module PrescribedComparison {A B C D E : CAT}
   module Lift = Lifting.UniversalLift 𝒯 P (mappingOut s E) (universal E)
     f′ g′ Encoded.comparison
 
-  decoded-lift : NatIso (decodeMap f′) (decodeMap g′)
+  decoded-lift : =₁ (decodeMap f′) (decodeMap g′)
   decoded-lift = decodeMapIso Lift.lift
-  lift : NatIso f g
+  lift : =₁ f g
   lift = decode-name g ∙ (decoded-lift ∙ invIso (decode-name f))
 
   abstract
-    leg-image : {T : CAT} (j : MAP T D) (γ : NatIso (f ∘ j) (g ∘ j)) →
-      Iso₂ (decodeMapIso (mapPre j ◁ Lift.lift))
+    leg-image : {T : CAT} (j : MAP T D) (γ : =₁ (f ∘ j) (g ∘ j)) →
+      =₂ (decodeMapIso (mapPre j ◁ Lift.lift))
         (invIso (decodePre j g′) ∙
           (invIso (decode-name g ▷ j) ∙
             (γ ∙ ((decode-name f ▷ j) ∙ decodePre j f′)))) →
-      Iso₂ (lift ▷ j) γ
+      =₂ (lift ▷ j) γ
     leg-image j γ prescribed =
       decoded-leg (decodePre j f′) (decodePre j g′)
         (decode-name f ▷ j) (decode-name g ▷ j) γ
         (decodeMapIso (mapPre j ◁ Lift.lift)) (decoded-lift ▷ j)
         (decodePre-absolute j Lift.lift) prescribed ∙ normal
       where
-      normal : Iso₂ (lift ▷ j)
+      normal : =₂ (lift ▷ j)
         (changeEndpoints (decode-name f ▷ j) (decode-name g ▷ j) (decoded-lift ▷ j))
       normal = isoComp-cong (idIso (decode-name g ▷ j))
         (isoComp-cong (idIso (decoded-lift ▷ j)) (pre-inverse (decode-name f) j) ∙
           preWhisker-isoComp-at decoded-lift (invIso (decode-name f)) j) ∙
         preWhisker-isoComp-at (decode-name g) (decoded-lift ∙ invIso (decode-name f)) j
 
-    left-image : Iso₂ (lift ▷ r) (CoconeIso.leftIso Φ)
+    left-image : =₂ (lift ▷ r) (CoconeIso.leftIso Φ)
     left-image = leg-image r (CoconeIso.leftIso Φ)
       (Encoded.left-image ∙ (decodeMap-isoMap _ _ ◁ Lift.left-image))
 
-    right-image : Iso₂ (lift ▷ v) (CoconeIso.rightIso Φ)
+    right-image : =₂ (lift ▷ v) (CoconeIso.rightIso Φ)
     right-image = leg-image v (CoconeIso.rightIso Φ)
       (Encoded.right-image ∙ (decodeMap-isoMap _ _ ◁ Lift.right-image))
 

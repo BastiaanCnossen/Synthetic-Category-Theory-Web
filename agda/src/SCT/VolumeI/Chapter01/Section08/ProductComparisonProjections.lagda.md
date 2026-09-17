@@ -24,7 +24,7 @@ open ProductUnits
 module Normalized {A₀ A₁ A₂ B₀ B₁ B₂ : CAT}
   (f₀ : MAP A₀ A₁) (f₁ : MAP A₁ A₂) (g₀ : MAP B₀ B₁) (g₁ : MAP B₁ B₂)
   {f : MAP A₀ A₂} {g : MAP B₀ B₂}
-  (α : NatIso (f₁ ∘ f₀) f) (β : NatIso (g₁ ∘ g₀) g) where
+  (α : =₁ (f₁ ∘ f₀) f) (β : =₁ (g₁ ∘ g₀) g) where
 
   input = productMap f₀ g₀
   firstBefore = coordinate-comparison pr₁ f₀ pr₁ input (pair-β₁ (f₀ ∘ pr₁) (g₀ ∘ pr₂)) f₁
@@ -34,19 +34,19 @@ module Normalized {A₀ A₁ A₂ B₀ B₁ B₂ : CAT}
   value = productMap-cong α β ∙ productMap-comp f₀ f₁ g₀ g₁
   normalized = pair-cong first second ∙ pair-pre (f₁ ∘ pr₁) (g₁ ∘ pr₂) input
 
-  normalization : Iso₂ value normalized
+  normalization : =₂ value normalized
   normalization = isoComp-cong (invIso (pair-cong-comp (α ▷ pr₁) firstBefore (β ▷ pr₂) secondBefore))
       (idIso (pair-pre (f₁ ∘ pr₁) (g₁ ∘ pr₂) input)) ∙
     invIso (isoComp-assoc-at (productMap-cong α β) (pair-cong firstBefore secondBefore)
       (pair-pre (f₁ ∘ pr₁) (g₁ ∘ pr₂) input))
 
-  projection₁ : Iso₂ (pair-β₁ (f ∘ pr₁) (g ∘ pr₂) ∙ (pr₁ ◁ value))
+  projection₁ : =₂ (pair-β₁ (f ∘ pr₁) (g ∘ pr₂) ∙ (pr₁ ◁ value))
     (first ∙ ((pair-β₁ (f₁ ∘ pr₁) (g₁ ∘ pr₂) ▷ input) ∙
       invIso (comp-assoc input (productMap f₁ g₁) pr₁)))
   projection₁ = pair-pre-cong-triangle₁ (f₁ ∘ pr₁) (g₁ ∘ pr₂) input first second ∙
     isoComp-cong (idIso (pair-β₁ (f ∘ pr₁) (g ∘ pr₂))) (postWhisker pr₁ ◁ normalization)
 
-  projection₂ : Iso₂ (pair-β₂ (f ∘ pr₁) (g ∘ pr₂) ∙ (pr₂ ◁ value))
+  projection₂ : =₂ (pair-β₂ (f ∘ pr₁) (g ∘ pr₂) ∙ (pr₂ ◁ value))
     (second ∙ ((pair-β₂ (f₁ ∘ pr₁) (g₁ ∘ pr₂) ▷ input) ∙
       invIso (comp-assoc input (productMap f₁ g₁) pr₂)))
   projection₂ = pair-pre-cong-triangle₂ (f₁ ∘ pr₁) (g₁ ∘ pr₂) input first second ∙
@@ -69,14 +69,14 @@ module Restriction {A B C : CAT} (X : CAT) (f : MAP A B) (g : MAP B C) where
   first = pair-β₁ (id X ∘ pr₁) (f ∘ pr₂) ∙ (comp-unitˡ pr₁ ▷ input)
   second = coordinate-comparison pr₂ f pr₂ input (pair-β₂ (id X ∘ pr₁) (f ∘ pr₂)) g
 
-  projection₁ : Iso₂
+  projection₁ : =₂
     (pair-β₁ (id X ∘ pr₁) ((g ∘ f) ∘ pr₂) ∙ (pr₁ ◁ productRestriction-comp X f g))
     (first ∙ ((pair-β₁ (id X ∘ pr₁) (g ∘ pr₂) ▷ input) ∙ invIso (comp-assoc input outer pr₁)))
   projection₁ = isoComp-cong
     (coordinate-left-unit pr₁ (id X) pr₁ input (pair-β₁ (id X ∘ pr₁) (f ∘ pr₂)))
     (idIso _) ∙ N.projection₁
 
-  projection₂ : Iso₂
+  projection₂ : =₂
     (pair-β₂ (id X ∘ pr₁) ((g ∘ f) ∘ pr₂) ∙ (pr₂ ◁ productRestriction-comp X f g))
     (second ∙ ((pair-β₂ (id X ∘ pr₁) (g ∘ pr₂) ▷ input) ∙ invIso (comp-assoc input outer pr₂)))
   projection₂ = isoComp-cong

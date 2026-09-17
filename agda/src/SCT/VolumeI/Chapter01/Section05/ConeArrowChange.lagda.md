@@ -21,13 +21,13 @@ open PN vocabulary terminal products productLaws composition vertical whiskering
 open Structural vocabulary terminal products productLaws composition whiskering using (preWhisker-comp-at)
 
 changeLeft : {C D E T : CAT} {f f′ : MAP C E} {g : MAP D E} →
-  NatIso f f′ → Cone f g T → Cone f′ g T
+  =₁ f f′ → Cone f g T → Cone f′ g T
 changeLeft α s = record
   { left = Cone.left s ; right = Cone.right s
   ; match = Cone.match s ∙ invIso (α ▷ Cone.left s) }
 
 changeLeft-iso : {C D E T : CAT} {f f′ : MAP C E} {g : MAP D E}
-  (α : NatIso f f′) {s t : Cone f g T} → ConeIso s t → ConeIso (changeLeft α s) (changeLeft α t)
+  (α : =₁ f f′) {s t : Cone f g T} → ConeIso s t → ConeIso (changeLeft α s) (changeLeft α t)
 changeLeft-iso {f = f} {f′} {g} α {s} {t} Φ = record
   { leftIso = ConeIso.leftIso Φ ; rightIso = ConeIso.rightIso Φ
   ; compatible = isoComp-assoc-at (g ◁ ConeIso.rightIso Φ) (Cone.match s) (invIso As) ∙
@@ -42,7 +42,7 @@ changeLeft-iso {f = f} {f′} {g} α {s} {t} Φ = record
   At = α ▷ Cone.left t
 
 changeLeft-back : {C D E T : CAT} {f f′ : MAP C E} {g : MAP D E}
-  (α : NatIso f f′) (s : Cone f g T) → ConeIso (changeLeft (invIso α) (changeLeft α s)) s
+  (α : =₁ f f′) (s : Cone f g T) → ConeIso (changeLeft (invIso α) (changeLeft α s)) s
 changeLeft-back α s = cone-match-change _ _ _ _
   (isoComp-unitʳ-at τ ∙
     (isoComp-cong (idIso τ) (isoComp-inverseˡ-at δ) ∙
@@ -54,7 +54,7 @@ changeLeft-back α s = cone-match-change _ _ _ _
   δ = α ▷ p
 
 changeLeft-backʳ : {C D E T : CAT} {f f′ : MAP C E} {g : MAP D E}
-  (α : NatIso f f′) (s : Cone f′ g T) → ConeIso (changeLeft α (changeLeft (invIso α) s)) s
+  (α : =₁ f f′) (s : Cone f′ g T) → ConeIso (changeLeft α (changeLeft (invIso α) s)) s
 changeLeft-backʳ α s = cone-match-change _ _ _ _
   (cancel-right δ τ ∙
     isoComp-cong (isoComp-cong (idIso τ) (inverse-inverse δ ∙ (isoInv ◁ pre-inverse α p)))
@@ -65,7 +65,7 @@ changeLeft-backʳ α s = cone-match-change _ _ _ _
   δ = α ▷ p
 
 changeLeft-pre : {C D E R T : CAT} {f f′ : MAP C E} {g : MAP D E}
-  (α : NatIso f f′) (r : MAP R T) (s : Cone f g T) →
+  (α : =₁ f f′) (r : MAP R T) (s : Cone f g T) →
   ConeIso (conePre r (changeLeft α s)) (changeLeft α (conePre r s))
 changeLeft-pre {f = f} {f′} {g} α r s = record
   { leftIso = idIso (p ∘ r) ; rightIso = idIso (q ∘ r)

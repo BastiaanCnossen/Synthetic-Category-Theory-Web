@@ -46,21 +46,21 @@ module PastedPostcomposition {A₁ A₂ A₃ B₁ B₂ B₃ E : CAT}
     (Square.commute right) (Square.commute left) (Square.commute outer)
 
   abstract
-    projection : Iso₂ (Square.commute outer ∙ (f₃ ◁ idIso (g₂ ∘ g₁)))
+    projection : =₂ (Square.commute outer ∙ (f₃ ◁ idIso (g₂ ∘ g₁)))
       (Coordinate.middle ∙ ((Square.commute right ▷ g₁) ∙ invIso (comp-assoc g₁ g₂ f₃)))
     projection = paste-factor (Square.commute right) (Square.commute left) ∙
       (isoComp-unitʳ-at (Square.commute outer) ∙
         isoComp-cong (idIso (Square.commute outer)) (postWhisker-idIso f₃ (g₂ ∘ g₁)))
 
-    short-normal : Iso₂ Coordinate.short (D ∙ A)
+    short-normal : =₂ Coordinate.short (D ∙ A)
     short-normal = isoComp-cong (idIso D)
       (isoComp-unitˡ-at A ∙
         isoComp-cong (postWhisker-idIso (z ∘ f₃) (g₂ ∘ g₁)) (idIso A))
 
-    long-normal : Iso₂ ((J ∙ τ) ∙ A) Coordinate.long
+    long-normal : =₂ ((J ∙ τ) ∙ A) Coordinate.long
     long-normal = isoComp-cong (idIso J) (Paste.flatten-match R) ∙ isoComp-assoc-at J τ A
 
-    matching : Iso₂ D (J ∙ τ)
+    matching : =₂ D (J ∙ τ)
     matching = cancel-right-reflect A
       (invIso long-normal ∙ (Coordinate.comparison projection ∙ invIso short-normal))
 

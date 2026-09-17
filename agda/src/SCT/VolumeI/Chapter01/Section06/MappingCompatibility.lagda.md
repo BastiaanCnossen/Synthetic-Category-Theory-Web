@@ -27,8 +27,8 @@ open FamilyNaturality vocabulary terminal products productLaws composition verti
   using (family-interchange-fixedOuter)
 
 funPost-uncurry-inputs : {A X T C D : CAT} (f : MAP C D)
-  {u v : MAP X (Fun T C)} (γ : MAP A (u ≅ v)) →
-  NatIso (const (funPost-uncurry f v) ∙ uncurryFamily (funPost f ◁ γ))
+  {u v : MAP X (Fun T C)} (γ : MAP A (u ＝ v)) →
+  =₁ (const (funPost-uncurry f v) ∙ uncurryFamily (funPost f ◁ γ))
     ((f ◁ uncurryFamily γ) ∙ const (funPost-uncurry f u))
 funPost-uncurry-inputs {T = T} f {u} {v} γ =
   paste-family-squares (βu ∙ αu) (βv ∙ αv) δu δv action₀ action₂ action₃
@@ -52,8 +52,8 @@ funPost-uncurry-inputs {T = T} f {u} {v} γ =
   action₃ = f ◁ uncurryFamily γ
 
 funPost-uncurry-natural : {X T C D : CAT} (f : MAP C D)
-  {u v : MAP X (Fun T C)} (γ : NatIso u v) →
-  Iso₂ (funPost-uncurry f v ∙ funUncurryIso (funPost f ◁ γ))
+  {u v : MAP X (Fun T C)} (γ : =₁ u v) →
+  =₂ (funPost-uncurry f v ∙ funUncurryIso (funPost f ◁ γ))
     ((f ◁ funUncurryIso γ) ∙ funPost-uncurry f u)
 funPost-uncurry-natural f {u} {v} γ =
   isoComp-cong (postWhisker f ◁ uncurryFamily-absolute γ) (const-One (funPost-uncurry f u)) ∙

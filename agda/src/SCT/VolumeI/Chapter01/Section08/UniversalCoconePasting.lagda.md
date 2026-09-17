@@ -36,9 +36,9 @@ module UniversalPasting {A₁ A₂ A₃ B₁ B₂ : CAT}
     p = Cocone.left t
     q : MAP B₂ E
     q = Extension.value
-    α : NatIso (q ∘ f₂) (p ∘ g₂)
+    α : =₁ (q ∘ f₂) (p ∘ g₂)
     α = CoconeIso.leftIso Extension.comparison
-    β : NatIso (q ∘ h₁) (Cocone.right t)
+    β : =₁ (q ∘ h₁) (Cocone.right t)
     β = CoconeIso.rightIso Extension.comparison
 
     value : Cocone g₂ f₂ E
@@ -63,17 +63,17 @@ module UniversalPasting {A₁ A₂ A₃ B₁ B₂ : CAT}
         (coconeIso-inverse (Paste.flatten-composite s)))
     module Controlled = Comparison.PrescribedComparison 𝒯 M P left universal
       (Cocone.right s) (Cocone.right t) left-comparison
-    α : NatIso (Cocone.left s) (Cocone.left t)
+    α : =₁ (Cocone.left s) (Cocone.left t)
     α = CoconeIso.leftIso Ψ
-    δ : NatIso (Cocone.right s) (Cocone.right t)
+    δ : =₁ (Cocone.right s) (Cocone.right t)
     δ = Controlled.lift
-    τs : NatIso (Cocone.left s ∘ g₂) (Cocone.right s ∘ f₂)
+    τs : =₁ (Cocone.left s ∘ g₂) (Cocone.right s ∘ f₂)
     τs = Cocone.match s
-    τt : NatIso (Cocone.left t ∘ g₂) (Cocone.right t ∘ f₂)
+    τt : =₁ (Cocone.left t ∘ g₂) (Cocone.right t ∘ f₂)
     τt = Cocone.match t
 
     abstract
-      cancel-matching : Iso₂ ((τt ∙ ((α ▷ g₂) ∙ invIso τs)) ∙ τs) (τt ∙ (α ▷ g₂))
+      cancel-matching : =₂ ((τt ∙ ((α ▷ g₂) ∙ invIso τs)) ∙ τs) (τt ∙ (α ▷ g₂))
       cancel-matching = isoComp-cong (idIso τt)
         (isoComp-unitʳ-at (α ▷ g₂) ∙
         (isoComp-cong (idIso (α ▷ g₂)) (isoComp-inverseˡ-at τs) ∙

@@ -34,11 +34,11 @@ module Distributivity (E C D : CAT) where
   module Left = TerminalBase (terminate C) (terminate E)
   module Right = TerminalBase (terminate D) (terminate E)
 
-  module Component {A : CAT} (i : MAP A (C ⊔ D)) (α : NatIso (terminate A) (Base.combined ∘ i)) where
+  module Component {A : CAT} (i : MAP A (C ⊔ D)) (α : =₁ (terminate A) (Base.combined ∘ i)) where
     module I = Inclusion i Base.combined (terminate E) α
     module Source = TerminalBase (terminate A) (terminate E)
 
-    comparison : NatIso (Total.toSwapped ∘ (I.include ∘ Source.fromSwapped)) (productMap (id E) i)
+    comparison : =₁ (Total.toSwapped ∘ (I.include ∘ Source.fromSwapped)) (productMap (id E) i)
     comparison = pair-iso
       (invIso (comp-unitˡ pr₁ ∙ pair-β₁ (id E ∘ pr₁) (i ∘ pr₂)) ∙
       (Source.fromSwapped-β₂ ∙
@@ -61,7 +61,7 @@ module Distributivity (E C D : CAT) where
   sourceChange = coproductMap Left.fromSwapped Right.fromSwapped
   viaDescent = Total.toSwapped ∘ (Base.descent ∘ sourceChange)
 
-  comparison : NatIso viaDescent distribute
+  comparison : =₁ viaDescent distribute
   comparison = copair-cong LeftComponent.comparison RightComponent.comparison ∙
     (copair-post (Base.include₁ ∘ Left.fromSwapped) (Base.include₂ ∘ Right.fromSwapped) Total.toSwapped ∙
       (Total.toSwapped ◁

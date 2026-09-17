@@ -34,7 +34,7 @@ module Restriction {X Y T C D E : CAT} {f : MAP C E} {g : MAP D E}
   open Normalization.Restriction 𝒯 M ℱ r s
 
   abstract
-    rawSquare : Iso₂ (rawTarget ∙ (f ◁ ℓ)) ((g ◁ ρ) ∙ rawSource)
+    rawSquare : =₂ (rawTarget ∙ (f ◁ ℓ)) ((g ◁ ρ) ∙ rawSource)
     rawSquare = paste-iso-squares
       (funUncurryIso (τ ▷ r) ∙ invIso Ef) ((funUncurryIso τ ▷ R) ∙ invIso Ef′)
       Eg Eg′ (f ◁ ℓ) bg (g ◁ ρ)

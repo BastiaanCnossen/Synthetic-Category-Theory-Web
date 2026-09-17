@@ -83,7 +83,7 @@ module NameRestriction {A B C E : CAT} {u : MAP A B} {v : MAP A C}
   value = record { left = left ; right = right ; match = decodeMap-reflect _ _ rawMatch }
 
   abstract
-    match-β : Iso₂ (Cocone.match (decodeRestriction {u = u} {v = v} value)) desired
+    match-β : =₂ (Cocone.match (decodeRestriction {u = u} {v = v} value)) desired
     match-β = cancel-right leftChange desired ∙
       (isoComp-cong (cancel-inverse rightChange (desired ∙ leftChange)) (idIso (invIso leftChange)) ∙
       (invIso (isoComp-assoc-at rightChange rawMatch (invIso leftChange)) ∙
@@ -114,7 +114,7 @@ module ReflectDecodedRestriction {A B C E : CAT} {u : MAP A B} {v : MAP A C}
   β = decodeMapIso (mapPre v ◁ right)
 
   abstract
-    rawSquare : Iso₂ (τt ∙ α) (β ∙ τs)
+    rawSquare : =₂ (τt ∙ α) (β ∙ τs)
     rawSquare = changeEndpoints-reflect fs gt _ _
       (changeEndpoints-comp fs gs gt β τs ∙
       (isoComp-cong
@@ -134,9 +134,9 @@ module ReflectDecodedRestriction {A B C E : CAT} {u : MAP A B} {v : MAP A C}
           (invIso (decodeMapIso-comp (mapPre v ◁ right) (Cone.match s)) ∙
             (rawSquare ∙ decodeMapIso-comp (Cone.match t) (mapPre u ◁ left))) }
 
-    left-image : Iso₂ (decodeMapIso (ConeIso.leftIso comparison)) (CoconeIso.leftIso Φ)
+    left-image : =₂ (decodeMapIso (ConeIso.leftIso comparison)) (CoconeIso.leftIso Φ)
     left-image = decodeMap-reflect-β _ _ (CoconeIso.leftIso Φ)
 
-    right-image : Iso₂ (decodeMapIso (ConeIso.rightIso comparison)) (CoconeIso.rightIso Φ)
+    right-image : =₂ (decodeMapIso (ConeIso.rightIso comparison)) (CoconeIso.rightIso Φ)
     right-image = decodeMap-reflect-β _ _ (CoconeIso.rightIso Φ)
 ```

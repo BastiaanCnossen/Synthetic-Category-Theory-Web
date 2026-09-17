@@ -32,13 +32,13 @@ module Coordinates {A B : CAT} (u : MAP A B) where
   target = comp-unitˡ u ∙ project-pair₂ (terminate B) (id B) u
   raw-source = comp-unitʳ u ∙ ((u ◁ oneProduct-retraction A) ∙
     (comp-assoc input pr₂ u ∙ project-pair₂ (id One ∘ pr₁) (u ∘ pr₂) input))
-  first : NatIso (pr₁ ∘ (step ∘ input)) (pr₁ ∘ (output ∘ u))
+  first : =₁ (pr₁ ∘ (step ∘ input)) (pr₁ ∘ (output ∘ u))
   first = terminal-iso _ _
   second = invIso target ∙ raw-source
   value = oneProduct-natural u
 
   abstract
-    normalize-source : Iso₂ raw-source source
+    normalize-source : =₂ raw-source source
     normalize-source = invIso (isoComp-assoc-at (comp-unitʳ u) head
         (project-pair₂ (id One ∘ pr₁) (u ∘ pr₂) input)) ∙
       isoComp-cong (idIso (comp-unitʳ u))

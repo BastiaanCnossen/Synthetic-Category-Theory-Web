@@ -40,7 +40,7 @@ module Disjointness (C D : CAT) where
 
   H = coproductMap (id C) (initiate D)
   unit = coproduct-unitʳ C
-  comparison : NatIso (in₁ ∘ unit) H
+  comparison : =₁ (in₁ ∘ unit) H
   comparison = copair-cong (idIso (in₁ ∘ id C)) (initial-iso _ _) ∙
     copair-post (id C) (initiate C) in₁
 

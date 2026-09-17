@@ -50,12 +50,12 @@ module CompositorEvaluation {X A B C E : CAT}
     (pre-inverse β HB) (post-inverse e Shg) (preWhisker-idIso U Xg)
 
   abstract
-    square : Iso₂
+    square : =₂
       (Boundary.source ∙ (e ◁ invIso Shg))
       (uk ∙ (invIso qg ∙ Boundary.target))
     square = invIso (isoComp-unitˡ-at (invIso qg ∙ Boundary.target)) ∙ Boundary.inverse-square
 
-    pasted-evaluation : Iso₂
+    pasted-evaluation : =₂
       (Pasted.target-evaluation ∙ (e ◁ paste (invIso Shg) (invIso Shf)))
       (Pasted.evaluation-action ∙ Pasted.source-evaluation)
     pasted-evaluation = Pasted.project-paste square
@@ -68,7 +68,7 @@ module CompositorEvaluation {X A B C E : CAT}
   after = comp-assoc Xf HB Uf
 
   abstract
-    core-action : Iso₂ (Pasted.evaluation-action ∙ r) tail
+    core-action : =₂ (Pasted.evaluation-action ∙ r) tail
     core-action = cancel-mate before across after (Uf ◁ invIso Shf) (uk ▷ Xf) r tail
       (post-inverse Uf Shf)
       (isoComp-unitˡ-at r ∙ isoComp-cong (preWhisker-idIso (transpose (h ∘ g)) Xf) (idIso r))
@@ -79,11 +79,11 @@ module CompositorEvaluation {X A B C E : CAT}
   z = a₃ ∙ (a₂ ∙ (a₁ ∙ r))
 
   abstract
-    source-endpoint : Iso₂ (Pasted.source-evaluation ∙ z) r
+    source-endpoint : =₂ (Pasted.source-evaluation ∙ z) r
     source-endpoint = cancel-three-images a₁ a₂ a₃ r (invIso qg ▷ Xf)
       (idIso U ▷ (Xg ∘ Xf)) (pre-inverse qg Xf) (preWhisker-idIso U (Xg ∘ Xf))
 
-    core-transfer : Iso₂
+    core-transfer : =₂
       ((Pasted.target-evaluation ∙ (e ◁ paste (invIso Shg) (invIso Shf))) ∙ z) tail
     core-transfer = close-paste Pasted.target-evaluation
       (e ◁ paste (invIso Shg) (invIso Shf)) z Pasted.evaluation-action

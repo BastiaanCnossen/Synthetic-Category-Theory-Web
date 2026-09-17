@@ -29,7 +29,7 @@ module InclusionComparison (X C D : CAT) (xAn : isAn X) where
   module V = ExponentialLaw X C D xAn
   inclusion = mappingInclusion C D
 
-  uncurrying-square : NatIso (U.forward ∘ mapPost inclusion) V.forward
+  uncurrying-square : =₁ (U.forward ∘ mapPost inclusion) V.forward
   uncurrying-square = mapReflect (map-isAn X (Map C D)) _ _
     (invIso V.forward-β ∙
       (((funCurry-β mapEval ▷ productMap mapEval (id C)) ∙

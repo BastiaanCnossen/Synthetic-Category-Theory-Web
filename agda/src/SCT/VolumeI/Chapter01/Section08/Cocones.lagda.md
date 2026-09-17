@@ -23,14 +23,14 @@ record Cocone {A B C : CAT} (u : MAP A B) (v : MAP A C) (E : CAT) : Set m where
   field
     left : MAP B E
     right : MAP C E
-    match : NatIso (left ∘ u) (right ∘ v)
+    match : =₁ (left ∘ u) (right ∘ v)
 
 record CoconeIso {A B C E : CAT} {u : MAP A B} {v : MAP A C}
   (s t : Cocone u v E) : Set m where
   field
-    leftIso : NatIso (Cocone.left s) (Cocone.left t)
-    rightIso : NatIso (Cocone.right s) (Cocone.right t)
-    compatible : Iso₂ (Cocone.match t ∙ (leftIso ▷ u))
+    leftIso : =₁ (Cocone.left s) (Cocone.left t)
+    rightIso : =₁ (Cocone.right s) (Cocone.right t)
+    compatible : =₂ (Cocone.match t ∙ (leftIso ▷ u))
       ((rightIso ▷ v) ∙ Cocone.match s)
 
 coconeIso-compose : {A B C E : CAT} {u : MAP A B} {v : MAP A C}
@@ -67,8 +67,8 @@ coconeIso-inverse {u = u} {v} {s} {t} Φ = record
 
 coconeIso-adjust : {A B C E : CAT} {u : MAP A B} {v : MAP A C}
   {s t : Cocone u v E} (Φ : CoconeIso s t)
-  (α : NatIso (Cocone.left s) (Cocone.left t)) (β : NatIso (Cocone.right s) (Cocone.right t)) →
-  Iso₂ (CoconeIso.leftIso Φ) α → Iso₂ (CoconeIso.rightIso Φ) β → CoconeIso s t
+  (α : =₁ (Cocone.left s) (Cocone.left t)) (β : =₁ (Cocone.right s) (Cocone.right t)) →
+  =₂ (CoconeIso.leftIso Φ) α → =₂ (CoconeIso.rightIso Φ) β → CoconeIso s t
 coconeIso-adjust {u = u} {v} {s} {t} Φ α β l r = record
   { leftIso = α ; rightIso = β
   ; compatible = isoComp-cong (preWhisker v ◁ r) (idIso (Cocone.match s)) ∙
@@ -76,13 +76,13 @@ coconeIso-adjust {u = u} {v} {s} {t} Φ α β l r = record
 
 coconeRetarget : {A B C E : CAT} {u : MAP A B} {v : MAP A C}
   (s : Cocone u v E) (p : MAP B E) (q : MAP C E) →
-  NatIso (Cocone.left s) p → NatIso (Cocone.right s) q → Cocone u v E
+  =₁ (Cocone.left s) p → =₁ (Cocone.right s) q → Cocone u v E
 coconeRetarget {u = u} {v} s p q α β = record
   { left = p ; right = q ; match = (β ▷ v) ∙ (Cocone.match s ∙ invIso (α ▷ u)) }
 
 coconeRetarget-β : {A B C E : CAT} {u : MAP A B} {v : MAP A C}
   (s : Cocone u v E) (p : MAP B E) (q : MAP C E)
-  (α : NatIso (Cocone.left s) p) (β : NatIso (Cocone.right s) q) →
+  (α : =₁ (Cocone.left s) p) (β : =₁ (Cocone.right s) q) →
   CoconeIso s (coconeRetarget s p q α β)
 coconeRetarget-β {u = u} {v} s p q α β = record
   { leftIso = α ; rightIso = β
@@ -93,8 +93,8 @@ coconeRetarget-β {u = u} {v} s p q α β = record
       isoComp-assoc-at (β ▷ v) (Cocone.match s ∙ invIso (α ▷ u)) (α ▷ u) }
 
 cocone-match-change : {A B C E : CAT} {u : MAP A B} {v : MAP A C}
-  (p : MAP B E) (q : MAP C E) (σ τ : NatIso (p ∘ u) (q ∘ v)) →
-  Iso₂ σ τ → CoconeIso (record { left = p ; right = q ; match = σ })
+  (p : MAP B E) (q : MAP C E) (σ τ : =₁ (p ∘ u) (q ∘ v)) →
+  =₂ σ τ → CoconeIso (record { left = p ; right = q ; match = σ })
     (record { left = p ; right = q ; match = τ })
 cocone-match-change {u = u} {v} p q σ τ δ = record
   { leftIso = idIso p ; rightIso = idIso q

@@ -57,7 +57,7 @@ coconeIso-post {u = u} {v} {s} {t} F Φ = record
   last = (F ◁ β) ▷ v
 
 cocone-action : {A B C D E : CAT} {u : MAP A B} {v : MAP A C}
-  (s : Cocone u v D) {F G : MAP D E} → NatIso F G →
+  (s : Cocone u v D) {F G : MAP D E} → =₁ F G →
   CoconeIso (coconePost F s) (coconePost G s)
 cocone-action {u = u} {v} s {F} {G} δ = record
   { leftIso = δ ▷ p ; rightIso = δ ▷ q

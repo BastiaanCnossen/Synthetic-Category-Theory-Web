@@ -35,8 +35,8 @@ module PS = Projections 𝒯
 module RS = Second 𝒯 M
 
 unit-lift-assoc : {R K B C : CAT} (π : MAP K R) (I : MAP R K)
-  (b : NatIso (π ∘ I) (id R)) (f : MAP R B) (g : MAP B C) →
-  Iso₂ (comp-unitʳ (g ∘ f) ∙ PS.lift-base (g ∘ f) π I b)
+  (b : =₁ (π ∘ I) (id R)) (f : MAP R B) (g : MAP B C) →
+  =₂ (comp-unitʳ (g ∘ f) ∙ PS.lift-base (g ∘ f) π I b)
     (PS.lift-base g (f ∘ π) I (comp-unitʳ f ∙ PS.lift-base f π I b) ∙
       (comp-assoc π f g ▷ I))
 unit-lift-assoc {R} π I b f g =
@@ -72,7 +72,7 @@ module Composite {A B C : CAT} (f : MAP A B) (g : MAP B C) where
   first-tail = PS.lift-base g (id B) f (comp-unitˡ f)
 
   abstract
-    first-endpoint : Iso₂ first-target (PS.lift-base g pr₂ (IB ∘ f) F.target)
+    first-endpoint : =₂ first-target (PS.lift-base g pr₂ (IB ∘ f) F.target)
     first-endpoint = PS.lift-compose g pr₂ IB f (oneProduct-retraction B) (comp-unitˡ f) ∙
       (isoComp-unitˡ-at (PS.compose-base (g ∘ pr₂) IB first-head f first-tail) ∙
         change-middle (g ∘ pr₂) IB f first-head first-tail
@@ -96,18 +96,18 @@ module Composite {A B C : CAT} (f : MAP A B) (g : MAP B C) where
   top-associator = comp-assoc f g (id C)
 
   abstract
-    final-normalize : Iso₂ final GF.source
+    final-normalize : =₂ final GF.source
     final-normalize = isoComp-unitˡ-at GF.source ∙
       change-middle pr₂ GF.step IA GF.base GF.endpoint
         (comp-assoc pr₂ f g) bA (idIso (g ∘ f))
         (unit-lift-assoc pr₂ IA (oneProduct-retraction A) f g ∙ isoComp-unitˡ-at GF.endpoint)
 
-    top-normalize : Iso₂ top (comp-unitˡ (g ∘ f))
+    top-normalize : =₂ top (comp-unitˡ (g ∘ f))
     top-normalize = cancel-right top-associator (comp-unitˡ (g ∘ f)) ∙
       (isoComp-cong (invIso (left-unitor-comp f g)) (idIso (invIso top-associator)) ∙
         isoComp-unitˡ-at ((comp-unitˡ g ▷ f) ∙ invIso top-associator))
 
-    initial-normalize : Iso₂ Diagram.b₀ GF.target
+    initial-normalize : =₂ Diagram.b₀ GF.target
     initial-normalize = isoComp-cong top-normalize
       (idIso ((bC ▷ (g ∘ f)) ∙ invIso (comp-assoc (g ∘ f) IC pr₂)))
 
@@ -125,7 +125,7 @@ module Composite {A B C : CAT} (f : MAP A B) (g : MAP B C) where
       (PS.inverse-square pr₂ GF.source GF.target GF.value GF.projection₂ ∙
         isoComp-cong final-normalize (idIso (pr₂ ◁ long)))
 
-    comparison : Iso₂ short long
+    comparison : =₂ short long
     comparison = pair-iso-extensionality (terminal-Iso₂ _ _)
       (cancel-left-reflect final (invIso long-square ∙ short-square))
 ```

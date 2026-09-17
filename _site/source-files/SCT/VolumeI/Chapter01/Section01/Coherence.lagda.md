@@ -24,14 +24,14 @@ open Products.ProductData P
 
 record CompositionStructure : Set (c ⊔ m) where
   field
-    idIso : {C D : CAT} (f : MAP C D) → NatIso f f
+    idIso : {C D : CAT} (f : MAP C D) → =₁ f f
     isoComp : {C D : CAT} {f g h : MAP C D}
-      → MAP ((g ≅ h) × (f ≅ g)) (f ≅ h)
+      → MAP ((g ＝ h) × (f ＝ g)) (f ＝ h)
 
-    comp-unitˡ : {C D : CAT} (f : MAP C D) → NatIso (id D ∘ f) f
-    comp-unitʳ : {C D : CAT} (f : MAP C D) → NatIso (f ∘ id C) f
+    comp-unitˡ : {C D : CAT} (f : MAP C D) → =₁ (id D ∘ f) f
+    comp-unitʳ : {C D : CAT} (f : MAP C D) → =₁ (f ∘ id C) f
     comp-assoc : {B C D E : CAT} (f : MAP B C) (g : MAP C D) (h : MAP D E)
-      → NatIso ((h ∘ g) ∘ f) (h ∘ (g ∘ f))
+      → =₁ ((h ∘ g) ∘ f) (h ∘ (g ∘ f))
 
 module Composition (S : CompositionStructure) where
   open CompositionStructure S
@@ -39,15 +39,15 @@ module Composition (S : CompositionStructure) where
   infixr 30 _⋆_
 
   _∙_ : {X C D : CAT} {f g h : MAP C D}
-    → MAP X (g ≅ h) → MAP X (f ≅ g) → MAP X (f ≅ h)
+    → MAP X (g ＝ h) → MAP X (f ＝ g) → MAP X (f ＝ h)
   β ∙ α = isoComp ∘ pair β α
 
   _⋆_ : {X C D E : CAT} {f f′ : MAP C D} {g g′ : MAP D E}
-    → MAP X (g ≅ g′) → MAP X (f ≅ f′) → MAP X ((g ∘ f) ≅ (g′ ∘ f′))
+    → MAP X (g ＝ g′) → MAP X (f ＝ f′) → MAP X ((g ∘ f) ＝ (g′ ∘ f′))
   _⋆_ {f′ = f′} {g = g} β α = (β ▷ f′) ∙ (g ◁ α)
 
   isoHComp : {C D E : CAT} {f f′ : MAP C D} {g g′ : MAP D E}
-    → MAP ((g ≅ g′) × (f ≅ f′)) ((g ∘ f) ≅ (g′ ∘ f′))
+    → MAP ((g ＝ g′) × (f ＝ f′)) ((g ∘ f) ＝ (g′ ∘ f′))
   isoHComp = pr₁ ⋆ pr₂
 ```
 
@@ -64,30 +64,30 @@ record VerticalCoherence (S : CompositionStructure) : Set (c ⊔ m) where
   open Composition S
   field
     isoComp-unitˡ : {C D : CAT} (f g : MAP C D)
-      → let σ = id (f ≅ g)
-        in NatIso (const (idIso g) ∙ σ) σ
+      → let σ = id (f ＝ g)
+        in =₁ (const (idIso g) ∙ σ) σ
 
     isoComp-unitʳ : {C D : CAT} (f g : MAP C D)
-      → let σ = id (f ≅ g)
-        in NatIso (σ ∙ const (idIso f)) σ
+      → let σ = id (f ＝ g)
+        in =₁ (σ ∙ const (idIso f)) σ
 
     isoComp-assoc : {C D : CAT} (f g h k : MAP C D)
-      → let X = ((h ≅ k) × (g ≅ h)) × (f ≅ g)
-            α : MAP X (f ≅ g)
+      → let X = ((h ＝ k) × (g ＝ h)) × (f ＝ g)
+            α : MAP X (f ＝ g)
             α = pr₂
-            β : MAP X (g ≅ h)
+            β : MAP X (g ＝ h)
             β = pr₂ ∘ pr₁
-            γ : MAP X (h ≅ k)
+            γ : MAP X (h ＝ k)
             γ = pr₁ ∘ pr₁
-        in NatIso ((γ ∙ β) ∙ α) (γ ∙ (β ∙ α))
+        in =₁ ((γ ∙ β) ∙ α) (γ ∙ (β ∙ α))
 
     isoComp-inverseˡ : {C D : CAT} (f g : MAP C D)
-      → let σ = id (f ≅ g)
-        in NatIso (invIso σ ∙ σ) (const (idIso f))
+      → let σ = id (f ＝ g)
+        in =₁ (invIso σ ∙ σ) (const (idIso f))
 
     isoComp-inverseʳ : {C D : CAT} (f g : MAP C D)
-      → let σ = id (f ≅ g)
-        in NatIso (σ ∙ invIso σ) (const (idIso g))
+      → let σ = id (f ＝ g)
+        in =₁ (σ ∙ invIso σ) (const (idIso g))
 ```
 
 Families 9 to 18 come from `post:Composition_Functors_Functorial_In_Isos`.
@@ -101,58 +101,58 @@ record WhiskeringCoherence (S : CompositionStructure) : Set (c ⊔ m) where
   open Composition S
   field
     postWhisker-idIso : {C D E : CAT} (u : MAP D E) (f : MAP C D)
-      → Iso₂ (u ◁ idIso f) (idIso (u ∘ f))
+      → =₂ (u ◁ idIso f) (idIso (u ∘ f))
 
     preWhisker-idIso : {B C D : CAT} (f : MAP C D) (k : MAP B C)
-      → Iso₂ (idIso f ▷ k) (idIso (f ∘ k))
+      → =₂ (idIso f ▷ k) (idIso (f ∘ k))
 
     postWhisker-isoComp : {C D E : CAT} (f g h : MAP C D) (u : MAP D E)
-      → let X = (g ≅ h) × (f ≅ g)
-            σ : MAP X (f ≅ g)
+      → let X = (g ＝ h) × (f ＝ g)
+            σ : MAP X (f ＝ g)
             σ = pr₂
-            τ : MAP X (g ≅ h)
+            τ : MAP X (g ＝ h)
             τ = pr₁
-        in NatIso (u ◁ (τ ∙ σ)) ((u ◁ τ) ∙ (u ◁ σ))
+        in =₁ (u ◁ (τ ∙ σ)) ((u ◁ τ) ∙ (u ◁ σ))
 
     preWhisker-isoComp : {B C D : CAT} (f g h : MAP C D) (k : MAP B C)
-      → let X = (g ≅ h) × (f ≅ g)
-            σ : MAP X (f ≅ g)
+      → let X = (g ＝ h) × (f ＝ g)
+            σ : MAP X (f ＝ g)
             σ = pr₂
-            τ : MAP X (g ≅ h)
+            τ : MAP X (g ＝ h)
             τ = pr₁
-        in NatIso ((τ ∙ σ) ▷ k) ((τ ▷ k) ∙ (σ ▷ k))
+        in =₁ ((τ ∙ σ) ▷ k) ((τ ▷ k) ∙ (σ ▷ k))
 
     postWhisker-id : {C D : CAT} (f g : MAP C D)
-      → let σ = id (f ≅ g)
-        in NatIso (const (comp-unitˡ g) ∙ (id D ◁ σ))
+      → let σ = id (f ＝ g)
+        in =₁ (const (comp-unitˡ g) ∙ (id D ◁ σ))
                   (σ ∙ const (comp-unitˡ f))
 
     preWhisker-id : {C D : CAT} (f g : MAP C D)
-      → let σ = id (f ≅ g)
-        in NatIso (const (comp-unitʳ g) ∙ (σ ▷ id C))
+      → let σ = id (f ＝ g)
+        in =₁ (const (comp-unitʳ g) ∙ (σ ▷ id C))
                   (σ ∙ const (comp-unitʳ f))
 
     postWhisker-comp : {C D E F : CAT} (f g : MAP C D) (u : MAP D E) (v : MAP E F)
-      → let σ = id (f ≅ g)
-        in NatIso (const (comp-assoc g u v) ∙ ((v ∘ u) ◁ σ))
+      → let σ = id (f ＝ g)
+        in =₁ (const (comp-assoc g u v) ∙ ((v ∘ u) ◁ σ))
                   ((v ◁ (u ◁ σ)) ∙ const (comp-assoc f u v))
 
     preWhisker-comp : {A B C D : CAT} (f g : MAP C D) (k : MAP B C) (l : MAP A B)
-      → let σ = id (f ≅ g)
-        in NatIso (const (comp-assoc l k g) ∙ ((σ ▷ k) ▷ l))
+      → let σ = id (f ＝ g)
+        in =₁ (const (comp-assoc l k g) ∙ ((σ ▷ k) ▷ l))
                   ((σ ▷ (k ∘ l)) ∙ const (comp-assoc l k f))
 
     whisker-mixed : {B C D E : CAT} (f g : MAP C D) (k : MAP B C) (u : MAP D E)
-      → let σ = id (f ≅ g)
-        in NatIso (const (comp-assoc k g u) ∙ ((u ◁ σ) ▷ k))
+      → let σ = id (f ＝ g)
+        in =₁ (const (comp-assoc k g u) ∙ ((u ◁ σ) ▷ k))
                   ((u ◁ (σ ▷ k)) ∙ const (comp-assoc k f u))
 
     interchange-joint : {B C D : CAT} (F G : MAP C D) (h k : MAP B C)
-      → let τ : MAP ((F ≅ G) × (h ≅ k)) (F ≅ G)
+      → let τ : MAP ((F ＝ G) × (h ＝ k)) (F ＝ G)
             τ = pr₁
-            σ : MAP ((F ≅ G) × (h ≅ k)) (h ≅ k)
+            σ : MAP ((F ＝ G) × (h ＝ k)) (h ＝ k)
             σ = pr₂
-        in NatIso ((τ ▷ k) ∙ (F ◁ σ)) ((G ◁ σ) ∙ (τ ▷ h))
+        in =₁ ((τ ▷ k) ∙ (F ◁ σ)) ((G ◁ σ) ∙ (τ ▷ h))
 ```
 
 Families 19 to 21 are supplied comparisons concerning the **derived** horizontal
@@ -165,24 +165,24 @@ record HorizontalCoherence (S : CompositionStructure) : Set (c ⊔ m) where
   open Composition S
   field
     hcomp-unitˡ : {C D : CAT} (f f′ : MAP C D)
-      → let α = id (f ≅ f′)
-        in NatIso (const (comp-unitˡ f′) ∙ (const (idIso (id D)) ⋆ α))
+      → let α = id (f ＝ f′)
+        in =₁ (const (comp-unitˡ f′) ∙ (const (idIso (id D)) ⋆ α))
                   (α ∙ const (comp-unitˡ f))
 
     hcomp-unitʳ : {C D : CAT} (f f′ : MAP C D)
-      → let α = id (f ≅ f′)
-        in NatIso (const (comp-unitʳ f′) ∙ (α ⋆ const (idIso (id C))))
+      → let α = id (f ＝ f′)
+        in =₁ (const (comp-unitʳ f′) ∙ (α ⋆ const (idIso (id C))))
                   (α ∙ const (comp-unitʳ f))
 
     hcomp-assoc : {B C D E : CAT} (f f′ : MAP B C) (g g′ : MAP C D) (h h′ : MAP D E)
-      → let X = ((h ≅ h′) × (g ≅ g′)) × (f ≅ f′)
-            α : MAP X (f ≅ f′)
+      → let X = ((h ＝ h′) × (g ＝ g′)) × (f ＝ f′)
+            α : MAP X (f ＝ f′)
             α = pr₂
-            β : MAP X (g ≅ g′)
+            β : MAP X (g ＝ g′)
             β = pr₂ ∘ pr₁
-            γ : MAP X (h ≅ h′)
+            γ : MAP X (h ＝ h′)
             γ = pr₁ ∘ pr₁
-        in NatIso (const (comp-assoc f′ g′ h′) ∙ ((γ ⋆ β) ⋆ α))
+        in =₁ (const (comp-assoc f′ g′ h′) ∙ ((γ ⋆ β) ⋆ α))
                   ((γ ⋆ (β ⋆ α)) ∙ const (comp-assoc f g h))
 ```
 
@@ -200,9 +200,9 @@ record PentagonTriangleCoherence (S : CompositionStructure) : Set (c ⊔ m) wher
       → let short = comp-assoc (g ∘ f) h k ∙ comp-assoc f g (k ∘ h)
             long = ((idIso k ⋆ comp-assoc f g h) ∙ comp-assoc f (h ∘ g) k)
                    ∙ (comp-assoc g h k ⋆ idIso f)
-        in Iso₂ short long
+        in =₂ short long
 
     comp-triangle : {C D E : CAT} (f : MAP C D) (g : MAP D E)
-      → Iso₂ (comp-unitʳ g ⋆ idIso f)
+      → =₂ (comp-unitʳ g ⋆ idIso f)
              ((idIso g ⋆ comp-unitˡ f) ∙ comp-assoc f (id D) g)
 ```

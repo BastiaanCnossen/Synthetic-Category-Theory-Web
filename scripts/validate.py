@@ -6,12 +6,12 @@ from collections import Counter
 def require(condition,message):
     if not condition: raise ValueError(message)
 
-def validate():
+def validate(site=SITE):
     info=json.loads(read(BUILD/'build-info.json'))
     require(info['correspondence_hash']==digest((ROOT/'correspondence.json').read_bytes()),'Correspondence changed since assembly; rebuild the pilot')
     for rel,sha in info['inputs']['files'].items():
         require(digest((SNAP/rel).read_bytes())==sha,'Snapshot changed: '+rel)
-    files=list(SITE.rglob('*.html'))
+    files=list(site.rglob('*.html'))
     trees={p:parse(read(p)) for p in files}
     id_sets={}
     for file,tree in trees.items():
@@ -36,7 +36,7 @@ def validate():
                 key=(file.parent,url.path)
                 if key not in targets:
                     target=(file.parent/unquote(url.path)).resolve() if url.path else file.resolve()
-                    require(SITE.resolve() in target.parents or target==SITE.resolve(),f'Link leaves distribution: {file.name}: {href}')
+                    require(site.resolve() in target.parents or target==site.resolve(),f'Link leaves distribution: {file.name}: {href}')
                     require(target.exists(),f'Missing file: {file.name}: {href}')
                     targets[key]=target
                 target=targets[key]
@@ -45,12 +45,12 @@ def validate():
                     require(unquote(url.fragment) in id_sets[target],f'Missing fragment: {file.name}: {href}')
                 links+=1
     manifest=json.loads(read(ROOT/'correspondence.json'))
-    panels=[n for p,t in trees.items() if p.parent==SITE for n in t.all('details') if n.has('agda-panel')]
+    panels=[n for p,t in trees.items() if p.parent==site for n in t.all('details') if n.has('agda-panel')]
     require(len(panels)==len(manifest['passages']),'Panel count mismatch')
     require(all('open' not in n.attrs for n in panels),'Agda panel open by default')
     source=comments(read(BUILD/'selected-source.tex'))
     expected=len(re.findall(r'\\begin\{u(?:definition|remark|lemma|proposition|corollary|exercise|construction)\}',source))
-    actual=sum(1 for p,t in trees.items() if p.parent==SITE for n in t.all('section') if n.attrs.get('data-scope')=='categorical')
+    actual=sum(1 for p,t in trees.items() if p.parent==site for n in t.all('section') if n.attrs.get('data-scope')=='categorical')
     require(actual==expected,f'Underlined statement count changed: {actual} vs {expected}')
     # The actual PDF and HTML LaTeX jobs must agree on numbered labels.
     def counters(file):
@@ -67,7 +67,7 @@ def validate():
         require(not re.search(r'LaTeX Warning: (?:Reference|Citation).*undefined|There were undefined references',text),f'Unresolved LaTeX reference: {log}')
     # Signatures and proofs must equal slices of the exact compiled source.
     from pilot_model import declaration_range, tex_markers
-    declarations=[n for p,t in trees.items() if p.parent==SITE for n in t.all('section') if n.has('agda-declaration')]
+    declarations=[n for p,t in trees.items() if p.parent==site for n in t.all('section') if n.has('agda-declaration')]
     require(len(declarations)==len(info['passages']),'Declaration count mismatch')
     resolved={(entry['module'],entry['declaration']):entry for entry in info['passages']}
     for node in declarations:
@@ -88,8 +88,8 @@ def validate():
     markers=tex_markers(read(BUILD/'selected-source.tex'),registry=manifest)[1]
     require(set(markers)=={p['id'] for p in manifest['passages']+manifest.get('reverse_only',[])},'TeX/registry mismatch')
     for p in manifest['passages']+manifest.get('reverse_only',[]):
-        require('text-'+p['id'] in id_sets[(SITE/(p['page']+'.html')).resolve()],'Missing phrase marker: '+p['id'])
-        marker=next(n for n in trees[SITE/(p['page']+'.html')].all() if n.attrs.get('id')=='text-'+p['id'])
+        require('text-'+p['id'] in id_sets[(site/(p['page']+'.html')).resolve()],'Missing phrase marker: '+p['id'])
+        marker=next(n for n in trees[site/(p['page']+'.html')].all() if n.attrs.get('id')=='text-'+p['id'])
         if p in manifest.get('reverse_only',[]):
             require(marker.tag=='span' and marker.has('agda-book-anchor') and 'href' not in marker.attrs and 'data-agda' not in marker.attrs and marker.attrs.get('tabindex')=='-1','Reverse-only marker must be noninteractive and focusable')
         else: require(marker.tag=='a' and marker.has('agda-trigger'),'Forward marker must remain clickable')
@@ -97,16 +97,23 @@ def validate():
             module=manifest['module_prefix']+d['module']
             src=SNAP/'agda/src'/Path(*module.split('.')).with_suffix('.lagda.md')
             text=read(src); loc=declaration_range(text,d['name'],d['qualified'])
-            module_tree=trees[SITE/'agda'/(module+'.html')]
+            module_tree=trees[site/'agda'/(module+'.html')]
             require(any(n.attrs.get('href')=='../'+p['page']+'.html#text-'+p['id'] for n in module_tree.all('a')),'Missing generated module backlink: '+p['id'])
     require({e['module'] for e in info['source_inventory']}=={p.stem for p in (BUILD/'agda').glob('SCT.*.html')},'Published source inventory differs from checked SCT modules')
     from reader_context import focused_lines
     reader=json.loads(read(BUILD/'agda-context.json'))
     source_targets={}
-    require(read(SITE/'assets/agda-context.js')=='window.SCT_AGDA = '+json.dumps(reader,ensure_ascii=False)+';\n','Side-reader script/data differ')
+    require(read(site/'assets/agda-context.js')=='window.SCT_AGDA = '+json.dumps(reader,ensure_ascii=False)+';\n','Side-reader script/data differ')
     require(set(reader['passages'])=={p['id'] for p in manifest['passages']+manifest.get('reverse_only',[])},'Side-reader passage coverage differs')
     expected_modules={entry['module'] for entry in info['source_inventory']} | {file.stem for file in (BUILD/'agda').glob('*.html')}
     require(set(reader['modules'])==expected_modules,'Module browser omits a source module')
+    from module_navigation import module_tree
+    require(reader['module_tree']==module_tree(expected_modules),'Reader chapter/section navigation differs from module inventory')
+    def navigation_modules(node):
+        return node['modules']+[module for child in node['children'] for module in navigation_modules(child)]
+    require(sorted(navigation_modules(reader['module_tree']))==sorted(expected_modules),'Module hierarchy drops or duplicates a module')
+    index_modules=[node.attrs['data-module'] for node in trees[site/'code-index.html'].all('article') if node.has('code-index-entry')]
+    require(sorted(index_modules)==sorted(expected_modules),'Code index drops or duplicates a module')
     for module,payload in reader['modules'].items():
         src=SNAP/'agda/src'/Path(*module.split('.')).with_suffix('.lagda.md')
         if not src.exists(): src=src.with_suffix('').with_suffix('.agda')
@@ -135,7 +142,7 @@ def validate():
                 href=anchor.attrs.get('href')
                 if href:
                     url=urlsplit(href)
-                    if url.path not in source_targets: source_targets[url.path]=(SITE/unquote(url.path)).resolve()
+                    if url.path not in source_targets: source_targets[url.path]=(site/unquote(url.path)).resolve()
                     target=source_targets[url.path]
                     require(target in id_sets and (not url.fragment or unquote(url.fragment) in id_sets[target]),'Broken side-reader symbol link: '+href)
                     destination=Path(unquote(url.path)).stem
@@ -154,20 +161,20 @@ def validate():
             require(shown['range']==list(range(text.count('\n',0,loc['start'])+1,text.count('\n',0,loc['end']-1)+2)),'Reverse declaration range differs')
             available={line['number'] for line in reader['modules'][module]['lines']}
             require(shown['focus']==[line for line in focused_lines(text,loc,d) if line in available],'Incorrect side-reader focus')
-    validate_distribution(info)
+    validate_distribution(info,site=site)
     from check_site_boundary import check
-    check(SITE)
+    check(site)
     report={'status':'passed','html_pages':len(files),'local_links_checked':links,'passage_panels':len(panels),'declaration_mappings':len(declarations),'reverse_only_passages':len(manifest.get('reverse_only',[])),'underlined_statements':actual,'pdf_html_counters':len(pdf),'input_hashes':len(info['inputs']['files']),'source_modules':len(info['source_inventory']),'omitted_source_modules':sum(1 for p in (SNAP/'agda/src').rglob('*') if p.suffix=='.agda' or p.name.endswith('.lagda.md'))-len(info['source_inventory'])}
-    dump(SITE/'validation.json',report); print(json.dumps(report))
+    dump(site/'validation.json',report); print(json.dumps(report))
 
-def validate_distribution(info):
+def validate_distribution(info,site=SITE):
     """The only publishable tree must not contain private inputs or excess code."""
     checked={e['source'] for e in info['source_inventory']}
-    published={p.relative_to(SITE/'source-files').as_posix() for p in (SITE/'source-files').rglob('*') if p.is_file()}
+    published={p.relative_to(site/'source-files').as_posix() for p in (site/'source-files').rglob('*') if p.is_file()}
     require(published==checked,'Raw source distribution differs from checked module selection')
-    for file in SITE.rglob('*'):
+    for file in site.rglob('*'):
         if not file.is_file(): continue
-        relative=file.relative_to(SITE)
+        relative=file.relative_to(site)
         require(relative.parts[0] not in ('snapshot','pilot','_build','scripts','docs'),'Private/build directory in distribution: '+str(relative))
         require(file.suffix not in ('.tex','.aux','.log','.bbl','.bib','.agdai','.toml','.ps1','.py'),'Build or manuscript file in distribution: '+str(relative))
         if file.suffix in ('.html','.js','.json','.css') and 'vendor' not in relative.parts:

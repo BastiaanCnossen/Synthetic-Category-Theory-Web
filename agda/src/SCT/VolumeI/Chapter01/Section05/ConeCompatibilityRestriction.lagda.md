@@ -22,11 +22,11 @@ open Structural vocabulary terminal products productLaws composition whiskering
 
 cone-pre-compatible : {C D E S T : CAT} {f : MAP C E} {g : MAP D E}
   (r : MAP S T) (s t : Cone f g T)
-  (α : NatIso (Cone.left s) (Cone.left t))
-  (β : NatIso (Cone.right s) (Cone.right t))
-  → Iso₂ (Cone.match (conePre r t) ∙ (f ◁ (α ▷ r)))
+  (α : =₁ (Cone.left s) (Cone.left t))
+  (β : =₁ (Cone.right s) (Cone.right t))
+  → =₂ (Cone.match (conePre r t) ∙ (f ◁ (α ▷ r)))
       ((g ◁ (β ▷ r)) ∙ Cone.match (conePre r s))
-  → Iso₂ ((Cone.match t ∙ (f ◁ α)) ▷ r) (((g ◁ β) ∙ Cone.match s) ▷ r)
+  → =₂ ((Cone.match t ∙ (f ◁ α)) ▷ r) (((g ◁ β) ∙ Cone.match s) ▷ r)
 cone-pre-compatible {f = f} {g} r s t α β p =
   invIso (preWhisker-isoComp-at (g ◁ β) (Cone.match s) r) ∙
   (reflect-transport-square

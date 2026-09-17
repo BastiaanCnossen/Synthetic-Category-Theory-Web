@@ -46,7 +46,7 @@ module Diagram {A₁ A₂ A₃ B₁ B₂ B₃ : CAT}
     rightChange = mapPre f₁ ◁ κh
 
     MatchingComparison : Set m
-    MatchingComparison = Iso₂ (Cone.match mappedOuter ∙ change)
+    MatchingComparison = =₂ (Cone.match mappedOuter ∙ change)
       (rightChange ∙ Cone.match flat)
 
     module WithMatching (matching : MatchingComparison) where

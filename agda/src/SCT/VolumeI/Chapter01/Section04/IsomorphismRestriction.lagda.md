@@ -22,20 +22,20 @@ open import SCT.VolumeI.Chapter01.Section03.DecodingNaturality 𝒯 M
 open import SCT.VolumeI.Chapter01.Section03.CoherenceTransport 𝒯
 
 coproductIsoRestriction : {C D E : CAT} (h k : MAP (C ⊔ D) E) →
-  MAP (h ≅ k) (((h ∘ in₁) ≅ (k ∘ in₁)) × ((h ∘ in₂) ≅ (k ∘ in₂)))
+  MAP (h ＝ k) (((h ∘ in₁) ＝ (k ∘ in₁)) × ((h ∘ in₂) ＝ (k ∘ in₂)))
 coproductIsoRestriction h k = pair (preWhisker in₁) (preWhisker in₂)
 
-decode-restriction-square : {C D E : CAT} (i : MAP C D) (u v : ObjAbs (Map D E)) →
-  NatIso
+decode-restriction-square : {C D E : CAT} (i : MAP C D) (u v : Obj-abs (Map D E)) →
+  =₁
     (const (decodePre i v) ∙ (decodeMap-isoMap (mapPre i ∘ u) (mapPre i ∘ v) ∘ postWhisker (mapPre i)))
     ((preWhisker i ∘ decodeMap-isoMap u v) ∙ const (decodePre i u))
 decode-restriction-square i u v =
   isoComp-cong (preWhisker i ◁ comp-unitʳ (decodeMap-isoMap u v)) (idIso (const (decodePre i u))) ∙
-    (decodePre-natural i (id (u ≅ v)) ∙
+    (decodePre-natural i (id (u ＝ v)) ∙
       isoComp-cong (idIso (const (decodePre i v)))
         (decodeMap-isoMap _ _ ◁ invIso (comp-unitʳ (postWhisker (mapPre i)))))
 
-decoded-restriction-isEquiv : {C D E : CAT} (u v : ObjAbs (Map (C ⊔ D) E)) →
+decoded-restriction-isEquiv : {C D E : CAT} (u v : Obj-abs (Map (C ⊔ D) E)) →
   IsEquiv (coproductIsoRestriction (decodeMap u) (decodeMap v))
 decoded-restriction-isEquiv {C} {D} {E} u v =
   equiv-cancel-right (decodeMap-isoMap u v) (coproductIsoRestriction (decodeMap u) (decodeMap v))
@@ -55,13 +55,13 @@ decoded-restriction-isEquiv {C} {D} {E} u v =
   D₂ = decodeMap-isoMap (G ∘ u) (G ∘ v)
 
 restriction-change-square : {A C D : CAT} {f f′ g g′ : MAP C D}
-  (i : MAP A C) (p : NatIso f f′) (q : NatIso g g′) →
-  NatIso (const (q ▷ i) ∙ preWhisker i)
+  (i : MAP A C) (p : =₁ f f′) (q : =₁ g g′) →
+  =₁ (const (q ▷ i) ∙ preWhisker i)
     ((preWhisker i ∘ changeEndpoints-map p q) ∙ const (p ▷ i))
 restriction-change-square {f = f} {g = g} i p q =
-  pre-family-square i p q (id (f ≅ g)) (changeEndpoints-map p q)
+  pre-family-square i p q (id (f ＝ g)) (changeEndpoints-map p q)
     (isoComp-cong (comp-unitʳ (changeEndpoints-map p q)) (idIso (const p)) ∙
-      change-map-square p q (id (f ≅ g))) ∙
+      change-map-square p q (id (f ＝ g))) ∙
     isoComp-cong (idIso (const (q ▷ i))) (invIso (comp-unitʳ (preWhisker i)))
 
 coproductIsoRestriction-isEquiv : {C D E : CAT} (h k : MAP (C ⊔ D) E) →
@@ -79,22 +79,22 @@ coproductIsoRestriction-isEquiv h k = equiv-cancel-right change (coproductIsoRes
   change = changeEndpoints-map p q
 
 module RestrictionLift {C D E : CAT} (h k : MAP (C ⊔ D) E)
-  (α : NatIso (h ∘ in₁) (k ∘ in₁)) (β : NatIso (h ∘ in₂) (k ∘ in₂)) where
+  (α : =₁ (h ∘ in₁) (k ∘ in₁)) (β : =₁ (h ∘ in₂) (k ∘ in₂)) where
 
   chosen = equiv-lift (coproductIsoRestriction-isEquiv h k) (pair α β)
 
   abstract
-    lift : NatIso h k
+    lift : =₁ h k
     lift = FunctorLift.lift chosen
 
-    image : NatIso (coproductIsoRestriction h k ∘ lift) (pair α β)
+    image : =₁ (coproductIsoRestriction h k ∘ lift) (pair α β)
     image = FunctorLift.comparison chosen
 
-  left-image : Iso₂ (lift ▷ in₁) α
+  left-image : =₂ (lift ▷ in₁) α
   left-image = pair-β₁ α β ∙ ((pr₁ ◁ image) ∙
     invIso (project-pair₁ (preWhisker in₁) (preWhisker in₂) lift))
 
-  right-image : Iso₂ (lift ▷ in₂) β
+  right-image : =₂ (lift ▷ in₂) β
   right-image = pair-β₂ α β ∙ ((pr₂ ◁ image) ∙
     invIso (project-pair₂ (preWhisker in₁) (preWhisker in₂) lift))
 ```

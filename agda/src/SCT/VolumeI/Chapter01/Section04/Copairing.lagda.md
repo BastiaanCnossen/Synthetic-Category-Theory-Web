@@ -19,12 +19,12 @@ module SCT.VolumeI.Chapter01.Section04.Copairing
 open Setup 𝒯 M
 open Coproducts.CoproductStructure B
 
-copairPoint : {C D E : CAT} → MAP C E → MAP D E → ObjAbs (Map (C ⊔ D) E)
+copairPoint : {C D E : CAT} → MAP C E → MAP D E → Obj-abs (Map (C ⊔ D) E)
 copairPoint {C} {D} {E} f g =
   FunctorLift.lift (equiv-lift (coproductRestriction-isEquiv C D E) (pair (nameMap f) (nameMap g)))
 
 copairPoint-β : {C D E : CAT} (f : MAP C E) (g : MAP D E)
-  → NatIso (coproductRestriction C D E ∘ copairPoint f g) (pair (nameMap f) (nameMap g))
+  → =₁ (coproductRestriction C D E ∘ copairPoint f g) (pair (nameMap f) (nameMap g))
 copairPoint-β {C} {D} {E} f g =
   FunctorLift.comparison (equiv-lift (coproductRestriction-isEquiv C D E) (pair (nameMap f) (nameMap g)))
 
@@ -32,7 +32,7 @@ copair : {C D E : CAT} → MAP C E → MAP D E → MAP (C ⊔ D) E
 copair f g = decodeMap (copairPoint f g)
 
 copair-β₁ : {C D E : CAT} (f : MAP C E) (g : MAP D E)
-  → NatIso (copair f g ∘ in₁) f
+  → =₁ (copair f g ∘ in₁) f
 copair-β₁ f g = unnamedIso
   (pair-β₁ (nameMap f) (nameMap g) ∙
   ((pr₁ ◁ copairPoint-β f g) ∙
@@ -41,7 +41,7 @@ copair-β₁ f g = unnamedIso
    invIso (mapPre-name in₁ (copair f g))))))
 
 copair-β₂ : {C D E : CAT} (f : MAP C E) (g : MAP D E)
-  → NatIso (copair f g ∘ in₂) g
+  → =₁ (copair f g ∘ in₂) g
 copair-β₂ f g = unnamedIso
   (pair-β₂ (nameMap f) (nameMap g) ∙
   ((pr₂ ◁ copairPoint-β f g) ∙
@@ -56,15 +56,15 @@ comparison; the stronger prescribed-image statement is treated separately.
 
 ```agda
 restrict-name₁ : {C D E : CAT} (h : MAP (C ⊔ D) E)
-  → NatIso (pr₁ ∘ (coproductRestriction C D E ∘ nameMap h)) (nameMap (h ∘ in₁))
+  → =₁ (pr₁ ∘ (coproductRestriction C D E ∘ nameMap h)) (nameMap (h ∘ in₁))
 restrict-name₁ h = mapPre-name in₁ h ∙ project-pair₁ (mapPre in₁) (mapPre in₂) (nameMap h)
 
 restrict-name₂ : {C D E : CAT} (h : MAP (C ⊔ D) E)
-  → NatIso (pr₂ ∘ (coproductRestriction C D E ∘ nameMap h)) (nameMap (h ∘ in₂))
+  → =₁ (pr₂ ∘ (coproductRestriction C D E ∘ nameMap h)) (nameMap (h ∘ in₂))
 restrict-name₂ h = mapPre-name in₂ h ∙ project-pair₂ (mapPre in₁) (mapPre in₂) (nameMap h)
 
 coproduct-reflect : {C D E : CAT} (h k : MAP (C ⊔ D) E)
-  → NatIso (h ∘ in₁) (k ∘ in₁) → NatIso (h ∘ in₂) (k ∘ in₂) → NatIso h k
+  → =₁ (h ∘ in₁) (k ∘ in₁) → =₁ (h ∘ in₂) (k ∘ in₂) → =₁ h k
 coproduct-reflect {C} {D} {E} h k α β = unnamedIso
   (equiv-reflect (coproductRestriction-isEquiv C D E) (nameMap h) (nameMap k)
     (pair-iso
@@ -72,18 +72,18 @@ coproduct-reflect {C} {D} {E} h k α β = unnamedIso
       (invIso (restrict-name₂ k) ∙ (nameMapIso β ∙ restrict-name₂ h))))
 
 copair-η : {C D E : CAT} (h : MAP (C ⊔ D) E)
-  → NatIso (copair (h ∘ in₁) (h ∘ in₂)) h
+  → =₁ (copair (h ∘ in₁) (h ∘ in₂)) h
 copair-η h = coproduct-reflect _ h (copair-β₁ (h ∘ in₁) (h ∘ in₂))
   (copair-β₂ (h ∘ in₁) (h ∘ in₂))
 
 copair-cong : {C D E : CAT} {f f′ : MAP C E} {g g′ : MAP D E}
-  → NatIso f f′ → NatIso g g′ → NatIso (copair f g) (copair f′ g′)
+  → =₁ f f′ → =₁ g g′ → =₁ (copair f g) (copair f′ g′)
 copair-cong {f = f} {f′} {g} {g′} α β = coproduct-reflect _ _
   (invIso (copair-β₁ f′ g′) ∙ (α ∙ copair-β₁ f g))
   (invIso (copair-β₂ f′ g′) ∙ (β ∙ copair-β₂ f g))
 
 copair-post : {C D E F : CAT} (f : MAP C E) (g : MAP D E) (h : MAP E F)
-  → NatIso (h ∘ copair f g) (copair (h ∘ f) (h ∘ g))
+  → =₁ (h ∘ copair f g) (copair (h ∘ f) (h ∘ g))
 copair-post f g h = coproduct-reflect _ _
   (invIso (copair-β₁ (h ∘ f) (h ∘ g)) ∙ ((h ◁ copair-β₁ f g) ∙ comp-assoc in₁ (copair f g) h))
   (invIso (copair-β₂ (h ∘ f) (h ∘ g)) ∙ ((h ◁ copair-β₂ f g) ∙ comp-assoc in₂ (copair f g) h))

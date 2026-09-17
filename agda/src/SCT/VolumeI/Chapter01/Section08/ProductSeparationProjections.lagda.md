@@ -27,8 +27,8 @@ open Isomorphisms vocabulary terminal products productLaws composition vertical 
 
 quotient-projection : {R K C : CAT} (π : MAP K C)
   {s t w : MAP R K} {z : MAP R C}
-  (b : NatIso (π ∘ w) z) (σ : NatIso s w) (τ : NatIso t w) →
-  Iso₂ ((b ∙ (π ◁ τ)) ∙ (π ◁ (invIso τ ∙ σ))) (b ∙ (π ◁ σ))
+  (b : =₁ (π ∘ w) z) (σ : =₁ s w) (τ : =₁ t w) →
+  =₂ ((b ∙ (π ◁ τ)) ∙ (π ◁ (invIso τ ∙ σ))) (b ∙ (π ◁ σ))
 quotient-projection π b σ τ = isoComp-cong (idIso b) (cancel-inverse (π ◁ τ) (π ◁ σ)) ∙
   (isoComp-assoc-at b (π ◁ τ) (invIso (π ◁ τ) ∙ (π ◁ σ)) ∙
     isoComp-cong (idIso (b ∙ (π ◁ τ)))
@@ -45,7 +45,7 @@ module Separation {X Y A B : CAT} (h : MAP X Y) (f : MAP A B) where
   target = Target.value
   comparison = productMap-separate h f
 
-  normalization : Iso₂ comparison (invIso target ∙ source)
+  normalization : =₂ comparison (invIso target ∙ source)
   normalization = invIso
     (isoComp-assoc-at (invIso (productMap-comp (id X) h f (id B)))
       (invIso (productMap-cong (comp-unitʳ h) (comp-unitˡ f))) source ∙
@@ -65,33 +65,33 @@ module Separation {X Y A B : CAT} (h : MAP X Y) (f : MAP A B) where
   targetProjection₁ = targetFirst ∙ targetTail₁
   targetProjection₂ = targetSecond ∙ targetTail₂
 
-  source₁ : Iso₂ (pair-β₁ (h ∘ pr₁) (f ∘ pr₂) ∙ (pr₁ ◁ source)) sourceProjection₁
+  source₁ : =₂ (pair-β₁ (h ∘ pr₁) (f ∘ pr₂) ∙ (pr₁ ◁ source)) sourceProjection₁
   source₁ = isoComp-cong
     (coordinate-left-unit pr₁ h pr₁ HA (pair-β₁ (h ∘ pr₁) (id A ∘ pr₂)))
     (idIso sourceTail₁) ∙ Source.projection₁
 
-  source₂ : Iso₂ (pair-β₂ (h ∘ pr₁) (f ∘ pr₂) ∙ (pr₂ ◁ source)) sourceProjection₂
+  source₂ : =₂ (pair-β₂ (h ∘ pr₁) (f ∘ pr₂) ∙ (pr₂ ◁ source)) sourceProjection₂
   source₂ = isoComp-cong
     (coordinate-inner-unit pr₂ pr₂ HA (pair-β₂ (h ∘ pr₁) (id A ∘ pr₂)) f)
     (idIso sourceTail₂) ∙ Source.projection₂
 
-  target₁ : Iso₂ (pair-β₁ (h ∘ pr₁) (f ∘ pr₂) ∙ (pr₁ ◁ target)) targetProjection₁
+  target₁ : =₂ (pair-β₁ (h ∘ pr₁) (f ∘ pr₂) ∙ (pr₁ ◁ target)) targetProjection₁
   target₁ = isoComp-cong
     (coordinate-inner-unit pr₁ pr₁ LX (pair-β₁ (id X ∘ pr₁) (f ∘ pr₂)) h)
     (idIso targetTail₁) ∙ Target.projection₁
 
-  target₂ : Iso₂ (pair-β₂ (h ∘ pr₁) (f ∘ pr₂) ∙ (pr₂ ◁ target)) targetProjection₂
+  target₂ : =₂ (pair-β₂ (h ∘ pr₁) (f ∘ pr₂) ∙ (pr₂ ◁ target)) targetProjection₂
   target₂ = isoComp-cong
     (coordinate-left-unit pr₂ f pr₂ LX (pair-β₂ (id X ∘ pr₁) (f ∘ pr₂)))
     (idIso targetTail₂) ∙ Target.projection₂
 
   abstract
-    projection₁ : Iso₂ (targetProjection₁ ∙ (pr₁ ◁ comparison)) sourceProjection₁
+    projection₁ : =₂ (targetProjection₁ ∙ (pr₁ ◁ comparison)) sourceProjection₁
     projection₁ = source₁ ∙
       (quotient-projection pr₁ (pair-β₁ (h ∘ pr₁) (f ∘ pr₂)) source target ∙
         isoComp-cong (invIso target₁) (postWhisker pr₁ ◁ normalization))
 
-    projection₂ : Iso₂ (targetProjection₂ ∙ (pr₂ ◁ comparison)) sourceProjection₂
+    projection₂ : =₂ (targetProjection₂ ∙ (pr₂ ◁ comparison)) sourceProjection₂
     projection₂ = source₂ ∙
       (quotient-projection pr₂ (pair-β₂ (h ∘ pr₁) (f ∘ pr₂)) source target ∙
         isoComp-cong (invIso target₂) (postWhisker pr₂ ◁ normalization))

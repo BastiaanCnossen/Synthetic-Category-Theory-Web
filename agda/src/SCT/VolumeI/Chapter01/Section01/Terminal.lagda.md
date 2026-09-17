@@ -18,18 +18,18 @@ record TerminalStructure : Set (c ⊔ m) where
   field
     terminate : (C : CAT) → MAP C One
     terminalIso-isEquiv : {T : CAT} (f g : MAP T One)
-      → IsEquiv (terminate (f ≅ g))
+      → IsEquiv (terminate (f ＝ g))
 
 module Constructions (T : TerminalStructure) where
   open TerminalStructure T
 
-  const : {P C : CAT} → ObjAbs C → MAP P C
+  const : {P C : CAT} → Obj-abs C → MAP P C
   const {P} x = x ∘ terminate P
 
   IsContractible : CAT → Set m
   IsContractible C = IsEquiv (terminate C)
 
-  terminal-iso : {P : CAT} (f g : MAP P One) → NatIso f g
+  terminal-iso : {P : CAT} (f g : MAP P One) → =₁ f g
   terminal-iso f g = IsEquiv.inverse (terminalIso-isEquiv f g)
 ```
 

@@ -23,10 +23,10 @@ open import SCT.VolumeI.Chapter01.Section06.MappingCompatibility 𝒯 M ℱ
 open PN vocabulary terminal products productLaws composition vertical whiskering using (move-square)
 
 paste-iso-squares : {C D : CAT} {x₀ x₁ y₀ y₁ z₀ z₁ : MAP C D}
-  (u₀ : NatIso x₀ y₀) (u₁ : NatIso x₁ y₁) (v₀ : NatIso y₀ z₀) (v₁ : NatIso y₁ z₁)
-  (α : NatIso x₀ x₁) (β : NatIso y₀ y₁) (γ : NatIso z₀ z₁) →
-  Iso₂ (u₁ ∙ α) (β ∙ u₀) → Iso₂ (v₁ ∙ β) (γ ∙ v₀) →
-  Iso₂ ((v₁ ∙ u₁) ∙ α) (γ ∙ (v₀ ∙ u₀))
+  (u₀ : =₁ x₀ y₀) (u₁ : =₁ x₁ y₁) (v₀ : =₁ y₀ z₀) (v₁ : =₁ y₁ z₁)
+  (α : =₁ x₀ x₁) (β : =₁ y₀ y₁) (γ : =₁ z₀ z₁) →
+  =₂ (u₁ ∙ α) (β ∙ u₀) → =₂ (v₁ ∙ β) (γ ∙ v₀) →
+  =₂ ((v₁ ∙ u₁) ∙ α) (γ ∙ (v₀ ∙ u₀))
 paste-iso-squares u₀ u₁ v₀ v₁ α β γ p q = isoComp-assoc-at γ v₀ u₀ ∙
   (isoComp-cong q (idIso u₀) ∙
   (invIso (isoComp-assoc-at v₁ β u₀) ∙

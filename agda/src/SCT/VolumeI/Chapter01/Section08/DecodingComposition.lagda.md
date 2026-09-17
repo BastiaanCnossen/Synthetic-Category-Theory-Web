@@ -31,7 +31,7 @@ open Isomorphisms vocabulary terminal products productLaws composition vertical 
 open PN vocabulary terminal products productLaws composition vertical whiskering using (cancel-left; cancel-right; move-square)
 open Structural vocabulary terminal products productLaws composition whiskering using (postWhisker-comp-at; whisker-mixed-at)
 
-module CompositorEvaluation {A B C E : CAT} (f : MAP A B) (g : MAP B C) (h : ObjAbs (Map C E)) where
+module CompositorEvaluation {A B C E : CAT} (f : MAP A B) (g : MAP B C) (h : Obj-abs (Map C E)) where
   open Base.CompositorEvaluation 𝒯 M f g h public
   module Lifted = Image.CompositorImage 𝒯 M f g h
 
@@ -46,21 +46,21 @@ module CompositorEvaluation {A B C E : CAT} (f : MAP A B) (g : MAP B C) (h : Obj
   projected-prefix = invIso (comp-assoc HA Ygf e) ∙ (e ◁ (χY ▷ HA))
 
   abstract
-    prefix-cancellation : Iso₂
+    prefix-cancellation : =₂
       (leading-prefix ∙ ((invIso β ▷ Yf) ∙ invIso evaluation-associator)) product-image
     prefix-cancellation = cancel-trailing-pair product-image evaluation-associator evaluation-beta
       (invIso β ▷ Yf) (pre-inverse β Yf)
 
-    output-endpoint : Iso₂ projected-prefix ((leading-prefix ▷ HA) ∙ Pasted.target-evaluation)
+    output-endpoint : =₂ projected-prefix ((leading-prefix ▷ HA) ∙ Pasted.target-evaluation)
     output-endpoint = invIso normalize ∙
       move-square (comp-assoc HA Ygf e) (product-image ▷ HA) (e ◁ (χY ▷ HA))
         (comp-assoc HA (Yg ∘ Yf) e) (whisker-mixed-at χY HA e)
       where
-      q : NatIso (e ∘ (Yg ∘ Yf)) (Uf ∘ Yf)
+      q : =₁ (e ∘ (Yg ∘ Yf)) (Uf ∘ Yf)
       q = (invIso β ▷ Yf) ∙ invIso evaluation-associator
-      final : NatIso (e ∘ ((Yg ∘ Yf) ∘ HA)) ((e ∘ (Yg ∘ Yf)) ∘ HA)
+      final : =₁ (e ∘ ((Yg ∘ Yf) ∘ HA)) ((e ∘ (Yg ∘ Yf)) ∘ HA)
       final = invIso (comp-assoc HA (Yg ∘ Yf) e)
-      normalize : Iso₂ ((leading-prefix ▷ HA) ∙ Pasted.target-evaluation)
+      normalize : =₂ ((leading-prefix ▷ HA) ∙ Pasted.target-evaluation)
         ((product-image ▷ HA) ∙ final)
       normalize = isoComp-cong
         ((preWhisker HA ◁ prefix-cancellation) ∙ invIso (preWhisker-isoComp-at leading-prefix q HA))
@@ -70,7 +70,7 @@ module CompositorEvaluation {A B C E : CAT} (f : MAP A B) (g : MAP B C) (h : Obj
   pasted-image = e ◁ paste (invIso Shg) (invIso Shf)
 
   abstract
-    leading-transfer : Iso₂ ((projected-prefix ∙ pasted-image) ∙ z) ((leading ▷ HA) ∙ u₀)
+    leading-transfer : =₂ ((projected-prefix ∙ pasted-image) ∙ z) ((leading ▷ HA) ∙ u₀)
     leading-transfer = isoComp-cong
       (invIso (preWhisker-isoComp-at leading-prefix (μ) HA)) (idIso u₀) ∙
       prefix-transfer (leading-prefix ▷ HA) Pasted.target-evaluation projected-prefix pasted-image z
@@ -84,13 +84,13 @@ module CompositorEvaluation {A B C E : CAT} (f : MAP A B) (g : MAP B C) (h : Obj
   prefix-composition = e ◁ (χY ▷ HA)
 
   abstract
-    leading-normalization : Iso₂ Lifted.leading leading
+    leading-normalization : =₂ Lifted.leading leading
     leading-normalization = invIso (isoComp-assoc-at product-image
         (evaluation-associator ∙ evaluation-beta) (μ)) ∙
       isoComp-cong (idIso product-image)
         (invIso (isoComp-assoc-at evaluation-associator evaluation-beta (μ)))
 
-    product-square : Iso₂
+    product-square : =₂
       (separation-image ∙ (prefix-composition ∙ pasted-image)) product-composition
     product-square = postWhisker-idIso e (HC ∘ (g ∘ f)) ∙
       ((postWhisker e ◁ isoComp-inverseʳ-at Sgf) ∙
@@ -98,17 +98,17 @@ module CompositorEvaluation {A B C E : CAT} (f : MAP A B) (g : MAP B C) (h : Obj
         isoComp-cong (idIso separation-image)
           ((postWhisker e ◁ UnitComposition.Composite.comparison 𝒯 M f g) ∙
             invIso (postWhisker-isoComp-at e (χY ▷ HA) (paste (invIso Shg) (invIso Shf))))))
-    remove-prefix : Iso₂ (Lifted.prefix ∙ (projected-prefix ∙ pasted-image))
+    remove-prefix : =₂ (Lifted.prefix ∙ (projected-prefix ∙ pasted-image))
       (outer-associator ∙ product-composition)
     remove-prefix = cancel-prefix outer-associator separation-image prefix-associator
       prefix-composition pasted-image product-composition product-square
 
-    finish : Iso₂ ((outer-associator ∙ product-composition) ∙ z)
+    finish : =₂ ((outer-associator ∙ product-composition) ∙ z)
       (a₂ ∙ (a₁ ∙ r))
     finish = cancel-left a₃ (a₂ ∙ (a₁ ∙ r)) ∙
       isoComp-cong (isoComp-unitʳ-at outer-associator) (idIso z)
 
-    comparison : Iso₂
+    comparison : =₂
       (decodePre (g ∘ f) h ∙ decodeMapIso (mapPre-comp f g ▷ h))
       (comp-assoc f g (decodeMap h) ∙
         ((decodePre g h ▷ f) ∙

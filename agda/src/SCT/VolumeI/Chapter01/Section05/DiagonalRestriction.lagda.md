@@ -36,17 +36,17 @@ module Restriction {C D E : CAT} (f : MAP C E) (g : MAP D E)
   secondBoundary = invIso B ∙ (g ◁ q)
 
   opaque
-    first : Iso₂ (edge₁ restricted) ((edge₁ t ▷ r) ∙ firstBoundary)
+    first : =₂ (edge₁ restricted) ((edge₁ t ▷ r) ∙ firstBoundary)
     first = coordinate-pre pr₁ t r (left₁ u) (right₁ v) (left₁ (u ∘ r)) (right₁ (v ∘ r)) firstBoundary
       (composite-normalization-pre pr₁ F pr₁ f (pair-β₁ (f ∘ pr₁) (g ∘ pr₂)) u r)
       (identity-normalization-pre pr₁ Δ (pair-β₁ (id E) (id E)) v r)
 
-    second : Iso₂ (edge₂ restricted) ((edge₂ t ▷ r) ∙ secondBoundary)
+    second : =₂ (edge₂ restricted) ((edge₂ t ▷ r) ∙ secondBoundary)
     second = coordinate-pre pr₂ t r (left₂ u) (right₂ v) (left₂ (u ∘ r)) (right₂ (v ∘ r)) secondBoundary
       (composite-normalization-pre pr₂ F pr₂ g (pair-β₂ (f ∘ pr₁) (g ∘ pr₂)) u r)
       (identity-normalization-pre pr₂ Δ (pair-β₂ (id E) (id E)) v r)
 
-    matching-pre : Iso₂ ((invIso (edge₂ t) ∙ edge₁ t) ▷ r)
+    matching-pre : =₂ ((invIso (edge₂ t) ∙ edge₁ t) ▷ r)
       (invIso (edge₂ t ▷ r) ∙ (edge₁ t ▷ r))
     matching-pre = isoComp-cong (pre-inverse (edge₂ t) r) (idIso (edge₁ t ▷ r)) ∙
       preWhisker-isoComp-at (invIso (edge₂ t)) (edge₁ t) r

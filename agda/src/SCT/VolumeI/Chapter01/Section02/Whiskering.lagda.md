@@ -35,34 +35,34 @@ open Parameterized V T P PL S VC
 open Equivalences V T P PL S
 
 leftMultiply : {C D : CAT} {f g h : MAP C D}
-  → NatIso g h → MAP (f ≅ g) (f ≅ h)
+  → =₁ g h → MAP (f ＝ g) (f ＝ h)
 leftMultiply β = const β ∙ id _
 
 rightMultiply : {C D : CAT} {f g h : MAP C D}
-  → NatIso f g → MAP (g ≅ h) (f ≅ h)
+  → =₁ f g → MAP (g ＝ h) (f ＝ h)
 rightMultiply β = id _ ∙ const β
 
 left-evaluate : {X C D : CAT} {f g h : MAP C D}
-  (β : NatIso g h) (α : MAP X (f ≅ g))
-  → NatIso (leftMultiply β ∘ α) (const β ∙ α)
+  (β : =₁ g h) (α : MAP X (f ＝ g))
+  → =₁ (leftMultiply β ∘ α) (const β ∙ α)
 left-evaluate β α = isoComp-evaluate (const β) (id _) α
   (const-pre β α) (comp-unitˡ α)
 
 right-evaluate : {X C D : CAT} {f g h : MAP C D}
-  (β : NatIso f g) (α : MAP X (g ≅ h))
-  → NatIso (rightMultiply β ∘ α) (α ∙ const β)
+  (β : =₁ f g) (α : MAP X (g ＝ h))
+  → =₁ (rightMultiply β ∘ α) (α ∙ const β)
 right-evaluate β α = isoComp-evaluate (id _) (const β) α
   (comp-unitˡ α) (const-pre β α)
 
 leftMultiply-isEquiv : {C D : CAT} {f g h : MAP C D}
-  (β : NatIso g h) → IsEquiv (leftMultiply {f = f} β)
+  (β : =₁ g h) → IsEquiv (leftMultiply {f = f} β)
 leftMultiply-isEquiv β = record
   { inverse = leftMultiply (invIso β)
   ; sectionIso = invIso (left-cancel β (id _) ∙ left-evaluate (invIso β) (leftMultiply β))
   ; retractionIso = invIso (left-cancelʳ β (id _) ∙ left-evaluate β (leftMultiply (invIso β))) }
 
 rightMultiply-isEquiv : {C D : CAT} {f g h : MAP C D}
-  (β : NatIso f g) → IsEquiv (rightMultiply {h = h} β)
+  (β : =₁ f g) → IsEquiv (rightMultiply {h = h} β)
 rightMultiply-isEquiv β = record
   { inverse = rightMultiply (invIso β)
   ; sectionIso = invIso (right-cancel β (id _) ∙ right-evaluate (invIso β) (rightMultiply β))
@@ -74,37 +74,37 @@ either direction. Its displayed boundary uses only familiar vertical pasting.
 
 ```agda
 square-left : {X C D : CAT} {f g f′ g′ : MAP C D}
-  (u : MAP X (f ≅ g)) (v : MAP X (f′ ≅ g′))
-  (α : NatIso f f′) (β : NatIso g g′)
-  → NatIso (const β ∙ u) (v ∙ const α) → IsEquiv v → IsEquiv u
+  (u : MAP X (f ＝ g)) (v : MAP X (f′ ＝ g′))
+  (α : =₁ f f′) (β : =₁ g g′)
+  → =₁ (const β ∙ u) (v ∙ const α) → IsEquiv v → IsEquiv u
 square-left u v α β κ ev = equiv-cancel-left u (leftMultiply β)
   (leftMultiply-isEquiv β)
   (equiv-transport (invIso (left-evaluate β u) ∙ (invIso κ ∙ right-evaluate α v))
     (equiv-compose v (rightMultiply α) ev (rightMultiply-isEquiv α)))
 
 square-right : {X C D : CAT} {f g f′ g′ : MAP C D}
-  (u : MAP X (f ≅ g)) (v : MAP X (f′ ≅ g′))
-  (α : NatIso f f′) (β : NatIso g g′)
-  → NatIso (const β ∙ u) (v ∙ const α) → IsEquiv u → IsEquiv v
+  (u : MAP X (f ＝ g)) (v : MAP X (f′ ＝ g′))
+  (α : =₁ f f′) (β : =₁ g g′)
+  → =₁ (const β ∙ u) (v ∙ const α) → IsEquiv u → IsEquiv v
 square-right u v α β κ eu = equiv-cancel-left v (rightMultiply α)
   (rightMultiply-isEquiv α)
   (equiv-transport (invIso (right-evaluate α v) ∙ (κ ∙ left-evaluate β u))
     (equiv-compose u (leftMultiply β) eu (leftMultiply-isEquiv β)))
 
 post-id : {C D : CAT} (f g : MAP C D) → IsEquiv (postWhisker {f = f} {g} (id D))
-post-id {D = D} f g = square-left (postWhisker (id D)) (id (f ≅ g))
+post-id {D = D} f g = square-left (postWhisker (id D)) (id (f ＝ g))
   (comp-unitˡ f) (comp-unitˡ g)
   (postWhisker-id f g ∙ invIso (isoComp-cong (idIso _) (comp-unitʳ (postWhisker (id D)))))
-  (id-isEquiv (f ≅ g))
+  (id-isEquiv (f ＝ g))
 
 pre-id : {C D : CAT} (f g : MAP C D) → IsEquiv (preWhisker {f = f} {g} (id C))
-pre-id {C} f g = square-left (preWhisker (id C)) (id (f ≅ g))
+pre-id {C} f g = square-left (preWhisker (id C)) (id (f ＝ g))
   (comp-unitʳ f) (comp-unitʳ g)
   (preWhisker-id f g ∙ invIso (isoComp-cong (idIso _) (comp-unitʳ (preWhisker (id C)))))
-  (id-isEquiv (f ≅ g))
+  (id-isEquiv (f ＝ g))
 
 post-change : {B C D : CAT} {F G : MAP C D}
-  (τ : NatIso F G) (f g : MAP B C)
+  (τ : =₁ F G) (f g : MAP B C)
   → IsEquiv (postWhisker {f = f} {g} G) → IsEquiv (postWhisker {f = f} {g} F)
 post-change {F = F} {G} τ f g = square-left (postWhisker F) (postWhisker G)
   (τ ▷ f) (τ ▷ g)
@@ -113,7 +113,7 @@ post-change {F = F} {G} τ f g = square-left (postWhisker F) (postWhisker G)
     invIso (isoComp-cong (idIso _) (comp-unitʳ (postWhisker F)))))
 
 pre-change : {B C D : CAT} {h k : MAP B C}
-  (σ : NatIso h k) (f g : MAP C D)
+  (σ : =₁ h k) (f g : MAP C D)
   → IsEquiv (preWhisker {f = f} {g} k) → IsEquiv (preWhisker {f = f} {g} h)
 pre-change {h = h} {k} σ f g = square-left (preWhisker h) (preWhisker k)
   (f ◁ σ) (g ◁ σ)
@@ -183,25 +183,25 @@ lift-along {f = f} e d = record
         invIso (comp-assoc d (IsEquiv.inverse e) f)) }
 
 postWhisker-lift : {B C D : CAT} (F : MAP C D) → IsEquiv F
-  → {f g : MAP B C} → (α : NatIso (F ∘ f) (F ∘ g))
+  → {f g : MAP B C} → (α : =₁ (F ∘ f) (F ∘ g))
   → FunctorLift (postWhisker F) α
 postWhisker-lift F e {f} {g} α = lift-along (postWhisker-isEquiv F e f g) α
 
 preWhisker-lift : {C D E : CAT} (F : MAP C D) → IsEquiv F
-  → {f g : MAP D E} → (α : NatIso (f ∘ F) (g ∘ F))
+  → {f g : MAP D E} → (α : =₁ (f ∘ F) (g ∘ F))
   → FunctorLift (preWhisker F) α
 preWhisker-lift F e {f} {g} α = lift-along (preWhisker-isEquiv F e f g) α
 
 postWhisker-Iso₂-lift : {B C D : CAT} (F : MAP C D) → IsEquiv F
-  → {f g : MAP B C} (α β : NatIso f g)
-  → (p : Iso₂ (F ◁ α) (F ◁ β))
+  → {f g : MAP B C} (α β : =₁ f g)
+  → (p : =₂ (F ◁ α) (F ◁ β))
   → FunctorLift (postWhisker (postWhisker F)) p
 postWhisker-Iso₂-lift F e {f} {g} α β p =
   postWhisker-lift (postWhisker F) (postWhisker-isEquiv F e f g) p
 
 preWhisker-Iso₂-lift : {C D E : CAT} (F : MAP C D) → IsEquiv F
-  → {f g : MAP D E} (α β : NatIso f g)
-  → (p : Iso₂ (α ▷ F) (β ▷ F))
+  → {f g : MAP D E} (α β : =₁ f g)
+  → (p : =₂ (α ▷ F) (β ▷ F))
   → FunctorLift (postWhisker (preWhisker F)) p
 preWhisker-Iso₂-lift F e {f} {g} α β p =
   postWhisker-lift (preWhisker F) (preWhisker-isEquiv F e f g) p

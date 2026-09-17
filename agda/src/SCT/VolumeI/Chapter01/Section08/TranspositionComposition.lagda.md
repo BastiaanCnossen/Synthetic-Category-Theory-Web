@@ -45,21 +45,21 @@ module CompositorEvaluation {X A B C E : CAT} (f : MAP A B) (g : MAP B C) (h : M
   projected-prefix = invIso (comp-assoc HA Ygf e) ∙ (e ◁ (χY ▷ HA))
 
   abstract
-    prefix-cancellation : Iso₂
+    prefix-cancellation : =₂
       (leading-prefix ∙ ((invIso β ▷ Yf) ∙ invIso evaluation-associator)) product-image
     prefix-cancellation = cancel-trailing-pair product-image evaluation-associator evaluation-beta
       (invIso β ▷ Yf) (pre-inverse β Yf)
 
-    output-endpoint : Iso₂ projected-prefix ((leading-prefix ▷ HA) ∙ Pasted.target-evaluation)
+    output-endpoint : =₂ projected-prefix ((leading-prefix ▷ HA) ∙ Pasted.target-evaluation)
     output-endpoint = invIso normalize ∙
       move-square (comp-assoc HA Ygf e) (product-image ▷ HA) (e ◁ (χY ▷ HA))
         (comp-assoc HA (Yg ∘ Yf) e) (whisker-mixed-at χY HA e)
       where
-      q : NatIso (e ∘ (Yg ∘ Yf)) (Uf ∘ Yf)
+      q : =₁ (e ∘ (Yg ∘ Yf)) (Uf ∘ Yf)
       q = (invIso β ▷ Yf) ∙ invIso evaluation-associator
-      final : NatIso (e ∘ ((Yg ∘ Yf) ∘ HA)) ((e ∘ (Yg ∘ Yf)) ∘ HA)
+      final : =₁ (e ∘ ((Yg ∘ Yf) ∘ HA)) ((e ∘ (Yg ∘ Yf)) ∘ HA)
       final = invIso (comp-assoc HA (Yg ∘ Yf) e)
-      normalize : Iso₂ ((leading-prefix ▷ HA) ∙ Pasted.target-evaluation)
+      normalize : =₂ ((leading-prefix ▷ HA) ∙ Pasted.target-evaluation)
         ((product-image ▷ HA) ∙ final)
       normalize = isoComp-cong
         ((preWhisker HA ◁ prefix-cancellation) ∙ invIso (preWhisker-isoComp-at leading-prefix q HA))
@@ -69,7 +69,7 @@ module CompositorEvaluation {X A B C E : CAT} (f : MAP A B) (g : MAP B C) (h : M
   pasted-image = e ◁ paste (invIso Shg) (invIso Shf)
 
   abstract
-    leading-transfer : Iso₂ ((projected-prefix ∙ pasted-image) ∙ z) (leading ▷ HA)
+    leading-transfer : =₂ ((projected-prefix ∙ pasted-image) ∙ z) (leading ▷ HA)
     leading-transfer = invIso (preWhisker-isoComp-at leading-prefix μ HA) ∙
       (isoComp-unitʳ-at ((leading-prefix ▷ HA) ∙ (μ ▷ HA)) ∙
         prefix-transfer (leading-prefix ▷ HA) Pasted.target-evaluation projected-prefix pasted-image z
@@ -83,13 +83,13 @@ module CompositorEvaluation {X A B C E : CAT} (f : MAP A B) (g : MAP B C) (h : M
   prefix-composition = e ◁ (χY ▷ HA)
 
   abstract
-    leading-normalization : Iso₂ Lifted.leading leading
+    leading-normalization : =₂ Lifted.leading leading
     leading-normalization = invIso (isoComp-assoc-at product-image
         (evaluation-associator ∙ evaluation-beta) (μ)) ∙
       isoComp-cong (idIso product-image)
         (invIso (isoComp-assoc-at evaluation-associator evaluation-beta (μ)))
 
-    product-square : Iso₂
+    product-square : =₂
       (separation-image ∙ (prefix-composition ∙ pasted-image)) product-composition
     product-square =
       isoComp-unitˡ-at product-composition ∙
@@ -104,22 +104,22 @@ module CompositorEvaluation {X A B C E : CAT} (f : MAP A B) (g : MAP B C) (h : M
             ((postWhisker e ◁ SwapComposition.Composite.comparison 𝒯 M {X} f g) ∙
               invIso (postWhisker-isoComp-at e (χY ▷ HA) (paste (invIso Shg) (invIso Shf)))))))
 
-    remove-prefix : Iso₂ (Lifted.prefix ∙ (projected-prefix ∙ pasted-image))
+    remove-prefix : =₂ (Lifted.prefix ∙ (projected-prefix ∙ pasted-image))
       (outer-associator ∙ product-composition)
     remove-prefix = cancel-prefix outer-associator separation-image prefix-associator
       prefix-composition pasted-image product-composition product-square
 
-    outer-square : Iso₂ (outer-associator ∙ product-composition)
+    outer-square : =₂ (outer-associator ∙ product-composition)
       ((U ◁ χX) ∙ invIso a₃)
     outer-square = move-square (comp-assoc Xgf HC e) (U ◁ χX) product-composition a₃
       (postWhisker-comp-at χX HC e)
 
-    finish : Iso₂ ((outer-associator ∙ product-composition) ∙ z)
+    finish : =₂ ((outer-associator ∙ product-composition) ∙ z)
       ((U ◁ χX) ∙ (a₂ ∙ (a₁ ∙ r)))
     finish = isoComp-cong (idIso (U ◁ χX)) (cancel-left a₃ (a₂ ∙ (a₁ ∙ r))) ∙
       (isoComp-assoc-at (U ◁ χX) (invIso a₃) z ∙ isoComp-cong outer-square (idIso z))
 
-    comparison : Iso₂
+    comparison : =₂
       (transpose-pre (g ∘ f) h ∙ transposeIso (comp-assoc f g h))
       ((transpose h ◁ productRestriction-comp X f g) ∙
         (comp-assoc Xf Xg (transpose h) ∙

@@ -29,21 +29,21 @@ module CompositorImage {X A B C E : CAT}
   LgQ = productMap (id Q) g
   LgfQ = productMap (id Q) (g ∘ f)
   LgfX = productMap (id X) (g ∘ f)
-  κ : NatIso (mapPre {D = E} f ∘ mapPre g) (mapPre (g ∘ f))
+  κ : =₁ (mapPre {D = E} f ∘ mapPre g) (mapPre (g ∘ f))
   κ = mapPre-comp f g
   β = mapPre-β {D = E} (g ∘ f)
 
-  leading : NatIso (mapUncurry (mapPre {D = E} f ∘ mapPre g)) (mapEval ∘ LgfQ)
+  leading : =₁ (mapUncurry (mapPre {D = E} f ∘ mapPre g)) (mapEval ∘ LgfQ)
   leading = (mapEval ◁ productRestriction-comp Q f g) ∙
     (comp-assoc LfQ LgQ mapEval ∙ ((mapPre-β g ▷ LfQ) ∙ mapPre-uncurry f (mapPre g)))
-  raw : NatIso (mapUncurry (mapPre {D = E} f ∘ mapPre g)) (mapUncurry (mapPre (g ∘ f)))
+  raw : =₁ (mapUncurry (mapPre {D = E} f ∘ mapPre g)) (mapUncurry (mapPre (g ∘ f)))
   raw = invIso β ∙ leading
 
-  liftedImage : Iso₂ (mapUncurryIso κ) raw
+  liftedImage : =₂ (mapUncurryIso κ) raw
   liftedImage = mapReflect-β (map-isAn C E) _ _ raw
-  betaSquare : Iso₂ (β ∙ mapUncurryIso κ) leading
+  betaSquare : =₂ (β ∙ mapUncurryIso κ) leading
   betaSquare = cancel-inverse β leading ∙ isoComp-cong (idIso β) liftedImage
-  restrictedBetaSquare : Iso₂ ((β ▷ HA) ∙ (mapUncurryIso κ ▷ HA)) (leading ▷ HA)
+  restrictedBetaSquare : =₂ ((β ▷ HA) ∙ (mapUncurryIso κ ▷ HA)) (leading ▷ HA)
   restrictedBetaSquare = (preWhisker HA ◁ betaSquare) ∙
     invIso (preWhisker-isoComp-at β (mapUncurryIso κ) HA)
 
@@ -57,14 +57,14 @@ module CompositorImage {X A B C E : CAT}
   action = mapUncurryIso (κ ▷ h)
   restrictedAction = mapUncurryIso κ ▷ HA
 
-  normalize : Iso₂ (mapPre-uncurry (g ∘ f) h) (prefix ∙ (r₂ ∙ r₁))
+  normalize : =₂ (mapPre-uncurry (g ∘ f) h) (prefix ∙ (r₂ ∙ r₁))
   normalize = invIso (isoComp-assoc-at r₅ (r₄ ∙ r₃) (r₂ ∙ r₁)) ∙
     isoComp-cong (idIso r₅) (invIso (isoComp-assoc-at r₄ r₃ (r₂ ∙ r₁)))
-  restrictionSquare : Iso₂ (r₁ ∙ action) (restrictedAction ∙ sourceSubstitution)
+  restrictionSquare : =₂ (r₁ ∙ action) (restrictedAction ∙ sourceSubstitution)
   restrictionSquare = mapUncurry-pre-inputs κ h
 
   abstract
-    law : Iso₂ (mapPre-uncurry (g ∘ f) h ∙ mapUncurryIso (mapPre-comp f g ▷ h))
+    law : =₂ (mapPre-uncurry (g ∘ f) h ∙ mapUncurryIso (mapPre-comp f g ▷ h))
       (prefix ∙ ((leading ▷ HA) ∙ mapUncurry-pre (mapPre f ∘ mapPre g) h))
     law = isoComp-cong (idIso prefix)
       (isoComp-cong restrictedBetaSquare (idIso sourceSubstitution)) ∙

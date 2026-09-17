@@ -41,16 +41,16 @@ module CompositorImage {X A B C E : CAT}
   prefix = r₄ ∙ (r₃ ∙ r₂)
 
   abstract
-    normalize : Iso₂ (transpose-pre (g ∘ f) h) (prefix ∙ r₁)
+    normalize : =₂ (transpose-pre (g ∘ f) h) (prefix ∙ r₁)
     normalize = invIso (isoComp-assoc-at r₄ (r₃ ∙ r₂) r₁) ∙
       isoComp-cong (idIso r₄) (invIso (isoComp-assoc-at r₃ r₂ r₁))
 
-    restricted : Iso₂ (r₁ ∙ action) (leading ▷ HA)
+    restricted : =₂ (r₁ ∙ action) (leading ▷ HA)
     restricted = (preWhisker HA ◁ funUncurry-pre-iterated h g f) ∙
       (invIso (preWhisker-isoComp-at ν uncurried-associator HA) ∙
         isoComp-cong (idIso r₁) (transposeIso-at (comp-assoc f g h)))
 
-    law : Iso₂ (transpose-pre (g ∘ f) h ∙ transposeIso (comp-assoc f g h))
+    law : =₂ (transpose-pre (g ∘ f) h ∙ transposeIso (comp-assoc f g h))
       (prefix ∙ (leading ▷ HA))
     law = isoComp-cong (idIso prefix) restricted ∙
       (isoComp-assoc-at prefix r₁ action ∙ isoComp-cong normalize (idIso action))

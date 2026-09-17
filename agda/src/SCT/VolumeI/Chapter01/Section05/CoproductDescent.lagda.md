@@ -68,7 +68,7 @@ module Descent {C D Γ Γ′ : CAT} (f : MAP C Γ) (g : MAP D Γ) (φ : MAP Γ�
   descent : MAP (Pullback f φ ⊔ Pullback g φ) Total
   descent = copair include₁ include₂
 
-  reassembly-comparison : NatIso
+  reassembly-comparison : =₁
     (reassemble totalProjection ∘ coproductMap identify₁ identify₂) descent
   reassembly-comparison = copair-cong (copair-pre₁ pb₁ pb₁ identify₁) (copair-pre₂ pb₁ pb₁ identify₂) ∙
     copair-post (in₁ ∘ identify₁) (in₂ ∘ identify₂) (reassemble totalProjection)

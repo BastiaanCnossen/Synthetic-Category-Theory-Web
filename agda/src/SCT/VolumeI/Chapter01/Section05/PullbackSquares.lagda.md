@@ -24,7 +24,7 @@ IsPullback : {C D E T : CAT} {f : MAP C E} {g : MAP D E} → Cone f g T → Set 
 IsPullback s = IsEquiv (pbLift s)
 
 pullback-η : {C D E T : CAT} {f : MAP C E} {g : MAP D E}
-  (h : MAP T (Pullback f g)) → NatIso (pbLift (conePre h (pbCone f g))) h
+  (h : MAP T (Pullback f g)) → =₁ (pbLift (conePre h (pbCone f g))) h
 pullback-η {f = f} {g} h = pullback-reflect _ h (pbLift-β (conePre h (pbCone f g)))
 
 pbCone-isPullback : {C D E : CAT} (f : MAP C E) (g : MAP D E) → IsPullback (pbCone f g)
@@ -33,7 +33,7 @@ pbCone-isPullback f g = equiv-transport
     (pbLift-β (pbCone f g))))) (id-isEquiv (Pullback f g))
 
 pbLift-cong : {C D E T : CAT} {f : MAP C E} {g : MAP D E}
-  {s t : Cone f g T} → ConeIso s t → NatIso (pbLift s) (pbLift t)
+  {s t : Cone f g T} → ConeIso s t → =₁ (pbLift s) (pbLift t)
 pbLift-cong {s = s} {t} Φ = pullback-reflect _ _
   (coneIso-compose (coneIso-inverse (pbLift-β t)) (coneIso-compose Φ (pbLift-β s)))
 
@@ -43,7 +43,7 @@ pullback-cone-invariant Φ = equiv-transport (pbLift-cong Φ)
 
 pbLift-pre : {C D E S T : CAT} {f : MAP C E} {g : MAP D E}
   (r : MAP S T) (s : Cone f g T) →
-  NatIso (pbLift (conePre r s)) (pbLift s ∘ r)
+  =₁ (pbLift (conePre r s)) (pbLift s ∘ r)
 pbLift-pre {f = f} {g} r s = pullback-reflect _ _
   (coneIso-compose (conePre-assoc r (pbLift s) (pbCone f g))
     (coneIso-compose (coneIso-inverse (coneIso-pre r (pbLift-β s)))
@@ -76,10 +76,10 @@ module UniversalCone {C D E T : CAT} {f : MAP C E} {g : MAP D E}
           (coneIso-inverse (coneIso-pre (factor s) (pbLift-β t)))))
 
   reflect : {S : CAT} (h k : MAP S T) →
-    ConeIso (conePre h t) (conePre k t) → NatIso h k
+    ConeIso (conePre h t) (conePre k t) → =₁ h k
   reflect h k Φ = equiv-reflect et h k
     (pbLift-pre k t ∙ (pbLift-cong Φ ∙ invIso (pbLift-pre h t)))
 
-  factor-η : {S : CAT} (h : MAP S T) → NatIso (factor (conePre h t)) h
+  factor-η : {S : CAT} (h : MAP S T) → =₁ (factor (conePre h t)) h
   factor-η h = reflect _ h (factor-β (conePre h t))
 ```

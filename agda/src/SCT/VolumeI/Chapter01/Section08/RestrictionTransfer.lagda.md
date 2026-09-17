@@ -82,7 +82,7 @@ module Detection {A B C D : CAT}
         (coconeIso-compose (restriction-action s (funCurry-β (mapUncurry h)))
           (fun-evaluate h′)))))))
 
-      comparison : NatIso h k
+      comparison : =₁ h k
       comparison = mapReflect xAn h k
         (funCurry-β (mapUncurry k) ∙
           (funUncurryIso (U.reflect h′ k′ fun-comparison) ∙ invIso (funCurry-β (mapUncurry h))))

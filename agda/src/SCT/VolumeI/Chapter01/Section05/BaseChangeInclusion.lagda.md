@@ -28,7 +28,7 @@ open import SCT.VolumeI.Chapter01.Section05.PullbackArrowChange 𝒯 P using (mo
 open import SCT.VolumeI.Chapter01.Section05.PullbackSymmetry 𝒯 P using (pullbackSwap)
 
 module Inclusion {C S E Z : CAT} (i : MAP C S) (h : MAP S Z) (φ : MAP E Z)
-  {f : MAP C Z} (α : NatIso f (h ∘ i)) where
+  {f : MAP C Z} (α : =₁ f (h ∘ i)) where
 
   Total = Pullback h φ
   p : MAP Total S
@@ -42,7 +42,7 @@ module Inclusion {C S E Z : CAT} (i : MAP C S) (h : MAP S Z) (φ : MAP E Z)
   identify = swapComparison ∘ inner
   include = pb₁ ∘ identify
 
-  include-normal : NatIso include (N.inner ∘ Change.forward)
+  include-normal : =₁ include (N.inner ∘ Change.forward)
   include-normal = (pbLift-β₂ N.insertionCone ▷ Change.forward) ∙
     (invIso (comp-assoc Change.forward N.insert pb₂) ∙
     ((pbLift-β₁ (coneSwap (pbCone i p)) ▷ inner) ∙ invIso (comp-assoc inner swapComparison pb₁)))
@@ -58,13 +58,13 @@ module Inclusion {C S E Z : CAT} (i : MAP C S) (h : MAP S Z) (φ : MAP E Z)
       (coneIso-compose (coneIso-inverse (conePre-assoc Change.forward N.inner (pbCone h φ)))
         (cone-action (pbCone h φ) include-normal))))
 
-  include-β₁ : NatIso (p ∘ include) (i ∘ pb₁ {f = f} {φ})
+  include-β₁ : =₁ (p ∘ include) (i ∘ pb₁ {f = f} {φ})
   include-β₁ = (i ◁ pbLift-β₁ (changeLeft α Change.source)) ∙
     (comp-assoc Change.forward N.outerLeft i ∙
     ((pbLift-β₁ N.innerCone ▷ Change.forward) ∙
     (invIso (comp-assoc Change.forward N.inner p) ∙ (p ◁ include-normal))))
 
-  include-β₂ : NatIso (q ∘ include) (pb₂ {f = f} {φ})
+  include-β₂ : =₁ (q ∘ include) (pb₂ {f = f} {φ})
   include-β₂ = pbLift-β₂ (changeLeft α Change.source) ∙
     ((pbLift-β₂ N.innerCone ▷ Change.forward) ∙
     (invIso (comp-assoc Change.forward N.inner q) ∙ (q ◁ include-normal)))
