@@ -1,0 +1,8 @@
+# Stable publication text; preserve captured source bytes for hash verification.
+* text=auto eol=lf
+*.pdf binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.png binary

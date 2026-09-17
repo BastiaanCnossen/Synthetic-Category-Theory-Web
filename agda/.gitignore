@@ -1,0 +1,9 @@
+# Keep the formalization's documentation and literate sources despite the
+# manuscript repository's global Markdown ignore rule.
+!*.md
+_build/
+*.agdai
+
+# Private planning and audit records, preserved locally.
+docs/
+PLAN.md

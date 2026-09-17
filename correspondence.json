@@ -1,0 +1,2850 @@
+{
+  "schema": 3,
+  "module_prefix": "SCT.VolumeI.Chapter01.",
+  "scope_note": "The code is checked against the supplied interface. The manuscript's contextual scope is explained separately in the Agda guide.",
+  "passages": [
+    {
+      "id": "categories",
+      "title": "Categories",
+      "note": "CAT is an assumed type in Vocabulary, not an inductive datatype.",
+      "declarations": [
+        {
+          "module": "Section01.Vocabulary",
+          "name": "CAT",
+          "qualified": "Vocabulary.CAT",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "animae",
+      "title": "Animae among categories",
+      "note": "isAn is the primitive predicate. AN bundles a category with a witness; structural recognition as a groupoid belongs later.",
+      "declarations": [
+        {
+          "module": "Section01.Vocabulary",
+          "name": "isAn",
+          "qualified": "Vocabulary.isAn",
+          "role": "assumption"
+        },
+        {
+          "module": "Section01.Vocabulary",
+          "name": "AN",
+          "qualified": "Vocabulary.AN",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "functors",
+      "title": "Functors",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Vocabulary",
+          "name": "MAP",
+          "qualified": "Vocabulary.MAP",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "identity-functor",
+      "title": "Identity functors",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Vocabulary",
+          "name": "id",
+          "qualified": "Vocabulary.id",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "composite-functor",
+      "title": "Composition of functors",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Vocabulary",
+          "name": "_∘_",
+          "qualified": "Vocabulary._∘_",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "isomorphism-anima",
+      "title": "The isomorphism anima",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Vocabulary",
+          "name": "_≅_",
+          "qualified": "Vocabulary._≅_",
+          "role": "assumption"
+        },
+        {
+          "module": "Section01.Vocabulary",
+          "name": "iso-isAn",
+          "qualified": "Vocabulary.iso-isAn",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "postwhiskering",
+      "title": "Postwhiskering",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Vocabulary",
+          "name": "postWhisker",
+          "qualified": "Vocabulary.postWhisker",
+          "role": "assumption"
+        },
+        {
+          "module": "Section01.Vocabulary",
+          "name": "_◁_",
+          "qualified": "Operations._◁_",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "prewhiskering",
+      "title": "Prewhiskering",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Vocabulary",
+          "name": "preWhisker",
+          "qualified": "Vocabulary.preWhisker",
+          "role": "assumption"
+        },
+        {
+          "module": "Section01.Vocabulary",
+          "name": "_▷_",
+          "qualified": "Operations._▷_",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "inverse-functor",
+      "title": "Inversion",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Vocabulary",
+          "name": "isoInv",
+          "qualified": "Vocabulary.isoInv",
+          "role": "assumption"
+        },
+        {
+          "module": "Section01.Vocabulary",
+          "name": "invIso",
+          "qualified": "Operations.invIso",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "term-notation",
+      "title": "Terms are functors",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Terms",
+          "name": "Term",
+          "qualified": "Term",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "substitution-intro",
+      "title": "Substitution",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Terms",
+          "name": "substitute",
+          "qualified": "substitute",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "terminal-anima-intro",
+      "title": "The distinguished terminal anima",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Vocabulary",
+          "name": "One",
+          "qualified": "Vocabulary.One",
+          "role": "assumption"
+        },
+        {
+          "module": "Section01.Vocabulary",
+          "name": "one-isAn",
+          "qualified": "Vocabulary.one-isAn",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "absolute-object",
+      "title": "Absolute objects",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Vocabulary",
+          "name": "ObjAbs",
+          "qualified": "Vocabulary.ObjAbs",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "natural-isomorphism",
+      "title": "Natural isomorphisms",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Vocabulary",
+          "name": "NatIso",
+          "qualified": "Vocabulary.NatIso",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "higher-identifications",
+      "title": "Identifications of identifications",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Vocabulary",
+          "name": "Iso₂",
+          "qualified": "Vocabulary.Iso₂",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "equivalence-data",
+      "title": "Equivalence data",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Vocabulary",
+          "name": "IsEquiv",
+          "qualified": "Vocabulary.IsEquiv",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "equivalence-inverse",
+      "title": "A chosen inverse",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Vocabulary",
+          "name": "inverse",
+          "qualified": "Vocabulary.IsEquiv.inverse",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "unnamed-equivalence",
+      "title": "An unnamed equivalence",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Vocabulary",
+          "name": "Equiv",
+          "qualified": "Vocabulary.Equiv",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "terminal-category",
+      "title": "The terminal category",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Vocabulary",
+          "name": "One",
+          "qualified": "Vocabulary.One",
+          "role": "assumption"
+        },
+        {
+          "module": "Section01.Vocabulary",
+          "name": "one-isAn",
+          "qualified": "Vocabulary.one-isAn",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "terminal-map",
+      "title": "The terminal functor",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Terminal",
+          "name": "terminate",
+          "qualified": "TerminalStructure.terminate",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "terminal-universality",
+      "title": "Terminal universality",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Terminal",
+          "name": "terminalIso-isEquiv",
+          "qualified": "TerminalStructure.terminalIso-isEquiv",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "terminal-unique",
+      "title": "Uniqueness of terminal maps",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Terminal",
+          "name": "terminal-iso",
+          "qualified": "Constructions.terminal-iso",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "terminal-contractible",
+      "title": "Contractibility of terminal comparisons",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Contractibility",
+          "name": "terminalIso-contractible",
+          "qualified": "terminalIso-contractible",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "constant-functor",
+      "title": "Constant functors",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Terminal",
+          "name": "const",
+          "qualified": "Constructions.const",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "contractible-category",
+      "title": "Contractible categories",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Terminal",
+          "name": "IsContractible",
+          "qualified": "Constructions.IsContractible",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "contractibility-characterization",
+      "title": "Characterizing contractibility",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Contractibility",
+          "name": "contractible-to-contraction",
+          "qualified": "contractible-to-contraction",
+          "role": "derived"
+        },
+        {
+          "module": "Section01.Contractibility",
+          "name": "contraction-to-contractible",
+          "qualified": "contraction-to-contractible",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "contraction",
+      "title": "Contractions",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Contractibility",
+          "name": "Contraction",
+          "qualified": "Contraction",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "product-category",
+      "title": "Binary products",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Products",
+          "name": "_×_",
+          "qualified": "ProductData._×_",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "product-projections",
+      "title": "The two projections",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Products",
+          "name": "pr₁",
+          "qualified": "ProductData.pr₁",
+          "role": "assumption"
+        },
+        {
+          "module": "Section01.Products",
+          "name": "pr₂",
+          "qualified": "ProductData.pr₂",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "pairing-functor",
+      "title": "Pairing functors",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Products",
+          "name": "pair",
+          "qualified": "ProductData.pair",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "pairing-comparisons",
+      "title": "Projection comparisons",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Products",
+          "name": "pair-β₁",
+          "qualified": "ProductData.pair-β₁",
+          "role": "assumption"
+        },
+        {
+          "module": "Section01.Products",
+          "name": "pair-β₂",
+          "qualified": "ProductData.pair-β₂",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "product-universality",
+      "title": "Universality on isomorphism animae",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Products",
+          "name": "product-isoMap",
+          "qualified": "Comparison.product-isoMap",
+          "role": "definition"
+        },
+        {
+          "module": "Section01.Products",
+          "name": "product-isoMap-isEquiv",
+          "qualified": "ProductLaws.product-isoMap-isEquiv",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "product-anima",
+      "title": "Products of animae",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Products",
+          "name": "product-isAn",
+          "qualified": "ProductData.product-isAn",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "pairing-terms",
+      "title": "Pairing terms",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Products",
+          "name": "pair",
+          "qualified": "ProductData.pair",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "pairing-identifications",
+      "title": "Lifting the two comparisons",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Specialization",
+          "name": "pair-iso",
+          "qualified": "pair-iso",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "pairing-identification-projections",
+      "title": "Projections of a lifted comparison",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Specialization",
+          "name": "pair-iso-β₁",
+          "qualified": "pair-iso-β₁",
+          "role": "derived"
+        },
+        {
+          "module": "Section01.Specialization",
+          "name": "pair-iso-β₂",
+          "qualified": "pair-iso-β₂",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "product-context",
+      "title": "Product parameter notation",
+      "note": "The code uses projection functors from a product parameter. This is an association with the underlying operations, not a separate formal syntax of contexts.",
+      "declarations": [
+        {
+          "module": "Section01.Products",
+          "name": "pr₁",
+          "qualified": "ProductData.pr₁",
+          "role": "assumption"
+        },
+        {
+          "module": "Section01.Products",
+          "name": "pr₂",
+          "qualified": "ProductData.pr₂",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "identity-natural-isomorphism",
+      "title": "Identity natural isomorphisms",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Coherence",
+          "name": "idIso",
+          "qualified": "CompositionStructure.idIso",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "vertical-composition",
+      "title": "Vertical composition",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Coherence",
+          "name": "isoComp",
+          "qualified": "CompositionStructure.isoComp",
+          "role": "assumption"
+        },
+        {
+          "module": "Section01.Coherence",
+          "name": "_∙_",
+          "qualified": "Composition._∙_",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "vertical-units",
+      "title": "The vertical unit comparisons",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Coherence",
+          "name": "isoComp-unitˡ",
+          "qualified": "VerticalCoherence.isoComp-unitˡ",
+          "role": "assumption"
+        },
+        {
+          "module": "Section01.Coherence",
+          "name": "isoComp-unitʳ",
+          "qualified": "VerticalCoherence.isoComp-unitʳ",
+          "role": "assumption"
+        },
+        {
+          "module": "Section01.Specialization",
+          "name": "isoComp-unitˡ-at",
+          "qualified": "Units.isoComp-unitˡ-at",
+          "role": "derived"
+        },
+        {
+          "module": "Section01.Specialization",
+          "name": "isoComp-unitʳ-at",
+          "qualified": "Units.isoComp-unitʳ-at",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "vertical-associativity",
+      "title": "Vertical associativity",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Coherence",
+          "name": "isoComp-assoc",
+          "qualified": "VerticalCoherence.isoComp-assoc",
+          "role": "assumption"
+        },
+        {
+          "module": "Section01.Specialization",
+          "name": "isoComp-assoc-at",
+          "qualified": "Units.isoComp-assoc-at",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "vertical-inverses",
+      "title": "Two-sided inverses",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Coherence",
+          "name": "isoComp-inverseˡ",
+          "qualified": "VerticalCoherence.isoComp-inverseˡ",
+          "role": "assumption"
+        },
+        {
+          "module": "Section01.Coherence",
+          "name": "isoComp-inverseʳ",
+          "qualified": "VerticalCoherence.isoComp-inverseʳ",
+          "role": "assumption"
+        },
+        {
+          "module": "Section01.Specialization",
+          "name": "isoComp-inverseˡ-at",
+          "qualified": "Units.isoComp-inverseˡ-at",
+          "role": "derived"
+        },
+        {
+          "module": "Section01.Specialization",
+          "name": "isoComp-inverseʳ-at",
+          "qualified": "Units.isoComp-inverseʳ-at",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "functor-associator-unitors",
+      "title": "Functor unitors and associator",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Coherence",
+          "name": "comp-unitˡ",
+          "qualified": "CompositionStructure.comp-unitˡ",
+          "role": "assumption"
+        },
+        {
+          "module": "Section01.Coherence",
+          "name": "comp-unitʳ",
+          "qualified": "CompositionStructure.comp-unitʳ",
+          "role": "assumption"
+        },
+        {
+          "module": "Section01.Coherence",
+          "name": "comp-assoc",
+          "qualified": "CompositionStructure.comp-assoc",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "whiskering-identities",
+      "title": "Whiskering preserves identities",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Coherence",
+          "name": "postWhisker-idIso",
+          "qualified": "WhiskeringCoherence.postWhisker-idIso",
+          "role": "assumption"
+        },
+        {
+          "module": "Section01.Coherence",
+          "name": "preWhisker-idIso",
+          "qualified": "WhiskeringCoherence.preWhisker-idIso",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "whiskering-composition",
+      "title": "Whiskering preserves vertical composition",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Coherence",
+          "name": "postWhisker-isoComp",
+          "qualified": "WhiskeringCoherence.postWhisker-isoComp",
+          "role": "assumption"
+        },
+        {
+          "module": "Section01.Coherence",
+          "name": "preWhisker-isoComp",
+          "qualified": "WhiskeringCoherence.preWhisker-isoComp",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "whiskering-unitors",
+      "title": "Whiskering by identity functors",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Coherence",
+          "name": "postWhisker-id",
+          "qualified": "WhiskeringCoherence.postWhisker-id",
+          "role": "assumption"
+        },
+        {
+          "module": "Section01.Coherence",
+          "name": "preWhisker-id",
+          "qualified": "WhiskeringCoherence.preWhisker-id",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "whiskering-composites",
+      "title": "Whiskering by composites",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Coherence",
+          "name": "postWhisker-comp",
+          "qualified": "WhiskeringCoherence.postWhisker-comp",
+          "role": "assumption"
+        },
+        {
+          "module": "Section01.Coherence",
+          "name": "preWhisker-comp",
+          "qualified": "WhiskeringCoherence.preWhisker-comp",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "whiskering-mixed",
+      "title": "The two orders of whiskering",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Coherence",
+          "name": "whisker-mixed",
+          "qualified": "WhiskeringCoherence.whisker-mixed",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "joint-interchange",
+      "title": "Joint interchange",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Coherence",
+          "name": "interchange-joint",
+          "qualified": "WhiskeringCoherence.interchange-joint",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "interchange-restrictions",
+      "title": "Restrictions of joint interchange",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Specialization",
+          "name": "interchange-fixedOuter",
+          "qualified": "Whiskering.interchange-fixedOuter",
+          "role": "derived"
+        },
+        {
+          "module": "Section01.Specialization",
+          "name": "interchange-fixedInner",
+          "qualified": "Whiskering.interchange-fixedInner",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "horizontal-composition",
+      "title": "Horizontal composition",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Coherence",
+          "name": "_⋆_",
+          "qualified": "Composition._⋆_",
+          "role": "definition"
+        },
+        {
+          "module": "Section01.Coherence",
+          "name": "isoHComp",
+          "qualified": "Composition.isoHComp",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "horizontal-interchange",
+      "title": "The other horizontal pasting",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Isomorphisms",
+          "name": "hcomp-interchange",
+          "qualified": "hcomp-interchange",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "horizontal-identifications",
+      "title": "Horizontal action on identifications",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Specialization",
+          "name": "hcomp-cong",
+          "qualified": "hcomp-cong",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "horizontal-preservation",
+      "title": "Horizontal preservation",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Isomorphisms",
+          "name": "hcomp-idIso",
+          "qualified": "hcomp-idIso",
+          "role": "derived"
+        },
+        {
+          "module": "Section01.JointPreservation",
+          "name": "hcomp-isoComp-family",
+          "qualified": "hcomp-isoComp-family",
+          "role": "derived"
+        },
+        {
+          "module": "Section01.JointPreservation",
+          "name": "preservation",
+          "qualified": "FourInputs.preservation",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "commutative-square",
+      "title": "Commutative squares",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Diagrams",
+          "name": "FunctorSquare",
+          "qualified": "FunctorSquare",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "natural-isomorphism-square",
+      "title": "Squares of natural isomorphisms",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Diagrams",
+          "name": "NatIsoSquare",
+          "qualified": "NatIsoSquare",
+          "role": "definition"
+        },
+        {
+          "module": "Section01.Diagrams",
+          "name": "Iso₂Square",
+          "qualified": "Iso₂Square",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "commutative-triangle",
+      "title": "Commutative triangles",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Diagrams",
+          "name": "FunctorTriangle",
+          "qualified": "FunctorTriangle",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "natural-isomorphism-triangle",
+      "title": "Triangles of natural isomorphisms",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Diagrams",
+          "name": "NatIsoTriangle",
+          "qualified": "NatIsoTriangle",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "horizontal-unitors",
+      "title": "Horizontal unit comparisons",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Coherence",
+          "name": "hcomp-unitˡ",
+          "qualified": "HorizontalCoherence.hcomp-unitˡ",
+          "role": "assumption"
+        },
+        {
+          "module": "Section01.Coherence",
+          "name": "hcomp-unitʳ",
+          "qualified": "HorizontalCoherence.hcomp-unitʳ",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "horizontal-associator",
+      "title": "Horizontal associativity comparison",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Coherence",
+          "name": "hcomp-assoc",
+          "qualified": "HorizontalCoherence.hcomp-assoc",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "comparison-square",
+      "title": "Comparison squares with different endpoints",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Diagrams",
+          "name": "NatIsoSquare",
+          "qualified": "NatIsoSquare",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "pentagon",
+      "title": "The pentagon",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Coherence",
+          "name": "comp-pentagon",
+          "qualified": "PentagonTriangleCoherence.comp-pentagon",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "triangle",
+      "title": "The triangle identity",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Coherence",
+          "name": "comp-triangle",
+          "qualified": "PentagonTriangleCoherence.comp-triangle",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "expression-functor",
+      "title": "Expressions display functors",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Terms",
+          "name": "Term",
+          "qualified": "Term",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "substitution",
+      "title": "Substitution by a functor",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Terms",
+          "name": "substitute",
+          "qualified": "substitute",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "substitution-laws",
+      "title": "Substitution laws",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Coherence",
+          "name": "comp-unitˡ",
+          "qualified": "CompositionStructure.comp-unitˡ",
+          "role": "assumption"
+        },
+        {
+          "module": "Section01.Coherence",
+          "name": "comp-unitʳ",
+          "qualified": "CompositionStructure.comp-unitʳ",
+          "role": "assumption"
+        },
+        {
+          "module": "Section01.Coherence",
+          "name": "comp-assoc",
+          "qualified": "CompositionStructure.comp-assoc",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "whole-expression-isomorphism",
+      "title": "Isomorphisms of whole expressions",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Vocabulary",
+          "name": "NatIso",
+          "qualified": "Vocabulary.NatIso",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "universal-term",
+      "title": "The universal term",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Terms",
+          "name": "universalTerm",
+          "qualified": "universalTerm",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "operations-on-terms",
+      "title": "An operation acts by composition",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Vocabulary",
+          "name": "_∘_",
+          "qualified": "Vocabulary._∘_",
+          "role": "assumption"
+        },
+        {
+          "module": "Section01.Terms",
+          "name": "substitute",
+          "qualified": "substitute",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "operations-on-isomorphisms",
+      "title": "Prewhiskering on expressions",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Vocabulary",
+          "name": "preWhisker",
+          "qualified": "Vocabulary.preWhisker",
+          "role": "assumption"
+        },
+        {
+          "module": "Section01.Vocabulary",
+          "name": "_▷_",
+          "qualified": "Operations._▷_",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary"
+    },
+    {
+      "id": "equivalences-as-naive-bijections",
+      "title": "Equivalences as naive bijections",
+      "note": "The two fields are hypotheses defining NaiveBijection, not primitive assumptions of SCT. The record supplies external operations choosing the lifts and reflected comparisons; no functorial inverse on an isomorphism anima is assumed.",
+      "declarations": [
+        {
+          "module": "Section02.Equivalences",
+          "name": "NaiveBijection",
+          "qualified": "NaiveBijection",
+          "role": "definition"
+        },
+        {
+          "module": "Section02.Equivalences",
+          "name": "naive-bijection-isEquiv",
+          "qualified": "naive-bijection-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "equivalences-as-naive-bijections-step-1",
+      "title": "Equivalences as naive bijections step 1",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section02.Equivalences",
+          "name": "reflect",
+          "qualified": "NaiveBijection.reflect",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "equivalences-as-naive-bijections-step-2",
+      "title": "Equivalences as naive bijections step 2",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section02.Equivalences",
+          "name": "lift",
+          "qualified": "NaiveBijection.lift",
+          "role": "definition"
+        },
+        {
+          "module": "Section02.Equivalences",
+          "name": "FunctorLift",
+          "qualified": "FunctorLift",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "equivalences-as-naive-bijections-step-3",
+      "title": "Equivalences as naive bijections step 3",
+      "note": "Local let bindings in this declaration, not independent declarations.",
+      "declarations": [
+        {
+          "module": "Section02.Equivalences",
+          "name": "naive-bijection-isEquiv",
+          "qualified": "naive-bijection-isEquiv",
+          "role": "derived",
+          "regions": [
+            "naive-bijection-inverse-data"
+          ]
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "equivalences-as-naive-bijections-step-4",
+      "title": "Equivalences as naive bijections step 4",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section02.Equivalences",
+          "name": "naive-bijection-isEquiv",
+          "qualified": "naive-bijection-isEquiv",
+          "role": "derived",
+          "regions": [
+            "naive-bijection-reflection"
+          ]
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "equivalences-as-naive-bijections-step-5",
+      "title": "Equivalences as naive bijections step 5",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section02.Equivalences",
+          "name": "naive-bijection-isEquiv",
+          "qualified": "naive-bijection-isEquiv",
+          "role": "derived",
+          "regions": [
+            "naive-bijection-reflection"
+          ]
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "section",
+      "title": "Section",
+      "note": "Keep both orientations: Section.comparison: f ∘ section → id D; Retraction.comparison: id C → retraction ∘ f. These are witness-record definitions, not new axioms.",
+      "declarations": [
+        {
+          "module": "Section02.Equivalences",
+          "name": "Section",
+          "qualified": "Section",
+          "role": "definition"
+        },
+        {
+          "module": "Section02.Equivalences",
+          "name": "Retraction",
+          "qualified": "Retraction",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "section-step-1",
+      "title": "Section step 1",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section02.Equivalences",
+          "name": "Retraction",
+          "qualified": "Retraction",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "inverse-on-both-sides-implies-equivalence",
+      "title": "Inverse on both sides implies equivalence",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section02.Equivalences",
+          "name": "section-retraction-isEquiv",
+          "qualified": "section-retraction-isEquiv",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.Equivalences",
+          "name": "equiv-section",
+          "qualified": "equiv-section",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.Equivalences",
+          "name": "equiv-retraction",
+          "qualified": "equiv-retraction",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.Equivalences",
+          "name": "section-retraction-iso",
+          "qualified": "section-retraction-iso",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "inverse-on-both-sides-implies-equivalence-step-1",
+      "title": "Inverse on both sides implies equivalence step 1",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section02.Equivalences",
+          "name": "equiv-section",
+          "qualified": "equiv-section",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.Equivalences",
+          "name": "equiv-retraction",
+          "qualified": "equiv-retraction",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "inverse-on-both-sides-implies-equivalence-step-2",
+      "title": "Inverse on both sides implies equivalence step 2",
+      "note": "The complete checked expression is the whole displayed chain, with explicit unitors and associator.",
+      "declarations": [
+        {
+          "module": "Section02.Equivalences",
+          "name": "section-retraction-iso",
+          "qualified": "section-retraction-iso",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "inverse-on-both-sides-implies-equivalence-step-3",
+      "title": "Inverse on both sides implies equivalence step 3",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section02.Equivalences",
+          "name": "section-retraction-isEquiv",
+          "qualified": "section-retraction-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "uniqueness-of-equivalence-inverses",
+      "title": "Uniqueness of equivalence inverses",
+      "note": "Compares underlying inverse functors. It does not prove equality, irrelevance, or contractibility of the IsEquiv record or its chosen inverse comparisons.",
+      "declarations": [
+        {
+          "module": "Section02.Equivalences",
+          "name": "inverse-unique",
+          "qualified": "inverse-unique",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "composite-of-equivalences",
+      "title": "Composite of equivalences",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section02.Equivalences",
+          "name": "equiv-compose",
+          "qualified": "equiv-compose",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "composite-of-equivalences-step-1",
+      "title": "Composite of equivalences step 1",
+      "note": "left has boundary from (u ∘ v) ∘ (g ∘ f) to id C; sectionIso inverts it.",
+      "declarations": [
+        {
+          "module": "Section02.Equivalences",
+          "name": "equiv-compose",
+          "qualified": "equiv-compose",
+          "role": "derived",
+          "regions": [
+            "equiv-compose-left"
+          ]
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "composite-of-equivalences-step-2",
+      "title": "Composite of equivalences step 2",
+      "note": "right is the second inverse chain; retractionIso inverts it.",
+      "declarations": [
+        {
+          "module": "Section02.Equivalences",
+          "name": "equiv-compose",
+          "qualified": "equiv-compose",
+          "role": "derived",
+          "regions": [
+            "equiv-compose-right"
+          ]
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "transport-of-equivalence",
+      "title": "Transport of equivalences",
+      "note": "",
+      "tex_label": "lem:Transport_Of_Equivalence",
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences",
+      "declarations": [
+        {
+          "module": "Section02.Equivalences",
+          "name": "equiv-transport",
+          "qualified": "equiv-transport",
+          "role": "derived"
+        }
+      ]
+    },
+    {
+      "id": "equivalences-satisfy-2-out-of-3",
+      "title": "Equivalences satisfy 2 out of 3",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section02.Equivalences",
+          "name": "equiv-compose",
+          "qualified": "equiv-compose",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.Equivalences",
+          "name": "equiv-cancel-right",
+          "qualified": "equiv-cancel-right",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.Equivalences",
+          "name": "equiv-cancel-left",
+          "qualified": "equiv-cancel-left",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "equivalences-satisfy-2-out-of-3-step-1",
+      "title": "Equivalences satisfy 2 out of 3 step 1",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section02.Equivalences",
+          "name": "equiv-compose",
+          "qualified": "equiv-compose",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "equivalences-satisfy-2-out-of-3-step-2",
+      "title": "Equivalences satisfy 2 out of 3 step 2",
+      "note": "The formal comparison in equiv-cancel-right is oriented from the composite to g, opposite the prose display. It is an inverse natural isomorphism, not host equality.",
+      "declarations": [
+        {
+          "module": "Section02.Equivalences",
+          "name": "equiv-cancel-right",
+          "qualified": "equiv-cancel-right",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.Equivalences",
+          "name": "equiv-inverse",
+          "qualified": "equiv-inverse",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.Equivalences",
+          "name": "equiv-transport",
+          "qualified": "equiv-transport",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "equivalences-satisfy-2-out-of-3-step-3",
+      "title": "Equivalences satisfy 2 out of 3 step 3",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section02.Equivalences",
+          "name": "equiv-cancel-left",
+          "qualified": "equiv-cancel-left",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "two-out-of-six-for-equivalences",
+      "title": "Two out of six for equivalences",
+      "note": "Composite field is IsEquiv (h ∘ (g ∘ f)); the book suppresses this parenthesization.",
+      "declarations": [
+        {
+          "module": "Section02.Equivalences",
+          "name": "TwoOutOfSix",
+          "qualified": "TwoOutOfSix",
+          "role": "definition"
+        },
+        {
+          "module": "Section02.Equivalences",
+          "name": "two-out-of-six",
+          "qualified": "two-out-of-six",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "two-out-of-six-for-equivalences-step-1",
+      "title": "Two out of six for equivalences step 1",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section02.Equivalences",
+          "name": "two-out-of-six",
+          "qualified": "two-out-of-six",
+          "role": "derived",
+          "regions": [
+            "two-out-of-six-inverses",
+            "two-out-of-six-section",
+            "two-out-of-six-retraction"
+          ]
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "two-out-of-six-for-equivalences-step-2",
+      "title": "Two out of six for equivalences step 2",
+      "note": "s is a local record value, not a separately qualified public declaration.",
+      "declarations": [
+        {
+          "module": "Section02.Equivalences",
+          "name": "two-out-of-six",
+          "qualified": "two-out-of-six",
+          "role": "derived",
+          "regions": [
+            "two-out-of-six-section"
+          ]
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "two-out-of-six-for-equivalences-step-3",
+      "title": "Two out of six for equivalences step 3",
+      "note": "The Retraction record stores the inverse orientation id D → (v ∘ h) ∘ g.",
+      "declarations": [
+        {
+          "module": "Section02.Equivalences",
+          "name": "two-out-of-six",
+          "qualified": "two-out-of-six",
+          "role": "derived",
+          "regions": [
+            "two-out-of-six-retraction"
+          ]
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "two-out-of-six-for-equivalences-step-4",
+      "title": "Two out of six for equivalences step 4",
+      "note": "Scope to this proof when selecting this short phrase.",
+      "declarations": [
+        {
+          "module": "Section02.Equivalences",
+          "name": "two-out-of-six",
+          "qualified": "two-out-of-six",
+          "role": "derived",
+          "regions": [
+            "two-out-of-six-middle"
+          ]
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "two-out-of-six-for-equivalences-step-5",
+      "title": "Two out of six for equivalences step 5",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section02.Equivalences",
+          "name": "two-out-of-six",
+          "qualified": "two-out-of-six",
+          "role": "derived",
+          "regions": [
+            "two-out-of-six-conclusion"
+          ]
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "retract",
+      "title": "Retract",
+      "note": "RetractDiagram alone is insufficient: include Retract.compatibility. The squares are specified natural isomorphisms, not strict commutativity.",
+      "declarations": [
+        {
+          "module": "Section02.Retracts",
+          "name": "RetractDiagram",
+          "qualified": "RetractDiagram",
+          "role": "definition"
+        },
+        {
+          "module": "Section02.Retracts",
+          "name": "Retract",
+          "qualified": "Retract",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "retract-step-1",
+      "title": "Retract step 1",
+      "note": "loop is the chosen explicit parenthesization of the entire displayed chain; preserve endpoint data.",
+      "declarations": [
+        {
+          "module": "Section02.Retracts",
+          "name": "compatibility",
+          "qualified": "Retract.compatibility",
+          "role": "definition"
+        },
+        {
+          "module": "Section02.Retracts",
+          "name": "loop",
+          "qualified": "RetractDiagram.loop",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "equivalences-closed-under-retracts",
+      "title": "Equivalences closed under retracts",
+      "note": "The proof does not use Retract.compatibility, but its input retains that requirement. Do not weaken the displayed definition.",
+      "declarations": [
+        {
+          "module": "Section02.Retracts",
+          "name": "retract-isEquiv",
+          "qualified": "retract-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "equivalences-closed-under-retracts-step-1",
+      "title": "Equivalences closed under retracts step 1",
+      "note": "w is h ∘ (u ∘ k).",
+      "declarations": [
+        {
+          "module": "Section02.Retracts",
+          "name": "retract-isEquiv",
+          "qualified": "retract-isEquiv",
+          "role": "derived",
+          "regions": [
+            "retract-inverse"
+          ]
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "equivalences-closed-under-retracts-step-2",
+      "title": "Equivalences closed under retracts step 2",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section02.Retracts",
+          "name": "retract-isEquiv",
+          "qualified": "retract-isEquiv",
+          "role": "derived",
+          "regions": [
+            "retract-counit"
+          ]
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "equivalences-closed-under-retracts-step-3",
+      "title": "Equivalences closed under retracts step 3",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section02.Retracts",
+          "name": "retract-isEquiv",
+          "qualified": "retract-isEquiv",
+          "role": "derived",
+          "regions": [
+            "retract-inverse-unit"
+          ]
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "whiskering-by-equivalence",
+      "title": "Whiskering by equivalence",
+      "note": "Actual functors between isomorphism animae, not merely functions on their absolute points. Requires the parameterized coherence interface VC/W.",
+      "declarations": [
+        {
+          "module": "Section02.Whiskering",
+          "name": "postWhisker-isEquiv",
+          "qualified": "postWhisker-isEquiv",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.Whiskering",
+          "name": "preWhisker-isEquiv",
+          "qualified": "preWhisker-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "whiskering-by-equivalence-step-1",
+      "title": "Whiskering by equivalence step 1",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section02.Whiskering",
+          "name": "leftMultiply-isEquiv",
+          "qualified": "leftMultiply-isEquiv",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.Whiskering",
+          "name": "rightMultiply-isEquiv",
+          "qualified": "rightMultiply-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "whiskering-by-equivalence-step-2",
+      "title": "Whiskering by equivalence step 2",
+      "note": "These are transfer lemmas jointly implementing the passage, not one theorem claiming literal equality of whiskering composites. Endpoint associators are retained.",
+      "declarations": [
+        {
+          "module": "Section02.Whiskering",
+          "name": "post-change",
+          "qualified": "post-change",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.Whiskering",
+          "name": "post-composite",
+          "qualified": "post-composite",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.Whiskering",
+          "name": "post-id",
+          "qualified": "post-id",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.Whiskering",
+          "name": "square-left",
+          "qualified": "square-left",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.Whiskering",
+          "name": "square-right",
+          "qualified": "square-right",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "whiskering-by-equivalence-step-3",
+      "title": "Whiskering by equivalence step 3",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section02.Whiskering",
+          "name": "postWhisker-isEquiv",
+          "qualified": "postWhisker-isEquiv",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.Equivalences",
+          "name": "two-out-of-six",
+          "qualified": "two-out-of-six",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "whiskering-by-equivalence-step-4",
+      "title": "Whiskering by equivalence step 4",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section02.Whiskering",
+          "name": "preWhisker-isEquiv",
+          "qualified": "preWhisker-isEquiv",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.Whiskering",
+          "name": "pre-change",
+          "qualified": "pre-change",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.Whiskering",
+          "name": "pre-composite",
+          "qualified": "pre-composite",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.Whiskering",
+          "name": "pre-id",
+          "qualified": "pre-id",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "whiskering-by-equivalence-step-5",
+      "title": "Lifting natural isomorphisms through equivalences",
+      "note": "Each lift carries a comparison to the requested image.",
+      "declarations": [
+        {
+          "module": "Section02.Whiskering",
+          "name": "postWhisker-lift",
+          "qualified": "postWhisker-lift",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.Whiskering",
+          "name": "preWhisker-lift",
+          "qualified": "preWhisker-lift",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.Whiskering",
+          "name": "lift-along",
+          "qualified": "lift-along",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.Equivalences",
+          "name": "FunctorLift",
+          "qualified": "FunctorLift",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "whiskering-by-equivalence-step-6",
+      "title": "Lifting and reflecting identifications",
+      "note": "Higher lifting is a FunctorLift with comparison. Reflection uses equiv-reflect applied to the equivalence of isomorphism animae.",
+      "declarations": [
+        {
+          "module": "Section02.Whiskering",
+          "name": "postWhisker-Iso₂-lift",
+          "qualified": "postWhisker-Iso₂-lift",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.Whiskering",
+          "name": "preWhisker-Iso₂-lift",
+          "qualified": "preWhisker-Iso₂-lift",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.Equivalences",
+          "name": "equiv-reflect",
+          "qualified": "equiv-reflect",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "span",
+      "title": "Spans",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Diagrams",
+          "name": "Span",
+          "qualified": "Span",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "terminal-span",
+      "title": "The product span",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Diagrams",
+          "name": "productSpan",
+          "qualified": "productSpan",
+          "role": "derived"
+        },
+        {
+          "module": "Section01.Diagrams",
+          "name": "toProductSpan",
+          "qualified": "toProductSpan",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "span-uniqueness",
+      "title": "Comparison of maps of spans",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section01.Diagrams",
+          "name": "SpanMap",
+          "qualified": "SpanMap",
+          "role": "definition"
+        },
+        {
+          "module": "Section01.Diagrams",
+          "name": "SpanMapIso",
+          "qualified": "SpanMapIso",
+          "role": "definition"
+        },
+        {
+          "module": "Section01.Diagrams",
+          "name": "productSpan-unique",
+          "qualified": "Uniqueness.productSpan-unique",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "symmetry-of-products",
+      "title": "Symmetry of products",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section02.Products",
+          "name": "swap",
+          "qualified": "swap",
+          "role": "definition"
+        },
+        {
+          "module": "Section02.Products",
+          "name": "swap-swap",
+          "qualified": "swap-swap",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.Products",
+          "name": "swap-isEquiv",
+          "qualified": "swap-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "symmetry-of-products-step-1",
+      "title": "Symmetry of products step 1",
+      "note": "swap-isEquiv uses swap-swap C D and swap-swap D C.",
+      "declarations": [
+        {
+          "module": "Section02.Products",
+          "name": "swap-swap",
+          "qualified": "swap-swap",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "symmetry-of-products-step-2",
+      "title": "Symmetry of products step 2",
+      "note": "project-pair₁ alone is only the first part of the displayed chain, so keep the owner declaration.",
+      "declarations": [
+        {
+          "module": "Section02.Products",
+          "name": "project-pair₁",
+          "qualified": "project-pair₁",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.Products",
+          "name": "swap-swap",
+          "qualified": "swap-swap",
+          "role": "derived",
+          "regions": [
+            "swap-swap-first-projection"
+          ]
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "symmetry-of-products-step-3",
+      "title": "Symmetry of products step 3",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section02.Products",
+          "name": "project-pair₂",
+          "qualified": "project-pair₂",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.Products",
+          "name": "swap-swap",
+          "qualified": "swap-swap",
+          "role": "derived",
+          "regions": [
+            "swap-swap-second-projection"
+          ]
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "unitality-product-of-categories",
+      "title": "Unitality product of categories",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section02.Products",
+          "name": "product-unit-inverse",
+          "qualified": "product-unit-inverse",
+          "role": "definition"
+        },
+        {
+          "module": "Section02.Products",
+          "name": "product-unit-section",
+          "qualified": "product-unit-section",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.Products",
+          "name": "product-unit-isEquiv",
+          "qualified": "product-unit-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "unitality-product-of-categories-step-1",
+      "title": "Unitality product of categories step 1",
+      "note": "Uses Section01.Products.ProductData.pair-β₁ specialized to id C and terminate C, then inverted for IsEquiv convention.",
+      "declarations": [
+        {
+          "module": "Section02.Products",
+          "name": "product-unit-isEquiv",
+          "qualified": "product-unit-isEquiv",
+          "role": "derived",
+          "regions": [
+            "product-unit-retraction"
+          ]
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "unitality-product-of-categories-step-2",
+      "title": "Unitality product of categories step 2",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section02.Products",
+          "name": "product-unit-section",
+          "qualified": "product-unit-section",
+          "role": "derived"
+        },
+        {
+          "module": "Section01.Terminal",
+          "name": "terminal-iso",
+          "qualified": "Constructions.terminal-iso",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "unitality-product-of-categories-step-3",
+      "title": "Unitality product of categories step 3",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section02.Products",
+          "name": "product-unit-section",
+          "qualified": "product-unit-section",
+          "role": "derived",
+          "regions": [
+            "product-unit-first-projection"
+          ]
+        },
+        {
+          "module": "Section02.Products",
+          "name": "project-pair₁",
+          "qualified": "project-pair₁",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "product-associativity-exercise",
+      "title": "Product associativity exercise",
+      "note": "Enclosing module header: module Associativity (C D E : CAT) where. The source exercise is labelled exercise:Basic_Product_Associativity; exercise:Associativity_Products names the later exercise it references.",
+      "declarations": [
+        {
+          "module": "Section02.Products",
+          "name": "forward",
+          "qualified": "Associativity.forward",
+          "role": "definition"
+        },
+        {
+          "module": "Section02.Products",
+          "name": "backward",
+          "qualified": "Associativity.backward",
+          "role": "definition"
+        },
+        {
+          "module": "Section02.Products",
+          "name": "backward-forward",
+          "qualified": "Associativity.backward-forward",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.Products",
+          "name": "forward-backward",
+          "qualified": "Associativity.forward-backward",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.Products",
+          "name": "forward-isEquiv",
+          "qualified": "Associativity.forward-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "functoriality-of-products",
+      "title": "Functoriality of products",
+      "note": "This is the construction of the product functor; do not badge it as a full product pseudofunctor coherence theorem.",
+      "declarations": [
+        {
+          "module": "Section02.Products",
+          "name": "productMap",
+          "qualified": "productMap",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "functoriality-products",
+      "title": "Functoriality products",
+      "note": "Scope selector to this labeled exercise because the phrase occurs elsewhere. Its optional-title reference exercise:Functoriality_Products2 is a different, later statement.",
+      "declarations": [
+        {
+          "module": "Section02.Products",
+          "name": "productMap-id",
+          "qualified": "productMap-id",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.Products",
+          "name": "productMap-comp",
+          "qualified": "productMap-comp",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "finite-compatibility-of-products",
+      "title": "Finite compatibility of products",
+      "note": "The four clauses are implemented by these family, whiskering, and higher-identification results; there is no single aggregate theorem declaration.",
+      "declarations": [
+        {
+          "module": "Section02.FamilyPairing",
+          "name": "pairing-identity",
+          "qualified": "pairing-identity",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.FamilyPairing",
+          "name": "pairing-composition",
+          "qualified": "pairing-composition",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.FamilyPairing",
+          "name": "pairing-absolute",
+          "qualified": "pairing-absolute",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.FamilyNaturality",
+          "name": "family-pair-pre-full",
+          "qualified": "family-pair-pre-full",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.IteratedPairing",
+          "name": "pair-pre-iterated",
+          "qualified": "pair-pre-iterated",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.PairingUnits",
+          "name": "pair-pre-id",
+          "qualified": "pair-pre-id",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.FamilyProductFunctor",
+          "name": "productMap-comp-family",
+          "qualified": "productMap-comp-family",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.ProductFunctorUnits",
+          "name": "productMap-unitˡ",
+          "qualified": "productMap-unitˡ",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.ProductFunctorUnits",
+          "name": "productMap-unitʳ",
+          "qualified": "productMap-unitʳ",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.FamilyProductFunctor",
+          "name": "productFamily-pre",
+          "qualified": "productFamily-pre",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.ProductFunctorCoherence",
+          "name": "prewhisker-square",
+          "qualified": "prewhisker-square",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.PairingCoherence",
+          "name": "pairIsoMap",
+          "qualified": "pairIsoMap",
+          "role": "definition"
+        },
+        {
+          "module": "Section02.PairingCoherence",
+          "name": "pair-cong-Iso₂",
+          "qualified": "pair-cong-Iso₂",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.ProductFunctorCoherence",
+          "name": "productIsoMap",
+          "qualified": "productIsoMap",
+          "role": "definition"
+        },
+        {
+          "module": "Section02.ProductFunctorCoherence",
+          "name": "productMap-cong-Iso₂",
+          "qualified": "productMap-cong-Iso₂",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.PairingCoherence",
+          "name": "pairIsoMap-at",
+          "qualified": "pairIsoMap-at",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.ProductFunctorCoherence",
+          "name": "productIsoMap-at",
+          "qualified": "productIsoMap-at",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "finite-compatibility-of-products-step-1",
+      "title": "Finite compatibility of products step 1",
+      "note": "Both family laws retain common A; pairing-absolute compares actual chosen operations, not a mere alias.",
+      "declarations": [
+        {
+          "module": "Section02.FamilyPairing",
+          "name": "pairing-identity",
+          "qualified": "pairing-identity",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.FamilyPairing",
+          "name": "pairing-composition",
+          "qualified": "pairing-composition",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.FamilyPairing",
+          "name": "pairing-absolute",
+          "qualified": "pairing-absolute",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "finite-compatibility-of-products-step-2",
+      "title": "Finite compatibility of products step 2",
+      "note": "For readable full boundary include IteratedPairing.Boundaries.together and Boundaries.successively with module parameters.",
+      "declarations": [
+        {
+          "module": "Section02.FamilyNaturality",
+          "name": "family-pair-pre-full",
+          "qualified": "family-pair-pre-full",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.IteratedPairing",
+          "name": "pair-pre-iterated",
+          "qualified": "pair-pre-iterated",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.PairingUnits",
+          "name": "pair-pre-id",
+          "qualified": "pair-pre-id",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "finite-compatibility-of-products-step-3",
+      "title": "Finite compatibility of products step 3",
+      "note": "The main law has four MAP A inputs. UniversalComposition.comparison is an optional explicit product-source view, requiring the whole surrounding module definitions.",
+      "declarations": [
+        {
+          "module": "Section02.FamilyProductFunctor",
+          "name": "productMap-comp-family",
+          "qualified": "productMap-comp-family",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.ProductFunctorUnits",
+          "name": "productMap-unitˡ",
+          "qualified": "productMap-unitˡ",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.ProductFunctorUnits",
+          "name": "productMap-unitʳ",
+          "qualified": "productMap-unitʳ",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.FamilyProductFunctor",
+          "name": "productFamily-pre",
+          "qualified": "productFamily-pre",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.ProductFunctorCoherence",
+          "name": "prewhisker-square",
+          "qualified": "prewhisker-square",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "finite-compatibility-of-products-step-4",
+      "title": "Finite compatibility of products step 4",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section02.PairingCoherence",
+          "name": "pairIsoMap",
+          "qualified": "pairIsoMap",
+          "role": "definition"
+        },
+        {
+          "module": "Section02.PairingCoherence",
+          "name": "pair-cong-Iso₂",
+          "qualified": "pair-cong-Iso₂",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.ProductFunctorCoherence",
+          "name": "productIsoMap",
+          "qualified": "productIsoMap",
+          "role": "definition"
+        },
+        {
+          "module": "Section02.ProductFunctorCoherence",
+          "name": "productMap-cong-Iso₂",
+          "qualified": "productMap-cong-Iso₂",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.PairingCoherence",
+          "name": "pairIsoMap-at",
+          "qualified": "pairIsoMap-at",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.ProductFunctorCoherence",
+          "name": "productIsoMap-at",
+          "qualified": "productIsoMap-at",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "finite-compatibility-of-products-step-5",
+      "title": "Finite compatibility of products step 5",
+      "note": "The equivalence is supplied by the product axiom, while its inverse is selected from IsEquiv data. Lift has parameters A X C D f g α β. Absolute companion is Section01.Specialization.ProductLift.lift.",
+      "declarations": [
+        {
+          "module": "Section01.Products",
+          "name": "product-isoMap-isEquiv",
+          "qualified": "ProductLaws.product-isoMap-isEquiv",
+          "role": "assumption"
+        },
+        {
+          "module": "Section02.FamilyPairing",
+          "name": "lift",
+          "qualified": "Lift.lift",
+          "role": "definition"
+        },
+        {
+          "module": "Section02.FamilyPairing",
+          "name": "image",
+          "qualified": "Lift.image",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "finite-compatibility-of-products-step-6",
+      "title": "Finite compatibility of products step 6",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section02.FamilyPairing",
+          "name": "pairing",
+          "qualified": "pairing",
+          "role": "definition"
+        },
+        {
+          "module": "Section02.Products",
+          "name": "productMap-comp",
+          "qualified": "productMap-comp",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "finite-compatibility-of-products-step-7",
+      "title": "Finite compatibility of products step 7",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section02.FamilyPairing",
+          "name": "pairing-β₁",
+          "qualified": "pairing-β₁",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.FamilyPairing",
+          "name": "pairing-β₂",
+          "qualified": "pairing-β₂",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.PairingCoherence",
+          "name": "pair-cong-β₁",
+          "qualified": "pair-cong-β₁",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.PairingCoherence",
+          "name": "pair-cong-β₂",
+          "qualified": "pair-cong-β₂",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "finite-compatibility-of-products-step-8",
+      "title": "Finite compatibility of products step 8",
+      "note": "These are concrete pairing instances. Do not assert that this one link proves all clause (3) diagrams.",
+      "declarations": [
+        {
+          "module": "Section02.PairingCoherence",
+          "name": "pair-cong-id",
+          "qualified": "pair-cong-id",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.PairingCoherence",
+          "name": "pair-cong-comp",
+          "qualified": "pair-cong-comp",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.FamilyPairing",
+          "name": "pairing-composition",
+          "qualified": "pairing-composition",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "finite-compatibility-of-products-step-9",
+      "title": "Finite compatibility of products step 9",
+      "note": "Include exact Boundaries module header; pentagon/triangle are supplied assumptions in the module interface.",
+      "declarations": [
+        {
+          "module": "Section02.IteratedPairing",
+          "name": "compatibility",
+          "qualified": "Boundaries.compatibility",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.PairingUnits",
+          "name": "pair-pre-id",
+          "qualified": "pair-pre-id",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "finite-compatibility-of-products-step-10",
+      "title": "Finite compatibility of products step 10",
+      "note": "The finite proof modules implement reflection through the product equivalence. Linking only Whiskering.postWhisker-isEquiv would miss the actual lifting step.",
+      "declarations": [
+        {
+          "module": "Section02.PairingCoherence",
+          "name": "pair-iso-extensionality",
+          "qualified": "pair-iso-extensionality",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.FamilyPairing",
+          "name": "family-extensionality",
+          "qualified": "family-extensionality",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    },
+    {
+      "id": "finite-compatibility-of-products-step-11",
+      "title": "Finite compatibility of products step 11",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Section02.PairingCoherence",
+          "name": "pair-cong-Iso₂",
+          "qualified": "pair-cong-Iso₂",
+          "role": "derived"
+        },
+        {
+          "module": "Section02.ProductFunctorCoherence",
+          "name": "productMap-cong-Iso₂",
+          "qualified": "productMap-cong-Iso₂",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "equivalences"
+    }
+  ],
+  "reverse_only": [
+    {
+      "id": "iterated-identifications",
+      "title": "Iterating identifications",
+      "note": "Explanatory correspondence for the next iteration; this sentence does not open code.",
+      "tex_file": "Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex",
+      "page": "basic-vocabulary",
+      "declarations": [
+        {
+          "module": "Section01.Vocabulary",
+          "name": "Iso₃",
+          "qualified": "Vocabulary.Iso₃",
+          "role": "definition"
+        }
+      ]
+    }
+  ]
+}

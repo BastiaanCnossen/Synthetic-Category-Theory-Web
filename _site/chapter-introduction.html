@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>The language of synthetic category theory | Synthetic category theory</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/reader-shell.css"><link rel="stylesheet" href="assets/reader.css"><link rel="stylesheet" href="assets/Agda.css">
+<script src="assets/math-config.js"></script><script defer src="vendor/mathjax/tex-chtml.js"></script><script defer src="assets/reader.js"></script></head>
+<body class=""><a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><a class="collection-return" href="index.html">Synthetic category theory</a><p class="eyebrow">Volume I · Experimental web edition</p><h1>The language of synthetic category theory</h1></header>
+<div class="reader-grid"><aside class="reader-nav" aria-label="Book navigation"><details open><summary>Contents</summary><nav><a href="index.html">Overview</a><a href="basic-vocabulary.html">1.1 · The basic vocabulary</a><a href="equivalences.html">1.2 · Equivalences of categories</a><a href="code-index.html">All Agda code</a><a href="formalization.html">Agda guide</a><a href="build-report.html">Build and coverage</a></nav></details>
+<details class="settings"><summary>Reading preferences</summary><label><input id="collapse-proofs" type="checkbox"> Collapse book proofs</label><label><input id="hide-agda-links" type="checkbox"> Hide links to Agda code</label><a href="book.pdf">Read the web edition PDF</a></details></aside>
+<main id="main" class="notes-page" tabindex="-1">
+
+
+<p class="noindent">
+
+
+</p><p class="noindent"><a id="likesection.1"></a><a id="x1-2x"></a>
+
+
+
+
+</p>
+<h2 class="chapterHead" id="the-language-of-synthetic-category-theory"><span class="titlemark">Chapter 1</span><br><a id="x1-10001"></a>The language of synthetic category theory</h2>
+<p class="noindent"><span class="source-anchor" id="chap:Naive_Category_Theory"></span>
+</p><p class="noindent">At the heart of mathematics lies the concept of a set, a collection of mathematical objects. In modern
+mathematics, sets serve as the building blocks for defining everything from numbers and relations to
+more complex structures like groups, rings, and topological spaces. Sets are manipulated using
+basic operations like forming unions, intersections, and complements, and are compared using
+functions between sets. It is fair to say that the language of set theory forms an essential toolkit for
+mathematicians.
+</p><p class="noindent">Although formal axiomatizations of set theory exist, such as those by Zermelo and Fraenkel, they often
+diverge from the working mathematician’s intuitive understanding of sets. For instance, in formal set theory,
+every natural number needs to be defined as a set, and in particular one is allowed to speak of the
+elements of a natural number. Similarly, every function between sets needs to be defined as a set.
+While this approach is formally valid, it can seem disconnected from everyday mathematical
+discourse.
+</p><p class="noindent">In practice, mathematicians often use a more pragmatic approach known as <span class="ntx-Italic-tlf-t1-x-x-109">naive set theory</span>. In naive set
+theory, one works with sets based on intuitive understanding, without invoking formal logical or axiomatic
+implementations. For example, the set of natural numbers is simply the set containing the numbers \(0, 1, 2,\) etcetera,
+and functions between sets \(X\) and \(Y\) are simply ‘specifications’ that assign to every element of \(X\) an element of \(Y\).
+The simplicity and accessibility of naive set theory make it relatively easy for students to learn it, and
+indeed in many introductory mathematics textbooks sets are used in the naive way without being rigorously
+introduced.
+</p><p class="noindent">A similar trend is occurring in the field of higher category theory. In recent decades, higher category theory
+has seen rapid growth, in large part thanks to contributions from people like Joyal, Lurie, and others. Their
+work provides solid foundations for the field, and the language of higher categories is now extending
+beyond its origins in algebraic topology to fields like algebraic geometry and representation theory.
+But while the original works of Joyal and Lurie are based on explicit set-theoretical models
+for higher categories called ‘quasicategories’, more and more research papers are written in a
+‘model-independent’ way in which the usage of details about the specific choice of implementations is
+avoided.
+</p><p class="noindent">We believe that a model-independent language makes higher category theory more accessible, just as naive
+set theory makes it possible to learn and use sets without first developing formal set theory. With this
+in mind, the goal of this book is to provide a detailed treatment of the foundations of higher
+category theory in the language of <span class="ntx-Italic-tlf-t1-x-x-109">synthetic category theory</span>, without reference to specific
+implementations.
+</p><p class="noindent">The goal of the present chapter is to introduce this language and specify the rules governing its use. We
+introduce the basic notions, the operations on them, and the identifications relating these operations.
+
+
+Alongside these rules, we develop term notation for displaying functors and natural isomorphisms as
+expressions. In particular, our approach is <span class="ntx-Italic-tlf-t1-x-x-109">synthetic </span>in nature rather than <span class="ntx-Italic-tlf-t1-x-x-109">analytic</span>: constructions of
+categories, like products or functor categories, are not <span class="ntx-Italic-tlf-t1-x-x-109">defined </span>in terms of set-level constructions, but are
+<span class="ntx-Italic-tlf-t1-x-x-109">axiomatized </span>to exist and satisfy the expected properties.
+</p>
+<nav class="page-turns"><a href="equivalences.html">Equivalences of categories →</a></nav></main></div>
+<footer>Experimental web edition · Generated from annotated LaTeX and Agda sources. <a href="build-report.html">Build details</a></footer></body></html>

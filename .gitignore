@@ -1,0 +1,6 @@
+_build/
+__pycache__/
+*.pyc
+*.agdai
+INTERNAL.md
+# The committed _site directory is the sole Pages artifact.

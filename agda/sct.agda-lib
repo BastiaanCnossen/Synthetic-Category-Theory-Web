@@ -1,0 +1,3 @@
+name: sct
+include: src
+flags: --safe --without-K
