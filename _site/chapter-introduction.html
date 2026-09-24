@@ -1,25 +1,13 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><title>The language of synthetic category theory | Synthetic category theory</title>
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/reader-shell.css"><link rel="stylesheet" href="assets/reader.css"><link rel="stylesheet" href="assets/Agda.css">
-<script src="assets/math-config.js"></script><script defer src="vendor/mathjax/tex-chtml.js"></script><script defer src="assets/reader.js"></script></head>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/reader-shell.css"><link rel="stylesheet" href="assets/reader.css?v=14abfeeb2c9c523d"><link rel="stylesheet" href="assets/Agda.css">
+<script src="assets/math-config.js"></script><script defer src="vendor/mathjax/tex-chtml.js"></script><script defer src="assets/reader.js?v=0a9d2e6221b17f7e"></script></head>
 <body class=""><a class="skip-link" href="#main">Skip to content</a>
-<header class="site-header"><a class="collection-return" href="index.html">Synthetic category theory</a><p class="eyebrow">Volume I · Experimental web edition</p><h1>The language of synthetic category theory</h1></header>
-<div class="reader-grid"><aside class="reader-nav" aria-label="Book navigation"><details open><summary>Contents</summary><nav><a href="index.html">Overview</a><a aria-current="page" href="chapter-introduction.html">Chapter introduction</a><a href="basic-vocabulary.html">1.1 · The basic vocabulary</a><a href="equivalences.html">1.2 · Equivalences of categories</a><a href="mapping-animae.html">1.3 · Mapping animae</a><a href="code-index.html">All Agda code</a><a href="formalization.html">Agda guide</a><a href="build-report.html">Build details</a></nav></details>
+<header class="site-header"><div class="header-top"><a class="collection-return" href="index.html">Synthetic category theory</a><nav class="page-turns" aria-label="Chapter navigation"><a rel="prev" href="overview-of-the-axioms.html" title="Overview of the axioms" aria-label="Previous: Overview of the axioms, Overview of the axioms"><span class="turn-direction">← Previous</span><span class="turn-target">Overview of the axioms</span></a><a rel="next" href="internal-structure-introduction.html" title="The internal structure of categories" aria-label="Next: Chapter 2, The internal structure of categories"><span class="turn-direction">→ Next</span><span class="turn-target">Chapter 2</span></a></nav></div><p class="eyebrow">Volume I · Experimental web edition</p><h1>The language of synthetic category theory</h1></header>
+<div class="reader-grid"><aside class="reader-nav" aria-label="Book navigation"><details open><summary>Contents</summary><nav><a href="index.html">Overview</a><a href="introduction.html">Introduction</a><a href="overview-of-the-axioms.html">Overview of the axioms</a><details class="contents-chapter" open><summary><span class="chapter-number">Chapter 1</span><span class="chapter-name">The language of synthetic category theory</span></summary><div class="chapter-sections"><a aria-current="page" href="chapter-introduction.html">Chapter introduction</a><a href="basic-vocabulary.html">1.1 · The basic vocabulary</a><a href="coherences.html">1.2 · Coherences</a><a href="equivalences.html">1.3 · Equivalences of categories</a><a href="mapping-animae.html">1.4 · Mapping animae</a><a href="initial-categories-and-coproducts.html">1.5 · Initial categories and coproducts</a><a href="pullbacks.html">1.6 · Pullbacks of categories</a><a href="functor-categories.html">1.7 · Functor categories</a><a href="pushouts.html">1.8 · Pushout squares</a></div></details><details class="contents-chapter"><summary><span class="chapter-number">Chapter 2</span><span class="chapter-name">The internal structure of categories</span></summary><div class="chapter-sections"><a href="internal-structure-introduction.html">Chapter introduction</a><a href="morphisms-and-diagrams.html">2.1 · Morphisms and diagrams</a><a href="segal-axiom.html">2.2 · The Segal axiom</a><a href="rezk-axiom.html">2.3 · The Rezk axiom</a><a href="groupoids.html">2.4 · Groupoids</a><a href="recognizing-animae.html">2.5 · Recognizing animae</a><a href="chapter-2-exercises.html">2.6 · Exercises</a></div></details><a href="code-index.html">All Agda code</a><a href="formalization.html">Agda guide</a><a href="build-report.html">Build details</a></nav></details>
 <details class="settings"><summary>Reading preferences</summary><label><input id="collapse-proofs" type="checkbox"> Collapse book proofs</label><label><input id="hide-agda-links" type="checkbox"> Hide links to Agda code</label><a href="book.pdf">Read the web edition PDF</a></details></aside>
-<main id="main" class="notes-page" tabindex="-1">
-
-
-<p class="noindent">
-
-
-</p><p class="noindent"><a id="likesection.1"></a><a id="x1-2x"></a>
-
-
-
-
-</p>
-<h2 class="chapterHead" id="the-language-of-synthetic-category-theory"><span class="titlemark">Chapter 1</span><br><a id="x1-10001"></a>The language of synthetic category theory</h2>
+<main id="main" class="notes-page" tabindex="-1"><h2 class="chapterHead" id="the-language-of-synthetic-category-theory1"><span class="titlemark">Chapter 1</span><br><a id="x1-130001"></a>The language of synthetic category theory</h2>
 <p class="noindent"><span class="source-anchor" id="chap:Naive_Category_Theory"></span>
 </p><p class="noindent">At the heart of mathematics lies the concept of a set, a collection of mathematical objects. In modern
 mathematics, sets serve as the building blocks for defining everything from numbers and relations to
@@ -37,30 +25,49 @@ discourse.
 theory, one works with sets based on intuitive understanding, without invoking formal logical or axiomatic
 implementations. For example, the set of natural numbers is simply the set containing the numbers \(0, 1, 2,\) etcetera,
 and functions between sets \(X\) and \(Y\) are simply ‘specifications’ that assign to every element of \(X\) an element of \(Y\).
-The simplicity and accessibility of naive set theory make it relatively easy for students to learn it, and
-indeed in many introductory mathematics textbooks sets are used in the naive way without being rigorously
+The simplicity and accessibility of naive set theory make it relatively easy for students to learn, and indeed
+in many introductory mathematics textbooks sets are used in the naive way without being rigorously
 introduced.
-</p><p class="noindent">A similar trend is occurring in the field of higher category theory. In recent decades, higher category theory
-has seen rapid growth, in large part thanks to contributions from people like Joyal, Lurie, and others. Their
-work provides solid foundations for the field, and the language of higher categories is now extending
-beyond its origins in algebraic topology to fields like algebraic geometry and representation theory.
-But while the original works of Joyal and Lurie are based on explicit set-theoretical models
-for higher categories called ‘quasicategories’, more and more research papers are written in a
-‘model-independent’ way in which the usage of details about the specific choice of implementations is
-avoided.
-</p><p class="noindent">We believe that a model-independent language makes higher category theory more accessible, just as naive
-set theory makes it possible to learn and use sets without first developing formal set theory. With this
-in mind, the goal of this book is to provide a detailed treatment of the foundations of higher
-category theory in the language of <span class="ntx-Italic-tlf-t1-x-x-109">synthetic category theory</span>, without reference to specific
-implementations.
-</p><p class="noindent">The goal of the present chapter is to introduce this language and specify the rules governing its use. We
-introduce the basic notions, the operations on them, and the identifications relating these operations.
+</p><p class="noindent">A similar trend is occurring in the field of higher category theory. In recent decades, higher category
+theory has seen rapid growth, in large part thanks to contributions from people like Joyal, Lurie,
+and others. Their work provides solid foundations for the field, and the language of higher
+categories is now extending beyond its origins in algebraic topology to fields like algebraic
+geometry and representation theory. But while the original works of Joyal and Lurie are based on
+explicit set-theoretical models for higher categories called ‘quasicategories’, more and more
+research papers are written in a ‘model-independent’ way in which the usage of details about the
+specific choice of implementations is avoided. We refer to this as the language of <span class="ntx-Italic-tlf-t1-x-x-109">naive category
+theory</span>.
+</p><p class="noindent">The goal of this chapter is to provide a structured form of this language, with explicit rules and axioms for
+how to manipulate categories and functors. Our approach is <span class="ntx-Italic-tlf-t1-x-x-109">synthetic </span>in nature rather than
+<span class="ntx-Italic-tlf-t1-x-x-109">analytic</span>: constructions of categories, like products or functor categories, are not <span class="ntx-Italic-tlf-t1-x-x-109">defined </span>in terms
+of set-level constructions, but are <span class="ntx-Italic-tlf-t1-x-x-109">axiomatized </span>to exist and satisfy the expected properties.
+Our rules are deliberately model-agnostic: we expect them to be satisfied in any reasonable
+foundational system for (higher) category theory. For example, we wish to cover the following three
 
 
-Alongside these rules, we develop term notation for displaying functors and natural isomorphisms as
-expressions. In particular, our approach is <span class="ntx-Italic-tlf-t1-x-x-109">synthetic </span>in nature rather than <span class="ntx-Italic-tlf-t1-x-x-109">analytic</span>: constructions of
-categories, like products or functor categories, are not <span class="ntx-Italic-tlf-t1-x-x-109">defined </span>in terms of set-level constructions, but are
-<span class="ntx-Italic-tlf-t1-x-x-109">axiomatized </span>to exist and satisfy the expected properties.
+examples:
+     </p><dl class="enumerate"><dt class="enumerate">
+  (1) </dt><dd class="enumerate">
+     <p class="noindent">The standard theory of quasicategories;
+     </p></dd><dt class="enumerate">
+  (2) </dt><dd class="enumerate">
+     <p class="noindent">Type-theoretic approaches like simplicial type theory [<a id="x1-13003"></a><a id="page.28"></a><a href="chapter-2-exercises.html#X0-RiehlShulman2017Synthetic">RS17</a>; <a id="x1-13004"></a><a href="chapter-2-exercises.html#X0-Gratzer_Weinberger_Buchholz_2024_Directed_Univalence">GWB24</a>];
+     </p></dd><dt class="enumerate">
+  (3) </dt><dd class="enumerate">
+     <p class="noindent">The internal theory of the (synthetic) category of small categories \(\Cat \).</p></dd></dl>
+<p class="noindent">While the first two examples satisfy various strictness conditions, like strict unitality or associativity for
+functor composition, the third example forces us to work in a fully ‘homotopical’ setting, where no
+strictness conditions are imposed.
+</p><p class="noindent">The chapter is organized as follows. The foundational language is introduced in Section <a href="basic-vocabulary.html#the-basic-vocabulary">1.1</a>, and its layer of
+coherences in Section <a href="coherences.html#coherences">1.2</a>. These are used in Section <a href="equivalences.html#equivalences-of-categories">1.3</a> to study equivalences of categories. We then
+introduce a variety of category constructors via their universal properties.
+</p><p class="noindent"><span class="ntx-Italic-tlf-t1-x-x-109">Epistemic status: </span>This chapter started off giving a natural language description of ‘naive category theory’,
+capturing the model-independent language used in modern papers in higher category theory.
+Over time, more explicit coherences have been added to the list of axioms when it became
+clear that some natural language proofs were implicitly using them. We expect the present list
+to cover most of the required coherences, but it may be the case that we missed some. We
+hope to eventually settle the complete list of coherences by formalizing everything in a proof
+assistant.
 </p>
-<nav class="page-turns"><a href="basic-vocabulary.html">The basic vocabulary →</a></nav></main></div>
+</main></div>
 <footer>Experimental web edition · Generated from annotated LaTeX and Agda sources. <a href="build-report.html">Build details</a></footer></body></html>

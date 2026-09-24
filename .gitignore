@@ -4,4 +4,6 @@ __pycache__/
 *.agdai
 INTERNAL.md
 AGENTS.md
+Annotated tex-files/
 # The committed _site directory is the sole Pages artifact.
+.Codex/

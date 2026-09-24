@@ -77,7 +77,7 @@ def compiler_anchors(pre,available):
     return anchors
 
 def build_reader_data(agda,manifest,site=SITE):
-    data={'modules':{},'passages':{}}
+    data={'modules':{},'passages':{},'scope_note':manifest.get('scope_note','')}
     all_passages=manifest['passages']+manifest.get('reverse_only',[])
     for p in all_passages:
         declarations=[]
@@ -117,7 +117,9 @@ def build_reader_data(agda,manifest,site=SITE):
                     if pid not in candidates or rank<candidates[pid]: candidates[pid]=rank
             line['targets']=[{'id':pid,'rank':list(rank)} for pid,rank in sorted(candidates.items(),key=lambda item:(item[1],item[0]))]
     from module_navigation import module_tree, module_label
-    data['module_tree']=module_tree(data['modules'])
+    from checked_code import verify_checked_code
+    retained=verify_checked_code(json.loads(read(SNAP/'inputs.json')))=='updated manuscript with previously checked Agda snapshot'
+    data['module_tree']=module_tree(data['modules'],retained=retained)
     for module,payload in data['modules'].items():
         payload['label']=module_label(module)
     dump(BUILD/'agda-context.json',data)

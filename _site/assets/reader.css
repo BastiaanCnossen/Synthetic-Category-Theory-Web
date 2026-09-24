@@ -8,6 +8,13 @@
 .reader-nav nav a { display: block; padding: .6rem .7rem; text-decoration: none; border-radius: .3rem; }
 .reader-nav a[aria-current] { background: #e2eae2; font-weight: 650; }
 .reader-nav summary { font-weight: 650; }
+.contents-chapter { border-block: 1px solid var(--rule); padding-block: .35rem; }
+.contents-chapter + .contents-chapter { border-top: 0; }
+.contents-chapter > summary { padding: .55rem .35rem; }
+.chapter-number { font-size: .8rem; }
+.chapter-name { display: block; margin: .25rem 0 0 1rem; font-weight: 500; line-height: 1.4; }
+.chapter-sections { display: grid; gap: .2rem; margin: .4rem 0 .65rem .5rem; border-left: 1px solid var(--rule); padding-left: .35rem; }
+.chapter-sections a { font-size: .8rem; }
 .settings { border-top: 1px solid var(--rule); padding-top: 1rem; }
 .settings label, .settings > a { display: block; margin: .8rem 0; }
 .settings input { margin-right: .4rem; }
@@ -40,7 +47,7 @@ summary:hover { color: var(--accent); }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 .skip-link { position: absolute; top: -5rem; left: 1rem; padding: .8rem; background: white; z-index: 100; }
 .skip-link:focus { top: 1rem; }
-.diagram { margin: 1.4rem 0; text-align: center; overflow-x: auto; }
+.diagram { position: relative; margin: 1.4rem 0; text-align: center; overflow-x: auto; }
 .diagram img { max-width: 100%; height: auto; }
 .diagram details { font: .72rem/1.4 system-ui,sans-serif; text-align: left; margin-top: .5rem; color: var(--muted); }
 .diagram details pre { font-size: .73rem; }
@@ -67,15 +74,27 @@ pre.Agda .Background, pre.Agda .Markup { color: #64695f; }
 .copy-code { display: block; margin: .3rem 0 .6rem auto; border: 1px solid var(--rule); color: var(--accent); border-radius: .2rem; background: white; padding: .3rem .5rem; font-size: .7rem; cursor: pointer; }
 .chapter-card-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1rem; margin: 1.8rem 0; }
 .chapter-card { padding: 1.2rem; border: 1px solid var(--rule); background: #f7f8f3; border-radius: .25rem; }
-.chapter-card h2 { margin: .5rem 0; font-size: 1.3rem; }
+.chapter-card h2, .chapter-card h3 { margin: .5rem 0; font-size: 1.3rem; line-height: 1.2; }
+.overview-chapter { border-block: 1px solid var(--rule); }
+.overview-chapter + .overview-chapter { border-top: 0; }
+.overview-chapter > summary { padding: 1rem 0; }
+.overview-chapter > summary h2 { display: inline; margin: 0; font-size: 1.45rem; line-height: 1.4; }
+.overview-chapter .chapter-card-grid { margin: 1rem 0 1.5rem; }
+.overview-chapter .chapter-card h3 a { color: var(--accent); text-decoration: underline; }
 .chapter-card p { font-size: .9rem; }
-.page-turns { display: flex; justify-content: flex-end; margin-top: 2.5rem; border-top: 1px solid var(--rule); padding-top: 1rem; font-size: .9rem; }
+.header-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.header-top .collection-return { margin-bottom: 0; }
+.page-turns { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: .75rem; margin-left: auto; font: .8rem/1.35 system-ui,sans-serif; }
+.page-turns a { display: grid; gap: .15rem; min-width: 7.5rem; padding: .65rem .9rem; border: 1px solid var(--rule); border-radius: .4rem; background: var(--paper); text-decoration: none; }
+.page-turns a:hover { background: #eaf0e8; border-color: var(--accent); }
+.turn-direction { color: var(--muted); font-size: .72rem; }
+.turn-target { font-weight: 650; }
 .module-caption { font: .85rem/1.5 system-ui,sans-serif; color: var(--muted); }
 body:has(.module-caption) .site-header h1 { font-size: 1.5rem; overflow-wrap: anywhere; }
 .notes-page table { border-collapse: collapse; width: 100%; font-size: .9rem; }
 .notes-page th, .notes-page td { padding: .6rem; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
 mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; max-width: 100%; padding-block: .25rem; }
-@media (max-width: 850px) { .reader-grid { display: block; } .reader-nav { position: static; margin-bottom: 1.5rem; } .reader-nav nav { grid-template-columns: repeat(2,minmax(0,1fr)); } .notes-page { padding: 1.5rem; } .settings label { display: inline-block; margin-right: 1rem; } }
+@media (max-width: 850px) { .reader-grid { display: block; } .reader-nav { position: static; margin-bottom: 1.5rem; } .reader-nav nav { grid-template-columns: 1fr; } .notes-page { padding: 1.5rem; } .settings label { display: inline-block; margin-right: 1rem; } }
 @media (max-width: 500px) { body { font-size: 16px; } .reader-grid { padding: 0 .6rem; } .notes-page { padding: 1.1rem .8rem; } .site-header { width: calc(100% - 2rem); padding-top: 2rem; } .chapter-card-grid { grid-template-columns: 1fr; } .statement { padding: .8rem; } pre, pre.Agda { font-size: .72rem; } dd.enumerate { margin-left: 1.3rem; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 @media print { .reader-nav, .agda-panel, .copy-code, .page-turns, .skip-link { display: none; } .reader-grid { display: block; padding: 0; } .notes-page { border: 0; box-shadow: none; } }

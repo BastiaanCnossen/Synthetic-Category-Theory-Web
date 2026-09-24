@@ -8,8 +8,9 @@ def check(site):
     if not (site/'index.html').is_file(): raise ValueError('Distribution index is missing')
     info=json.loads((site/'build-info.json').read_text(encoding='utf-8'))
     allowed=set(info['published_modules'])
-    root_files={'.nojekyll','index.html','basic-vocabulary.html','equivalences.html','mapping-animae.html',
-                'chapter-introduction.html','code-index.html','formalization.html',
+    root_files={'.nojekyll','index.html','basic-vocabulary.html','coherences.html','equivalences.html','mapping-animae.html','initial-categories-and-coproducts.html','pullbacks.html','functor-categories.html','pushouts.html',
+                'introduction.html','overview-of-the-axioms.html','chapter-introduction.html','internal-structure-introduction.html','morphisms-and-diagrams.html','code-index.html','formalization.html',
+                'segal-axiom.html','rezk-axiom.html','groupoids.html','recognizing-animae.html','chapter-2-exercises.html',
                 'build-report.html','outside-selection.html','book.pdf','build-info.json','validation.json'}
     asset_files={'reader-shell.css','reader.css','reader.js','favicon.svg','Agda.css','math-config.js','agda-context.js'}
     asset_files.update('diagrams/'+name+'.svg' for name in info.get('diagrams',[]))

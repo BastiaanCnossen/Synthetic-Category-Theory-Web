@@ -88,6 +88,7 @@ if (data && document.querySelector('.agda-trigger')) {
   });
   document.querySelectorAll('.agda-trigger').forEach(trigger => {
     trigger.setAttribute('aria-controls','agda-reader'); trigger.setAttribute('aria-expanded','false');
+    // Handle the link before MathJax's nested math explorer consumes clicks.
     trigger.addEventListener('click',event=> {
       if (hideAgdaLinks?.checked) { event.preventDefault(); return; }
       if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
@@ -95,7 +96,7 @@ if (data && document.querySelector('.agda-trigger')) {
       openReader(trigger.dataset.agda);
       history.pushState(null,'','#agda-'+trigger.dataset.agda);
       if (event.detail===0) rail.querySelector('.module-picker').focus({preventScroll:true});
-    });
+    }, {capture:true});
   });
   document.querySelector('#open-code-browser')?.addEventListener('click',()=> {
     const first=document.querySelector('.agda-trigger');
@@ -213,7 +214,7 @@ function renderModule(module,definition) {
   rail.querySelector('h2').textContent=definition ? (definition.moduleOnly ? '' : 'Definition: ')+definition.label : data.passages[activeId].title;
   const statusDeclarations=definition ? (definition.moduleOnly ? [] : Object.values(data.passages).flatMap(p=>p.declarations).filter(d=>d.module===module && d.name===definition.label && d.range.includes(definition.line))) : declarations;
   rail.querySelector('.reader-role').textContent=!data.modules[module].checked ? 'Source only, outside this check' : statusDeclarations.length ? [...new Set(statusDeclarations.map(d=>roles[d.role]))].join(' · ') : 'Checked source';
-  rail.querySelector('.reader-check-note').textContent=data.modules[module].checked ? 'Checked against the supplied interface. Contextual validity is explained in the Agda guide.' : 'This module was not included in the web edition aggregate check. Compiled definition links are unavailable.';
+  rail.querySelector('.reader-check-note').textContent=data.modules[module].checked ? data.scope_note || 'Checked against the supplied interface. Contextual validity is explained in the Agda guide.' : 'This module was not included in the web edition aggregate check. Compiled definition links are unavailable.';
   rail.querySelector('.reader-note').textContent=definition ? 'Browsing '+module+'.' : data.passages[activeId].note;
   const link=rail.querySelector('.reader-module-link'); link.href=definition ? definition.href : declarations[0].href;
   rail.querySelector('.reader-location').textContent=definition ? module.replace('SCT.VolumeI.Chapter01.','')+(definition.moduleOnly ? '' : ' · line '+definition.line) : declarations.map(d=>d.qualified).join(' · ');
@@ -299,6 +300,13 @@ function closeReader(restoreFocus) {
 }
 function revealHash() {
   let id; try { id=decodeURIComponent(location.hash.slice(1)); } catch { return; }
+  // Stable passage IDs survive manuscript moves, including old saved code links.
+  const passageId=id.startsWith('code:') ? id.split(':')[3] :
+    id.startsWith('agda-') || id.startsWith('text-') ? id.slice(5) : null;
+  const destination=data?.passages[passageId]?.page;
+  if (destination && location.pathname.split('/').pop()!==destination+'.html') {
+    location.replace(destination+'.html'+location.hash); return;
+  }
   if (rail && id.startsWith('code:')) {
     const [,module,line,pid]=id.split(':');
     if (data.modules[module]?.lines.some(x=>x.number===Number(line) && x.targets.some(t=>t.id===pid))) {

@@ -53,8 +53,13 @@ def build_index(page, compiled, manifest, site=SITE):
                 if qualified not in named:
                     symbols.append(f'<li class="symbol-entry"><a href="agda/{file.name}#{anchor}"><code>{escape(file.stem+"."+qualified)}</code></a></li>')
     checked=sum(e['checked'] for e in entries)
-    content=f'<p class="lede">The checked modules supporting these sections are accessible here.</p><p>{checked} source modules included in the fresh aggregate check. Compiler support modules are also reachable through symbol links.</p>'
+    from checked_code import verify_checked_code
+    mode=verify_checked_code(json.loads(read(SNAP/'inputs.json')))
+    retained=mode=='updated manuscript with previously checked Agda snapshot'
+    content=f'<p class="lede">The checked modules supporting these sections are accessible here.</p><p>{checked} source modules included in the recorded aggregate check. Compiler support modules are also reachable through symbol links.</p>'
+    if mode=='updated manuscript with previously checked Agda snapshot':
+        content+='<p class="coverage-note">The book text has been updated. This is the previously checked Agda edition; canonical sources have been reorganized to match the book, and their notation and structure changes await the final compiler check. Correspondence notes identify differences from the revised manuscript. Modules are grouped by the current book sections; the displayed checked files retain their earlier names and declaration order.</p>'
     content+='<label class="code-search">Find a module or declaration <input type="search" id="code-search" placeholder="CAT, equiv-compose, Coherence…"></label><p id="search-count" aria-live="polite"></p>'
-    content+='<h2>Modules</h2><div class="module-tree">'+group_html(module_tree(rows))+'</div><details class="symbol-index"><summary>All named declarations in checked SCT modules</summary><ul>'+''.join(symbols)+'</ul></details>'
+    content+='<h2>Modules</h2><div class="module-tree">'+group_html(module_tree(rows,retained=retained))+'</div><details class="symbol-index"><summary>All named declarations in checked SCT modules</summary><ul>'+''.join(symbols)+'</ul></details>'
     write(site/'code-index.html',page('Agda code for these sections',content,'code-index',math=False))
     return entries

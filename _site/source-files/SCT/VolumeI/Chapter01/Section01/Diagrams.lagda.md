@@ -2,7 +2,7 @@
 
 The records below retain the comparison cells in the definitions. In
 particular, comparison of span maps includes compatibility with both legs,
-and a square of natural isomorphisms retains its higher cell.
+while diagrams of identifications are in `Section02.Diagrams`.
 
 ```agda
 {-# OPTIONS --safe --without-K #-}
@@ -10,8 +10,8 @@ open import Agda.Primitive using (Level; _⊔_)
 open import SCT.VolumeI.Chapter01.Section01.Vocabulary
 import SCT.VolumeI.Chapter01.Section01.Terminal as Terminal
 import SCT.VolumeI.Chapter01.Section01.Products as Products
-import SCT.VolumeI.Chapter01.Section01.Coherence as Coherence
-import SCT.VolumeI.Chapter01.Section01.Specialization as Specialization
+import SCT.VolumeI.Chapter01.Section02.Coherence as Coherence
+import SCT.VolumeI.Chapter01.Section02.Specialization as Specialization
 
 module SCT.VolumeI.Chapter01.Section01.Diagrams
   {c m a : Level} (V : Vocabulary c m a)
@@ -32,37 +32,14 @@ record FunctorSquare (C D C′ D′ : CAT) : Set m where
     left : MAP C C′
     right : MAP D D′
     bottom : MAP C′ D′
-    cell : =₁ (right ∘ top) (bottom ∘ left)
+    cell : (right ∘ top) =₁ (bottom ∘ left)
 
 record FunctorTriangle (C D E : CAT) : Set m where
   field
     first : MAP C D
     second : MAP D E
     diagonal : MAP C E
-    cell : =₁ diagonal (second ∘ first)
-
-record NatIsoSquare {C D : CAT} (f g f′ g′ : MAP C D) : Set m where
-  field
-    top : =₁ f g
-    bottom : =₁ f′ g′
-    left : =₁ f f′
-    right : =₁ g g′
-    cell : =₂ (right ∙ top) (bottom ∙ left)
-
-record NatIsoTriangle {C D : CAT} (f g h : MAP C D) : Set m where
-  field
-    first : =₁ f g
-    second : =₁ g h
-    diagonal : =₁ f h
-    cell : =₂ diagonal (second ∙ first)
-
-record Iso₂Square {C D : CAT} {f g : MAP C D} (α β α′ β′ : =₁ f g) : Set m where
-  field
-    top : =₂ α β
-    bottom : =₂ α′ β′
-    left : =₂ α α′
-    right : =₂ β β′
-    cell : =₃ (right ∙ top) (bottom ∙ left)
+    cell : diagonal =₁ (second ∘ first)
 
 record Span (C D : CAT) : Set (c ⊔ m) where
   field
@@ -73,14 +50,14 @@ record Span (C D : CAT) : Set (c ⊔ m) where
 record SpanMap {C D : CAT} (U Z : Span C D) : Set m where
   field
     functor : MAP (Span.apex U) (Span.apex Z)
-    leftIso : =₁ (Span.left Z ∘ functor) (Span.left U)
-    rightIso : =₁ (Span.right Z ∘ functor) (Span.right U)
+    leftIso : (Span.left Z ∘ functor) =₁ (Span.left U)
+    rightIso : (Span.right Z ∘ functor) =₁ (Span.right U)
 
 record SpanMapIso {C D : CAT} {U Z : Span C D} (h k : SpanMap U Z) : Set m where
   field
-    comparison : =₁ (SpanMap.functor h) (SpanMap.functor k)
-    leftCompat : =₂ (SpanMap.leftIso k ∙ (Span.left Z ◁ comparison)) (SpanMap.leftIso h)
-    rightCompat : =₂ (SpanMap.rightIso k ∙ (Span.right Z ◁ comparison)) (SpanMap.rightIso h)
+    comparison : (SpanMap.functor h) =₁ (SpanMap.functor k)
+    leftCompat : (SpanMap.leftIso k ∙ (Span.left Z ◁ comparison)) =₂ (SpanMap.leftIso h)
+    rightCompat : (SpanMap.rightIso k ∙ (Span.right Z ◁ comparison)) =₂ (SpanMap.rightIso h)
 
 productSpan : (C D : CAT) → Span C D
 productSpan C D = record { apex = C × D ; left = pr₁ ; right = pr₂ }
@@ -97,16 +74,16 @@ module Uniqueness (VC : Coherence.VerticalCoherence V T P S) where
 
   private
     cancel : {C D : CAT} {f g h : MAP C D}
-      (β : =₁ g h) (α : =₁ f h) → =₂ (β ∙ (invIso β ∙ α)) α
+      (β : g =₁ h) (α : f =₁ h) → (β ∙ (β ⁻¹ ∙ α)) =₂ α
     cancel β α = isoComp-unitˡ-at α ∙
       (isoComp-cong (isoComp-inverseʳ-at β) (idIso α)
-       ∙ invIso (isoComp-assoc-at β (invIso β) α))
+       ∙ (isoComp-assoc-at β (β ⁻¹) α) ⁻¹)
 
   productSpan-unique : {C D : CAT} {U : Span C D}
     (h k : SpanMap U (productSpan C D)) → SpanMapIso h k
   productSpan-unique h k =
-    let l = invIso (SpanMap.leftIso k) ∙ SpanMap.leftIso h
-        r = invIso (SpanMap.rightIso k) ∙ SpanMap.rightIso h
+    let l = (SpanMap.leftIso k) ⁻¹ ∙ SpanMap.leftIso h
+        r = (SpanMap.rightIso k) ⁻¹ ∙ SpanMap.rightIso h
     in record
       { comparison = pair-iso l r
       ; leftCompat = cancel (SpanMap.leftIso k) (SpanMap.leftIso h)
@@ -119,8 +96,7 @@ module Uniqueness (VC : Coherence.VerticalCoherence V T P S) where
 This proves the terminal-span formulation actually stated in
 `rmk:Universal_Property_Product_In_Terms_Of_Spans`: maps from every span and
 comparisons between any two such maps. It does not assert a synthetic category
-of all spans. `NatIsoSquare` also implements the varying-endpoint comparison
-convention in `rmk:Isomorphisms_Of_Natural_Isomorphisms`.
+of all spans. Diagrams with identification-valued edges are in Section 1.2.
 
 General planar diagrams remain a display convention: each displayed face
 retains its chosen identification. No arbitrary graph parser or global

@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Exercises | Synthetic category theory</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/reader-shell.css"><link rel="stylesheet" href="assets/reader.css?v=14abfeeb2c9c523d"><link rel="stylesheet" href="assets/Agda.css">
+<script src="assets/math-config.js"></script><script defer src="vendor/mathjax/tex-chtml.js"></script><script defer src="assets/agda-context.js?v=6fb4746768165bf9"></script><script defer src="assets/reader.js?v=0a9d2e6221b17f7e"></script></head>
+<body class="has-passages"><a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="header-top"><a class="collection-return" href="index.html">Synthetic category theory</a><nav class="page-turns" aria-label="Reading navigation"><a rel="prev" href="recognizing-animae.html" title="Recognizing animae" aria-label="Previous: Section 2.5, Recognizing animae"><span class="turn-direction">← Previous</span><span class="turn-target">Section 2.5</span></a></nav></div><p class="eyebrow">Volume I · Experimental web edition</p><h1>Exercises</h1></header>
+<div class="reader-grid"><aside class="reader-nav" aria-label="Book navigation"><details open><summary>Contents</summary><nav><a href="index.html">Overview</a><a href="introduction.html">Introduction</a><a href="overview-of-the-axioms.html">Overview of the axioms</a><details class="contents-chapter"><summary><span class="chapter-number">Chapter 1</span><span class="chapter-name">The language of synthetic category theory</span></summary><div class="chapter-sections"><a href="chapter-introduction.html">Chapter introduction</a><a href="basic-vocabulary.html">1.1 · The basic vocabulary</a><a href="coherences.html">1.2 · Coherences</a><a href="equivalences.html">1.3 · Equivalences of categories</a><a href="mapping-animae.html">1.4 · Mapping animae</a><a href="initial-categories-and-coproducts.html">1.5 · Initial categories and coproducts</a><a href="pullbacks.html">1.6 · Pullbacks of categories</a><a href="functor-categories.html">1.7 · Functor categories</a><a href="pushouts.html">1.8 · Pushout squares</a></div></details><details class="contents-chapter" open><summary><span class="chapter-number">Chapter 2</span><span class="chapter-name">The internal structure of categories</span></summary><div class="chapter-sections"><a href="internal-structure-introduction.html">Chapter introduction</a><a href="morphisms-and-diagrams.html">2.1 · Morphisms and diagrams</a><a href="segal-axiom.html">2.2 · The Segal axiom</a><a href="rezk-axiom.html">2.3 · The Rezk axiom</a><a href="groupoids.html">2.4 · Groupoids</a><a href="recognizing-animae.html">2.5 · Recognizing animae</a><a aria-current="page" href="chapter-2-exercises.html">2.6 · Exercises</a></div></details><a href="code-index.html">All Agda code</a><a href="formalization.html">Agda guide</a><a href="build-report.html">Build details</a></nav></details>
+<details class="settings"><summary>Reading preferences</summary><label><input id="collapse-proofs" type="checkbox"> Collapse book proofs</label><label><input id="hide-agda-links" type="checkbox"> Hide links to Agda code</label><button id="open-code-browser" type="button">Browse Agda modules</button><a href="book.pdf">Read the web edition PDF</a></details></aside>
+<main id="main" class="notes-page" tabindex="-1"><p class="agda-help">Click dotted-underlined prose to read its Agda code alongside the book. <a href="code-index.html">Browse all code</a>.</p><h3 class="sectionHead" id="exercises"><span class="titlemark">2.6    </span> <a id="x1-410002.6"></a>Exercises</h3>
+<p class="noindent"><span class="source-anchor" id="web:chapter02-exercises"></span>
+</p><p class="noindent"></p><section class="statement" data-environment="uexercise" data-scope="categorical" aria-label="Statement with intended validity in categorical contexts">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-41001r1"></a>
+<a class="agda-trigger agda-heading" id="text-exercise-product-composition" href="chapter-2-exercises.html#agda-exercise-product-composition" data-agda="exercise-product-composition" title="Agda: product-composition" aria-controls="agda-exercise-product-composition"><span class="underline"><span class="ntx-Bold-tlf-t1-x-x-109">Exercise 2.6.1</span></span></a><span class="ntx-Bold-tlf-t1-x-x-109">.</span>  </span><span class="source-anchor" id="exercise:Composites_In_Products_2"></span> Let \(C_0\) and \(C_1\) be categories and consider morphisms \(f_0\colon x_0 \to y_0\) and \(g_0\colon y_0 \to z_0\) in \(C_0\) and morphisms \(f_1\colon x_1 \to y_1\) and \(g_1\colon y_1 \to z_1\) in \(C_1\).
+Show that the composite \((g_0,g_1) \circ (f_0,f_1)\colon (x_0,x_1) \to (z_0,z_1)\) in \(C_0 \times C_1\) is given by \((g_0 \circ f_0, g_1 \circ f_1)\).
+</p><details class="agda-panel agda-inline" id="agda-exercise-product-composition"><summary><span class="agda-tag">Agda</span> Composition in a product</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter02.Section02.ProductComposition" data-declaration="product-composition"><h4><code>product-composition</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature"><a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4558" class="Function">product-composition</a> <a class="Symbol">:</a> <a class="Symbol">{</a><a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4581" class="Bound">Γ</a> <a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4583" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4585" class="Bound">D</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a><a class="Symbol">}</a> <a class="Symbol">{</a><a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4595" class="Bound">x₁</a> <a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4598" class="Bound">y₁</a> <a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4601" class="Bound">z₁</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4581" class="Bound">Γ</a> <a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4583" class="Bound">C</a><a class="Symbol">}</a> <a class="Symbol">{</a><a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4616" class="Bound">x₂</a> <a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4619" class="Bound">y₂</a> <a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4622" class="Bound">z₂</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4581" class="Bound">Γ</a> <a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4585" class="Bound">D</a><a class="Symbol">}</a>
+  <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4639" class="Bound">f₁</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter02.Section01.Morphisms.html#2671" class="Record">MorphismExpression</a> <a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4595" class="Bound">x₁</a> <a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4598" class="Bound">y₁</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4671" class="Bound">g₁</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter02.Section01.Morphisms.html#2671" class="Record">MorphismExpression</a> <a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4598" class="Bound">y₁</a> <a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4601" class="Bound">z₁</a><a class="Symbol">)</a>
+  <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4705" class="Bound">f₂</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter02.Section01.Morphisms.html#2671" class="Record">MorphismExpression</a> <a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4616" class="Bound">x₂</a> <a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4619" class="Bound">y₂</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4737" class="Bound">g₂</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter02.Section01.Morphisms.html#2671" class="Record">MorphismExpression</a> <a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4619" class="Bound">y₂</a> <a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4622" class="Bound">z₂</a><a class="Symbol">)</a> <a class="Symbol">→</a>
+  <a href="agda/SCT.VolumeI.Chapter02.Section01.Morphisms.html#2849" class="Record">ExpressionIso</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter02.Section02.CompositionExpressions.html#2676" class="Function">compose-expression</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter02.Section02.ProductExpressions.html#4571" class="Function">pair-expression</a> <a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4639" class="Bound">f₁</a> <a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4705" class="Bound">f₂</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter02.Section02.ProductExpressions.html#4571" class="Function">pair-expression</a> <a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4671" class="Bound">g₁</a> <a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4737" class="Bound">g₂</a><a class="Symbol">))</a>
+    <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter02.Section02.ProductExpressions.html#4571" class="Function">pair-expression</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter02.Section02.CompositionExpressions.html#2676" class="Function">compose-expression</a> <a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4639" class="Bound">f₁</a> <a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4671" class="Bound">g₁</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter02.Section02.CompositionExpressions.html#2676" class="Function">compose-expression</a> <a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4705" class="Bound">f₂</a> <a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4737" class="Bound">g₂</a><a class="Symbol">))</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda"><a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4558" class="Function">product-composition</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4136" class="Function">At.comparison</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Laws
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+
+module SCT.VolumeI.Chapter02.Section02.ProductComposition
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Laws.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter02.Section02.ProductComposition.html#4558">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter02/Section02/ProductComposition.lagda.md">Literate source, line 76</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8 and Chapter 2 Sections 2.1–2.6. Contextual inheritance is outside the formalization scope. Passage notes identify proof-route and representation differences.</p></details><p class="panel-return"><a href="chapter-2-exercises.html#text-exercise-product-composition">Return to this passage</a> · <a class="permalink" href="chapter-2-exercises.html#agda-exercise-product-composition">Panel link</a></p></div></details>
+</div>
+<p class="noindent"> </p></section>
+<p></p><p class="noindent"></p><section class="statement" data-environment="uexercise" data-scope="categorical" aria-label="Statement with intended validity in categorical contexts">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-41002r2"></a>
+<a class="agda-trigger agda-heading" id="text-exercise-elementary-yoneda" href="chapter-2-exercises.html#agda-exercise-elementary-yoneda" data-agda="exercise-elementary-yoneda" title="Agda: isomorphism-postcompose, isomorphism-precompose, postcompose-isomorphism, precompose-isomorphism" aria-controls="agda-exercise-elementary-yoneda"><span class="underline"><span class="ntx-Bold-tlf-t1-x-x-109">Exercise 2.6.2</span></span></a><span class="ntx-Bold-tlf-t1-x-x-109">.</span>  </span><span class="source-anchor" id="exercise:elementary_Yoneda_iso"></span> Let \(f\colon x\to y\) be a morphism in a category \(C\). Prove that the following assertions are equivalent:
+</p><details class="agda-panel agda-inline" id="agda-exercise-elementary-yoneda"><summary><span class="agda-tag">Agda</span> The elementary Yoneda criterion</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter02.Section06.ElementaryYoneda" data-declaration="Criterion.isomorphism-postcompose"><h4><code>isomorphism-postcompose</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">  <a></a><a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#3169" class="Function">isomorphism-postcompose</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter02.Section03.Isomorphisms.html#1252" class="Record">IsInvertible</a> <a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#2266" class="Bound">f</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#2376" class="Function">PostcompositionEquivalences</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">  <a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#3169" class="Function">isomorphism-postcompose</a> <a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#3266" class="Bound">w</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter02.Section06.HomCompositionEquivalences.html#4294" class="Function">Action.InvertiblePoint.postcompose-isEquiv</a> <a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#2292" class="Function">point</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#2681" class="Function">point-lift</a> <a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#3266" class="Bound">w</a><a class="Symbol">)</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Laws
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+
+module SCT.VolumeI.Chapter02.Section06.ElementaryYoneda
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Laws.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E) where
+
+module Criterion {C : CAT} {x y : Obj-abs C} (f : Morphism x y) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#3169">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter02/Section06/ElementaryYoneda.lagda.md">Literate source, line 60</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter02.Section06.ElementaryYoneda" data-declaration="Criterion.isomorphism-precompose"><h4><code>isomorphism-precompose</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">  <a></a><a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#3337" class="Function">isomorphism-precompose</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter02.Section03.Isomorphisms.html#1252" class="Record">IsInvertible</a> <a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#2266" class="Bound">f</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#2404" class="Function">PrecompositionEquivalences</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">  <a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#3337" class="Function">isomorphism-precompose</a> <a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#3431" class="Bound">w</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter02.Section06.HomCompositionEquivalences.html#4532" class="Function">Action.InvertiblePoint.precompose-isEquiv</a> <a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#2292" class="Function">point</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#2681" class="Function">point-lift</a> <a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#3431" class="Bound">w</a><a class="Symbol">)</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Laws
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+
+module SCT.VolumeI.Chapter02.Section06.ElementaryYoneda
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Laws.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E) where
+
+module Criterion {C : CAT} {x y : Obj-abs C} (f : Morphism x y) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#3337">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter02/Section06/ElementaryYoneda.lagda.md">Literate source, line 63</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter02.Section06.ElementaryYoneda" data-declaration="Criterion.postcompose-isomorphism"><h4><code>postcompose-isomorphism</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">  <a></a><a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#3962" class="Function">postcompose-isomorphism</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#2376" class="Function">PostcompositionEquivalences</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter02.Section03.Isomorphisms.html#1252" class="Record">IsInvertible</a> <a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#2266" class="Bound">f</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">  <a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#3962" class="Function">postcompose-isomorphism</a> <a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#4059" class="Bound">tests</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#3501" class="Function">postcompose-detects-isomorphism</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#4059" class="Bound">tests</a> <a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#2248" class="Bound">x</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#4059" class="Bound">tests</a> <a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#2250" class="Bound">y</a><a class="Symbol">)</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Laws
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+
+module SCT.VolumeI.Chapter02.Section06.ElementaryYoneda
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Laws.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E) where
+
+module Criterion {C : CAT} {x y : Obj-abs C} (f : Morphism x y) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#3962">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter02/Section06/ElementaryYoneda.lagda.md">Literate source, line 74</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter02.Section06.ElementaryYoneda" data-declaration="Criterion.precompose-isomorphism"><h4><code>precompose-isomorphism</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">  <a></a><a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#4122" class="Function">precompose-isomorphism</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#2404" class="Function">PrecompositionEquivalences</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter02.Section03.Isomorphisms.html#1252" class="Record">IsInvertible</a> <a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#2266" class="Bound">f</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">  <a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#4122" class="Function">precompose-isomorphism</a> <a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#4216" class="Bound">tests</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#3734" class="Function">precompose-detects-isomorphism</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#4216" class="Bound">tests</a> <a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#2248" class="Bound">x</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#4216" class="Bound">tests</a> <a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#2250" class="Bound">y</a><a class="Symbol">)</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Laws
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+
+module SCT.VolumeI.Chapter02.Section06.ElementaryYoneda
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Laws.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E) where
+
+module Criterion {C : CAT} {x y : Obj-abs C} (f : Morphism x y) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter02.Section06.ElementaryYoneda.html#4122">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter02/Section06/ElementaryYoneda.lagda.md">Literate source, line 77</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p>The proof applies to absolute morphisms and tests composition on hom categories. Neither Rezk nor recognition is a parameter.</p><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8 and Chapter 2 Sections 2.1–2.6. Contextual inheritance is outside the formalization scope. Passage notes identify proof-route and representation differences.</p></details><p class="panel-return"><a href="chapter-2-exercises.html#text-exercise-elementary-yoneda">Return to this passage</a> · <a class="permalink" href="chapter-2-exercises.html#agda-exercise-elementary-yoneda">Panel link</a></p></div></details>
+     <ul class="itemize1">
+     <li class="itemize"> \(f\) is an isomorphism;
+     </li>
+     <li class="itemize"> for any object \(c\) of \(C\), \(f\) induces an equivalence of the form \[ f\circ -\colon C(c,x)\iso C(c,y)\, ; \]
+     </li>
+     <li class="itemize"> for any object \(c\) of \(C\), \(f\) induces an equivalence of the form \[ -\circ f\colon C(y,c)\iso C(x,c)\, . \]</li></ul>
+</div>
+<p class="noindent"> </p></section>
+
+
+<p></p><p class="noindent">
+
+
+</p>
+<h2 class="likechapterHead" id="bibliography"><a id="x1-42000"></a>Bibliography</h2>
+          <dl class="thebibliography"><dt class="thebibliography" id="X0-Awodey_2014_Structuralism">
+[Awo14]   </dt><dd class="thebibliography" id="bib-1">
+          <p class="noindent"><a id="page.151"></a><a id="X0-"></a>Steve  Awodey.  “Structuralism,  invariance,  and  univalence”.  <span class="ntx-Italic-tlf-t1-x-x-109">Philos.  Math.  (3)  </span>22.1
+          (2014), pp. 1–11.
+          </p></dd><dt class="thebibliography" id="X0-BDGNS2016ExposeI">
+[Bar+16]   </dt><dd class="thebibliography" id="bib-2">
+          <p class="noindent">Clark   Barwick,   Emanuele   Dotto,   Saul   Glasman,   Denis   Nardin,   and   Jay   Shah.
+          “Parametrized  higher  category  theory  and  higher  algebra:  Exposé  I  -  Elements  of
+          parametrized higher category theory”. <span class="ntx-Italic-tlf-t1-x-x-109">arXiv preprint arXiv:1608.03657 </span>(2016).
+          </p></dd><dt class="thebibliography" id="X0-Benjamin_Finster_Mimram">
+[BFM24]   </dt><dd class="thebibliography" id="bib-3">
+          <p class="noindent">Thibaut Benjamin, Eric Finster, and Samuel Mimram. “Globular weak \(\omega \)-categories as
+          models of a type theory”. <span class="ntx-Italic-tlf-t1-x-x-109">High. Struct. </span>8.2 (2024), pp. 1–69.
+          </p></dd><dt class="thebibliography" id="X0-Cisinski2019">
+[Cis19]    </dt><dd class="thebibliography" id="bib-4">
+          <p class="noindent">Denis-Charles   Cisinski.   <span class="ntx-Italic-tlf-t1-x-x-109">Higher   categories   and   homotopical   algebra</span>.   Vol. 180.
+          Cambridge studies in advanced mathematics. Cambridge University Press, Cambridge,
+          2019.
+          </p></dd><dt class="thebibliography" id="X0-CisinskiNguyen2022">
+[CN22]    </dt><dd class="thebibliography" id="bib-5">
+          <p class="noindent">Denis-Charles Cisinski and Hoang Kim Nguyen. <span class="ntx-Italic-tlf-t1-x-x-109">The universal coCartesian fibration</span>.
+          2022. arXiv: <a href="https://arxiv.org/abs/2210.08945">2210.08945</a>. <span class="ntx-Regular-tlf-sc-t1-x-x-109">url</span>: <a class="url" href="https://arxiv.org/abs/2210.08945">https://arxiv.org/abs/2210.08945</a>.
+          </p></dd><dt class="thebibliography" id="X0-Finster_Mimram">
+[FM17]    </dt><dd class="thebibliography" id="bib-6">
+          <p class="noindent">Eric Finster and Samuel Mimram. “A type-theoretical definition of weak \(\infty \)-categories”.
+          English.  <span class="ntx-Italic-tlf-t1-x-x-109">Proceedings  of  the  2017  32nd  annual  ACM/IEEE  symposium  on  logic  in
+          computer science, LICS 2017, Reykjavík University, Reykjavík, Iceland, June 20–23,
+          2017</span>. Piscataway, NJ: IEEE Press, 2017, p. 12. <span class="ntx-Regular-tlf-sc-t1-x-x-109">isbn</span>: 978-1-5090-3018-7.
+
+
+          </p></dd><dt class="thebibliography" id="X0-Gratzer_Weinberger_Buchholz_2024_Directed_Univalence">
+[GWB24]  </dt><dd class="thebibliography" id="bib-7">
+          <p class="noindent">Daniel  Gratzer,  Jonathan  Weinberger,  and  Ulrik  Buchholtz.  <span class="ntx-Italic-tlf-t1-x-x-109">Directed  univalence
+          in   simplicial   homotopy   type   theory</span>.   2024.   arXiv:   <a href="https://arxiv.org/abs/2407.09146">2407.09146   <span class="t1xtt-x-x-109">[cs.LO]</span></a>.   <span class="ntx-Regular-tlf-sc-t1-x-x-109">url</span>:
+          <a class="url" href="https://arxiv.org/abs/2407.09146">https://arxiv.org/abs/2407.09146</a>.
+          </p></dd><dt class="thebibliography" id="X0-GratzerBuchholtzWeinberger2026">
+[GWB26]  </dt><dd class="thebibliography" id="bib-8">
+          <p class="noindent">Daniel    Gratzer,    Jonathan    Weinberger,    and    Ulrik    Buchholtz.    <span class="ntx-Italic-tlf-t1-x-x-109">The</span>    \(\infty \)<span class="ntx-Italic-tlf-t1-x-x-109">-category
+          of</span>    \(\infty \)<span class="ntx-Italic-tlf-t1-x-x-109">-categories    in    simplicial    type    theory</span>.    2026.    arXiv:    <a href="https://arxiv.org/abs/2602.02218">2602.02218</a>.    <span class="ntx-Regular-tlf-sc-t1-x-x-109">url</span>:
+          <a class="url" href="https://arxiv.org/abs/2602.02218">https://arxiv.org/abs/2602.02218</a>.
+          </p></dd><dt class="thebibliography" id="X0-Joyal2008notes">
+[Joy08]    </dt><dd class="thebibliography" id="bib-9">
+          <p class="noindent">André Joyal. “Notes on quasi-categories”. <span class="ntx-Italic-tlf-t1-x-x-109">preprint </span>(2008).
+          </p></dd><dt class="thebibliography" id="X0-Univalence">
+[KL21]    </dt><dd class="thebibliography" id="bib-10">
+          <p class="noindent">Krzysztof Kapulkin and Peter Lefanu Lumsdaine. “The simplicial model of univalent
+          foundations (after Voevodsky)”. <span class="ntx-Italic-tlf-t1-x-x-109">J. Eur. Math. Soc. (JEMS) </span>23.6 (2021), pp. 2071–2126.
+          <span class="ntx-Regular-tlf-sc-t1-x-x-109">issn</span>: 1435-9855.
+          </p></dd><dt class="thebibliography" id="X0-Landry_Marquis">
+[LM05]    </dt><dd class="thebibliography" id="bib-11">
+          <p class="noindent">Elaine Landry and Jean-Pierre Marquis. “Categories in context: historical, foundational,
+          and philosophical”. <span class="ntx-Italic-tlf-t1-x-x-109">Philos. Math. (3) </span>13.1 (2005), pp. 1–43.
+          </p></dd><dt class="thebibliography" id="X0-lurie2009HTT">
+[Lur09]    </dt><dd class="thebibliography" id="bib-12">
+          <p class="noindent">Jacob Lurie. <span class="ntx-Italic-tlf-t1-x-x-109">Higher topos theory</span>. Vol. 170. Ann. Math. Stud. Princeton, NJ: Princeton
+          University Press, 2009.
+          </p></dd><dt class="thebibliography" id="X0-lurie2016HA">
+[Lur17]    </dt><dd class="thebibliography" id="bib-13">
+          <p class="noindent">Jacob    Lurie.    “Higher    algebra”.    <a class="url" href="https://www.math.ias.edu/~lurie/papers/HA.pdf"><span class="ntx-Italic-tlf-t1-x-x-109">https://www.math.ias.edu/~lurie/papers/HA.pdf</span> </a>
+          (2017).
+          </p></dd><dt class="thebibliography" id="X0-Makkai1998Foundation">
+[Mak98]   </dt><dd class="thebibliography" id="bib-14">
+          <p class="noindent">M. Makkai. “Towards a categorical foundation of mathematics”. <span class="ntx-Italic-tlf-t1-x-x-109">Logic colloquium ’95.
+          Proceedings of the Annual European Summer Meeting of the Association of Symbolic
+          Logic, Haifa, Israel, August 9–18, 1995</span>. Berlin: Springer, 1998, pp. 153–190.
+          </p></dd><dt class="thebibliography" id="X0-Marquis">
+[Mar13]   </dt><dd class="thebibliography" id="bib-15">
+
+
+          <p class="noindent">Jean-Pierre  Marquis.  “Categorical  foundations  of  mathematics.  Or  how  to  provide
+          foundations for abstract mathematics.” <span class="ntx-Italic-tlf-t1-x-x-109">Rev. Symb. Log. </span>6.1 (2013), pp. 51–86.
+          </p></dd><dt class="thebibliography" id="X0-martiniwolf2021limits">
+[MW24]   </dt><dd class="thebibliography" id="bib-16">
+          <p class="noindent">Louis  Martini  and  Sebastian  Wolf.  “Colimits  and  cocompletions  in  internal  higher
+          category theory”. <span class="ntx-Italic-tlf-t1-x-x-109">High. Struct. </span>8.1 (2024), pp. 97–192. <span class="ntx-Regular-tlf-sc-t1-x-x-109">doi</span>: <a href="https://doi.org/10.21136/HS.2024.0398">10.21136/HS.2024.0398</a>.
+          <span class="ntx-Regular-tlf-sc-t1-x-x-109">url</span>: <a class="url" href="https://doi.org/10.21136/HS.2024.0398">https://doi.org/10.21136/HS.2024.0398</a>.
+          </p></dd><dt class="thebibliography" id="X0-Rodin">
+[Rod14]    </dt><dd class="thebibliography" id="bib-17">
+          <p class="noindent">Andrei Rodin. <span class="ntx-Italic-tlf-t1-x-x-109">Axiomatic method and category theory</span>. Vol. 364. Synth. Libr. Cham:
+          Springer, 2014.
+          </p></dd><dt class="thebibliography" id="X0-RiehlShulman2017Synthetic">
+[RS17]    </dt><dd class="thebibliography" id="bib-18">
+          <p class="noindent">Emily Riehl and Michael Shulman. “A type theory for synthetic \(\infty \)-categories”. <span class="ntx-Italic-tlf-t1-x-x-109">High.
+          Struct. </span>1.1 (2017), pp. 147–224.
+          </p></dd><dt class="thebibliography" id="X0-Riehl_Verity">
+[RV22]    </dt><dd class="thebibliography" id="bib-19">
+          <p class="noindent">Emily Riehl and Dominic Verity. <span class="ntx-Italic-tlf-t1-x-x-109">Elements of </span>\(\infty \)<span class="ntx-Italic-tlf-t1-x-x-109">-category theory</span>. Vol. 194. Camb. Stud.
+          Adv. Math. Cambridge: Cambridge University Press, 2022.
+          </p></dd><dt class="thebibliography" id="X0-Tsementzis">
+[Tse17]    </dt><dd class="thebibliography" id="bib-20">
+          <p class="noindent">Dimitris  Tsementzis.  “Univalent  foundations  as  structuralist  foundations”.  <span class="ntx-Italic-tlf-t1-x-x-109">Synthese</span>
+          194.9 (2017), pp. 3583–3617.
+          </p></dd><dt class="thebibliography" id="X0-HoTT_Book">
+[Uni13]    </dt><dd class="thebibliography" id="bib-21">
+          <p class="noindent">The Univalent Foundations Program. <span class="ntx-Italic-tlf-t1-x-x-109">Homotopy Type Theory: Univalent Foundations
+          of  Mathematics</span>.  Institute  for  Advanced  Study:  <a class="url" href="https://homotopytypetheory.org/book">https://homotopytypetheory.org/book</a>,
+          2013.</p></dd></dl>
+
+</main></div>
+<footer>Experimental web edition · Generated from annotated LaTeX and Agda sources. <a href="build-report.html">Build details</a></footer></body></html>

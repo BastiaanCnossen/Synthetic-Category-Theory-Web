@@ -4,10 +4,28 @@ from urllib.parse import quote, unquote
 import copy, textwrap, shutil
 from pilot_model import declaration_range, prelude
 from authored_pages import require_authored_pages
+from book_navigation import contents, page_turns
 
+from checked_code import publication_manifest, verify_checked_code
 MANIFEST=json.loads(read(ROOT/'correspondence.json'))
 PREFIX=MANIFEST['module_prefix']
 ROLES={'assumption':'Assumption, type checked','derived':'Derivation, checked','definition':'Definition, checked'}
+
+def insert_diagrams(body, diagrams, equation_numbers=None):
+    """Render every occurrence, sharing an SVG for identical TeX diagrams."""
+    from collections import Counter
+    expected=Counter(d['id'] for d in diagrams)
+    nodes=[n for n in body.all() if 'data-diagram' in n.attrs]
+    if Counter(n.attrs['data-diagram'] for n in nodes)!=expected:
+        raise ValueError('Diagram marker mismatch')
+    for node,record in zip(nodes,diagrams):
+        key=node.attrs['data-diagram']
+        if key!=record['id']: raise ValueError('Diagram occurrence order differs from the source')
+        caption=''
+        if record.get('equation_label'):
+            number=equation_numbers[record['equation_label']]
+            caption='<figcaption class="equation-number">('+escape(number)+')</figcaption>'
+        node.replace(f'<figure class="diagram"><img src="assets/diagrams/{key}.svg" alt="Commutative diagram from the manuscript; its arrows and comparisons are described in the surrounding text.">{caption}</figure>')
 
 def unique_agda_ids(pre):
     """Keep the first of Agda's repeated empty aliases for local modules.
@@ -39,22 +57,22 @@ def math_config():
     return {'loader':{'paths':{'fonts':'vendor/mathjax/fonts'},'load':['[tex]/mathtools']},'tex':{'inlineMath':[['\\(','\\)']],'displayMath':[['\\[','\\]']],'packages':{'[+]':['ams','mathtools']},'macros':macros},'options':{'enableMenu':False}}
 
 def page(title, content, current='', math=True, prefix=''):
-    navigation=[]
-    for slug,label in [('index','Overview'),('chapter-introduction','Chapter introduction'),('basic-vocabulary','1.1 · The basic vocabulary'),('equivalences','1.2 · Equivalences of categories'),('mapping-animae','1.3 · Mapping animae'),('code-index','All Agda code'),('formalization','Agda guide'),('build-report','Build details')]:
-        active=' aria-current="page"' if current==slug else ''
-        navigation.append(f'<a{active} href="{prefix}{slug}.html">{label}</a>')
-    nav=''.join(navigation)
+    nav=contents(current or title,prefix)
     scripts=f'<script src="{prefix}assets/math-config.js"></script><script defer src="{prefix}vendor/mathjax/tex-chtml.js"></script>' if math else ''
-    has_passages=current in ('basic-vocabulary','equivalences','mapping-animae')
-    reader_script=f'<script defer src="{prefix}assets/agda-context.js"></script>' if has_passages else ''
+    has_passages=current in {slug for slug, _, _ in BOOK_SECTIONS}
+    # New passage/module data must not be masked by a cached previous edition.
+    context_version=digest((BUILD/'agda-context.json').read_bytes())[:16] if has_passages else ''
+    reader_script=f'<script defer src="{prefix}assets/agda-context.js?v={context_version}"></script>' if has_passages else ''
+    reader_version=digest((ROOT/'assets/reader.js').read_bytes())[:16]
+    style_version=digest((ROOT/'assets/reader.css').read_bytes())[:16]
     body_class='has-passages' if has_passages else ''
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><title>{escape(title)} | Synthetic category theory</title>
-<link rel="icon" href="{prefix}assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="{prefix}assets/reader-shell.css"><link rel="stylesheet" href="{prefix}assets/reader.css"><link rel="stylesheet" href="{prefix}assets/Agda.css">
-{scripts}{reader_script}<script defer src="{prefix}assets/reader.js"></script></head>
+<link rel="icon" href="{prefix}assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="{prefix}assets/reader-shell.css"><link rel="stylesheet" href="{prefix}assets/reader.css?v={style_version}"><link rel="stylesheet" href="{prefix}assets/Agda.css">
+{scripts}{reader_script}<script defer src="{prefix}assets/reader.js?v={reader_version}"></script></head>
 <body class="{body_class}"><a class="skip-link" href="#main">Skip to content</a>
-<header class="site-header"><a class="collection-return" href="{prefix}index.html">Synthetic category theory</a><p class="eyebrow">Volume I · Experimental web edition</p><h1>{escape(title)}</h1></header>
+<header class="site-header"><div class="header-top"><a class="collection-return" href="{prefix}index.html">Synthetic category theory</a>{page_turns(current,prefix)}</div><p class="eyebrow">Volume I · Experimental web edition</p><h1>{escape(title)}</h1></header>
 <div class="reader-grid"><aside class="reader-nav" aria-label="Book navigation"><details open><summary>Contents</summary><nav>{nav}</nav></details>
 <details class="settings"><summary>Reading preferences</summary><label><input id="collapse-proofs" type="checkbox"> Collapse book proofs</label><label><input id="hide-agda-links" type="checkbox"> Hide links to Agda code</label>{'<button id="open-code-browser" type="button">Browse Agda modules</button>' if has_passages else ''}<a href="{prefix}book.pdf">Read the web edition PDF</a></details></aside>
 <main id="main" class="notes-page" tabindex="-1">{content}</main></div>
@@ -147,7 +165,32 @@ class Agda:
         context=f'<details class="mapping-note"><summary>About this correspondence</summary>{note}<p class="scope-note">{escape(MANIFEST["scope_note"])}</p></details>'
         return f'<details class="agda-panel agda-inline" id="agda-{p["id"]}"><summary><span class="agda-tag">Agda</span> {escape(p["title"])}</summary><div class="agda-content">{content}{context}<p class="panel-return"><a href="#text-{p["id"]}">Return to this passage</a> · <a class="permalink" href="#agda-{p["id"]}">Panel link</a></p></div></details>'
 
+def join_footnotes(body, directory):
+    """Bring TeX4ht's separate footnote bodies beside their originating paragraphs."""
+    joined=set()
+    for link in list(body.all('a')):
+        href=link.attrs.get('href','')
+        match=re.fullmatch(r'(pilot\d+\.html)#(fn[\w-]+)',href)
+        if not match: continue
+        filename,fragment=match.groups()
+        link.attrs['href']='#'+fragment
+        if fragment in joined: continue
+        joined.add(fragment)
+        tree=parse(read(directory/filename))
+        notes=[n for n in tree.all('div') if n.has('footnote-text') and any(a.attrs.get('id')==fragment for a in n.all('a'))]
+        if len(notes)!=1: raise ValueError('Missing or ambiguous TeX4ht footnote: '+href)
+        reference='footnote-ref-'+fragment;link.attrs['id']=reference
+        note=notes[0]
+        block=link
+        while block.parent is not body and block.tag not in ('p','dd','li'): block=block.parent
+        parent=block.parent
+        disclosure=parse('<details class="book-footnote"><summary>Footnote '+escape(link.text().strip())+'</summary>'+note.html()+'<p><a href="#'+reference+'">Return to text</a></p></details>').children[0]
+        disclosure.parent=parent
+        parent.children.insert(parent.children.index(block)+1,disclosure)
+
 def assemble(site=SITE):
+    global MANIFEST
+    MANIFEST=publication_manifest()
     require_authored_pages(site)
     for name in ('reader-shell.css','reader.css','reader.js','favicon.svg'):
         (site/'assets').mkdir(exist_ok=True)
@@ -163,7 +206,7 @@ def assemble(site=SITE):
     dump(site/'validation.json',{'status':'pending'})
     receipt=json.loads(read(BUILD/'check.json'))
     inputs=json.loads(read(SNAP/'inputs.json'))
-    if not receipt['checked'] or receipt['input_hash']!=digest(json.dumps(inputs['files'],sort_keys=True)): raise ValueError('Checked input receipt is stale')
+    verification_mode=verify_checked_code(inputs)
     selection=json.loads(read(BUILD/'selection.json'))
     raw=read(BUILD/'html/pilot.html')
     # Explicit equation tags come from LaTeX, independent of page splitting.
@@ -176,6 +219,7 @@ def assemble(site=SITE):
         return r'\['+content+r'\tag{'+equation_numbers[label[1]]+r'}\]'
     raw=re.sub(r'\\begin\s*\{equation\}([\s\S]*?)\\end\s*\{equation\}',numbered_equation,raw)
     tree=parse(raw); body=next(tree.all('body'))
+    join_footnotes(body,BUILD/'html')
     # Drop TeX4ht's whitespace-only page padding before adding exact code slices.
     for node in [body]+list(body.all()):
         node.children=[re.sub(r'(?m)^[ \t]+\n','\n',c) if isinstance(c,str) else c for c in node.children]
@@ -188,15 +232,21 @@ def assemble(site=SITE):
             del n.attrs['id']
     # TeX4ht normalizes punctuation in IDs. Restore the original source labels.
     ids={n.attrs['id']:n for n in body.all() if 'id' in n.attrs}
+    for note in MANIFEST.get('coverage_notes',[]):
+        anchor=ids[note['tex_label'].replace(':','_')]
+        target=anchor
+        while target.parent is not body and not (target.tag=='section' or target.has('subsectionHead')):
+            target=target.parent
+        parent=target.parent
+        node=parse('<p class="coverage-note">'+escape(note['text'])+'</p>').children[0]
+        node.parent=parent
+        parent.children.insert(parent.children.index(target)+1,node)
     for label in selection['labels']:
         key=label.replace(':','_')
         if key not in ids: raise ValueError(f'Missing manuscript label {label}')
         ids[key].attrs['id']=label
     ids={n.attrs['id']:n for n in body.all() if 'id' in n.attrs}
-    for d in selection['diagrams']:
-        nodes=[n for n in body.all() if n.attrs.get('data-diagram')==d['id']]
-        if len(nodes)!=1: raise ValueError('Diagram marker mismatch')
-        nodes[0].replace(f'<figure class="diagram"><img src="assets/diagrams/{d["id"]}.svg" alt="Commutative diagram from the manuscript; its arrows and comparisons are described in the surrounding text."></figure>')
+    insert_diagrams(body, selection['diagrams'], equation_numbers)
     for statement in body.all('section'):
         if statement.has('statement') and statement.attrs.get('data-scope')=='categorical':
             statement.attrs['aria-label']='Statement with intended validity in categorical contexts'
@@ -205,8 +255,21 @@ def assemble(site=SITE):
         if p.get('tex_label'):
             anchor=ids[p['tex_label']]
             trigger=parse('<a class="agda-trigger agda-point" id="text-'+p['id']+'" href="#agda-'+p['id']+'" data-agda="'+p['id']+'">Agda</a>').children[0]
-            trigger.parent=anchor.parent
-            anchor.parent.children.insert(anchor.parent.children.index(anchor)+1,trigger)
+            heading=next((n for n in anchor.parent.children if isinstance(n,Node) and n.has('head')),None)
+            if heading is not None:
+                # Link the environment name and number, preserving its TeX
+                # styling and leaving optional titles/cross-references alone.
+                name=next(n for n in heading.children if isinstance(n,Node) and n.text().strip())
+                if name.tag=='a' or any(name.all('a')):
+                    raise ValueError('Environment name already contains a link: '+p['id'])
+                trigger.attrs['class']='agda-trigger agda-heading'
+                trigger.children=[name]
+                trigger.parent=heading
+                heading.children[heading.children.index(name)]=trigger
+                name.parent=trigger
+            else:
+                trigger.parent=anchor.parent
+                anchor.parent.children.insert(anchor.parent.children.index(anchor)+1,trigger)
             ids['text-'+p['id']]=trigger
         trigger=ids.get('text-'+p['id'])
         if trigger is None: raise ValueError('Missing explicit TeX marker: '+p['id'])
@@ -228,12 +291,14 @@ def assemble(site=SITE):
         if proof.has('proof'):
             proof.replace('<details class="book-proof" open><summary>Proof</summary><div class="proof-content">'+''.join(c.html() if isinstance(c,Node) else escape(c) for c in proof.children)+'</div></details>')
     # Split only at top-level section headings after all semantic joins.
-    children=body.children; headings=[i for i,n in enumerate(children) if isinstance(n,Node) and n.has('sectionHead')]
-    section_slugs=['basic-vocabulary','equivalences','mapping-animae']
-    if len(headings)!=len(section_slugs): raise ValueError(f'Expected {len(section_slugs)} top-level section headings, got {len(headings)}')
+    frontmatter_titles={p['title'] for p in BOOK_FRONTMATTER}
+    children=body.children; headings=[i for i,n in enumerate(children) if isinstance(n,Node) and
+        (n.has('sectionHead') or n.has('chapterHead') or n.has('likechapterHead') and n.text().strip() in frontmatter_titles)]
+    section_slugs=[slug for slug, _, _ in BOOK_PAGES]
+    if len(headings)!=len(section_slugs): raise ValueError(f'Expected {len(section_slugs)} chapter/section headings, got {len(headings)}')
+    headings[0]=0
     boundaries=headings+[len(children)]
-    segments={'chapter-introduction':children[:headings[0]]}
-    segments.update({slug:children[boundaries[i]:boundaries[i+1]] for i,slug in enumerate(section_slugs)})
+    segments={slug:children[boundaries[i]:boundaries[i+1]] for i,slug in enumerate(section_slugs)}
     route={}
     for slug,nodes in segments.items():
         root=Node(); root.children=nodes
@@ -246,7 +311,7 @@ def assemble(site=SITE):
         if href.startswith('outside-selection.html#'):
             fragment=href.split('#',1)[1]
             external_labels=[e['label'] for e in json.loads(read(BUILD/'external.json'))]
-            restored=[l for l in external_labels if l.replace(':','_')==fragment]
+            restored=[external_anchor(l) for l in external_labels if external_anchor(l).replace(':','_')==fragment]
             if len(restored)!=1: raise ValueError('Outside-pilot anchor changed')
             a.attrs['href']='outside-selection.html#'+restored[0]
         if href.startswith('pilot.html#') or href.startswith('#'):
@@ -257,15 +322,11 @@ def assemble(site=SITE):
             fragment=aliases.get(fragment,fragment)
             if fragment not in route: raise ValueError(f'Unresolved TeX fragment: {href}')
             a.attrs['href']=route[fragment]+'#'+fragment
-    titles={'chapter-introduction':'The language of synthetic category theory','basic-vocabulary':'The basic vocabulary','equivalences':'Equivalences of categories','mapping-animae':'Mapping animae'}
+    titles={slug:title for slug,title,_ in BOOK_PAGES}
     for slug,nodes in segments.items():
         content=''.join(n.html() if isinstance(n,Node) else escape(n) for n in nodes)
-        if slug!='chapter-introduction':
+        if slug in {s for s,_,_ in BOOK_SECTIONS}:
             content='<p class="agda-help">Click dotted-underlined prose to read its Agda code alongside the book. <a href="code-index.html">Browse all code</a>.</p>'+content
-        order=list(segments); index=order.index(slug); turns=[]
-        if index: turns.append(f'<a href="{order[index-1]}.html">← {titles[order[index-1]]}</a>')
-        if index+1<len(order): turns.append(f'<a href="{order[index+1]}.html">{titles[order[index+1]]} →</a>')
-        content+='<nav class="page-turns">'+''.join(turns)+'</nav>'
         write(site/(slug+'.html'),page(titles[slug],content,slug))
     write(site/'assets/math-config.js','window.MathJax = '+json.dumps(math_config(),ensure_ascii=False)+';\n')
     shutil.copyfile(BUILD/'agda/Agda.css',site/'assets/Agda.css')
@@ -286,12 +347,12 @@ def assemble(site=SITE):
         write(site/'agda'/file.name,page(file.stem,content,math=False,prefix='../'))
     from source_index import build_index
     inventory=build_index(page,current_modules,MANIFEST,site=site)
-    dump(BUILD/'build-info.json',{'inputs':inputs,'correspondence_hash':digest((ROOT/'correspondence.json').read_bytes()),'verification':receipt,'passages':agda.resolved,'source_inventory':inventory,'selection':{'sections':selection['sections'],'diagrams':[d['id'] for d in selection['diagrams']]}})
-    external='<p>These references point to exercises later in the same chapter. Their numbers are obtained from a fresh LaTeX compilation of the complete source chapter. Their full statements are outside the current web selection.</p>'
+    dump(BUILD/'build-info.json',{'inputs':inputs,'correspondence_hash':digest((ROOT/'correspondence.json').read_bytes()),'verification':receipt,'verification_mode':verification_mode,'passages':agda.resolved,'source_inventory':inventory,'selection':{'sections':selection['sections'],'diagrams':[d['id'] for d in selection['diagrams']]}})
+    external='<p>These references point to material beyond the published selection. Their numbers are obtained from fresh LaTeX compilations of the corresponding source chapters. Their full statements are outside the current web selection.</p>'
     for e in json.loads(read(BUILD/'external.json')):
-        external+=f'<section id="{e["label"]}"><h2>Exercise {e["number"]}</h2><p>This exercise is outside the current web selection.</p></section>'
+        external+=f'<section id="{external_anchor(e["label"])}"><h2>{escape(e['kind'])} {escape(e['number'])}{': '+escape(e['title']) if e.get('title') else ''}</h2><p>This material is outside the current web selection.</p></section>'
     write(site/'outside-selection.html',page('References beyond the selection',external))
-    dump(site/'build-info.json',{'agda':receipt['agda'],'aggregate':receipt['aggregate'],'declaration_mappings':len(agda.resolved),'published_modules':[e['module'] for e in inventory],'compiled_modules':sorted(file.stem for file in (BUILD/'agda').glob('*.html')),'diagrams':[d['id'] for d in selection['diagrams']]})
+    dump(site/'build-info.json',{'agda':receipt['agda'],'aggregate':receipt['aggregate'],'verification_mode':verification_mode,'manuscript_revision':inputs['base_revision'],'frontmatter':[{'slug':p['slug'],'title':p['title']} for p in BOOK_FRONTMATTER],'sections':selection['sections'],'declaration_mappings':len(agda.resolved),'published_modules':[e['module'] for e in inventory],'compiled_modules':sorted(file.stem for file in (BUILD/'agda').glob('*.html')),'diagrams':[d['id'] for d in selection['diagrams']]})
     print(f'Assembled web edition with {len(agda.resolved)} checked declaration mappings.')
 
 if __name__=='__main__': assemble()

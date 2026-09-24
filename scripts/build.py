@@ -15,15 +15,18 @@ def run(args, cwd=BUILD):
         print(p.stdout[-7000:]); raise RuntimeError(f'{args[0]} failed ({p.returncode})')
     return p.stdout
 
-def build(frozen=False, reuse=False):
+def build(frozen=False, reuse=False, incremental=False, manuscript_only=False):
     previous=json.loads(read(SNAP/'inputs.json')) if (SNAP/'inputs.json').exists() else None
     # Keep the current preview available throughout checking and conversion.
     require_authored_pages(SITE)
-    prepare(frozen)
+    prepare(frozen, manuscript_only=manuscript_only)
     state=json.loads(read(SNAP/'inputs.json'))
     fingerprint=digest(json.dumps(state['files'],sort_keys=True))
     receipt=BUILD/'check.json'
-    if reuse:
+    if manuscript_only:
+        from checked_code import verify_checked_code
+        print(verify_checked_code(state),flush=True)
+    elif reuse:
         old=json.loads(read(receipt))
         if old.get('checked') is not True or old.get('aggregate') != AGGREGATE:
             raise ValueError('Cannot reuse an incomplete aggregate check')
@@ -40,7 +43,11 @@ def build(frozen=False, reuse=False):
         if ROOT.resolve() not in generated.parents: raise ValueError('Invalid Agda output directory')
         for stale in generated.glob('*'):
             if stale.is_file() and stale.suffix in ('.html','.css'): stale.unlink()
-        args=['agda','--no-libraries','--safe','--without-K','--ignore-interfaces','-i','src','--html','--html-highlight=all','--html-dir='+str(BUILD/'agda'),'src/SCT/WebEdition.agda']
+        # In incremental mode Agda validates cached interface fingerprints and
+        # rechecks changed modules and their affected dependants itself.
+        args=['agda','--no-libraries','--safe','--without-K']
+        if not incremental: args.append('--ignore-interfaces')
+        args+=['-i','src','--html','--html-highlight=all','--html-dir='+str(BUILD/'agda'),'src/SCT/WebEdition.agda']
         output=run(args,SNAP/'agda')
         version=run(['agda','--version']).splitlines()[0]
         dump(receipt,{'input_hash':fingerprint,'agda':version,'command':args,'aggregate':AGGREGATE,'checked':True})
@@ -62,16 +69,20 @@ def build(frozen=False, reuse=False):
 
 def convert(site=SITE):
     # Actual LaTeX, Biber and TeX4ht determine numbering and citations.
-    run(['pdflatex','-interaction=nonstopmode','-halt-on-error','reference-chapter.tex'])
-    aux=read(BUILD/'reference-chapter.aux')
     external=json.loads(read(BUILD/'external.json'))
+    references={}
+    for job in sorted({e.get('reference_job','reference-chapter') for e in external}-set(references)):
+        if not re.fullmatch(r'reference-chapter-\d+',job): raise ValueError('Invalid reference job')
+        run(['pdflatex','-interaction=nonstopmode','-halt-on-error',job+'.tex'])
+        references[job]=read(BUILD/(job+'.aux'))
     definitions=[]
     for entry in external:
-        m=re.search(r'\\newlabel\{'+re.escape(entry['label'])+r'\}\{\{([^}]+)\}',aux)
+        m=re.search(r'\\newlabel\{'+re.escape(entry['label'])+r'\}\{\{([^}]+)\}',references[entry.get('reference_job','reference-chapter')])
         if not m: raise ValueError('Missing fresh reference number: '+entry['label'])
         entry['number']=m[1]
-        definitions.append('\\expandafter\\def\\csname pilotref@'+entry['label']+'\\endcsname{Exercise '+m[1]+'}')
-    definitions.append('\\newcommand{\\EditionExternal}[1]{\\href{outside-selection.html\\##1}{\\csname pilotref@#1\\endcsname{} (outside selection)}}')
+        definitions.append('\\expandafter\\def\\csname pilotref@'+entry['label']+'\\endcsname{'+entry['kind']+' '+m[1]+'}')
+        definitions.append('\\expandafter\\def\\csname piloturl@'+entry['label']+'\\endcsname{'+external_anchor(entry['label'])+'}')
+    definitions.append('\\newcommand{\\EditionExternal}[1]{\\href{outside-selection.html\\#\\csname piloturl@#1\\endcsname}{\\csname pilotref@#1\\endcsname{} (outside selection)}}')
     write(BUILD/'external-references.tex','\n'.join(definitions)+'\n')
     dump(BUILD/'external.json',external)
     run(['pdflatex','-interaction=nonstopmode','-halt-on-error','pilot-pdf.tex'])
@@ -90,15 +101,20 @@ def convert_diagrams(site=SITE):
         sha=digest(read(BUILD/(stem+'.tex'))+read(BUILD/'preamble.tex'))
         cache=BUILD/(stem+'.sha256')
         if svg.exists() and cache.exists() and read(cache)==sha: continue
-        (BUILD/(stem+'.aux')).unlink(missing_ok=True)
-        run(['latex','-interaction=nonstopmode','-halt-on-error',stem+'.tex'])
+        # Staging starts empty, but the checked DVI can survive a failed build.
+        # Its receipt includes the complete generated input and preamble.
+        dvi=BUILD/(stem+'.dvi')
+        if not (dvi.exists() and cache.exists() and read(cache)==sha):
+            (BUILD/(stem+'.aux')).unlink(missing_ok=True)
+            run(['latex','-interaction=nonstopmode','-halt-on-error',stem+'.tex'])
         svg.parent.mkdir(parents=True,exist_ok=True)
         run(['dvisvgm','--no-fonts','--exact-bbox','--output='+str(svg),stem+'.dvi'])
         write(cache,sha)
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser(); p.add_argument('--frozen',action='store_true'); p.add_argument('--reuse-agda-check',action='store_true'); p.add_argument('--convert-only',action='store_true'); p.add_argument('--diagrams-only',action='store_true')
+    p=argparse.ArgumentParser(); p.add_argument('--frozen',action='store_true'); checks=p.add_mutually_exclusive_group(); checks.add_argument('--reuse-agda-check',action='store_true'); checks.add_argument('--incremental-agda-check',action='store_true'); p.add_argument('--convert-only',action='store_true'); p.add_argument('--diagrams-only',action='store_true')
+    checks.add_argument('--manuscript-only',action='store_true',help='Update manuscript; retain the exact previously checked Agda sources and HTML')
     a=p.parse_args()
     if a.diagrams_only: convert_diagrams()
     elif a.convert_only: convert()
-    else: build(a.frozen,a.reuse_agda_check)
+    else: build(a.frozen,a.reuse_agda_check,a.incremental_agda_check,a.manuscript_only)

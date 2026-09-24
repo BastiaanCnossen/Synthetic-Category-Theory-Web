@@ -10,8 +10,8 @@ open import Agda.Primitive using (Level; _⊔_)
 open import SCT.VolumeI.Chapter01.Section01.Vocabulary
 import SCT.VolumeI.Chapter01.Section01.Terminal as Terminal
 import SCT.VolumeI.Chapter01.Section01.Products as Products
-import SCT.VolumeI.Chapter01.Section01.Coherence as Coherence
-import SCT.VolumeI.Chapter01.Section01.Specialization as Specialization
+import SCT.VolumeI.Chapter01.Section02.Coherence as Coherence
+import SCT.VolumeI.Chapter01.Section02.Specialization as Specialization
 import SCT.Investigations.JointPreservation as Joint
 
 module SCT.Investigations.UniversalPreservation
@@ -50,7 +50,7 @@ module Boundary {C D E : CAT}
 record UniversalPreservation : Set (c ⊔ m) where
   field
     preserve : {C D E : CAT} (f₀ f₁ f₂ : MAP C D) (g₀ g₁ g₂ : MAP D E)
-      → =₁ (Boundary.first f₀ f₁ f₂ g₀ g₁ g₂) (Boundary.second f₀ f₁ f₂ g₀ g₁ g₂)
+      → (Boundary.first f₀ f₁ f₂ g₀ g₁ g₂) =₁ (Boundary.second f₀ f₁ f₂ g₀ g₁ g₂)
 
 family-to-universal : FamilyPreservation → UniversalPreservation
 family-to-universal H = record
@@ -61,8 +61,8 @@ family-to-universal H = record
 hcomp-evaluate : {A B C D E : CAT} {f f′ : MAP C D} {g g′ : MAP D E}
   (β : MAP B (g ＝ g′)) (α : MAP B (f ＝ f′)) (r : MAP A B)
   {β′ : MAP A (g ＝ g′)} {α′ : MAP A (f ＝ f′)}
-  → =₁ (β ∘ r) β′ → =₁ (α ∘ r) α′
-  → =₁ ((β ⋆ α) ∘ r) (β′ ⋆ α′)
+  → (β ∘ r) =₁ β′ → (α ∘ r) =₁ α′
+  → ((β ⋆ α) ∘ r) =₁ (β′ ⋆ α′)
 hcomp-evaluate β α r b a = hcomp-cong b a ∙ hcomp-pre β α r
 
 universal-to-family : UniversalPreservation → FamilyPreservation
@@ -72,7 +72,7 @@ universal-to-family H = record { preserve = restrict }
     {f₀ f₁ f₂ : MAP C D} {g₀ g₁ g₂ : MAP D E}
     (β₂ : MAP A (g₁ ＝ g₂)) (β₁ : MAP A (g₀ ＝ g₁))
     (α₂ : MAP A (f₁ ＝ f₂)) (α₁ : MAP A (f₀ ＝ f₁))
-    → =₁ ((β₂ ∙ β₁) ⋆ (α₂ ∙ α₁)) ((β₂ ⋆ α₂) ∙ (β₁ ⋆ α₁))
+    → ((β₂ ∙ β₁) ⋆ (α₂ ∙ α₁)) =₁ ((β₂ ⋆ α₂) ∙ (β₁ ⋆ α₁))
   restrict {f₀ = f₀} {f₁} {f₂} {g₀} {g₁} {g₂} β₂ β₁ α₂ α₁ =
     let module B = Boundary f₀ f₁ f₂ g₀ g₁ g₂
         outer = pair β₂ β₁

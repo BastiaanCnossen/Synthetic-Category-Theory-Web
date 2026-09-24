@@ -1,10 +1,8 @@
 # Joint preservation, conditional on joint interchange
 
-This retains the conditional formulation investigated before the September 15
-axiom replacement. Joint interchange is now part of the accepted interface;
-`Section01.JointPreservation` proves the result directly. The auxiliary
-proofs below hide that field and retain their explicit hypothesis, but this
-current compilation is not an independence result for the former signature.
+This isolates the extra joint-interchange hypothesis. The shared theory uses
+only the two fixed-input clauses. The investigation does not prove that joint
+interchange is independent of the full manuscript axioms.
 
 ```agda
 {-# OPTIONS --safe --without-K #-}
@@ -12,8 +10,8 @@ open import Agda.Primitive using (Level; _⊔_)
 open import SCT.VolumeI.Chapter01.Section01.Vocabulary
 import SCT.VolumeI.Chapter01.Section01.Terminal as Terminal
 import SCT.VolumeI.Chapter01.Section01.Products as Products
-import SCT.VolumeI.Chapter01.Section01.Coherence as Coherence
-import SCT.VolumeI.Chapter01.Section01.Specialization as Specialization
+import SCT.VolumeI.Chapter01.Section02.Coherence as Coherence
+import SCT.VolumeI.Chapter01.Section02.Specialization as Specialization
 
 module SCT.Investigations.JointPreservation
   {c m a : Level} (V : Vocabulary c m a)
@@ -31,7 +29,7 @@ open Products.ProductData P
 open Coherence.CompositionStructure S
 open Coherence.Composition V T P S
 open Coherence.VerticalCoherence VC
-open Coherence.WhiskeringCoherence W hiding (interchange-joint)
+open Coherence.WhiskeringCoherence W
 open Specialization V T P PL S
 
 module Triple {X A B C : CAT}
@@ -40,23 +38,23 @@ module Triple {X A B C : CAT}
   parameters : MAP X ((C × B) × A)
   parameters = pair (pair γ β) α
 
-  first : =₁ ((pr₁ ∘ pr₁) ∘ parameters) γ
+  first : ((pr₁ ∘ pr₁) ∘ parameters) =₁ γ
   first = pair-β₁ γ β ∙
     ((pr₁ ◁ pair-β₁ (pair γ β) α) ∙ comp-assoc parameters pr₁ pr₁)
 
-  second : =₁ ((pr₂ ∘ pr₁) ∘ parameters) β
+  second : ((pr₂ ∘ pr₁) ∘ parameters) =₁ β
   second = pair-β₂ γ β ∙
     ((pr₂ ◁ pair-β₁ (pair γ β) α) ∙ comp-assoc parameters pr₁ pr₂)
 
-  third : =₁ (pr₂ ∘ parameters) α
+  third : (pr₂ ∘ parameters) =₁ α
   third = pair-β₂ (pair γ β) α
 
 isoComp-assoc-family : {X C D : CAT} {f g h k : MAP C D}
   (γ : MAP X (h ＝ k)) (β : MAP X (g ＝ h)) (α : MAP X (f ＝ g))
-  → =₁ ((γ ∙ β) ∙ α) (γ ∙ (β ∙ α))
+  → ((γ ∙ β) ∙ α) =₁ (γ ∙ (β ∙ α))
 isoComp-assoc-family {f = f} {g} {h} {k} γ β α =
   let open Triple γ β α
-  in specialize (isoComp-assoc f g h k) parameters
+  in specialize (Units.isoComp-assoc-left VC f g h k) parameters
     (isoComp-evaluate ((pr₁ ∘ pr₁) ∙ (pr₂ ∘ pr₁)) pr₂ parameters
       (isoComp-evaluate (pr₁ ∘ pr₁) (pr₂ ∘ pr₁) parameters first second) third)
     (isoComp-evaluate (pr₁ ∘ pr₁) ((pr₂ ∘ pr₁) ∙ pr₂) parameters first
@@ -64,7 +62,7 @@ isoComp-assoc-family {f = f} {g} {h} {k} γ β α =
 
 postWhisker-isoComp-family : {X C D E : CAT} {f g h : MAP C D}
   (u : MAP D E) (τ : MAP X (g ＝ h)) (σ : MAP X (f ＝ g))
-  → =₁ (u ◁ (τ ∙ σ)) ((u ◁ τ) ∙ (u ◁ σ))
+  → (u ◁ (τ ∙ σ)) =₁ ((u ◁ τ) ∙ (u ◁ σ))
 postWhisker-isoComp-family {f = f} {g} {h} u τ σ =
   let parameters = pair τ σ
   in specialize (postWhisker-isoComp f g h u) parameters
@@ -76,7 +74,7 @@ postWhisker-isoComp-family {f = f} {g} {h} u τ σ =
 
 preWhisker-isoComp-family : {X B C D : CAT} {f g h : MAP C D}
   (τ : MAP X (g ＝ h)) (σ : MAP X (f ＝ g)) (k : MAP B C)
-  → =₁ ((τ ∙ σ) ▷ k) ((τ ▷ k) ∙ (σ ▷ k))
+  → ((τ ∙ σ) ▷ k) =₁ ((τ ▷ k) ∙ (σ ▷ k))
 preWhisker-isoComp-family {f = f} {g} {h} τ σ k =
   let parameters = pair τ σ
   in specialize (preWhisker-isoComp f g h k) parameters
@@ -89,15 +87,16 @@ preWhisker-isoComp-family {f = f} {g} {h} τ σ k =
 reassociateFour-family : {X C D : CAT} {f g h i j : MAP C D}
   (δ : MAP X (i ＝ j)) (γ : MAP X (h ＝ i))
   (β : MAP X (g ＝ h)) (α : MAP X (f ＝ g))
-  → =₁ ((δ ∙ γ) ∙ (β ∙ α)) (δ ∙ ((γ ∙ β) ∙ α))
+  → ((δ ∙ γ) ∙ (β ∙ α)) =₁ (δ ∙ ((γ ∙ β) ∙ α))
 reassociateFour-family δ γ β α =
-  isoComp-cong (idIso δ) (invIso (isoComp-assoc-family γ β α))
+  isoComp-cong (idIso δ) ((isoComp-assoc-family γ β α) ⁻¹)
   ∙ isoComp-assoc-family δ γ (β ∙ α)
 ```
 
-The following record retains the former investigation hypothesis. Its field
-now also occurs in the accepted Section 1.1 axiom record. The separate slice
-witnesses in the main development are derived, not independently supplied.
+The following record is an additional investigation hypothesis. It is not
+a field of `Theory`, whose two fixed-input witnesses are supplied independently.
+The converse argument below relates this extra hypothesis to joint preservation;
+it does not establish independence from the complete manuscript axioms.
 
 ```agda
 record JointInterchange : Set (c ⊔ m) where
@@ -108,7 +107,7 @@ record JointInterchange : Set (c ⊔ m) where
             τ = pr₁
             σ : MAP X (h ＝ k)
             σ = pr₂
-        in =₁ ((τ ▷ k) ∙ (F ◁ σ)) ((G ◁ σ) ∙ (τ ▷ h))
+        in ((τ ▷ k) ∙ (F ◁ σ)) =₁ ((G ◁ σ) ∙ (τ ▷ h))
 
 record FamilyPreservation : Set (c ⊔ m) where
   field
@@ -116,14 +115,14 @@ record FamilyPreservation : Set (c ⊔ m) where
       {f₀ f₁ f₂ : MAP C D} {g₀ g₁ g₂ : MAP D E}
       (β₂ : MAP X (g₁ ＝ g₂)) (β₁ : MAP X (g₀ ＝ g₁))
       (α₂ : MAP X (f₁ ＝ f₂)) (α₁ : MAP X (f₀ ＝ f₁))
-      → =₁ ((β₂ ∙ β₁) ⋆ (α₂ ∙ α₁)) ((β₂ ⋆ α₂) ∙ (β₁ ⋆ α₁))
+      → ((β₂ ∙ β₁) ⋆ (α₂ ∙ α₁)) =₁ ((β₂ ⋆ α₂) ∙ (β₁ ⋆ α₁))
 
 module Conditional (J : JointInterchange) where
   open JointInterchange J
 
   interchange-family : {X B C D : CAT} {F G : MAP C D} {h k : MAP B C}
     (τ : MAP X (F ＝ G)) (σ : MAP X (h ＝ k))
-    → =₁ ((τ ▷ k) ∙ (F ◁ σ)) ((G ◁ σ) ∙ (τ ▷ h))
+    → ((τ ▷ k) ∙ (F ◁ σ)) =₁ ((G ◁ σ) ∙ (τ ▷ h))
   interchange-family {F = F} {G} {h} {k} τ σ =
     let parameters = pair τ σ
     in specialize (interchange-joint F G h k) parameters
@@ -138,7 +137,7 @@ module Conditional (J : JointInterchange) where
     {f₀ f₁ f₂ : MAP C D} {g₀ g₁ g₂ : MAP D E}
     (β₂ : MAP X (g₁ ＝ g₂)) (β₁ : MAP X (g₀ ＝ g₁))
     (α₂ : MAP X (f₁ ＝ f₂)) (α₁ : MAP X (f₀ ＝ f₁))
-    → =₁ ((β₂ ∙ β₁) ⋆ (α₂ ∙ α₁)) ((β₂ ⋆ α₂) ∙ (β₁ ⋆ α₁))
+    → ((β₂ ∙ β₁) ⋆ (α₂ ∙ α₁)) =₁ ((β₂ ⋆ α₂) ∙ (β₁ ⋆ α₁))
   hcomp-isoComp-family {f₁ = f₁} {f₂} {g₀ = g₀} {g₁} β₂ β₁ α₂ α₁ =
     let δ = β₂ ▷ f₂
         γ = β₁ ▷ f₂
@@ -151,7 +150,7 @@ module Conditional (J : JointInterchange) where
           (postWhisker-isoComp-family g₀ α₂ α₁)
         exchange = isoComp-cong (idIso δ)
           (isoComp-cong (interchange-family β₁ α₂) (idIso α))
-    in invIso (reassociateFour-family δ γ′ β′ α)
+    in (reassociateFour-family δ γ′ β′ α) ⁻¹
        ∙ (exchange ∙ (reassociateFour-family δ γ β α ∙ expand))
 
   familyPreservation : FamilyPreservation
@@ -181,7 +180,7 @@ module Conditional (J : JointInterchange) where
     compose-first : MAP Parameter ((g₀ ∘ f₀) ＝ (g₂ ∘ f₂))
     compose-first = (β₂ ⋆ α₂) ∙ (β₁ ⋆ α₁)
 
-    preservation : =₁ preserve-first compose-first
+    preservation : preserve-first =₁ compose-first
     preservation = hcomp-isoComp-family β₂ β₁ α₂ α₁
 ```
 
@@ -193,7 +192,7 @@ identify their full types of chosen witnesses.
 
 ```agda
 isoComp-unitˡ-family : {X C D : CAT} {f g : MAP C D}
-  (α : MAP X (f ＝ g)) → =₁ (const (idIso g) ∙ α) α
+  (α : MAP X (f ＝ g)) → (const (idIso g) ∙ α) =₁ α
 isoComp-unitˡ-family {f = f} {g} α =
   specialize (isoComp-unitˡ f g) α
     (isoComp-evaluate (const (idIso g)) (id (f ＝ g)) α
@@ -201,7 +200,7 @@ isoComp-unitˡ-family {f = f} {g} α =
     (comp-unitˡ α)
 
 isoComp-unitʳ-family : {X C D : CAT} {f g : MAP C D}
-  (α : MAP X (f ＝ g)) → =₁ (α ∙ const (idIso f)) α
+  (α : MAP X (f ＝ g)) → (α ∙ const (idIso f)) =₁ α
 isoComp-unitʳ-family {f = f} {g} α =
   specialize (isoComp-unitʳ f g) α
     (isoComp-evaluate (id (f ＝ g)) (const (idIso f)) α
@@ -209,18 +208,18 @@ isoComp-unitʳ-family {f = f} {g} α =
     (comp-unitˡ α)
 
 postWhisker-const : {X C D E : CAT} {f g : MAP C D}
-  (u : MAP D E) (α : =₁ f g)
-  → =₁ (u ◁ const {P = X} α) (const (u ◁ α))
-postWhisker-const {X} u α = invIso (comp-assoc (terminate X) α (postWhisker u))
+  (u : MAP D E) (α : f =₁ g)
+  → (u ◁ const {P = X} α) =₁ (const (u ◁ α))
+postWhisker-const {X} u α = (comp-assoc (terminate X) α (postWhisker u)) ⁻¹
 
 preWhisker-const : {X B C D : CAT} {f g : MAP C D}
-  (α : =₁ f g) (k : MAP B C)
-  → =₁ (const {P = X} α ▷ k) (const (α ▷ k))
-preWhisker-const {X} α k = invIso (comp-assoc (terminate X) α (preWhisker k))
+  (α : f =₁ g) (k : MAP B C)
+  → (const {P = X} α ▷ k) =₁ (const (α ▷ k))
+preWhisker-const {X} α k = (comp-assoc (terminate X) α (preWhisker k)) ⁻¹
 
 hcomp-idOuter-family : {X C D E : CAT} {f f′ : MAP C D}
   (g : MAP D E) (α : MAP X (f ＝ f′))
-  → =₁ (const (idIso g) ⋆ α) (g ◁ α)
+  → (const (idIso g) ⋆ α) =₁ (g ◁ α)
 hcomp-idOuter-family {X} {f′ = f′} g α =
   isoComp-unitˡ-family (g ◁ α) ∙
     isoComp-cong
@@ -229,7 +228,7 @@ hcomp-idOuter-family {X} {f′ = f′} g α =
 
 hcomp-idInner-family : {X C D E : CAT} {g g′ : MAP D E}
   (β : MAP X (g ＝ g′)) (f : MAP C D)
-  → =₁ (β ⋆ const (idIso f)) (β ▷ f)
+  → (β ⋆ const (idIso f)) =₁ (β ▷ f)
 hcomp-idInner-family {X} {g = g} β f =
   isoComp-unitʳ-family (β ▷ f) ∙
     isoComp-cong (idIso (β ▷ f))
@@ -244,13 +243,12 @@ preservation-to-interchange H = record { interchange-joint = joint }
           τ = pr₁
           σ : MAP X (h ＝ k)
           σ = pr₂
-      in =₁ ((τ ▷ k) ∙ (F ◁ σ)) ((G ◁ σ) ∙ (τ ▷ h))
+      in ((τ ▷ k) ∙ (F ◁ σ)) =₁ ((G ◁ σ) ∙ (τ ▷ h))
   joint F G h k =
     isoComp-cong (hcomp-idOuter-family G pr₂) (hcomp-idInner-family pr₁ h)
     ∙ (FamilyPreservation.preserve H (const (idIso G)) pr₁ pr₂ (const (idIso h))
-       ∙ invIso (hcomp-cong (isoComp-unitˡ-family pr₁) (isoComp-unitʳ-family pr₂)))
+       ∙ (hcomp-cong (isoComp-unitˡ-family pr₁) (isoComp-unitʳ-family pr₂)) ⁻¹)
 ```
 
-Derivability from the former axiom package remains a historical open question.
-The current package directly supplies joint interchange, as authorized by
-the author. The conditional implications here make no independence claim.
+Derivability from the current fixed-input axiom package remains open.
+The conditional implications here make no independence claim.

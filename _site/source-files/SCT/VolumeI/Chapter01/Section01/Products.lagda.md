@@ -23,9 +23,9 @@ record ProductData : Set (c ⊔ m ⊔ a) where
     pr₂ : {C D : CAT} → MAP (C × D) D
     pair : {P C D : CAT} → MAP P C → MAP P D → MAP P (C × D)
     pair-β₁ : {P C D : CAT} (f : MAP P C) (g : MAP P D)
-      → =₁ (pr₁ ∘ pair f g) f
+      → (pr₁ ∘ pair f g) =₁ f
     pair-β₂ : {P C D : CAT} (f : MAP P C) (g : MAP P D)
-      → =₁ (pr₂ ∘ pair f g) g
+      → (pr₂ ∘ pair f g) =₁ g
     product-isAn : {C D : CAT} → isAn C → isAn D → isAn (C × D)
 
 module Comparison (P : ProductData) where

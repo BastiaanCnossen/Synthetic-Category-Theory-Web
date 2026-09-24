@@ -22,18 +22,18 @@ open Terminal.Constructions V T
 record Contraction (C : CAT) : Set m where
   field
     center : Obj-abs C
-    contraction : =₁ (const center) (id C)
+    contraction : (id C) =₁ (const center)
 
 contractible-to-contraction : {C : CAT} → IsContractible C → Contraction C
 contractible-to-contraction e = record
   { center = IsEquiv.inverse e
-  ; contraction = invIso (IsEquiv.sectionIso e)
+  ; contraction = IsEquiv.sectionIso e
   }
 
 contraction-to-contractible : {C : CAT} → Contraction C → IsContractible C
 contraction-to-contractible {C} H = record
   { inverse = Contraction.center H
-  ; sectionIso = invIso (Contraction.contraction H)
+  ; sectionIso = Contraction.contraction H
   ; retractionIso = terminal-iso (id One) (terminate C ∘ Contraction.center H)
   }
 

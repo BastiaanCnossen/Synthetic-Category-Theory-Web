@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Overview of the axioms | Synthetic category theory</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/reader-shell.css"><link rel="stylesheet" href="assets/reader.css?v=14abfeeb2c9c523d"><link rel="stylesheet" href="assets/Agda.css">
+<script src="assets/math-config.js"></script><script defer src="vendor/mathjax/tex-chtml.js"></script><script defer src="assets/reader.js?v=0a9d2e6221b17f7e"></script></head>
+<body class=""><a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="header-top"><a class="collection-return" href="index.html">Synthetic category theory</a><nav class="page-turns" aria-label="Reading navigation"><a rel="prev" href="introduction.html" title="Introduction" aria-label="Previous: Introduction, Introduction"><span class="turn-direction">← Previous</span><span class="turn-target">Introduction</span></a><a rel="next" href="chapter-introduction.html" title="The language of synthetic category theory" aria-label="Next: Chapter 1, The language of synthetic category theory"><span class="turn-direction">→ Next</span><span class="turn-target">Chapter 1</span></a></nav></div><p class="eyebrow">Volume I · Experimental web edition</p><h1>Overview of the axioms</h1></header>
+<div class="reader-grid"><aside class="reader-nav" aria-label="Book navigation"><details open><summary>Contents</summary><nav><a href="index.html">Overview</a><a href="introduction.html">Introduction</a><a aria-current="page" href="overview-of-the-axioms.html">Overview of the axioms</a><details class="contents-chapter"><summary><span class="chapter-number">Chapter 1</span><span class="chapter-name">The language of synthetic category theory</span></summary><div class="chapter-sections"><a href="chapter-introduction.html">Chapter introduction</a><a href="basic-vocabulary.html">1.1 · The basic vocabulary</a><a href="coherences.html">1.2 · Coherences</a><a href="equivalences.html">1.3 · Equivalences of categories</a><a href="mapping-animae.html">1.4 · Mapping animae</a><a href="initial-categories-and-coproducts.html">1.5 · Initial categories and coproducts</a><a href="pullbacks.html">1.6 · Pullbacks of categories</a><a href="functor-categories.html">1.7 · Functor categories</a><a href="pushouts.html">1.8 · Pushout squares</a></div></details><details class="contents-chapter"><summary><span class="chapter-number">Chapter 2</span><span class="chapter-name">The internal structure of categories</span></summary><div class="chapter-sections"><a href="internal-structure-introduction.html">Chapter introduction</a><a href="morphisms-and-diagrams.html">2.1 · Morphisms and diagrams</a><a href="segal-axiom.html">2.2 · The Segal axiom</a><a href="rezk-axiom.html">2.3 · The Rezk axiom</a><a href="groupoids.html">2.4 · Groupoids</a><a href="recognizing-animae.html">2.5 · Recognizing animae</a><a href="chapter-2-exercises.html">2.6 · Exercises</a></div></details><a href="code-index.html">All Agda code</a><a href="formalization.html">Agda guide</a><a href="build-report.html">Build details</a></nav></details>
+<details class="settings"><summary>Reading preferences</summary><label><input id="collapse-proofs" type="checkbox"> Collapse book proofs</label><label><input id="hide-agda-links" type="checkbox"> Hide links to Agda code</label><a href="book.pdf">Read the web edition PDF</a></details></aside>
+<main id="main" class="notes-page" tabindex="-1"><h2 class="likechapterHead" id="overview-of-the-axioms"><a id="x1-8000"></a>Overview of the axioms</h2>
+<p id="overview-of-the-axioms1"><a id="Q1-1-10"></a>
+</p><p class="noindent">The axioms are introduced progressively, since several require preliminary categorical language before they
+can be stated. This chapter gives a concise overview of the actual axiomatic package and the principal
+constructions used in its formulation. Precise statements and dependencies appear in the chapters that
+follow.
+</p>
+<h3 class="likesectionHead" id="the-language-of-synthetic-category-theory"><a id="x1-9000"></a>The language of synthetic category theory</h3>
+<p class="noindent">Synthetic category theory rests upon a language of categories, functors and natural isomorphisms, together
+with specified operations and identifications. We will now provide a rough overview of this language,
+leaving the details to Chapter <a href="chapter-introduction.html#the-language-of-synthetic-category-theory1">1</a>.
+</p><p class="noindent"></p><section class="statement" data-environment="introaxiom" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-9001r1"></a>
+<span class="ntx-Bold-tlf-t1-x-x-109">Axiom A.</span>  </span><span class="source-anchor" id="introaxiom:Basic_Language"></span> There are categories and, among them, animae. Between categories there are functors,
+with  identity  functors  and  composition.  For  parallel  functors  \(f,g\colon C\to D\),  there  is  an  isomorphism  anima  \((f\cong g)\),
+with prewhiskering, postwhiskering, and inversion functors. An object \(c:C\) is a functor \(*\to C\), and a natural
+isomorphism \(\alpha \colon f\cong g\) is a functor \(*\to (f\cong g)\). Composition of natural isomorphisms is a functor, with unit, associativity,
+and inverse identifications. Composition of functors has unitors and an associator, satisfying the
+triangle and pentagon identities and the specified whiskering and interchange laws.
+</p>
+</div>
+
+
+<p class="noindent"> </p></section>
+<p></p><p class="noindent">Animae serve as the homotopy-coherent collections of the theory, playing the role of sets in ordinary
+mathematics. The distinguishing feature is the notion of equality in an anima: given two identifications \(p,q : x \cong _X y\), we
+may talk about identifications between \(p\) and \(q\), and this process may be iterated. In particular, we may speak
+of isomorphisms between two natural isomorphisms.
+</p><p class="noindent">A functor \(f\colon C\to D\) may be displayed in term notation as \(x:C\vdash f(x):D\). Substitution displays composition of functors; natural
+isomorphisms of expressions are natural isomorphisms of the whole functors.
+</p><p class="noindent">A functor \(f\colon C \to D\) is said to be an <span class="ntx-Italic-tlf-t1-x-x-109">equivalence </span>if there exists another functor \(g\colon D \to C\) and natural isomorphisms \(\id _{C} \cong gf\) and
+\(\id _D \cong fg\).
+</p><p class="noindent">There are various ways to build new categories out of old ones. In each case, we will specify the behavior of
+these constructions by prescribing how to define functors into/out of them and how to define natural
+isomorphisms between functors into/out of them. We record only the coherence data and relations used
+explicitly in the development.
+</p><p class="noindent"></p><section class="statement" data-environment="introaxiom" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-9002r2"></a>
+<span class="ntx-Bold-tlf-t1-x-x-109">Axiom B.</span>  </span><span class="source-anchor" id="introaxiom:Basic_Categorical_Constructions"></span> We demand the existence of the following categories:
+   </p><dl class="enumerate"><dt class="enumerate">
+(1) </dt><dd class="enumerate">
+   <p class="noindent">A terminal anima \(*\): for every \(C\) there is a functor \(p_C\colon C\to *\), and for \(f,g\colon C\to *\) the anima \((f\cong g)\) is contractible.
+   </p></dd><dt class="enumerate">
+(2) </dt><dd class="enumerate">
+   <p class="noindent">A product \(C\times D\) with two projections. Functors into it are formed by pairing, and for \(h,k\colon T\to C\times D\) projection
+   induces an equivalence \[ (h\cong k)\iso (\pr _C h\cong \pr _C k)\times (\pr _D h\cong \pr _D k). \]
+   </p></dd><dt class="enumerate">
+(3) </dt><dd class="enumerate">
+   <p class="noindent">A mapping anima \(\Map (C,D)\) with evaluation \(\Map (C,D)\times C\to D\). Functors \(X\times C\to D\) with anima parameter \(X\) can be curried to \(X \to \Map (C,D)\), and
+   uncurrying induces equivalences of isomorphism animae.
+   </p></dd><dt class="enumerate">
+(4) </dt><dd class="enumerate">
+
+
+   <p class="noindent">An initial category \(\emptyset \), with \(\Map (\emptyset ,T)\) contractible for every category \(T\).
+   </p></dd><dt class="enumerate">
+(5) </dt><dd class="enumerate">
+   <p class="noindent">A coproduct \(C\sqcup D\) with inclusions, such that restriction gives an equivalence \(\Map (C\sqcup D,T)\iso \Map (C,T)\times \Map (D,T)\) for every \(T\).
+   </p></dd><dt class="enumerate">
+(6) </dt><dd class="enumerate">
+   <p class="noindent">A pullback \(C\times _E D\) with projections and a matching natural isomorphism. Maps to the pullback are
+   constructed by mapping into \(C\) and \(D\) and exhibiting a comparison isomorphism; isomorphism
+   animae of functors into the pullback are the corresponding pullbacks of isomorphism animae.
+   </p></dd><dt class="enumerate">
+(7) </dt><dd class="enumerate">
+   <p class="noindent">A functor category \(\Fun (C,D)\) with evaluation inducing equivalences \(\Map (T,\Fun (C,D))\iso \Map (T\times C,D)\) for every category \(T\). This provides
+   currying and uncurrying for arbitrary categorical parameters.</p></dd></dl>
+<p class="noindent">Products of animae are animae, as are pullbacks of animae over animae. We further demand
+strictness of the initial category and universality of coproducts, in the sense of Axioms <a href="initial-categories-and-coproducts.html#axiom:Mapping_Into_Empty_Category">B.4’</a>
+and <a href="pullbacks.html#axiom:Universality_Of_Coproducts">B.5’</a>.
+</p>
+</div>
+<p class="noindent"> </p></section>
+<p></p><p class="noindent">We define the collection of objects in a category \(C\) to be \(C^\simeq =\Map (*,C)\). We define an <span class="ntx-Italic-tlf-t1-x-x-109">absolute object </span>of a category \(C\) to be a
+functor \(x\colon * \to C\).
+</p><p class="noindent">
+</p>
+<h3 class="likesectionHead" id="the-internal-structure-of-categories"><a id="x1-10000"></a>The internal structure of categories</h3>
+<p class="noindent">We now turn to morphisms and their composition, developed in Chapter <a href="internal-structure-introduction.html#the-internal-structure-of-categories1">2</a>. To speak of <span class="ntx-Italic-tlf-t1-x-x-109">morphisms</span>, we
+need another axiom:
+</p><p class="noindent"></p><section class="statement" data-environment="introaxiom" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+
+
+<a id="x1-10001r3"></a>
+<span class="ntx-Bold-tlf-t1-x-x-109">Axiom C.</span>  </span><span class="source-anchor" id="introaxiom:Walking_Morphism"></span> There is a category \([1]\), called the <span class="ntx-Italic-tlf-t1-x-x-109">walking morphism</span>, which comes equipped with an initial
+object \(0\) and a terminal object \(1\). These induce an equivalence \(\lra {0,1}\colon *\sqcup *\iso [1]^\simeq \).
+</p>
+</div>
+<p class="noindent"> </p></section>
+<p></p><p class="noindent">We may then define a <span class="ntx-Italic-tlf-t1-x-x-109">morphism </span>in \(C\) to be a functor \(f\colon [1] \to C\). We refer to the objects \(f(0)\) and \(f(1)\) of \(C\) as the <span class="ntx-Italic-tlf-t1-x-x-109">source </span>and <span class="ntx-Italic-tlf-t1-x-x-109">target</span>
+of \(f\), respectively, and often write \(f\colon x \to y\) to indicate that \(f\) comes equipped with isomorphisms \(x \cong f(0)\) and \(y \cong f(1)\).
+Similarly, a <span class="ntx-Italic-tlf-t1-x-x-109">natural transformation </span>of functors \(C \to D\) is defined as a functor \(C \times [1] \to D\), or equivalently a functor
+\(C \to \Fun ([1],D)\).
+</p><p class="noindent">The <span class="ntx-Italic-tlf-t1-x-x-109">walking commutative triangle </span>is the category \([2] := \Fun ([1],[1])\). It comes with objects \(0\), \(1\) and \(2\), and with functors \(d_0,d_1,d_2\colon [1] \to [2]\) and \(s_0,s_1\colon [2] \to [1]\)
+satisfying the simplicial identities. A <span class="ntx-Italic-tlf-t1-x-x-109">commutative triangle </span>in \(C\) is a functor \([2] \to C\), and a <span class="ntx-Italic-tlf-t1-x-x-109">commutative square </span>is a
+functor \([1] \times [1] \to C\). Every commutative square determines two commutative triangles by precomposition with
+the maps \(j_0 := (s_0,s_1)\colon [2] \to [1] \times [1]\) and \(j_1 := (s_1,s_0)\colon [2] \to [1] \times [1]\), and we demand that the original square can be uniquely recovered from this
+data:
+</p><p class="noindent"></p><section class="statement" data-environment="introaxiom" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-10002r4"></a>
+<span class="ntx-Bold-tlf-t1-x-x-109">Axiom D </span>(Commutative square axiom)<span class="ntx-Bold-tlf-t1-x-x-109">.</span>  </span><span class="source-anchor" id="introaxiom:Commutative_Square_Axiom"></span> For every category \(C\), the functor \[ (j_0^*,j_1^*)\colon \Fun ([1] \times [1], C) \to \Fun ([2],C) \times _{d_1,\Fun ([1],C),d_1} \Fun ([2],C) \] is an equivalence.
+</p>
+</div>
+<p class="noindent"> </p></section>
+<p></p><p class="noindent">Every object \(x\colon * \to C\) gives rise to an <span class="ntx-Italic-tlf-t1-x-x-109">identity morphism</span> \(\id _x\colon x \to x\), defined as the composite \([1] \xrightarrow {p_{[1]}} * \xrightarrow {x} C\). The definition of <span class="ntx-Italic-tlf-t1-x-x-109">composition</span>
+of morphisms in \(C\) requires another axiom:
+</p><p class="noindent"></p><section class="statement" data-environment="introaxiom" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-10003r5"></a>
+
+
+<span class="ntx-Bold-tlf-t1-x-x-109">Axiom E </span>(Segal axiom)<span class="ntx-Bold-tlf-t1-x-x-109">.</span>  </span><span class="source-anchor" id="introaxiom:Segal"></span> For every category \(C\), the restriction functor \[ (d_2^*,d_0^*)\colon \Fun ([2],C) \to \Fun ([1],C) \times _C \Fun ([1],C) \] is an equivalence of categories.
+</p>
+</div>
+<p class="noindent"> </p></section>
+<p></p><p class="noindent">Given morphisms \(f\colon x \to y\) and \(g\colon y \to z\), the axiom provides a unique commutative triangle \(\sigma \colon [2]\to C\) satisfying \(d_2^*(\sigma ) \cong f\) and \(d_0^*(\sigma ) \cong g\). The resulting
+morphism \(g \circ f := d_1^*(\sigma )\colon [1] \to C\) is called the <span class="ntx-Italic-tlf-t1-x-x-109">composite of</span> \(f\) <span class="ntx-Italic-tlf-t1-x-x-109">and</span> \(g\). One can prove that composition of morphisms is automatically
+unital and associative.
+</p><p class="noindent">Having both identity morphisms and composition, we may now introduce the notion of <span class="ntx-Italic-tlf-t1-x-x-109">isomorphism </span>in \(C\): a
+morphism \(f\colon x \to y\) in \(C\) is an isomorphism if it admits a left inverse \(g\colon y \to x\) (satisfying \(gf \cong \id _x\)) as well as a right inverse \(h\colon y \to x\) (satisfying
+\(fh \cong \id _y\)). Using diagram categories, we may in fact construct for every \(C\) a category \(\Iso (C)\) whose objects
+are precisely the isomorphisms in \(C\) (equipped with the data of left and right inverses). The
+canonical example of an isomorphism in \(C\) is the identity morphism \(\id _x\colon x \to x\), in which case the left and right
+inverses are simply \(\id _x\) itself. This construction provides a functor \(i\colon C \to \Iso (C)\), which we demand to be an
+equivalence:
+</p><p class="noindent"></p><section class="statement" data-environment="introaxiom" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-10004r6"></a>
+<span class="ntx-Bold-tlf-t1-x-x-109">Axiom F </span>(Rezk axiom)<span class="ntx-Bold-tlf-t1-x-x-109">.</span>  </span><span class="source-anchor" id="introaxiom:Rezk"></span> Every isomorphism in a category \(C\) is isomorphic to an identity morphism.
+More precisely, the functor \(i\colon C \to \Iso (C)\) is an equivalence.
+</p>
+</div>
+<p class="noindent"> </p></section>
+<p></p><p class="noindent">Axioms <a href="overview-of-the-axioms.html#introaxiom:Segal">E</a> and <a href="overview-of-the-axioms.html#introaxiom:Rezk">F</a> are inspired by Rezk’s notion of <span class="ntx-Italic-tlf-t1-x-x-109">complete Segal spaces</span>.
+</p><p class="noindent">We now introduce the following recognotion principle for animae.
+</p><p class="noindent"></p><section class="statement" data-environment="introaxiom" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-10005r7"></a>
+
+
+<span class="ntx-Bold-tlf-t1-x-x-109">Axiom G </span>(Groupoid recognition axiom)<span class="ntx-Bold-tlf-t1-x-x-109">.</span>  </span><span class="source-anchor" id="introaxiom:htpyhyp"></span> A category is an anima if and only if it is a groupoid.
+</p>
+</div>
+<p class="noindent"> </p></section>
+<p></p><p class="noindent">
+</p>
+<h3 class="likesectionHead" id="constructions-of-categories"><a id="x1-11000"></a>Constructions of categories</h3>
+<p class="noindent">Equipped with a basic language of categories, functors and natural isomorphisms, we can start formulating
+our remaining axioms of category theory. We first recall the <span class="ntx-Italic-tlf-t1-x-x-109">groupoid cores </span>of categories. Using the above
+notion of isomorphisms in a category \(C\), we say that \(C\) is a <span class="ntx-Italic-tlf-t1-x-x-109">groupoid </span>if all of its morphisms are
+isomorphisms.
+</p><p class="noindent">For every category \(C\), there is an anima \(C^{\simeq }\) called the <span class="ntx-Italic-tlf-t1-x-x-109">groupoid core of</span> \(C\), equipped with a functor \(\imath _C \colon C^{\simeq } \to C\) simply defined
+as \[ C^\simeq =\Map (*,C)\, . \] Every functor \(f\colon X \to C\) from an anima \(X\) factors through \(\imath _C\), and for functors \(g,h\colon X \to C^{\simeq }\) every natural isomorphism \(\imath _C \circ g \cong \imath _C \circ h\) may be
+lifted to a natural isomorphism \(g \cong h\).
+</p><p class="noindent">For categories \(C\) and \(D\), the primitive mapping anima \(\Map (C,D)\) is related to the functor category by a preferred
+equivalence \[ \Map (C,D)\simeq \Fun (C,D)^{\simeq }. \]
+</p><p class="noindent">We also demand the existence of subcategories, localizations, geometric realizations and joins, discussed in
+detail in <a href="outside-selection.html#chap:Basic_Synthetic_Category_Theory">Chapter 3 (outside selection)</a>:
+</p><p class="noindent"></p><section class="statement" data-environment="introaxiom" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-11001r8"></a>
+<span class="ntx-Bold-tlf-t1-x-x-109">Axiom H </span>(Subcategory axiom)<span class="ntx-Bold-tlf-t1-x-x-109">.</span>  </span><span class="source-anchor" id="introaxiom:Subcategory_Axiom"></span> Consider a category \(C\) equipped with a <span class="ntx-Italic-tlf-t1-x-x-109">collection of morphisms</span> \(m\colon M \hookrightarrow \Map ([1],C)\)
+of \(C\) which is <span class="ntx-Italic-tlf-t1-x-x-109">closed under composition </span>(see <a href="outside-selection.html#def:Collection_Of_Morphisms">Definition 3.1.6 (outside selection)</a> for a precise
+definition of these terms). Then there exists a category \(\lra {M}_C\) equipped with a functor \(i_M\colon \lra {M}_C \to C\) satisfying:
+</p>
+     <ul class="itemize1">
+     <li class="itemize">The induced functor \((i_M)_*\colon \Map ([1], \lra {M}_C) \to \Map ([1],C)\) factors through \(M\);
+     </li>
+     <li class="itemize">The functor \(i_M\) is <span class="ntx-Italic-tlf-t1-x-x-109">universal </span>with respect to the previous property: every other functor \(f\colon D \to C\) whose
+     induced functor \(f_*\colon \Map ([1], D) \to \Map ([1],C)\) factors through \(M\) admits a unique factorization through \(\lra {M}_C\).</li></ul>
+</div>
+<p class="noindent"> </p></section>
+<p></p><p class="noindent"></p><section class="statement" data-environment="introaxiom" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-11002r9"></a>
+<span class="ntx-Bold-tlf-t1-x-x-109">Axiom I </span>(Localization axiom)<span class="ntx-Bold-tlf-t1-x-x-109">.</span>  </span><span class="source-anchor" id="introaxiom:Localization_Axiom"></span> For every category \(C\) and every collection of morphisms \(W \hookrightarrow \Map ([1],C)\), there exists a
+functor \(l\colon C \to C[W^{-1}]\) exhibiting \(C[W^{-1}]\) as a localization of \(C\) at the morphisms in \(W\): </p>
+     <ul class="itemize1">
+     <li class="itemize">The functor \(l\) sends the morphisms in \(W\) to isomorphisms in \(C[W^{-1}]\);
+     </li>
+     <li class="itemize">The functor \(l\) is <span class="ntx-Italic-tlf-t1-x-x-109">universal </span>with respect to the previous property: every other functor \(f\colon C \to D\) which
+     sends morphisms in \(W\) to isomorphisms in \(D\) admits a unique factorization through \(C[W^{-1}]\).</li></ul>
+</div>
+<p class="noindent"> </p></section>
+<p></p><p class="noindent">In the case where \(W\) consists of <span class="ntx-Italic-tlf-t1-x-x-109">all </span>morphisms in \(C\), we denote the localization by \(\geom {C}\) and call it the <span class="ntx-Italic-tlf-t1-x-x-109">geometric
+realization of</span> \(C\)<span class="ntx-Italic-tlf-t1-x-x-109">. </span>It is automatically an anima.
+</p><p class="noindent"></p><section class="statement" data-environment="introaxiom" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-11003r10"></a>
+
+
+<span class="ntx-Bold-tlf-t1-x-x-109">Axiom J </span>(Join axioms)<span class="ntx-Bold-tlf-t1-x-x-109">.</span>  </span><span class="source-anchor" id="introaxiom:Join_Axioms"></span> For every category \(\Gamma \) and functors \(C\to \Gamma \) and \(D\to \Gamma \), there is a relative join \(C\star _\Gamma D\to \Gamma \). If \[ j_\Gamma :=\id _\Gamma \times j\colon \Gamma \times \partial [1]\longrightarrow \Gamma \times [1] \] is the
+weakening of the boundary inclusion, then the height functor \(h_{C,D}\colon C\star _\Gamma D\to \Gamma \times [1]\) is a dependent product of \(C\sqcup D\) over \(\Gamma \times \partial [1]\) along
+\(j_\Gamma \).
+</p><p class="noindent">When \(\Gamma \) is an anima, the relative join also satisfies the mapping-out exactness property: it is exhibited
+by a pushout square
+</p><p class="noindent"></p><figure class="diagram"><img src="assets/diagrams/diagram-c7e85390c7085deb.svg" alt="Commutative diagram from the manuscript; its arrows and comparisons are described in the surrounding text."></figure>
+<p></p><p class="noindent">The absolute join \(C\star D\) is the special case \(\Gamma = *\).
+</p>
+</div>
+<p class="noindent"> </p></section>
+<p></p><p class="noindent">If we write \([0]\) for the terminal category \(*\), we have \([1] \iso [0] \star [0]\), and we may inductively define \([n + 1] := [n] \star [0]\).
+</p><p class="noindent">
+</p>
+<h3 class="likesectionHead" id="cartesian-and-cocartesian-fibrations"><a id="x1-12000"></a>Cartesian and cocartesian fibrations</h3>
+<p class="noindent">An important concept in category theory is that of a cocartesian fibration: a functor \(E \to C\) whose fibers \(E_c\) vary
+covariantly and functorially in the object \(c \in C\). In <a href="outside-selection.html#chap:Fibrations_in_directed_type_theory">Chapter 5 (outside selection)</a>, we introduce a synthetic
+analogue of this definition: a functor \(f\colon A \to B\) is called a cocartesian fibration if a certain ‘directed
+evaluation map’ \(\vec {\ev }^f_0\colon \Fun ([1], A) \to A \vectimes {f} B\) admits a left adjoint section \(\lift ^f_0\colon A \vectimes {f} B \to \Fun ([1],A)\). Informally, this left adjoint section provides the
+cocartesian lifts \(a \to \beta _!(a)\) in \(A\) for morphisms \(\beta \colon b \to b'\) in \(B\) with specified lift \(a\) of \(b\). One may dually define <span class="ntx-Italic-tlf-t1-x-x-109">cartesian
+fibrations</span>.
+</p><p class="noindent"></p><section class="statement" data-environment="introaxiom" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-12001r12"></a>
+<span class="ntx-Bold-tlf-t1-x-x-109">Axiom L </span>(Functoriality of universals axiom)<span class="ntx-Bold-tlf-t1-x-x-109">.</span>  </span><span class="source-anchor" id="introaxiom:Functoriality_Of_Universals_Axiom"></span> Let \(p\colon E \to C\) be a cocartesian (resp. cartesian) fibration. If
+the  fiber  \(E_x\)  of  \(p\)  admits  a  terminal  (resp. initial)  object  for  every  object  \(x\)  of  \(C\),  then  there  is  a  right
+(resp. left) adjoint section \(s\colon C \to E\) of \(p\) whose value at \(x\) is isomorphic to the chosen terminal (resp. initial)
+object of \(E_x\).
+
+
+</p>
+</div>
+<p class="noindent"> </p></section>
+<p></p><p class="noindent"></p><section class="statement" data-environment="introaxiom" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-12002r13"></a>
+<span class="ntx-Bold-tlf-t1-x-x-109">Axiom M </span>(Exponentiability axiom)<span class="ntx-Bold-tlf-t1-x-x-109">.</span>  </span><span class="source-anchor" id="introaxiom:Exponentiability_Axiom"></span>   Cartesian   and   cocartesian   fibrations   are   <span class="ntx-Italic-tlf-t1-x-x-109">exponentiable</span>,
+meaning that pullback along a (co)cartesian fibration admits a right adjoint, and these right adjoints
+satisfy a Beck-Chevalley condition.
+</p>
+</div>
+<p class="noindent"> </p></section>
+<p></p><p class="noindent">Given a cocartesian fibration \(p\colon U_{\bullet } \to U\), one can formulate what it means for \(p\) to satisfy <span class="ntx-Italic-tlf-t1-x-x-109">directed univalence</span>: roughly
+speaking, this means that for functors \(f_0,f_1\colon C \to U\) with pullback fibrations \(E_i := f_i^*(U_{\bullet }) \to C\), the anima of natural transformations \(\alpha \colon f_0 \to f_1\) is
+equivalent to the anima of cocartesian functors \(E_0 \to E_1\) over \(C\). This condition will in particular imply a
+form of <span class="ntx-Italic-tlf-t1-x-x-109">straightening/unstraightening</span>. A category \(U\) equipped with such a univalent cocartesian
+fibration \(p\) is called a <span class="ntx-Italic-tlf-t1-x-x-109">universe</span>. We say that \(U\) is a <span class="ntx-Italic-tlf-t1-x-x-109">universe of categories </span>if it is closed under all the
+categorical operations introduced so far; see <a href="outside-selection.html#def:Universe_of_Categories">Definition 7.4.5 (outside selection)</a> for a complete
+list.
+</p><p class="noindent"></p><section class="statement" data-environment="introaxiom" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-12003r14"></a>
+<span class="ntx-Bold-tlf-t1-x-x-109">Axiom N </span>(Directed univalence axiom)<span class="ntx-Bold-tlf-t1-x-x-109">.</span>  </span><span class="source-anchor" id="introaxiom:Directed_Univalence_Axiom"></span> For every cocartesian fibration \(q\colon E \to B\), there exists a universe of
+categories \(U\) such that \(B\) is \(U\)-small and \(q\) has \(U\)-small fibers.
+</p>
+</div>
+
+
+<p class="noindent"> </p></section>
+<p></p><p class="noindent">We will usually fix a universe of categories \(\pi _{\univ }\colon \Cat _{\bullet } \to \Cat \) and work with categories that are small with respect to this
+universe, i.e. those categories \(C\) that can be obtained from an object \(c\) of \(\Cat \) via the following pullback
+square:
+</p><p class="noindent"></p><figure class="diagram"><img src="assets/diagrams/diagram-ae430a6929368a88.svg" alt="Commutative diagram from the manuscript; its arrows and comparisons are described in the surrounding text."></figure>
+<p></p><p class="noindent">A consequence of directed univalence is the straightening/unstraightening equivalence \[ \Un \colon \Fun (C,\Cat )\iso \CoCart (C) \] for every small
+category \(C\). Here \(\CoCart (C)\) is the subcategory of the slice category \(\Cat _{/C}\) whose objects are small cocartesian fibrations over \(C\)
+and whose morphisms are cocartesian functors. This correspondence motivates the intended interpretation
+of synthetic category theory in the universe \(\Cat \); its systematic verification belongs to Volume
+II.
+
+
+</p><p class="noindent"><a id="likesection.1"></a><a id="x1-12004x"></a>
+
+
+
+
+</p>
+</main></div>
+<footer>Experimental web edition · Generated from annotated LaTeX and Agda sources. <a href="build-report.html">Build details</a></footer></body></html>

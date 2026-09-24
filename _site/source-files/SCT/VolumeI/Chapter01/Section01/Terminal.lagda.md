@@ -23,14 +23,14 @@ record TerminalStructure : Set (c ⊔ m) where
 module Constructions (T : TerminalStructure) where
   open TerminalStructure T
 
-  const : {P C : CAT} → Obj-abs C → MAP P C
-  const {P} x = x ∘ terminate P
+  terminal-iso : {P : CAT} (f g : MAP P One) → f =₁ g
+  terminal-iso f g = IsEquiv.inverse (terminalIso-isEquiv f g)
 
   IsContractible : CAT → Set m
   IsContractible C = IsEquiv (terminate C)
 
-  terminal-iso : {P : CAT} (f g : MAP P One) → =₁ f g
-  terminal-iso f g = IsEquiv.inverse (terminalIso-isEquiv f g)
+  const : {P C : CAT} → Obj-abs C → MAP P C
+  const {P} x = x ∘ terminate P
 ```
 
 `terminal-iso` is a proved construction: the inverse supplied by the terminal

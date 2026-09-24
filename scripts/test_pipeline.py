@@ -5,6 +5,192 @@ from pilot_model import declaration_range,tex_markers
 from reader_context import focused_lines,module_lines,compiler_anchors
 
 class PipelineTests(unittest.TestCase):
+    def test_contents_expands_only_current_chapter(self):
+        from book_navigation import contents
+        for page,expected in [('morphisms-and-diagrams','Chapter 2'),('coherences','Chapter 1'),('index',None)]:
+            tree=parse(contents(page))
+            groups=[n for n in tree.all('details') if 'open' in n.attrs]
+            self.assertEqual([next(n.all('summary')).text().split('The')[0] for n in groups],[expected] if expected else [])
+            self.assertEqual(len([a for a in tree.all('a') if a.attrs.get('aria-current')=='page']),1)
+
+    def test_chapter_turns_skip_sections(self):
+        from book_navigation import page_turns
+        first=list(parse(page_turns('chapter-introduction')).all('a'))
+        last=list(parse(page_turns('internal-structure-introduction')).all('a'))
+        self.assertEqual([(a.attrs['rel'],a.attrs['href']) for a in first],[('prev','overview-of-the-axioms.html'),('next','internal-structure-introduction.html')])
+        self.assertEqual([(a.attrs['rel'],a.attrs['href']) for a in last],[('prev','chapter-introduction.html')])
+        section=list(parse(page_turns('coherences')).all('a'))
+        self.assertEqual([a.attrs['href'] for a in section],['basic-vocabulary.html','equivalences.html'])
+        self.assertEqual(page_turns('index'),'')
+
+    def test_frontmatter_reading_order(self):
+        from book_navigation import page_turns, contents
+        self.assertEqual([a.attrs['href'] for a in parse(page_turns('introduction')).all('a')],
+                         ['overview-of-the-axioms.html'])
+        self.assertEqual([a.attrs['href'] for a in parse(page_turns('overview-of-the-axioms')).all('a')],
+                         ['introduction.html','chapter-introduction.html'])
+        current=[a for a in parse(contents('introduction')).all('a') if a.attrs.get('aria-current')]
+        self.assertEqual([a.attrs['href'] for a in current],['introduction.html'])
+
+    def test_external_chapter_numbers_follow_master_order(self):
+        from unittest.mock import patch
+        from tempfile import TemporaryDirectory
+        from prepare import resolve_external_references
+        with TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            write(root/'intro.tex',r'\begin{document}\chapter*{Introduction}\end{document}')
+            write(root/'8_later.tex',r'\begin{document}\chapter{First}\label[chapter]{chap:first}Private prose.\end{document}')
+            write(root/'3_earlier.tex',r'\begin{document}\chapter{Second}\label[chapter]{chapter:Second chapter}Private prose.\end{document}')
+            with patch('prepare.SNAP',root),patch('prepare.BUILD',root):
+                body,records=resolve_external_references(r'\Cref{chapter:Second chapter}',
+                    ['intro.tex','8_later.tex','3_earlier.tex'],r'\documentclass{book}\begin{document}')
+            self.assertEqual(records[0]['reference_job'],'reference-chapter-2')
+            self.assertIn(r'\EditionExternal{chapter:Second chapter}',body)
+            self.assertEqual(external_anchor(records[0]['label']),'chapter:Second_chapter')
+            job=read(root/'reference-chapter-2.tex')
+            self.assertIn(r'\setcounter{chapter}{1}',job)
+            self.assertNotIn('Private prose',job)
+
+    def test_shared_agda_signature_keeps_individual_compiler_offsets(self):
+        source='module M.Top where\nrecord Expression {C : CAT} : Set where\n  field\n    value : C\n\nf g : A\nf = x\ng = y\n\nh : Expression → (r : A) → A\nh e r = r\n'
+        for name in ('f','g'):
+            loc=declaration_range(source,name)
+            self.assertEqual(source[loc['start']:loc['end']],'f g : A\nf = x\ng = y')
+            self.assertEqual(source[loc['namepos']:loc['namepos']+len(name)],name)
+        self.assertEqual(declaration_range(source,'Expression')['kind'],'record')
+        with self.assertRaises(ValueError): declaration_range(source,'r')
+
+    def test_tikz_row_spacing_does_not_open_a_math_passage(self):
+        source='\\[\\begin{tikzcd} a & b \\\\[1.4em] c & d \\end{tikzcd}\\]\n%!% begin example\nText.\n%!% end example\n'
+        plain,found=tex_markers(source,registry={'passages':[{'id':'example'}]})
+        self.assertEqual(found,['example'])
+        self.assertIn('Text.',plain)
+
+    def test_partial_chapter_selection_stops_before_next_section(self):
+        from unittest.mock import patch
+        source=r'\begin{document}\chapter{Internal structure}\label[chapter]{chap:Groupoids}\section{Morphisms and diagrams}\label[section]{sec:Morphisms_and_Diagrams}Selected.\section{Segal axiom}\label[section]{sec:Segal_Axiom}Excluded.\end{document}'
+        with patch('common.BOOK_CHAPTERS',[{'source':CHAPTER2,'sections':[
+                ('morphisms-and-diagrams','Morphisms and diagrams','sec:Morphisms_and_Diagrams')]}]):
+            selected=selected_source(source,CHAPTER2)
+        self.assertIn('Selected.',selected)
+        self.assertNotIn('Excluded.',selected)
+        self.assertNotIn('Segal',selected)
+
+    def test_complete_chapter_selection_labels_unlabelled_exercises_only_in_output(self):
+        chapter=next(c for c in BOOK_CHAPTERS if c['source']==CHAPTER2)
+        body=''.join(r'\section{'+title+'}'+(r'\label[section]{'+label+'}' if not label.startswith('web:') else '')+'Text.'
+                     for _,title,label in chapter['sections'])
+        source=r'\begin{document}'+body+r'\end{document}'
+        selected=selected_source(source,CHAPTER2)
+        self.assertIn(r'\section{Exercises}\label[section]{web:chapter02-exercises}Text.',selected)
+        self.assertNotIn('web:chapter02-exercises',source)
+        with self.assertRaises(ValueError):
+            selected_source(source.replace('sec:Rezk_Axiom','wrong-label'),CHAPTER2)
+
+    def test_numbered_diagram_uses_resolved_equation_counter(self):
+        from assemble import insert_diagrams
+        body=parse('<div data-diagram="square"></div>')
+        insert_diagrams(body,[{'id':'square','equation_label':'eq:square'}],{'eq:square':'2.1.1'})
+        self.assertEqual(next(body.all('figcaption')).text(),'(2.1.1)')
+
+    def test_new_stage_reuses_checked_dvi_but_preamble_change_recompiles(self):
+        import tempfile
+        from unittest.mock import patch
+        import build
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary); calls=[]
+            dump(root/'selection.json',{'diagrams':[{'id':'square'}]})
+            write(root/'square.tex','Diagram input'); write(root/'preamble.tex','Macros')
+            def run(args):
+                calls.append(args[0])
+                if args[0]=='latex': write(root/'square.dvi','Compiled DVI')
+                if args[0]=='dvisvgm': write(next(a.split('=',1)[1] for a in args if a.startswith('--output=')),'SVG')
+            with patch.multiple(build,BUILD=root,run=run):
+                build.convert_diagrams(site=root/'first')
+                self.assertEqual(calls,['latex','dvisvgm'])
+                calls.clear(); build.convert_diagrams(site=root/'second')
+                self.assertEqual(calls,['dvisvgm'])
+                write(root/'preamble.tex','Changed macros')
+                calls.clear(); build.convert_diagrams(site=root/'third')
+                self.assertEqual(calls,['latex','dvisvgm'])
+
+    def test_tex_log_font_bytes_do_not_hide_reference_errors(self):
+        import tempfile
+        from validate import validate_tex_log
+        with tempfile.TemporaryDirectory() as temporary:
+            log=Path(temporary)/'pilot.log'
+            font_message=b'Overfull box: font glyph \xb9\n'
+            log.write_bytes(font_message+b'Output written on pilot.pdf.\n')
+            validate_tex_log(log)
+            for warning in (b"LaTeX Warning: Reference `missing' undefined.",
+                            b"LaTeX Warning: Citation `missing' undefined.",
+                            b'LaTeX Warning: There were undefined references.'):
+                log.write_bytes(font_message+warning+b'\n')
+                with self.assertRaisesRegex(ValueError,'Unresolved LaTeX reference'):
+                    validate_tex_log(log)
+
+    def test_functor_section_reference_becomes_internal_when_selected(self):
+        from prepare import chapter_external_references
+        reference=r'See \Cref{sec:Functor_Categories}.'
+        section=r'\section{Functor categories}\label[section]{sec:Functor_Categories}'
+        body,records=chapter_external_references(reference,reference+section)
+        self.assertIn(r'\EditionExternal{sec:Functor_Categories}',body)
+        self.assertEqual([r['label'] for r in records],['sec:Functor_Categories'])
+        body,records=chapter_external_references(reference+section,reference+section)
+        self.assertEqual(body,reference+section)
+        self.assertEqual(records,[])
+
+    def test_later_functoriality_exercise_has_an_external_destination(self):
+        from prepare import chapter_external_references
+        reference=r'\begin{exercise}[\Cref{exercise:Functoriality_Postcomposition}]Task.\end{exercise}'
+        for env in ('exercise','uexercise'):
+            later=r'\begin{'+env+r'}\label[exercise]{exercise:Functoriality_Postcomposition}Laws.\end{'+env+'}'
+            body,records=chapter_external_references(reference,reference+later)
+            self.assertIn(r'\EditionExternal{exercise:Functoriality_Postcomposition}',body)
+            self.assertEqual(records[0]['source'],later)
+            body,records=chapter_external_references(reference+later,reference+later)
+            self.assertEqual(body,reference+later)
+            self.assertEqual(records,[])
+        with self.assertRaisesRegex(ValueError,'Outside-selection exercise moved'):
+            chapter_external_references(reference,reference)
+
+    def test_local_annotations_override_only_copied_files(self):
+        import tempfile
+        from unittest.mock import patch
+        import common
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary); private=root/'private'; annotated=root/'Annotated tex-files'
+            write(private/CHAPTER,'Main manuscript')
+            write(annotated/CHAPTER,'Annotated manuscript')
+            write(private/'preamble.tex','Shared macros')
+            with patch.multiple(common,REPO=private,ANNOTATED=annotated):
+                self.assertEqual(read(common.manuscript_input(CHAPTER)),'Annotated manuscript')
+                self.assertEqual(read(common.manuscript_input('preamble.tex')),'Shared macros')
+                with self.assertRaises(ValueError): common.manuscript_input('../outside.tex')
+
+    def test_local_annotations_report_prose_differences_without_a_git_branch(self):
+        import tempfile
+        from unittest.mock import patch
+        import check_preservation
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary); private=root/'private'; annotated=root/'Annotated tex-files'
+            write(private/CHAPTER,'Main prose.\n')
+            write(annotated/CHAPTER,'%!% begin example\nWeb prose.\n%!% end example\n')
+            dump(root/'correspondence.json',{'passages':[{'id':'example'}]})
+            with patch.multiple(check_preservation,ROOT=root,REPO=private,ANNOTATED=annotated,BUILD=root/'build',BOOK_CHAPTERS=[{'source':CHAPTER}]), patch.object(check_preservation,'selected_source',lambda s,chapter=CHAPTER:s):
+                report=check_preservation.check_annotations()
+                self.assertEqual(report['status'],'passed')
+                self.assertFalse(report['matches_private_manuscript'])
+                self.assertEqual(report['passages'],1)
+                write(annotated/CHAPTER,'Web prose without the required marker.\n')
+                with self.assertRaisesRegex(ValueError,'passages do not match'): check_preservation.check_annotations()
+                (annotated/CHAPTER).unlink()
+                with self.assertRaisesRegex(ValueError,'Missing annotated chapter'): check_preservation.check_annotations()
+
+    def test_module_alias_does_not_capture_later_declarations(self):
+        source='module M.Top where\nf : A\nf = x\n  where\n  module Alias = SomeModule x\n\ng : A\ng = x\n  where\n  local = x\n\nmodule Nested where\n  module N = OtherModule\n  h : A\n  h = x\n'
+        self.assertEqual(declaration_range(source,'g')['qualified'],'g')
+        self.assertEqual(declaration_range(source,'h')['qualified'],'Nested.h')
     def test_repeated_empty_compiler_alias_uses_first_location(self):
         from assemble import unique_agda_ids
         pre=next(parse('<pre><a id="M.I"></a><a id="1">I</a>\n<a id="M.I"></a><a id="3">I</a></pre>').all('pre'))
@@ -120,6 +306,23 @@ class PipelineTests(unittest.TestCase):
         loc=declaration_range(source,'R','R')
         self.assertIn('value : Set',source[loc['proof']:loc['end']])
         self.assertNotIn('record S',source[loc['start']:loc['end']])
+    def test_named_arguments_in_module_parameters_preserve_scope(self):
+        source='module Test.Top where\nmodule Outer (s : Cone (f {D = E})) where\n  module Lift (t : Cone (g {D = E})) where\n    abstract\n      comparison : A\n      comparison = a\n'
+        loc=declaration_range(source,'comparison','Outer.Lift.comparison')
+        self.assertEqual(source[loc['proof']:loc['end']],'      comparison = a')
+    def test_parameterized_alias_does_not_capture_declarations(self):
+        source='module Alias (a : A) = Existing a\nmodule Real where\n  comparison : A\n  comparison = a\n'
+        loc=declaration_range(source,'comparison','Real.comparison')
+        self.assertEqual(source[loc['proof']:loc['end']],'  comparison = a')
+    def test_identical_diagram_occurrences_share_asset(self):
+        from assemble import insert_diagrams
+        body=parse('<div data-diagram="same"></div><p>Again:</p><div data-diagram="same"></div>')
+        insert_diagrams(body,[{'id':'same'},{'id':'same'}])
+        self.assertEqual([n.attrs['src'] for n in body.all('img')],['assets/diagrams/same.svg']*2)
+        self.assertEqual(len(list(body.all('figure'))),2)
+        for html in ('<div data-diagram="same"></div>', '<div data-diagram="same"></div><div data-diagram="other"></div>'):
+            with self.assertRaisesRegex(ValueError,'Diagram marker mismatch'):
+                insert_diagrams(parse(html),[{'id':'same'},{'id':'same'}])
     def test_mixfix_implementation(self):
         source='_∙_ : A → A → A\nβ ∙ α = compose β α\nother : A\nother = a\n'
         loc=declaration_range(source,'_∙_')
@@ -208,6 +411,16 @@ class PipelineTests(unittest.TestCase):
         self.assertNotIn('record S',source[loc['start']:loc['end']])
 
 class ModuleNavigationTests(unittest.TestCase):
+    def test_coherences_move_without_renaming_modules(self):
+        from module_navigation import module_tree
+        modules=['SCT.VolumeI.Chapter01.Section01.Vocabulary',
+                 'SCT.VolumeI.Chapter01.Section01.Coherence',
+                 'SCT.VolumeI.Chapter01.Section05.PullbackSquares']
+        groups=module_tree(modules,retained=True)['children'][0]['children']
+        self.assertEqual([g['label'] for g in groups],
+                         ['1.1 The basic vocabulary','1.2 Coherences','1.6 Pullbacks of categories'])
+        self.assertEqual(groups[1]['modules'],[modules[1]])
+
     def test_root_chapter_and_section_modules_each_appear_once(self):
         from module_navigation import module_tree, module_label
         modules=['SCT.WebEdition','Agda.Primitive','SCT.VolumeI.Chapter01.Everything',
@@ -219,7 +432,7 @@ class ModuleNavigationTests(unittest.TestCase):
         self.assertEqual(chapter['label'],'Chapter 1: The language of synthetic category theory')
         self.assertEqual(chapter['modules'],['SCT.VolumeI.Chapter01.Everything'])
         self.assertEqual([node['label'] for node in chapter['children']],
-                         ['1.1 The basic vocabulary','1.2 Equivalences of categories','1.10'])
+                         ['1.1 The basic vocabulary','1.2 Coherences','1.10'])
         def flatten(node): return node['modules']+[name for child in node['children'] for name in flatten(child)]
         self.assertCountEqual(flatten(tree),modules)
         self.assertEqual(module_label(modules[-1]),'Vocabulary')
@@ -231,7 +444,60 @@ class ModuleNavigationTests(unittest.TestCase):
         self.assertEqual([node['label'] for node in tree['children']],['Volume I','Volume II'])
         self.assertNotEqual(tree['children'][0]['children'][0]['key'],tree['children'][1]['children'][0]['key'])
 
+    def test_current_and_retained_section_numbers_do_not_get_confused(self):
+        from module_navigation import module_tree
+        module='SCT.VolumeI.Chapter01.Section03.Equivalences'
+        group=module_tree([module])['children'][0]['children'][0]
+        self.assertEqual(group['label'],'1.3 Equivalences of categories')
+        old='SCT.VolumeI.Chapter01.Section09.Morphisms'
+        chapter=module_tree([old],retained=True)['children'][0]
+        self.assertEqual(chapter['label'],'Chapter 2: The internal structure of categories')
+        self.assertEqual(chapter['children'][0]['label'],'2.1 Morphisms and diagrams')
+
+    def test_split_declarations_resolve_to_the_checked_source(self):
+        from module_layout import previous_module
+        self.assertEqual(previous_module('SCT.VolumeI.Chapter01.Section02.Diagrams','NatIsoSquare'),
+                         'SCT.VolumeI.Chapter01.Section01.Diagrams')
+        self.assertEqual(previous_module('SCT.VolumeI.Chapter01.Section02.Coherence','VerticalCoherence'),
+                         'SCT.VolumeI.Chapter01.Section01.Coherence')
+
 class DistributionTests(unittest.TestCase):
+    def test_separate_tex_footnote_keeps_text_and_bidirectional_links(self):
+        import tempfile
+        from assemble import join_footnotes
+        with tempfile.TemporaryDirectory() as directory:
+            body=parse('<body><p>Prose<a href="pilot2.html#fn1x1">1</a></p></body>')
+            body=next(body.all('body'))
+            write(Path(directory)/'pilot2.html','<body><div class="footnote-text"><a id="fn1x1"></a>Note <a href="pilot.html#definition">definition</a></div></body>')
+            join_footnotes(body,Path(directory))
+            self.assertIn('Note definition',body.text())
+            links=[a.attrs.get('href') for a in body.all('a')]
+            self.assertIn('#fn1x1',links)
+            self.assertIn('#footnote-ref-fn1x1',links)
+            self.assertIn('pilot.html#definition',links)
+            self.assertNotIn('pilot2.html#fn1x1',links)
+
+    def test_retained_check_rejects_changed_code_or_compiler_output(self):
+        import tempfile
+        from unittest.mock import patch
+        import checked_code
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);snap=root/'snapshot';retained=root/'retained.json'
+            write(snap/'agda/src/SCT.agda','module SCT where\n')
+            write(root/'agda/SCT.html','<pre>module SCT where</pre>')
+            original={'files':{'agda/src/SCT.agda':digest((snap/'agda/src/SCT.agda').read_bytes()),'chapter.tex':'old'}}
+            dump(snap/'inputs.json',original)
+            dump(root/'check.json',{'checked':True,'input_hash':digest(json.dumps(original['files'],sort_keys=True))})
+            with patch.multiple(checked_code,BUILD=root,SNAP=snap,RETAINED=retained):
+                checked_code.retain_checked_code()
+                updated={'files':dict(original['files'],**{'chapter.tex':'new'})}
+                self.assertIn('previously checked',checked_code.verify_checked_code(updated))
+                write(root/'agda/SCT.html','Changed HTML')
+                with self.assertRaisesRegex(ValueError,'compiler output changed'): checked_code.verify_checked_code(updated)
+                write(root/'agda/SCT.html','<pre>module SCT where</pre>')
+                write(snap/'agda/src/SCT.agda','Changed source')
+                with self.assertRaisesRegex(ValueError,'source changed'): checked_code.verify_checked_code(updated)
+
     def test_build_cleanup_preserves_direct_edits_even_if_build_stops(self):
         import tempfile
         from authored_pages import AUTHORED_PAGES, clear_generated_pages
@@ -283,14 +549,18 @@ class DistributionTests(unittest.TestCase):
 
     def test_selection_uses_complete_chapter_labels(self):
         source=r'\begin{document}'+'Opening.\n'
-        for title,label in [('Vocabulary','sec:External_Theory'),('Equivalences','sec:Equivalence_Of_Categories'),('Mapping animae','sec:Mapping_Animae'),('Initial categories','sec:Initial_Categories')]:
+        for title,label in [('Vocabulary','sec:External_Theory'),('Coherences','sec:Coherences'),('Equivalences','sec:Equivalence_Of_Categories'),('Mapping animae','sec:Mapping_Animae'),('Initial categories','sec:Initial_Categories_And_Coproducts'),('Pullbacks','sec:Pullbacks_Of_Categories'),('Functor categories','sec:Functor_Categories'),('Pushouts','sec:Pushouts_Of_Categories')]:
             source+=r'\section{'+title+r'}\label[section]{'+label+'}\n'+title+' prose.\n'
-        source+=r'\end{document}'
+        source+=r'\section{Exercises}'+'\nExercises prose.\n'+r'\end{document}'
         selected=selected_source(source)
         self.assertIn('Opening.',selected)
         self.assertIn('Equivalences prose.',selected)
         self.assertIn('Mapping animae prose.',selected)
-        self.assertNotIn('Initial categories',selected)
+        self.assertIn('Initial categories prose.',selected)
+        self.assertIn('Pullbacks prose.',selected)
+        self.assertIn('Functor categories prose.',selected)
+        self.assertIn('Pushouts prose.',selected)
+        self.assertNotIn('Exercises prose.',selected)
         with self.assertRaises(ValueError): selected_source(source.replace('sec:External_Theory','unexpected'))
 
 if __name__=='__main__': unittest.main()

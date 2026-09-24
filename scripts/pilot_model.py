@@ -78,7 +78,7 @@ def tex_markers(source, html=False, registry=None):
                 raise ValueError('A passage cannot cross TeX block boundaries; use an existing label or a point marker: '+pid)
 
     math_environments=r'(?:equation|align|alignat|gather|multline|flalign|displaymath|math)\*?'
-    tokens=re.compile(r'(?<!\\)\$\$?|\\[\[\]()]|\\(?:begin|end)\{'+math_environments+r'\}')
+    tokens=re.compile(r'(?<!\\)(?:\$\$?|\\[\[\]()]|\\(?:begin|end)\{'+math_environments+r'\})')
     def in_math(at):
         stack=[]
         for token in tokens.finditer(semantic,0,at):
@@ -151,6 +151,17 @@ def scopes(source):
     for m in re.finditer(r'^( *)(record|module)\s+([^\s{(:]+)',layout,re.M):
         indent=len(m[1]); end=layout.find('where',m.end())
         if end<0: continue
+        # A module alias has no declaration body. Searching ahead to a later
+        # `where` must not make it the owner of unrelated declarations.
+        # Named arguments inside a parameter type, e.g. (s : Cone (f {D = E})),
+        # are not module aliases. Only an equals sign outside delimiters is.
+        depth=0; alias=False
+        for token in re.finditer(r'[(){}]|(?<!\S)=(?!\S)',layout[m.end():end]):
+            value=token[0]
+            if value in '({': depth+=1
+            elif value in ')}': depth-=1
+            elif depth==0: alias=True; break
+        if alias: continue
         header=source[m.start():end+5]
         # A scope ends at a non-comment declaration at its own layout level.
         boundary=len(source)
@@ -172,17 +183,18 @@ def scopes(source):
     return result
 
 def declaration_range(source,name,qualified=None):
-    pattern=r'^( *)(?:(record|data)\s+)?'+re.escape(name)+r'(?=\s|\{|:)[^\n]*'
+    pattern=r'^( *)(?:(record|data)[ \t]+'+re.escape(name)+r'(?=\s|\{|:)[^\n]*|(?:[^\s():{}]+[ \t]+)+:[^\n]*)'
     candidates=[]; ss=scopes(source)
     for m in re.finditer(pattern,source,re.M):
-        if not m[2] and not re.match(r'^ *'+re.escape(name)+r'\s*:',m[0]): continue
+        members=m[0].split(':',1)[0].split() if not m[2] else [name]
+        if name not in members: continue
         enclosing=[s for s in ss if s['start']<m.start()<s['end']]
         parts=[s['name'] for s in enclosing if '.' not in s['name']]
         q='.'.join(parts+[name])
         if qualified and q!=qualified: continue
-        candidates.append((m,enclosing,q))
+        candidates.append((m,enclosing,q,members))
     if len(candidates)!=1: raise ValueError(f'Ambiguous/missing declaration {qualified or name}: {len(candidates)}')
-    m,enclosing,q=candidates[0]; start=m.start(); indent=len(m[1]); proof=None; end=len(source)
+    m,enclosing,q,members=candidates[0]; start=m.start(); indent=len(m[1]); proof=None; end=len(source)
     if m[2]:
         scope=next(s for s in ss if s['start']==start)
         proof=scope['body']; end=scope['end']
@@ -198,9 +210,10 @@ def declaration_range(source,name,qualified=None):
             pad=len(value)-len(value.lstrip(' '))
             if pad<=indent:
                 # Infix definitions need not begin with the mixfix name.
-                if proof is None and (re.match(r'^ *'+re.escape(name)+r'(?:\s|\{|=)',value) or (name.startswith('_') and '=' in value)):
+                defining=any(re.match(r'^ *'+re.escape(member)+r'(?:\s|\{|=)',value) for member in members)
+                if proof is None and (defining or (name.startswith('_') and '=' in value)):
                     proof=at
-                elif proof is not None and (value.lstrip().startswith(name+' ') or value.lstrip().startswith(name+'{')): continue
+                elif proof is not None and defining: continue
                 else: end=at; break
     while end>start and source[end-1].isspace(): end-=1
     namepos=source.index(name,start,m.end())

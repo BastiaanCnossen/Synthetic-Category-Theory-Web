@@ -1,6 +1,6 @@
 # Terms and absolute objects
 
-This is the term convention of `sec:Terms_In_Contexts` and `def:Universal_Term`.
+This is the term convention of `def:Term`.
 A term is the corresponding functor; substitution is external composition.
 The universal term is the identity functor, not additional universal-property
 data. In particular, this file adds no new axioms.
@@ -30,5 +30,5 @@ reserved for objects parameterized by an anima. A term can have any categorical
 source; it is not automatically an object in that proposed restricted sense.
 
 For `f g : MAP X C`, an identification between the whole expressions is
-`=₁ f g`. A functor into the fixed anima `(f ＝ g)` is a different term,
+`f =₁ g`. A functor into the fixed anima `(f ＝ g)` is a different term,
 whose target is that anima. These two uses of parameters are kept distinct.

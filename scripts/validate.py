@@ -6,6 +6,13 @@ from collections import Counter
 def require(condition,message):
     if not condition: raise ValueError(message)
 
+def validate_tex_log(path):
+    # TeX's font diagnostics can contain raw font-encoding bytes. The
+    # reference/citation diagnostics we check are ASCII in every encoding.
+    text=Path(path).read_bytes()
+    require(not re.search(rb'LaTeX Warning: (?:Reference|Citation).*undefined|There were undefined references',text),f'Unresolved LaTeX reference: {Path(path).name}')
+
+
 def validate(site=SITE):
     info=json.loads(read(BUILD/'build-info.json'))
     require(info['correspondence_hash']==digest((ROOT/'correspondence.json').read_bytes()),'Correspondence changed since assembly; rebuild the pilot')
@@ -13,6 +20,11 @@ def validate(site=SITE):
         require(digest((SNAP/rel).read_bytes())==sha,'Snapshot changed: '+rel)
     files=list(site.rglob('*.html'))
     trees={p:parse(read(p)) for p in files}
+    for opening in BOOK_FRONTMATTER:
+        tree=trees.get(site/(opening['slug']+'.html'))
+        require(tree is not None,'Missing opening page: '+opening['slug'])
+        require(not any(n.has('agda-panel') or n.has('agda-trigger') or n.has('agda-help') for n in tree.all()),
+                'Unexpected Agda correspondence on opening page: '+opening['slug'])
     id_sets={}
     for file,tree in trees.items():
         ids=[n.attrs['id'] for n in tree.all() if 'id' in n.attrs]
@@ -44,12 +56,15 @@ def validate(site=SITE):
                     if target not in id_sets: id_sets[target]={a.attrs['id'] for a in parse(read(target)).all() if 'id' in a.attrs}
                     require(unquote(url.fragment) in id_sets[target],f'Missing fragment: {file.name}: {href}')
                 links+=1
-    manifest=json.loads(read(ROOT/'correspondence.json'))
+    from checked_code import publication_manifest, verify_checked_code
+    verify_checked_code(info['inputs'])
+    manifest=publication_manifest()
     panels=[n for p,t in trees.items() if p.parent==site for n in t.all('details') if n.has('agda-panel')]
     require(len(panels)==len(manifest['passages']),'Panel count mismatch')
     require(all('open' not in n.attrs for n in panels),'Agda panel open by default')
     source=comments(read(BUILD/'selected-source.tex'))
-    expected=len(re.findall(r'\\begin\{u(?:definition|remark|lemma|proposition|corollary|exercise|construction)\}',source))
+    underlined=set(re.findall(r'\\newtheorem\*?\{(u[^}]+)\}',read(SNAP/'preamble.tex')))
+    expected=sum(env in underlined for env in re.findall(r'\\begin\{([^}]+)\}',source))
     actual=sum(1 for p,t in trees.items() if p.parent==site for n in t.all('section') if n.attrs.get('data-scope')=='categorical')
     require(actual==expected,f'Underlined statement count changed: {actual} vs {expected}')
     # The actual PDF and HTML LaTeX jobs must agree on numbered labels.
@@ -63,8 +78,7 @@ def validate(site=SITE):
         pdf.pop(label,None); html.pop(label,None)
     require(pdf==html,'PDF and HTML theorem/reference counters differ')
     for log in ('pilot.log','pilot-pdf.log'):
-        text=read(BUILD/log)
-        require(not re.search(r'LaTeX Warning: (?:Reference|Citation).*undefined|There were undefined references',text),f'Unresolved LaTeX reference: {log}')
+        validate_tex_log(BUILD/log)
     # Signatures and proofs must equal slices of the exact compiled source.
     from pilot_model import declaration_range, tex_markers
     declarations=[n for p,t in trees.items() if p.parent==site for n in t.all('section') if n.has('agda-declaration')]
@@ -108,7 +122,9 @@ def validate(site=SITE):
     expected_modules={entry['module'] for entry in info['source_inventory']} | {file.stem for file in (BUILD/'agda').glob('*.html')}
     require(set(reader['modules'])==expected_modules,'Module browser omits a source module')
     from module_navigation import module_tree
-    require(reader['module_tree']==module_tree(expected_modules),'Reader chapter/section navigation differs from module inventory')
+    from checked_code import verify_checked_code
+    retained=verify_checked_code(json.loads(read(SNAP/'inputs.json')))=='updated manuscript with previously checked Agda snapshot'
+    require(reader['module_tree']==module_tree(expected_modules,retained=retained),'Reader chapter/section navigation differs from module inventory')
     def navigation_modules(node):
         return node['modules']+[module for child in node['children'] for module in navigation_modules(child)]
     require(sorted(navigation_modules(reader['module_tree']))==sorted(expected_modules),'Module hierarchy drops or duplicates a module')
@@ -184,4 +200,3 @@ def validate_distribution(info,site=SITE):
     return len(checked)
 
 if __name__=='__main__': validate()
-

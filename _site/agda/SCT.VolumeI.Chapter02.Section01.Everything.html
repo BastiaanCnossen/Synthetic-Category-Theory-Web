@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>SCT.VolumeI.Chapter02.Section01.Everything | Synthetic category theory</title>
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../assets/reader-shell.css"><link rel="stylesheet" href="../assets/reader.css?v=14abfeeb2c9c523d"><link rel="stylesheet" href="../assets/Agda.css">
+<script defer src="../assets/reader.js?v=0a9d2e6221b17f7e"></script></head>
+<body class=""><a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="header-top"><a class="collection-return" href="../index.html">Synthetic category theory</a></div><p class="eyebrow">Volume I · Experimental web edition</p><h1>SCT.VolumeI.Chapter02.Section01.Everything</h1></header>
+<div class="reader-grid"><aside class="reader-nav" aria-label="Book navigation"><details open><summary>Contents</summary><nav><a href="../index.html">Overview</a><a href="../introduction.html">Introduction</a><a href="../overview-of-the-axioms.html">Overview of the axioms</a><details class="contents-chapter"><summary><span class="chapter-number">Chapter 1</span><span class="chapter-name">The language of synthetic category theory</span></summary><div class="chapter-sections"><a href="../chapter-introduction.html">Chapter introduction</a><a href="../basic-vocabulary.html">1.1 · The basic vocabulary</a><a href="../coherences.html">1.2 · Coherences</a><a href="../equivalences.html">1.3 · Equivalences of categories</a><a href="../mapping-animae.html">1.4 · Mapping animae</a><a href="../initial-categories-and-coproducts.html">1.5 · Initial categories and coproducts</a><a href="../pullbacks.html">1.6 · Pullbacks of categories</a><a href="../functor-categories.html">1.7 · Functor categories</a><a href="../pushouts.html">1.8 · Pushout squares</a></div></details><details class="contents-chapter" open><summary><span class="chapter-number">Chapter 2</span><span class="chapter-name">The internal structure of categories</span></summary><div class="chapter-sections"><a href="../internal-structure-introduction.html">Chapter introduction</a><a href="../morphisms-and-diagrams.html">2.1 · Morphisms and diagrams</a><a href="../segal-axiom.html">2.2 · The Segal axiom</a><a href="../rezk-axiom.html">2.3 · The Rezk axiom</a><a href="../groupoids.html">2.4 · Groupoids</a><a href="../recognizing-animae.html">2.5 · Recognizing animae</a><a href="../chapter-2-exercises.html">2.6 · Exercises</a></div></details><a href="../code-index.html">All Agda code</a><a href="../formalization.html">Agda guide</a><a href="../build-report.html">Build details</a></nav></details>
+<details class="settings"><summary>Reading preferences</summary><label><input id="collapse-proofs" type="checkbox"> Collapse book proofs</label><label><input id="hide-agda-links" type="checkbox"> Hide links to Agda code</label><a href="../book.pdf">Read the web edition PDF</a></details></aside>
+<main id="main" class="notes-page" tabindex="-1"><p class="module-caption">Complete compiler-highlighted source. Follow a symbol to its declaration.</p><pre class="Agda"><a id="1" class="Symbol">{-#</a> <a id="5" class="Keyword">OPTIONS</a> <a id="13" class="Pragma">--safe</a> <a id="20" class="Pragma">--without-K</a> <a id="32" class="Symbol">#-}</a>
+<a id="36" class="Keyword">module</a> <a id="43" href="SCT.VolumeI.Chapter02.Section01.Everything.html" class="Module">SCT.VolumeI.Chapter02.Section01.Everything</a> <a id="86" class="Keyword">where</a>
+
+<a id="93" class="Keyword">import</a> <a id="100" href="SCT.VolumeI.Chapter02.Section01.AbsoluteMorphisms.html" class="Module">SCT.VolumeI.Chapter02.Section01.AbsoluteMorphisms</a>
+<a id="150" class="Keyword">import</a> <a id="157" href="SCT.VolumeI.Chapter02.Section01.CoconeAssociativity.html" class="Module">SCT.VolumeI.Chapter02.Section01.CoconeAssociativity</a>
+<a id="209" class="Keyword">import</a> <a id="216" href="SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom.html" class="Module">SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom</a>
+<a id="271" class="Keyword">import</a> <a id="278" href="SCT.VolumeI.Chapter02.Section01.CompositeWitnesses.html" class="Module">SCT.VolumeI.Chapter02.Section01.CompositeWitnesses</a>
+<a id="329" class="Keyword">import</a> <a id="336" href="SCT.VolumeI.Chapter02.Section01.DegenerateCocones.html" class="Module">SCT.VolumeI.Chapter02.Section01.DegenerateCocones</a>
+<a id="386" class="Keyword">import</a> <a id="393" href="SCT.VolumeI.Chapter02.Section01.DiagramComparisons.html" class="Module">SCT.VolumeI.Chapter02.Section01.DiagramComparisons</a>
+<a id="444" class="Keyword">import</a> <a id="451" href="SCT.VolumeI.Chapter02.Section01.EndpointEvaluation.html" class="Module">SCT.VolumeI.Chapter02.Section01.EndpointEvaluation</a>
+<a id="502" class="Keyword">import</a> <a id="509" href="SCT.VolumeI.Chapter02.Section01.EndpointFibers.html" class="Module">SCT.VolumeI.Chapter02.Section01.EndpointFibers</a>
+<a id="556" class="Keyword">import</a> <a id="563" href="SCT.VolumeI.Chapter02.Section01.EndpointNaturality.html" class="Module">SCT.VolumeI.Chapter02.Section01.EndpointNaturality</a>
+<a id="614" class="Keyword">import</a> <a id="621" href="SCT.VolumeI.Chapter02.Section01.ExpressionComparisons.html" class="Module">SCT.VolumeI.Chapter02.Section01.ExpressionComparisons</a>
+<a id="675" class="Keyword">import</a> <a id="682" href="SCT.VolumeI.Chapter02.Section01.FramedCocones.html" class="Module">SCT.VolumeI.Chapter02.Section01.FramedCocones</a>
+<a id="728" class="Keyword">import</a> <a id="735" href="SCT.VolumeI.Chapter02.Section01.HomAndSlices.html" class="Module">SCT.VolumeI.Chapter02.Section01.HomAndSlices</a>
+<a id="780" class="Keyword">import</a> <a id="787" href="SCT.VolumeI.Chapter02.Section01.IdentityBoundaries.html" class="Module">SCT.VolumeI.Chapter02.Section01.IdentityBoundaries</a>
+<a id="838" class="Keyword">import</a> <a id="845" href="SCT.VolumeI.Chapter02.Section01.IdentityComposites.html" class="Module">SCT.VolumeI.Chapter02.Section01.IdentityComposites</a>
+<a id="896" class="Keyword">import</a> <a id="903" href="SCT.VolumeI.Chapter02.Section01.IdentityPreservation.html" class="Module">SCT.VolumeI.Chapter02.Section01.IdentityPreservation</a>
+<a id="956" class="Keyword">import</a> <a id="963" href="SCT.VolumeI.Chapter02.Section01.IntervalEndpoints.html" class="Module">SCT.VolumeI.Chapter02.Section01.IntervalEndpoints</a>
+<a id="1013" class="Keyword">import</a> <a id="1020" href="SCT.VolumeI.Chapter02.Section01.JunctionCalculus.html" class="Module">SCT.VolumeI.Chapter02.Section01.JunctionCalculus</a>
+<a id="1069" class="Keyword">import</a> <a id="1076" href="SCT.VolumeI.Chapter02.Section01.Lattice.html" class="Module">SCT.VolumeI.Chapter02.Section01.Lattice</a>
+<a id="1116" class="Keyword">import</a> <a id="1123" href="SCT.VolumeI.Chapter02.Section01.LatticePullbacks.html" class="Module">SCT.VolumeI.Chapter02.Section01.LatticePullbacks</a>
+<a id="1172" class="Keyword">import</a> <a id="1179" href="SCT.VolumeI.Chapter02.Section01.LatticeUniqueness.html" class="Module">SCT.VolumeI.Chapter02.Section01.LatticeUniqueness</a>
+<a id="1229" class="Keyword">import</a> <a id="1236" href="SCT.VolumeI.Chapter02.Section01.MiddleVertex.html" class="Module">SCT.VolumeI.Chapter02.Section01.MiddleVertex</a>
+<a id="1281" class="Keyword">import</a> <a id="1288" href="SCT.VolumeI.Chapter02.Section01.MorphismComparisons.html" class="Module">SCT.VolumeI.Chapter02.Section01.MorphismComparisons</a>
+<a id="1340" class="Keyword">import</a> <a id="1347" href="SCT.VolumeI.Chapter02.Section01.Morphisms.html" class="Module">SCT.VolumeI.Chapter02.Section01.Morphisms</a>
+<a id="1389" class="Keyword">import</a> <a id="1396" href="SCT.VolumeI.Chapter02.Section01.OuterVertices.html" class="Module">SCT.VolumeI.Chapter02.Section01.OuterVertices</a>
+<a id="1442" class="Keyword">import</a> <a id="1449" href="SCT.VolumeI.Chapter02.Section01.PullbackFibers.html" class="Module">SCT.VolumeI.Chapter02.Section01.PullbackFibers</a>
+<a id="1496" class="Keyword">import</a> <a id="1503" href="SCT.VolumeI.Chapter02.Section01.SliceFibers.html" class="Module">SCT.VolumeI.Chapter02.Section01.SliceFibers</a>
+<a id="1547" class="Keyword">import</a> <a id="1554" href="SCT.VolumeI.Chapter02.Section01.SquareCalculus.html" class="Module">SCT.VolumeI.Chapter02.Section01.SquareCalculus</a>
+<a id="1601" class="Keyword">import</a> <a id="1608" href="SCT.VolumeI.Chapter02.Section01.SquareFamilies.html" class="Module">SCT.VolumeI.Chapter02.Section01.SquareFamilies</a>
+<a id="1655" class="Keyword">import</a> <a id="1662" href="SCT.VolumeI.Chapter02.Section01.SquareGluing.html" class="Module">SCT.VolumeI.Chapter02.Section01.SquareGluing</a>
+<a id="1707" class="Keyword">import</a> <a id="1714" href="SCT.VolumeI.Chapter02.Section01.SquareRetractions.html" class="Module">SCT.VolumeI.Chapter02.Section01.SquareRetractions</a>
+<a id="1764" class="Keyword">import</a> <a id="1771" href="SCT.VolumeI.Chapter02.Section01.SquareShape.html" class="Module">SCT.VolumeI.Chapter02.Section01.SquareShape</a>
+<a id="1815" class="Keyword">import</a> <a id="1822" href="SCT.VolumeI.Chapter02.Section01.TrianglesAndComposites.html" class="Module">SCT.VolumeI.Chapter02.Section01.TrianglesAndComposites</a>
+<a id="1877" class="Keyword">import</a> <a id="1884" href="SCT.VolumeI.Chapter02.Section01.UniversalArrows.html" class="Module">SCT.VolumeI.Chapter02.Section01.UniversalArrows</a>
+<a id="1932" class="Keyword">import</a> <a id="1939" href="SCT.VolumeI.Chapter02.Section01.UniversalComparisons.html" class="Module">SCT.VolumeI.Chapter02.Section01.UniversalComparisons</a>
+<a id="1992" class="Keyword">import</a> <a id="1999" href="SCT.VolumeI.Chapter02.Section01.VertexTransport.html" class="Module">SCT.VolumeI.Chapter02.Section01.VertexTransport</a>
+<a id="2047" class="Keyword">import</a> <a id="2054" href="SCT.VolumeI.Chapter02.Section01.WalkingMorphism.html" class="Module">SCT.VolumeI.Chapter02.Section01.WalkingMorphism</a>
+<a id="2102" class="Keyword">import</a> <a id="2109" href="SCT.VolumeI.Chapter02.Section01.WalkingTriangle.html" class="Module">SCT.VolumeI.Chapter02.Section01.WalkingTriangle</a>
+
+<a id="2158" class="Keyword">import</a> <a id="2165" href="SCT.VolumeI.Chapter02.Section01.CoreCoproducts.html" class="Module">SCT.VolumeI.Chapter02.Section01.CoreCoproducts</a>
+<a id="2212" class="Keyword">import</a> <a id="2219" href="SCT.VolumeI.Chapter02.Section01.CoreInclusions.html" class="Module">SCT.VolumeI.Chapter02.Section01.CoreInclusions</a>
+<a id="2266" class="Keyword">import</a> <a id="2273" href="SCT.VolumeI.Chapter02.Section01.FourPoints.html" class="Module">SCT.VolumeI.Chapter02.Section01.FourPoints</a>
+<a id="2316" class="Keyword">import</a> <a id="2323" href="SCT.VolumeI.Chapter02.Section01.IntervalCore.html" class="Module">SCT.VolumeI.Chapter02.Section01.IntervalCore</a>
+<a id="2368" class="Keyword">import</a> <a id="2375" href="SCT.VolumeI.Chapter02.Section01.TriangleCore.html" class="Module">SCT.VolumeI.Chapter02.Section01.TriangleCore</a>
+<a id="2420" class="Keyword">import</a> <a id="2427" href="SCT.VolumeI.Chapter02.Section01.TriangleCorners.html" class="Module">SCT.VolumeI.Chapter02.Section01.TriangleCorners</a>
+</pre></main></div>
+<footer>Experimental web edition · Generated from annotated LaTeX and Agda sources. <a href="../build-report.html">Build details</a></footer></body></html>

@@ -1,32 +1,39 @@
-"""Verify that private annotation commits preserve the selected authorial baseline."""
+"""Validate local annotated TeX and report its relation to the main manuscript.
+
+The historical filename is retained for existing build entry points. Annotated
+files are ordinary local files, not a Git branch or a commit-bound overlay.
+"""
 from common import *
 from pilot_model import tex_markers
-import subprocess
-
-
-def git(*args, check=True):
-    return subprocess.run(['git',*args],cwd=REPO,encoding='utf-8',stdout=subprocess.PIPE,stderr=subprocess.PIPE,check=check)
 
 
 def check_annotations():
-    metadata=json.loads(read(REPO/'.web-annotations.json'))
-    if metadata.get('schema')!=1 or metadata.get('chapter')!=CHAPTER or metadata.get('marker_prefix')!='%!%':
-        raise ValueError('Invalid annotation baseline metadata')
-    base=metadata['base_commit']
-    if not re.fullmatch(r'[0-9a-f]{40}',base): raise ValueError('Annotation baseline must be a full commit hash')
-    if git('merge-base','--is-ancestor',base,'HEAD',check=False).returncode:
-        raise ValueError('Annotation baseline is not an ancestor of this checkout')
-    baseline=git('show',base+':'+CHAPTER).stdout
-    manifest=json.loads(read(ROOT/'correspondence.json'))
-    annotated=read(REPO/CHAPTER)
-    if tex_markers(annotated,registry=manifest)[0]!=baseline:
-        raise ValueError('Annotated chapter differs from its baseline after removing publication comments')
-    main=git('rev-parse','main',check=False)
-    on_main=main.returncode==0 and git('merge-base','--is-ancestor',base,main.stdout.strip(),check=False).returncode==0
-    report={'status':'passed','base_commit':base,'chapter_sha256':digest(baseline),
-            'annotation_only':True,'baseline_on_main':on_main,
-            'baseline_kind':'main history' if on_main else 'separate authorial draft'}
-    dump(BUILD/'annotation-verification.json',report)
+    manifest = json.loads(read(ROOT / 'correspondence.json'))
+    reports=[]; found_all=[]
+    for chapter in BOOK_CHAPTERS:
+        relative=chapter['source']; path=ANNOTATED/relative
+        if not path.is_file():
+            raise ValueError('Missing annotated chapter: ' + str(path))
+        source=read(path)
+        plain,_=tex_markers(source,registry=manifest)
+        _,found=tex_markers(selected_source(source,relative),registry=manifest)
+        expected={p['id'] for p in manifest['passages']+manifest.get('reverse_only',[])
+                  if p.get('tex_file',CHAPTER)==relative}
+        if set(found)!=expected:
+            raise ValueError('Annotated TeX passages do not match correspondence.json: '+relative)
+        original=read(REPO/relative)
+        reports.append({'source':relative,'chapter_sha256':digest(plain),
+                        'private_chapter_sha256':digest(original),
+                        'matches_private_manuscript':plain==original,'passages':len(found)})
+        found_all.extend(found)
+    expected_all={p['id'] for p in manifest['passages']+manifest.get('reverse_only',[])}
+    if set(found_all)!=expected_all or len(found_all)!=len(set(found_all)):
+        raise ValueError('Annotated TeX passages do not match the selected chapters')
+    report={'status':'passed','source_kind':'local annotated files',
+            'chapters':reports,'passages':len(found_all),
+            'matches_private_manuscript':all(r['matches_private_manuscript'] for r in reports),
+            'note':'Passage markers validated. Differences from the private manuscript are reported, not merged or discarded.'}
+    dump(BUILD / 'annotation-verification.json', report)
     return report
 
 
