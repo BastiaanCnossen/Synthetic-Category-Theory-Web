@@ -28,7 +28,7 @@ module SCT.VolumeI.Chapter02.Section04.BasicClosure
   (R : Rezk.RezkAxiom 𝒯 M ℱ P I E) where
 
 open import SCT.VolumeI.Chapter02.Section04.Groupoids 𝒯 M ℱ P I E R public
-open import SCT.VolumeI.Chapter02.Section04.ConstantFunctoriality 𝒯 M ℱ using (constant-natural)
+open import SCT.VolumeI.Chapter02.Section04.ConstantDiagrams.ConstantExponential 𝒯 M ℱ using (constant-natural)
 open import SCT.VolumeI.Chapter01.Section07.Contractible 𝒯 M ℱ using (contractible-map; fun-terminal-contractible)
 open import SCT.VolumeI.Chapter01.Section07.FunctorProducts 𝒯 M ℱ using (module ProductComparison)
 open import SCT.VolumeI.Chapter01.Section05.RestrictionCalculus 𝒯 using (productMap-isEquiv)

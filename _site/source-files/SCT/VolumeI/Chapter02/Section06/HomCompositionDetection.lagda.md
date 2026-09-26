@@ -24,10 +24,10 @@ module SCT.VolumeI.Chapter02.Section06.HomCompositionDetection
   (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E) where
 
 open import SCT.VolumeI.Chapter02.Section06.HomComposition 𝒯 M ℱ P I E S public
-open import SCT.VolumeI.Chapter02.Section06.ExpressionCancellation 𝒯 M ℱ P I E S Q using (module InverseEquation; compose-expression-cong)
+open import SCT.VolumeI.Chapter02.Section06.HomCalculus.ExpressionCancellation 𝒯 M ℱ P I E S Q using (module InverseEquation; compose-expression-cong)
 open import SCT.VolumeI.Chapter02.Section02.ExpressionUnitLaws 𝒯 M ℱ P I E S using (left-unit; right-unit)
 open import SCT.VolumeI.Chapter02.Section03.InvertibleExpressions 𝒯 M ℱ P I E S using (invertible-expression-lift)
-open import SCT.VolumeI.Chapter02.Section03.UniversalInverseExpressions 𝒯 M ℱ P I E S using (IsInvertibleExpression; IsoLift)
+open import SCT.VolumeI.Chapter02.Section03.InverseCalculus.UniversalInverseExpressions 𝒯 M ℱ P I E S using (IsInvertibleExpression; IsoLift)
 
 module Detect {C : CAT} {x y : Obj-abs C} (e : Obj-abs (Hom C x y)) where
   module F = At e

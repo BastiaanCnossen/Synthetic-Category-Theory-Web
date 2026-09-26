@@ -22,13 +22,13 @@ module SCT.VolumeI.Chapter02.Section02.ProductInterchange
   (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
   (S : Segal.SegalAxiom 𝒯 M ℱ P I E) where
 
-open import SCT.VolumeI.Chapter02.Section02.CompositePresentations 𝒯 M ℱ P I E S public
-open import SCT.VolumeI.Chapter02.Section02.ProductExpressions 𝒯 M ℱ I using (pair-expression)
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.CompositePresentations 𝒯 M ℱ P I E S public
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ProductExpressions 𝒯 M ℱ I using (pair-expression)
 open import SCT.VolumeI.Chapter02.Section02.ProductComposition 𝒯 M ℱ P I E S using (product-composition; pair-expression-cong)
 open import SCT.VolumeI.Chapter02.Section02.ExpressionUnitLaws 𝒯 M ℱ P I E S using (left-unit; right-unit)
-open import SCT.VolumeI.Chapter02.Section02.ExpressionIdentifications 𝒯 M ℱ I
-open import SCT.VolumeI.Chapter02.Section02.ExpressionPostcomposition 𝒯 M ℱ I using (post-expressionIso)
-open import SCT.VolumeI.Chapter02.Section02.PostcompositionPresentations 𝒯 M ℱ P I E S using (post-composition)
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionIdentifications 𝒯 M ℱ I
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionPostcomposition 𝒯 M ℱ I using (post-expressionIso)
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.PostcompositionPresentations 𝒯 M ℱ P I E S using (post-composition)
 
 module At {Γ A B C : CAT} (K : MAP (A × B) C)
   {x x′ : MAP Γ A} {y y′ : MAP Γ B}

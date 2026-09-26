@@ -21,9 +21,9 @@ module SCT.VolumeI.Chapter02.Section03.InvertibleIdentifications
   (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I) where
 
 open import SCT.VolumeI.Chapter02.Section03.Isomorphisms 𝒯 M ℱ P I E public
-open import SCT.VolumeI.Chapter02.Section01.VertexTransport 𝒯 M ℱ P I E
+open import SCT.VolumeI.Chapter02.Section01.DiagramCalculus.VertexTransport 𝒯 M ℱ P I E
   using (reframe-morphism; reframe-witness; reframe-identity; morphism-left-unit)
-open import SCT.VolumeI.Chapter02.Section01.MorphismComparisons 𝒯 M ℱ P I using (morphismIso-id)
+open import SCT.VolumeI.Chapter02.Section01.DiagramCalculus.MorphismComparisons 𝒯 M ℱ P I using (morphismIso-id)
 
 identification-morphism : {C : CAT} {x y : Obj-abs C} → x =₁ y → Morphism x y
 identification-morphism {x = x} α = reframe-morphism (identity-morphism x) (idIso x) α

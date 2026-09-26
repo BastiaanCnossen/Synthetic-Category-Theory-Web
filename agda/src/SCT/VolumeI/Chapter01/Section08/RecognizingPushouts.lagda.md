@@ -18,10 +18,10 @@ module SCT.VolumeI.Chapter01.Section08.RecognizingPushouts
 
 open import SCT.VolumeI.Chapter01.Section05.Setup 𝒯 M
 open import SCT.VolumeI.Chapter01.Section08.PushoutSquares 𝒯 M P
-open import SCT.VolumeI.Chapter01.Section08.SquareCocones 𝒯
-open import SCT.VolumeI.Chapter01.Section08.CoconeUniversality 𝒯
-open import SCT.VolumeI.Chapter01.Section08.FunctorCriterionPreservation 𝒯 M ℱ P using (module Preservation)
-open import SCT.VolumeI.Chapter01.Section08.FunctorCriterionDetection 𝒯 M ℱ P using (functor-criterion→pushout)
+open import SCT.VolumeI.Chapter01.Section08.Squares 𝒯 using (squareCocone)
+open import SCT.VolumeI.Chapter01.Section08.CoconeCalculus.CoconeUniversality 𝒯
+open import SCT.VolumeI.Chapter01.Section08.FunctorCategoryCalculus.FunctorCriterionPreservation 𝒯 M ℱ P using (module Preservation)
+open import SCT.VolumeI.Chapter01.Section08.FunctorCategoryCalculus.FunctorCriterionDetection 𝒯 M ℱ P using (functor-criterion→pushout)
 
 cocone-extension→pushout : {A B C D : CAT}
   {u : MAP A B} {l : MAP A C} {r : MAP B D} {v : MAP C D}

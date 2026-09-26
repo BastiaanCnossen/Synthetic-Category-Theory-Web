@@ -24,8 +24,8 @@ open Setup 𝒯 M ℱ
 open Laws.PullbackStructure P
 open import SCT.VolumeI.Chapter01.Section06.PullbackSquares 𝒯 P
 open import SCT.VolumeI.Chapter01.Section06.MappingPullbacks 𝒯 M P using (map-detects-pullback)
-open import SCT.VolumeI.Chapter01.Section07.PullbackMappingTests 𝒯 M ℱ P using (module MappingTest)
-open import SCT.VolumeI.Chapter01.Section07.MappedCones 𝒯 M ℱ P public
+open import SCT.VolumeI.Chapter01.Section07.PullbackCalculus.PullbackMappingTests 𝒯 M ℱ P using (module MappingTest)
+open import SCT.VolumeI.Chapter01.Section07.PullbackCalculus.MappedCones 𝒯 M ℱ P public
 
 fun-preserves-pullback : {C D E S : CAT} {f : MAP C E} {g : MAP D E}
   (T : CAT) (s : Cone f g S) → IsPullback s → IsPullback (mappedCone T s)

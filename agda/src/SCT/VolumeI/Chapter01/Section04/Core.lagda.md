@@ -23,7 +23,7 @@ open Mapping.MappingAnimae M
 open import SCT.VolumeI.Chapter01.Section04.Currying 𝒯 M
 open import SCT.VolumeI.Chapter01.Section04.Functoriality 𝒯 M
 open import SCT.VolumeI.Chapter01.Section04.Uncurrying 𝒯 M
-open import SCT.VolumeI.Chapter01.Section04.TerminalInsertion 𝒯
+open import SCT.VolumeI.Chapter01.Section04.ProductCalculus.TerminalInsertion 𝒯
   using (module TerminalInsertion)
 open TerminalInsertion
 open import SCT.VolumeI.Chapter01.Section04.Points 𝒯 M

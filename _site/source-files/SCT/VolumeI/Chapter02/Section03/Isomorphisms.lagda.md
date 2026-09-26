@@ -22,7 +22,7 @@ module SCT.VolumeI.Chapter02.Section03.Isomorphisms
   (ℱ : Categories.FunctorCategories 𝒯 M) (P : Laws.PullbackStructure 𝒯)
   (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I) where
 
-open import SCT.VolumeI.Chapter02.Section01.CompositeWitnesses 𝒯 M ℱ P I E public
+open import SCT.VolumeI.Chapter02.Section01.DiagramCalculus.CompositeWitnesses 𝒯 M ℱ P I E public
 open Laws.PullbackStructure P
 
 record IsInvertible {C : CAT} {x y : Obj-abs C} (f : Morphism x y) : Set m where

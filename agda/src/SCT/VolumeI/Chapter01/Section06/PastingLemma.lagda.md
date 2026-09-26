@@ -10,16 +10,16 @@ open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.Setup as Setup
 import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Laws
-import SCT.VolumeI.Chapter01.Section06.UniversalNestedPullbacks as Nested
+import SCT.VolumeI.Chapter01.Section06.Pasting.UniversalNestedPullbacks as Nested
 
 module SCT.VolumeI.Chapter01.Section06.PastingLemma
   {c m a : Level} (𝒯 : Theory c m a) (P : Laws.PullbackStructure 𝒯) where
 
 open Setup 𝒯
 open Laws.PullbackStructure P
-open import SCT.VolumeI.Chapter01.Section06.ConePasting 𝒯
+open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.ConePasting 𝒯
 open import SCT.VolumeI.Chapter01.Section06.PullbackSquares 𝒯 P using (IsPullback; pullbackLift-cong)
-open import SCT.VolumeI.Chapter01.Section06.PullbackLifting 𝒯 P
+open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.PullbackLifting 𝒯 P
 
 module Pasting {A B X Z Q : CAT} (f : MAP A B) (g : MAP B Z) (h : MAP X Z)
   (t : Cone g h Q) (et : IsPullback t) where

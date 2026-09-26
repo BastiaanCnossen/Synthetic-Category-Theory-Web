@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Slice categories | Synthetic category theory</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/reader-shell.css"><link rel="stylesheet" href="assets/reader.css?v=cb97990c1670a826"><link rel="stylesheet" href="assets/Agda.css">
+<script src="assets/math-config.js"></script><script defer src="vendor/mathjax/tex-chtml.js"></script><script defer src="assets/agda-context.js?v=41beaa3dfc2ba203"></script><script defer src="assets/reader.js?v=1fc2a32e54b9ace6"></script></head>
+<body class="hide-agda-links has-passages"><a class="skip-link" href="#main">Skip to content</a><aside class="utility-dock" aria-label="Reading tools">
+<button id="reading-settings-button" class="utility-button" type="button" aria-label="Reading settings" title="Reading settings" aria-controls="reading-settings" aria-expanded="false"><span aria-hidden="true">⚙</span></button>
+<a class="utility-button" href="book.pdf" aria-label="Read the web edition PDF" title="Read the web edition PDF"><span aria-hidden="true">📖</span></a>
+<section id="reading-settings" class="settings-panel" aria-label="Reading preferences" hidden><h2>Reading preferences</h2>
+<label><input id="collapse-proofs" type="checkbox"> Collapse book proofs</label>
+<label><input id="show-agda-links" type="checkbox"> Show links to Agda code</label>
+</section></aside>
+<header class="site-header"><div class="header-top"><nav class="book-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Synthetic category theory</a></li><li><a href="constructions-introduction.html" title="Constructions of categories">Chapter 3</a></li><li aria-current="page">Section 3.7</li></ol></nav><nav class="page-turns" aria-label="Reading navigation"><a rel="prev" data-step="prev-chapter" href="internal-structure-introduction.html" title="The internal structure of categories" aria-label="Previous chapter: Chapter 2, The internal structure of categories"><span class="turn-direction">← Previous chapter</span><span class="turn-target">Chapter 2</span></a><button type="button" disabled data-step="next-chapter" aria-label="No next chapter" title="No next chapter in this web edition"><span class="turn-direction">→ Next chapter</span><span class="turn-target">Not available</span></button><a rel="prev" data-step="prev-section" href="joins.html" title="Joins" aria-label="Previous section: Section 3.6, Joins"><span class="turn-direction">← Previous section</span><span class="turn-target">Section 3.6</span></a><a rel="next" data-step="next-section" href="chapter-3-exercises.html" title="Exercises" aria-label="Next section: Section 3.8, Exercises"><span class="turn-direction">→ Next section</span><span class="turn-target">Section 3.8</span></a></nav></div><p class="eyebrow">Volume I · Experimental web edition</p><h1>Slice categories</h1></header>
+<div class="reader-grid"><aside class="reader-nav" aria-label="Book navigation"><h2>Resources</h2><nav aria-label="Resources" class="reader-resources"><a href="code-index.html">All Agda code</a><a href="formalization.html">Agda guide</a><a href="build-report.html">Build details</a></nav><h2>Contents</h2><nav aria-label="Contents"><a href="index.html">Overview</a><a href="introduction.html">Introduction</a><a href="overview-of-the-axioms.html">Overview of the axioms</a><details class="contents-chapter"><summary><span class="chapter-number">Chapter 1</span><span class="chapter-name">The language of synthetic category theory</span></summary><div class="chapter-sections"><a href="chapter-introduction.html">Chapter introduction</a><a href="basic-vocabulary.html">1.1 · The basic vocabulary</a><a href="coherences.html">1.2 · Coherences</a><a href="equivalences.html">1.3 · Equivalences of categories</a><a href="mapping-animae.html">1.4 · Mapping animae</a><a href="initial-categories-and-coproducts.html">1.5 · Initial categories and coproducts</a><a href="pullbacks.html">1.6 · Pullbacks of categories</a><a href="functor-categories.html">1.7 · Functor categories</a><a href="pushouts.html">1.8 · Pushout squares</a></div></details><details class="contents-chapter"><summary><span class="chapter-number">Chapter 2</span><span class="chapter-name">The internal structure of categories</span></summary><div class="chapter-sections"><a href="internal-structure-introduction.html">Chapter introduction</a><a href="morphisms-and-diagrams.html">2.1 · Morphisms and diagrams</a><a href="segal-axiom.html">2.2 · The Segal axiom</a><a href="rezk-axiom.html">2.3 · The Rezk axiom</a><a href="groupoids.html">2.4 · Groupoids</a><a href="recognizing-animae.html">2.5 · Recognizing animae</a><a href="chapter-2-exercises.html">2.6 · Exercises</a></div></details><details class="contents-chapter" open><summary><span class="chapter-number">Chapter 3</span><span class="chapter-name">Constructions of categories</span></summary><div class="chapter-sections"><a href="constructions-introduction.html">Chapter introduction</a><a href="subcategories.html">3.1 · Subcategories</a><a href="full-subcategories.html">3.2 · Full subcategories</a><a href="localizations.html">3.3 · Localizations</a><a href="geometric-realizations.html">3.4 · Geometric realizations</a><a href="exponentiable-functors.html">3.5 · Exponentiable functors</a><a href="joins.html">3.6 · Joins</a><a aria-current="page" href="slice-categories.html">3.7 · Slice categories</a><a href="chapter-3-exercises.html">3.8 · Exercises</a></div></details></nav></aside>
+<main id="main" class="notes-page" tabindex="-1"><p class="agda-help"><span class="agda-invitation"><a class="agda-start" data-module="SCT.VolumeI.Chapter03.Section07.RelativeSlices" href="agda/SCT.VolumeI.Chapter03.Section07.RelativeSlices.html">Read the Agda code</a> alongside the book.</span><span class="agda-instructions">Click dotted-underlined prose to read its Agda code alongside the book. <button type="button" class="agda-hide text-button">Hide links.</button> <a href="code-index.html">Browse all code.</a></span></p><h3 class="sectionHead" id="slice-categories"><span class="titlemark">3.7    </span> <a id="x1-510003.7"></a>Slice categories</h3>
+<p class="noindent"><span class="source-anchor" id="sec:Slice_Categories_From_Joins"></span>
+</p><p class="noindent">The join operation can be used to describe functors into slice categories.
+</p><p class="noindent"></p><section class="statement" data-environment="uconstruction" data-scope="categorical" aria-label="Statement with intended validity in categorical contexts">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-51001r1"></a>
+<a class="agda-trigger agda-heading" id="text-ch3-cons-general-slice-category" href="slice-categories.html#agda-ch3-cons-general-slice-category" data-agda="ch3-cons-general-slice-category" title="Agda: category, universal" aria-controls="agda-ch3-cons-general-slice-category"><span class="underline"><span class="ntx-Bold-tlf-t1-x-x-109">Construction 3.7.1</span></span></a> (Slice category).  </span><span class="source-anchor" id="cons:General_Slice_Category"></span> Let \(p_C\colon C\to \Gamma \) and \(p_Y\colon Y\to \Gamma \) be categories over \(\Gamma \), let \(\psi \colon Y\to C\) be a functor over \(\Gamma \), and assume
+
+
+that \(p_Y\) is exponentiable. Relative currying of \(\psi \) gives a section \(\bar \psi \colon \Gamma \to \ulFun _\Gamma (Y,C)\). Relative currying of the constant-family
+functor \((\pr _C,\pr _C)\colon C\times _\Gamma Y\to C\times _\Gamma C\) gives a functor \(p_Y^*\colon C\to \ulFun _\Gamma (Y,C)\) over \(\Gamma \). We define the <span class="ntx-Italic-tlf-t1-x-x-109">slice</span> \(C_{/\psi }\to \Gamma \) by the pullback square of categories over \(\Gamma \)
+</p><details class="agda-panel agda-inline" id="agda-ch3-cons-general-slice-category"><summary><span class="agda-tag">Agda</span> Relative slice categories</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section07.RelativeSlices" data-declaration="Construction.Boundary.category"><h4><code>category</code></h4><p class="status">Definition, checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section07.RelativeSlices.html#4160" class="Function">category</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">    <a href="agda/SCT.VolumeI.Chapter03.Section07.RelativeSlices.html#4160" class="Function">category</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter01.Section06.PullbackData.html#1041" class="Function">Pullback</a> <a href="agda/SCT.VolumeI.Chapter03.Section07.RelativeSlices.html#4083" class="Function">upper</a> <a href="agda/SCT.VolumeI.Chapter03.Section07.RelativeSlices.html#4122" class="Function">lower</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Interval
+
+module SCT.VolumeI.Chapter03.Section07.RelativeSlices
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Interval.WalkingMorphism 𝒯) where
+
+module Construction {C Y Γ : CAT} (pC : MAP C Γ) (pY : MAP Y Γ)
+  (epY : IsExponentiable pY) (ψ : FunctorOver pY pC) where
+
+  module Boundary (left right : FunctorOver pC Internal.projection) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section07.RelativeSlices.html#4160">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section07/RelativeSlices.lagda.md">Literate source, line 80</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section07.RelativeSlices" data-declaration="Construction.Boundary.universal"><h4><code>universal</code></h4><p class="status">Definition, checked</p><pre class="Agda signature">      <a></a><a href="agda/SCT.VolumeI.Chapter03.Section07.RelativeSlices.html#4861" class="Function">universal</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section06.PullbackSquares.html#1105" class="Function">IsPullback</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section06.PullbackData.html#1096" class="Function">pullbackCone</a> <a href="agda/SCT.VolumeI.Chapter03.Section07.RelativeSlices.html#4083" class="Function">upper</a> <a href="agda/SCT.VolumeI.Chapter03.Section07.RelativeSlices.html#4122" class="Function">lower</a><a class="Symbol">)</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">      <a href="agda/SCT.VolumeI.Chapter03.Section07.RelativeSlices.html#4861" class="Function">universal</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter01.Section06.PullbackSquares.html#1460" class="Function">pullbackCone-isPullback</a> <a href="agda/SCT.VolumeI.Chapter03.Section07.RelativeSlices.html#4083" class="Function">upper</a> <a href="agda/SCT.VolumeI.Chapter03.Section07.RelativeSlices.html#4122" class="Function">lower</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Interval
+
+module SCT.VolumeI.Chapter03.Section07.RelativeSlices
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Interval.WalkingMorphism 𝒯) where
+
+module Construction {C Y Γ : CAT} (pC : MAP C Γ) (pY : MAP Y Γ)
+  (epY : IsExponentiable pY) (ψ : FunctorOver pY pC) where
+
+  module Boundary (left right : FunctorOver pC Internal.projection) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section07.RelativeSlices.html#4861">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section07/RelativeSlices.lagda.md">Literate source, line 97</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p>The construction is parametrized by an arbitrary base category. This does not claim full categorical-context inheritance. Boundary specializes to the slice or coslice through the public module aliases at the end of this file.</p><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="slice-categories.html#text-ch3-cons-general-slice-category">Return to this passage</a> · <a class="permalink" href="slice-categories.html#agda-ch3-cons-general-slice-category">Panel link</a></p></div></details><p class="noindent"></p><figure class="diagram"><img src="assets/diagrams/diagram-7b814f466dbda06d.svg" alt="Commutative diagram from the manuscript; its arrows and comparisons are described in the surrounding text."></figure>
+<p></p><p class="noindent">Here \([1]_\Gamma :=\Gamma \times [1]\to \Gamma \). The relative functor category in the upper right is constructed by taking the dependent product
+along \(p_Y\) of the arrow category of \(C\times _\Gamma Y\) over \(Y\); thus its existence uses only the assumed exponentiability of
+\(p_Y\).
+</p>
+</div>
+<p class="noindent"> </p></section>
+<p></p><p class="noindent">For \(\Gamma =*\), the terminal functor \(Y\to *\) is exponentiable by Proposition <a href="exponentiable-functors.html#sct-public-ef27c726a6c8db9b54796bf601acf4bd1897b53b034efd3b002eda8a621b72fe">3.5.15</a>. Thus the absolute slice exists without an
+additional exponentiability hypothesis.
+</p><p class="noindent"></p><section class="statement" data-environment="uremark" data-scope="categorical" aria-label="Statement with intended validity in categorical contexts">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-51002r2"></a>
+<span class="underline"><span class="ntx-Bold-tlf-t1-x-x-109">Remark 3.7.2</span></span><span class="ntx-Bold-tlf-t1-x-x-109">.</span>  </span>We  will  mostly  be  interested  in  the  case  \(Y=\Gamma \)  and  \(p_Y=\id _\Gamma \).  For  a  section  \(x\colon \Gamma \to C\),  we  write  \(C_{/x}\)  for  the
+resulting slice over \(\Gamma \).
+</p>
+</div>
+<p class="noindent"> </p></section>
+<p></p><p class="noindent"></p><section class="statement" data-environment="lemma" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-51003r3"></a>
+<a class="agda-trigger agda-heading" id="text-ch3-lem-functor-categories-into-slices" href="slice-categories.html#agda-ch3-lem-functor-categories-into-slices" data-agda="ch3-lem-functor-categories-into-slices" title="Agda: isPullback" aria-controls="agda-ch3-lem-functor-categories-into-slices"><span class="ntx-Bold-tlf-t1-x-x-109">Lemma 3.7.3.</span></a>  </span><span class="source-anchor" id="lem:Functor_Categories_Into_Slices"> </span><span class="ntx-Italic-tlf-t1-x-x-109">For every category</span> \(X\) <span class="ntx-Italic-tlf-t1-x-x-109">and every functor</span> \(\psi \colon Y \to C\)<span class="ntx-Italic-tlf-t1-x-x-109">, there is a pullback square of the form</span>
+</p><details class="agda-panel agda-inline" id="agda-ch3-lem-functor-categories-into-slices"><summary><span class="agda-tag">Agda</span> Functors into absolute slices</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section07.FunctorsIntoSlices" data-declaration="SliceComparison.isPullback"><h4><code>isPullback</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section07.FunctorsIntoSlices.html#4486" class="Function">isPullback</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section06.PullbackSquares.html#1105" class="Function">IsPullback</a> <a href="agda/SCT.VolumeI.Chapter03.Section07.FunctorsIntoSlices.html#4131" class="Function">cone</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">    <a href="agda/SCT.VolumeI.Chapter03.Section07.FunctorsIntoSlices.html#4486" class="Function">isPullback</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter01.Section06.PullbackSymmetry.html#2678" class="Function">pullback-swap</a> <a href="agda/SCT.VolumeI.Chapter03.Section07.FunctorsIntoSlices.html#3975" class="Function">before-swap</a> <a href="agda/SCT.VolumeI.Chapter03.Section07.FunctorsIntoSlices.html#4223" class="Function">before-swap-isPullback</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import Agda.Builtin.Nat using (Nat; suc) renaming (zero to zeroℕ)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section05.Coproducts as Coproducts
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter01.Section06.UniversalCoproducts as Universality
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Interval
+import SCT.VolumeI.Chapter03.Section06.JoinAxiom as Axiom
+
+module SCT.VolumeI.Chapter03.Section07.FunctorsIntoSlices
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M)
+  (B : Coproducts.CoproductStructure 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (U : Universality.CoproductUniversality 𝒯 M B P)
+  (I : Interval.WalkingMorphism 𝒯) (J : Axiom.JoinAxiom 𝒯 M ℱ B P U I) where
+
+module SliceComparison (X : CAT) {Y C : CAT} (ψ : MAP Y C) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section07.FunctorsIntoSlices.html#4486">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section07/FunctorsIntoSlices.lagda.md">Literate source, line 79</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p>The theorem uses the absolute slice implementation in Section07.Slices. The comparison with the chosen relative slice over the terminal category has not yet been exported.</p><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="slice-categories.html#text-ch3-lem-functor-categories-into-slices">Return to this passage</a> · <a class="permalink" href="slice-categories.html#agda-ch3-lem-functor-categories-into-slices">Panel link</a></p></div></details><p class="noindent"></p><figure class="diagram"><img src="assets/diagrams/diagram-202aeda3e1097526.svg" alt="Commutative diagram from the manuscript; its arrows and comparisons are described in the surrounding text."></figure>
+<p></p>
+</div>
+
+
+
+<p class="noindent"> </p></section>
+<p></p>
+<details class="book-proof" open><summary>Proof</summary><div class="proof-content">
+<p class="noindent"><span class="head">
+<span class="ntx-Italic-tlf-t1-x-x-109">Proof.</span> </span>Since the assignment \(C \mapsto \Fun (X,C)\) preserves pullbacks, applying it to the defining pullback square of \(C_{/\psi }\)
+gives
+</p><p class="noindent"></p><figure class="diagram"><img src="assets/diagrams/diagram-22a62a3499c51268.svg" alt="Commutative diagram from the manuscript; its arrows and comparisons are described in the surrounding text."></figure>
+<p></p><p class="noindent">Because of the factorization of the bottom map, we may compute this pullback by first pulling back
+along the map \(\pr _X^* \times \pr _Y^*\), giving a pullback square
+</p><p class="noindent"></p><figure class="diagram"><img src="assets/diagrams/diagram-f7545139cfa43e2a.svg" alt="Commutative diagram from the manuscript; its arrows and comparisons are described in the surrounding text."></figure>
+<p></p><p class="noindent">Since the upper right corner is equivalent to \(\Fun (X \star Y, C)\) by Remark <a href="joins.html#rmk:Mapping_Out_Of_Join">3.6.1</a>, this finishes the proof.                   □
+</p>
+</div></details>
+<p class="noindent"></p><section class="statement" data-environment="remark" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-51004r4"></a>
+<span class="ntx-Bold-tlf-t1-x-x-109">Remark 3.7.4.</span>  </span>Informally speaking, the previous lemma says that a functor \(X \to C_{/\psi }\) into the slice consists
+of a map \(g \colon X \star Y \to C\) fitting in a commutative diagram as follows:
+</p><p class="noindent"></p><figure class="diagram"><img src="assets/diagrams/diagram-98c9247fe10d384d.svg" alt="Commutative diagram from the manuscript; its arrows and comparisons are described in the surrounding text."></figure>
+<p></p>
+</div>
+<p class="noindent"> </p></section>
+<p></p><p class="noindent">Completely analogously we obtain a dual slice construction.
+</p><p class="noindent"></p><section class="statement" data-environment="uconstruction" data-scope="categorical" aria-label="Statement with intended validity in categorical contexts">
+<p></p>
+<div class="newtheorem">
+
+
+<p class="noindent"><span class="head">
+<a id="x1-51005r5"></a>
+<a class="agda-trigger agda-heading" id="text-ch3-con-contextual-slice-categories" href="slice-categories.html#agda-ch3-con-contextual-slice-categories" data-agda="ch3-con-contextual-slice-categories" title="Agda: category, universal" aria-controls="agda-ch3-con-contextual-slice-categories"><span class="underline"><span class="ntx-Bold-tlf-t1-x-x-109">Construction 3.7.5</span></span></a><span class="ntx-Bold-tlf-t1-x-x-109">.</span>  </span><span class="source-anchor" id="con:Contextual_Slice_Categories"></span>  Let  \(p_C\colon C\to \Gamma \)  and  \(p_X\colon X\to \Gamma \)  be  categories  over  \(\Gamma \),  let  \(\varphi \colon X\to C\)  be  a  functor  over  \(\Gamma \),  and  assume  that  \(p_X\)  is
+exponentiable. Let \(\bar \varphi \colon \Gamma \to \ulFun _\Gamma (X,C)\) be its relative currying. Define the coslice \(C_{\varphi /}\to \Gamma \) by the pullback square of categories
+over \(\Gamma \)
+</p><details class="agda-panel agda-inline" id="agda-ch3-con-contextual-slice-categories"><summary><span class="agda-tag">Agda</span> Relative coslice categories</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section07.RelativeSlices" data-declaration="Construction.Boundary.category"><h4><code>category</code></h4><p class="status">Definition, checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section07.RelativeSlices.html#4160" class="Function">category</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">    <a href="agda/SCT.VolumeI.Chapter03.Section07.RelativeSlices.html#4160" class="Function">category</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter01.Section06.PullbackData.html#1041" class="Function">Pullback</a> <a href="agda/SCT.VolumeI.Chapter03.Section07.RelativeSlices.html#4083" class="Function">upper</a> <a href="agda/SCT.VolumeI.Chapter03.Section07.RelativeSlices.html#4122" class="Function">lower</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Interval
+
+module SCT.VolumeI.Chapter03.Section07.RelativeSlices
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Interval.WalkingMorphism 𝒯) where
+
+module Construction {C Y Γ : CAT} (pC : MAP C Γ) (pY : MAP Y Γ)
+  (epY : IsExponentiable pY) (ψ : FunctorOver pY pC) where
+
+  module Boundary (left right : FunctorOver pC Internal.projection) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section07.RelativeSlices.html#4160">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section07/RelativeSlices.lagda.md">Literate source, line 80</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section07.RelativeSlices" data-declaration="Construction.Boundary.universal"><h4><code>universal</code></h4><p class="status">Definition, checked</p><pre class="Agda signature">      <a></a><a href="agda/SCT.VolumeI.Chapter03.Section07.RelativeSlices.html#4861" class="Function">universal</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section06.PullbackSquares.html#1105" class="Function">IsPullback</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section06.PullbackData.html#1096" class="Function">pullbackCone</a> <a href="agda/SCT.VolumeI.Chapter03.Section07.RelativeSlices.html#4083" class="Function">upper</a> <a href="agda/SCT.VolumeI.Chapter03.Section07.RelativeSlices.html#4122" class="Function">lower</a><a class="Symbol">)</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">      <a href="agda/SCT.VolumeI.Chapter03.Section07.RelativeSlices.html#4861" class="Function">universal</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter01.Section06.PullbackSquares.html#1460" class="Function">pullbackCone-isPullback</a> <a href="agda/SCT.VolumeI.Chapter03.Section07.RelativeSlices.html#4083" class="Function">upper</a> <a href="agda/SCT.VolumeI.Chapter03.Section07.RelativeSlices.html#4122" class="Function">lower</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Interval
+
+module SCT.VolumeI.Chapter03.Section07.RelativeSlices
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Interval.WalkingMorphism 𝒯) where
+
+module Construction {C Y Γ : CAT} (pC : MAP C Γ) (pY : MAP Y Γ)
+  (epY : IsExponentiable pY) (ψ : FunctorOver pY pC) where
+
+  module Boundary (left right : FunctorOver pC Internal.projection) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section07.RelativeSlices.html#4861">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section07/RelativeSlices.lagda.md">Literate source, line 97</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p>The construction is parametrized by an arbitrary base category. This does not claim full categorical-context inheritance. Boundary specializes to the slice or coslice through the public module aliases at the end of this file.</p><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="slice-categories.html#text-ch3-con-contextual-slice-categories">Return to this passage</a> · <a class="permalink" href="slice-categories.html#agda-ch3-con-contextual-slice-categories">Panel link</a></p></div></details><p class="noindent"></p><figure class="diagram"><img src="assets/diagrams/diagram-8ec40c8586ccf9f8.svg" alt="Commutative diagram from the manuscript; its arrows and comparisons are described in the surrounding text."></figure>
+<p></p>
+</div>
+<p class="noindent"> </p></section>
+<p></p><p class="noindent">
+</p>
+</main></div>
+<footer>Experimental web edition · Generated from annotated LaTeX and Agda sources. <a href="build-report.html">Build details</a></footer></body></html>

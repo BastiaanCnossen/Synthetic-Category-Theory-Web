@@ -14,7 +14,7 @@ module SCT.VolumeI.Chapter01.Section08.ProductSquares
 
 open import SCT.VolumeI.Chapter01.Section04.Setup 𝒯
 open import SCT.VolumeI.Chapter01.Section08.Squares 𝒯
-open import SCT.VolumeI.Chapter01.Section08.CoconePostcomposition 𝒯
+open import SCT.VolumeI.Chapter01.Section08.CoconeCalculus.CoconePostcomposition 𝒯
 
 productRestriction : (X : CAT) {A B : CAT} → MAP A B → MAP (X × A) (X × B)
 productRestriction X f = productMap (id X) f

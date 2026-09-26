@@ -28,7 +28,7 @@ open import SCT.VolumeI.Chapter01.Section06.Distributivity 𝒯 M B P U
 open import SCT.VolumeI.Chapter01.Section07.Currying 𝒯 M F
 open import SCT.VolumeI.Chapter01.Section07.Functoriality 𝒯 M F
 
-open import SCT.VolumeI.Chapter01.Section07.MappingTests 𝒯 M F
+open import SCT.VolumeI.Chapter01.Section07.EvaluationCalculus.MappingTests 𝒯 M F
 open import SCT.VolumeI.Chapter01.Section04.EquivalenceDetection 𝒯 M using (post-tests-all)
 import SCT.VolumeI.Chapter01.Section04.MappingProducts as MappingProducts
 open import SCT.VolumeI.Chapter01.Section05.RestrictionCalculus 𝒯

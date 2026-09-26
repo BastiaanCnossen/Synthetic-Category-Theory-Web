@@ -29,7 +29,7 @@ open Rezk 𝒯 M ℱ P I E public
 open RezkAxiom R
 open Laws.PullbackStructure P
 open import SCT.VolumeI.Chapter01.Section06.PullbackFunctor 𝒯 P
-open import SCT.VolumeI.Chapter01.Section06.CospanEquivalences 𝒯 P
+open import SCT.VolumeI.Chapter01.Section06.Cospans.CospanEquivalences 𝒯 P
   using (module CospanEquivalence)
 open import SCT.VolumeI.Chapter01.Section06.RepresentabilityDiagonal 𝒯 P
   using (module Diagonal)

@@ -10,8 +10,8 @@ open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
 import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Laws
-import SCT.VolumeI.Chapter01.Section08.DecodeRestrictionCones as Decode
-import SCT.VolumeI.Chapter01.Section08.DecodeSquareEvaluation as Evaluation
+import SCT.VolumeI.Chapter01.Section08.MappingCalculus.Decoding.DecodeRestrictionCones as Decode
+import SCT.VolumeI.Chapter01.Section08.MappingCalculus.Decoding.DecodeSquareEvaluation as Evaluation
 
 module SCT.VolumeI.Chapter01.Section08.PushoutExtensions
   {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
@@ -19,10 +19,10 @@ module SCT.VolumeI.Chapter01.Section08.PushoutExtensions
 
 open import SCT.VolumeI.Chapter01.Section05.Setup 𝒯 M
 open import SCT.VolumeI.Chapter01.Section08.PushoutSquares 𝒯 M P
-open import SCT.VolumeI.Chapter01.Section08.SquareCocones 𝒯
+open import SCT.VolumeI.Chapter01.Section08.Squares 𝒯 using (squareCocone)
 open import SCT.VolumeI.Chapter01.Section08.Cocones 𝒯
-open import SCT.VolumeI.Chapter01.Section08.CoconeUniversality 𝒯
-open import SCT.VolumeI.Chapter01.Section08.CoconePostcomposition 𝒯 using (coconePost; cocone-action)
+open import SCT.VolumeI.Chapter01.Section08.CoconeCalculus.CoconeUniversality 𝒯
+open import SCT.VolumeI.Chapter01.Section08.CoconeCalculus.CoconePostcomposition 𝒯 using (coconePost; cocone-action)
 open import SCT.VolumeI.Chapter01.Section06.PullbackSquares 𝒯 P
 module DC = Decode 𝒯 M
 

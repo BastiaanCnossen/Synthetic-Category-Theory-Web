@@ -17,7 +17,7 @@ module SCT.VolumeI.Chapter01.Section07.Currying
 
 open import SCT.VolumeI.Chapter01.Section05.Setup 𝒯 M
 open Categories.FunctorCategories F public
-open import SCT.VolumeI.Chapter01.Section07.Representation 𝒯 M
+open import SCT.VolumeI.Chapter01.Section07.EvaluationCalculus.Representation 𝒯 M
 
 module _ {C D : CAT} where
   open Representing (funEval {C} {D}) (funUniversal C D) public

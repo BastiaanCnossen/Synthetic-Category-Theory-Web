@@ -28,9 +28,9 @@ module SCT.VolumeI.Chapter02.Section03.NaturalIsomorphisms
 open import SCT.VolumeI.Chapter02.Section03.RezkFibers 𝒯 M ℱ P I E R Rep public
 open import SCT.VolumeI.Chapter01.Section04.Points 𝒯 M
   using (oneProduct-in; oneProduct-in-isEquiv)
-open import SCT.VolumeI.Chapter01.Section07.IsomorphismLifting 𝒯 M ℱ
+open import SCT.VolumeI.Chapter01.Section07.EvaluationCalculus.IsomorphismLifting 𝒯 M ℱ
   using (funUncurry-isoMap-isEquiv)
-open import SCT.VolumeI.Chapter01.Section04.CoherenceTransport 𝒯
+open import SCT.VolumeI.Chapter01.Section04.Substitution.CoherenceTransport 𝒯
   using (changeEndpoints-map; changeEndpoints-map-isEquiv)
 
 decodeFun-isoMap : {C D : CAT} (u v : Obj-abs (Fun C D)) →

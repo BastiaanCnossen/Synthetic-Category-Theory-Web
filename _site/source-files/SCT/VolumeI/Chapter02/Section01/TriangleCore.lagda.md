@@ -29,13 +29,13 @@ module SCT.VolumeI.Chapter02.Section01.TriangleCore
   (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
   (K : Interval.IntervalCoreAxiom 𝒯 M B I) where
 
-open import SCT.VolumeI.Chapter02.Section01.FourPoints 𝒯 M B P U
+open import SCT.VolumeI.Chapter02.Section01.SquareCalculus.FourPoints 𝒯 M B P U
   using (Two; Four; points₄; points₄-post; points₄-cong; module Rectangle;
     _⊔_; in₁; in₂; copair; copair-post; copair-cong; copair-β₁; copair-β₂;
     copair-pre₁; copair-pre₂; copair-η; copair-inclusions; mapPost-name;
     Map; nameMap; nameMapIso; name-decode; mapPost; mapPost-comp; mapPost-cong; mapPost-id;
     mapPre; mapPre-name; oneProduct-in)
-open import SCT.VolumeI.Chapter02.Section01.TriangleCorners 𝒯 M ℱ P I E Q
+open import SCT.VolumeI.Chapter02.Section01.DiagramCalculus.TriangleCorners 𝒯 M ℱ P I E Q
 open import SCT.VolumeI.Chapter01.Section04.Core 𝒯 M using (Core)
 open import SCT.VolumeI.Chapter01.Section04.MappingProducts 𝒯 M using (module ProductComparison)
 open import SCT.VolumeI.Chapter01.Section03.Retracts vocabulary terminal products productLaws composition

@@ -19,7 +19,7 @@ module SCT.VolumeI.Chapter02.Section01.HomAndSlices
   (ℱ : Categories.FunctorCategories 𝒯 M) (P : Laws.PullbackStructure 𝒯)
   (I : Walking.WalkingMorphism 𝒯) where
 
-open import SCT.VolumeI.Chapter02.Section01.EndpointFibers 𝒯 M ℱ P I public
+open import SCT.VolumeI.Chapter02.Section01.EvaluationCalculus.EndpointFibers 𝒯 M ℱ P I public
 
 Hom : (C : CAT) → Obj-abs C → Obj-abs C → CAT
 Hom C x y = EndpointFiber.category x y

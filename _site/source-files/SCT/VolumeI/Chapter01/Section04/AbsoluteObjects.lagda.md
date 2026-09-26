@@ -20,7 +20,7 @@ open Setup 𝒯
 open Mapping.MappingAnimae M
 open Currying 𝒯 M
 
-open import SCT.VolumeI.Chapter01.Section04.TerminalInsertion 𝒯 public
+open import SCT.VolumeI.Chapter01.Section04.ProductCalculus.TerminalInsertion 𝒯 public
 open import SCT.VolumeI.Chapter01.Section04.Core 𝒯 M using (core-of-anima)
 
 open TerminalInsertion

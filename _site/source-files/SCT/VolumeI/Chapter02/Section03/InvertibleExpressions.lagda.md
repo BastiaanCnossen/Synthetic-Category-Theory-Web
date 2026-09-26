@@ -22,12 +22,12 @@ module SCT.VolumeI.Chapter02.Section03.InvertibleExpressions
   (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
   (S : Segal.SegalAxiom 𝒯 M ℱ P I E) where
 
-open import SCT.VolumeI.Chapter02.Section02.CompositionExpressions 𝒯 M ℱ P I E S public
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.CompositionExpressions 𝒯 M ℱ P I E S public
 open import SCT.VolumeI.Chapter02.Section03.Isomorphisms 𝒯 M ℱ P I E
   using (Iso; IsoLift; InverseTriangles; inverseLongEdges; inverseIdentityEdges; isoArrow; isoTriangles)
-open import SCT.VolumeI.Chapter02.Section03.UniversalInverseExpressions 𝒯 M ℱ P I E S
+open import SCT.VolumeI.Chapter02.Section03.InverseCalculus.UniversalInverseExpressions 𝒯 M ℱ P I E S
   using (IsInvertibleExpression)
-import SCT.VolumeI.Chapter02.Section03.ConstantIdentityComparison as Constant
+import SCT.VolumeI.Chapter02.Section03.InverseCalculus.ConstantIdentityComparison as Constant
 open import SCT.VolumeI.Chapter01.Section06.Cones 𝒯
 open Laws.PullbackStructure P
 

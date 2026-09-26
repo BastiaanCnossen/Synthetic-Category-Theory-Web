@@ -16,13 +16,13 @@ identifications gives the book's coherence laws.
 {-# OPTIONS --safe --without-K #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
-import SCT.VolumeI.Chapter01.Section04.ProofCalculus as Setup
+import SCT.VolumeI.Chapter01.Section04.Substitution.ProofCalculus as Setup
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as MappingAnimae
 import SCT.VolumeI.Chapter01.Section04.Composition as MapComposition
-import SCT.VolumeI.Chapter01.Section04.InternalCoherence as InternalCoherence
-import SCT.VolumeI.Chapter01.Section04.UniversalCoherence as UniversalCoherence
-import SCT.VolumeI.Chapter01.Section04.UniversalAssociatorRestriction as UniversalAssociatorRestriction
-import SCT.VolumeI.Chapter01.Section04.UniversalUnitChange as UniversalUnitChange
+import SCT.VolumeI.Chapter01.Section04.CompositionCalculus.InternalCoherence as InternalCoherence
+import SCT.VolumeI.Chapter01.Section04.CompositionCalculus.UniversalCoherence as UniversalCoherence
+import SCT.VolumeI.Chapter01.Section04.CompositionCalculus.UniversalAssociatorRestriction as UniversalAssociatorRestriction
+import SCT.VolumeI.Chapter01.Section04.CompositionCalculus.UniversalUnitChange as UniversalUnitChange
 
 module SCT.VolumeI.Chapter01.Section04.Coherence
   {c m a : Level} (𝒯 : Theory c m a)

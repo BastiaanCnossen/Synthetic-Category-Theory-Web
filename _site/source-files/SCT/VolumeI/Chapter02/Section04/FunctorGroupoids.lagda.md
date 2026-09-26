@@ -23,7 +23,8 @@ module SCT.VolumeI.Chapter02.Section04.FunctorGroupoids
   (R : Rezk.RezkAxiom 𝒯 M ℱ P I E) where
 
 open import SCT.VolumeI.Chapter02.Section04.Groupoids 𝒯 M ℱ P I E R public
-open import SCT.VolumeI.Chapter02.Section04.ConstantExponential 𝒯 M ℱ
+open import SCT.VolumeI.Chapter02.Section04.ConstantDiagrams.ConstantExponential 𝒯 M ℱ
+  using (module Constant)
 
 functor-isGroupoid : (C X : CAT) → IsGroupoid X → IsGroupoid (Fun C X)
 functor-isGroupoid C X = Constant.preserves-equivalence [1] C X

@@ -5,6 +5,54 @@ from pilot_model import declaration_range,tex_markers
 from reader_context import focused_lines,module_lines,compiler_anchors
 
 class PipelineTests(unittest.TestCase):
+    def test_reading_tools_default_to_opt_in_links_and_have_a_relative_pdf(self):
+        from book_navigation import reading_tools,book_sidebar
+        tree=parse(reading_tools('../'))
+        inputs=list(tree.all('input'))
+        self.assertEqual([n.attrs['id'] for n in inputs],['collapse-proofs','show-agda-links'])
+        self.assertTrue(all('checked' not in n.attrs for n in inputs))
+        self.assertEqual([a.attrs['href'] for a in tree.all('a')],['../book.pdf'])
+        panel=next(tree.all('section'))
+        self.assertIn('hidden',panel.attrs)
+        button=next(tree.all('button'))
+        self.assertEqual(button.attrs['aria-controls'],panel.attrs['id'])
+        sidebar=next(parse(book_sidebar('joins')).all('aside'))
+        self.assertEqual([n.tag for n in sidebar.children if isinstance(n,Node)],['h2','nav','h2','nav'])
+        self.assertEqual([n.text() for n in sidebar.all('h2')],['Resources','Contents'])
+        resources,contents=list(sidebar.all('nav'))
+        self.assertEqual([a.attrs['href'] for a in resources.all('a')],['code-index.html','formalization.html','build-report.html'])
+        self.assertNotIn('All Agda code',contents.text())
+        self.assertNotIn('Reading preferences',sidebar.text())
+
+    def test_agda_entry_points_match_their_sections(self):
+        from book_navigation import agda_invitation, AGDA_ENTRY_MODULES
+        from assemble import MANIFEST
+        self.assertEqual(set(AGDA_ENTRY_MODULES),{p['page'] for p in MANIFEST['passages']})
+        for slug in AGDA_ENTRY_MODULES:
+            tree=parse(agda_invitation(slug,MANIFEST))
+            entry=next(tree.all('a'))
+            module=entry.attrs['data-module']
+            self.assertEqual(entry.attrs['href'],'agda/'+module+'.html')
+        self.assertIn('SCT.VolumeI.Chapter03.Section01.Subcategories',agda_invitation('subcategories',MANIFEST))
+        self.assertEqual(agda_invitation('introduction',MANIFEST),'')
+
+    def test_public_anchors_preserve_existing_ids_and_encode_whitespace(self):
+        from source_anchors import public_anchor
+        labels=['ex:[0]star[0]is[1]', 'prop:a b', 'prop:a_b', 'prop:a\tb']
+        anchors=[public_anchor(label) for label in labels]
+        self.assertEqual(anchors[0],labels[0])
+        self.assertEqual(anchors[2],labels[2])
+        self.assertEqual(len(set(anchors)),len(labels))
+        self.assertTrue(all(not any(c.isspace() for c in anchor) for anchor in anchors))
+
+    def test_conversion_anchors_do_not_collapse_distinct_tex_labels(self):
+        labels=['ex:[0]star[0]is[1]', 'ex:_0_star_0_is_1_',
+                'prop:map_to_the_point_is exponentiable',
+                'prop:map_to_the_point_is_exponentiable']
+        anchors=[conversion_anchor(label) for label in labels]
+        self.assertEqual(len(set(anchors)),len(labels))
+        self.assertTrue(all(re.fullmatch(r'[a-z0-9-]+',anchor) for anchor in anchors))
+
     def test_contents_expands_only_current_chapter(self):
         from book_navigation import contents
         for page,expected in [('morphisms-and-diagrams','Chapter 2'),('coherences','Chapter 1'),('index',None)]:
@@ -13,15 +61,46 @@ class PipelineTests(unittest.TestCase):
             self.assertEqual([next(n.all('summary')).text().split('The')[0] for n in groups],[expected] if expected else [])
             self.assertEqual(len([a for a in tree.all('a') if a.attrs.get('aria-current')=='page']),1)
 
-    def test_chapter_turns_skip_sections(self):
+    def test_four_navigation_slots_and_chapter_boundaries(self):
         from book_navigation import page_turns
-        first=list(parse(page_turns('chapter-introduction')).all('a'))
-        last=list(parse(page_turns('internal-structure-introduction')).all('a'))
-        self.assertEqual([(a.attrs['rel'],a.attrs['href']) for a in first],[('prev','overview-of-the-axioms.html'),('next','internal-structure-introduction.html')])
-        self.assertEqual([(a.attrs['rel'],a.attrs['href']) for a in last],[('prev','chapter-introduction.html')])
-        section=list(parse(page_turns('coherences')).all('a'))
-        self.assertEqual([a.attrs['href'] for a in section],['basic-vocabulary.html','equivalences.html'])
+        cases={
+            'chapter-introduction':[None,'internal-structure-introduction',None,'basic-vocabulary'],
+            'internal-structure-introduction':['chapter-introduction','constructions-introduction','pushouts','morphisms-and-diagrams'],
+            'constructions-introduction':['internal-structure-introduction',None,'chapter-2-exercises','subcategories'],
+            'coherences':[None,'internal-structure-introduction','basic-vocabulary','equivalences'],
+            'morphisms-and-diagrams':['chapter-introduction','constructions-introduction','pushouts','segal-axiom'],
+            'chapter-2-exercises':['chapter-introduction','constructions-introduction','recognizing-animae','subcategories'],
+            'chapter-3-exercises':['internal-structure-introduction',None,'slice-categories',None],
+        }
+        for current,expected in cases.items():
+            controls=[n for n in parse(page_turns(current)).all() if 'data-step' in n.attrs]
+            self.assertEqual([n.attrs['data-step'] for n in controls],['prev-chapter','next-chapter','prev-section','next-section'])
+            self.assertEqual([n.attrs.get('href') for n in controls],[s+'.html' if s else None for s in expected])
+            for node,slug in zip(controls,expected):
+                if slug is None:
+                    self.assertEqual(node.tag,'button')
+                    self.assertIn('disabled',node.attrs)
         self.assertEqual(page_turns('index'),'')
+
+    def test_breadcrumbs_link_to_ancestors_without_a_part(self):
+        from book_navigation import breadcrumbs
+        section=parse(breadcrumbs('joins','../'))
+        self.assertEqual([a.attrs['href'] for a in section.all('a')],['../index.html','../constructions-introduction.html'])
+        self.assertEqual([n.text() for n in section.all('li') if n.attrs.get('aria-current')],['Section 3.6'])
+        chapter=parse(breadcrumbs('constructions-introduction'))
+        self.assertEqual([a.attrs['href'] for a in chapter.all('a')],['index.html'])
+        self.assertNotIn('Part',chapter.text())
+
+    def test_chapter_cards_use_authored_overview_descriptions(self):
+        from book_navigation import chapter_sections
+        overview='<article class="chapter-card"><p class="eyebrow">Section 3.6</p><h3><a href="joins.html">Joins</a></h3><p>Author’s <em>own</em> description.</p></article>'
+        tree=parse(chapter_sections('constructions-introduction',overview))
+        cards=list(tree.all('article'))
+        self.assertEqual(len(cards),8)
+        self.assertEqual([a.attrs['href'] for a in tree.all('a')],[s[0]+'.html' for s in BOOK_CHAPTERS[2]['sections']])
+        self.assertIn('<em>own</em>',cards[5].html())
+        self.assertEqual(len(list(tree.all('details'))),0)
+        self.assertEqual(chapter_sections('joins',overview),'')
 
     def test_frontmatter_reading_order(self):
         from book_navigation import page_turns, contents
@@ -92,6 +171,18 @@ class PipelineTests(unittest.TestCase):
         body=parse('<div data-diagram="square"></div>')
         insert_diagrams(body,[{'id':'square','equation_label':'eq:square'}],{'eq:square':'2.1.1'})
         self.assertEqual(next(body.all('figcaption')).text(),'(2.1.1)')
+
+    def test_nested_exercise_heading_preserves_title_and_labels_only_conversion(self):
+        chapter=next(c for c in BOOK_CHAPTERS if c['source']==CHAPTER3)
+        body=''.join(r'\section{'+chapter.get('unlabelled_section_titles',{}).get(label,title)+'}'+
+                     (r'\label[section]{'+label+'}' if not label.startswith('web:') else '')+'Text.'
+                     for _,title,label in chapter['sections'])
+        source=r'\begin{document}'+body+r'\end{document}'
+        selected=selected_source(source,CHAPTER3)
+        self.assertEqual(len(section_headings(selected)),8)
+        self.assertEqual(section_headings(selected)[-1]['label'],'web:chapter03-exercises')
+        self.assertIn(r'\Cref{chap:Basic_Synthetic_Category_Theory}',selected)
+        self.assertNotIn('web:chapter03-exercises',source)
 
     def test_new_stage_reuses_checked_dvi_but_preamble_change_recompiles(self):
         import tempfile
@@ -411,6 +502,29 @@ class PipelineTests(unittest.TestCase):
         self.assertNotIn('record S',source[loc['start']:loc['end']])
 
 class ModuleNavigationTests(unittest.TestCase):
+    def test_consolidated_restriction_declarations_keep_historical_sources(self):
+        from module_layout import previous_module
+        current='SCT.VolumeI.Chapter01.Section06.ConeCalculus.ConeRestriction'
+        self.assertEqual(previous_module(current,'coneIso-pre'),
+                         'SCT.VolumeI.Chapter01.Section05.ConeRestriction')
+        self.assertEqual(previous_module(current,'cone-pre-compatible'),
+                         'SCT.VolumeI.Chapter01.Section05.ConeCompatibilityRestriction')
+
+    def test_supporting_folders_retain_all_modules(self):
+        from module_navigation import module_tree, module_label
+        direct='SCT.VolumeI.Chapter01.Section06.PullbackSquares'
+        helper='SCT.VolumeI.Chapter01.Section06.ConeCalculus.Comparisons'
+        relative='SCT.VolumeI.Chapter03.RelativeCategories.Identifications'
+        tree=module_tree([direct,helper,relative])
+        section=tree['children'][0]['children'][0]
+        self.assertEqual(section['modules'],[direct])
+        self.assertEqual(section['children'][0]['label'],'Cone Calculus')
+        self.assertEqual(section['children'][0]['modules'],[helper])
+        library=tree['children'][1]['children'][0]
+        self.assertEqual(library['label'],'Relative Categories')
+        self.assertEqual(library['modules'],[relative])
+        self.assertEqual(module_label(helper),'Comparisons')
+
     def test_coherences_move_without_renaming_modules(self):
         from module_navigation import module_tree
         modules=['SCT.VolumeI.Chapter01.Section01.Vocabulary',

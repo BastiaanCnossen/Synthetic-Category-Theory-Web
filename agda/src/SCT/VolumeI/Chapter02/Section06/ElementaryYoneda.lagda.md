@@ -32,8 +32,8 @@ open import SCT.VolumeI.Chapter02.Section06.HomComposition 𝒯 M ℱ P I E S pu
 open import SCT.VolumeI.Chapter02.Section01.AbsoluteMorphisms 𝒯 M ℱ P I
   using (morphism-expression; morphism-in-hom)
 open import SCT.VolumeI.Chapter02.Section03.Isomorphisms 𝒯 M ℱ P I E using (IsInvertible; IsoLift)
-open import SCT.VolumeI.Chapter02.Section03.InverseTriangleLift 𝒯 M ℱ P I E using (invertible-lift)
-open import SCT.VolumeI.Chapter02.Section03.LiftedInverseWitnesses 𝒯 M ℱ P I E using (lift-invertible)
+open import SCT.VolumeI.Chapter02.Section03.InverseCalculus.InverseTriangleLift 𝒯 M ℱ P I E using (invertible-lift)
+open import SCT.VolumeI.Chapter02.Section03.InverseCalculus.LiftedInverseWitnesses 𝒯 M ℱ P I E using (lift-invertible)
 import SCT.VolumeI.Chapter02.Section06.HomCompositionEquivalences 𝒯 M ℱ P I E S Q as Action
 import SCT.VolumeI.Chapter02.Section06.HomCompositionDetection 𝒯 M ℱ P I E S Q as Detection
 

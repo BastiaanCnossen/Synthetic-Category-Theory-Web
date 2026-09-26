@@ -27,12 +27,12 @@ module SCT.VolumeI.Chapter02.Section02.NaturalTransformationWhiskering
   (S : Segal.SegalAxiom 𝒯 M ℱ P I E) where
 
 open import SCT.VolumeI.Chapter02.Section01.Morphisms 𝒯 M ℱ I public
-open import SCT.VolumeI.Chapter02.Section02.ExpressionIdentifications 𝒯 M ℱ I
-open import SCT.VolumeI.Chapter02.Section02.ProductExpressions 𝒯 M ℱ I using (pair-expression)
-import SCT.VolumeI.Chapter02.Section02.FixedCoordinateExpressions as Fixed
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionIdentifications 𝒯 M ℱ I
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ProductExpressions 𝒯 M ℱ I using (pair-expression)
+import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.FixedCoordinateExpressions as Fixed
 import SCT.VolumeI.Chapter02.Section02.InternalComposition as Internal
 
-open import SCT.VolumeI.Chapter02.Section02.WhiskeringComparisonTransfer 𝒯 M ℱ P I E S using (module Transfer)
+open import SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.WhiskeringComparisonTransfer 𝒯 M ℱ P I E S using (module Transfer)
 
 module Pre {B C D : CAT} (u : MAP B C) {F G : MAP C D}
   (α : MorphismExpression (nameFun F) (nameFun G)) where

@@ -43,13 +43,18 @@ def check():
     if not expected<=closure_cached('SCT.Everything'):
         raise ValueError('Full aggregate omits modules: '+str(sorted(expected-closure_cached('SCT.Everything'))))
     for name,data in modules.items():
-        if re.fullmatch(r'SCT\.VolumeI\.Chapter\d+\.Section\d+\.Everything',name):
-            siblings={n for n in modules if n.rsplit('.',1)[0]==name.rsplit('.',1)[0] and n!=name}
-            if data['imports']!=siblings: raise ValueError('Section aggregate differs from its files: '+name)
+        if name.endswith('.Everything') and '.VolumeI.' in name:
+            prefix=name.rsplit('.',1)[0]+'.'
+            descendants={n for n in modules if n.startswith(prefix) and n!=name}
+            missing=descendants-closure_cached(name)
+            if missing: raise ValueError('Aggregate omits supporting modules in '+name+': '+str(sorted(missing)))
     web=closure_cached('SCT.WebEdition')
     expected_web={n for n in modules if re.match(r'SCT\.VolumeI\.(?:Chapter01\.Section0[1-8]|Chapter02\.Section0[1-6])\.',n)}
+    # Chapter 3 publishes reviewed manuscript targets and their dependencies.
+    # Its full aggregate also contains unfinished proof investigations. Every
+    # correspondence target is checked against the publication closure below.
     if not expected_web<=web: raise ValueError('Web aggregate omits selected modules')
-    if any(re.match(r'SCT\.VolumeI\.Chapter(?!01\.|02\.)',n) for n in web):
+    if any(re.match(r'SCT\.VolumeI\.Chapter(?!01\.|02\.|03\.)',n) for n in web):
         raise ValueError('Web aggregate unexpectedly imports later chapters/sections')
     manifest=json.loads(read(ROOT/'correspondence.json'))
     targets=0

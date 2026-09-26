@@ -19,7 +19,7 @@ module SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom
   (ℱ : Categories.FunctorCategories 𝒯 M) (P : Laws.PullbackStructure 𝒯)
   (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I) where
 
-open import SCT.VolumeI.Chapter02.Section01.SquareShape 𝒯 M ℱ P I E
+open import SCT.VolumeI.Chapter02.Section01.SquareCalculus.SquareShape 𝒯 M ℱ P I E
 open import SCT.VolumeI.Chapter01.Section08.PushoutSquares 𝒯 M P
 
 record CommutativeSquareAxiom : Set (c ⊔ m) where

@@ -27,17 +27,17 @@ module SCT.VolumeI.Chapter02.Section02.Interchange
   (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
   (S : Segal.SegalAxiom 𝒯 M ℱ P I E) where
 
-open import SCT.VolumeI.Chapter02.Section02.CompositePresentations 𝒯 M ℱ P I E S public
-open import SCT.VolumeI.Chapter02.Section02.ExpressionIdentifications 𝒯 M ℱ I
-open import SCT.VolumeI.Chapter02.Section02.CompositionIdentifications 𝒯 M ℱ P I E S using (compose-expression-cong)
-open import SCT.VolumeI.Chapter02.Section02.CompositionSubstitution 𝒯 M ℱ P I E S using (retarget-composition)
-open import SCT.VolumeI.Chapter02.Section02.PresentationComparisons 𝒯 M ℱ P I E S using (change-long)
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.CompositePresentations 𝒯 M ℱ P I E S public
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionIdentifications 𝒯 M ℱ I
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.CompositionIdentifications 𝒯 M ℱ P I E S using (compose-expression-cong)
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.CompositionSubstitution 𝒯 M ℱ P I E S using (retarget-composition)
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.PresentationComparisons 𝒯 M ℱ P I E S using (change-long)
 import SCT.VolumeI.Chapter02.Section02.InternalComposition as Internal
 import SCT.VolumeI.Chapter02.Section02.ProductInterchange as Product
 import SCT.VolumeI.Chapter02.Section02.NaturalTransformationWhiskering as NaturalActions
-import SCT.VolumeI.Chapter02.Section02.GluedFramedSquares as Gluing
+import SCT.VolumeI.Chapter02.Section02.SquareCalculus.GluedFramedSquares as Gluing
 import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
-open import SCT.VolumeI.Chapter02.Section02.ArrowCategorySquares 𝒯 M ℱ P I E S using (FramedSquare)
+open import SCT.VolumeI.Chapter02.Section02.SquareCalculus.ArrowCategorySquares 𝒯 M ℱ P I E S using (FramedSquare)
 
 module At {B C D : CAT} {F G : MAP C D} {u v : MAP B C}
   (α : MorphismExpression (nameFun F) (nameFun G))

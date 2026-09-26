@@ -21,7 +21,7 @@ module SCT.VolumeI.Chapter01.Section08.PushoutSquares
   (P : Laws.PullbackStructure 𝒯) where
 
 open import SCT.VolumeI.Chapter01.Section05.Setup 𝒯 M
-open import SCT.VolumeI.Chapter01.Section08.Squares 𝒯 public
+open import SCT.VolumeI.Chapter01.Section08.Squares 𝒯 public hiding (squareCocone)
 open import SCT.VolumeI.Chapter01.Section06.PullbackSquares 𝒯 P
 
 mappingOut : {A B C D : CAT}

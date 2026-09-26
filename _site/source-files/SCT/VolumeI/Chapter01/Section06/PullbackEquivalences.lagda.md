@@ -17,7 +17,7 @@ module SCT.VolumeI.Chapter01.Section06.PullbackEquivalences
 open Setup 𝒯
 open Laws.PullbackStructure P
 open import SCT.VolumeI.Chapter01.Section06.PullbackSquares 𝒯 P
-open import SCT.VolumeI.Chapter01.Section06.PullbackLifting 𝒯 P
+open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.PullbackLifting 𝒯 P
 
 coneIso-from-left : {C D E T : CAT} {f : MAP C E} {g : MAP D E} → IsEquiv g →
   (s t : Cone f g T) → (Cone.left s) =₁ (Cone.left t) → ConeIso s t

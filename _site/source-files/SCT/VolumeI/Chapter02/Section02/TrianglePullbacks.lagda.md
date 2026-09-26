@@ -31,20 +31,20 @@ module SCT.VolumeI.Chapter02.Section02.TrianglePullbacks
   (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E) where
 
 open import SCT.VolumeI.Chapter02.Section02.Composition 𝒯 M ℱ P I E S public
-open import SCT.VolumeI.Chapter02.Section01.SquareRetractions 𝒯 M ℱ P I E Q
+open import SCT.VolumeI.Chapter02.Section01.SquareCalculus.SquareRetractions 𝒯 M ℱ P I E Q
   using (p₀; p₂; p₀-j₀; p₀-j₁; p₂-j₀; p₂-j₁; j₀; j₁; gluing-square; bottom-boundary; top-boundary)
-open import SCT.VolumeI.Chapter02.Section01.SquareFamilies 𝒯 M ℱ P I E Q using (square-functor-pullback)
-open import SCT.VolumeI.Chapter01.Section08.FunctorSquares 𝒯 M ℱ P using (functorOut; preComp; preCong)
+open import SCT.VolumeI.Chapter02.Section01.SquareCalculus.SquareFamilies 𝒯 M ℱ P I E Q using (square-functor-pullback)
+open import SCT.VolumeI.Chapter01.Section08.FunctorCategoryCalculus.FunctorSquares 𝒯 M ℱ P using (functorOut; preComp; preCong)
 open import SCT.VolumeI.Chapter01.Section06.PullbackSquares 𝒯 P using (Cone; IsPullback; pullback-cone-invariant)
 open import SCT.VolumeI.Chapter01.Section06.PullbackEquivalences 𝒯 P using (degenerate-pullback)
 open import SCT.VolumeI.Chapter01.Section06.PullbackSymmetry 𝒯 P using (pullback-swap)
-open import SCT.VolumeI.Chapter01.Section06.ConeSymmetry 𝒯 using (coneSwap; coneSwap-swap)
-open import SCT.VolumeI.Chapter01.Section06.ConeCalculus 𝒯 using (coneRetarget; coneRetarget-β)
-open import SCT.VolumeI.Chapter01.Section06.ConeArrowChange 𝒯 using (changeLeft)
+open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.ConeSymmetry 𝒯 using (coneSwap; coneSwap-swap)
+open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.Comparisons 𝒯 using (coneRetarget; coneRetarget-β)
+open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.ConeArrowChange 𝒯 using (changeLeft)
 open import SCT.VolumeI.Chapter01.Section06.PastingLemma 𝒯 P using (module Pasting)
 import SCT.VolumeI.Chapter01.Section06.PullbackArrowChange as ArrowChange
-open import SCT.VolumeI.Chapter01.Section07.IsomorphismLifting 𝒯 M ℱ using (funIsoReflect)
-import SCT.VolumeI.Chapter02.Section02.DirectUnitTriangles as UnitTriangles
+open import SCT.VolumeI.Chapter01.Section07.EvaluationCalculus.IsomorphismLifting 𝒯 M ℱ using (funIsoReflect)
+import SCT.VolumeI.Chapter02.Section02.UnitCalculus.DirectUnitTriangles as UnitTriangles
 
 abstract
   horizontal-equivalences : {A B Z T : CAT} {f : MAP A Z} {g : MAP B Z}

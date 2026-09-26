@@ -17,7 +17,7 @@ module SCT.VolumeI.Chapter01.Section06.PullbackComparison
 
 open Setup 𝒯
 open import SCT.VolumeI.Chapter01.Section06.Cones 𝒯
-open import SCT.VolumeI.Chapter01.Section06.ConeAction 𝒯
+open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.ConeAction 𝒯
 open Data.PullbackData P
 
 module IsoComparison {C D E T : CAT} {f : MAP C E} {g : MAP D E}

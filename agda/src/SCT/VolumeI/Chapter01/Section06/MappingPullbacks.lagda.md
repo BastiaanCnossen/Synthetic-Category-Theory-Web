@@ -19,16 +19,16 @@ module SCT.VolumeI.Chapter01.Section06.MappingPullbacks
 open Setup 𝒯 M
 open Laws.PullbackStructure P
 open import SCT.VolumeI.Chapter01.Section06.PullbackCriterion 𝒯 P using (cone-isPullback-from-lifting)
-open import SCT.VolumeI.Chapter01.Section06.ConeAction 𝒯 using (cone-action)
+open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.ConeAction 𝒯 using (cone-action)
 open import SCT.VolumeI.Chapter01.Section06.PullbackSquares 𝒯 P
-open import SCT.VolumeI.Chapter01.Section06.PullbackLifting 𝒯 P using (pullback-reflect)
-open import SCT.VolumeI.Chapter01.Section06.ConeUncurrying 𝒯 M using (uncurryCone; uncurryConeIso)
-open import SCT.VolumeI.Chapter01.Section06.ConeUncurryingPre 𝒯 M using (uncurryCone-restrict)
-open import SCT.VolumeI.Chapter01.Section06.ConeCurrying 𝒯 M using (module CurryCone)
-open import SCT.VolumeI.Chapter01.Section06.ConeReflection 𝒯 M using (module ReflectCone)
+open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.PullbackLifting 𝒯 P using (pullback-reflect)
+open import SCT.VolumeI.Chapter01.Section06.MappingCalculus.ConeUncurrying 𝒯 M using (uncurryCone; uncurryConeIso)
+open import SCT.VolumeI.Chapter01.Section06.MappingCalculus.ConeUncurryingPre 𝒯 M using (uncurryCone-restrict)
+open import SCT.VolumeI.Chapter01.Section06.MappingCalculus.ConeCurrying 𝒯 M using (module CurryCone)
+open import SCT.VolumeI.Chapter01.Section06.MappingCalculus.ConeReflection 𝒯 M using (module ReflectCone)
 open import SCT.VolumeI.Chapter01.Section04.EquivalenceDetection 𝒯 M using (post-tests-all)
 
-open import SCT.VolumeI.Chapter01.Section06.MappedCones 𝒯 M P public
+open import SCT.VolumeI.Chapter01.Section06.MappingCalculus.MappedCones 𝒯 M P public
 
 module MappingPullback {C D E : CAT} (T : CAT) (f : MAP C E) (g : MAP D E) where
 

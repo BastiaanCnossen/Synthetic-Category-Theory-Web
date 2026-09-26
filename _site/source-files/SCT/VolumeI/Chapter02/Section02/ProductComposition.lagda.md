@@ -21,15 +21,15 @@ module SCT.VolumeI.Chapter02.Section02.ProductComposition
   (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
   (S : Segal.SegalAxiom 𝒯 M ℱ P I E) where
 
-open import SCT.VolumeI.Chapter02.Section02.CompositePresentations 𝒯 M ℱ P I E S public
-open import SCT.VolumeI.Chapter02.Section02.ExpressionIdentifications 𝒯 M ℱ I
-open import SCT.VolumeI.Chapter02.Section02.PostcompositionPresentations 𝒯 M ℱ P I E S using (post-composition)
-open import SCT.VolumeI.Chapter02.Section02.CompositionSubstitution 𝒯 M ℱ P I E S using (retarget-composition)
-open import SCT.VolumeI.Chapter02.Section02.CompositionIdentifications 𝒯 M ℱ P I E S using (compose-expression-cong)
-open import SCT.VolumeI.Chapter02.Section02.ProductExpressionReflection 𝒯 M ℱ I using (product-expression-reflect)
-open import SCT.VolumeI.Chapter02.Section02.ProductExpressions 𝒯 M ℱ I using (pair-expression)
-import SCT.VolumeI.Chapter02.Section02.ProductExpressions as Pairing
-import SCT.VolumeI.Chapter01.Section03.PairingNaturality as PN
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.CompositePresentations 𝒯 M ℱ P I E S public
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionIdentifications 𝒯 M ℱ I
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.PostcompositionPresentations 𝒯 M ℱ P I E S using (post-composition)
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.CompositionSubstitution 𝒯 M ℱ P I E S using (retarget-composition)
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.CompositionIdentifications 𝒯 M ℱ P I E S using (compose-expression-cong)
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ProductExpressionReflection 𝒯 M ℱ I using (product-expression-reflect)
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ProductExpressions 𝒯 M ℱ I using (pair-expression)
+import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ProductExpressions as Pairing
+import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingNaturality as PN
 open PN vocabulary terminal products productLaws composition vertical whiskering using (cancel-left-reflect)
 
 retarget-reflect : {Γ C : CAT} {x y x′ y′ : MAP Γ C}

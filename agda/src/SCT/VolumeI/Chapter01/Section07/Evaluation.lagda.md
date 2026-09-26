@@ -16,7 +16,7 @@ module SCT.VolumeI.Chapter01.Section07.Evaluation
 
 open import SCT.VolumeI.Chapter01.Section05.Setup 𝒯 M
 open import SCT.VolumeI.Chapter01.Section04.Uncurrying 𝒯 M using (module Reassociation; productMap-pair)
-open import SCT.VolumeI.Chapter01.Section04.Specialization 𝒯 M
+open import SCT.VolumeI.Chapter01.Section04.Substitution.Specialization 𝒯 M
 
 module Evaluation {F C D : CAT} (e : MAP (F × C) D) where
   uncurry : {T : CAT} → MAP T F → MAP (T × C) D

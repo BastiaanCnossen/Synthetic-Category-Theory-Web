@@ -22,11 +22,11 @@ module SCT.VolumeI.Chapter01.Section06.PullbackAssociativity
 
 open Setup 𝒯
 open Laws.PullbackStructure P
-open import SCT.VolumeI.Chapter01.Section06.ConeSymmetry 𝒯 using (coneSwap)
+open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.ConeSymmetry 𝒯 using (coneSwap)
 open import SCT.VolumeI.Chapter01.Section06.PullbackSymmetry 𝒯 P
-open import SCT.VolumeI.Chapter01.Section06.NestedPullbacks 𝒯 P using (module Nested)
+open import SCT.VolumeI.Chapter01.Section06.Pasting.NestedPullbacks 𝒯 P using (module Nested)
 open import SCT.VolumeI.Chapter01.Section06.PullbackFunctor 𝒯 P using (CospanMap)
-open import SCT.VolumeI.Chapter01.Section06.CospanEquivalences 𝒯 P using (module CospanEquivalence)
+open import SCT.VolumeI.Chapter01.Section06.Cospans.CospanEquivalences 𝒯 P using (module CospanEquivalence)
 open import SCT.VolumeI.Chapter01.Section06.PullbackArrowChange 𝒯 P using (module ChangeLeft)
 
 ```

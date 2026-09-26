@@ -36,9 +36,9 @@ open Coproducts.CoproductStructure B
 open Universality 𝒯 M B P
 open CoproductUniversality U
 open import SCT.VolumeI.Chapter01.Section05.CoproductCalculus 𝒯 M B
-open import SCT.VolumeI.Chapter01.Section06.UniversalCoproductDescent 𝒯 M B P U
+open import SCT.VolumeI.Chapter01.Section06.CoproductCalculus.UniversalCoproductDescent 𝒯 M B P U
 open import SCT.VolumeI.Chapter01.Section07.FunctorPullbacks 𝒯 M ℱ P
-open import SCT.VolumeI.Chapter02.Section04.ConstantFunctoriality 𝒯 M ℱ using (constant-natural)
+open import SCT.VolumeI.Chapter02.Section04.ConstantDiagrams.ConstantExponential 𝒯 M ℱ using (constant-natural)
 open import SCT.VolumeI.Chapter02.Section05.TwoPointAnima 𝒯 M ℱ P I E R A B K
 
 arrowCopair : (C D : CAT) → MAP (Ar C ⊔ Ar D) (Ar (C ⊔ D))

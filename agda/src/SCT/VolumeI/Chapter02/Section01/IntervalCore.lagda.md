@@ -21,7 +21,7 @@ module SCT.VolumeI.Chapter02.Section01.IntervalCore
 
 open import SCT.VolumeI.Chapter01.Section05.Setup 𝒯 M
 open import SCT.VolumeI.Chapter01.Section04.Core 𝒯 M
-open import SCT.VolumeI.Chapter02.Section01.CoreInclusions 𝒯 M using (core-inclusion-of-equivalent-anima)
+open import SCT.VolumeI.Chapter02.Section01.EvaluationCalculus.CoreInclusions 𝒯 M using (core-inclusion-of-equivalent-anima)
 open import SCT.VolumeI.Chapter01.Section05.Copairing 𝒯 M B
 open Coproducts.CoproductStructure B
 open Walking.WalkingMorphism I

@@ -11,6 +11,8 @@ def check(site):
     root_files={'.nojekyll','index.html','basic-vocabulary.html','coherences.html','equivalences.html','mapping-animae.html','initial-categories-and-coproducts.html','pullbacks.html','functor-categories.html','pushouts.html',
                 'introduction.html','overview-of-the-axioms.html','chapter-introduction.html','internal-structure-introduction.html','morphisms-and-diagrams.html','code-index.html','formalization.html',
                 'segal-axiom.html','rezk-axiom.html','groupoids.html','recognizing-animae.html','chapter-2-exercises.html',
+                'constructions-introduction.html','subcategories.html','full-subcategories.html','localizations.html',
+                'geometric-realizations.html','exponentiable-functors.html','joins.html','slice-categories.html','chapter-3-exercises.html',
                 'build-report.html','outside-selection.html','book.pdf','build-info.json','validation.json'}
     asset_files={'reader-shell.css','reader.css','reader.js','favicon.svg','Agda.css','math-config.js','agda-context.js'}
     asset_files.update('diagrams/'+name+'.svg' for name in info.get('diagrams',[]))

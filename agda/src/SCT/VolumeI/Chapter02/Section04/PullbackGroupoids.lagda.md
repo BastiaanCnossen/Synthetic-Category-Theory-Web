@@ -38,10 +38,10 @@ open import SCT.VolumeI.Chapter02.Section04.BasicClosure 𝒯 M ℱ P I E R
 open Laws.PullbackStructure P
 open import SCT.VolumeI.Chapter01.Section06.PullbackSquares 𝒯 P
 open import SCT.VolumeI.Chapter01.Section06.PullbackFunctor 𝒯 P
-open import SCT.VolumeI.Chapter01.Section06.CospanEmbeddings 𝒯 P
-open import SCT.VolumeI.Chapter02.Section04.ConstantFunctoriality 𝒯 M ℱ using (constant-natural)
-open import SCT.VolumeI.Chapter02.Section04.EvaluationPullbacks 𝒯 M ℱ P
-open import SCT.VolumeI.Chapter02.Section04.SuccessiveCospans 𝒯 P
+open import SCT.VolumeI.Chapter01.Section06.EmbeddingCalculus.CospanEmbeddings 𝒯 P
+open import SCT.VolumeI.Chapter02.Section04.ConstantDiagrams.ConstantExponential 𝒯 M ℱ using (constant-natural)
+open import SCT.VolumeI.Chapter02.Section04.PullbackCalculus.EvaluationPullbacks 𝒯 M ℱ P
+open import SCT.VolumeI.Chapter02.Section04.PullbackCalculus.SuccessiveCospans 𝒯 P
 import SCT.VolumeI.Chapter02.Section03.IsomorphismEmbedding as Embedding
 open Embedding.WithRezk 𝒯 M ℱ P I E S Q R using (identityArrow-isEmbedding)
 

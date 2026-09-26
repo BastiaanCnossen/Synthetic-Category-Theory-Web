@@ -30,7 +30,7 @@ def build_index(page, compiled, manifest, site=SITE):
         inside=''.join(rows[module] for module in node['modules'])
         inside+=''.join(group_html(child) for child in node['children'])
         if not node['key']: return inside
-        return f'<details class="module-group" data-label="{escape(node["label"])}"><summary>{escape(node["label"])}</summary><div class="module-group-content">{inside}</div></details>'
+        return f'<details class="module-group" data-module-group="{escape(node["key"])}" data-label="{escape(node["label"])}"><summary>{escape(node["label"])}</summary><div class="module-group-content">{inside}</div></details>'
     symbols=[]
     for file in sorted((BUILD/'agda').glob('*.html')):
         if not file.stem.startswith('SCT.'): continue

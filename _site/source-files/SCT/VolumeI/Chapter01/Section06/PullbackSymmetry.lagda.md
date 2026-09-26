@@ -16,8 +16,8 @@ module SCT.VolumeI.Chapter01.Section06.PullbackSymmetry
 
 open Setup 𝒯
 open Laws.PullbackStructure P
-open import SCT.VolumeI.Chapter01.Section06.ConeSymmetry 𝒯
-open import SCT.VolumeI.Chapter01.Section06.PullbackLifting 𝒯 P
+open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.ConeSymmetry 𝒯
+open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.PullbackLifting 𝒯 P
 open import SCT.VolumeI.Chapter01.Section06.PullbackEquivalences 𝒯 P
 open import SCT.VolumeI.Chapter01.Section06.PullbackSquares 𝒯 P using (IsPullback)
 

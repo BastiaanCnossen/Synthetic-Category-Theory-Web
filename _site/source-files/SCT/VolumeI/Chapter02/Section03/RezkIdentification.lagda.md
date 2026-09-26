@@ -26,8 +26,8 @@ module SCT.VolumeI.Chapter02.Section03.RezkIdentification
 
 open Rezk 𝒯 M ℱ P I E public
 open RezkAxiom R
-open import SCT.VolumeI.Chapter02.Section03.InverseTriangleLift 𝒯 M ℱ P I E using (invertible-lift)
-open import SCT.VolumeI.Chapter02.Section03.ConstantArrows 𝒯 M ℱ I using (constant-frame)
+open import SCT.VolumeI.Chapter02.Section03.InverseCalculus.InverseTriangleLift 𝒯 M ℱ P I E using (invertible-lift)
+open import SCT.VolumeI.Chapter02.Section03.InverseCalculus.ConstantArrows 𝒯 M ℱ I using (constant-frame)
 
 module Identify {Γ C : CAT} {x y : MAP Γ C}
   (f : MorphismExpression x y) (w : IsoLift (MorphismExpression.arrow f)) where

@@ -12,7 +12,7 @@ import SCT.VolumeI.Chapter01.Section01.Terminal as Terminal
 import SCT.VolumeI.Chapter01.Section01.Products as Products
 import SCT.VolumeI.Chapter01.Section02.Coherence as Coherence
 import SCT.VolumeI.Chapter01.Section02.Specialization as Specialization
-import SCT.VolumeI.Chapter01.Section03.Parameterized as Parameterized
+import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.Parameterized as Parameterized
 import SCT.VolumeI.Chapter01.Section03.Equivalences as Equivalences
 
 module SCT.VolumeI.Chapter01.Section03.Whiskering

@@ -24,7 +24,7 @@ open Coproducts.CoproductStructure B
 open Laws.PullbackStructure P
 open import SCT.VolumeI.Chapter01.Section05.CoproductCalculus 𝒯 M B
 open import SCT.VolumeI.Chapter01.Section06.CoproductDescent 𝒯 M B P U using (module Descent)
-open import SCT.VolumeI.Chapter01.Section06.BaseChangeInclusion 𝒯 P using (module Inclusion)
+open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.BaseChangeInclusion 𝒯 P using (module Inclusion)
 open import SCT.VolumeI.Chapter01.Section06.PullbackProducts 𝒯 P using (module TerminalBase)
 
 module Distributivity (E C D : CAT) where

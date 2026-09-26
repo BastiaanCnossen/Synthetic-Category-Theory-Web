@@ -5,6 +5,10 @@ and take its long edge. The counit supplies the short-edge comparisons.
 The two outer vertex identifications then give the source and target
 of composition, as in the displayed formulas in the book.
 
+The endpoint-preserving calculations are collected in `MorphismCalculus/`.
+The construction of composition itself remains here; its unit and associativity
+laws are developed in the neighboring main modules.
+
 ```agda
 {-# OPTIONS --safe --without-K #-}
 open import Agda.Primitive using (Level)

@@ -15,6 +15,7 @@ module SCT.VolumeI.Chapter01.Section08.Squares
   {c m a : Level} (𝒯 : Theory c m a) where
 
 open Setup 𝒯
+open import SCT.VolumeI.Chapter01.Section08.Cocones 𝒯
 
 record Square {A B C D : CAT}
   (u : MAP A B) (l : MAP A C) (r : MAP B D) (v : MAP C D) : Set m where
@@ -33,4 +34,14 @@ module PastedSquare {A₁ A₂ A₃ B₁ B₂ B₃ : CAT}
       ((h₂ ◁ Square.commute left) ∙
       (comp-assoc g₁ f₂ h₂ ∙
       ((Square.commute right ▷ g₁) ∙ (comp-assoc g₁ g₂ f₃) ⁻¹))) }
+```
+
+## The cocone of a square
+
+```agda
+squareCocone : {A B C D : CAT}
+  {u : MAP A B} {l : MAP A C} {r : MAP B D} {v : MAP C D} →
+  Square u l r v → Cocone u l D
+squareCocone {r = r} {v} s = record
+  { left = r ; right = v ; match = Square.commute s }
 ```

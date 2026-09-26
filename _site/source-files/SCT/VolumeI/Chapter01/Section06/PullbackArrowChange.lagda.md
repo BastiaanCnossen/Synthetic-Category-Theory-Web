@@ -15,9 +15,9 @@ module SCT.VolumeI.Chapter01.Section06.PullbackArrowChange
 
 open Setup 𝒯
 open Laws.PullbackStructure P
-open import SCT.VolumeI.Chapter01.Section06.ConeArrowChange 𝒯
+open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.ConeArrowChange 𝒯
 open import SCT.VolumeI.Chapter01.Section06.PullbackSquares 𝒯 P using (IsPullback; pullback-cone-invariant)
-open import SCT.VolumeI.Chapter01.Section06.PullbackLifting 𝒯 P
+open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.PullbackLifting 𝒯 P
 
 module ChangeLeft {C D E : CAT} {f f′ : MAP C E} (α : f =₁ f′) (g : MAP D E) where
 

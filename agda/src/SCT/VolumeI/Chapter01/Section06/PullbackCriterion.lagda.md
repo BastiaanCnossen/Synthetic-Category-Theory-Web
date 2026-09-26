@@ -17,7 +17,7 @@ module SCT.VolumeI.Chapter01.Section06.PullbackCriterion
 open Setup 𝒯
 open Laws.PullbackStructure P
 open import SCT.VolumeI.Chapter01.Section06.PullbackSquares 𝒯 P
-open import SCT.VolumeI.Chapter01.Section06.PullbackLifting 𝒯 P using (pullback-reflect)
+open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.PullbackLifting 𝒯 P using (pullback-reflect)
 
 opaque
   cone-isPullback-from-lifting : {C D E S : CAT} {f : MAP C E} {g : MAP D E}

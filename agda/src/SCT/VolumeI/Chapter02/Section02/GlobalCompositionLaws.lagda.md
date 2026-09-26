@@ -21,9 +21,9 @@ module SCT.VolumeI.Chapter02.Section02.GlobalCompositionLaws
   (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
   (S : Segal.SegalAxiom 𝒯 M ℱ P I E) where
 
-open import SCT.VolumeI.Chapter02.Section02.GlobalCompositionExpressions 𝒯 M ℱ P I E S public
-open import SCT.VolumeI.Chapter02.Section02.ExpressionIdentifications 𝒯 M ℱ I
-open import SCT.VolumeI.Chapter02.Section02.ProductExpressions 𝒯 M ℱ I using (pair-expression)
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.GlobalCompositionExpressions 𝒯 M ℱ P I E S public
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionIdentifications 𝒯 M ℱ I
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ProductExpressions 𝒯 M ℱ I using (pair-expression)
 open import SCT.VolumeI.Chapter02.Section02.ProductComposition 𝒯 M ℱ P I E S using (product-composition; pair-expression-cong)
 open import SCT.VolumeI.Chapter02.Section02.NaturalTransformationWhiskering 𝒯 M ℱ P I E S using (pre-whisker; post-whisker)
 open import SCT.VolumeI.Chapter02.Section02.Interchange 𝒯 M ℱ P I E S using (interchange)

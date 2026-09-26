@@ -20,14 +20,14 @@ open Laws.PullbackStructure P
 open import SCT.VolumeI.Chapter01.Section06.Representability 𝒯 P
 open import SCT.VolumeI.Chapter01.Section06.PullbackSquares 𝒯 P
 open import SCT.VolumeI.Chapter01.Section06.PullbackSymmetry 𝒯 P using (pullback-swap)
-open import SCT.VolumeI.Chapter01.Section06.ConeSymmetry 𝒯
+open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.ConeSymmetry 𝒯
   using (coneSwap; cone-match-change)
 open import SCT.VolumeI.Chapter01.Section06.PullbackCriterion 𝒯 P using (cone-isPullback-from-lifting)
-open import SCT.VolumeI.Chapter01.Section06.PointDiagonalCoordinates 𝒯 using (module Coordinates)
-open import SCT.VolumeI.Chapter01.Section06.PointDiagonalRestriction 𝒯 using (module Restriction)
-open import SCT.VolumeI.Chapter01.Section06.ComparisonSquares 𝒯 using (decode-encode)
-open import SCT.VolumeI.Chapter01.Section06.InverseCalculus 𝒯
-open import SCT.VolumeI.Chapter01.Section04.ProjectionSquares 𝒯 using (post-inverse)
+open import SCT.VolumeI.Chapter01.Section06.Coordinates.PointDiagonalCoordinates 𝒯 using (module Coordinates)
+open import SCT.VolumeI.Chapter01.Section06.Coordinates.PointDiagonalRestriction 𝒯 using (module Restriction)
+open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.ComparisonSquares 𝒯 using (decode-encode)
+open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.InverseCalculus 𝒯
+open import SCT.VolumeI.Chapter01.Section04.SquareCalculus.ProjectionSquares 𝒯 using (post-inverse)
 
 opaque
   normalized-inverse : {T X Y : CAT} (π : MAP X Y)

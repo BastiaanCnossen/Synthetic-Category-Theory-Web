@@ -27,11 +27,11 @@ module SCT.VolumeI.Chapter02.Section03.IsomorphismEmbedding
   (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
   (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E) where
 
-open import SCT.VolumeI.Chapter02.Section03.OneSidedInverseFibers 𝒯 M ℱ P I E S Q
-open import SCT.VolumeI.Chapter02.Section03.InversePullbackComparison 𝒯 M ℱ P I E
+open import SCT.VolumeI.Chapter02.Section03.InverseCalculus.OneSidedInverseFibers 𝒯 M ℱ P I E S Q
+open import SCT.VolumeI.Chapter02.Section03.PullbackCalculus.InversePullbackComparison 𝒯 M ℱ P I E
   using (module InverseComparison)
-open import SCT.VolumeI.Chapter02.Section03.IntersectionEmbedding 𝒯 P
-open import SCT.VolumeI.Chapter01.Section06.EmbeddingCalculus 𝒯 P
+open import SCT.VolumeI.Chapter02.Section03.PullbackCalculus.IntersectionEmbedding 𝒯 P
+open import SCT.VolumeI.Chapter01.Section06.EmbeddingCalculus.EmbeddingCalculus 𝒯 P
 
 isoArrow-isEmbedding : (C : CAT) → IsEmbedding (isoArrow {C})
 isoArrow-isEmbedding C = embedding-cong Rearrange.comparison-arrow

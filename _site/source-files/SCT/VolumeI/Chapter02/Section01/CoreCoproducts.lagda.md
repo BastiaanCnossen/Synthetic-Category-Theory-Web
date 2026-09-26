@@ -27,10 +27,10 @@ open Coproducts.CoproductStructure B
 open Universality 𝒯 M B P
 open CoproductUniversality U
 open import SCT.VolumeI.Chapter01.Section05.CoproductCalculus 𝒯 M B
-open import SCT.VolumeI.Chapter01.Section06.UniversalCoproductDescent 𝒯 M B P U
+open import SCT.VolumeI.Chapter01.Section06.CoproductCalculus.UniversalCoproductDescent 𝒯 M B P U
 open import SCT.VolumeI.Chapter01.Section06.MappingPullbacks 𝒯 M P
 open import SCT.VolumeI.Chapter01.Section04.Core 𝒯 M
-open import SCT.VolumeI.Chapter02.Section01.CoreInclusions 𝒯 M using (coreInclusion-natural)
+open import SCT.VolumeI.Chapter02.Section01.EvaluationCalculus.CoreInclusions 𝒯 M using (coreInclusion-natural)
 open Interval.Consequences 𝒯 M B I K
 
 coreCopair : (C D : CAT) → MAP (Core C ⊔ Core D) (Core (C ⊔ D))

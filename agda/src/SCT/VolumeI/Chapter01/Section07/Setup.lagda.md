@@ -17,5 +17,5 @@ module SCT.VolumeI.Chapter01.Section07.Setup
 open import SCT.VolumeI.Chapter01.Section04.Setup 𝒯 public
 open import SCT.VolumeI.Chapter01.Section07.Currying 𝒯 M ℱ public
 open import SCT.VolumeI.Chapter01.Section07.Functoriality 𝒯 M ℱ public
-open import SCT.VolumeI.Chapter01.Section07.UncurryingAction 𝒯 M ℱ public
+open import SCT.VolumeI.Chapter01.Section07.EvaluationCalculus.UncurryingAction 𝒯 M ℱ public
 ```

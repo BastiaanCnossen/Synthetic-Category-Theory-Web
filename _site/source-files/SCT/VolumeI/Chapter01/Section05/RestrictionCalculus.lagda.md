@@ -10,14 +10,14 @@ open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.Setup as Setup
 import SCT.VolumeI.Chapter01.Section03.Whiskering as W
-import SCT.VolumeI.Chapter01.Section03.Parameterized as Parameterized
-import SCT.VolumeI.Chapter01.Section03.FamilyNaturality as FN
+import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.Parameterized as Parameterized
+import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.FamilyNaturality as FN
 
 module SCT.VolumeI.Chapter01.Section05.RestrictionCalculus
   {c m a : Level} (𝒯 : Theory c m a) where
 
 open Setup 𝒯
-open import SCT.VolumeI.Chapter01.Section04.CoherenceTransport 𝒯
+open import SCT.VolumeI.Chapter01.Section04.Substitution.CoherenceTransport 𝒯
 open W vocabulary terminal products productLaws composition vertical whiskering
   using (leftMultiply; rightMultiply; left-evaluate; right-evaluate)
 open Parameterized vocabulary terminal products productLaws composition vertical

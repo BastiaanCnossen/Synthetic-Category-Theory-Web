@@ -11,8 +11,8 @@ open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.Setup as Setup
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as MappingAnimae
-import SCT.VolumeI.Chapter01.Section03.FamilyProductFunctor as FamilyProduct
-import SCT.VolumeI.Chapter01.Section03.FamilyPairing as FamilyPairing
+import SCT.VolumeI.Chapter01.Section03.ProductCalculus.FamilyProductFunctor as FamilyProduct
+import SCT.VolumeI.Chapter01.Section03.ProductCalculus.FamilyPairing as FamilyPairing
 
 module SCT.VolumeI.Chapter01.Section04.Currying
   {c m a : Level} (𝒯 : Theory c m a)

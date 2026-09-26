@@ -25,10 +25,10 @@ module SCT.VolumeI.Chapter02.Section02.Naturality
   (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
   (S : Segal.SegalAxiom 𝒯 M ℱ P I E) where
 
-open import SCT.VolumeI.Chapter02.Section02.ArrowCategorySquares 𝒯 M ℱ P I E S public
-open import SCT.VolumeI.Chapter02.Section02.ExpressionIdentifications 𝒯 M ℱ I using (expressionIso-inverse)
-import SCT.VolumeI.Chapter02.Section02.ExpressionPostcompositionPasting as Pasting
-import SCT.VolumeI.Chapter02.Section02.FramedSquareCommutativity as Commutativity
+open import SCT.VolumeI.Chapter02.Section02.SquareCalculus.ArrowCategorySquares 𝒯 M ℱ P I E S public
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionIdentifications 𝒯 M ℱ I using (expressionIso-inverse)
+import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionPostcompositionPasting as Pasting
+import SCT.VolumeI.Chapter02.Section02.SquareCalculus.FramedSquareCommutativity as Commutativity
 
 module At {Γ C D : CAT} {F G : MAP C D} (α : MorphismExpression F G)
   {x y : MAP Γ C} (u : MorphismExpression x y) where

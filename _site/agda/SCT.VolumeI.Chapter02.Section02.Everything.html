@@ -1,176 +1,140 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><title>SCT.VolumeI.Chapter02.Section02.Everything | Synthetic category theory</title>
-<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../assets/reader-shell.css"><link rel="stylesheet" href="../assets/reader.css?v=14abfeeb2c9c523d"><link rel="stylesheet" href="../assets/Agda.css">
-<script defer src="../assets/reader.js?v=0a9d2e6221b17f7e"></script></head>
-<body class=""><a class="skip-link" href="#main">Skip to content</a>
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../assets/reader-shell.css"><link rel="stylesheet" href="../assets/reader.css?v=cb97990c1670a826"><link rel="stylesheet" href="../assets/Agda.css">
+<script defer src="../assets/reader.js?v=1fc2a32e54b9ace6"></script></head>
+<body class="hide-agda-links"><a class="skip-link" href="#main">Skip to content</a><aside class="utility-dock" aria-label="Reading tools">
+<button id="reading-settings-button" class="utility-button" type="button" aria-label="Reading settings" title="Reading settings" aria-controls="reading-settings" aria-expanded="false"><span aria-hidden="true">⚙</span></button>
+<a class="utility-button" href="../book.pdf" aria-label="Read the web edition PDF" title="Read the web edition PDF"><span aria-hidden="true">📖</span></a>
+<section id="reading-settings" class="settings-panel" aria-label="Reading preferences" hidden><h2>Reading preferences</h2>
+<label><input id="collapse-proofs" type="checkbox"> Collapse book proofs</label>
+<label><input id="show-agda-links" type="checkbox"> Show links to Agda code</label>
+</section></aside>
 <header class="site-header"><div class="header-top"><a class="collection-return" href="../index.html">Synthetic category theory</a></div><p class="eyebrow">Volume I · Experimental web edition</p><h1>SCT.VolumeI.Chapter02.Section02.Everything</h1></header>
-<div class="reader-grid"><aside class="reader-nav" aria-label="Book navigation"><details open><summary>Contents</summary><nav><a href="../index.html">Overview</a><a href="../introduction.html">Introduction</a><a href="../overview-of-the-axioms.html">Overview of the axioms</a><details class="contents-chapter"><summary><span class="chapter-number">Chapter 1</span><span class="chapter-name">The language of synthetic category theory</span></summary><div class="chapter-sections"><a href="../chapter-introduction.html">Chapter introduction</a><a href="../basic-vocabulary.html">1.1 · The basic vocabulary</a><a href="../coherences.html">1.2 · Coherences</a><a href="../equivalences.html">1.3 · Equivalences of categories</a><a href="../mapping-animae.html">1.4 · Mapping animae</a><a href="../initial-categories-and-coproducts.html">1.5 · Initial categories and coproducts</a><a href="../pullbacks.html">1.6 · Pullbacks of categories</a><a href="../functor-categories.html">1.7 · Functor categories</a><a href="../pushouts.html">1.8 · Pushout squares</a></div></details><details class="contents-chapter" open><summary><span class="chapter-number">Chapter 2</span><span class="chapter-name">The internal structure of categories</span></summary><div class="chapter-sections"><a href="../internal-structure-introduction.html">Chapter introduction</a><a href="../morphisms-and-diagrams.html">2.1 · Morphisms and diagrams</a><a href="../segal-axiom.html">2.2 · The Segal axiom</a><a href="../rezk-axiom.html">2.3 · The Rezk axiom</a><a href="../groupoids.html">2.4 · Groupoids</a><a href="../recognizing-animae.html">2.5 · Recognizing animae</a><a href="../chapter-2-exercises.html">2.6 · Exercises</a></div></details><a href="../code-index.html">All Agda code</a><a href="../formalization.html">Agda guide</a><a href="../build-report.html">Build details</a></nav></details>
-<details class="settings"><summary>Reading preferences</summary><label><input id="collapse-proofs" type="checkbox"> Collapse book proofs</label><label><input id="hide-agda-links" type="checkbox"> Hide links to Agda code</label><a href="../book.pdf">Read the web edition PDF</a></details></aside>
+<div class="reader-grid"><aside class="reader-nav" aria-label="Book navigation"><h2>Resources</h2><nav aria-label="Resources" class="reader-resources"><a href="../code-index.html">All Agda code</a><a href="../formalization.html">Agda guide</a><a href="../build-report.html">Build details</a></nav><h2>Contents</h2><nav aria-label="Contents"><a href="../index.html">Overview</a><a href="../introduction.html">Introduction</a><a href="../overview-of-the-axioms.html">Overview of the axioms</a><details class="contents-chapter"><summary><span class="chapter-number">Chapter 1</span><span class="chapter-name">The language of synthetic category theory</span></summary><div class="chapter-sections"><a href="../chapter-introduction.html">Chapter introduction</a><a href="../basic-vocabulary.html">1.1 · The basic vocabulary</a><a href="../coherences.html">1.2 · Coherences</a><a href="../equivalences.html">1.3 · Equivalences of categories</a><a href="../mapping-animae.html">1.4 · Mapping animae</a><a href="../initial-categories-and-coproducts.html">1.5 · Initial categories and coproducts</a><a href="../pullbacks.html">1.6 · Pullbacks of categories</a><a href="../functor-categories.html">1.7 · Functor categories</a><a href="../pushouts.html">1.8 · Pushout squares</a></div></details><details class="contents-chapter" open><summary><span class="chapter-number">Chapter 2</span><span class="chapter-name">The internal structure of categories</span></summary><div class="chapter-sections"><a href="../internal-structure-introduction.html">Chapter introduction</a><a href="../morphisms-and-diagrams.html">2.1 · Morphisms and diagrams</a><a href="../segal-axiom.html">2.2 · The Segal axiom</a><a href="../rezk-axiom.html">2.3 · The Rezk axiom</a><a href="../groupoids.html">2.4 · Groupoids</a><a href="../recognizing-animae.html">2.5 · Recognizing animae</a><a href="../chapter-2-exercises.html">2.6 · Exercises</a></div></details><details class="contents-chapter"><summary><span class="chapter-number">Chapter 3</span><span class="chapter-name">Constructions of categories</span></summary><div class="chapter-sections"><a href="../constructions-introduction.html">Chapter introduction</a><a href="../subcategories.html">3.1 · Subcategories</a><a href="../full-subcategories.html">3.2 · Full subcategories</a><a href="../localizations.html">3.3 · Localizations</a><a href="../geometric-realizations.html">3.4 · Geometric realizations</a><a href="../exponentiable-functors.html">3.5 · Exponentiable functors</a><a href="../joins.html">3.6 · Joins</a><a href="../slice-categories.html">3.7 · Slice categories</a><a href="../chapter-3-exercises.html">3.8 · Exercises</a></div></details></nav></aside>
 <main id="main" class="notes-page" tabindex="-1"><p class="module-caption">Complete compiler-highlighted source. Follow a symbol to its declaration.</p><pre class="Agda"><a id="1" class="Symbol">{-#</a> <a id="5" class="Keyword">OPTIONS</a> <a id="13" class="Pragma">--safe</a> <a id="20" class="Pragma">--without-K</a> <a id="32" class="Symbol">#-}</a>
 <a id="36" class="Keyword">module</a> <a id="43" href="SCT.VolumeI.Chapter02.Section02.Everything.html" class="Module">SCT.VolumeI.Chapter02.Section02.Everything</a> <a id="86" class="Keyword">where</a>
 
-<a id="93" class="Keyword">import</a> <a id="100" href="SCT.VolumeI.Chapter02.Section02.CompositePresentations.html" class="Module">SCT.VolumeI.Chapter02.Section02.CompositePresentations</a>
-<a id="155" class="Keyword">import</a> <a id="162" href="SCT.VolumeI.Chapter02.Section02.Composition.html" class="Module">SCT.VolumeI.Chapter02.Section02.Composition</a>
-<a id="206" class="Keyword">import</a> <a id="213" href="SCT.VolumeI.Chapter02.Section02.CompositionExpressions.html" class="Module">SCT.VolumeI.Chapter02.Section02.CompositionExpressions</a>
-<a id="268" class="Keyword">import</a> <a id="275" href="SCT.VolumeI.Chapter02.Section02.CompositionIdentifications.html" class="Module">SCT.VolumeI.Chapter02.Section02.CompositionIdentifications</a>
-<a id="334" class="Keyword">import</a> <a id="341" href="SCT.VolumeI.Chapter02.Section02.DiagramNames.html" class="Module">SCT.VolumeI.Chapter02.Section02.DiagramNames</a>
-<a id="386" class="Keyword">import</a> <a id="393" href="SCT.VolumeI.Chapter02.Section02.EquivalenceUnit.html" class="Module">SCT.VolumeI.Chapter02.Section02.EquivalenceUnit</a>
-<a id="441" class="Keyword">import</a> <a id="448" href="SCT.VolumeI.Chapter02.Section02.ExpressionIdentifications.html" class="Module">SCT.VolumeI.Chapter02.Section02.ExpressionIdentifications</a>
-<a id="506" class="Keyword">import</a> <a id="513" href="SCT.VolumeI.Chapter02.Section02.RestrictionEvaluation.html" class="Module">SCT.VolumeI.Chapter02.Section02.RestrictionEvaluation</a>
-<a id="567" class="Keyword">import</a> <a id="574" href="SCT.VolumeI.Chapter02.Section02.SegalAxiom.html" class="Module">SCT.VolumeI.Chapter02.Section02.SegalAxiom</a>
-<a id="617" class="Keyword">import</a> <a id="624" href="SCT.VolumeI.Chapter02.Section02.TransposedCornerComparisons.html" class="Module">SCT.VolumeI.Chapter02.Section02.TransposedCornerComparisons</a>
-<a id="684" class="Keyword">import</a> <a id="691" href="SCT.VolumeI.Chapter02.Section02.TriangleComparisons.html" class="Module">SCT.VolumeI.Chapter02.Section02.TriangleComparisons</a>
-<a id="743" class="Keyword">import</a> <a id="750" href="SCT.VolumeI.Chapter02.Section02.TriangleFamilies.html" class="Module">SCT.VolumeI.Chapter02.Section02.TriangleFamilies</a>
-<a id="799" class="Keyword">import</a> <a id="806" href="SCT.VolumeI.Chapter02.Section02.TriangleVertices.html" class="Module">SCT.VolumeI.Chapter02.Section02.TriangleVertices</a>
-<a id="855" class="Keyword">import</a> <a id="862" href="SCT.VolumeI.Chapter02.Section02.UnitTriangleFamilies.html" class="Module">SCT.VolumeI.Chapter02.Section02.UnitTriangleFamilies</a>
-
-<a id="916" class="Keyword">import</a> <a id="923" href="SCT.VolumeI.Chapter02.Section02.EndpointInputNaturality.html" class="Module">SCT.VolumeI.Chapter02.Section02.EndpointInputNaturality</a>
-<a id="979" class="Keyword">import</a> <a id="986" href="SCT.VolumeI.Chapter02.Section02.EndpointRestrictionCones.html" class="Module">SCT.VolumeI.Chapter02.Section02.EndpointRestrictionCones</a>
-<a id="1043" class="Keyword">import</a> <a id="1050" href="SCT.VolumeI.Chapter02.Section02.EvaluatedTriangleFamilies.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluatedTriangleFamilies</a>
-<a id="1108" class="Keyword">import</a> <a id="1115" href="SCT.VolumeI.Chapter02.Section02.RestrictionCompositorEvaluation.html" class="Module">SCT.VolumeI.Chapter02.Section02.RestrictionCompositorEvaluation</a>
-<a id="1179" class="Keyword">import</a> <a id="1186" href="SCT.VolumeI.Chapter02.Section02.TransposedEndpointFrames.html" class="Module">SCT.VolumeI.Chapter02.Section02.TransposedEndpointFrames</a>
-<a id="1243" class="Keyword">import</a> <a id="1250" href="SCT.VolumeI.Chapter02.Section02.DirectUnitTriangles.html" class="Module">SCT.VolumeI.Chapter02.Section02.DirectUnitTriangles</a>
-<a id="1302" class="Keyword">import</a> <a id="1309" href="SCT.VolumeI.Chapter02.Section02.RestrictionInsertions.html" class="Module">SCT.VolumeI.Chapter02.Section02.RestrictionInsertions</a>
-<a id="1363" class="Keyword">import</a> <a id="1370" href="SCT.VolumeI.Chapter02.Section02.UniversalArrowEvaluation.html" class="Module">SCT.VolumeI.Chapter02.Section02.UniversalArrowEvaluation</a>
-
-<a id="1428" class="Keyword">import</a> <a id="1435" href="SCT.VolumeI.Chapter02.Section02.ConstantRestrictionCoordinates.html" class="Module">SCT.VolumeI.Chapter02.Section02.ConstantRestrictionCoordinates</a>
-<a id="1498" class="Keyword">import</a> <a id="1505" href="SCT.VolumeI.Chapter02.Section02.ConstantRestrictionEvaluation.html" class="Module">SCT.VolumeI.Chapter02.Section02.ConstantRestrictionEvaluation</a>
-<a id="1567" class="Keyword">import</a> <a id="1574" href="SCT.VolumeI.Chapter02.Section02.DirectUnitEndpoints.html" class="Module">SCT.VolumeI.Chapter02.Section02.DirectUnitEndpoints</a>
-<a id="1626" class="Keyword">import</a> <a id="1633" href="SCT.VolumeI.Chapter02.Section02.DirectUnitPresentations.html" class="Module">SCT.VolumeI.Chapter02.Section02.DirectUnitPresentations</a>
-<a id="1689" class="Keyword">import</a> <a id="1696" href="SCT.VolumeI.Chapter02.Section02.EndpointBoundaryComposition.html" class="Module">SCT.VolumeI.Chapter02.Section02.EndpointBoundaryComposition</a>
-<a id="1756" class="Keyword">import</a> <a id="1763" href="SCT.VolumeI.Chapter02.Section02.EndpointCornerComparison.html" class="Module">SCT.VolumeI.Chapter02.Section02.EndpointCornerComparison</a>
-<a id="1820" class="Keyword">import</a> <a id="1827" href="SCT.VolumeI.Chapter02.Section02.EndpointCornerFamilies.html" class="Module">SCT.VolumeI.Chapter02.Section02.EndpointCornerFamilies</a>
-<a id="1882" class="Keyword">import</a> <a id="1889" href="SCT.VolumeI.Chapter02.Section02.ExpressionRestriction.html" class="Module">SCT.VolumeI.Chapter02.Section02.ExpressionRestriction</a>
-<a id="1943" class="Keyword">import</a> <a id="1950" href="SCT.VolumeI.Chapter02.Section02.IdentityRestrictionEvaluation.html" class="Module">SCT.VolumeI.Chapter02.Section02.IdentityRestrictionEvaluation</a>
-<a id="2012" class="Keyword">import</a> <a id="2019" href="SCT.VolumeI.Chapter02.Section02.InsertionEvaluation.html" class="Module">SCT.VolumeI.Chapter02.Section02.InsertionEvaluation</a>
-<a id="2071" class="Keyword">import</a> <a id="2078" href="SCT.VolumeI.Chapter02.Section02.InsertionParameterComposition.html" class="Module">SCT.VolumeI.Chapter02.Section02.InsertionParameterComposition</a>
-<a id="2140" class="Keyword">import</a> <a id="2147" href="SCT.VolumeI.Chapter02.Section02.InsertionProjectionWitnesses.html" class="Module">SCT.VolumeI.Chapter02.Section02.InsertionProjectionWitnesses</a>
-<a id="2208" class="Keyword">import</a> <a id="2215" href="SCT.VolumeI.Chapter02.Section02.InsertionRestrictionCompatibility.html" class="Module">SCT.VolumeI.Chapter02.Section02.InsertionRestrictionCompatibility</a>
-<a id="2281" class="Keyword">import</a> <a id="2288" href="SCT.VolumeI.Chapter02.Section02.InsertionRestrictionEvaluation.html" class="Module">SCT.VolumeI.Chapter02.Section02.InsertionRestrictionEvaluation</a>
-<a id="2351" class="Keyword">import</a> <a id="2358" href="SCT.VolumeI.Chapter02.Section02.RestrictionCornerTransport.html" class="Module">SCT.VolumeI.Chapter02.Section02.RestrictionCornerTransport</a>
-<a id="2417" class="Keyword">import</a> <a id="2424" href="SCT.VolumeI.Chapter02.Section02.RestrictionEdgeEndpoints.html" class="Module">SCT.VolumeI.Chapter02.Section02.RestrictionEdgeEndpoints</a>
-<a id="2481" class="Keyword">import</a> <a id="2488" href="SCT.VolumeI.Chapter02.Section02.RestrictionEndpointComposition.html" class="Module">SCT.VolumeI.Chapter02.Section02.RestrictionEndpointComposition</a>
-<a id="2551" class="Keyword">import</a> <a id="2558" href="SCT.VolumeI.Chapter02.Section02.RestrictionInsertionCompositionEvaluation.html" class="Module">SCT.VolumeI.Chapter02.Section02.RestrictionInsertionCompositionEvaluation</a>
-<a id="2632" class="Keyword">import</a> <a id="2639" href="SCT.VolumeI.Chapter02.Section02.RestrictionParameterEvaluation.html" class="Module">SCT.VolumeI.Chapter02.Section02.RestrictionParameterEvaluation</a>
-<a id="2702" class="Keyword">import</a> <a id="2709" href="SCT.VolumeI.Chapter02.Section02.TriangleFamilyPresentations.html" class="Module">SCT.VolumeI.Chapter02.Section02.TriangleFamilyPresentations</a>
-
-<a id="2770" class="Keyword">import</a> <a id="2777" href="SCT.VolumeI.Chapter02.Section02.CompositionShortEdges.html" class="Module">SCT.VolumeI.Chapter02.Section02.CompositionShortEdges</a>
-<a id="2831" class="Keyword">import</a> <a id="2838" href="SCT.VolumeI.Chapter02.Section02.CompositionEndpointComparison.html" class="Module">SCT.VolumeI.Chapter02.Section02.CompositionEndpointComparison</a>
-<a id="2900" class="Keyword">import</a> <a id="2907" href="SCT.VolumeI.Chapter02.Section02.GlobalCompositionExpressions.html" class="Module">SCT.VolumeI.Chapter02.Section02.GlobalCompositionExpressions</a>
-<a id="2968" class="Keyword">import</a> <a id="2975" href="SCT.VolumeI.Chapter02.Section02.FramedConeRestriction.html" class="Module">SCT.VolumeI.Chapter02.Section02.FramedConeRestriction</a>
-<a id="3029" class="Keyword">import</a> <a id="3036" href="SCT.VolumeI.Chapter02.Section02.PresentationSubstitution.html" class="Module">SCT.VolumeI.Chapter02.Section02.PresentationSubstitution</a>
-<a id="3093" class="Keyword">import</a> <a id="3100" href="SCT.VolumeI.Chapter02.Section02.IdentityExpressionSubstitution.html" class="Module">SCT.VolumeI.Chapter02.Section02.IdentityExpressionSubstitution</a>
-<a id="3163" class="Keyword">import</a> <a id="3170" href="SCT.VolumeI.Chapter02.Section02.IdentityExpressionRetargeting.html" class="Module">SCT.VolumeI.Chapter02.Section02.IdentityExpressionRetargeting</a>
-<a id="3232" class="Keyword">import</a> <a id="3239" href="SCT.VolumeI.Chapter02.Section02.UniversalArrowSubstitution.html" class="Module">SCT.VolumeI.Chapter02.Section02.UniversalArrowSubstitution</a>
-<a id="3298" class="Keyword">import</a> <a id="3305" href="SCT.VolumeI.Chapter02.Section02.ExpressionUnitLaws.html" class="Module">SCT.VolumeI.Chapter02.Section02.ExpressionUnitLaws</a>
-<a id="3356" class="Keyword">import</a> <a id="3363" href="SCT.VolumeI.Chapter02.Section02.ExpressionPostcomposition.html" class="Module">SCT.VolumeI.Chapter02.Section02.ExpressionPostcomposition</a>
-<a id="3421" class="Keyword">import</a> <a id="3428" href="SCT.VolumeI.Chapter02.Section02.PostcompositionParameterEvaluation.html" class="Module">SCT.VolumeI.Chapter02.Section02.PostcompositionParameterEvaluation</a>
-
-<a id="3496" class="Keyword">import</a> <a id="3503" href="SCT.VolumeI.Chapter02.Section02.PostcompositionObjectEvaluation.html" class="Module">SCT.VolumeI.Chapter02.Section02.PostcompositionObjectEvaluation</a>
-<a id="3567" class="Keyword">import</a> <a id="3574" href="SCT.VolumeI.Chapter02.Section02.PostcompositionRestrictionEvaluation.html" class="Module">SCT.VolumeI.Chapter02.Section02.PostcompositionRestrictionEvaluation</a>
-<a id="3643" class="Keyword">import</a> <a id="3650" href="SCT.VolumeI.Chapter02.Section02.PostcompositionEndpointCones.html" class="Module">SCT.VolumeI.Chapter02.Section02.PostcompositionEndpointCones</a>
-<a id="3711" class="Keyword">import</a> <a id="3718" href="SCT.VolumeI.Chapter02.Section02.EndpointConeRoutes.html" class="Module">SCT.VolumeI.Chapter02.Section02.EndpointConeRoutes</a>
-<a id="3769" class="Keyword">import</a> <a id="3776" href="SCT.VolumeI.Chapter02.Section02.PostcompositionCorners.html" class="Module">SCT.VolumeI.Chapter02.Section02.PostcompositionCorners</a>
-<a id="3831" class="Keyword">import</a> <a id="3838" href="SCT.VolumeI.Chapter02.Section02.PostcompositionPresentations.html" class="Module">SCT.VolumeI.Chapter02.Section02.PostcompositionPresentations</a>
-
-<a id="3900" class="Keyword">import</a> <a id="3907" href="SCT.VolumeI.Chapter02.Section02.PresentationComparisons.html" class="Module">SCT.VolumeI.Chapter02.Section02.PresentationComparisons</a>
-
-<a id="3964" class="Keyword">import</a> <a id="3971" href="SCT.VolumeI.Chapter02.Section02.GluedCompositePresentations.html" class="Module">SCT.VolumeI.Chapter02.Section02.GluedCompositePresentations</a>
-
-<a id="4032" class="Keyword">import</a> <a id="4039" href="SCT.VolumeI.Chapter02.Section02.CompositionSubstitution.html" class="Module">SCT.VolumeI.Chapter02.Section02.CompositionSubstitution</a>
-
-<a id="4096" class="Keyword">import</a> <a id="4103" href="SCT.VolumeI.Chapter02.Section02.AssociativitySquares.html" class="Module">SCT.VolumeI.Chapter02.Section02.AssociativitySquares</a>
-
-<a id="4157" class="Keyword">import</a> <a id="4164" href="SCT.VolumeI.Chapter02.Section02.ArrowCategorySquares.html" class="Module">SCT.VolumeI.Chapter02.Section02.ArrowCategorySquares</a>
-
-<a id="4218" class="Keyword">import</a> <a id="4225" href="SCT.VolumeI.Chapter02.Section02.SquareCurryingCoordinates.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareCurryingCoordinates</a>
-
-<a id="4284" class="Keyword">import</a> <a id="4291" href="SCT.VolumeI.Chapter02.Section02.GluedSquareArrows.html" class="Module">SCT.VolumeI.Chapter02.Section02.GluedSquareArrows</a>
-
-<a id="4342" class="Keyword">import</a> <a id="4349" href="SCT.VolumeI.Chapter02.Section02.CurryPostcomposition.html" class="Module">SCT.VolumeI.Chapter02.Section02.CurryPostcomposition</a>
-
-<a id="4403" class="Keyword">import</a> <a id="4410" href="SCT.VolumeI.Chapter02.Section02.SquareInsertionCorner.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareInsertionCorner</a>
-
-<a id="4465" class="Keyword">import</a> <a id="4472" href="SCT.VolumeI.Chapter02.Section02.SquareInsertionNormalization.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareInsertionNormalization</a>
-
-<a id="4534" class="Keyword">import</a> <a id="4541" href="SCT.VolumeI.Chapter02.Section02.SquareParameterCorner.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareParameterCorner</a>
-
-<a id="4596" class="Keyword">import</a> <a id="4603" href="SCT.VolumeI.Chapter02.Section02.SquareDiagramCorners.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareDiagramCorners</a>
-
-<a id="4657" class="Keyword">import</a> <a id="4664" href="SCT.VolumeI.Chapter02.Section02.PairedProjectionComposition.html" class="Module">SCT.VolumeI.Chapter02.Section02.PairedProjectionComposition</a>
-
-<a id="4725" class="Keyword">import</a> <a id="4732" href="SCT.VolumeI.Chapter02.Section02.SquareCurryingCorner.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareCurryingCorner</a>
-
-<a id="4786" class="Keyword">import</a> <a id="4793" href="SCT.VolumeI.Chapter02.Section02.SquareCurrying.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareCurrying</a>
-
-<a id="4841" class="Keyword">import</a> <a id="4848" href="SCT.VolumeI.Chapter02.Section02.InsertedShapeCorners.html" class="Module">SCT.VolumeI.Chapter02.Section02.InsertedShapeCorners</a>
-
-<a id="4902" class="Keyword">import</a> <a id="4909" href="SCT.VolumeI.Chapter02.Section02.RectangularCornerNormalization.html" class="Module">SCT.VolumeI.Chapter02.Section02.RectangularCornerNormalization</a>
-<a id="4972" class="Keyword">import</a> <a id="4979" href="SCT.VolumeI.Chapter02.Section02.CornerRestrictionEvaluation.html" class="Module">SCT.VolumeI.Chapter02.Section02.CornerRestrictionEvaluation</a>
-<a id="5039" class="Keyword">import</a> <a id="5046" href="SCT.VolumeI.Chapter02.Section02.CurryRestrictionCorner.html" class="Module">SCT.VolumeI.Chapter02.Section02.CurryRestrictionCorner</a>
-<a id="5101" class="Keyword">import</a> <a id="5108" href="SCT.VolumeI.Chapter02.Section02.DoubleEvaluationCoordinates.html" class="Module">SCT.VolumeI.Chapter02.Section02.DoubleEvaluationCoordinates</a>
-<a id="5168" class="Keyword">import</a> <a id="5175" href="SCT.VolumeI.Chapter02.Section02.DoubleEvaluationCorners.html" class="Module">SCT.VolumeI.Chapter02.Section02.DoubleEvaluationCorners</a>
-<a id="5231" class="Keyword">import</a> <a id="5238" href="SCT.VolumeI.Chapter02.Section02.SquareCornerEvaluation.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareCornerEvaluation</a>
-<a id="5293" class="Keyword">import</a> <a id="5300" href="SCT.VolumeI.Chapter02.Section02.RestrictionBoundaryCorners.html" class="Module">SCT.VolumeI.Chapter02.Section02.RestrictionBoundaryCorners</a>
-<a id="5359" class="Keyword">import</a> <a id="5366" href="SCT.VolumeI.Chapter02.Section02.PairedFaceCorners.html" class="Module">SCT.VolumeI.Chapter02.Section02.PairedFaceCorners</a>
-<a id="5416" class="Keyword">import</a> <a id="5423" href="SCT.VolumeI.Chapter02.Section02.SquareFaceCorners.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareFaceCorners</a>
-<a id="5473" class="Keyword">import</a> <a id="5480" href="SCT.VolumeI.Chapter02.Section02.RestrictionIdentificationComposition.html" class="Module">SCT.VolumeI.Chapter02.Section02.RestrictionIdentificationComposition</a>
-<a id="5549" class="Keyword">import</a> <a id="5556" href="SCT.VolumeI.Chapter02.Section02.CommonRestrictionDiagonal.html" class="Module">SCT.VolumeI.Chapter02.Section02.CommonRestrictionDiagonal</a>
-<a id="5614" class="Keyword">import</a> <a id="5621" href="SCT.VolumeI.Chapter02.Section02.EndpointFrameCones.html" class="Module">SCT.VolumeI.Chapter02.Section02.EndpointFrameCones</a>
-<a id="5672" class="Keyword">import</a> <a id="5679" href="SCT.VolumeI.Chapter02.Section02.FramedRestrictionCorners.html" class="Module">SCT.VolumeI.Chapter02.Section02.FramedRestrictionCorners</a>
-<a id="5736" class="Keyword">import</a> <a id="5743" href="SCT.VolumeI.Chapter02.Section02.SquareBoundaryCones.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareBoundaryCones</a>
-<a id="5795" class="Keyword">import</a> <a id="5802" href="SCT.VolumeI.Chapter02.Section02.FramedCornerPasting.html" class="Module">SCT.VolumeI.Chapter02.Section02.FramedCornerPasting</a>
-<a id="5854" class="Keyword">import</a> <a id="5861" href="SCT.VolumeI.Chapter02.Section02.GluedSquareCorners.html" class="Module">SCT.VolumeI.Chapter02.Section02.GluedSquareCorners</a>
-<a id="5912" class="Keyword">import</a> <a id="5919" href="SCT.VolumeI.Chapter02.Section02.SquareEndpointCalculus.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareEndpointCalculus</a>
-<a id="5974" class="Keyword">import</a> <a id="5981" href="SCT.VolumeI.Chapter02.Section02.FramedSquareEndpoints.html" class="Module">SCT.VolumeI.Chapter02.Section02.FramedSquareEndpoints</a>
-<a id="6035" class="Keyword">import</a> <a id="6042" href="SCT.VolumeI.Chapter02.Section02.GluedFramedSquares.html" class="Module">SCT.VolumeI.Chapter02.Section02.GluedFramedSquares</a>
-<a id="6093" class="Keyword">import</a> <a id="6100" href="SCT.VolumeI.Chapter02.Section02.UncurryFramedSquare.html" class="Module">SCT.VolumeI.Chapter02.Section02.UncurryFramedSquare</a>
-<a id="6152" class="Keyword">import</a> <a id="6159" href="SCT.VolumeI.Chapter02.Section02.SquareCompositePresentations.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareCompositePresentations</a>
-<a id="6220" class="Keyword">import</a> <a id="6227" href="SCT.VolumeI.Chapter02.Section02.SquareBoundaryTransfer.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareBoundaryTransfer</a>
-<a id="6282" class="Keyword">import</a> <a id="6289" href="SCT.VolumeI.Chapter02.Section02.FramedSquareCommutativity.html" class="Module">SCT.VolumeI.Chapter02.Section02.FramedSquareCommutativity</a>
-<a id="6347" class="Keyword">import</a> <a id="6354" href="SCT.VolumeI.Chapter02.Section02.ExpressionAssociativity.html" class="Module">SCT.VolumeI.Chapter02.Section02.ExpressionAssociativity</a>
-<a id="6410" class="Keyword">import</a> <a id="6417" href="SCT.VolumeI.Chapter02.Section02.Associativity.html" class="Module">SCT.VolumeI.Chapter02.Section02.Associativity</a>
-
-<a id="6464" class="Keyword">import</a> <a id="6471" href="SCT.VolumeI.Chapter02.Section02.ConstantFunctorExpressions.html" class="Module">SCT.VolumeI.Chapter02.Section02.ConstantFunctorExpressions</a>
-
-<a id="6531" class="Keyword">import</a> <a id="6538" href="SCT.VolumeI.Chapter02.Section02.DiagramExpressionIdentifications.html" class="Module">SCT.VolumeI.Chapter02.Section02.DiagramExpressionIdentifications</a>
-
-<a id="6604" class="Keyword">import</a> <a id="6611" href="SCT.VolumeI.Chapter02.Section02.ExpressionFrameCalculus.html" class="Module">SCT.VolumeI.Chapter02.Section02.ExpressionFrameCalculus</a>
-
-<a id="6668" class="Keyword">import</a> <a id="6675" href="SCT.VolumeI.Chapter02.Section02.ExpressionPostcompositionPasting.html" class="Module">SCT.VolumeI.Chapter02.Section02.ExpressionPostcompositionPasting</a>
-
-<a id="6741" class="Keyword">import</a> <a id="6748" href="SCT.VolumeI.Chapter02.Section02.FixedCoordinateExpressions.html" class="Module">SCT.VolumeI.Chapter02.Section02.FixedCoordinateExpressions</a>
-
-<a id="6808" class="Keyword">import</a> <a id="6815" href="SCT.VolumeI.Chapter02.Section02.GlobalCompositionLaws.html" class="Module">SCT.VolumeI.Chapter02.Section02.GlobalCompositionLaws</a>
-
-<a id="6870" class="Keyword">import</a> <a id="6877" href="SCT.VolumeI.Chapter02.Section02.IdentityExpressionPostcomposition.html" class="Module">SCT.VolumeI.Chapter02.Section02.IdentityExpressionPostcomposition</a>
-
-<a id="6944" class="Keyword">import</a> <a id="6951" href="SCT.VolumeI.Chapter02.Section02.IdentityFunctorExpressions.html" class="Module">SCT.VolumeI.Chapter02.Section02.IdentityFunctorExpressions</a>
-
-<a id="7011" class="Keyword">import</a> <a id="7018" href="SCT.VolumeI.Chapter02.Section02.Interchange.html" class="Module">SCT.VolumeI.Chapter02.Section02.Interchange</a>
-
-<a id="7063" class="Keyword">import</a> <a id="7070" href="SCT.VolumeI.Chapter02.Section02.InternalComposition.html" class="Module">SCT.VolumeI.Chapter02.Section02.InternalComposition</a>
-
-<a id="7123" class="Keyword">import</a> <a id="7130" href="SCT.VolumeI.Chapter02.Section02.Naturality.html" class="Module">SCT.VolumeI.Chapter02.Section02.Naturality</a>
-
-<a id="7174" class="Keyword">import</a> <a id="7181" href="SCT.VolumeI.Chapter02.Section02.NaturalTransformationWhiskering.html" class="Module">SCT.VolumeI.Chapter02.Section02.NaturalTransformationWhiskering</a>
-
-<a id="7246" class="Keyword">import</a> <a id="7253" href="SCT.VolumeI.Chapter02.Section02.PostcompositionDiagramFrames.html" class="Module">SCT.VolumeI.Chapter02.Section02.PostcompositionDiagramFrames</a>
-
-<a id="7315" class="Keyword">import</a> <a id="7322" href="SCT.VolumeI.Chapter02.Section02.PrimitiveIdentificationComposition.html" class="Module">SCT.VolumeI.Chapter02.Section02.PrimitiveIdentificationComposition</a>
-
-<a id="7390" class="Keyword">import</a> <a id="7397" href="SCT.VolumeI.Chapter02.Section02.ProductComposition.html" class="Module">SCT.VolumeI.Chapter02.Section02.ProductComposition</a>
-
-<a id="7449" class="Keyword">import</a> <a id="7456" href="SCT.VolumeI.Chapter02.Section02.ProductExpressionReflection.html" class="Module">SCT.VolumeI.Chapter02.Section02.ProductExpressionReflection</a>
-
-<a id="7517" class="Keyword">import</a> <a id="7524" href="SCT.VolumeI.Chapter02.Section02.ProductExpressions.html" class="Module">SCT.VolumeI.Chapter02.Section02.ProductExpressions</a>
-
-<a id="7576" class="Keyword">import</a> <a id="7583" href="SCT.VolumeI.Chapter02.Section02.ProductInterchange.html" class="Module">SCT.VolumeI.Chapter02.Section02.ProductInterchange</a>
-
-<a id="7635" class="Keyword">import</a> <a id="7642" href="SCT.VolumeI.Chapter02.Section02.TrianglePullbacks.html" class="Module">SCT.VolumeI.Chapter02.Section02.TrianglePullbacks</a>
-
-<a id="7693" class="Keyword">import</a> <a id="7700" href="SCT.VolumeI.Chapter02.Section02.WhiskeringComparisonTransfer.html" class="Module">SCT.VolumeI.Chapter02.Section02.WhiskeringComparisonTransfer</a>
-<a id="7761" class="Keyword">import</a> <a id="7768" href="SCT.VolumeI.Chapter02.Section02.EvaluationComposition.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationComposition</a>
+<a id="93" class="Keyword">import</a> <a id="100" href="SCT.VolumeI.Chapter02.Section02.Associativity.html" class="Module">SCT.VolumeI.Chapter02.Section02.Associativity</a>
+<a id="146" class="Keyword">import</a> <a id="153" href="SCT.VolumeI.Chapter02.Section02.Composition.html" class="Module">SCT.VolumeI.Chapter02.Section02.Composition</a>
+<a id="197" class="Keyword">import</a> <a id="204" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.CompositionShortEdges.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.CompositionShortEdges</a>
+<a id="277" class="Keyword">import</a> <a id="284" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.DoubleEvaluationCoordinates.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.DoubleEvaluationCoordinates</a>
+<a id="363" class="Keyword">import</a> <a id="370" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Endpoints.CompositionEndpointComparison.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Endpoints.CompositionEndpointComparison</a>
+<a id="461" class="Keyword">import</a> <a id="468" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Endpoints.DoubleEvaluationCorners.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Endpoints.DoubleEvaluationCorners</a>
+<a id="553" class="Keyword">import</a> <a id="560" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Endpoints.EndpointBoundaryComposition.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Endpoints.EndpointBoundaryComposition</a>
+<a id="649" class="Keyword">import</a> <a id="656" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Endpoints.EndpointConeRoutes.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Endpoints.EndpointConeRoutes</a>
+<a id="736" class="Keyword">import</a> <a id="743" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Endpoints.EndpointCornerComparison.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Endpoints.EndpointCornerComparison</a>
+<a id="829" class="Keyword">import</a> <a id="836" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Endpoints.EndpointCornerFamilies.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Endpoints.EndpointCornerFamilies</a>
+<a id="920" class="Keyword">import</a> <a id="927" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Endpoints.EndpointFrameCones.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Endpoints.EndpointFrameCones</a>
+<a id="1007" class="Keyword">import</a> <a id="1014" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Endpoints.EndpointInputNaturality.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Endpoints.EndpointInputNaturality</a>
+<a id="1099" class="Keyword">import</a> <a id="1106" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Endpoints.FramedCornerPasting.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Endpoints.FramedCornerPasting</a>
+<a id="1187" class="Keyword">import</a> <a id="1194" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Endpoints.InsertedShapeCorners.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Endpoints.InsertedShapeCorners</a>
+<a id="1276" class="Keyword">import</a> <a id="1283" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Endpoints.RectangularCornerNormalization.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Endpoints.RectangularCornerNormalization</a>
+<a id="1375" class="Keyword">import</a> <a id="1382" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Endpoints.TransposedCornerComparisons.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Endpoints.TransposedCornerComparisons</a>
+<a id="1471" class="Keyword">import</a> <a id="1478" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Endpoints.TransposedEndpointFrames.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Endpoints.TransposedEndpointFrames</a>
+<a id="1564" class="Keyword">import</a> <a id="1571" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.EquivalenceUnit.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.EquivalenceUnit</a>
+<a id="1638" class="Keyword">import</a> <a id="1645" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.EvaluationComposition.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.EvaluationComposition</a>
+<a id="1718" class="Keyword">import</a> <a id="1725" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.PairedProjectionComposition.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.PairedProjectionComposition</a>
+<a id="1804" class="Keyword">import</a> <a id="1811" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Postcomposition.CurryPostcomposition.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Postcomposition.CurryPostcomposition</a>
+<a id="1899" class="Keyword">import</a> <a id="1906" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Postcomposition.PostcompositionCorners.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Postcomposition.PostcompositionCorners</a>
+<a id="1996" class="Keyword">import</a> <a id="2003" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Postcomposition.PostcompositionDiagramFrames.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Postcomposition.PostcompositionDiagramFrames</a>
+<a id="2099" class="Keyword">import</a> <a id="2106" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Postcomposition.PostcompositionEndpointCones.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Postcomposition.PostcompositionEndpointCones</a>
+<a id="2202" class="Keyword">import</a> <a id="2209" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Postcomposition.PostcompositionObjectEvaluation.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Postcomposition.PostcompositionObjectEvaluation</a>
+<a id="2308" class="Keyword">import</a> <a id="2315" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Postcomposition.PostcompositionParameterEvaluation.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Postcomposition.PostcompositionParameterEvaluation</a>
+<a id="2417" class="Keyword">import</a> <a id="2424" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.ConstantRestrictionCoordinates.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.ConstantRestrictionCoordinates</a>
+<a id="2518" class="Keyword">import</a> <a id="2525" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.ConstantRestrictionEvaluation.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.ConstantRestrictionEvaluation</a>
+<a id="2618" class="Keyword">import</a> <a id="2625" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.CornerRestrictionEvaluation.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.CornerRestrictionEvaluation</a>
+<a id="2716" class="Keyword">import</a> <a id="2723" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.CurryRestrictionCorner.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.CurryRestrictionCorner</a>
+<a id="2809" class="Keyword">import</a> <a id="2816" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.EndpointRestrictionCones.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.EndpointRestrictionCones</a>
+<a id="2904" class="Keyword">import</a> <a id="2911" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.FramedConeRestriction.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.FramedConeRestriction</a>
+<a id="2996" class="Keyword">import</a> <a id="3003" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.FramedRestrictionCorners.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.FramedRestrictionCorners</a>
+<a id="3091" class="Keyword">import</a> <a id="3098" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.IdentityRestrictionEvaluation.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.IdentityRestrictionEvaluation</a>
+<a id="3191" class="Keyword">import</a> <a id="3198" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.InsertionEvaluation.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.InsertionEvaluation</a>
+<a id="3281" class="Keyword">import</a> <a id="3288" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.InsertionParameterComposition.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.InsertionParameterComposition</a>
+<a id="3381" class="Keyword">import</a> <a id="3388" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.InsertionProjectionWitnesses.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.InsertionProjectionWitnesses</a>
+<a id="3480" class="Keyword">import</a> <a id="3487" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.InsertionRestrictionCompatibility.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.InsertionRestrictionCompatibility</a>
+<a id="3584" class="Keyword">import</a> <a id="3591" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.InsertionRestrictionEvaluation.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.InsertionRestrictionEvaluation</a>
+<a id="3685" class="Keyword">import</a> <a id="3692" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.PostcompositionRestrictionEvaluation.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.PostcompositionRestrictionEvaluation</a>
+<a id="3792" class="Keyword">import</a> <a id="3799" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.RestrictionBoundaryCorners.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.RestrictionBoundaryCorners</a>
+<a id="3889" class="Keyword">import</a> <a id="3896" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.RestrictionCompositorEvaluation.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.RestrictionCompositorEvaluation</a>
+<a id="3991" class="Keyword">import</a> <a id="3998" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.RestrictionCornerTransport.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.RestrictionCornerTransport</a>
+<a id="4088" class="Keyword">import</a> <a id="4095" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.RestrictionEdgeEndpoints.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.RestrictionEdgeEndpoints</a>
+<a id="4183" class="Keyword">import</a> <a id="4190" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.RestrictionEndpointComposition.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.RestrictionEndpointComposition</a>
+<a id="4284" class="Keyword">import</a> <a id="4291" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.RestrictionEvaluation.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.RestrictionEvaluation</a>
+<a id="4376" class="Keyword">import</a> <a id="4383" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.RestrictionIdentificationComposition.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.RestrictionIdentificationComposition</a>
+<a id="4483" class="Keyword">import</a> <a id="4490" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.RestrictionInsertionCompositionEvaluation.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.RestrictionInsertionCompositionEvaluation</a>
+<a id="4595" class="Keyword">import</a> <a id="4602" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.RestrictionInsertions.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.RestrictionInsertions</a>
+<a id="4687" class="Keyword">import</a> <a id="4694" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.RestrictionParameterEvaluation.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.RestrictionParameterEvaluation</a>
+<a id="4788" class="Keyword">import</a> <a id="4795" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.UniversalArrowEvaluation.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.UniversalArrowEvaluation</a>
+<a id="4871" class="Keyword">import</a> <a id="4878" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.UniversalArrowSubstitution.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.UniversalArrowSubstitution</a>
+<a id="4956" class="Keyword">import</a> <a id="4963" href="SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.WhiskeringComparisonTransfer.html" class="Module">SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.WhiskeringComparisonTransfer</a>
+<a id="5043" class="Keyword">import</a> <a id="5050" href="SCT.VolumeI.Chapter02.Section02.ExpressionAssociativity.html" class="Module">SCT.VolumeI.Chapter02.Section02.ExpressionAssociativity</a>
+<a id="5106" class="Keyword">import</a> <a id="5113" href="SCT.VolumeI.Chapter02.Section02.ExpressionUnitLaws.html" class="Module">SCT.VolumeI.Chapter02.Section02.ExpressionUnitLaws</a>
+<a id="5164" class="Keyword">import</a> <a id="5171" href="SCT.VolumeI.Chapter02.Section02.GlobalCompositionLaws.html" class="Module">SCT.VolumeI.Chapter02.Section02.GlobalCompositionLaws</a>
+<a id="5225" class="Keyword">import</a> <a id="5232" href="SCT.VolumeI.Chapter02.Section02.Interchange.html" class="Module">SCT.VolumeI.Chapter02.Section02.Interchange</a>
+<a id="5276" class="Keyword">import</a> <a id="5283" href="SCT.VolumeI.Chapter02.Section02.InternalComposition.html" class="Module">SCT.VolumeI.Chapter02.Section02.InternalComposition</a>
+<a id="5335" class="Keyword">import</a> <a id="5342" href="SCT.VolumeI.Chapter02.Section02.MorphismCalculus.CompositePresentations.html" class="Module">SCT.VolumeI.Chapter02.Section02.MorphismCalculus.CompositePresentations</a>
+<a id="5414" class="Keyword">import</a> <a id="5421" href="SCT.VolumeI.Chapter02.Section02.MorphismCalculus.CompositionExpressions.html" class="Module">SCT.VolumeI.Chapter02.Section02.MorphismCalculus.CompositionExpressions</a>
+<a id="5493" class="Keyword">import</a> <a id="5500" href="SCT.VolumeI.Chapter02.Section02.MorphismCalculus.CompositionIdentifications.html" class="Module">SCT.VolumeI.Chapter02.Section02.MorphismCalculus.CompositionIdentifications</a>
+<a id="5576" class="Keyword">import</a> <a id="5583" href="SCT.VolumeI.Chapter02.Section02.MorphismCalculus.CompositionSubstitution.html" class="Module">SCT.VolumeI.Chapter02.Section02.MorphismCalculus.CompositionSubstitution</a>
+<a id="5656" class="Keyword">import</a> <a id="5663" href="SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ConstantFunctorExpressions.html" class="Module">SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ConstantFunctorExpressions</a>
+<a id="5739" class="Keyword">import</a> <a id="5746" href="SCT.VolumeI.Chapter02.Section02.MorphismCalculus.DiagramExpressionIdentifications.html" class="Module">SCT.VolumeI.Chapter02.Section02.MorphismCalculus.DiagramExpressionIdentifications</a>
+<a id="5828" class="Keyword">import</a> <a id="5835" href="SCT.VolumeI.Chapter02.Section02.MorphismCalculus.DiagramNames.html" class="Module">SCT.VolumeI.Chapter02.Section02.MorphismCalculus.DiagramNames</a>
+<a id="5897" class="Keyword">import</a> <a id="5904" href="SCT.VolumeI.Chapter02.Section02.MorphismCalculus.EvaluatedTriangleFamilies.html" class="Module">SCT.VolumeI.Chapter02.Section02.MorphismCalculus.EvaluatedTriangleFamilies</a>
+<a id="5979" class="Keyword">import</a> <a id="5986" href="SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionFrameCalculus.html" class="Module">SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionFrameCalculus</a>
+<a id="6059" class="Keyword">import</a> <a id="6066" href="SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionIdentifications.html" class="Module">SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionIdentifications</a>
+<a id="6141" class="Keyword">import</a> <a id="6148" href="SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionPostcomposition.html" class="Module">SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionPostcomposition</a>
+<a id="6223" class="Keyword">import</a> <a id="6230" href="SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionPostcompositionPasting.html" class="Module">SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionPostcompositionPasting</a>
+<a id="6312" class="Keyword">import</a> <a id="6319" href="SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionRestriction.html" class="Module">SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionRestriction</a>
+<a id="6390" class="Keyword">import</a> <a id="6397" href="SCT.VolumeI.Chapter02.Section02.MorphismCalculus.FixedCoordinateExpressions.html" class="Module">SCT.VolumeI.Chapter02.Section02.MorphismCalculus.FixedCoordinateExpressions</a>
+<a id="6473" class="Keyword">import</a> <a id="6480" href="SCT.VolumeI.Chapter02.Section02.MorphismCalculus.GlobalCompositionExpressions.html" class="Module">SCT.VolumeI.Chapter02.Section02.MorphismCalculus.GlobalCompositionExpressions</a>
+<a id="6558" class="Keyword">import</a> <a id="6565" href="SCT.VolumeI.Chapter02.Section02.MorphismCalculus.GluedCompositePresentations.html" class="Module">SCT.VolumeI.Chapter02.Section02.MorphismCalculus.GluedCompositePresentations</a>
+<a id="6642" class="Keyword">import</a> <a id="6649" href="SCT.VolumeI.Chapter02.Section02.MorphismCalculus.IdentityExpressionPostcomposition.html" class="Module">SCT.VolumeI.Chapter02.Section02.MorphismCalculus.IdentityExpressionPostcomposition</a>
+<a id="6732" class="Keyword">import</a> <a id="6739" href="SCT.VolumeI.Chapter02.Section02.MorphismCalculus.IdentityExpressionRetargeting.html" class="Module">SCT.VolumeI.Chapter02.Section02.MorphismCalculus.IdentityExpressionRetargeting</a>
+<a id="6818" class="Keyword">import</a> <a id="6825" href="SCT.VolumeI.Chapter02.Section02.MorphismCalculus.IdentityExpressionSubstitution.html" class="Module">SCT.VolumeI.Chapter02.Section02.MorphismCalculus.IdentityExpressionSubstitution</a>
+<a id="6905" class="Keyword">import</a> <a id="6912" href="SCT.VolumeI.Chapter02.Section02.MorphismCalculus.IdentityFunctorExpressions.html" class="Module">SCT.VolumeI.Chapter02.Section02.MorphismCalculus.IdentityFunctorExpressions</a>
+<a id="6988" class="Keyword">import</a> <a id="6995" href="SCT.VolumeI.Chapter02.Section02.MorphismCalculus.PostcompositionPresentations.html" class="Module">SCT.VolumeI.Chapter02.Section02.MorphismCalculus.PostcompositionPresentations</a>
+<a id="7073" class="Keyword">import</a> <a id="7080" href="SCT.VolumeI.Chapter02.Section02.MorphismCalculus.PresentationComparisons.html" class="Module">SCT.VolumeI.Chapter02.Section02.MorphismCalculus.PresentationComparisons</a>
+<a id="7153" class="Keyword">import</a> <a id="7160" href="SCT.VolumeI.Chapter02.Section02.MorphismCalculus.PresentationSubstitution.html" class="Module">SCT.VolumeI.Chapter02.Section02.MorphismCalculus.PresentationSubstitution</a>
+<a id="7234" class="Keyword">import</a> <a id="7241" href="SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ProductExpressionReflection.html" class="Module">SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ProductExpressionReflection</a>
+<a id="7318" class="Keyword">import</a> <a id="7325" href="SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ProductExpressions.html" class="Module">SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ProductExpressions</a>
+<a id="7393" class="Keyword">import</a> <a id="7400" href="SCT.VolumeI.Chapter02.Section02.MorphismCalculus.SquareCompositePresentations.html" class="Module">SCT.VolumeI.Chapter02.Section02.MorphismCalculus.SquareCompositePresentations</a>
+<a id="7478" class="Keyword">import</a> <a id="7485" href="SCT.VolumeI.Chapter02.Section02.MorphismCalculus.TriangleComparisons.html" class="Module">SCT.VolumeI.Chapter02.Section02.MorphismCalculus.TriangleComparisons</a>
+<a id="7554" class="Keyword">import</a> <a id="7561" href="SCT.VolumeI.Chapter02.Section02.MorphismCalculus.TriangleFamilies.html" class="Module">SCT.VolumeI.Chapter02.Section02.MorphismCalculus.TriangleFamilies</a>
+<a id="7627" class="Keyword">import</a> <a id="7634" href="SCT.VolumeI.Chapter02.Section02.MorphismCalculus.TriangleFamilyPresentations.html" class="Module">SCT.VolumeI.Chapter02.Section02.MorphismCalculus.TriangleFamilyPresentations</a>
+<a id="7711" class="Keyword">import</a> <a id="7718" href="SCT.VolumeI.Chapter02.Section02.MorphismCalculus.TriangleVertices.html" class="Module">SCT.VolumeI.Chapter02.Section02.MorphismCalculus.TriangleVertices</a>
+<a id="7784" class="Keyword">import</a> <a id="7791" href="SCT.VolumeI.Chapter02.Section02.NaturalTransformationWhiskering.html" class="Module">SCT.VolumeI.Chapter02.Section02.NaturalTransformationWhiskering</a>
+<a id="7855" class="Keyword">import</a> <a id="7862" href="SCT.VolumeI.Chapter02.Section02.Naturality.html" class="Module">SCT.VolumeI.Chapter02.Section02.Naturality</a>
+<a id="7905" class="Keyword">import</a> <a id="7912" href="SCT.VolumeI.Chapter02.Section02.PrimitiveIdentificationComposition.html" class="Module">SCT.VolumeI.Chapter02.Section02.PrimitiveIdentificationComposition</a>
+<a id="7979" class="Keyword">import</a> <a id="7986" href="SCT.VolumeI.Chapter02.Section02.ProductComposition.html" class="Module">SCT.VolumeI.Chapter02.Section02.ProductComposition</a>
+<a id="8037" class="Keyword">import</a> <a id="8044" href="SCT.VolumeI.Chapter02.Section02.ProductInterchange.html" class="Module">SCT.VolumeI.Chapter02.Section02.ProductInterchange</a>
+<a id="8095" class="Keyword">import</a> <a id="8102" href="SCT.VolumeI.Chapter02.Section02.SegalAxiom.html" class="Module">SCT.VolumeI.Chapter02.Section02.SegalAxiom</a>
+<a id="8145" class="Keyword">import</a> <a id="8152" href="SCT.VolumeI.Chapter02.Section02.SquareCalculus.ArrowCategorySquares.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareCalculus.ArrowCategorySquares</a>
+<a id="8220" class="Keyword">import</a> <a id="8227" href="SCT.VolumeI.Chapter02.Section02.SquareCalculus.AssociativitySquares.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareCalculus.AssociativitySquares</a>
+<a id="8295" class="Keyword">import</a> <a id="8302" href="SCT.VolumeI.Chapter02.Section02.SquareCalculus.CommonRestrictionDiagonal.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareCalculus.CommonRestrictionDiagonal</a>
+<a id="8375" class="Keyword">import</a> <a id="8382" href="SCT.VolumeI.Chapter02.Section02.SquareCalculus.FramedSquareCommutativity.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareCalculus.FramedSquareCommutativity</a>
+<a id="8455" class="Keyword">import</a> <a id="8462" href="SCT.VolumeI.Chapter02.Section02.SquareCalculus.FramedSquareEndpoints.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareCalculus.FramedSquareEndpoints</a>
+<a id="8531" class="Keyword">import</a> <a id="8538" href="SCT.VolumeI.Chapter02.Section02.SquareCalculus.GluedFramedSquares.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareCalculus.GluedFramedSquares</a>
+<a id="8604" class="Keyword">import</a> <a id="8611" href="SCT.VolumeI.Chapter02.Section02.SquareCalculus.GluedSquareArrows.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareCalculus.GluedSquareArrows</a>
+<a id="8676" class="Keyword">import</a> <a id="8683" href="SCT.VolumeI.Chapter02.Section02.SquareCalculus.GluedSquareCorners.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareCalculus.GluedSquareCorners</a>
+<a id="8749" class="Keyword">import</a> <a id="8756" href="SCT.VolumeI.Chapter02.Section02.SquareCalculus.PairedFaceCorners.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareCalculus.PairedFaceCorners</a>
+<a id="8821" class="Keyword">import</a> <a id="8828" href="SCT.VolumeI.Chapter02.Section02.SquareCalculus.SquareBoundaryCones.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareCalculus.SquareBoundaryCones</a>
+<a id="8895" class="Keyword">import</a> <a id="8902" href="SCT.VolumeI.Chapter02.Section02.SquareCalculus.SquareBoundaryTransfer.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareCalculus.SquareBoundaryTransfer</a>
+<a id="8972" class="Keyword">import</a> <a id="8979" href="SCT.VolumeI.Chapter02.Section02.SquareCalculus.SquareCornerEvaluation.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareCalculus.SquareCornerEvaluation</a>
+<a id="9049" class="Keyword">import</a> <a id="9056" href="SCT.VolumeI.Chapter02.Section02.SquareCalculus.SquareCurrying.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareCalculus.SquareCurrying</a>
+<a id="9118" class="Keyword">import</a> <a id="9125" href="SCT.VolumeI.Chapter02.Section02.SquareCalculus.SquareCurryingCoordinates.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareCalculus.SquareCurryingCoordinates</a>
+<a id="9198" class="Keyword">import</a> <a id="9205" href="SCT.VolumeI.Chapter02.Section02.SquareCalculus.SquareCurryingCorner.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareCalculus.SquareCurryingCorner</a>
+<a id="9273" class="Keyword">import</a> <a id="9280" href="SCT.VolumeI.Chapter02.Section02.SquareCalculus.SquareDiagramCorners.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareCalculus.SquareDiagramCorners</a>
+<a id="9348" class="Keyword">import</a> <a id="9355" href="SCT.VolumeI.Chapter02.Section02.SquareCalculus.SquareEndpointCalculus.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareCalculus.SquareEndpointCalculus</a>
+<a id="9425" class="Keyword">import</a> <a id="9432" href="SCT.VolumeI.Chapter02.Section02.SquareCalculus.SquareFaceCorners.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareCalculus.SquareFaceCorners</a>
+<a id="9497" class="Keyword">import</a> <a id="9504" href="SCT.VolumeI.Chapter02.Section02.SquareCalculus.SquareInsertionCorner.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareCalculus.SquareInsertionCorner</a>
+<a id="9573" class="Keyword">import</a> <a id="9580" href="SCT.VolumeI.Chapter02.Section02.SquareCalculus.SquareInsertionNormalization.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareCalculus.SquareInsertionNormalization</a>
+<a id="9656" class="Keyword">import</a> <a id="9663" href="SCT.VolumeI.Chapter02.Section02.SquareCalculus.SquareParameterCorner.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareCalculus.SquareParameterCorner</a>
+<a id="9732" class="Keyword">import</a> <a id="9739" href="SCT.VolumeI.Chapter02.Section02.SquareCalculus.UncurryFramedSquare.html" class="Module">SCT.VolumeI.Chapter02.Section02.SquareCalculus.UncurryFramedSquare</a>
+<a id="9806" class="Keyword">import</a> <a id="9813" href="SCT.VolumeI.Chapter02.Section02.TrianglePullbacks.html" class="Module">SCT.VolumeI.Chapter02.Section02.TrianglePullbacks</a>
+<a id="9863" class="Keyword">import</a> <a id="9870" href="SCT.VolumeI.Chapter02.Section02.UnitCalculus.DirectUnitEndpoints.html" class="Module">SCT.VolumeI.Chapter02.Section02.UnitCalculus.DirectUnitEndpoints</a>
+<a id="9935" class="Keyword">import</a> <a id="9942" href="SCT.VolumeI.Chapter02.Section02.UnitCalculus.DirectUnitPresentations.html" class="Module">SCT.VolumeI.Chapter02.Section02.UnitCalculus.DirectUnitPresentations</a>
+<a id="10011" class="Keyword">import</a> <a id="10018" href="SCT.VolumeI.Chapter02.Section02.UnitCalculus.DirectUnitTriangles.html" class="Module">SCT.VolumeI.Chapter02.Section02.UnitCalculus.DirectUnitTriangles</a>
+<a id="10083" class="Keyword">import</a> <a id="10090" href="SCT.VolumeI.Chapter02.Section02.UnitCalculus.UnitTriangleFamilies.html" class="Module">SCT.VolumeI.Chapter02.Section02.UnitCalculus.UnitTriangleFamilies</a>
 </pre></main></div>
 <footer>Experimental web edition · Generated from annotated LaTeX and Agda sources. <a href="../build-report.html">Build details</a></footer></body></html>

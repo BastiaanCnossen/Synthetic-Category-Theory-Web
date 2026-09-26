@@ -20,7 +20,7 @@ open import SCT.VolumeI.Chapter01.Section05.Setup 𝒯 M
 open import SCT.VolumeI.Chapter01.Section04.Uncurrying 𝒯 M using (module Reassociation)
 open import SCT.VolumeI.Chapter01.Section07.Currying 𝒯 M F
 
-open import SCT.VolumeI.Chapter01.Section07.MappingTests 𝒯 M F
+open import SCT.VolumeI.Chapter01.Section07.EvaluationCalculus.MappingTests 𝒯 M F
   using (module Test; fourfold-regroup)
 open import SCT.VolumeI.Chapter01.Section04.EquivalenceDetection 𝒯 M using (post-tests-all)
 

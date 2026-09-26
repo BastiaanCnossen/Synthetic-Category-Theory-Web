@@ -1,10 +1,23 @@
 'use strict';
 const proofs = document.querySelector('#collapse-proofs');
-const hideAgdaLinks=document.querySelector('#hide-agda-links');
-if (window.matchMedia('(max-width: 850px)').matches) {
-  const contents = document.querySelector('.reader-nav > details');
-  if (contents) contents.open = false;
+const showAgdaLinks=document.querySelector('#show-agda-links');
+const settingsButton=document.querySelector('#reading-settings-button');
+const settingsPanel=document.querySelector('#reading-settings');
+function setSettingsOpen(open, restoreFocus=false) {
+  if (!settingsButton || !settingsPanel) return;
+  settingsPanel.hidden=!open;
+  settingsButton.setAttribute('aria-expanded',String(open));
+  if (restoreFocus) settingsButton.focus({preventScroll:true});
 }
+settingsButton?.addEventListener('click',()=>setSettingsOpen(settingsPanel.hidden));
+document.addEventListener('pointerdown',event=> {
+  if (!event.target.closest('.utility-dock')) setSettingsOpen(false);
+});
+document.addEventListener('keydown',event=> {
+  if (event.key==='Escape' && settingsPanel && !settingsPanel.hidden) {
+    event.preventDefault(); event.stopImmediatePropagation(); setSettingsOpen(false,true);
+  }
+});
 if (proofs) proofs.addEventListener('change', () => {
   document.querySelectorAll('.book-proof').forEach(panel => { panel.open = !proofs.checked; });
 });
@@ -90,7 +103,7 @@ if (data && document.querySelector('.agda-trigger')) {
     trigger.setAttribute('aria-controls','agda-reader'); trigger.setAttribute('aria-expanded','false');
     // Handle the link before MathJax's nested math explorer consumes clicks.
     trigger.addEventListener('click',event=> {
-      if (hideAgdaLinks?.checked) { event.preventDefault(); return; }
+      if (!showAgdaLinks?.checked) { event.preventDefault(); return; }
       if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
       event.preventDefault();
       openReader(trigger.dataset.agda);
@@ -98,19 +111,14 @@ if (data && document.querySelector('.agda-trigger')) {
       if (event.detail===0) rail.querySelector('.module-picker').focus({preventScroll:true});
     }, {capture:true});
   });
-  document.querySelector('#open-code-browser')?.addEventListener('click',()=> {
-    const first=document.querySelector('.agda-trigger');
-    openReader(activeId || first.dataset.agda);
-    rail.querySelector('.module-picker').focus({preventScroll:true});
-  });
 }
-if (hideAgdaLinks) {
+if (showAgdaLinks) {
   const originalLinks=new Map([...document.querySelectorAll('.agda-trigger')].map(link=>[link,{href:link.getAttribute('href'),title:link.getAttribute('title')} ]));
-  try { hideAgdaLinks.checked=localStorage.getItem('sct.hideAgdaLinks')==='true'; } catch {}
+  try { showAgdaLinks.checked=localStorage.getItem('sct.showAgdaLinks')==='true'; } catch {}
   const applyPreference=()=> {
-    document.body.classList.toggle('hide-agda-links',hideAgdaLinks.checked);
+    document.body.classList.toggle('hide-agda-links',!showAgdaLinks.checked);
     originalLinks.forEach((attributes,link)=> {
-      if (hideAgdaLinks.checked) {
+      if (!showAgdaLinks.checked) {
         link.removeAttribute('href'); link.removeAttribute('title'); link.setAttribute('tabindex','-1');
         link.removeAttribute('aria-controls'); link.removeAttribute('aria-expanded');
       } else {
@@ -120,14 +128,40 @@ if (hideAgdaLinks) {
       }
     });
   };
-  hideAgdaLinks.addEventListener('change',()=> {
+  const setLinkPreference=enabled=> {
+    showAgdaLinks.checked=enabled;
     applyPreference();
-    try { localStorage.setItem('sct.hideAgdaLinks',String(hideAgdaLinks.checked)); } catch {}
+    try { localStorage.setItem('sct.showAgdaLinks',String(showAgdaLinks.checked)); } catch {}
+  };
+  showAgdaLinks.addEventListener('change',()=>setLinkPreference(showAgdaLinks.checked));
+  document.querySelector('.agda-start')?.addEventListener('click',event=> {
+    if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+    const module=event.currentTarget.dataset.module;
+    if (!rail || !data?.modules[module]) return;
+    event.preventDefault();
+    setLinkPreference(true);
+    openModule(module);
+    if (event.detail===0) rail.querySelector('.module-picker').focus({preventScroll:true});
+  });
+  document.querySelector('.agda-hide')?.addEventListener('click',()=> {
+    setLinkPreference(false);
+    document.querySelector('.agda-start')?.focus({preventScroll:true});
   });
   applyPreference();
 }
+function openModule(module) {
+  definitionHistory=[]; exploredDefinitions.clear();
+  rail.querySelector('.reader-back').disabled=true;
+  activeTrigger?.classList.remove('is-active');
+  if (activeTrigger?.matches('.agda-trigger')) activeTrigger.setAttribute('aria-expanded','false');
+  activeTrigger=null; activeId=null;
+  moduleGroups=new Map();
+  buildModuleBrowser();
+  rail.hidden=false; document.body.classList.add('agda-reader-open');
+  renderModule(module);
+}
 function visibleProseTarget(target) {
-  if (!target || !hideAgdaLinks?.checked || !target.matches('.agda-point')) return target;
+  if (!target || showAgdaLinks?.checked || !target.matches('.agda-point')) return target;
   const block=target.closest('p,li,dd,div') || target.parentElement;
   return block.getBoundingClientRect().height>1 ? block : block.previousElementSibling || block.nextElementSibling || block;
 }
@@ -143,9 +177,9 @@ function openReader(id) {
   const passage=data?.passages[id]; if (!passage || !rail) return;
   definitionHistory=[]; exploredDefinitions.clear();
   rail.querySelector('.reader-back').disabled=true;
-  if (activeTrigger) { activeTrigger.classList.remove('is-active'); if (!hideAgdaLinks?.checked && activeTrigger.matches('.agda-trigger')) activeTrigger.setAttribute('aria-expanded','false'); }
+  if (activeTrigger) { activeTrigger.classList.remove('is-active'); if (showAgdaLinks?.checked && activeTrigger.matches('.agda-trigger')) activeTrigger.setAttribute('aria-expanded','false'); }
   activeId=id; activeTrigger=document.getElementById('text-'+id);
-  activeTrigger?.classList.add('is-active'); if (!hideAgdaLinks?.checked && activeTrigger?.matches('.agda-trigger')) activeTrigger.setAttribute('aria-expanded','true');
+  activeTrigger?.classList.add('is-active'); if (showAgdaLinks?.checked && activeTrigger?.matches('.agda-trigger')) activeTrigger.setAttribute('aria-expanded','true');
   preservePassage(()=> { rail.hidden=false; document.body.classList.add('agda-reader-open'); });
   rail.querySelector('h2').textContent=passage.title;
   rail.querySelector('.reader-note').textContent=passage.note || 'This passage is linked to the displayed declaration.';
@@ -177,7 +211,7 @@ function buildModuleBrowser() {
       parent.append(button);
     });
     node.children.forEach(child=> {
-      const group=document.createElement('details'); group.className='module-group';
+      const group=document.createElement('details'); group.className='module-group'; group.dataset.moduleGroup=child.key;
       const summary=document.createElement('summary'); summary.textContent=child.label;
       const contents=document.createElement('div'); contents.className='module-group-content';
       group.append(summary,contents); parent.append(group); append(child,contents);
@@ -290,12 +324,11 @@ function navigateFromCode(module,number,id,scrollTop,push=true) {
 function closeReader(restoreFocus) {
   if (!rail || rail.hidden) return;
   preservePassage(()=> { rail.hidden=true; document.body.classList.remove('agda-reader-open'); });
-  activeTrigger?.classList.remove('is-active'); if (!hideAgdaLinks?.checked && activeTrigger?.matches('.agda-trigger')) activeTrigger.setAttribute('aria-expanded','false');
+  activeTrigger?.classList.remove('is-active'); if (showAgdaLinks?.checked && activeTrigger?.matches('.agda-trigger')) activeTrigger.setAttribute('aria-expanded','false');
   if (restoreFocus) {
-    const opener=hideAgdaLinks?.checked ? document.querySelector('#open-code-browser') : activeTrigger;
-    const settings=opener?.closest('details'); if (settings) settings.open=true;
+    const opener=!showAgdaLinks?.checked ? settingsButton : activeTrigger || document.querySelector('.agda-hide');
     opener?.focus({preventScroll:true});
-    if (location.hash.startsWith('#agda-') || location.hash.startsWith('#code:')) history.replaceState(null,'','#text-'+activeId);
+    if (activeId && (location.hash.startsWith('#agda-') || location.hash.startsWith('#code:'))) history.replaceState(null,'','#text-'+activeId);
   }
 }
 function revealHash() {
@@ -312,6 +345,9 @@ function revealHash() {
     if (data.modules[module]?.lines.some(x=>x.number===Number(line) && x.targets.some(t=>t.id===pid))) {
       navigateFromCode(module,Number(line),pid,undefined,false); return;
     }
+    // A file move or literate-prose edit invalidates the saved module/line.
+    // The stable passage still identifies its current declarations and focus.
+    if (data.passages[pid]) id='agda-'+pid;
   }
   if (rail && id.startsWith('agda-') && data.passages[id.slice(5)]) {
     const trigger=document.getElementById('text-'+id.slice(5));
@@ -325,7 +361,10 @@ function revealHash() {
 }
 window.addEventListener('hashchange',revealHash);
 window.addEventListener('popstate',revealHash);
-window.addEventListener('load',()=> (window.MathJax?.startup?.promise || Promise.resolve()).then(revealHash));
+// Delayed math rendering must not undo a reader interaction made during loading.
+window.addEventListener('load',()=> (window.MathJax?.startup?.promise || Promise.resolve()).then(()=> {
+  if (location.hash && rail?.hidden!==false) revealHash();
+}));
 const codeSearch=document.querySelector('#code-search');
 let searchDisclosureState;
 if (codeSearch) codeSearch.addEventListener('input',()=> {

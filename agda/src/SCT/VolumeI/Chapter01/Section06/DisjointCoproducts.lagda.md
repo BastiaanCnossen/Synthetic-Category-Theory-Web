@@ -31,7 +31,7 @@ open import SCT.VolumeI.Chapter01.Section05.CoproductEquivalences 𝒯 M I B
 open import SCT.VolumeI.Chapter01.Section06.Cones 𝒯
 open import SCT.VolumeI.Chapter01.Section06.PullbackSquares 𝒯 P using (IsPullback)
 open import SCT.VolumeI.Chapter01.Section06.PullbackFunctor 𝒯 P using (CospanMap)
-open import SCT.VolumeI.Chapter01.Section06.CospanEquivalences 𝒯 P using (module CospanEquivalence)
+open import SCT.VolumeI.Chapter01.Section06.Cospans.CospanEquivalences 𝒯 P using (module CospanEquivalence)
 
 disjointCone : (C D : CAT) → Cone (in₂ {C} {D}) in₁ Zero
 disjointCone C D = record { left = initiate D ; right = initiate C ; match = initial-iso _ _ }

@@ -3,6 +3,7 @@ from pathlib import Path
 from html.parser import HTMLParser
 from html import escape
 import hashlib, json, os, re
+from source_anchors import conversion_anchor
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -17,6 +18,7 @@ SNAP = BUILD / 'snapshot'
 SITE = ROOT / '_site'
 CHAPTER = 'Volume I - Synthetic Category Theory/1_Naive_Category_Theory.tex'
 CHAPTER2 = 'Volume I - Synthetic Category Theory/2_Groupoids.tex'
+CHAPTER3 = 'Volume I - Synthetic Category Theory/3_Constructions.tex'
 MASTER = 'Volume I - Synthetic Category Theory/Book_Vol_I.tex'
 BOOK_FRONTMATTER = [
     {'source': 'Volume I - Synthetic Category Theory/0_Introduction.tex',
@@ -46,6 +48,17 @@ BOOK_CHAPTERS = [
                   ('groupoids', 'Groupoids', 'sec:Groupoids'),
                   ('recognizing-animae', 'Recognizing animae', 'sec:Recognizing_Animae'),
                   ('chapter-2-exercises', 'Exercises', 'web:chapter02-exercises')]},
+    {'number': 3, 'source': CHAPTER3, 'slug': 'constructions-introduction',
+     'title': 'Constructions of categories', 'label': 'chap:Basic_Synthetic_Category_Theory',
+     'unlabelled_section_titles': {'web:chapter03-exercises': r'Exercises \texorpdfstring{\Cref{chap:Basic_Synthetic_Category_Theory}}{Chapter 3}'},
+     'sections': [('subcategories', 'Subcategories', 'sec:Subcategories'),
+                  ('full-subcategories', 'Full subcategories', 'sec:Full_Subcategories'),
+                  ('localizations', 'Localizations', 'sec:Localizations_Of_Categories'),
+                  ('geometric-realizations', 'Geometric realizations', 'sec:Geometric_Realizations'),
+                  ('exponentiable-functors', 'Exponentiable functors', 'sec:Exponentiable_Functors'),
+                  ('joins', 'Joins', 'sec:Joins'),
+                  ('slice-categories', 'Slice categories', 'sec:Slice_Categories_From_Joins'),
+                  ('chapter-3-exercises', 'Exercises', 'web:chapter03-exercises')]},
 ]
 BOOK_SECTIONS = [s for chapter in BOOK_CHAPTERS for s in chapter['sections']]
 BOOK_PAGES = [(p['slug'], p['title'], None) for p in BOOK_FRONTMATTER] + [(slug, title, label) for chapter in BOOK_CHAPTERS
@@ -64,23 +77,35 @@ def manuscript_input(relative):
     annotated = ANNOTATED / relative
     return annotated if annotated.is_file() else REPO / relative
 
+def section_headings(body):
+    """Read balanced section titles, including TeX commands with arguments."""
+    result=[]
+    for match in re.finditer(r'\\section\s*(?=\{)', body):
+        title,end=group(body,match.end())
+        label=re.match(r'\s*\\label\[section\]\{([^}]+)\}',body[end:])
+        result.append({'start':match.start(),'end':end+(label.end() if label else 0),
+                       'title':title,'label':label[1] if label else None})
+    return result
+
+
 def selected_source(source, chapter=CHAPTER):
     """Select a chapter opening and its configured initial sections by labels."""
     body = source.split(r'\begin{document}', 1)[1].split(r'\end{document}', 1)[0]
     # Unlabelled selected headings receive a web-only label in the conversion
     # input, keeping the maintained annotated manuscript unchanged.
-    sections = list(re.finditer(r'\\section\{([^}]+)\}(?:\s*\\label\[section\]\{([^}]+)\})?', body))
+    sections = section_headings(body)
     config = next(c for c in BOOK_CHAPTERS if c['source']==chapter)
     expected = [label for _, _, label in config['sections']]
     if len(sections)<len(expected):
         raise ValueError('The selected manuscript sections changed; review the selection')
     insertions=[]
     for match,(_,title,label) in zip(sections,config['sections']):
-        if match[2]==label: continue
-        if match[2] is None and label.startswith('web:') and match[1]==title:
-            insertions.append((match.end(),r'\label[section]{'+label+'}'))
+        if match['label']==label: continue
+        original_title=config.get('unlabelled_section_titles',{}).get(label,title)
+        if match['label'] is None and label.startswith('web:') and match['title']==original_title:
+            insertions.append((match['end'],r'\label[section]{'+label+'}'))
         else: raise ValueError('The selected manuscript sections changed; review the selection')
-    selected=body[:sections[len(expected)].start()] if len(sections)>len(expected) else body
+    selected=body[:sections[len(expected)]['start']] if len(sections)>len(expected) else body
     for at,text in reversed(insertions): selected=selected[:at]+text+selected[at:]
     return selected
 
@@ -102,6 +127,7 @@ def digest(data):
 def external_anchor(label):
     """Keep readable label anchors without whitespace that TeX4ht truncates."""
     return re.sub(r'[^A-Za-z0-9:_.-]', '_', label)
+
 
 def comments(text):
     # TeX discards the newline after a comment too; retaining it can introduce

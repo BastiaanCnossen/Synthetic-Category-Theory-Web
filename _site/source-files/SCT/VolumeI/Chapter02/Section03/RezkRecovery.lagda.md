@@ -29,13 +29,13 @@ module SCT.VolumeI.Chapter02.Section03.RezkRecovery
   (R : Rezk.RezkAxiom 𝒯 M ℱ P I E) where
 
 open import SCT.VolumeI.Chapter02.Section03.RezkIdentification 𝒯 M ℱ P I E R public
-open import SCT.VolumeI.Chapter02.Section03.ConstantArrows 𝒯 M ℱ I
+open import SCT.VolumeI.Chapter02.Section03.InverseCalculus.ConstantArrows 𝒯 M ℱ I
   using (constant-frame; constant-frame-natural; constant-identification)
-open import SCT.VolumeI.Chapter02.Section03.ConstantIdentityComparison 𝒯 M ℱ P I E
+open import SCT.VolumeI.Chapter02.Section03.InverseCalculus.ConstantIdentityComparison 𝒯 M ℱ P I E
   using (constant-isomorphism-comparison)
-open import SCT.VolumeI.Chapter02.Section02.ExpressionIdentifications 𝒯 M ℱ I
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionIdentifications 𝒯 M ℱ I
   using (expressionIso-compose; expressionIso-inverse)
-import SCT.VolumeI.Chapter01.Section03.PairingNaturality as PN
+import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingNaturality as PN
 open PN vocabulary terminal products productLaws composition vertical whiskering using (cancel-left)
 open import SCT.VolumeI.Chapter01.Section02.Isomorphisms
   vocabulary terminal products productLaws composition vertical whiskering using (cancel-inverse)

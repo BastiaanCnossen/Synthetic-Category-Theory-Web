@@ -4,6 +4,10 @@ As in `def:Pullback_Square`, a cone is a pullback square when its chosen
 factorization into the pullback is an equivalence. The matching isomorphism
 is part of the cone, so the property refers to that particular square.
 
+The reusable calculations with cones are grouped in `ConeCalculus/`;
+coordinate arguments are in `Coordinates/`. The universal property and
+its uses below remain the main entry point.
+
 ```agda
 {-# OPTIONS --safe --without-K #-}
 open import Agda.Primitive using (Level)
@@ -16,9 +20,9 @@ module SCT.VolumeI.Chapter01.Section06.PullbackSquares
 
 open Setup 𝒯
 open Laws.PullbackStructure P
-open import SCT.VolumeI.Chapter01.Section06.ConeRestriction 𝒯 public
-open import SCT.VolumeI.Chapter01.Section06.PullbackLifting 𝒯 P
-open import SCT.VolumeI.Chapter01.Section06.ConeAction 𝒯 using (cone-action)
+open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.ConeRestriction 𝒯 public
+open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.PullbackLifting 𝒯 P
+open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.ConeAction 𝒯 using (cone-action)
 
 IsPullback : {C D E T : CAT} {f : MAP C E} {g : MAP D E} → Cone f g T → Set m
 IsPullback s = IsEquiv (pullbackLift s)

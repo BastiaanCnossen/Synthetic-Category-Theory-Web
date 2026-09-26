@@ -1,0 +1,720 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Joins | Synthetic category theory</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/reader-shell.css"><link rel="stylesheet" href="assets/reader.css?v=cb97990c1670a826"><link rel="stylesheet" href="assets/Agda.css">
+<script src="assets/math-config.js"></script><script defer src="vendor/mathjax/tex-chtml.js"></script><script defer src="assets/agda-context.js?v=41beaa3dfc2ba203"></script><script defer src="assets/reader.js?v=1fc2a32e54b9ace6"></script></head>
+<body class="hide-agda-links has-passages"><a class="skip-link" href="#main">Skip to content</a><aside class="utility-dock" aria-label="Reading tools">
+<button id="reading-settings-button" class="utility-button" type="button" aria-label="Reading settings" title="Reading settings" aria-controls="reading-settings" aria-expanded="false"><span aria-hidden="true">⚙</span></button>
+<a class="utility-button" href="book.pdf" aria-label="Read the web edition PDF" title="Read the web edition PDF"><span aria-hidden="true">📖</span></a>
+<section id="reading-settings" class="settings-panel" aria-label="Reading preferences" hidden><h2>Reading preferences</h2>
+<label><input id="collapse-proofs" type="checkbox"> Collapse book proofs</label>
+<label><input id="show-agda-links" type="checkbox"> Show links to Agda code</label>
+</section></aside>
+<header class="site-header"><div class="header-top"><nav class="book-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Synthetic category theory</a></li><li><a href="constructions-introduction.html" title="Constructions of categories">Chapter 3</a></li><li aria-current="page">Section 3.6</li></ol></nav><nav class="page-turns" aria-label="Reading navigation"><a rel="prev" data-step="prev-chapter" href="internal-structure-introduction.html" title="The internal structure of categories" aria-label="Previous chapter: Chapter 2, The internal structure of categories"><span class="turn-direction">← Previous chapter</span><span class="turn-target">Chapter 2</span></a><button type="button" disabled data-step="next-chapter" aria-label="No next chapter" title="No next chapter in this web edition"><span class="turn-direction">→ Next chapter</span><span class="turn-target">Not available</span></button><a rel="prev" data-step="prev-section" href="exponentiable-functors.html" title="Exponentiable functors" aria-label="Previous section: Section 3.5, Exponentiable functors"><span class="turn-direction">← Previous section</span><span class="turn-target">Section 3.5</span></a><a rel="next" data-step="next-section" href="slice-categories.html" title="Slice categories" aria-label="Next section: Section 3.7, Slice categories"><span class="turn-direction">→ Next section</span><span class="turn-target">Section 3.7</span></a></nav></div><p class="eyebrow">Volume I · Experimental web edition</p><h1>Joins</h1></header>
+<div class="reader-grid"><aside class="reader-nav" aria-label="Book navigation"><h2>Resources</h2><nav aria-label="Resources" class="reader-resources"><a href="code-index.html">All Agda code</a><a href="formalization.html">Agda guide</a><a href="build-report.html">Build details</a></nav><h2>Contents</h2><nav aria-label="Contents"><a href="index.html">Overview</a><a href="introduction.html">Introduction</a><a href="overview-of-the-axioms.html">Overview of the axioms</a><details class="contents-chapter"><summary><span class="chapter-number">Chapter 1</span><span class="chapter-name">The language of synthetic category theory</span></summary><div class="chapter-sections"><a href="chapter-introduction.html">Chapter introduction</a><a href="basic-vocabulary.html">1.1 · The basic vocabulary</a><a href="coherences.html">1.2 · Coherences</a><a href="equivalences.html">1.3 · Equivalences of categories</a><a href="mapping-animae.html">1.4 · Mapping animae</a><a href="initial-categories-and-coproducts.html">1.5 · Initial categories and coproducts</a><a href="pullbacks.html">1.6 · Pullbacks of categories</a><a href="functor-categories.html">1.7 · Functor categories</a><a href="pushouts.html">1.8 · Pushout squares</a></div></details><details class="contents-chapter"><summary><span class="chapter-number">Chapter 2</span><span class="chapter-name">The internal structure of categories</span></summary><div class="chapter-sections"><a href="internal-structure-introduction.html">Chapter introduction</a><a href="morphisms-and-diagrams.html">2.1 · Morphisms and diagrams</a><a href="segal-axiom.html">2.2 · The Segal axiom</a><a href="rezk-axiom.html">2.3 · The Rezk axiom</a><a href="groupoids.html">2.4 · Groupoids</a><a href="recognizing-animae.html">2.5 · Recognizing animae</a><a href="chapter-2-exercises.html">2.6 · Exercises</a></div></details><details class="contents-chapter" open><summary><span class="chapter-number">Chapter 3</span><span class="chapter-name">Constructions of categories</span></summary><div class="chapter-sections"><a href="constructions-introduction.html">Chapter introduction</a><a href="subcategories.html">3.1 · Subcategories</a><a href="full-subcategories.html">3.2 · Full subcategories</a><a href="localizations.html">3.3 · Localizations</a><a href="geometric-realizations.html">3.4 · Geometric realizations</a><a href="exponentiable-functors.html">3.5 · Exponentiable functors</a><a aria-current="page" href="joins.html">3.6 · Joins</a><a href="slice-categories.html">3.7 · Slice categories</a><a href="chapter-3-exercises.html">3.8 · Exercises</a></div></details></nav></aside>
+<main id="main" class="notes-page" tabindex="-1"><p class="agda-help"><span class="agda-invitation"><a class="agda-start" data-module="SCT.VolumeI.Chapter03.Section06.Joins" href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html">Read the Agda code</a> alongside the book.</span><span class="agda-instructions">Click dotted-underlined prose to read its Agda code alongside the book. <button type="button" class="agda-hide text-button">Hide links.</button> <a href="code-index.html">Browse all code.</a></span></p><h3 class="sectionHead" id="joins"><span class="titlemark">3.6    </span> <a id="x1-480003.6"></a>Joins</h3>
+<p class="noindent"><span class="source-anchor" id="sec:Joins"></span>
+</p><p class="noindent">A final category constructor we introduce is the <a class="agda-trigger" data-agda="ch3-join-introduction" href="joins.html#agda-ch3-join-introduction" id="text-ch3-join-introduction" title="Agda: _⋆_" aria-controls="agda-ch3-join-introduction"><span class="ntx-Italic-tlf-t1-x-x-109">join</span> \(C \star D\)</a> of two categories. This construction admits two
+universal properties: </p><details class="agda-panel agda-inline" id="agda-ch3-join-introduction"><summary><span class="agda-tag">Agda</span> Joins</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section06.Joins" data-declaration="_⋆_"><h4><code>_⋆_</code></h4><p class="status">Definition, checked</p><pre class="Agda signature"><a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#2293" class="Function Operator">_⋆_</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda"><a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#2315" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#2293" class="Function Operator">⋆</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#2319" class="Bound">D</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2248" class="Function">JoinOver</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section01.Terminal.html#549" class="Function">terminate</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#2315" class="Bound">C</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section01.Terminal.html#549" class="Function">terminate</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#2319" class="Bound">D</a><a class="Symbol">)</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import Agda.Builtin.Nat using (Nat; suc) renaming (zero to zeroℕ)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section05.Coproducts as Coproducts
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter01.Section06.UniversalCoproducts as Universality
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Interval
+import SCT.VolumeI.Chapter03.Section06.JoinAxiom as Axiom
+
+module SCT.VolumeI.Chapter03.Section06.Joins
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M)
+  (B : Coproducts.CoproductStructure 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (U : Universality.CoproductUniversality 𝒯 M B P)
+  (I : Interval.WalkingMorphism 𝒯) (J : Axiom.JoinAxiom 𝒯 M ℱ B P U I) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#2293">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section06/Joins.lagda.md">Literate source, line 46</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="joins.html#text-ch3-join-introduction">Return to this passage</a> · <a class="permalink" href="joins.html#agda-ch3-join-introduction">Panel link</a></p></div></details>
+     <ul class="itemize1">
+     <li class="itemize">There is a mapping-in universal property: the join comes equipped with a functor to \([1]\), and a
+     map living over \([1]\) from a category \(T\) into the join is the same as a pair of maps \(T_0 \to C\) and \(T_1 \to D\), where the
+     sources are the fibes of \(T \to [1]\).
+     </li>
+     <li class="itemize">There is a mapping-out universal property: the join is obtained from the product \([1] \times C \times D\) by collapsing
+     \(\{0\} \times C \times D\) onto \(C\) and \(\{1\} \times C \times D\) onto \(D\).</li></ul>
+<p class="noindent">In order to obtain joins in arbitrary categorical contexts, we will in fact introduce versions of the join over
+an arbitrary base category \(\Gamma \).
+</p><p class="noindent">Using the join construction we define \(C^{\triangleright } := C \star *\) and \(C^{\triangleleft } := * \star C\). We may then inductively define the categories \([n]\) by \([0] = *\) and
+\([n+1] := [n]^{\triangleright }\).
+</p><p class="noindent">
+</p>
+<h5 class="subsubsectionHead" id="two-universal-properties"><a id="x1-49000"></a>Two universal properties</h5>
+<p class="noindent"><span class="source-anchor" id="sec:Two_Universal_Properties"></span> We start with the universal property of mapping out of \(C \star D\):
+</p>
+<div class="framedenv">
+<p class="noindent"></p><section class="statement" data-environment="subaxiom" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+
+
+<p class="noindent"><span class="head">
+<a id="x1-49001r1"></a>
+<a class="agda-trigger agda-heading" id="text-ch3-axiom-k-joins" href="joins.html#agda-ch3-axiom-k-joins" data-agda="ch3-axiom-k-joins" title="Agda: JoinData, JoinPushout, mapping-out" aria-controls="agda-ch3-axiom-k-joins"><span class="ntx-Bold-tlf-t1-x-x-109">Axiom J.1 </span></a>(Join axiom)<span class="ntx-Bold-tlf-t1-x-x-109">.</span>  </span><span class="source-anchor" id="axiom:K_Joins"></span> Let \(\Gamma \) be an anima and let \(p\colon C\to \Gamma \) and \(q\colon D\to \Gamma \) be functors. There is a category \(C\star _\Gamma D\) over \(\Gamma \) and
+a pushout square
+</p><details class="agda-panel agda-inline" id="agda-ch3-axiom-k-joins"><summary><span class="agda-tag">Agda</span> The mapping-out join axiom</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section06.JoinAxiom" data-declaration="JoinData"><h4><code>JoinData</code></h4><p class="status">Assumption, type checked</p><pre class="Agda signature"><a class="Keyword">record</a> <a></a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2206" class="Record">JoinData</a> <a class="Symbol">:</a> <a href="agda/Agda.Primitive.html#388" class="Primitive">Set</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#1137" class="Bound">c</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#616" class="Primitive Operator">⊔ℓ</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#1139" class="Bound">m</a><a class="Symbol">)</a> <a class="Keyword">where</a>
+  <a class="Keyword">field</a>
+    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2248" class="Field">JoinOver</a> <a class="Symbol">:</a> <a class="Symbol">{</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2260" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2262" class="Bound">D</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2264" class="Bound">Γ</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a><a class="Symbol">}</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2260" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2264" class="Bound">Γ</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2262" class="Bound">D</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2264" class="Bound">Γ</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a>
+    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2303" class="Field">height</a> <a class="Symbol">:</a> <a class="Symbol">{</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2313" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2315" class="Bound">D</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2317" class="Bound">Γ</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a><a class="Symbol">}</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2327" class="Bound">p</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2313" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2317" class="Bound">Γ</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2341" class="Bound">q</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2315" class="Bound">D</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2317" class="Bound">Γ</a><a class="Symbol">)</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2248" class="Field">JoinOver</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2327" class="Bound">p</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2341" class="Bound">q</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2317" class="Bound">Γ</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Products.html#628" class="Function Operator">×</a> <a href="agda/SCT.VolumeI.Chapter02.Section01.WalkingMorphism.html#763" class="Field">[1]</a><a class="Symbol">)</a>
+    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2389" class="Field">inclusion</a> <a class="Symbol">:</a> <a class="Symbol">{</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2402" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2404" class="Bound">D</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2406" class="Bound">Γ</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a><a class="Symbol">}</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2416" class="Bound">p</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2402" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2406" class="Bound">Γ</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2430" class="Bound">q</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2404" class="Bound">D</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2406" class="Bound">Γ</a><a class="Symbol">)</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2402" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter01.Section05.Coproducts.html#743" class="Function Operator">⊔</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2404" class="Bound">D</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2248" class="Field">JoinOver</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2416" class="Bound">p</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2430" class="Bound">q</a><a class="Symbol">)</a>
+    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2476" class="Field">height-boundary</a> <a class="Symbol">:</a> <a class="Symbol">{</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2495" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2497" class="Bound">D</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2499" class="Bound">Γ</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a><a class="Symbol">}</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2509" class="Bound">p</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2495" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2499" class="Bound">Γ</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2523" class="Bound">q</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2497" class="Bound">D</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2499" class="Bound">Γ</a><a class="Symbol">)</a> <a class="Symbol">→</a>
+      <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2303" class="Field">height</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2509" class="Bound">p</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2523" class="Bound">q</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#636" class="Function Operator">∘</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2389" class="Field">inclusion</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2509" class="Bound">p</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2523" class="Bound">q</a><a class="Symbol">)</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#1324" class="Function Operator">=₁</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.PushoutCalculus.JoinSpan.html#2558" class="Function">Span.boundary-height</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2509" class="Bound">p</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2523" class="Bound">q</a>
+
+  <a></a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2604" class="Function">projection</a> <a class="Symbol">:</a> <a class="Symbol">{</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2618" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2620" class="Bound">D</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2622" class="Bound">Γ</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a><a class="Symbol">}</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2632" class="Bound">p</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2618" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2622" class="Bound">Γ</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2646" class="Bound">q</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2620" class="Bound">D</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2622" class="Bound">Γ</a><a class="Symbol">)</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2248" class="Field">JoinOver</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2632" class="Bound">p</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2646" class="Bound">q</a><a class="Symbol">)</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2622" class="Bound">Γ</a>
+  <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2604" class="Function">projection</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2695" class="Bound">p</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2697" class="Bound">q</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Products.html#654" class="Function">pr₁</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#636" class="Function Operator">∘</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2303" class="Field">height</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2695" class="Bound">p</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2697" class="Bound">q</a></pre><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level) renaming (_⊔_ to _⊔ℓ_)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section05.Coproducts as Coproducts
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter01.Section06.UniversalCoproducts as Universality
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Interval
+
+module SCT.VolumeI.Chapter03.Section06.JoinAxiom
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M)
+  (B : Coproducts.CoproductStructure 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (U : Universality.CoproductUniversality 𝒯 M B P)
+  (I : Interval.WalkingMorphism 𝒯) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2206">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section06/JoinAxiom.lagda.md">Literate source, line 44</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section06.JoinAxiom" data-declaration="JoinPushout"><h4><code>JoinPushout</code></h4><p class="status">Assumption, type checked</p><pre class="Agda signature"><a class="Keyword">record</a> <a></a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2726" class="Record">JoinPushout</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2739" class="Bound">J</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2206" class="Record">JoinData</a><a class="Symbol">)</a> <a class="Symbol">{</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2754" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2756" class="Bound">D</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2758" class="Bound">Γ</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a><a class="Symbol">}</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2768" class="Bound">p</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2754" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2758" class="Bound">Γ</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2782" class="Bound">q</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2756" class="Bound">D</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2758" class="Bound">Γ</a><a class="Symbol">)</a> <a class="Symbol">:</a> <a href="agda/Agda.Primitive.html#388" class="Primitive">Set</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#1137" class="Bound">c</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#616" class="Primitive Operator">⊔ℓ</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#1139" class="Bound">m</a><a class="Symbol">)</a> <a class="Keyword">where</a>
+  <a class="Keyword">open</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2206" class="Module">JoinData</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2739" class="Bound">J</a>
+  <a class="Keyword">module</a> <a></a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2843" class="Module">Diagram</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.PushoutCalculus.JoinSpan.html#1543" class="Module">Span</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2768" class="Bound">p</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2782" class="Bound">q</a>
+  <a class="Keyword">field</a>
+    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2874" class="Field">cylinder</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.PushoutCalculus.JoinSpan.html#1598" class="Function">Diagram.W</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Products.html#628" class="Function Operator">×</a> <a href="agda/SCT.VolumeI.Chapter02.Section01.WalkingMorphism.html#763" class="Field">[1]</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2248" class="Function">JoinOver</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2768" class="Bound">p</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2782" class="Bound">q</a><a class="Symbol">)</a>
+    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2926" class="Field">matching</a> <a class="Symbol">:</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2874" class="Field">cylinder</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#636" class="Function Operator">∘</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.PushoutCalculus.JoinSpan.html#1992" class="Function">Diagram.top</a><a class="Symbol">)</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#1324" class="Function Operator">=₁</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2389" class="Function">inclusion</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2768" class="Bound">p</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2782" class="Bound">q</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#636" class="Function Operator">∘</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.PushoutCalculus.JoinSpan.html#2349" class="Function">Diagram.left</a><a class="Symbol">)</a>
+
+  <a></a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2999" class="Function">square</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section08.Squares.html#660" class="Record">Square</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.PushoutCalculus.JoinSpan.html#1992" class="Function">Diagram.top</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.PushoutCalculus.JoinSpan.html#2349" class="Function">Diagram.left</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2874" class="Field">cylinder</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2389" class="Function">inclusion</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2768" class="Bound">p</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2782" class="Bound">q</a><a class="Symbol">)</a>
+  <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2999" class="Function">square</a> <a class="Symbol">=</a> <a class="Keyword">record</a> <a class="Symbol">{</a> <a href="agda/SCT.VolumeI.Chapter01.Section08.Squares.html#767" class="Field">commute</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2926" class="Field">matching</a> <a class="Symbol">}</a>
+  <a></a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#3108" class="Function">cocone</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section08.Cocones.html#816" class="Record">Cocone</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.PushoutCalculus.JoinSpan.html#1992" class="Function">Diagram.top</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.PushoutCalculus.JoinSpan.html#2349" class="Function">Diagram.left</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2248" class="Function">JoinOver</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2768" class="Bound">p</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2782" class="Bound">q</a><a class="Symbol">)</a>
+  <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#3108" class="Function">cocone</a> <a class="Symbol">=</a> <a class="Keyword">record</a> <a class="Symbol">{</a> <a href="agda/SCT.VolumeI.Chapter01.Section08.Cocones.html#901" class="Field">left</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2874" class="Field">cylinder</a> <a class="Symbol">;</a> <a href="agda/SCT.VolumeI.Chapter01.Section08.Cocones.html#920" class="Field">right</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2389" class="Function">inclusion</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2768" class="Bound">p</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2782" class="Bound">q</a> <a class="Symbol">;</a> <a href="agda/SCT.VolumeI.Chapter01.Section08.Cocones.html#940" class="Field">match</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2926" class="Field">matching</a> <a class="Symbol">}</a>
+
+  <a class="Keyword">field</a>
+    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#3258" class="Field">universal</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section08.PushoutSquares.html#1407" class="Function">IsPushout</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2999" class="Function">square</a>
+    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#3291" class="Field">height-cylinder</a> <a class="Symbol">:</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2303" class="Function">height</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2768" class="Bound">p</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2782" class="Bound">q</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#636" class="Function Operator">∘</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2874" class="Field">cylinder</a><a class="Symbol">)</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#1324" class="Function Operator">=₁</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.PushoutCalculus.JoinSpan.html#2653" class="Function">Diagram.cylinder-height</a>
+    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#3364" class="Field">height-compatible</a> <a class="Symbol">:</a>
+      <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.PushoutCalculus.JoinSpan.html#4253" class="Function">Diagram.height-match</a> <a href="agda/SCT.VolumeI.Chapter01.Section02.Coherence.html#1647" class="Function Operator">∙</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#3291" class="Field">height-cylinder</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#2568" class="Function Operator">▷</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.PushoutCalculus.JoinSpan.html#1992" class="Function">Diagram.top</a><a class="Symbol">))</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#1401" class="Function Operator">=₂</a>
+      <a class="Symbol">((</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2476" class="Function">height-boundary</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2768" class="Bound">p</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2782" class="Bound">q</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#2568" class="Function Operator">▷</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.PushoutCalculus.JoinSpan.html#2349" class="Function">Diagram.left</a><a class="Symbol">)</a> <a href="agda/SCT.VolumeI.Chapter01.Section02.Coherence.html#1647" class="Function Operator">∙</a> <a href="agda/SCT.VolumeI.Chapter01.Section08.Cocones.html#940" class="Field">Cocone.match</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section08.CoconeCalculus.CoconePostcomposition.html#1165" class="Function">coconePost</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2303" class="Function">height</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2768" class="Bound">p</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2782" class="Bound">q</a><a class="Symbol">)</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#3108" class="Function">cocone</a><a class="Symbol">))</a>
+
+  <a></a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#3546" class="Function">height-comparison</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section08.Cocones.html#982" class="Record">CoconeIso</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section08.CoconeCalculus.CoconePostcomposition.html#1165" class="Function">coconePost</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2303" class="Function">height</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2768" class="Bound">p</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2782" class="Bound">q</a><a class="Symbol">)</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#3108" class="Function">cocone</a><a class="Symbol">)</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.PushoutCalculus.JoinSpan.html#5805" class="Function">Diagram.height-cocone</a>
+  <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#3546" class="Function">height-comparison</a> <a class="Symbol">=</a> <a class="Keyword">record</a>
+    <a class="Symbol">{</a> <a href="agda/SCT.VolumeI.Chapter01.Section08.Cocones.html#1085" class="Field">leftIso</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#3291" class="Field">height-cylinder</a> <a class="Symbol">;</a> <a href="agda/SCT.VolumeI.Chapter01.Section08.Cocones.html#1134" class="Field">rightIso</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2476" class="Function">height-boundary</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2768" class="Bound">p</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2782" class="Bound">q</a> <a class="Symbol">;</a> <a href="agda/SCT.VolumeI.Chapter01.Section08.Cocones.html#1186" class="Field">compatible</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#3364" class="Field">height-compatible</a> <a class="Symbol">}</a></pre><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level) renaming (_⊔_ to _⊔ℓ_)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section05.Coproducts as Coproducts
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter01.Section06.UniversalCoproducts as Universality
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Interval
+
+module SCT.VolumeI.Chapter03.Section06.JoinAxiom
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M)
+  (B : Coproducts.CoproductStructure 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (U : Universality.CoproductUniversality 𝒯 M B P)
+  (I : Interval.WalkingMorphism 𝒯) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2726">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section06/JoinAxiom.lagda.md">Literate source, line 55</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section06.JoinAxiom" data-declaration="JoinAxiom.mapping-out"><h4><code>mapping-out</code></h4><p class="status">Assumption, type checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5022" class="Field">mapping-out</a> <a class="Symbol">:</a> <a class="Symbol">{</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5037" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5039" class="Bound">D</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5041" class="Bound">Γ</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a><a class="Symbol">}</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5051" class="Bound">p</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5037" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5041" class="Bound">Γ</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5065" class="Bound">q</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5039" class="Bound">D</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5041" class="Bound">Γ</a><a class="Symbol">)</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#556" class="Function">isAn</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5041" class="Bound">Γ</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2726" class="Record">JoinPushout</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#4958" class="Field">dataJoin</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5051" class="Bound">p</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5065" class="Bound">q</a></pre><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level) renaming (_⊔_ to _⊔ℓ_)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section05.Coproducts as Coproducts
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter01.Section06.UniversalCoproducts as Universality
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Interval
+
+module SCT.VolumeI.Chapter03.Section06.JoinAxiom
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M)
+  (B : Coproducts.CoproductStructure 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (U : Universality.CoproductUniversality 𝒯 M B P)
+  (I : Interval.WalkingMorphism 𝒯) where
+
+record JoinAxiom : Set (c ⊔ℓ m ⊔ℓ a) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5022">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section06/JoinAxiom.lagda.md">Literate source, line 111</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p>The mapping-out axiom assumes that the base is an anima.</p><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="joins.html#text-ch3-axiom-k-joins">Return to this passage</a> · <a class="permalink" href="joins.html#agda-ch3-axiom-k-joins">Panel link</a></p></div></details><p class="noindent"></p><figure class="diagram"><img src="assets/diagrams/diagram-bd062ad1d88f83a9.svg" alt="Commutative diagram from the manuscript; its arrows and comparisons are described in the surrounding text."></figure>
+<p></p><p class="noindent">over \(\Gamma \). Here the top map is induced by the inclusion \(\{0\}\sqcup \{1\}\to [1]\), and the left vertical map is given by \[ (\{0\}\sqcup \{1\})\times (C\times _\Gamma D) \iso (C\times _\Gamma D)\sqcup (C\times _\Gamma D) \xrightarrow {\pr _C\sqcup \pr _D}C\sqcup D. \] The
+displayed maps to \(\Gamma \times [1]\) induce a height functor \[ h_{C,D}\colon C\star _\Gamma D\to \Gamma \times [1] \] whose composite with the projection to \(\Gamma \) is the structural
+functor of the relative join.
+</p>
+</div>
+<p class="noindent"> </p></section> <p></p></div>
+<p class="noindent">For \(\Gamma =*\), we write \(C\star D\) for \(C\star _*D\).
+</p><p class="noindent"></p><section class="statement" data-environment="remark" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-49002r1"></a>
+<a class="agda-trigger agda-heading" id="text-ch3-rmk-mapping-out-of-join" href="joins.html#agda-ch3-rmk-mapping-out-of-join" data-agda="ch3-rmk-mapping-out-of-join" title="Agda: isPullback" aria-controls="agda-ch3-rmk-mapping-out-of-join"><span class="ntx-Bold-tlf-t1-x-x-109">Remark 3.6.1.</span></a>  </span><span class="source-anchor" id="rmk:Mapping_Out_Of_Join"></span> In other words, for every third category \(E\), the commutative square
+</p><details class="agda-panel agda-inline" id="agda-ch3-rmk-mapping-out-of-join"><summary><span class="agda-tag">Agda</span> Mapping out of a join</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section06.JoinMappingOut" data-declaration="MappingOut.isPullback"><h4><code>isPullback</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinMappingOut.html#5242" class="Function">isPullback</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section06.PullbackSquares.html#1105" class="Function">IsPullback</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinMappingOut.html#5029" class="Function">cone</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">    <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinMappingOut.html#5242" class="Function">isPullback</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter01.Section06.PullbackSquares.html#2063" class="Function">pullback-cone-invariant</a>
+      <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section06.ConeCalculus.Comparisons.html#3174" class="Function">coneRetarget-β</a> <a href="agda/SCT.VolumeI.Chapter01.Section06.Cospans.EquivalentCospanCone.html#2427" class="Function">Changed.cone</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section07.Functoriality.html#1028" class="Function">funPre</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.PushoutCalculus.NormalizedJoinPushout.html#3319" class="Function">Join.cylinder</a><a class="Symbol">)</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinMappingOut.html#4656" class="Function">restriction</a>
+        <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section02.Coherence.html#1297" class="Function">comp-unitˡ</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section07.Functoriality.html#1028" class="Function">funPre</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.PushoutCalculus.NormalizedJoinPushout.html#3319" class="Function">Join.cylinder</a><a class="Symbol">))</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinMappingOut.html#4782" class="Function">boundary-comparison</a><a class="Symbol">)</a> <a href="agda/SCT.VolumeI.Chapter01.Section06.Cospans.EquivalentCospanCone.html#2769" class="Function">Changed.isPullback</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import Agda.Builtin.Nat using (Nat; suc) renaming (zero to zeroℕ)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section05.Coproducts as Coproducts
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter01.Section06.UniversalCoproducts as Universality
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Interval
+import SCT.VolumeI.Chapter03.Section06.JoinAxiom as Axiom
+
+module SCT.VolumeI.Chapter03.Section06.JoinMappingOut
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M)
+  (B : Coproducts.CoproductStructure 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (U : Universality.CoproductUniversality 𝒯 M B P)
+  (I : Interval.WalkingMorphism 𝒯) (J : Axiom.JoinAxiom 𝒯 M ℱ B P U I) where
+
+module MappingOut (C D E : CAT) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinMappingOut.html#5242">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section06/JoinMappingOut.lagda.md">Literate source, line 85</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="joins.html#text-ch3-rmk-mapping-out-of-join">Return to this passage</a> · <a class="permalink" href="joins.html#agda-ch3-rmk-mapping-out-of-join">Panel link</a></p></div></details><p class="noindent"></p><figure class="diagram"><img src="assets/diagrams/diagram-5e8c09432e750a64.svg" alt="Commutative diagram from the manuscript; its arrows and comparisons are described in the surrounding text."></figure>
+<p></p><p class="noindent">is a pullback square.
+</p>
+</div>
+<p class="noindent"> </p></section>
+<p></p><p class="noindent"></p><section class="statement" data-environment="example" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-49003r2"></a>
+
+
+<a class="agda-trigger agda-heading" id="text-ch3-ex-0-star-0-is-1" href="joins.html#agda-ch3-ex-0-star-0-is-1" data-agda="ch3-ex-0-star-0-is-1" title="Agda: comparison-isEquiv" aria-controls="agda-ch3-ex-0-star-0-is-1"><span class="ntx-Bold-tlf-t1-x-x-109">Example 3.6.2.</span></a>  </span><span class="source-anchor" id="ex:[0]star[0]is[1]"></span> For \(C = D = [0]\), we see that \([0] \star [0] \iso [1]\).
+</p><details class="agda-panel agda-inline" id="agda-ch3-ex-0-star-0-is-1"><summary><span class="agda-tag">Agda</span> The join of two points</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section06.JoinOfPoints" data-declaration="comparison-isEquiv"><h4><code>comparison-isEquiv</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">  <a></a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinOfPoints.html#4017" class="Function">comparison-isEquiv</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#1591" class="Record">IsEquiv</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinOfPoints.html#3678" class="Function">comparison</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">  <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinOfPoints.html#4017" class="Function">comparison-isEquiv</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter01.Section03.Equivalences.html#5935" class="Function">equiv-cancel-right</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2874" class="Function">Pushout.cylinder</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinOfPoints.html#3678" class="Function">comparison</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinOfPoints.html#3055" class="Function">cylinder-isEquiv</a>
+    <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section03.Equivalences.html#4580" class="Function">equiv-transport</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinOfPoints.html#3781" class="Function">cylinder-comparison</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#2700" class="Function Operator">⁻¹</a><a class="Symbol">)</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinOfPoints.html#3335" class="Function">cylinder-projection-isEquiv</a><a class="Symbol">)</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section05.Coproducts as Coproducts
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter01.Section06.UniversalCoproducts as Universality
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Interval
+import SCT.VolumeI.Chapter03.Section06.JoinAxiom as Axiom
+
+module SCT.VolumeI.Chapter03.Section06.JoinOfPoints
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M)
+  (B : Coproducts.CoproductStructure 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (U : Universality.CoproductUniversality 𝒯 M B P)
+  (I : Interval.WalkingMorphism 𝒯) (J : Axiom.JoinAxiom 𝒯 M ℱ B P U I) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinOfPoints.html#4017">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section06/JoinOfPoints.lagda.md">Literate source, line 78</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="joins.html#text-ch3-ex-0-star-0-is-1">Return to this passage</a> · <a class="permalink" href="joins.html#agda-ch3-ex-0-star-0-is-1">Panel link</a></p></div></details>
+</div>
+<p class="noindent"> </p></section>
+<p></p><p class="noindent"></p><section class="statement" data-environment="example" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-49004r3"></a>
+<a class="agda-trigger agda-heading" id="text-ch3-ex-join-associative-on-simplices" href="joins.html#agda-ch3-ex-join-associative-on-simplices" data-agda="ch3-ex-join-associative-on-simplices" title="Agda: comparison-isEquiv, comparison-isEquiv" aria-controls="agda-ch3-ex-join-associative-on-simplices"><span class="ntx-Bold-tlf-t1-x-x-109">Example 3.6.3.</span></a>  </span><span class="source-anchor" id="ex:Join_Associative_On_Simplices"></span> By Corollary <a href="segal-axiom.html#cor:Commutative_Triangles">2.2.8</a>, the commutative squares
+</p><details class="agda-panel agda-inline" id="agda-ch3-ex-join-associative-on-simplices"><summary><span class="agda-tag">Agda</span> Joins forming a triangle</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section06.TriangleJoins" data-declaration="Triangle.Left.comparison-isEquiv"><h4><code>comparison-isEquiv</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section06.TriangleJoins.html#6331" class="Function">comparison-isEquiv</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#1591" class="Record">IsEquiv</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.TriangleJoins.html#6262" class="Function">comparison</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">    <a href="agda/SCT.VolumeI.Chapter03.Section06.TriangleJoins.html#6331" class="Function">comparison-isEquiv</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.PushoutCalculus.SpanEquivalence.html#3520" class="Function">Result.isEquiv</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+import SCT.VolumeI.Chapter02.Section05.Recognition as Recognition
+import SCT.VolumeI.Chapter01.Section05.Initial as Initial
+
+import SCT.VolumeI.Chapter01.Section05.Coproducts as Coproducts
+import SCT.VolumeI.Chapter01.Section06.UniversalCoproducts as Universality
+import SCT.VolumeI.Chapter03.Section06.JoinAxiom as JoinsAxiom
+
+module SCT.VolumeI.Chapter03.Section06.TriangleJoins
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E)
+  (N : Recognition.RecognitionAxiom 𝒯 M ℱ P I E R)
+  (O : Initial.InitialStructure 𝒯 M)
+  (B : Coproducts.CoproductStructure 𝒯 M)
+  (U : Universality.CoproductUniversality 𝒯 M B P)
+  (J : JoinsAxiom.JoinAxiom 𝒯 M ℱ B P U I) where
+
+module Triangle (L : SubcategoryAxiom) (Z : WithSubcategories.LocalizationAxiom L) where
+
+  module Left where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section06.TriangleJoins.html#6331">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section06/TriangleJoins.lagda.md">Literate source, line 99</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section06.TriangleJoins" data-declaration="Triangle.Right.comparison-isEquiv"><h4><code>comparison-isEquiv</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section06.TriangleJoins.html#9123" class="Function">comparison-isEquiv</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#1591" class="Record">IsEquiv</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.TriangleJoins.html#9054" class="Function">comparison</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">    <a href="agda/SCT.VolumeI.Chapter03.Section06.TriangleJoins.html#9123" class="Function">comparison-isEquiv</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.PushoutCalculus.SpanEquivalence.html#3520" class="Function">Result.isEquiv</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+import SCT.VolumeI.Chapter02.Section05.Recognition as Recognition
+import SCT.VolumeI.Chapter01.Section05.Initial as Initial
+
+import SCT.VolumeI.Chapter01.Section05.Coproducts as Coproducts
+import SCT.VolumeI.Chapter01.Section06.UniversalCoproducts as Universality
+import SCT.VolumeI.Chapter03.Section06.JoinAxiom as JoinsAxiom
+
+module SCT.VolumeI.Chapter03.Section06.TriangleJoins
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E)
+  (N : Recognition.RecognitionAxiom 𝒯 M ℱ P I E R)
+  (O : Initial.InitialStructure 𝒯 M)
+  (B : Coproducts.CoproductStructure 𝒯 M)
+  (U : Universality.CoproductUniversality 𝒯 M B P)
+  (J : JoinsAxiom.JoinAxiom 𝒯 M ℱ B P U I) where
+
+module Triangle (L : SubcategoryAxiom) (Z : WithSubcategories.LocalizationAxiom L) where
+
+  module Right where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section06.TriangleJoins.html#9123">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section06/TriangleJoins.lagda.md">Literate source, line 142</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p>The formal comparisons point from the triangle to the joins; their inverses give the displayed direction.</p><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="joins.html#text-ch3-ex-join-associative-on-simplices">Return to this passage</a> · <a class="permalink" href="joins.html#agda-ch3-ex-join-associative-on-simplices">Panel link</a></p></div></details><p class="noindent"></p><figure class="diagram"><img src="assets/diagrams/diagram-dce175d63aeb92e5.svg" alt="Commutative diagram from the manuscript; its arrows and comparisons are described in the surrounding text."></figure>
+<p></p><p class="noindent">are pushout squares. It follows that there are equivalences \[ [0] \star [1] \iso [2] \inviso [1] \star [0]. \]
+</p>
+</div>
+<p class="noindent"> </p></section>
+<p></p><p class="noindent"></p><section class="statement" data-environment="notation" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-49005r4"></a>
+<span class="ntx-Bold-tlf-t1-x-x-109">Notation 3.6.4.</span>  </span>For  any  functor  \(g\colon C \star D \to E\),  we  denote  by  \[ g_C \colon C \to E \qquadtext { and } g_D \colon D \to E \]  the  composites  of  \(g\)  with  the  inclusions  \(C \to C \star D\)  and  \(D \to C \star D\),
+respectively.
+</p>
+</div>
+<p class="noindent"> </p></section>
+<p></p><p class="noindent"></p><section class="statement" data-environment="construction" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+
+
+<p class="noindent"><span class="head">
+<a id="x1-49006r5"></a>
+<a class="agda-trigger agda-heading" id="text-ch3-con-functoriality-of-joins" href="joins.html#agda-ch3-con-functoriality-of-joins" data-agda="ch3-con-functoriality-of-joins" title="Agda: functor, comparison" aria-controls="agda-ch3-con-functoriality-of-joins"><span class="ntx-Bold-tlf-t1-x-x-109">Construction 3.6.5 </span></a>(Functoriality of joins)<span class="ntx-Bold-tlf-t1-x-x-109">.</span>  </span><span class="source-anchor" id="con:Functoriality_Of_Joins"></span> Consider functors \(f\colon C \to C'\) and \(g\colon D \to D'\). Then the functors \(f \times \id _{[1]} \times g\colon C \times [1] \times D \to C' \times [1] \times D'\) and \(f \sqcup g\colon C \sqcup D \to C' \sqcup D'\) induce
+a functor \(f \star g\colon C \star D \to C' \star D'\). The universal property supplies identifications \[ \id _C\star \id _D = \id _{C\star D} \qquadtext {and}\qquad (f'\star g')\circ (f\star g) = (f'\circ f)\star (g'\circ g). \]
+</p><details class="agda-panel agda-inline" id="agda-ch3-con-functoriality-of-joins"><summary><span class="agda-tag">Agda</span> The mapping-out action on joins</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section06.JoinPushoutAction" data-declaration="Action.functor"><h4><code>functor</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">  <a></a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinPushoutAction.html#6619" class="Function">functor</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinPushoutAction.html#2728" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#2293" class="Function Operator">⋆</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinPushoutAction.html#2730" class="Bound">D</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinPushoutAction.html#2732" class="Bound">C′</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#2293" class="Function Operator">⋆</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinPushoutAction.html#2735" class="Bound">D′</a><a class="Symbol">)</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">  <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinPushoutAction.html#6619" class="Function">functor</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter01.Section08.CoconeCalculus.CoconeUniversality.html#866" class="Function">Universal.factor</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinPushoutAction.html#2732" class="Bound">C′</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#2293" class="Function Operator">⋆</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinPushoutAction.html#2735" class="Bound">D′</a><a class="Symbol">)</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinPushoutAction.html#6439" class="Function">cocone</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import Agda.Builtin.Nat using (Nat; suc) renaming (zero to zeroℕ)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section05.Coproducts as Coproducts
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter01.Section06.UniversalCoproducts as Universality
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Interval
+import SCT.VolumeI.Chapter03.Section06.JoinAxiom as Axiom
+
+module SCT.VolumeI.Chapter03.Section06.JoinPushoutAction
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M)
+  (B : Coproducts.CoproductStructure 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (U : Universality.CoproductUniversality 𝒯 M B P)
+  (I : Interval.WalkingMorphism 𝒯) (J : Axiom.JoinAxiom 𝒯 M ℱ B P U I) where
+
+module Action {C D C′ D′ : CAT} (f : MAP C C′) (g : MAP D D′) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinPushoutAction.html#6619">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section06/JoinPushoutAction.lagda.md">Literate source, line 107</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section06.JoinPushoutAction" data-declaration="Action.comparison"><h4><code>comparison</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinPushoutAction.html#6712" class="Function">comparison</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section08.Cocones.html#982" class="Record">CoconeIso</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section08.CoconeCalculus.CoconePostcomposition.html#1165" class="Function">coconePost</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinPushoutAction.html#6619" class="Function">functor</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.PushoutCalculus.NormalizedJoinPushout.html#3494" class="Function">Source.cocone</a><a class="Symbol">)</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinPushoutAction.html#6439" class="Function">cocone</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">    <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinPushoutAction.html#6712" class="Function">comparison</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter01.Section08.CoconeCalculus.CoconeUniversality.html#914" class="Function">Universal.factor-β</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinPushoutAction.html#2732" class="Bound">C′</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#2293" class="Function Operator">⋆</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinPushoutAction.html#2735" class="Bound">D′</a><a class="Symbol">)</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinPushoutAction.html#6439" class="Function">cocone</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import Agda.Builtin.Nat using (Nat; suc) renaming (zero to zeroℕ)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section05.Coproducts as Coproducts
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter01.Section06.UniversalCoproducts as Universality
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Interval
+import SCT.VolumeI.Chapter03.Section06.JoinAxiom as Axiom
+
+module SCT.VolumeI.Chapter03.Section06.JoinPushoutAction
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M)
+  (B : Coproducts.CoproductStructure 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (U : Universality.CoproductUniversality 𝒯 M B P)
+  (I : Interval.WalkingMorphism 𝒯) (J : Axiom.JoinAxiom 𝒯 M ℱ B P U I) where
+
+module Action {C D C′ D′ : CAT} (f : MAP C C′) (g : MAP D D′) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinPushoutAction.html#6712">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section06/JoinPushoutAction.lagda.md">Literate source, line 110</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p>Partial coverage: this constructs the manuscript action and its full cocone compatibility. Identity and composition laws are currently proved for a separate dependent-product action in JoinFunctoriality; agreement of the two actions is not yet proved.</p><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="joins.html#text-ch3-con-functoriality-of-joins">Return to this passage</a> · <a class="permalink" href="joins.html#agda-ch3-con-functoriality-of-joins">Panel link</a></p></div></details>
+</div>
+<p class="noindent"> </p></section>
+<p></p><p class="noindent"></p><section class="statement" data-environment="example" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-49007r6"></a>
+<span class="ntx-Bold-tlf-t1-x-x-109">Example 3.6.6.</span>  </span>Taking \(f = p_C\colon C \to [0]\) and \(g = p_D\colon D \to [0]\), we obtain a map \(p_C \star p_D\colon C \star D \to [0] \star [0] = [1]\) fitting in a commutative diagram as follows:
+</p><p class="noindent"></p><figure class="diagram"><img src="assets/diagrams/diagram-d4bf9d86cb34caab.svg" alt="Commutative diagram from the manuscript; its arrows and comparisons are described in the surrounding text."></figure>
+<p></p>
+</div>
+<p class="noindent"> </p></section>
+<p></p><p class="noindent">We now come to the second universal property of \(C \star D\):
+</p>
+<div class="framedenv">
+<p class="noindent"></p><section class="statement" data-environment="usubaxiom" data-scope="categorical" aria-label="Statement with intended validity in categorical contexts">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-49008r2"></a>
+<a class="agda-trigger agda-heading" id="text-ch3-axiom-k2-join-as-dependent-product" href="joins.html#agda-ch3-axiom-k2-join-as-dependent-product" data-agda="ch3-axiom-k2-join-as-dependent-product" title="Agda: boundary-isEquiv, mapping-in" aria-controls="agda-ch3-axiom-k2-join-as-dependent-product"><span class="underline"><span class="ntx-Bold-tlf-t1-x-x-109">Axiom J.2</span></span></a> (Join as dependent product).  </span><span class="source-anchor" id="axiom:K2_Join_As_Dependent_Product"></span> Let \(\Gamma \) be a category and let \(C\to \Gamma \) and \(D\to \Gamma \) be functors. There is a
+category \(C\star _\Gamma D\) over \(\Gamma \) and a height functor \(h_{C,D}\colon C\star _\Gamma D\to \Gamma \times [1]\). When \(\Gamma \) is an anima, we require these to agree with the category
+and height functor supplied by Axiom <a href="joins.html#axiom:K_Joins">J.1</a>. Write \[ j_\Gamma :=\id _\Gamma \times j\colon \Gamma \times \partial [1]\longrightarrow \Gamma \times [1] \] for the weakening of the boundary inclusion. Then
+
+
+the canonical functor \[ C\sqcup D\longrightarrow (C\star _\Gamma D)\times _{\Gamma \times [1]}(\Gamma \times \partial [1]) \] is an equivalence, and its inverse exhibits the height functor \(h_{C,D}\colon C\star _\Gamma D\to \Gamma \times [1]\) as a dependent
+product of the category \(C\sqcup D\) over \(\Gamma \times \partial [1]\) along \(j_\Gamma \), in the sense of Definition <a href="exponentiable-functors.html#def:Dependent_Product">3.5.4</a>.
+</p><details class="agda-panel agda-inline" id="agda-ch3-axiom-k2-join-as-dependent-product"><summary><span class="agda-tag">Agda</span> The mapping-in join axiom</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section06.JoinAxiom" data-declaration="JoinAxiom.boundary-isEquiv"><h4><code>boundary-isEquiv</code></h4><p class="status">Assumption, type checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5118" class="Field">boundary-isEquiv</a> <a class="Symbol">:</a> <a class="Symbol">{</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5138" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5140" class="Bound">D</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5142" class="Bound">Γ</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a><a class="Symbol">}</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5152" class="Bound">p</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5138" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5142" class="Bound">Γ</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5166" class="Bound">q</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5140" class="Bound">D</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5142" class="Bound">Γ</a><a class="Symbol">)</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#1591" class="Record">IsEquiv</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#4098" class="Function">BoundaryComparison.functor</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#4958" class="Field">dataJoin</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5152" class="Bound">p</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5166" class="Bound">q</a><a class="Symbol">)</a></pre><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level) renaming (_⊔_ to _⊔ℓ_)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section05.Coproducts as Coproducts
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter01.Section06.UniversalCoproducts as Universality
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Interval
+
+module SCT.VolumeI.Chapter03.Section06.JoinAxiom
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M)
+  (B : Coproducts.CoproductStructure 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (U : Universality.CoproductUniversality 𝒯 M B P)
+  (I : Interval.WalkingMorphism 𝒯) where
+
+record JoinAxiom : Set (c ⊔ℓ m ⊔ℓ a) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5118">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section06/JoinAxiom.lagda.md">Literate source, line 112</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section06.JoinAxiom" data-declaration="JoinAxiom.mapping-in"><h4><code>mapping-in</code></h4><p class="status">Assumption, type checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5235" class="Field">mapping-in</a> <a class="Symbol">:</a> <a class="Symbol">{</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5249" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5251" class="Bound">D</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5253" class="Bound">Γ</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a><a class="Symbol">}</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5263" class="Bound">p</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5249" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5253" class="Bound">Γ</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5277" class="Bound">q</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5251" class="Bound">D</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5253" class="Bound">Γ</a><a class="Symbol">)</a> <a class="Symbol">→</a>
+      <a href="agda/SCT.VolumeI.Chapter03.Section05.DependentProducts.html#1825" class="Record">IsDependentProduct</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.BoundaryCalculus.JoinBoundary.html#1299" class="Function">weakened-boundary</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5253" class="Bound">Γ</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.BoundaryCalculus.JoinBoundary.html#1501" class="Function">Boundary.projection</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5263" class="Bound">p</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5277" class="Bound">q</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2303" class="Function">height</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5263" class="Bound">p</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5277" class="Bound">q</a><a class="Symbol">)</a>
+        <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#4348" class="Function">BoundaryComparison.evaluation</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#4958" class="Field">dataJoin</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5263" class="Bound">p</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5277" class="Bound">q</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5118" class="Field">boundary-isEquiv</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5263" class="Bound">p</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5277" class="Bound">q</a><a class="Symbol">))</a></pre><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level) renaming (_⊔_ to _⊔ℓ_)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section05.Coproducts as Coproducts
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter01.Section06.UniversalCoproducts as Universality
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Interval
+
+module SCT.VolumeI.Chapter03.Section06.JoinAxiom
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M)
+  (B : Coproducts.CoproductStructure 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (U : Universality.CoproductUniversality 𝒯 M B P)
+  (I : Interval.WalkingMorphism 𝒯) where
+
+record JoinAxiom : Set (c ⊔ℓ m ⊔ℓ a) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5235">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section06/JoinAxiom.lagda.md">Literate source, line 113</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p>This is the absolute axiom parametrized by an arbitrary base category. The link does not assert full categorical-context inheritance.</p><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="joins.html#text-ch3-axiom-k2-join-as-dependent-product">Return to this passage</a> · <a class="permalink" href="joins.html#agda-ch3-axiom-k2-join-as-dependent-product">Panel link</a></p></div></details>
+</div>
+<p class="noindent"> </p></section> <p></p></div>
+<p class="noindent"></p><section class="statement" data-environment="definition" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-49009r7"></a>
+<a class="agda-trigger agda-heading" id="text-ch3-def-relative-join" href="joins.html#agda-ch3-def-relative-join" data-agda="ch3-def-relative-join" title="Agda: JoinOver, join-dependent-product" aria-controls="agda-ch3-def-relative-join"><span class="ntx-Bold-tlf-t1-x-x-109">Definition 3.6.7.</span></a>  </span><span class="source-anchor" id="def:Relative_Join"></span> Let \(p\colon C\to S\) and \(q\colon D\to S\) be functors. The category \(C\star _S D\to S\) supplied by Axiom <a href="joins.html#axiom:K2_Join_As_Dependent_Product">J.2</a> is called the <a class="agda-trigger" data-agda="ch3-relative-join-introduction" href="joins.html#agda-ch3-relative-join-introduction" id="text-ch3-relative-join-introduction" title="Agda: JoinOver" aria-controls="agda-ch3-relative-join-introduction"><span class="ntx-Italic-tlf-t1-x-x-109">relative
+join </span>of \(C\) and \(D\) over \(S\)</a>.
+</p><details class="agda-panel agda-inline" id="agda-ch3-def-relative-join"><summary><span class="agda-tag">Agda</span> Relative joins</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section06.JoinAxiom" data-declaration="JoinData.JoinOver"><h4><code>JoinOver</code></h4><p class="status">Definition, checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2248" class="Field">JoinOver</a> <a class="Symbol">:</a> <a class="Symbol">{</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2260" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2262" class="Bound">D</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2264" class="Bound">Γ</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a><a class="Symbol">}</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2260" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2264" class="Bound">Γ</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2262" class="Bound">D</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2264" class="Bound">Γ</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a></pre><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level) renaming (_⊔_ to _⊔ℓ_)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section05.Coproducts as Coproducts
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter01.Section06.UniversalCoproducts as Universality
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Interval
+
+module SCT.VolumeI.Chapter03.Section06.JoinAxiom
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M)
+  (B : Coproducts.CoproductStructure 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (U : Universality.CoproductUniversality 𝒯 M B P)
+  (I : Interval.WalkingMorphism 𝒯) where
+
+record JoinData : Set (c ⊔ℓ m) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2248">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section06/JoinAxiom.lagda.md">Literate source, line 46</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section06.Joins" data-declaration="join-dependent-product"><h4><code>join-dependent-product</code></h4><p class="status">Definition, checked</p><pre class="Agda signature"><a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#2881" class="Function">join-dependent-product</a> <a class="Symbol">:</a> <a class="Symbol">{</a><a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#2907" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#2909" class="Bound">D</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#2911" class="Bound">Γ</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a><a class="Symbol">}</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#2921" class="Bound">p</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#2907" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#2911" class="Bound">Γ</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#2935" class="Bound">q</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#2909" class="Bound">D</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#2911" class="Bound">Γ</a><a class="Symbol">)</a> <a class="Symbol">→</a>
+  <a href="agda/SCT.VolumeI.Chapter03.Section05.DependentProducts.html#2073" class="Record">DependentProduct</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.BoundaryCalculus.JoinBoundary.html#1299" class="Function">weakened-boundary</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#2911" class="Bound">Γ</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.BoundaryCalculus.JoinBoundary.html#1501" class="Function">Boundary.projection</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#2921" class="Bound">p</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#2935" class="Bound">q</a><a class="Symbol">)</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda"><a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#2881" class="Function">join-dependent-product</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#3040" class="Bound">p</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#3042" class="Bound">q</a> <a class="Symbol">=</a> <a class="Keyword">record</a>
+  <a class="Symbol">{</a> <a href="agda/SCT.VolumeI.Chapter03.Section05.DependentProducts.html#2164" class="Field">category</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2248" class="Function">JoinOver</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#3040" class="Bound">p</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#3042" class="Bound">q</a> <a class="Symbol">;</a> <a href="agda/SCT.VolumeI.Chapter03.Section05.DependentProducts.html#2183" class="Field">projection</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2303" class="Function">height</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#3040" class="Bound">p</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#3042" class="Bound">q</a>
+  <a class="Symbol">;</a> <a href="agda/SCT.VolumeI.Chapter03.Section05.DependentProducts.html#2215" class="Field">evaluation</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#4348" class="Function">BoundaryComparison.evaluation</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#4958" class="Field">dataJoin</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#3040" class="Bound">p</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#3042" class="Bound">q</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5118" class="Field">boundary-isEquiv</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#3040" class="Bound">p</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#3042" class="Bound">q</a><a class="Symbol">)</a>
+  <a class="Symbol">;</a> <a href="agda/SCT.VolumeI.Chapter03.Section05.DependentProducts.html#2279" class="Field">isDependentProduct</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#5235" class="Field">mapping-in</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#3040" class="Bound">p</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#3042" class="Bound">q</a> <a class="Symbol">}</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import Agda.Builtin.Nat using (Nat; suc) renaming (zero to zeroℕ)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section05.Coproducts as Coproducts
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter01.Section06.UniversalCoproducts as Universality
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Interval
+import SCT.VolumeI.Chapter03.Section06.JoinAxiom as Axiom
+
+module SCT.VolumeI.Chapter03.Section06.Joins
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M)
+  (B : Coproducts.CoproductStructure 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (U : Universality.CoproductUniversality 𝒯 M B P)
+  (I : Interval.WalkingMorphism 𝒯) (J : Axiom.JoinAxiom 𝒯 M ℱ B P U I) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#2881">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section06/Joins.lagda.md">Literate source, line 61</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="joins.html#text-ch3-def-relative-join">Return to this passage</a> · <a class="permalink" href="joins.html#agda-ch3-def-relative-join">Panel link</a></p></div></details><details class="agda-panel agda-inline" id="agda-ch3-relative-join-introduction"><summary><span class="agda-tag">Agda</span> Relative joins</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section06.JoinAxiom" data-declaration="JoinData.JoinOver"><h4><code>JoinOver</code></h4><p class="status">Definition, checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2248" class="Field">JoinOver</a> <a class="Symbol">:</a> <a class="Symbol">{</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2260" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2262" class="Bound">D</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2264" class="Bound">Γ</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a><a class="Symbol">}</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2260" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2264" class="Bound">Γ</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2262" class="Bound">D</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2264" class="Bound">Γ</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a></pre><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level) renaming (_⊔_ to _⊔ℓ_)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section05.Coproducts as Coproducts
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter01.Section06.UniversalCoproducts as Universality
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Interval
+
+module SCT.VolumeI.Chapter03.Section06.JoinAxiom
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M)
+  (B : Coproducts.CoproductStructure 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (U : Universality.CoproductUniversality 𝒯 M B P)
+  (I : Interval.WalkingMorphism 𝒯) where
+
+record JoinData : Set (c ⊔ℓ m) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2248">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section06/JoinAxiom.lagda.md">Literate source, line 46</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="joins.html#text-ch3-relative-join-introduction">Return to this passage</a> · <a class="permalink" href="joins.html#agda-ch3-relative-join-introduction">Panel link</a></p></div></details>
+</div>
+<p class="noindent"> </p></section>
+<p></p><p class="noindent"></p><section class="statement" data-environment="remark" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-49010r8"></a>
+<span class="ntx-Bold-tlf-t1-x-x-109">Remark 3.6.8.</span>  </span>Let us spell out the resulting universal property more explicitly. Consider a category \(E\)
+over \(\Gamma \times [1]\) and denote by \(E_0\) and \(E_1\) its restrictions along the two sections \(\Gamma \to \Gamma \times [1]\). Then Axiom <a href="joins.html#axiom:K2_Join_As_Dependent_Product">J.2</a> gives an equivalence
+\[ \Map _{\Gamma \times [1]}(E,C\star _\Gamma D) \simeq \Map _{\Gamma \times \partial [1]} (E\times _{\Gamma \times [1]}(\Gamma \times \partial [1]),C\sqcup D) \simeq \Map _\Gamma (E_0,C)\times \Map _\Gamma (E_1,D). \] <a class="agda-trigger" data-agda="ch3-join-mapping-in" href="joins.html#agda-ch3-join-mapping-in" id="text-ch3-join-mapping-in" title="Agda: maps-isEquiv" aria-controls="agda-ch3-join-mapping-in">In other words, giving a functor \(\varphi \colon E\to C\star _\Gamma D\) over \(\Gamma \times [1]\) amounts to giving functors \(\varphi _0\colon E_0\to C\) and \(\varphi _1\colon E_1\to D\) over \(\Gamma \).</a>
+</p><details class="agda-panel agda-inline" id="agda-ch3-join-mapping-in"><summary><span class="agda-tag">Agda</span> Mapping into a relative join</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section06.JoinMappingIn" data-declaration="Endpoints.maps-isEquiv"><h4><code>maps-isEquiv</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinMappingIn.html#6759" class="Function">maps-isEquiv</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#1591" class="Record">IsEquiv</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinMappingIn.html#6612" class="Function">maps</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">    <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinMappingIn.html#6759" class="Function">maps-isEquiv</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter01.Section03.Equivalences.html#4859" class="Function">equiv-compose</a> <a href="agda/SCT.VolumeI.Chapter03.Section05.DependentProducts.html#2602" class="Function">Uncurry.uncurry</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinMappingIn.html#6151" class="Function">boundary-maps</a> <a href="agda/SCT.VolumeI.Chapter03.Section05.DependentProducts.html#2704" class="Function">Uncurry.uncurry-isEquiv</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinMappingIn.html#6313" class="Function">boundary-maps-isEquiv</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import Agda.Builtin.Nat using (Nat; suc) renaming (zero to zeroℕ)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section05.Coproducts as Coproducts
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter01.Section06.UniversalCoproducts as Universality
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Interval
+import SCT.VolumeI.Chapter03.Section06.JoinAxiom as Axiom
+
+module SCT.VolumeI.Chapter03.Section06.JoinMappingIn
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M)
+  (B : Coproducts.CoproductStructure 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (U : Universality.CoproductUniversality 𝒯 M B P)
+  (I : Interval.WalkingMorphism 𝒯) (J : Axiom.JoinAxiom 𝒯 M ℱ B P U I) where
+
+module Endpoints {C D Γ E : CAT} (p : MAP C Γ) (q : MAP D Γ) (t : MAP E (Γ × [1])) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinMappingIn.html#6759">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section06/JoinMappingIn.lagda.md">Literate source, line 117</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="joins.html#text-ch3-join-mapping-in">Return to this passage</a> · <a class="permalink" href="joins.html#agda-ch3-join-mapping-in">Panel link</a></p></div></details>
+</div>
+<p class="noindent"> </p></section>
+<p></p><p class="noindent"></p><section class="statement" data-environment="proposition" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+
+
+<a id="x1-49011r9"></a>
+<a class="agda-trigger agda-heading" id="text-ch3-prop-core-of-join" href="joins.html#agda-ch3-prop-core-of-join" data-agda="ch3-prop-core-of-join" title="Agda: comparison-isEquiv" aria-controls="agda-ch3-prop-core-of-join"><span class="ntx-Bold-tlf-t1-x-x-109">Proposition 3.6.9.</span></a>  </span><span class="source-anchor" id="prop:core_of_join"> </span><span class="ntx-Italic-tlf-t1-x-x-109">Let</span> \(A\) <span class="ntx-Italic-tlf-t1-x-x-109">and</span> \(B\) <span class="ntx-Italic-tlf-t1-x-x-109">be two categories. The canonical embedding</span> \(A\sqcup B\hookrightarrow A\star B\) <span class="ntx-Italic-tlf-t1-x-x-109">induces an equivalence</span>
+\[ A^\simeq \sqcup B^\simeq \iso (A\star B)^\simeq \, . \]
+</p><details class="agda-panel agda-inline" id="agda-ch3-prop-core-of-join"><summary><span class="agda-tag">Agda</span> Core of a join</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section06.CoreOfJoin" data-declaration="RelativeCore.comparison-isEquiv"><h4><code>comparison-isEquiv</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section06.CoreOfJoin.html#3144" class="Function">comparison-isEquiv</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#1591" class="Record">IsEquiv</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.CoreOfJoin.html#2709" class="Function">comparison</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">    <a href="agda/SCT.VolumeI.Chapter03.Section06.CoreOfJoin.html#3144" class="Function">comparison-isEquiv</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter01.Section03.Equivalences.html#4580" class="Function">equiv-transport</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.CoreOfJoin.html#2868" class="Function">comparison-factorization</a>
+      <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section03.Equivalences.html#4859" class="Function">equiv-compose</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter02.Section01.CoreCoproducts.html#1730" class="Function">coreCopair</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.CoreOfJoin.html#2326" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.CoreOfJoin.html#2328" class="Bound">D</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section04.Functoriality.html#828" class="Function">mapPost</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2389" class="Function">inclusion</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.CoreOfJoin.html#2340" class="Bound">p</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.CoreOfJoin.html#2354" class="Bound">q</a><a class="Symbol">))</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter02.Section01.CoreCoproducts.html#2480" class="Function">coreCopair-isEquiv</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.CoreOfJoin.html#2326" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.CoreOfJoin.html#2328" class="Bound">D</a><a class="Symbol">)</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.CoreOfJoin.html#2441" class="Function">inclusion-core-isEquiv</a><a class="Symbol">)</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section05.Coproducts as Coproducts
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter01.Section06.UniversalCoproducts as Universality
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Interval
+import SCT.VolumeI.Chapter02.Section01.IntervalCore as IntervalCore
+import SCT.VolumeI.Chapter03.Section06.JoinAxiom as Axiom
+
+module SCT.VolumeI.Chapter03.Section06.CoreOfJoin
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M)
+  (B : Coproducts.CoproductStructure 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (U : Universality.CoproductUniversality 𝒯 M B P)
+  (I : Interval.WalkingMorphism 𝒯) (K : IntervalCore.IntervalCoreAxiom 𝒯 M B I)
+  (J : Axiom.JoinAxiom 𝒯 M ℱ B P U I) where
+
+module RelativeCore {C D Γ : CAT} (p : MAP C Γ) (q : MAP D Γ) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section06.CoreOfJoin.html#3144">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section06/CoreOfJoin.lagda.md">Literate source, line 60</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p>The formal proof takes cores of the boundary pullback and uses the boundary equivalence on cores. The manuscript instead constructs an embedding with a section in the opposite direction.</p><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="joins.html#text-ch3-prop-core-of-join">Return to this passage</a> · <a class="permalink" href="joins.html#agda-ch3-prop-core-of-join">Panel link</a></p></div></details>
+</div>
+<p class="noindent"> </p></section>
+<p></p>
+<details class="book-proof" open><summary>Proof</summary><div class="proof-content">
+<p class="noindent"><span class="head">
+<span class="ntx-Italic-tlf-t1-x-x-109">Proof.</span> </span>Let \(h\colon A\star B\to [1]\) be the height functor. By Axiom <a href="joins.html#axiom:K2_Join_As_Dependent_Product">J.2</a>, there is a pullback square
+</p><p class="noindent"></p><figure class="diagram"><img src="assets/diagrams/diagram-78e6072be3fc148d.svg" alt="Commutative diagram from the manuscript; its arrows and comparisons are described in the surrounding text."></figure>
+<p></p><p class="noindent">The canonical equivalence \(\partial [1]\iso [1]^\simeq \) from Axiom <a href="morphisms-and-diagrams.html#post:Directed_Interval">C.1</a> identifies this with a pullback square
+</p><p class="noindent"></p><figure class="diagram"><img src="assets/diagrams/diagram-245db60037490a91.svg" alt="Commutative diagram from the manuscript; its arrows and comparisons are described in the surrounding text."></figure>
+<p></p><p class="noindent">up to the specified comparison. The square formed by the two groupoid-core inclusions and \(h\) therefore
+induces a functor \[ u\colon (A\star B)^\simeq \longrightarrow (A\sqcup B)^\simeq \iso A^\simeq \sqcup B^\simeq . \] The functor \(u\) is an embedding: after composing with the groupoid-core inclusion of
+\(A\sqcup B\) and then with \(A\sqcup B\hookrightarrow A\star B\), it agrees with the groupoid-core inclusion of \(A\star B\). Since these inclusions are embeddings,
+so is \(u\) by Lemma <a href="pullbacks.html#lem:Left_Cancellation_Embeddings">1.6.26</a>.
+</p><p class="noindent">Applying groupoid cores to \(A\sqcup B\hookrightarrow A\star B\) and using Lemma <a href="morphisms-and-diagrams.html#lem:Groupoid_Core_Preserves_Disjoint_Unions">2.1.28</a> gives a section \[ A^\simeq \sqcup B^\simeq \longrightarrow (A\star B)^\simeq \] of \(u\). Hence \(u\) is an equivalence
+by Lemma <a href="pullbacks.html#lem:Embedding_With_Section_Is_Homotopy_Equivalence">1.6.24</a>.                                                                                                                              □
+</p>
+</div></details>
+<p class="noindent">
+</p>
+<h5 class="subsubsectionHead" id="unitality-and-associativity"><a id="x1-50000"></a>Unitality and associativity</h5>
+<p class="noindent"><span class="source-anchor" id="sec:Unitality_And_Associativity"></span> We will now show that the join operation \((C,D) \mapsto C \star D\) is unital and associative.
+</p><p class="noindent"></p><section class="statement" data-environment="lemma" data-scope="ordinary">
+<p></p>
+
+
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-50001r10"></a>
+<a class="agda-trigger agda-heading" id="text-ch3-lem-unitality-of-joins" href="joins.html#agda-ch3-lem-unitality-of-joins" data-agda="ch3-lem-unitality-of-joins" title="Agda: inclusion-isEquiv, inclusion-isEquiv" aria-controls="agda-ch3-lem-unitality-of-joins"><span class="ntx-Bold-tlf-t1-x-x-109">Lemma 3.6.10 </span></a>(Unitality of joins)<span class="ntx-Bold-tlf-t1-x-x-109">.</span>  </span><span class="source-anchor" id="lem:Unitality_Of_Joins"> </span><span class="ntx-Italic-tlf-t1-x-x-109">For every category</span> \(C\)<span class="ntx-Italic-tlf-t1-x-x-109">, the maps</span> \(C \to \emptyset \star C\) <span class="ntx-Italic-tlf-t1-x-x-109">and</span> \(C \to C \star \emptyset \) <span class="ntx-Italic-tlf-t1-x-x-109">are equivalences.</span>
+</p><details class="agda-panel agda-inline" id="agda-ch3-lem-unitality-of-joins"><summary><span class="agda-tag">Agda</span> Unitality of joins</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section06.JoinUnits" data-declaration="LeftUnit.inclusion-isEquiv"><h4><code>inclusion-isEquiv</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">  <a></a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinUnits.html#3067" class="Function">inclusion-isEquiv</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#1591" class="Record">IsEquiv</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#2464" class="Function">join-in₂</a> <a class="Symbol">{</a><a href="agda/SCT.VolumeI.Chapter01.Section05.Initial.html#698" class="Function">Zero</a><a class="Symbol">}</a> <a class="Symbol">{</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinUnits.html#2712" class="Bound">C</a><a class="Symbol">})</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">  <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinUnits.html#3067" class="Function">inclusion-isEquiv</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter01.Section03.Equivalences.html#4859" class="Function">equiv-compose</a> <a href="agda/SCT.VolumeI.Chapter01.Section05.Coproducts.html#807" class="Function">in₂</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2389" class="Function">inclusion</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section01.Terminal.html#549" class="Function">terminate</a> <a href="agda/SCT.VolumeI.Chapter01.Section05.Initial.html#698" class="Function">Zero</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section01.Terminal.html#549" class="Function">terminate</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinUnits.html#2712" class="Bound">C</a><a class="Symbol">))</a>
+    <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section03.Equivalences.html#4360" class="Function">equiv-inverse</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section05.CoproductEquivalences.html#1584" class="Function">coproduct-unitˡ-isEquiv</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinUnits.html#2712" class="Bound">C</a><a class="Symbol">))</a>
+    <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinUnits.html#2340" class="Function">pushout-equivalence</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2999" class="Function">Pushout.square</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#3258" class="Function">Pushout.universal</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinUnits.html#2870" class="Function">top-isEquiv</a><a class="Symbol">)</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section05.Coproducts as Coproducts
+import SCT.VolumeI.Chapter01.Section05.Initial as Initial
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter01.Section06.UniversalCoproducts as Universality
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Interval
+import SCT.VolumeI.Chapter03.Section06.JoinAxiom as Axiom
+
+module SCT.VolumeI.Chapter03.Section06.JoinUnits
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M)
+  (B : Coproducts.CoproductStructure 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (U : Universality.CoproductUniversality 𝒯 M B P)
+  (I : Interval.WalkingMorphism 𝒯) (J : Axiom.JoinAxiom 𝒯 M ℱ B P U I)
+  (Z : Initial.InitialStructure 𝒯 M) (strict : Initial.StrictInitial 𝒯 M Z) where
+
+module LeftUnit (C : CAT) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinUnits.html#3067">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section06/JoinUnits.lagda.md">Literate source, line 60</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section06.JoinUnits" data-declaration="RightUnit.inclusion-isEquiv"><h4><code>inclusion-isEquiv</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">  <a></a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinUnits.html#3693" class="Function">inclusion-isEquiv</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#1591" class="Record">IsEquiv</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#2361" class="Function">join-in₁</a> <a class="Symbol">{</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinUnits.html#3338" class="Bound">C</a><a class="Symbol">}</a> <a class="Symbol">{</a><a href="agda/SCT.VolumeI.Chapter01.Section05.Initial.html#698" class="Function">Zero</a><a class="Symbol">})</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">  <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinUnits.html#3693" class="Function">inclusion-isEquiv</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter01.Section03.Equivalences.html#4859" class="Function">equiv-compose</a> <a href="agda/SCT.VolumeI.Chapter01.Section05.Coproducts.html#769" class="Function">in₁</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2389" class="Function">inclusion</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section01.Terminal.html#549" class="Function">terminate</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinUnits.html#3338" class="Bound">C</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section01.Terminal.html#549" class="Function">terminate</a> <a href="agda/SCT.VolumeI.Chapter01.Section05.Initial.html#698" class="Function">Zero</a><a class="Symbol">))</a>
+    <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section03.Equivalences.html#4360" class="Function">equiv-inverse</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section05.CoproductEquivalences.html#2056" class="Function">coproduct-unitʳ-isEquiv</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinUnits.html#3338" class="Bound">C</a><a class="Symbol">))</a>
+    <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinUnits.html#2340" class="Function">pushout-equivalence</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#2999" class="Function">Pushout.square</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinAxiom.html#3258" class="Function">Pushout.universal</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.JoinUnits.html#3496" class="Function">top-isEquiv</a><a class="Symbol">)</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section05.Coproducts as Coproducts
+import SCT.VolumeI.Chapter01.Section05.Initial as Initial
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter01.Section06.UniversalCoproducts as Universality
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Interval
+import SCT.VolumeI.Chapter03.Section06.JoinAxiom as Axiom
+
+module SCT.VolumeI.Chapter03.Section06.JoinUnits
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M)
+  (B : Coproducts.CoproductStructure 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (U : Universality.CoproductUniversality 𝒯 M B P)
+  (I : Interval.WalkingMorphism 𝒯) (J : Axiom.JoinAxiom 𝒯 M ℱ B P U I)
+  (Z : Initial.InitialStructure 𝒯 M) (strict : Initial.StrictInitial 𝒯 M Z) where
+
+module RightUnit (C : CAT) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section06.JoinUnits.html#3693">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section06/JoinUnits.lagda.md">Literate source, line 73</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="joins.html#text-ch3-lem-unitality-of-joins">Return to this passage</a> · <a class="permalink" href="joins.html#agda-ch3-lem-unitality-of-joins">Panel link</a></p></div></details>
+</div>
+<p class="noindent"> </p></section>
+<p></p>
+<details class="book-proof" open><summary>Proof</summary><div class="proof-content">
+<p class="noindent"><span class="head">
+<span class="ntx-Italic-tlf-t1-x-x-109">Proof.</span> </span>By definition the category \(\emptyset \star C\) sits in a pushout square
+</p><p class="noindent"></p><figure class="diagram"><img src="assets/diagrams/diagram-5ab20511640601a4.svg" alt="Commutative diagram from the manuscript; its arrows and comparisons are described in the surrounding text."></figure>
+<p></p><p class="noindent">and hence the bottom map is an equivalence. A similar argument applies to \(C \star \emptyset \).                                  □
+</p>
+</div></details>
+<p class="noindent"></p><section class="statement" data-environment="construction" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-50002r11"></a>
+<span class="ntx-Bold-tlf-t1-x-x-109">Construction 3.6.11 </span>(Associativity of joins)<span class="ntx-Bold-tlf-t1-x-x-109">.</span>  </span><span class="source-anchor" id="cons:Associativity_Isomorphisms"></span> Given categories \(C\), \(D\) and \(E\), we construct an equivalence
+\[ a_{C,D,E}\colon C \star (D \star E) \iso (C \star D) \star E. \] Applying the mapping-out property of joins twice shows that a functor from either parenthesization
+to a category \(F\) consists of the same data: functors from \(C\), \(D\), and \(E\) to \(F\); families of connecting morphisms
+from \(C\) to \(D\), from \(D\) to \(E\), and from \(C\) to \(E\); and a commutative triangle relating these three families over \(C\times D\times E\). The
+two pullback descriptions are identified using the equivalences \[ [0]\star [1]\iso [2] \inviso [1]\star [0] \] from Example <a href="joins.html#ex:Join_Associative_On_Simplices">3.6.3</a>.
+</p><p class="noindent">The universal property therefore gives a comparison \(a_{C,D,E}\colon C\star (D\star E)\to (C\star D)\star E\) which is the identity on \(C\), \(D\), and \(E\). For every
+category \(F\), precomposition with \(a_{C,D,E}\) identifies the two pullback descriptions above and is consequently
+an equivalence of functor categories. Passing to groupoid cores and applying Proposition <a href="mapping-animae.html#prop:Check_Equivalences_On_Mapping_Spaces">1.4.11</a>
+
+
+shows that \(a_{C,D,E}\) is an equivalence.
+</p>
+</div>
+<p class="noindent"> </p></section>
+<p></p><p class="noindent">No triangle or pentagon compatibility among the chosen equivalences is asserted here. Such a
+statement would require additional specified comparison data, which is not part of the present naive
+language.
+</p><p class="noindent"></p><section class="statement" data-environment="definition" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-50003r12"></a>
+<a class="agda-trigger agda-heading" id="text-ch3-def-left-and-right-cones" href="joins.html#agda-ch3-def-left-and-right-cones" data-agda="ch3-def-left-and-right-cones" title="Agda: leftCone, rightCone" aria-controls="agda-ch3-def-left-and-right-cones"><span class="ntx-Bold-tlf-t1-x-x-109">Definition 3.6.12.</span></a>  </span><span class="source-anchor" id="def:Left_And_Right_Cones"></span> Let \(C\) be a category. We define its <a class="agda-trigger" data-agda="ch3-left-cone-term" href="joins.html#agda-ch3-left-cone-term" id="text-ch3-left-cone-term" title="Agda: leftCone" aria-controls="agda-ch3-left-cone-term"><span class="ntx-Italic-tlf-t1-x-x-109">left cone</span> \(C^{\triangleleft }\)</a> and its <a class="agda-trigger" data-agda="ch3-right-cone-term" href="joins.html#agda-ch3-right-cone-term" id="text-ch3-right-cone-term" title="Agda: rightCone" aria-controls="agda-ch3-right-cone-term"><span class="ntx-Italic-tlf-t1-x-x-109">right cone</span> \(C^{\triangleright }\)</a> as follows: \[ C^{\triangleleft } := [0] \star C, \qquadtext { and } C^{\triangleright } := C \star [0]. \]
+</p><details class="agda-panel agda-inline" id="agda-ch3-def-left-and-right-cones"><summary><span class="agda-tag">Agda</span> Left and right cones</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section06.Joins" data-declaration="leftCone"><h4><code>leftCone</code></h4><p class="status">Definition, checked</p><pre class="Agda signature"><a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#3420" class="Function">leftCone</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda"><a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#3420" class="Function">leftCone</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#3450" class="Bound">C</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#690" class="Function">One</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#2293" class="Function Operator">⋆</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#3450" class="Bound">C</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import Agda.Builtin.Nat using (Nat; suc) renaming (zero to zeroℕ)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section05.Coproducts as Coproducts
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter01.Section06.UniversalCoproducts as Universality
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Interval
+import SCT.VolumeI.Chapter03.Section06.JoinAxiom as Axiom
+
+module SCT.VolumeI.Chapter03.Section06.Joins
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M)
+  (B : Coproducts.CoproductStructure 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (U : Universality.CoproductUniversality 𝒯 M B P)
+  (I : Interval.WalkingMorphism 𝒯) (J : Axiom.JoinAxiom 𝒯 M ℱ B P U I) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#3420">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section06/Joins.lagda.md">Literate source, line 71</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section06.Joins" data-declaration="rightCone"><h4><code>rightCone</code></h4><p class="status">Definition, checked</p><pre class="Agda signature"><a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#3463" class="Function">rightCone</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda"><a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#3463" class="Function">rightCone</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#3495" class="Bound">C</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#3495" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#2293" class="Function Operator">⋆</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#690" class="Function">One</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import Agda.Builtin.Nat using (Nat; suc) renaming (zero to zeroℕ)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section05.Coproducts as Coproducts
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter01.Section06.UniversalCoproducts as Universality
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Interval
+import SCT.VolumeI.Chapter03.Section06.JoinAxiom as Axiom
+
+module SCT.VolumeI.Chapter03.Section06.Joins
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M)
+  (B : Coproducts.CoproductStructure 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (U : Universality.CoproductUniversality 𝒯 M B P)
+  (I : Interval.WalkingMorphism 𝒯) (J : Axiom.JoinAxiom 𝒯 M ℱ B P U I) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#3463">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section06/Joins.lagda.md">Literate source, line 74</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="joins.html#text-ch3-def-left-and-right-cones">Return to this passage</a> · <a class="permalink" href="joins.html#agda-ch3-def-left-and-right-cones">Panel link</a></p></div></details><details class="agda-panel agda-inline" id="agda-ch3-left-cone-term"><summary><span class="agda-tag">Agda</span> Left cones</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section06.Joins" data-declaration="leftCone"><h4><code>leftCone</code></h4><p class="status">Definition, checked</p><pre class="Agda signature"><a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#3420" class="Function">leftCone</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda"><a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#3420" class="Function">leftCone</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#3450" class="Bound">C</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#690" class="Function">One</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#2293" class="Function Operator">⋆</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#3450" class="Bound">C</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import Agda.Builtin.Nat using (Nat; suc) renaming (zero to zeroℕ)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section05.Coproducts as Coproducts
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter01.Section06.UniversalCoproducts as Universality
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Interval
+import SCT.VolumeI.Chapter03.Section06.JoinAxiom as Axiom
+
+module SCT.VolumeI.Chapter03.Section06.Joins
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M)
+  (B : Coproducts.CoproductStructure 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (U : Universality.CoproductUniversality 𝒯 M B P)
+  (I : Interval.WalkingMorphism 𝒯) (J : Axiom.JoinAxiom 𝒯 M ℱ B P U I) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#3420">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section06/Joins.lagda.md">Literate source, line 71</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="joins.html#text-ch3-left-cone-term">Return to this passage</a> · <a class="permalink" href="joins.html#agda-ch3-left-cone-term">Panel link</a></p></div></details><details class="agda-panel agda-inline" id="agda-ch3-right-cone-term"><summary><span class="agda-tag">Agda</span> Right cones</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section06.Joins" data-declaration="rightCone"><h4><code>rightCone</code></h4><p class="status">Definition, checked</p><pre class="Agda signature"><a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#3463" class="Function">rightCone</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda"><a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#3463" class="Function">rightCone</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#3495" class="Bound">C</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#3495" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#2293" class="Function Operator">⋆</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#690" class="Function">One</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import Agda.Builtin.Nat using (Nat; suc) renaming (zero to zeroℕ)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section05.Coproducts as Coproducts
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter01.Section06.UniversalCoproducts as Universality
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Interval
+import SCT.VolumeI.Chapter03.Section06.JoinAxiom as Axiom
+
+module SCT.VolumeI.Chapter03.Section06.Joins
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M)
+  (B : Coproducts.CoproductStructure 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (U : Universality.CoproductUniversality 𝒯 M B P)
+  (I : Interval.WalkingMorphism 𝒯) (J : Axiom.JoinAxiom 𝒯 M ℱ B P U I) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section06.Joins.html#3463">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section06/Joins.lagda.md">Literate source, line 74</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="joins.html#text-ch3-right-cone-term">Return to this passage</a> · <a class="permalink" href="joins.html#agda-ch3-right-cone-term">Panel link</a></p></div></details>
+</div>
+<p class="noindent"> </p></section>
+<p></p><p class="noindent">
+</p>
+</main></div>
+<footer>Experimental web edition · Generated from annotated LaTeX and Agda sources. <a href="build-report.html">Build details</a></footer></body></html>

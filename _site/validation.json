@@ -1,13 +1,13 @@
 {
   "status": "passed",
-  "html_pages": 563,
-  "local_links_checked": 351610,
-  "passage_panels": 529,
-  "declaration_mappings": 1014,
+  "html_pages": 853,
+  "local_links_checked": 479275,
+  "passage_panels": 627,
+  "declaration_mappings": 1186,
   "reverse_only_passages": 32,
-  "underlined_statements": 110,
-  "pdf_html_counters": 222,
-  "input_hashes": 611,
-  "source_modules": 539,
-  "omitted_source_modules": 46
+  "underlined_statements": 114,
+  "pdf_html_counters": 318,
+  "input_hashes": 1117,
+  "source_modules": 818,
+  "omitted_source_modules": 273
 }

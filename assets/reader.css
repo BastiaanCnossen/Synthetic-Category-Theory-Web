@@ -3,7 +3,14 @@
 .site-header h1 { max-width: 900px; font-size: clamp(2rem,4.5vw,3.1rem); }
 .reader-grid { display: grid; grid-template-columns: 220px minmax(0, 820px); gap: 2rem; max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; align-items: start; }
 .notes-page { width: 100%; min-width: 0; margin: 0; padding: 2.3rem 2.8rem; background: var(--paper); border: 1px solid var(--rule); border-radius: .4rem; box-shadow: 0 12px 35px #20251f06; }
-.reader-nav { position: sticky; top: 1.5rem; font: .87rem/1.5 system-ui,sans-serif; }
+.reader-nav { position: static; font: .87rem/1.5 system-ui,sans-serif; }
+.reader-nav > h2 { margin: 0; font: 650 .87rem/1.5 system-ui,sans-serif; }
+.reader-nav .reader-resources { gap: .1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--rule); }
+.reader-resources a { padding-block: .3rem; }
+.text-button { padding: 0; border: 0; background: none; color: var(--accent); font: inherit; text-decoration: underline; cursor: pointer; }
+.agda-invitation { display: none; }
+.hide-agda-links .agda-invitation { display: inline; }
+.hide-agda-links .agda-instructions { display: none; }
 .reader-nav nav { display: grid; gap: .35rem; margin: .8rem 0 1.4rem; }
 .reader-nav nav a { display: block; padding: .6rem .7rem; text-decoration: none; border-radius: .3rem; }
 .reader-nav a[aria-current] { background: #e2eae2; font-weight: 650; }
@@ -15,9 +22,14 @@
 .chapter-name { display: block; margin: .25rem 0 0 1rem; font-weight: 500; line-height: 1.4; }
 .chapter-sections { display: grid; gap: .2rem; margin: .4rem 0 .65rem .5rem; border-left: 1px solid var(--rule); padding-left: .35rem; }
 .chapter-sections a { font-size: .8rem; }
-.settings { border-top: 1px solid var(--rule); padding-top: 1rem; }
-.settings label, .settings > a { display: block; margin: .8rem 0; }
-.settings input { margin-right: .4rem; }
+.utility-dock { position: fixed; z-index: 50; top: 1rem; left: max(1rem,env(safe-area-inset-left)); display: flex; gap: .4rem; font-family: system-ui,sans-serif; }
+.utility-button { display: grid; place-items: center; width: 2.55rem; height: 2.55rem; padding: 0; border: 1px solid var(--rule); border-radius: 50%; background: #fffef9f5; color: var(--accent); box-shadow: 0 .35rem 1.2rem #2d342c1a; font: 1.25rem/1 "Segoe UI Symbol",system-ui,sans-serif; text-decoration: none; cursor: pointer; }
+.utility-button:hover, .utility-button[aria-expanded="true"] { background: var(--accent); color: white; border-color: var(--accent); }
+.settings-panel { position: absolute; left: 0; top: calc(100% + .55rem); width: min(19rem,calc(100vw - 2rem)); max-height: calc(100dvh - 6rem); overflow-y: auto; padding: 1rem; border: 1px solid var(--rule); border-radius: .55rem; background: #fffef9; box-shadow: 0 .75rem 2.5rem #2d342c24; color: var(--ink); font: .85rem/1.5 system-ui,sans-serif; }
+.settings-panel h2 { font: 700 .9rem/1.5 system-ui,sans-serif; margin: 0 0 .8rem; }
+.settings-panel label { display: flex; align-items: center; gap: .55rem; margin: .8rem 0; cursor: pointer; }
+.settings-panel input { width: 1rem; height: 1rem; margin: 0; accent-color: var(--accent); flex-shrink: 0; }
+.utility-dock ~ .site-header { padding-top: 5rem; }
 footer { max-width: 1120px; width: calc(100% - 3rem); padding: 2rem 0; font: .75rem/1.5 system-ui,sans-serif; color: var(--muted); }
 .notes-page h2 { font-size: 1.7rem; margin: 2rem 0 1rem; line-height: 1.2; }
 .notes-page h3 { font-size: 1.45rem; margin: 2rem 0 1rem; line-height: 1.25; }
@@ -82,22 +94,37 @@ pre.Agda .Background, pre.Agda .Markup { color: #64695f; }
 .overview-chapter .chapter-card-grid { margin: 1rem 0 1.5rem; }
 .overview-chapter .chapter-card h3 a { color: var(--accent); text-decoration: underline; }
 .chapter-card p { font-size: .9rem; }
-.header-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.available-sections { margin-top: 2.5rem; }
+.section-card-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .8rem; }
+.section-card { display: flex; min-height: 11rem; padding: 1.2rem; flex-direction: column; border: 1px solid var(--rule); border-radius: .5rem; background: #fff; }
+.notes-page .section-card-meta { margin: 0; color: var(--accent); font: 750 .7rem/1.5 system-ui,sans-serif; letter-spacing: .06em; text-transform: uppercase; }
+.notes-page .section-card h3 { margin: .5rem 0 0; font-size: 1.2rem; line-height: 1.25; }
+.section-card h3 a { color: var(--ink); text-decoration: none; }
+.section-card h3 a:hover, .section-card h3 a:focus-visible { color: var(--accent); text-decoration: underline; }
+.section-card > p:not(.section-card-meta) { color: var(--muted); font-size: .9rem; }
+.header-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
 .header-top .collection-return { margin-bottom: 0; }
-.page-turns { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: .75rem; margin-left: auto; font: .8rem/1.35 system-ui,sans-serif; }
-.page-turns a { display: grid; gap: .15rem; min-width: 7.5rem; padding: .65rem .9rem; border: 1px solid var(--rule); border-radius: .4rem; background: var(--paper); text-decoration: none; }
+.book-breadcrumbs { flex: 1 1 20rem; font: 650 .73rem/1.7 system-ui,sans-serif; letter-spacing: .045em; text-transform: uppercase; color: var(--muted); }
+.book-breadcrumbs ol { display: flex; flex-wrap: wrap; gap: .4rem .65rem; list-style: none; margin: 0; padding: 0; }
+.book-breadcrumbs li { margin: 0; }
+.book-breadcrumbs li + li::before { content: '·'; margin-right: .65rem; color: var(--muted); }
+.book-breadcrumbs a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: .22em; }
+.page-turns { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .55rem; width: min(100%,22rem); flex-shrink: 0; margin-left: auto; font: .8rem/1.35 system-ui,sans-serif; }
+.page-turns a, .page-turns button { display: grid; gap: .15rem; min-width: 0; padding: .65rem .9rem; border: 1px solid var(--rule); border-radius: .4rem; background: var(--paper); color: inherit; font: inherit; text-align: left; text-decoration: none; }
 .page-turns a:hover { background: #eaf0e8; border-color: var(--accent); }
+.page-turns button:disabled { background: transparent; color: var(--muted); opacity: .65; }
 .turn-direction { color: var(--muted); font-size: .72rem; }
 .turn-target { font-weight: 650; }
+@media (max-width: 620px) { .section-card-grid { grid-template-columns: 1fr; } .section-card { min-height: 0; } }
 .module-caption { font: .85rem/1.5 system-ui,sans-serif; color: var(--muted); }
 body:has(.module-caption) .site-header h1 { font-size: 1.5rem; overflow-wrap: anywhere; }
 .notes-page table { border-collapse: collapse; width: 100%; font-size: .9rem; }
 .notes-page th, .notes-page td { padding: .6rem; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
 mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; max-width: 100%; padding-block: .25rem; }
-@media (max-width: 850px) { .reader-grid { display: block; } .reader-nav { position: static; margin-bottom: 1.5rem; } .reader-nav nav { grid-template-columns: 1fr; } .notes-page { padding: 1.5rem; } .settings label { display: inline-block; margin-right: 1rem; } }
+@media (max-width: 850px) { .reader-grid { display: block; } .reader-nav { margin-bottom: 1.5rem; } .reader-nav nav { grid-template-columns: 1fr; } .notes-page { padding: 1.5rem; } }
 @media (max-width: 500px) { body { font-size: 16px; } .reader-grid { padding: 0 .6rem; } .notes-page { padding: 1.1rem .8rem; } .site-header { width: calc(100% - 2rem); padding-top: 2rem; } .chapter-card-grid { grid-template-columns: 1fr; } .statement { padding: .8rem; } pre, pre.Agda { font-size: .72rem; } dd.enumerate { margin-left: 1.3rem; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-@media print { .reader-nav, .agda-panel, .copy-code, .page-turns, .skip-link { display: none; } .reader-grid { display: block; padding: 0; } .notes-page { border: 0; box-shadow: none; } }
+@media print { .reader-nav, .utility-dock, .agda-panel, .copy-code, .page-turns, .skip-link { display: none; } .reader-grid { display: block; padding: 0; } .notes-page { border: 0; box-shadow: none; } }
 /* Phrase links stay quiet while all code is closed by default. */
 .agda-trigger { color: inherit; text-decoration: underline dotted; text-decoration-color: #75908f; text-underline-offset: .22em; }
 .agda-trigger:hover, .agda-trigger:focus-visible { color: #17615d; background: #edf5f2; }
@@ -182,8 +209,6 @@ pre.reader-code { position: relative; flex: 1; min-height: 0; width: 100%; max-w
   }
   .agda-reader-open .reader-nav {
     display: block;
-    max-height: calc(100dvh - 3rem);
-    overflow-y: auto;
   }
   .agda-reader-open .site-header, .agda-reader-open > footer { max-width: calc(var(--book-width) + 204px); }
 }
@@ -199,6 +224,5 @@ pre.reader-code { position: relative; flex: 1; min-height: 0; width: 100%; max-w
 @media print { .agda-reader { display: none !important; } .has-passages .reader-grid { display: block; } .has-passages .notes-page { width: auto; } }
 @media (max-width: 1000px) { .module-menu { max-height: max(5rem, calc(44dvh - 9rem)); } }
 
-.hide-agda-links .agda-trigger { color: inherit; text-decoration: none; background: transparent; cursor: text; }
+.hide-agda-links .agda-trigger { color: inherit; text-decoration: none; background: transparent; cursor: text; pointer-events: none; }
 .hide-agda-links .agda-point { display: none; }
-.settings button { font: inherit; cursor: pointer; }

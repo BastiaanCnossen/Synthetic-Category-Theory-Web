@@ -22,7 +22,7 @@ module SCT.VolumeI.Chapter01.Section07.FunctorProducts
 open import SCT.VolumeI.Chapter01.Section05.Setup 𝒯 M
 open Currying 𝒯 M F
 open Functoriality 𝒯 M F
-open import SCT.VolumeI.Chapter01.Section07.MappingTests 𝒯 M F
+open import SCT.VolumeI.Chapter01.Section07.EvaluationCalculus.MappingTests 𝒯 M F
 open import SCT.VolumeI.Chapter01.Section04.EquivalenceDetection 𝒯 M using (post-tests-all)
 import SCT.VolumeI.Chapter01.Section04.MappingProducts as MappingProducts
 open import SCT.VolumeI.Chapter01.Section05.RestrictionCalculus 𝒯

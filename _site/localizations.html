@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Localizations | Synthetic category theory</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/reader-shell.css"><link rel="stylesheet" href="assets/reader.css?v=cb97990c1670a826"><link rel="stylesheet" href="assets/Agda.css">
+<script src="assets/math-config.js"></script><script defer src="vendor/mathjax/tex-chtml.js"></script><script defer src="assets/agda-context.js?v=41beaa3dfc2ba203"></script><script defer src="assets/reader.js?v=1fc2a32e54b9ace6"></script></head>
+<body class="hide-agda-links has-passages"><a class="skip-link" href="#main">Skip to content</a><aside class="utility-dock" aria-label="Reading tools">
+<button id="reading-settings-button" class="utility-button" type="button" aria-label="Reading settings" title="Reading settings" aria-controls="reading-settings" aria-expanded="false"><span aria-hidden="true">⚙</span></button>
+<a class="utility-button" href="book.pdf" aria-label="Read the web edition PDF" title="Read the web edition PDF"><span aria-hidden="true">📖</span></a>
+<section id="reading-settings" class="settings-panel" aria-label="Reading preferences" hidden><h2>Reading preferences</h2>
+<label><input id="collapse-proofs" type="checkbox"> Collapse book proofs</label>
+<label><input id="show-agda-links" type="checkbox"> Show links to Agda code</label>
+</section></aside>
+<header class="site-header"><div class="header-top"><nav class="book-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Synthetic category theory</a></li><li><a href="constructions-introduction.html" title="Constructions of categories">Chapter 3</a></li><li aria-current="page">Section 3.3</li></ol></nav><nav class="page-turns" aria-label="Reading navigation"><a rel="prev" data-step="prev-chapter" href="internal-structure-introduction.html" title="The internal structure of categories" aria-label="Previous chapter: Chapter 2, The internal structure of categories"><span class="turn-direction">← Previous chapter</span><span class="turn-target">Chapter 2</span></a><button type="button" disabled data-step="next-chapter" aria-label="No next chapter" title="No next chapter in this web edition"><span class="turn-direction">→ Next chapter</span><span class="turn-target">Not available</span></button><a rel="prev" data-step="prev-section" href="full-subcategories.html" title="Full subcategories" aria-label="Previous section: Section 3.2, Full subcategories"><span class="turn-direction">← Previous section</span><span class="turn-target">Section 3.2</span></a><a rel="next" data-step="next-section" href="geometric-realizations.html" title="Geometric realizations" aria-label="Next section: Section 3.4, Geometric realizations"><span class="turn-direction">→ Next section</span><span class="turn-target">Section 3.4</span></a></nav></div><p class="eyebrow">Volume I · Experimental web edition</p><h1>Localizations</h1></header>
+<div class="reader-grid"><aside class="reader-nav" aria-label="Book navigation"><h2>Resources</h2><nav aria-label="Resources" class="reader-resources"><a href="code-index.html">All Agda code</a><a href="formalization.html">Agda guide</a><a href="build-report.html">Build details</a></nav><h2>Contents</h2><nav aria-label="Contents"><a href="index.html">Overview</a><a href="introduction.html">Introduction</a><a href="overview-of-the-axioms.html">Overview of the axioms</a><details class="contents-chapter"><summary><span class="chapter-number">Chapter 1</span><span class="chapter-name">The language of synthetic category theory</span></summary><div class="chapter-sections"><a href="chapter-introduction.html">Chapter introduction</a><a href="basic-vocabulary.html">1.1 · The basic vocabulary</a><a href="coherences.html">1.2 · Coherences</a><a href="equivalences.html">1.3 · Equivalences of categories</a><a href="mapping-animae.html">1.4 · Mapping animae</a><a href="initial-categories-and-coproducts.html">1.5 · Initial categories and coproducts</a><a href="pullbacks.html">1.6 · Pullbacks of categories</a><a href="functor-categories.html">1.7 · Functor categories</a><a href="pushouts.html">1.8 · Pushout squares</a></div></details><details class="contents-chapter"><summary><span class="chapter-number">Chapter 2</span><span class="chapter-name">The internal structure of categories</span></summary><div class="chapter-sections"><a href="internal-structure-introduction.html">Chapter introduction</a><a href="morphisms-and-diagrams.html">2.1 · Morphisms and diagrams</a><a href="segal-axiom.html">2.2 · The Segal axiom</a><a href="rezk-axiom.html">2.3 · The Rezk axiom</a><a href="groupoids.html">2.4 · Groupoids</a><a href="recognizing-animae.html">2.5 · Recognizing animae</a><a href="chapter-2-exercises.html">2.6 · Exercises</a></div></details><details class="contents-chapter" open><summary><span class="chapter-number">Chapter 3</span><span class="chapter-name">Constructions of categories</span></summary><div class="chapter-sections"><a href="constructions-introduction.html">Chapter introduction</a><a href="subcategories.html">3.1 · Subcategories</a><a href="full-subcategories.html">3.2 · Full subcategories</a><a aria-current="page" href="localizations.html">3.3 · Localizations</a><a href="geometric-realizations.html">3.4 · Geometric realizations</a><a href="exponentiable-functors.html">3.5 · Exponentiable functors</a><a href="joins.html">3.6 · Joins</a><a href="slice-categories.html">3.7 · Slice categories</a><a href="chapter-3-exercises.html">3.8 · Exercises</a></div></details></nav></aside>
+<main id="main" class="notes-page" tabindex="-1"><p class="agda-help"><span class="agda-invitation"><a class="agda-start" data-module="SCT.VolumeI.Chapter03.Section03.Localizations" href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html">Read the Agda code</a> alongside the book.</span><span class="agda-instructions">Click dotted-underlined prose to read its Agda code alongside the book. <button type="button" class="agda-hide text-button">Hide links.</button> <a href="code-index.html">Browse all code.</a></span></p><h3 class="sectionHead" id="localizations"><span class="titlemark">3.3    </span> <a id="x1-450003.3"></a>Localizations</h3>
+<p class="noindent"><span class="source-anchor" id="sec:Localizations_Of_Categories"></span> In ordinary category theory, if one is given a category \(C\) equipped with a collection of morphisms \(W\) in \(C\), one
+may form the <span class="ntx-Italic-tlf-t1-x-x-109">localization </span>of \(C\) at \(W\): the initial functor \(C \to C[W^{-1}]\) out of \(C\) which sends all morphisms in \(W\) to
+isomorphisms. Our goal in this section is to define localizations in the context of synthetic category
+theory.
+</p><p class="noindent"></p><section class="statement" data-environment="construction" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-45001r1"></a>
+<a class="agda-trigger agda-heading" id="text-ch3-con-functors-inverting-a-collection" href="localizations.html#agda-ch3-con-functors-inverting-a-collection" data-agda="ch3-con-functors-inverting-a-collection" title="Agda: Inverts, maps, functors" aria-controls="agda-ch3-con-functors-inverting-a-collection"><span class="ntx-Bold-tlf-t1-x-x-109">Construction 3.3.1.</span></a>  </span><span class="source-anchor" id="con:Functors_Inverting_A_Collection"></span> Let \(C\) be a category equipped with a collection of morphisms \(w\colon W \hookrightarrow \Map ([1],C)\), in the sense of
+Definition <a href="subcategories.html#def:Collection_Of_Morphisms">3.1.6</a>. We will construct for every category \(D\) a full subcategory \[ \Fun ^W(C,D) \subseteq \Fun (C,D) \] In order to do this, we
+first define the anima \(\Map ^W(C,D)\) via the following pullback square:
+</p><details class="agda-panel agda-inline" id="agda-ch3-con-functors-inverting-a-collection"><summary><span class="agda-tag">Agda</span> Functors inverting a collection</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section03.InvertingFunctors" data-declaration="Inverts"><h4><code>Inverts</code></h4><p class="status">Definition, checked</p><pre class="Agda signature"><a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#2983" class="Function">Inverts</a> <a class="Symbol">:</a> <a class="Symbol">{</a><a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#2994" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#2996" class="Bound">D</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a><a class="Symbol">}</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#2994" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#2996" class="Bound">D</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter03.Section01.MorphismCollections.html#1376" class="Record">MorphismCollection</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#2994" class="Bound">C</a> <a class="Symbol">→</a> <a href="agda/Agda.Primitive.html#388" class="Primitive">Set</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#1095" class="Bound">m</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda"><a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#2983" class="Function">Inverts</a> <a class="Symbol">{</a><a class="Argument">D</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#3059" class="Bound">D</a><a class="Symbol">}</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#3062" class="Bound">f</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#3064" class="Bound">W</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section01.MorphismCollections.html#3113" class="Function">PreservesMorphisms</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#3062" class="Bound">f</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#3064" class="Bound">W</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section01.IsomorphismCollections.html#2811" class="Function">isomorphisms</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#3059" class="Bound">D</a><a class="Symbol">)</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+
+module SCT.VolumeI.Chapter03.Section03.InvertingFunctors
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#2983">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section03/InvertingFunctors.lagda.md">Literate source, line 49</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section03.InvertingFunctors" data-declaration="Inverting.maps"><h4><code>maps</code></h4><p class="status">Definition, checked</p><pre class="Agda signature">  <a></a><a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#3388" class="Function">maps</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">  <a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#3388" class="Function">maps</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter01.Section06.PullbackData.html#1041" class="Function">Pullback</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#3288" class="Function">restriction</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section04.Functoriality.html#828" class="Function">mapPost</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#3256" class="Function">iso</a><a class="Symbol">)</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+
+module SCT.VolumeI.Chapter03.Section03.InvertingFunctors
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E) where
+
+module Inverting {C : CAT} (W : MorphismCollection C) (D : CAT) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#3388">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section03/InvertingFunctors.lagda.md">Literate source, line 60</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section03.InvertingFunctors" data-declaration="Inverting.Category.functors"><h4><code>functors</code></h4><p class="status">Definition, checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#4353" class="Function">functors</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">    <a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#4353" class="Function">functors</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section02.SpannedSubcategories.html#2195" class="Function">Full.category</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+
+module SCT.VolumeI.Chapter03.Section03.InvertingFunctors
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E) where
+
+module Inverting {C : CAT} (W : MorphismCollection C) (D : CAT) where
+
+  module Category (L : SubcategoryAxiom) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#4353">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section03/InvertingFunctors.lagda.md">Literate source, line 84</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="localizations.html#text-ch3-con-functors-inverting-a-collection">Return to this passage</a> · <a class="permalink" href="localizations.html#agda-ch3-con-functors-inverting-a-collection">Panel link</a></p></div></details><p class="noindent"></p><figure class="diagram"><img src="assets/diagrams/diagram-83adc6be0506d18b.svg" alt="Commutative diagram from the manuscript; its arrows and comparisons are described in the surrounding text."></figure>
+<p></p><p class="noindent">where the top right vertical map is the map from Construction <a href="subcategories.html#cons:Post_Composition_On_Mapping_Spaces">3.1.1</a>. The bottom map is induced by
+the embedding \(\pi _{\Iso }^{\simeq }\) from Lemma <a href="rezk-axiom.html#lem:Isomorphisms_Embed_Into_All_Morphisms">2.3.3</a> and hence is an embedding. It follows that also \(\lambda ^W_{C,D}\) is an embedding.
+We can now define \[ \Fun ^W(C,D) := \langle \Map ^W(C,D) \subseteq \Fun (C,D) \rangle . \] In particular, the map \(\lambda ^W_{C,D}\) extends to a functor \(\tilde {\lambda }^W_{C,D}\colon \Fun ^W(C,D) \to \Fun (C,D)\). We may think of the category \(\Fun ^W(C,D)\) as
+the full subcategory of \(\Fun (C,D)\) spanned by those functors sending the morphisms in \(W\) to isomorphisms in \(D\).
+</p>
+</div>
+
+
+<p class="noindent"> </p></section>
+<p></p><p class="noindent"></p><section class="statement" data-environment="remark" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-45002r2"></a>
+<a class="agda-trigger agda-heading" id="text-ch3-rmk-functors-inverting-w-natural-in-w" href="localizations.html#agda-ch3-rmk-functors-inverting-w-natural-in-w" data-agda="ch3-rmk-functors-inverting-w-natural-in-w" title="Agda: maps, functor" aria-controls="agda-ch3-rmk-functors-inverting-w-natural-in-w"><span class="ntx-Bold-tlf-t1-x-x-109">Remark 3.3.2.</span></a>  </span><span class="source-anchor" id="rmk:Functors_Inverting_W_Natural_In_W"></span> The construction of \(\Fun ^W(C,D)\) is functorial in the pair \((C,W)\): if \(C'\) is another category equipped with
+a collection of morphisms \(w'\colon W' \hookrightarrow \Map ([1],C')\) and \(f\colon C \to C'\) is a functor which sends morphisms in \(W\) to morphisms in \(W'\) (in the
+sense of Definition <a href="subcategories.html#def:Functor_Preserving_Morphisms">3.1.15</a>), then for every category \(D\) there is an induced square
+</p><details class="agda-panel agda-inline" id="agda-ch3-rmk-functors-inverting-w-natural-in-w"><summary><span class="agda-tag">Agda</span> Restriction of inverting functors</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingRestriction" data-declaration="Restrict.maps"><h4><code>maps</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">  <a></a><a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingRestriction.html#4264" class="Function">maps</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#3388" class="Function">Source.maps</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#3388" class="Function">Target.maps</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">  <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingRestriction.html#4264" class="Function">maps</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter01.Section06.PullbackData.html#1300" class="Function">pullbackLift</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingRestriction.html#3722" class="Function">cone</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+
+module SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingRestriction
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E) where
+
+module Restrict {A B : CAT} (V : MorphismCollection A) (W : MorphismCollection B)
+  (f : MAP A B) (preserves : PreservesMorphisms f V W) (D : CAT) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingRestriction.html#4264">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section03/MappingCalculus/InvertingRestriction.lagda.md">Literate source, line 73</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingRestriction" data-declaration="Restrict.OnFunctors.functor"><h4><code>functor</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingRestriction.html#5379" class="Function">functor</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#4353" class="Function">Source.Category.functors</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingRestriction.html#5022" class="Bound">L</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#4353" class="Function">Target.Category.functors</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingRestriction.html#5022" class="Bound">L</a><a class="Symbol">)</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">    <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingRestriction.html#5379" class="Function">functor</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter01.Section03.Equivalences.html#952" class="Field">FunctorLift.lift</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingRestriction.html#5054" class="Function">factorization</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+
+module SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingRestriction
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E) where
+
+module Restrict {A B : CAT} (V : MorphismCollection A) (W : MorphismCollection B)
+  (f : MAP A B) (preserves : PreservesMorphisms f V W) (D : CAT) where
+
+  module OnFunctors (L : SubcategoryAxiom) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingRestriction.html#5379">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section03/MappingCalculus/InvertingRestriction.lagda.md">Literate source, line 95</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="localizations.html#text-ch3-rmk-functors-inverting-w-natural-in-w">Return to this passage</a> · <a class="permalink" href="localizations.html#agda-ch3-rmk-functors-inverting-w-natural-in-w">Panel link</a></p></div></details><p class="noindent"></p><figure class="diagram"><img src="assets/diagrams/diagram-543f0c536338f9aa.svg" alt="Commutative diagram from the manuscript; its arrows and comparisons are described in the surrounding text."></figure>
+<p></p><p class="noindent">which in turn induces a commutative diagram
+</p><p class="noindent"></p><figure class="diagram"><img src="assets/diagrams/diagram-cf5a3b849981fd9b.svg" alt="Commutative diagram from the manuscript; its arrows and comparisons are described in the surrounding text."></figure>
+<p></p><p class="noindent">via Construction <a href="subcategories.html#cons:Functoriality_Subcategory">3.1.16</a>.
+</p>
+</div>
+<p class="noindent"> </p></section>
+<p></p><p class="noindent">Before moving on to the localization axiom, we will establish some basic results that express that the
+categories \(\Fun ^W(C,D)\) behave as we expect. As a first result, we show that every functor \(C \to D\) lies in \(\Fun ^W(C,D)\) whenever \(D\) is a
+groupoid:
+</p><p class="noindent"></p><section class="statement" data-environment="lemma" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-45003r3"></a>
+<a class="agda-trigger agda-heading" id="text-ch3-lem-functor-into-groupoid-inverts-everything" href="localizations.html#agda-ch3-lem-functor-into-groupoid-inverts-everything" data-agda="ch3-lem-functor-into-groupoid-inverts-everything" title="Agda: inverting-maps-into-groupoid, inverting-functors-into-groupoid" aria-controls="agda-ch3-lem-functor-into-groupoid-inverts-everything"><span class="ntx-Bold-tlf-t1-x-x-109">Lemma 3.3.3.</span></a>  </span><span class="source-anchor" id="lem:Functor_Into_Groupoid_Inverts_Everything"> </span><span class="ntx-Italic-tlf-t1-x-x-109">Let</span> \(C\) <span class="ntx-Italic-tlf-t1-x-x-109">be a category equipped with a collection of morphisms</span> \(W \hookrightarrow \Map ([1],C)\)<span class="ntx-Italic-tlf-t1-x-x-109">, and let</span> \(\Gamma \) <span class="ntx-Italic-tlf-t1-x-x-109">be a groupoid.
+Then the functor </span>\[ \Fun ^W(C,\Gamma ) \to \Fun (C,\Gamma ) \] <span class="ntx-Italic-tlf-t1-x-x-109">is an equivalence.</span>
+</p><details class="agda-panel agda-inline" id="agda-ch3-lem-functor-into-groupoid-inverts-everything"><summary><span class="agda-tag">Agda</span> Functors into groupoids invert every morphism</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids" data-declaration="inverting-maps-into-groupoid"><h4><code>inverting-maps-into-groupoid</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature"><a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#2759" class="Function">inverting-maps-into-groupoid</a> <a class="Symbol">:</a> <a class="Symbol">{</a><a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#2791" class="Bound">C</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a><a class="Symbol">}</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#2801" class="Bound">W</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter03.Section01.MorphismCollections.html#1376" class="Record">MorphismCollection</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#2791" class="Bound">C</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#2828" class="Bound">D</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a><a class="Symbol">)</a> <a class="Symbol">→</a>
+  <a href="agda/SCT.VolumeI.Chapter02.Section04.Groupoids.html#1254" class="Function">IsGroupoid</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#2828" class="Bound">D</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#1591" class="Record">IsEquiv</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#3609" class="Function">Inverting.inclusion</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#2801" class="Bound">W</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#2828" class="Bound">D</a><a class="Symbol">)</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda"><a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#2759" class="Function">inverting-maps-into-groupoid</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#2919" class="Bound">W</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#2921" class="Bound">D</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#2923" class="Bound">groupoid</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter01.Section06.PullbackEquivalences.html#2353" class="Function">pullback-equivalence</a>
+  <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#3288" class="Function">Inverting.restriction</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#2919" class="Bound">W</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#2921" class="Bound">D</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section04.Functoriality.html#828" class="Function">mapPost</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section01.IsomorphismCollections.html#2324" class="Function">isomorphismInclusion</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#2921" class="Bound">D</a><a class="Symbol">))</a>
+  <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section04.Functoriality.html#4854" class="Function">mapPost-isEquiv</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section01.IsomorphismCollections.html#2324" class="Function">isomorphismInclusion</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#2921" class="Bound">D</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#2390" class="Function">isomorphisms-of-groupoid</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#2921" class="Bound">D</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#2923" class="Bound">groupoid</a><a class="Symbol">))</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+
+module SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#2759">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section03/MappingCalculus/InvertingGroupoids.lagda.md">Literate source, line 49</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids" data-declaration="inverting-functors-into-groupoid"><h4><code>inverting-functors-into-groupoid</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature"><a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#3104" class="Function">inverting-functors-into-groupoid</a> <a class="Symbol">:</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#3140" class="Bound">L</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter03.Section01.SubcategoryAxiom.html#3715" class="Record">SubcategoryAxiom</a><a class="Symbol">)</a> <a class="Symbol">{</a><a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#3163" class="Bound">C</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a><a class="Symbol">}</a>
+  <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#3175" class="Bound">W</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter03.Section01.MorphismCollections.html#1376" class="Record">MorphismCollection</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#3163" class="Bound">C</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#3202" class="Bound">D</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a><a class="Symbol">)</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter02.Section04.Groupoids.html#1254" class="Function">IsGroupoid</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#3202" class="Bound">D</a> <a class="Symbol">→</a>
+  <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#1591" class="Record">IsEquiv</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#4402" class="Function">Inverting.Category.functorInclusion</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#3175" class="Bound">W</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#3202" class="Bound">D</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#3140" class="Bound">L</a><a class="Symbol">)</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda"><a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#3104" class="Function">inverting-functors-into-groupoid</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#3315" class="Bound">L</a> <a class="Symbol">{</a><a class="Argument">C</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#3322" class="Bound">C</a><a class="Symbol">}</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#3325" class="Bound">W</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#3327" class="Bound">D</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#3329" class="Bound">groupoid</a> <a class="Symbol">=</a>
+  <a href="agda/SCT.VolumeI.Chapter03.Section02.FullSubcategoryCharacterization.html#5960" class="Function">full-subcategory-on-equivalent-objects</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#3870" class="Function">Inverting.objects</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#3325" class="Bound">W</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#3327" class="Bound">D</a><a class="Symbol">)</a>
+    <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section02.SpannedSubcategories.html#1974" class="Function">Inverting.Category.Full.presentation</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#3325" class="Bound">W</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#3327" class="Bound">D</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#3315" class="Bound">L</a><a class="Symbol">)</a>
+    <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section03.Equivalences.html#4859" class="Function">equiv-compose</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#3609" class="Function">Inverting.inclusion</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#3325" class="Bound">W</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#3327" class="Bound">D</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section07.CoreOfFun.html#3248" class="Function">CoreOfFun.comparison</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#3322" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#3327" class="Bound">D</a><a class="Symbol">)</a>
+      <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#2759" class="Function">inverting-maps-into-groupoid</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#3325" class="Bound">W</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#3327" class="Bound">D</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#3329" class="Bound">groupoid</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section07.CoreOfFun.html#3330" class="Function">CoreOfFun.comparison-isEquiv</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#3322" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#3327" class="Bound">D</a><a class="Symbol">))</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+
+module SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#3104">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section03/MappingCalculus/InvertingGroupoids.lagda.md">Literate source, line 55</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="localizations.html#text-ch3-lem-functor-into-groupoid-inverts-everything">Return to this passage</a> · <a class="permalink" href="localizations.html#agda-ch3-lem-functor-into-groupoid-inverts-everything">Panel link</a></p></div></details>
+</div>
+<p class="noindent"> </p></section>
+<p></p>
+
+
+
+<details class="book-proof" open><summary>Proof</summary><div class="proof-content">
+<p class="noindent"><span class="head">
+<span class="ntx-Italic-tlf-t1-x-x-109">Proof.</span> </span>The functor \(\Iso (\Gamma )^{\simeq } \to \Map ([1],\Gamma )\) is an equivalence, since \(\Gamma \) is a groupoid. It follows from its defining property that
+also the map \(\Map ^W(C,\Gamma ) \to \Map (C,\Gamma )\) is an equivalence, and hence both sides define the same full subcategory of \(\Fun (C,\Gamma )\). Since the
+full subcategory determined by \(\Map (C,\Gamma )\) is just \(\Fun (C,\Gamma )\) by Lemma <a href="full-subcategories.html#lem:Full_Subcategory_On_All_Objects">3.2.9</a>, this finishes the proof.                            □
+</p>
+</div></details>
+<p class="noindent">The following lemma expresses the fact that any functor \(C \to D\) takes isomorphisms in \(C\) to isomorphisms in
+\(D\):
+</p><p class="noindent"></p><section class="statement" data-environment="proposition" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-45004r4"></a>
+<a class="agda-trigger agda-heading" id="text-ch3-prop-every-functor-preserves-isomorphisms" href="localizations.html#agda-ch3-prop-every-functor-preserves-isomorphisms" data-agda="ch3-prop-every-functor-preserves-isomorphisms" title="Agda: object-inclusion-isEquiv, maps-isEquiv" aria-controls="agda-ch3-prop-every-functor-preserves-isomorphisms"><span class="ntx-Bold-tlf-t1-x-x-109">Proposition 3.3.4.</span></a>  </span><span class="source-anchor" id="prop:Every_Functor_Preserves_Isomorphisms"> </span><span class="ntx-Italic-tlf-t1-x-x-109">In the case of</span> \(W := \Iso (C)^{\simeq } \hookrightarrow \Map ([1],C)\)<span class="ntx-Italic-tlf-t1-x-x-109">, the forgetful functor </span>\[ \Fun ^W(C,D) \to \Fun (C,D) \] <span class="ntx-Italic-tlf-t1-x-x-109">is an equivalence.</span>
+</p><details class="agda-panel agda-inline" id="agda-ch3-prop-every-functor-preserves-isomorphisms"><summary><span class="agda-tag">Agda</span> Functors preserve isomorphisms</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section03.MappingCalculus.PreservingIsomorphisms" data-declaration="Preservation.object-inclusion-isEquiv"><h4><code>object-inclusion-isEquiv</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">  <a></a><a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.PreservingIsomorphisms.html#2934" class="Function">object-inclusion-isEquiv</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#1591" class="Record">IsEquiv</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section07.CoreOfFun.html#3248" class="Function">CoreOfFun.comparison</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.PreservingIsomorphisms.html#2803" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.PreservingIsomorphisms.html#2805" class="Bound">D</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#636" class="Function Operator">∘</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#3609" class="Function">Inverting.inclusion</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section01.IsomorphismCollections.html#2811" class="Function">isomorphisms</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.PreservingIsomorphisms.html#2803" class="Bound">C</a><a class="Symbol">)</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.PreservingIsomorphisms.html#2805" class="Bound">D</a><a class="Symbol">)</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">  <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.PreservingIsomorphisms.html#2934" class="Function">object-inclusion-isEquiv</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter01.Section03.Equivalences.html#4859" class="Function">equiv-compose</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#3609" class="Function">Inverting.inclusion</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section01.IsomorphismCollections.html#2811" class="Function">isomorphisms</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.PreservingIsomorphisms.html#2803" class="Bound">C</a><a class="Symbol">)</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.PreservingIsomorphisms.html#2805" class="Bound">D</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section07.CoreOfFun.html#3248" class="Function">CoreOfFun.comparison</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.PreservingIsomorphisms.html#2803" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.PreservingIsomorphisms.html#2805" class="Bound">D</a><a class="Symbol">)</a>
+    <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.PreservingIsomorphismMaps.html#4400" class="Function">maps-isEquiv</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section07.CoreOfFun.html#3330" class="Function">CoreOfFun.comparison-isEquiv</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.PreservingIsomorphisms.html#2803" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.PreservingIsomorphisms.html#2805" class="Bound">D</a><a class="Symbol">)</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+
+module SCT.VolumeI.Chapter03.Section03.MappingCalculus.PreservingIsomorphisms
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E) where
+
+module Preservation (C D : CAT) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.PreservingIsomorphisms.html#2934">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section03/MappingCalculus/PreservingIsomorphisms.lagda.md">Literate source, line 54</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section03.MappingCalculus.PreservingIsomorphismMaps" data-declaration="Preservation.maps-isEquiv"><h4><code>maps-isEquiv</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.PreservingIsomorphismMaps.html#4400" class="Function">maps-isEquiv</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#1591" class="Record">IsEquiv</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#3609" class="Function">Inverting.inclusion</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section01.IsomorphismCollections.html#2811" class="Function">isomorphisms</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.PreservingIsomorphismMaps.html#2704" class="Bound">C</a><a class="Symbol">)</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.PreservingIsomorphismMaps.html#2706" class="Bound">D</a><a class="Symbol">)</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">    <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.PreservingIsomorphismMaps.html#4400" class="Function">maps-isEquiv</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter01.Section06.Embeddings.html#2115" class="Function">embedding-with-section</a> <a class="Symbol">_</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#3667" class="Function">Inverting.inclusion-isEmbedding</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section01.IsomorphismCollections.html#2811" class="Function">isomorphisms</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.PreservingIsomorphismMaps.html#2704" class="Bound">C</a><a class="Symbol">)</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.PreservingIsomorphismMaps.html#2706" class="Bound">D</a><a class="Symbol">)</a>
+      <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section06.PullbackData.html#1300" class="Function">pullbackLift</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.PreservingIsomorphismMaps.html#4237" class="Function">cone</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section06.PullbackData.html#1979" class="Function">pullbackLift-β₁</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.PreservingIsomorphismMaps.html#4237" class="Function">cone</a><a class="Symbol">)</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+
+module SCT.VolumeI.Chapter03.Section03.MappingCalculus.PreservingIsomorphismMaps
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E) where
+
+module Preservation (C D : CAT) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.PreservingIsomorphismMaps.html#4400">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section03/MappingCalculus/PreservingIsomorphismMaps.lagda.md">Literate source, line 86</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="localizations.html#text-ch3-prop-every-functor-preserves-isomorphisms">Return to this passage</a> · <a class="permalink" href="localizations.html#agda-ch3-prop-every-functor-preserves-isomorphisms">Panel link</a></p></div></details>
+</div>
+<p class="noindent"> </p></section>
+<p></p>
+<details class="book-proof" open><summary>Proof</summary><div class="proof-content">
+<p class="noindent"><span class="head">
+<span class="ntx-Italic-tlf-t1-x-x-109">Proof.</span> </span>Since the comparison map is the embedding of a full subcategory by construction, it suffices
+to prove that it induces an equivalence on objects. In other words, it suffices to check that the induced
+map \[ \Map ^W(C,D) \to \Map (C,D) \] is an equivalence. Since this is an embedding of animae, it suffices to check that any functor of
+the form \(f\colon C\to D\) has the property that the induced map \[ f_*\colon \Map ([1],C)\to \Map ([1],D) \] sends isomorphisms of \(C\) to isomorphisms of \(D\). For
+this, since there is a canonical equivalence \(C^\simeq \simeq \Iso (C)^\simeq \) given by the rule \(x\mapsto \id _x\), it suffices to check that \(f(\id _x) = \id _{f(x)}\) holds for any
+object \(x\) of \(C\). This is the identity comparison for the functor \(f\).                                                               □
+
+
+</p>
+</div></details>
+<p class="noindent"></p><section class="statement" data-environment="construction" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-45005r5"></a>
+<a class="agda-trigger agda-heading" id="text-ch3-con-restriction-along-an-inverting-functor" href="localizations.html#agda-ch3-con-restriction-along-an-inverting-functor" data-agda="ch3-con-restriction-along-an-inverting-functor" title="Agda: functor, comparison" aria-controls="agda-ch3-con-restriction-along-an-inverting-functor"><span class="ntx-Bold-tlf-t1-x-x-109">Construction 3.3.5.</span></a>  </span><span class="source-anchor" id="con:Restriction_Along_An_Inverting_Functor"></span> Let \(l\colon C \to L\) be a functor which sends all morphisms in \(W\) to isomorphisms in \(L\), in the
+sense of Definition <a href="subcategories.html#def:Functor_Preserving_Morphisms">3.1.15</a>. Then we see that for every category \(D\) the induced map \(l^*\colon \Fun (L,D) \to \Fun (C,D)\) factors through \(\Fun ^W(C,D)\),
+using the following composite: \[ \Fun (L,D) \simeq \Fun ^{\Iso (L)^{\simeq }}(L,D) \xrightarrow {l^*} \Fun ^W(C,D). \] Here the map \(l^*\) is obtained via Remark <a href="localizations.html#rmk:Functors_Inverting_W_Natural_In_W">3.3.2</a>.
+</p><details class="agda-panel agda-inline" id="agda-ch3-con-restriction-along-an-inverting-functor"><summary><span class="agda-tag">Agda</span> Restriction along an inverting functor</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section03.MappingCalculus.LocalizationRestriction" data-declaration="RestrictionAlong.functor"><h4><code>functor</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.LocalizationRestriction.html#2690" class="Function">functor</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section07.FunctorCategories.html#1165" class="Function">Fun</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.LocalizationRestriction.html#2299" class="Bound">T</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.LocalizationRestriction.html#2376" class="Bound">D</a><a class="Symbol">)</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#4353" class="Function">Target.functors</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">    <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.LocalizationRestriction.html#2690" class="Function">functor</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingRestriction.html#5379" class="Function">Restriction.functor</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#636" class="Function Operator">∘</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.LocalizationRestriction.html#2629" class="Function">inverse</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+
+module SCT.VolumeI.Chapter03.Section03.MappingCalculus.LocalizationRestriction
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E) where
+
+module RestrictionAlong (L : SubcategoryAxiom) {C T : CAT} (W : MorphismCollection C)
+  (l : MAP C T) (inverts : Inverts l W) (D : CAT) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.LocalizationRestriction.html#2690">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section03/MappingCalculus/LocalizationRestriction.lagda.md">Literate source, line 48</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section03.MappingCalculus.LocalizationRestriction" data-declaration="RestrictionAlong.comparison"><h4><code>comparison</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.LocalizationRestriction.html#2781" class="Function">comparison</a> <a class="Symbol">:</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#4402" class="Function">Target.functorInclusion</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#636" class="Function Operator">∘</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.LocalizationRestriction.html#2690" class="Function">functor</a><a class="Symbol">)</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#1324" class="Function Operator">=₁</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section07.Functoriality.html#1028" class="Function">funPre</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.LocalizationRestriction.html#2338" class="Bound">l</a><a class="Symbol">)</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">    <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.LocalizationRestriction.html#2781" class="Function">comparison</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter01.Section02.Coherence.html#1358" class="Function">comp-unitʳ</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section07.Functoriality.html#1028" class="Function">funPre</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.LocalizationRestriction.html#2338" class="Bound">l</a><a class="Symbol">)</a> <a href="agda/SCT.VolumeI.Chapter01.Section02.Coherence.html#1647" class="Function Operator">∙</a>
+      <a class="Symbol">((</a><a href="agda/SCT.VolumeI.Chapter01.Section07.Functoriality.html#1028" class="Function">funPre</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.LocalizationRestriction.html#2338" class="Bound">l</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#2435" class="Function Operator">◁</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#1722" class="Field">IsEquiv.retractionIso</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.LocalizationRestriction.html#2570" class="Function">source-equivalence</a><a class="Symbol">)</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#2700" class="Function Operator">⁻¹</a><a class="Symbol">)</a> <a href="agda/SCT.VolumeI.Chapter01.Section02.Coherence.html#1647" class="Function Operator">∙</a>
+        <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section02.Coherence.html#1419" class="Function">comp-assoc</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.LocalizationRestriction.html#2629" class="Function">inverse</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#4402" class="Function">Source.functorInclusion</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section07.Functoriality.html#1028" class="Function">funPre</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.LocalizationRestriction.html#2338" class="Bound">l</a><a class="Symbol">)</a> <a href="agda/SCT.VolumeI.Chapter01.Section02.Coherence.html#1647" class="Function Operator">∙</a>
+          <a class="Symbol">((</a><a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingRestriction.html#5501" class="Function">Restriction.comparison</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#2568" class="Function Operator">▷</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.LocalizationRestriction.html#2629" class="Function">inverse</a><a class="Symbol">)</a> <a href="agda/SCT.VolumeI.Chapter01.Section02.Coherence.html#1647" class="Function Operator">∙</a>
+            <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section02.Coherence.html#1419" class="Function">comp-assoc</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.LocalizationRestriction.html#2629" class="Function">inverse</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingRestriction.html#5379" class="Function">Restriction.functor</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#4402" class="Function">Target.functorInclusion</a><a class="Symbol">)</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#2700" class="Function Operator">⁻¹</a><a class="Symbol">)))</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+
+module SCT.VolumeI.Chapter03.Section03.MappingCalculus.LocalizationRestriction
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E) where
+
+module RestrictionAlong (L : SubcategoryAxiom) {C T : CAT} (W : MorphismCollection C)
+  (l : MAP C T) (inverts : Inverts l W) (D : CAT) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.LocalizationRestriction.html#2781">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section03/MappingCalculus/LocalizationRestriction.lagda.md">Literate source, line 51</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="localizations.html#text-ch3-con-restriction-along-an-inverting-functor">Return to this passage</a> · <a class="permalink" href="localizations.html#agda-ch3-con-restriction-along-an-inverting-functor">Panel link</a></p></div></details>
+</div>
+<p class="noindent"> </p></section>
+<p></p><p class="noindent"></p><section class="statement" data-environment="definition" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-45006r6"></a>
+<a class="agda-trigger agda-heading" id="text-ch3-def-localization" href="localizations.html#agda-ch3-def-localization" data-agda="ch3-def-localization" title="Agda: IsLocalization, Localization" aria-controls="agda-ch3-def-localization"><span class="ntx-Bold-tlf-t1-x-x-109">Definition 3.3.6 </span></a>(Localization)<span class="ntx-Bold-tlf-t1-x-x-109">.</span>  </span><span class="source-anchor" id="def:Localization"></span> Given a collection of morphisms \(W\) in \(C\), we say that a functor \(l\colon C \to L\) is a
+<a class="agda-trigger" data-agda="ch3-localization-term" href="localizations.html#agda-ch3-localization-term" id="text-ch3-localization-term" title="Agda: IsLocalization" aria-controls="agda-ch3-localization-term"><span class="ntx-Italic-tlf-t1-x-x-109">localization of</span> \(C\) <span class="ntx-Italic-tlf-t1-x-x-109">at</span> \(W\)</a> if it sends all morphisms in \(W\) to isomorphisms in \(L\) and is universal with respect to
+this property: for every category \(D\), the functor \[ l^*\colon \Fun (L,D) \to \Fun ^W(C,D) \] is an equivalence. A functor \(l\colon C \to L\) is called a <span class="ntx-Italic-tlf-t1-x-x-109">localization
+functor </span>if it is a localization of \(C\) at some collection of morphisms \(W\).
+</p><details class="agda-panel agda-inline" id="agda-ch3-def-localization"><summary><span class="agda-tag">Agda</span> Localizations</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section03.Localizations" data-declaration="WithSubcategories.IsLocalization"><h4><code>IsLocalization</code></h4><p class="status">Definition, checked</p><pre class="Agda signature">  <a class="Keyword">record</a> <a></a><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#1989" class="Record">IsLocalization</a> <a class="Symbol">{</a><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2005" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2007" class="Bound">T</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a><a class="Symbol">}</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2017" class="Bound">W</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter03.Section01.MorphismCollections.html#1376" class="Record">MorphismCollection</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2005" class="Bound">C</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2044" class="Bound">l</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2005" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2007" class="Bound">T</a><a class="Symbol">)</a> <a class="Symbol">:</a> <a href="agda/Agda.Primitive.html#388" class="Primitive">Set</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#1095" class="Bound">c</a> <a href="agda/Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#1097" class="Bound">m</a><a class="Symbol">)</a> <a class="Keyword">where</a>
+    <a class="Keyword">field</a>
+      <a></a><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2093" class="Field">inverts</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#2983" class="Function">Inverts</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2044" class="Bound">l</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2017" class="Bound">W</a>
+      <a></a><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2121" class="Field">universal</a> <a class="Symbol">:</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2134" class="Bound">D</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a><a class="Symbol">)</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#1591" class="Record">IsEquiv</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.LocalizationRestriction.html#2690" class="Function">RestrictionAlong.functor</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#1952" class="Bound">L</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2017" class="Bound">W</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2044" class="Bound">l</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2093" class="Field">inverts</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2134" class="Bound">D</a><a class="Symbol">)</a></pre><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level; _⊔_)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+
+module SCT.VolumeI.Chapter03.Section03.Localizations
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E) where
+
+module WithSubcategories (L : SubcategoryAxiom) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#1989">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section03/Localizations.lagda.md">Literate source, line 37</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section03.Localizations" data-declaration="WithSubcategories.Localization"><h4><code>Localization</code></h4><p class="status">Definition, checked</p><pre class="Agda signature">  <a class="Keyword">record</a> <a></a><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2206" class="Record">Localization</a> <a class="Symbol">{</a><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2220" class="Bound">C</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a><a class="Symbol">}</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2230" class="Bound">W</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter03.Section01.MorphismCollections.html#1376" class="Record">MorphismCollection</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2220" class="Bound">C</a><a class="Symbol">)</a> <a class="Symbol">:</a> <a href="agda/Agda.Primitive.html#388" class="Primitive">Set</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#1095" class="Bound">c</a> <a href="agda/Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#1097" class="Bound">m</a><a class="Symbol">)</a> <a class="Keyword">where</a>
+    <a class="Keyword">field</a>
+      <a></a><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2292" class="Field">category</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a>
+      <a></a><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2313" class="Field">functor</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2220" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2292" class="Field">category</a>
+      <a></a><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2344" class="Field">isLocalization</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#1989" class="Record">IsLocalization</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2230" class="Bound">W</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2313" class="Field">functor</a></pre><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level; _⊔_)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+
+module SCT.VolumeI.Chapter03.Section03.Localizations
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E) where
+
+module WithSubcategories (L : SubcategoryAxiom) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2206">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section03/Localizations.lagda.md">Literate source, line 42</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="localizations.html#text-ch3-def-localization">Return to this passage</a> · <a class="permalink" href="localizations.html#agda-ch3-def-localization">Panel link</a></p></div></details><details class="agda-panel agda-inline" id="agda-ch3-localization-term"><summary><span class="agda-tag">Agda</span> Localizations</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section03.Localizations" data-declaration="WithSubcategories.IsLocalization"><h4><code>IsLocalization</code></h4><p class="status">Definition, checked</p><pre class="Agda signature">  <a class="Keyword">record</a> <a></a><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#1989" class="Record">IsLocalization</a> <a class="Symbol">{</a><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2005" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2007" class="Bound">T</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a><a class="Symbol">}</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2017" class="Bound">W</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter03.Section01.MorphismCollections.html#1376" class="Record">MorphismCollection</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2005" class="Bound">C</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2044" class="Bound">l</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2005" class="Bound">C</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2007" class="Bound">T</a><a class="Symbol">)</a> <a class="Symbol">:</a> <a href="agda/Agda.Primitive.html#388" class="Primitive">Set</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#1095" class="Bound">c</a> <a href="agda/Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#1097" class="Bound">m</a><a class="Symbol">)</a> <a class="Keyword">where</a>
+    <a class="Keyword">field</a>
+      <a></a><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2093" class="Field">inverts</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#2983" class="Function">Inverts</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2044" class="Bound">l</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2017" class="Bound">W</a>
+      <a></a><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2121" class="Field">universal</a> <a class="Symbol">:</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2134" class="Bound">D</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a><a class="Symbol">)</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#1591" class="Record">IsEquiv</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.LocalizationRestriction.html#2690" class="Function">RestrictionAlong.functor</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#1952" class="Bound">L</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2017" class="Bound">W</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2044" class="Bound">l</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2093" class="Field">inverts</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2134" class="Bound">D</a><a class="Symbol">)</a></pre><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level; _⊔_)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+
+module SCT.VolumeI.Chapter03.Section03.Localizations
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E) where
+
+module WithSubcategories (L : SubcategoryAxiom) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#1989">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section03/Localizations.lagda.md">Literate source, line 37</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="localizations.html#text-ch3-localization-term">Return to this passage</a> · <a class="permalink" href="localizations.html#agda-ch3-localization-term">Panel link</a></p></div></details>
+</div>
+<p class="noindent"> </p></section>
+<p></p><p class="noindent">If a localization exists, it is unique; see Exercise <a href="chapter-3-exercises.html#exercise:Uniqueness_Of_Localizations">3.8.4</a>. We will frequently denote it by \(C[W^{-1}]\), and refer to the
+functor \(l\colon C \to C[W^{-1}]\) as the <span class="ntx-Italic-tlf-t1-x-x-109">localization functor</span>.
+</p>
+<div class="framedenv">
+<p class="noindent"></p><section class="statement" data-environment="axiom" data-scope="ordinary">
+
+
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-45007r9"></a>
+<a class="agda-trigger agda-heading" id="text-ch3-axiom-m-localization-axiom" href="localizations.html#agda-ch3-axiom-m-localization-axiom" data-agda="ch3-axiom-m-localization-axiom" title="Agda: LocalizationAxiom" aria-controls="agda-ch3-axiom-m-localization-axiom"><span class="ntx-Bold-tlf-t1-x-x-109">Axiom I </span></a>(Localization axiom)<span class="ntx-Bold-tlf-t1-x-x-109">.</span>  </span><span class="source-anchor" id="axiom:M_Localization_Axiom"></span> For every collection of morphisms \(w\colon W \hookrightarrow \Map ([1],C)\) in \(C\) there exists a localization \(l\colon C \to C[W^{-1}]\)
+of \(C\) at \(W\).
+</p><details class="agda-panel agda-inline" id="agda-ch3-axiom-m-localization-axiom"><summary><span class="agda-tag">Agda</span> The localization axiom</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section03.Localizations" data-declaration="WithSubcategories.LocalizationAxiom"><h4><code>LocalizationAxiom</code></h4><p class="status">Assumption, type checked</p><pre class="Agda signature">  <a class="Keyword">record</a> <a></a><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2396" class="Record">LocalizationAxiom</a> <a class="Symbol">:</a> <a href="agda/Agda.Primitive.html#388" class="Primitive">Set</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#1095" class="Bound">c</a> <a href="agda/Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#1097" class="Bound">m</a> <a href="agda/Agda.Primitive.html#961" class="Primitive Operator">⊔</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#1099" class="Bound">a</a><a class="Symbol">)</a> <a class="Keyword">where</a>
+    <a class="Keyword">field</a>
+      <a></a><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2454" class="Field">localized</a> <a class="Symbol">:</a> <a class="Symbol">{</a><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2467" class="Bound">C</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a><a class="Symbol">}</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2477" class="Bound">W</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter03.Section01.MorphismCollections.html#1376" class="Record">MorphismCollection</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2467" class="Bound">C</a><a class="Symbol">)</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2206" class="Record">Localization</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2477" class="Bound">W</a></pre><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level; _⊔_)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+
+module SCT.VolumeI.Chapter03.Section03.Localizations
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E) where
+
+module WithSubcategories (L : SubcategoryAxiom) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2396">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section03/Localizations.lagda.md">Literate source, line 48</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="localizations.html#text-ch3-axiom-m-localization-axiom">Return to this passage</a> · <a class="permalink" href="localizations.html#agda-ch3-axiom-m-localization-axiom">Panel link</a></p></div></details>
+</div>
+<p class="noindent"> </p></section> <p></p></div>
+<p class="noindent"></p><section class="statement" data-environment="proposition" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-45008r7"></a>
+<a class="agda-trigger agda-heading" id="text-ch3-prop-localization-as-ordinary-universal-property" href="localizations.html#agda-ch3-prop-localization-as-ordinary-universal-property" data-agda="ch3-prop-localization-as-ordinary-universal-property" title="Agda: comparison-isEquiv, isLocalization" aria-controls="agda-ch3-prop-localization-as-ordinary-universal-property"><span class="ntx-Bold-tlf-t1-x-x-109">Proposition 3.3.7.</span></a>  </span><span class="source-anchor" id="prop:localization_as_ordinary_universal_property"> </span><span class="ntx-Italic-tlf-t1-x-x-109">Given a collection of morphisms</span> \(W\) <span class="ntx-Italic-tlf-t1-x-x-109">in a category</span> \(C\) <span class="ntx-Italic-tlf-t1-x-x-109">as well as a functor</span> \(\lambda \colon C\to L\) <span class="ntx-Italic-tlf-t1-x-x-109">sending
+all morphisms in</span> \(W\) <span class="ntx-Italic-tlf-t1-x-x-109">to isomorphisms in</span> \(L\)<span class="ntx-Italic-tlf-t1-x-x-109">, assume that, for every category</span> \(D\)<span class="ntx-Italic-tlf-t1-x-x-109">, the induced map </span>\[ \lambda ^*\colon \Map (L,D)\to \Map ^W(C,D) \] <span class="ntx-Italic-tlf-t1-x-x-109">is an
+equivalence. Then</span> \(\lambda \) <span class="ntx-Italic-tlf-t1-x-x-109">exhibits</span> \(L\) <span class="ntx-Italic-tlf-t1-x-x-109">as a localization of</span> \(C\) <span class="ntx-Italic-tlf-t1-x-x-109">at</span> \(W\)<span class="ntx-Italic-tlf-t1-x-x-109">.</span>
+</p><details class="agda-panel agda-inline" id="agda-ch3-prop-localization-as-ordinary-universal-property"><summary><span class="agda-tag">Agda</span> The mapping-anima criterion for localization</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section03.LocalizationCriterion" data-declaration="Criterion.comparison-isEquiv"><h4><code>comparison-isEquiv</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">  <a></a><a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationCriterion.html#4618" class="Function">comparison-isEquiv</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#1591" class="Record">IsEquiv</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationCriterion.html#3918" class="Function">u</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">  <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationCriterion.html#4618" class="Function">comparison-isEquiv</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter01.Section04.EquivalenceDetection.html#4843" class="Function">pre-tests-all</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationCriterion.html#3918" class="Function">u</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationCriterion.html#4436" class="Function">Tested.restriction-isEquiv</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level; _⊔_)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+
+module SCT.VolumeI.Chapter03.Section03.LocalizationCriterion
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E) where
+
+module Criterion (L : SubcategoryAxiom) (Z : WithSubcategories.LocalizationAxiom L)
+  {C T : CAT} (W : MorphismCollection C) (l : MAP C T) (inverts : Inverts l W)
+  (restriction : (D : CAT) → FunctorLift (Inverting.inclusion W D) (mapPre l))
+  (universal : (D : CAT) → IsEquiv (FunctorLift.lift (restriction D))) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationCriterion.html#4618">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section03/LocalizationCriterion.lagda.md">Literate source, line 91</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section03.LocalizationCriterion" data-declaration="Criterion.isLocalization"><h4><code>isLocalization</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">  <a></a><a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationCriterion.html#5566" class="Function">isLocalization</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#1989" class="Record">IsLocalization</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationCriterion.html#2950" class="Bound">W</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationCriterion.html#2977" class="Bound">l</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">  <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationCriterion.html#5566" class="Function">isLocalization</a> <a class="Symbol">=</a> <a class="Keyword">record</a> <a class="Symbol">{</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2093" class="Field">inverts</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationCriterion.html#2991" class="Bound">inverts</a> <a class="Symbol">;</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2121" class="Field">universal</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationCriterion.html#5353" class="Function">Enriched.isEquiv</a> <a class="Symbol">}</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level; _⊔_)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+
+module SCT.VolumeI.Chapter03.Section03.LocalizationCriterion
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E) where
+
+module Criterion (L : SubcategoryAxiom) (Z : WithSubcategories.LocalizationAxiom L)
+  {C T : CAT} (W : MorphismCollection C) (l : MAP C T) (inverts : Inverts l W)
+  (restriction : (D : CAT) → FunctorLift (Inverting.inclusion W D) (mapPre l))
+  (universal : (D : CAT) → IsEquiv (FunctorLift.lift (restriction D))) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationCriterion.html#5566">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section03/LocalizationCriterion.lagda.md">Literate source, line 112</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="localizations.html#text-ch3-prop-localization-as-ordinary-universal-property">Return to this passage</a> · <a class="permalink" href="localizations.html#agda-ch3-prop-localization-as-ordinary-universal-property">Panel link</a></p></div></details>
+</div>
+<p class="noindent"> </p></section>
+<p></p>
+<details class="book-proof" open><summary>Proof</summary><div class="proof-content">
+<p class="noindent"><span class="head">
+<span class="ntx-Italic-tlf-t1-x-x-109">Proof.</span> </span>Let \(l\colon C\to C[W^{-1}]\) be a localization of \(C\) at \(W\). Then the induced map \[ l^*\colon \Map (C[W^{-1}],D)\to \Map ^W(C,D) \] is an equivalence because it is the map
+on groupoid cores induced by the equivalence \(l^*\colon \Fun (C[W^{-1}],D)\iso \Fun ^W(C,D)\). Since \(l\) inverts \(W\), the assumption on \(L\) implies that there
+exists a functor \(u\colon L \to C[W^{-1}]\) equipped with an identification \(u \circ \lambda = l\). To see that \(u\) is an equivalence, consider for every
+category \(D\) the commutative triangle
+</p><p class="noindent"></p><figure class="diagram"><img src="assets/diagrams/diagram-eeeee2a3d76a172f.svg" alt="Commutative diagram from the manuscript; its arrows and comparisons are described in the surrounding text."></figure>
+
+
+<p></p><p class="noindent">By  Proposition <a href="mapping-animae.html#prop:Check_Equivalences_On_Mapping_Spaces">1.4.11</a>,  it  suffices  to  show  that  \(u^*\)  is  an  equivalence  for  every  category  \(D\).  This  is
+immediate by the 2-out-of-3 property as both diagonal maps are equivalences.
+</p><p class="noindent">Thus \(u\) is an equivalence compatible with the maps out of \(C\), and the universal property of \(l\) transfers to
+\(\lambda \).                                                                                                                                                           □
+</p>
+</div></details>
+<p class="noindent"></p><section class="statement" data-environment="remark" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-45009r8"></a>
+<a class="agda-trigger agda-heading" id="text-ch3-remark-localization-as-pushout" href="localizations.html#agda-ch3-remark-localization-as-pushout" data-agda="ch3-remark-localization-as-pushout" title="Agda: square, isPushout" aria-controls="agda-ch3-remark-localization-as-pushout"><span class="ntx-Bold-tlf-t1-x-x-109">Remark 3.3.8.</span></a>  </span><span class="source-anchor" id="remark:localization_as_pushout"></span> The previous proposition and the localization axiom give a pushout square
+</p><details class="agda-panel agda-inline" id="agda-ch3-remark-localization-as-pushout"><summary><span class="agda-tag">Agda</span> Localization as a pushout</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section03.LocalizationPushouts" data-declaration="Pushout.square"><h4><code>square</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">  <a></a><a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationPushouts.html#3219" class="Function">square</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section08.Squares.html#660" class="Record">Square</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.PushoutCalculus.LocalizationCocones.html#2735" class="Function">Diagram.arrows</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.PushoutCalculus.LocalizationCocones.html#2786" class="Function">Diagram.projection</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationPushouts.html#2934" class="Bound">l</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.PushoutCalculus.LocalizationCocones.html#3065" class="Function">Canonical.right</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">  <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationPushouts.html#3219" class="Function">square</a> <a class="Symbol">=</a> <a class="Keyword">record</a> <a class="Symbol">{</a> <a href="agda/SCT.VolumeI.Chapter01.Section08.Squares.html#767" class="Field">commute</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.PushoutCalculus.LocalizationCocones.html#3465" class="Function">Canonical.matching</a> <a class="Symbol">}</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level; _⊔_)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+
+module SCT.VolumeI.Chapter03.Section03.LocalizationPushouts
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E) where
+
+module Pushout (L : SubcategoryAxiom) {C T : CAT} (W : MorphismCollection C)
+  (l : MAP C T) (localization : WithSubcategories.IsLocalization L W l) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationPushouts.html#3219">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section03/LocalizationPushouts.lagda.md">Literate source, line 53</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section03.LocalizationPushouts" data-declaration="Pushout.isPushout"><h4><code>isPushout</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationPushouts.html#4542" class="Function">isPushout</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section08.PushoutSquares.html#1407" class="Function">IsPushout</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationPushouts.html#3219" class="Function">square</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">    <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationPushouts.html#4542" class="Function">isPushout</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter01.Section08.RecognizingPushouts.html#1301" class="Function">cocone-extension→pushout</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationPushouts.html#3219" class="Function">square</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationPushouts.html#4299" class="Function">extensions</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level; _⊔_)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+
+module SCT.VolumeI.Chapter03.Section03.LocalizationPushouts
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E) where
+
+module Pushout (L : SubcategoryAxiom) {C T : CAT} (W : MorphismCollection C)
+  (l : MAP C T) (localization : WithSubcategories.IsLocalization L W l) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationPushouts.html#4542">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section03/LocalizationPushouts.lagda.md">Literate source, line 82</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="localizations.html#text-ch3-remark-localization-as-pushout">Return to this passage</a> · <a class="permalink" href="localizations.html#agda-ch3-remark-localization-as-pushout">Panel link</a></p></div></details><p class="noindent"></p><figure class="diagram"><img src="assets/diagrams/diagram-a771932280052132.svg" alt="Commutative diagram from the manuscript; its arrows and comparisons are described in the surrounding text."></figure>
+<p></p><p class="noindent">where the map \(\tilde {w}\) is obtained by uncurrying the composite \(W \xrightarrow {w} \Map ([1],C) \to \Fun ([1],C)\); see Exercise <a href="chapter-3-exercises.html#exercise:Localization_As_Pushout">3.8.5</a>.
+</p>
+</div>
+<p class="noindent"> </p></section>
+<p></p><p class="noindent"></p><section class="statement" data-environment="construction" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-45010r9"></a>
+<a class="agda-trigger agda-heading" id="text-ch3-cons-functoriality-localization" href="localizations.html#agda-ch3-cons-functoriality-localization" data-agda="ch3-cons-functoriality-localization" title="Agda: functor, comparison, unique" aria-controls="agda-ch3-cons-functoriality-localization"><span class="ntx-Bold-tlf-t1-x-x-109">Construction 3.3.9.</span></a>  </span><span class="source-anchor" id="cons:Functoriality_Localization"></span> The construction \(C \mapsto C[W^{-1}]\) is functorial in the pair \((C,W)\): if \(D\) is another category equipped
+with a collection of morphisms \(W'\) and \(f\colon C \to D\) is a functor which sends \(W\) to \(W'\), the composite \(C \to D \to D[{W'}^{-1}]\) sends all morphisms
+in \(W\) to isomorphisms, and hence induces a canonical dashed functor making the square commute:
+</p><details class="agda-panel agda-inline" id="agda-ch3-cons-functoriality-localization"><summary><span class="agda-tag">Agda</span> Functoriality of localization</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section03.LocalizationFunctoriality" data-declaration="Induced.functor"><h4><code>functor</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">  <a></a><a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationFunctoriality.html#2928" class="Function">functor</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2292" class="Function">Source.category</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2292" class="Function">Target.category</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">  <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationFunctoriality.html#2928" class="Function">functor</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.MappingLocalizationLifts.html#2112" class="Function">Factor.factor</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level; _⊔_)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+
+module SCT.VolumeI.Chapter03.Section03.LocalizationFunctoriality
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E) where
+
+module Induced (L : SubcategoryAxiom) {C D : CAT}
+  (V : MorphismCollection C) (W : MorphismCollection D)
+  (source : WithSubcategories.Localization L V) (target : WithSubcategories.Localization L W)
+  (f : MAP C D) (preserves : PreservesMorphisms f V W) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationFunctoriality.html#2928">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section03/LocalizationFunctoriality.lagda.md">Literate source, line 52</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section03.LocalizationFunctoriality" data-declaration="Induced.comparison"><h4><code>comparison</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">  <a></a><a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationFunctoriality.html#3003" class="Function">comparison</a> <a class="Symbol">:</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationFunctoriality.html#2928" class="Function">functor</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#636" class="Function Operator">∘</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2313" class="Function">Source.functor</a><a class="Symbol">)</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#1324" class="Function Operator">=₁</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2313" class="Function">Target.functor</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#636" class="Function Operator">∘</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationFunctoriality.html#2331" class="Bound">f</a><a class="Symbol">)</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">  <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationFunctoriality.html#3003" class="Function">comparison</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.MappingLocalizationLifts.html#2159" class="Function">Factor.comparison</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level; _⊔_)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+
+module SCT.VolumeI.Chapter03.Section03.LocalizationFunctoriality
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E) where
+
+module Induced (L : SubcategoryAxiom) {C D : CAT}
+  (V : MorphismCollection C) (W : MorphismCollection D)
+  (source : WithSubcategories.Localization L V) (target : WithSubcategories.Localization L W)
+  (f : MAP C D) (preserves : PreservesMorphisms f V W) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationFunctoriality.html#3003">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section03/LocalizationFunctoriality.lagda.md">Literate source, line 55</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section03.LocalizationFunctoriality" data-declaration="Induced.unique"><h4><code>unique</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">  <a></a><a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationFunctoriality.html#3103" class="Function">unique</a> <a class="Symbol">:</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationFunctoriality.html#3113" class="Bound">g</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2292" class="Function">Source.category</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2292" class="Function">Target.category</a><a class="Symbol">)</a> <a class="Symbol">→</a>
+    <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationFunctoriality.html#3113" class="Bound">g</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#636" class="Function Operator">∘</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2313" class="Function">Source.functor</a><a class="Symbol">)</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#1324" class="Function Operator">=₁</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2313" class="Function">Target.functor</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#636" class="Function Operator">∘</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationFunctoriality.html#2331" class="Bound">f</a><a class="Symbol">)</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationFunctoriality.html#3113" class="Bound">g</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#1324" class="Function Operator">=₁</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationFunctoriality.html#2928" class="Function">functor</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">  <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationFunctoriality.html#3103" class="Function">unique</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationFunctoriality.html#3229" class="Bound">g</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationFunctoriality.html#3231" class="Bound">α</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationUniversal.html#3196" class="Function">UP.restriction-reflects</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationFunctoriality.html#3229" class="Bound">g</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationFunctoriality.html#2928" class="Function">functor</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationFunctoriality.html#3003" class="Function">comparison</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#2700" class="Function Operator">⁻¹</a> <a href="agda/SCT.VolumeI.Chapter01.Section02.Coherence.html#1647" class="Function Operator">∙</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationFunctoriality.html#3231" class="Bound">α</a><a class="Symbol">)</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level; _⊔_)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+
+module SCT.VolumeI.Chapter03.Section03.LocalizationFunctoriality
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E) where
+
+module Induced (L : SubcategoryAxiom) {C D : CAT}
+  (V : MorphismCollection C) (W : MorphismCollection D)
+  (source : WithSubcategories.Localization L V) (target : WithSubcategories.Localization L W)
+  (f : MAP C D) (preserves : PreservesMorphisms f V W) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationFunctoriality.html#3103">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section03/LocalizationFunctoriality.lagda.md">Literate source, line 58</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="localizations.html#text-ch3-cons-functoriality-localization">Return to this passage</a> · <a class="permalink" href="localizations.html#agda-ch3-cons-functoriality-localization">Panel link</a></p></div></details><p class="noindent"></p><figure class="diagram"><img src="assets/diagrams/diagram-7dcb30319804550a.svg" alt="Commutative diagram from the manuscript; its arrows and comparisons are described in the surrounding text."></figure>
+<p></p>
+</div>
+<p class="noindent"> </p></section>
+
+
+<p></p><p class="noindent">
+</p>
+</main></div>
+<footer>Experimental web edition · Generated from annotated LaTeX and Agda sources. <a href="build-report.html">Build details</a></footer></body></html>

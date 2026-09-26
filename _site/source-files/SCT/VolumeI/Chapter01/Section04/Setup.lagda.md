@@ -35,7 +35,7 @@ open Units vertical public
 open Whiskering whiskering public
 open import SCT.VolumeI.Chapter01.Section03.Equivalences vocabulary terminal products productLaws composition public
 open import SCT.VolumeI.Chapter01.Section03.ProductConstructions vocabulary terminal products productLaws composition public
-open import SCT.VolumeI.Chapter01.Section03.ProductFunctorCoherence vocabulary terminal products productLaws composition vertical whiskering public
+open import SCT.VolumeI.Chapter01.Section03.ProductCalculus.ProductFunctorCoherence vocabulary terminal products productLaws composition vertical whiskering public
 open import SCT.VolumeI.Chapter01.Section03.Whiskering vocabulary terminal products productLaws composition vertical whiskering public
   using (postWhisker-isEquiv; preWhisker-isEquiv; postWhisker-lift; preWhisker-lift;
          postWhisker-Iso₂-lift; preWhisker-Iso₂-lift)

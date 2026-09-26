@@ -17,7 +17,7 @@ module SCT.VolumeI.Chapter01.Section06.PullbackProducts
 open Setup 𝒯
 open Laws.PullbackStructure P
 open import SCT.VolumeI.Chapter01.Section06.PullbackSquares 𝒯 P
-open import SCT.VolumeI.Chapter01.Section06.PullbackLifting 𝒯 P
+open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.PullbackLifting 𝒯 P
 
 coneIso-over-One : {C D T : CAT} {f : MAP C One} {g : MAP D One}
   (s t : Cone f g T) → (Cone.left s) =₁ (Cone.left t) →

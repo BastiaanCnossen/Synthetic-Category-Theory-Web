@@ -16,8 +16,8 @@ module SCT.VolumeI.Chapter01.Section08.MappingOutOfPushouts
   {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
   (ℱ : Categories.FunctorCategories 𝒯 M) (P : Laws.PullbackStructure 𝒯) where
 
-open import SCT.VolumeI.Chapter01.Section08.FunctorCriterionPreservation 𝒯 M ℱ P public
+open import SCT.VolumeI.Chapter01.Section08.FunctorCategoryCalculus.FunctorCriterionPreservation 𝒯 M ℱ P public
   using (pushout→functor-criterion)
-open import SCT.VolumeI.Chapter01.Section08.FunctorCriterionDetection 𝒯 M ℱ P public
+open import SCT.VolumeI.Chapter01.Section08.FunctorCategoryCalculus.FunctorCriterionDetection 𝒯 M ℱ P public
   using (functor-criterion→pushout)
 ```

@@ -28,17 +28,17 @@ module SCT.VolumeI.Chapter02.Section02.ExpressionUnitLaws
   (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
   (S : Segal.SegalAxiom 𝒯 M ℱ P I E) where
 
-open import SCT.VolumeI.Chapter02.Section02.CompositePresentations 𝒯 M ℱ P I E S public
-open import SCT.VolumeI.Chapter02.Section02.CompositionIdentifications 𝒯 M ℱ P I E S
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.CompositePresentations 𝒯 M ℱ P I E S public
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.CompositionIdentifications 𝒯 M ℱ P I E S
   using (compose-expression-cong)
-open import SCT.VolumeI.Chapter02.Section02.ExpressionIdentifications 𝒯 M ℱ I
-open import SCT.VolumeI.Chapter02.Section02.GlobalCompositionExpressions 𝒯 M ℱ P I E S
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionIdentifications 𝒯 M ℱ I
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.GlobalCompositionExpressions 𝒯 M ℱ P I E S
   using (global-compose-expression; global-composition-comparison)
-import SCT.VolumeI.Chapter02.Section02.DirectUnitPresentations as Universal
-import SCT.VolumeI.Chapter02.Section02.PresentationSubstitution as Presentations
-import SCT.VolumeI.Chapter02.Section02.UniversalArrowSubstitution as Arrow
-import SCT.VolumeI.Chapter02.Section02.IdentityExpressionSubstitution as IdentityRestriction
-import SCT.VolumeI.Chapter02.Section02.IdentityExpressionRetargeting as IdentityRetargeting
+import SCT.VolumeI.Chapter02.Section02.UnitCalculus.DirectUnitPresentations as Universal
+import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.PresentationSubstitution as Presentations
+import SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.UniversalArrowSubstitution as Arrow
+import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.IdentityExpressionSubstitution as IdentityRestriction
+import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.IdentityExpressionRetargeting as IdentityRetargeting
 
 module At {Γ C : CAT} {x y : MAP Γ C} (f : MorphismExpression x y) where
   module F = MorphismExpression f

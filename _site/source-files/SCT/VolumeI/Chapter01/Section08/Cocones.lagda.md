@@ -9,13 +9,13 @@ These are the data tested when a square is mapped into another category.
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.Setup as Setup
-import SCT.VolumeI.Chapter01.Section03.PairingNaturality as PN
+import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingNaturality as PN
 
 module SCT.VolumeI.Chapter01.Section08.Cocones
   {c m a : Level} (𝒯 : Theory c m a) where
 
 open Setup 𝒯
-open import SCT.VolumeI.Chapter01.Section06.InverseCalculus 𝒯
+open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.InverseCalculus 𝒯
 open PN vocabulary terminal products productLaws composition vertical whiskering
   using (move-square; cancel-right)
 

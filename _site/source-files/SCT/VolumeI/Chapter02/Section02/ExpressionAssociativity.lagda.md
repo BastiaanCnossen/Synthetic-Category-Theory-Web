@@ -27,15 +27,15 @@ module SCT.VolumeI.Chapter02.Section02.ExpressionAssociativity
   (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
   (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E) where
 
-open import SCT.VolumeI.Chapter02.Section02.ArrowCategorySquares 𝒯 M ℱ P I E S public
+open import SCT.VolumeI.Chapter02.Section02.SquareCalculus.ArrowCategorySquares 𝒯 M ℱ P I E S public
 open import SCT.VolumeI.Chapter02.Section02.ExpressionUnitLaws 𝒯 M ℱ P I E S using (left-unit; right-unit)
-open import SCT.VolumeI.Chapter02.Section02.PresentationComparisons 𝒯 M ℱ P I E S using (change-long)
-open import SCT.VolumeI.Chapter02.Section02.ExpressionIdentifications 𝒯 M ℱ I
-open import SCT.VolumeI.Chapter02.Section02.CompositionIdentifications 𝒯 M ℱ P I E S using (compose-expression-cong)
-open import SCT.VolumeI.Chapter02.Section02.GlobalCompositionExpressions 𝒯 M ℱ P I E S
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.PresentationComparisons 𝒯 M ℱ P I E S using (change-long)
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionIdentifications 𝒯 M ℱ I
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.CompositionIdentifications 𝒯 M ℱ P I E S using (compose-expression-cong)
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.GlobalCompositionExpressions 𝒯 M ℱ P I E S
   using (global-compose-expression; global-composition-comparison)
-import SCT.VolumeI.Chapter02.Section02.GluedFramedSquares as Gluing
-import SCT.VolumeI.Chapter02.Section02.FramedSquareCommutativity as Commutativity
+import SCT.VolumeI.Chapter02.Section02.SquareCalculus.GluedFramedSquares as Gluing
+import SCT.VolumeI.Chapter02.Section02.SquareCalculus.FramedSquareCommutativity as Commutativity
 
 module At {Γ C : CAT} {x y z w : MAP Γ C}
   (f : MorphismExpression x y) (g : MorphismExpression y z) (h : MorphismExpression z w) where

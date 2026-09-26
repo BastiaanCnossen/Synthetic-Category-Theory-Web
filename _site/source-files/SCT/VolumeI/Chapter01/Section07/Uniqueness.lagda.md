@@ -15,7 +15,7 @@ module SCT.VolumeI.Chapter01.Section07.Uniqueness
 
 open import SCT.VolumeI.Chapter01.Section05.Setup 𝒯 M
 open import SCT.VolumeI.Chapter01.Section07.FunctorCategories 𝒯 M
-open import SCT.VolumeI.Chapter01.Section07.Representation 𝒯 M
+open import SCT.VolumeI.Chapter01.Section07.EvaluationCalculus.Representation 𝒯 M
 
 module Uniqueness {F G C D : CAT} (e : MAP (F × C) D) (e′ : MAP (G × C) D)
   (universal : IsFunctorCategory e) (universal′ : IsFunctorCategory e′) where

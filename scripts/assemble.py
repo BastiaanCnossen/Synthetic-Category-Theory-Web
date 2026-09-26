@@ -1,10 +1,11 @@
 """Join TeX4ht output to compiler-produced Agda fragments, without copying prose."""
 from common import *
+from source_anchors import conversion_anchor, public_anchor
 from urllib.parse import quote, unquote
 import copy, textwrap, shutil
 from pilot_model import declaration_range, prelude
 from authored_pages import require_authored_pages
-from book_navigation import contents, page_turns
+from book_navigation import contents, page_turns, breadcrumbs, chapter_sections, reading_tools, book_sidebar, agda_invitation
 
 from checked_code import publication_manifest, verify_checked_code
 MANIFEST=json.loads(read(ROOT/'correspondence.json'))
@@ -57,7 +58,6 @@ def math_config():
     return {'loader':{'paths':{'fonts':'vendor/mathjax/fonts'},'load':['[tex]/mathtools']},'tex':{'inlineMath':[['\\(','\\)']],'displayMath':[['\\[','\\]']],'packages':{'[+]':['ams','mathtools']},'macros':macros},'options':{'enableMenu':False}}
 
 def page(title, content, current='', math=True, prefix=''):
-    nav=contents(current or title,prefix)
     scripts=f'<script src="{prefix}assets/math-config.js"></script><script defer src="{prefix}vendor/mathjax/tex-chtml.js"></script>' if math else ''
     has_passages=current in {slug for slug, _, _ in BOOK_SECTIONS}
     # New passage/module data must not be masked by a cached previous edition.
@@ -65,16 +65,15 @@ def page(title, content, current='', math=True, prefix=''):
     reader_script=f'<script defer src="{prefix}assets/agda-context.js?v={context_version}"></script>' if has_passages else ''
     reader_version=digest((ROOT/'assets/reader.js').read_bytes())[:16]
     style_version=digest((ROOT/'assets/reader.css').read_bytes())[:16]
-    body_class='has-passages' if has_passages else ''
+    body_class='hide-agda-links'+(' has-passages' if has_passages else '')
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><title>{escape(title)} | Synthetic category theory</title>
 <link rel="icon" href="{prefix}assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="{prefix}assets/reader-shell.css"><link rel="stylesheet" href="{prefix}assets/reader.css?v={style_version}"><link rel="stylesheet" href="{prefix}assets/Agda.css">
 {scripts}{reader_script}<script defer src="{prefix}assets/reader.js?v={reader_version}"></script></head>
-<body class="{body_class}"><a class="skip-link" href="#main">Skip to content</a>
-<header class="site-header"><div class="header-top"><a class="collection-return" href="{prefix}index.html">Synthetic category theory</a>{page_turns(current,prefix)}</div><p class="eyebrow">Volume I · Experimental web edition</p><h1>{escape(title)}</h1></header>
-<div class="reader-grid"><aside class="reader-nav" aria-label="Book navigation"><details open><summary>Contents</summary><nav>{nav}</nav></details>
-<details class="settings"><summary>Reading preferences</summary><label><input id="collapse-proofs" type="checkbox"> Collapse book proofs</label><label><input id="hide-agda-links" type="checkbox"> Hide links to Agda code</label>{'<button id="open-code-browser" type="button">Browse Agda modules</button>' if has_passages else ''}<a href="{prefix}book.pdf">Read the web edition PDF</a></details></aside>
+<body class="{body_class}"><a class="skip-link" href="#main">Skip to content</a>{reading_tools(prefix)}
+<header class="site-header"><div class="header-top">{breadcrumbs(current,prefix)}{page_turns(current,prefix)}</div><p class="eyebrow">Volume I · Experimental web edition</p><h1>{escape(title)}</h1></header>
+<div class="reader-grid">{book_sidebar(current or title,prefix)}
 <main id="main" class="notes-page" tabindex="-1">{content}</main></div>
 <footer>Experimental web edition · Generated from annotated LaTeX and Agda sources. <a href="{prefix}build-report.html">Build details</a></footer></body></html>'''
 
@@ -230,10 +229,10 @@ def assemble(site=SITE):
         if n.has('framedenv') and 'id' in n.attrs:
             if n.attrs['id'] in referenced: raise ValueError('Referenced TeX4ht frame ID needs an explicit migration')
             del n.attrs['id']
-    # TeX4ht normalizes punctuation in IDs. Restore the original source labels.
+    # Temporary punctuation-free IDs survive TeX4ht; restore source labels.
     ids={n.attrs['id']:n for n in body.all() if 'id' in n.attrs}
     for note in MANIFEST.get('coverage_notes',[]):
-        anchor=ids[note['tex_label'].replace(':','_')]
+        anchor=ids[conversion_anchor(note['tex_label'])]
         target=anchor
         while target.parent is not body and not (target.tag=='section' or target.has('subsectionHead')):
             target=target.parent
@@ -241,10 +240,13 @@ def assemble(site=SITE):
         node=parse('<p class="coverage-note">'+escape(note['text'])+'</p>').children[0]
         node.parent=parent
         parent.children.insert(parent.children.index(target)+1,node)
+    public_labels={label:public_anchor(label) for label in selection['labels']}
+    if len(set(public_labels.values()))!=len(public_labels):
+        raise ValueError('Manuscript labels collide after public anchor conversion')
     for label in selection['labels']:
-        key=label.replace(':','_')
+        key=conversion_anchor(label)
         if key not in ids: raise ValueError(f'Missing manuscript label {label}')
-        ids[key].attrs['id']=label
+        ids[key].attrs['id']=public_labels[label]
     ids={n.attrs['id']:n for n in body.all() if 'id' in n.attrs}
     insert_diagrams(body, selection['diagrams'], equation_numbers)
     for statement in body.all('section'):
@@ -253,7 +255,7 @@ def assemble(site=SITE):
     inserted={}
     for p in MANIFEST['passages']:
         if p.get('tex_label'):
-            anchor=ids[p['tex_label']]
+            anchor=ids[public_labels[p['tex_label']]]
             trigger=parse('<a class="agda-trigger agda-point" id="text-'+p['id']+'" href="#agda-'+p['id']+'" data-agda="'+p['id']+'">Agda</a>').children[0]
             heading=next((n for n in anchor.parent.children if isinstance(n,Node) and n.has('head')),None)
             if heading is not None:
@@ -315,18 +317,19 @@ def assemble(site=SITE):
             if len(restored)!=1: raise ValueError('Outside-pilot anchor changed')
             a.attrs['href']='outside-selection.html#'+restored[0]
         if href.startswith('pilot.html#') or href.startswith('#'):
-            fragment=unquote(href.split('#',1)[1]); fragment=next((l for l in selection['labels'] if l.replace(':','_')==fragment),fragment)
+            fragment=unquote(href.split('#',1)[1]); fragment=next((public_labels[l] for l in selection['labels'] if conversion_anchor(l)==fragment),fragment)
             aliases={}
             for m in re.finditer(r'\\newlabel\{([^}@]+)\}\{\{\\rEfLiNK\{([^}]+)\}',read(BUILD/'pilot.aux')):
-                if m[1] in route: aliases.setdefault(m[2],m[1])
+                if m[1] in public_labels and public_labels[m[1]] in route:
+                    aliases.setdefault(m[2],public_labels[m[1]])
             fragment=aliases.get(fragment,fragment)
             if fragment not in route: raise ValueError(f'Unresolved TeX fragment: {href}')
             a.attrs['href']=route[fragment]+'#'+fragment
     titles={slug:title for slug,title,_ in BOOK_PAGES}
     for slug,nodes in segments.items():
         content=''.join(n.html() if isinstance(n,Node) else escape(n) for n in nodes)
-        if slug in {s for s,_,_ in BOOK_SECTIONS}:
-            content='<p class="agda-help">Click dotted-underlined prose to read its Agda code alongside the book. <a href="code-index.html">Browse all code</a>.</p>'+content
+        content=agda_invitation(slug,MANIFEST)+content
+        content+=chapter_sections(slug,read(site/'index.html'))
         write(site/(slug+'.html'),page(titles[slug],content,slug))
     write(site/'assets/math-config.js','window.MathJax = '+json.dumps(math_config(),ensure_ascii=False)+';\n')
     shutil.copyfile(BUILD/'agda/Agda.css',site/'assets/Agda.css')

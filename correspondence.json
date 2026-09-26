@@ -1,7 +1,7 @@
 {
   "schema": 3,
   "module_prefix": "SCT.VolumeI.",
-  "scope_note": "Checked source correspondences for Chapter 1 Sections 1.1–1.8 and Chapter 2 Sections 2.1–2.6. Contextual inheritance is outside the formalization scope. Passage notes identify proof-route and representation differences.",
+  "scope_note": "Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.",
   "passages": [
     {
       "id": "categories",
@@ -2282,42 +2282,42 @@
           "role": "definition"
         },
         {
-          "module": "Chapter01.Section03.PairingCoherence",
+          "module": "Chapter01.Section03.ProductCalculus.PairingCoherence",
           "name": "pairIsoMap",
           "qualified": "pairIsoMap",
           "role": "definition",
           "secondary": true
         },
         {
-          "module": "Chapter01.Section03.PairingCoherence",
+          "module": "Chapter01.Section03.ProductCalculus.PairingCoherence",
           "name": "pair-cong-Iso₂",
           "qualified": "pair-cong-Iso₂",
           "role": "derived",
           "secondary": true
         },
         {
-          "module": "Chapter01.Section03.ProductFunctorCoherence",
+          "module": "Chapter01.Section03.ProductCalculus.ProductFunctorCoherence",
           "name": "productIsoMap",
           "qualified": "productIsoMap",
           "role": "definition",
           "secondary": true
         },
         {
-          "module": "Chapter01.Section03.ProductFunctorCoherence",
+          "module": "Chapter01.Section03.ProductCalculus.ProductFunctorCoherence",
           "name": "productMap-cong-Iso₂",
           "qualified": "productMap-cong-Iso₂",
           "role": "derived",
           "secondary": true
         },
         {
-          "module": "Chapter01.Section03.PairingCoherence",
+          "module": "Chapter01.Section03.ProductCalculus.PairingCoherence",
           "name": "pairIsoMap-at",
           "qualified": "pairIsoMap-at",
           "role": "derived",
           "secondary": true
         },
         {
-          "module": "Chapter01.Section03.ProductFunctorCoherence",
+          "module": "Chapter01.Section03.ProductCalculus.ProductFunctorCoherence",
           "name": "productIsoMap-at",
           "qualified": "productIsoMap-at",
           "role": "derived",
@@ -2345,35 +2345,35 @@
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section03.FamilyProductFunctor",
+          "module": "Chapter01.Section03.ProductCalculus.FamilyProductFunctor",
           "name": "productMap-comp-family",
           "qualified": "productMap-comp-family",
           "role": "derived",
           "secondary": true
         },
         {
-          "module": "Chapter01.Section03.ProductFunctorUnits",
+          "module": "Chapter01.Section03.ProductCalculus.ProductFunctorUnits",
           "name": "productMap-unitˡ",
           "qualified": "productMap-unitˡ",
           "role": "derived",
           "secondary": true
         },
         {
-          "module": "Chapter01.Section03.ProductFunctorUnits",
+          "module": "Chapter01.Section03.ProductCalculus.ProductFunctorUnits",
           "name": "productMap-unitʳ",
           "qualified": "productMap-unitʳ",
           "role": "derived",
           "secondary": true
         },
         {
-          "module": "Chapter01.Section03.FamilyProductFunctor",
+          "module": "Chapter01.Section03.ProductCalculus.FamilyProductFunctor",
           "name": "productFamily-pre",
           "qualified": "productFamily-pre",
           "role": "derived",
           "secondary": true
         },
         {
-          "module": "Chapter01.Section03.ProductFunctorCoherence",
+          "module": "Chapter01.Section03.ProductCalculus.ProductFunctorCoherence",
           "name": "prewhisker-square",
           "qualified": "prewhisker-square",
           "role": "derived",
@@ -2389,116 +2389,116 @@
       "note": "Pairing/precomposition and its input, iteration, and unit compatibilities are the main targets. Other product and higher-identification results remain supporting implementations from the earlier expanded argument.",
       "declarations": [
         {
-          "module": "Chapter01.Section03.FamilyNaturality",
+          "module": "Chapter01.Section03.IdentificationCalculus.FamilyNaturality",
           "name": "family-pair-pre-full",
           "qualified": "family-pair-pre-full",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section03.IteratedPairing",
+          "module": "Chapter01.Section03.ProductCalculus.IteratedPairing",
           "name": "pair-pre-iterated",
           "qualified": "pair-pre-iterated",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section03.PairingUnits",
+          "module": "Chapter01.Section03.ProductCalculus.PairingUnits",
           "name": "pair-pre-id",
           "qualified": "pair-pre-id",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section03.FamilyPairing",
+          "module": "Chapter01.Section03.ProductCalculus.FamilyPairing",
           "name": "pairing-identity",
           "qualified": "pairing-identity",
           "role": "derived",
           "secondary": true
         },
         {
-          "module": "Chapter01.Section03.FamilyPairing",
+          "module": "Chapter01.Section03.ProductCalculus.FamilyPairing",
           "name": "pairing-composition",
           "qualified": "pairing-composition",
           "role": "derived",
           "secondary": true
         },
         {
-          "module": "Chapter01.Section03.FamilyPairing",
+          "module": "Chapter01.Section03.ProductCalculus.FamilyPairing",
           "name": "pairing-absolute",
           "qualified": "pairing-absolute",
           "role": "derived",
           "secondary": true
         },
         {
-          "module": "Chapter01.Section03.FamilyProductFunctor",
+          "module": "Chapter01.Section03.ProductCalculus.FamilyProductFunctor",
           "name": "productMap-comp-family",
           "qualified": "productMap-comp-family",
           "role": "derived",
           "secondary": true
         },
         {
-          "module": "Chapter01.Section03.ProductFunctorUnits",
+          "module": "Chapter01.Section03.ProductCalculus.ProductFunctorUnits",
           "name": "productMap-unitˡ",
           "qualified": "productMap-unitˡ",
           "role": "derived",
           "secondary": true
         },
         {
-          "module": "Chapter01.Section03.ProductFunctorUnits",
+          "module": "Chapter01.Section03.ProductCalculus.ProductFunctorUnits",
           "name": "productMap-unitʳ",
           "qualified": "productMap-unitʳ",
           "role": "derived",
           "secondary": true
         },
         {
-          "module": "Chapter01.Section03.FamilyProductFunctor",
+          "module": "Chapter01.Section03.ProductCalculus.FamilyProductFunctor",
           "name": "productFamily-pre",
           "qualified": "productFamily-pre",
           "role": "derived",
           "secondary": true
         },
         {
-          "module": "Chapter01.Section03.ProductFunctorCoherence",
+          "module": "Chapter01.Section03.ProductCalculus.ProductFunctorCoherence",
           "name": "prewhisker-square",
           "qualified": "prewhisker-square",
           "role": "derived",
           "secondary": true
         },
         {
-          "module": "Chapter01.Section03.PairingCoherence",
+          "module": "Chapter01.Section03.ProductCalculus.PairingCoherence",
           "name": "pairIsoMap",
           "qualified": "pairIsoMap",
           "role": "definition",
           "secondary": true
         },
         {
-          "module": "Chapter01.Section03.PairingCoherence",
+          "module": "Chapter01.Section03.ProductCalculus.PairingCoherence",
           "name": "pair-cong-Iso₂",
           "qualified": "pair-cong-Iso₂",
           "role": "derived",
           "secondary": true
         },
         {
-          "module": "Chapter01.Section03.ProductFunctorCoherence",
+          "module": "Chapter01.Section03.ProductCalculus.ProductFunctorCoherence",
           "name": "productIsoMap",
           "qualified": "productIsoMap",
           "role": "definition",
           "secondary": true
         },
         {
-          "module": "Chapter01.Section03.ProductFunctorCoherence",
+          "module": "Chapter01.Section03.ProductCalculus.ProductFunctorCoherence",
           "name": "productMap-cong-Iso₂",
           "qualified": "productMap-cong-Iso₂",
           "role": "derived",
           "secondary": true
         },
         {
-          "module": "Chapter01.Section03.PairingCoherence",
+          "module": "Chapter01.Section03.ProductCalculus.PairingCoherence",
           "name": "pairIsoMap-at",
           "qualified": "pairIsoMap-at",
           "role": "derived",
           "secondary": true
         },
         {
-          "module": "Chapter01.Section03.ProductFunctorCoherence",
+          "module": "Chapter01.Section03.ProductCalculus.ProductFunctorCoherence",
           "name": "productIsoMap-at",
           "qualified": "productIsoMap-at",
           "role": "derived",
@@ -2514,19 +2514,19 @@
       "note": "Both family laws retain common A; pairing-absolute compares actual chosen operations, not a mere alias.",
       "declarations": [
         {
-          "module": "Chapter01.Section03.FamilyPairing",
+          "module": "Chapter01.Section03.ProductCalculus.FamilyPairing",
           "name": "pairing-identity",
           "qualified": "pairing-identity",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section03.FamilyPairing",
+          "module": "Chapter01.Section03.ProductCalculus.FamilyPairing",
           "name": "pairing-composition",
           "qualified": "pairing-composition",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section03.FamilyPairing",
+          "module": "Chapter01.Section03.ProductCalculus.FamilyPairing",
           "name": "pairing-absolute",
           "qualified": "pairing-absolute",
           "role": "derived"
@@ -2541,32 +2541,32 @@
       "note": "For readable full boundary include IteratedPairing.Boundaries.together and Boundaries.successively with module parameters. Action on higher identifications is supporting detail for compatibility with input identifications.",
       "declarations": [
         {
-          "module": "Chapter01.Section03.FamilyNaturality",
+          "module": "Chapter01.Section03.IdentificationCalculus.FamilyNaturality",
           "name": "family-pair-pre-full",
           "qualified": "family-pair-pre-full",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section03.IteratedPairing",
+          "module": "Chapter01.Section03.ProductCalculus.IteratedPairing",
           "name": "pair-pre-iterated",
           "qualified": "pair-pre-iterated",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section03.PairingUnits",
+          "module": "Chapter01.Section03.ProductCalculus.PairingUnits",
           "name": "pair-pre-id",
           "qualified": "pair-pre-id",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section03.PairingCoherence",
+          "module": "Chapter01.Section03.ProductCalculus.PairingCoherence",
           "name": "pair-cong-Iso₂",
           "qualified": "pair-cong-Iso₂",
           "role": "derived",
           "secondary": true
         },
         {
-          "module": "Chapter01.Section03.ProductFunctorCoherence",
+          "module": "Chapter01.Section03.ProductCalculus.ProductFunctorCoherence",
           "name": "productMap-cong-Iso₂",
           "qualified": "productMap-cong-Iso₂",
           "role": "derived",
@@ -2588,19 +2588,19 @@
           "role": "assumption"
         },
         {
-          "module": "Chapter01.Section03.FamilyPairing",
+          "module": "Chapter01.Section03.ProductCalculus.FamilyPairing",
           "name": "lift",
           "qualified": "Lift.lift",
           "role": "definition"
         },
         {
-          "module": "Chapter01.Section03.FamilyPairing",
+          "module": "Chapter01.Section03.ProductCalculus.FamilyPairing",
           "name": "image",
           "qualified": "Lift.image",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section03.FamilyPairing",
+          "module": "Chapter01.Section03.ProductCalculus.FamilyPairing",
           "name": "pairing",
           "qualified": "pairing",
           "role": "definition",
@@ -2614,28 +2614,28 @@
           "secondary": true
         },
         {
-          "module": "Chapter01.Section03.FamilyPairing",
+          "module": "Chapter01.Section03.ProductCalculus.FamilyPairing",
           "name": "pairing-β₁",
           "qualified": "pairing-β₁",
           "role": "derived",
           "secondary": true
         },
         {
-          "module": "Chapter01.Section03.FamilyPairing",
+          "module": "Chapter01.Section03.ProductCalculus.FamilyPairing",
           "name": "pairing-β₂",
           "qualified": "pairing-β₂",
           "role": "derived",
           "secondary": true
         },
         {
-          "module": "Chapter01.Section03.PairingCoherence",
+          "module": "Chapter01.Section03.ProductCalculus.PairingCoherence",
           "name": "pair-cong-β₁",
           "qualified": "pair-cong-β₁",
           "role": "derived",
           "secondary": true
         },
         {
-          "module": "Chapter01.Section03.PairingCoherence",
+          "module": "Chapter01.Section03.ProductCalculus.PairingCoherence",
           "name": "pair-cong-β₂",
           "qualified": "pair-cong-β₂",
           "role": "derived",
@@ -2651,46 +2651,46 @@
       "note": "These are concrete pairing instances. Do not assert that this one link proves all clause (3) diagrams. The shortened proof groups successive-precomposition checks into its projection argument. Lifting the projected comparisons is a detail of the shortened compatibility proof.",
       "declarations": [
         {
-          "module": "Chapter01.Section03.PairingCoherence",
+          "module": "Chapter01.Section03.ProductCalculus.PairingCoherence",
           "name": "pair-cong-id",
           "qualified": "pair-cong-id",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section03.PairingCoherence",
+          "module": "Chapter01.Section03.ProductCalculus.PairingCoherence",
           "name": "pair-cong-comp",
           "qualified": "pair-cong-comp",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section03.FamilyPairing",
+          "module": "Chapter01.Section03.ProductCalculus.FamilyPairing",
           "name": "pairing-composition",
           "qualified": "pairing-composition",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section03.IteratedPairing",
+          "module": "Chapter01.Section03.ProductCalculus.IteratedPairing",
           "name": "compatibility",
           "qualified": "Boundaries.compatibility",
           "role": "derived",
           "secondary": true
         },
         {
-          "module": "Chapter01.Section03.PairingUnits",
+          "module": "Chapter01.Section03.ProductCalculus.PairingUnits",
           "name": "pair-pre-id",
           "qualified": "pair-pre-id",
           "role": "derived",
           "secondary": true
         },
         {
-          "module": "Chapter01.Section03.PairingCoherence",
+          "module": "Chapter01.Section03.ProductCalculus.PairingCoherence",
           "name": "pair-iso-extensionality",
           "qualified": "pair-iso-extensionality",
           "role": "derived",
           "secondary": true
         },
         {
-          "module": "Chapter01.Section03.FamilyPairing",
+          "module": "Chapter01.Section03.ProductCalculus.FamilyPairing",
           "name": "family-extensionality",
           "qualified": "family-extensionality",
           "role": "derived",
@@ -2929,7 +2929,7 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter01.Section04.Specialization",
+          "module": "Chapter01.Section04.Substitution.Specialization",
           "name": "specializeMap",
           "qualified": "specializeMap",
           "role": "definition"
@@ -2944,13 +2944,13 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter01.Section04.Specialization",
+          "module": "Chapter01.Section04.Substitution.Specialization",
           "name": "specializeMap-id",
           "qualified": "specializeMap-id",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section04.Specialization",
+          "module": "Chapter01.Section04.Substitution.Specialization",
           "name": "specializeMap-comp",
           "qualified": "specializeMap-comp",
           "role": "derived"
@@ -2965,13 +2965,13 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter01.Section04.Specialization",
+          "module": "Chapter01.Section04.Substitution.Specialization",
           "name": "specializeMapIso",
           "qualified": "specializeMapIso",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section04.Specialization",
+          "module": "Chapter01.Section04.Substitution.Specialization",
           "name": "specializeMap-Iso₂",
           "qualified": "specializeMap-Iso₂",
           "role": "derived"
@@ -2986,19 +2986,19 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter01.Section04.Specialization",
+          "module": "Chapter01.Section04.Substitution.Specialization",
           "name": "specializeMap-isoMap-isEquiv",
           "qualified": "specializeMap-isoMap-isEquiv",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section04.Specialization",
+          "module": "Chapter01.Section04.Substitution.Specialization",
           "name": "specializeMap-reflect-β",
           "qualified": "specializeMap-reflect-β",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section04.Specialization",
+          "module": "Chapter01.Section04.Substitution.Specialization",
           "name": "specializeMap-Iso₂-lift",
           "qualified": "specializeMap-Iso₂-lift",
           "role": "derived"
@@ -3252,13 +3252,13 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter01.Section04.Compatibility",
+          "module": "Chapter01.Section04.Substitution.Compatibility",
           "name": "mapUncurry-restrict-natural",
           "qualified": "mapUncurry-restrict-natural",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section04.Compatibility",
+          "module": "Chapter01.Section04.Substitution.Compatibility",
           "name": "uncurry-restrict-natural-action",
           "qualified": "uncurry-restrict-natural-action",
           "role": "derived"
@@ -3294,19 +3294,19 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter01.Section04.SubstitutionCoherence",
+          "module": "Chapter01.Section04.Substitution.SubstitutionCoherence",
           "name": "mapUncurry-restrict-iterated",
           "qualified": "mapUncurry-restrict-iterated",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section04.Compatibility",
+          "module": "Chapter01.Section04.Substitution.Compatibility",
           "name": "comparison",
           "qualified": "JointNaturality.comparison",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section04.Compatibility",
+          "module": "Chapter01.Section04.Substitution.Compatibility",
           "name": "comparison",
           "qualified": "JointComposition.comparison",
           "role": "derived"
@@ -3411,7 +3411,7 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter01.Section04.InternalCoherence",
+          "module": "Chapter01.Section04.CompositionCalculus.InternalCoherence",
           "name": "retained",
           "qualified": "RetainedEvaluation.retained",
           "role": "definition"
@@ -3426,13 +3426,13 @@
       "note": "The passage gives the retained-composition comparison. The retained-identity comparison is supporting code used later in the unitors and triangle argument.",
       "declarations": [
         {
-          "module": "Chapter01.Section04.InternalCoherence",
+          "module": "Chapter01.Section04.CompositionCalculus.InternalCoherence",
           "name": "retained-compose",
           "qualified": "RetainedEvaluation.retained-compose",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section04.InternalCoherence",
+          "module": "Chapter01.Section04.CompositionCalculus.InternalCoherence",
           "name": "retained-identity",
           "qualified": "RetainedEvaluation.retained-identity",
           "role": "derived",
@@ -3448,13 +3448,13 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter01.Section04.RetainedCompositionParameterChange",
+          "module": "Chapter01.Section04.CompositionCalculus.RetainedCompositionParameterChange",
           "name": "retained-compose-parameter-change",
           "qualified": "retained-compose-parameter-change",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section04.RetainedIdentityParameterChange",
+          "module": "Chapter01.Section04.Substitution.RetainedIdentityParameterChange",
           "name": "retained-identity-parameter-change",
           "qualified": "retained-identity-parameter-change",
           "role": "derived"
@@ -3469,20 +3469,20 @@
       "note": "The code constructs associator and unitor compatibility by restricting their universal representatives. The direct associator target is followed by the corresponding unitor restrictions.",
       "declarations": [
         {
-          "module": "Chapter01.Section04.UniversalAssociatorRestriction",
+          "module": "Chapter01.Section04.CompositionCalculus.UniversalAssociatorRestriction",
           "name": "universal-assoc",
           "qualified": "universal-assoc",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section04.UniversalUnitChange",
+          "module": "Chapter01.Section04.CompositionCalculus.UniversalUnitChange",
           "name": "universal-unitˡ",
           "qualified": "universal-unitˡ",
           "role": "derived",
           "secondary": true
         },
         {
-          "module": "Chapter01.Section04.UniversalUnitChange",
+          "module": "Chapter01.Section04.CompositionCalculus.UniversalUnitChange",
           "name": "universal-unitʳ",
           "qualified": "universal-unitʳ",
           "role": "derived",
@@ -3498,13 +3498,13 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter01.Section04.InternalCoherence",
+          "module": "Chapter01.Section04.CompositionCalculus.InternalCoherence",
           "name": "mapComp-assoc",
           "qualified": "mapComp-assoc",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section04.InternalCoherence",
+          "module": "Chapter01.Section04.CompositionCalculus.InternalCoherence",
           "name": "compose-assoc",
           "qualified": "compose-assoc",
           "role": "derived"
@@ -3519,13 +3519,13 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter01.Section04.InternalCoherence",
+          "module": "Chapter01.Section04.CompositionCalculus.InternalCoherence",
           "name": "mapComp-unitˡ",
           "qualified": "mapComp-unitˡ",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section04.InternalCoherence",
+          "module": "Chapter01.Section04.CompositionCalculus.InternalCoherence",
           "name": "mapComp-unitʳ",
           "qualified": "mapComp-unitʳ",
           "role": "derived"
@@ -4437,7 +4437,7 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter01.Section06.ConeAction",
+          "module": "Chapter01.Section06.ConeCalculus.ConeAction",
           "name": "cone-action",
           "qualified": "cone-action",
           "role": "derived"
@@ -4684,25 +4684,25 @@
       "note": "The full transferred equivalence of identification animae is proved, with both projection comparisons and the complete computation for its explicitly transported matching. Agreement with the independently chosen direct interchange matching in ConeAction.Action is a separate, unproved coherence statement. The earlier lifting declarations below retain their original projection computations.",
       "declarations": [
         {
-          "module": "Chapter01.Section06.UniversalConeComparison",
+          "module": "Chapter01.Section06.ConeCalculus.UniversalConeComparison",
           "name": "comparison",
           "qualified": "Transfer.comparison",
           "role": "definition"
         },
         {
-          "module": "Chapter01.Section06.UniversalConeComparison",
+          "module": "Chapter01.Section06.ConeCalculus.UniversalConeComparison",
           "name": "comparison-isEquiv",
           "qualified": "Transfer.comparison-isEquiv",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section06.UniversalConeComparison",
+          "module": "Chapter01.Section06.ConeCalculus.UniversalConeComparison",
           "name": "matching",
           "qualified": "Transfer.matching",
           "role": "definition"
         },
         {
-          "module": "Chapter01.Section06.UniversalConeComparison",
+          "module": "Chapter01.Section06.ConeCalculus.UniversalConeComparison",
           "name": "computation",
           "qualified": "Transfer.computation",
           "role": "derived"
@@ -4714,19 +4714,19 @@
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section06.UniversalConeLifting",
+          "module": "Chapter01.Section06.ConeCalculus.UniversalConeLifting",
           "name": "lift",
           "qualified": "UniversalLift.lift",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section06.UniversalConeLifting",
+          "module": "Chapter01.Section06.ConeCalculus.UniversalConeLifting",
           "name": "left-image",
           "qualified": "UniversalLift.left-image",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section06.UniversalConeLifting",
+          "module": "Chapter01.Section06.ConeCalculus.UniversalConeLifting",
           "name": "right-image",
           "qualified": "UniversalLift.right-image",
           "role": "derived"
@@ -4938,13 +4938,13 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter01.Section06.PullbackLifting",
+          "module": "Chapter01.Section06.ConeCalculus.PullbackLifting",
           "name": "lift",
           "qualified": "Lift.lift",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section06.PullbackLifting",
+          "module": "Chapter01.Section06.ConeCalculus.PullbackLifting",
           "name": "comparison-image",
           "qualified": "Lift.comparison-image",
           "role": "derived"
@@ -5042,7 +5042,7 @@
       "note": "The linked code checks the absolute statement. Contextual inheritance indicated by underlining in the manuscript is not established by these modules.",
       "declarations": [
         {
-          "module": "Chapter01.Section06.CospanEquivalences",
+          "module": "Chapter01.Section06.Cospans.CospanEquivalences",
           "name": "pullbackMap-isEquiv",
           "qualified": "CospanEquivalence.pullbackMap-isEquiv",
           "role": "derived"
@@ -5102,7 +5102,7 @@
       "note": "The linked code checks the absolute statement. Contextual inheritance indicated by underlining in the manuscript is not established by these modules.",
       "declarations": [
         {
-          "module": "Chapter01.Section06.NestedPullbacks",
+          "module": "Chapter01.Section06.Pasting.NestedPullbacks",
           "name": "insert-isEquiv",
           "qualified": "Nested.insert-isEquiv",
           "role": "derived"
@@ -5130,7 +5130,7 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter01.Section06.NestedPullbacks",
+          "module": "Chapter01.Section06.Pasting.NestedPullbacks",
           "name": "insert",
           "qualified": "Nested.insert",
           "role": "definition"
@@ -5145,7 +5145,7 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter01.Section06.NestedPullbacks",
+          "module": "Chapter01.Section06.Pasting.NestedPullbacks",
           "name": "flatten",
           "qualified": "Nested.flatten",
           "role": "definition"
@@ -5160,13 +5160,13 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter01.Section06.NestedPullbacks",
+          "module": "Chapter01.Section06.Pasting.NestedPullbacks",
           "name": "insert-flatten",
           "qualified": "Nested.insert-flatten",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section06.NestedPullbacks",
+          "module": "Chapter01.Section06.Pasting.NestedPullbacks",
           "name": "flatten-insert",
           "qualified": "Nested.flatten-insert",
           "role": "derived"
@@ -5203,19 +5203,19 @@
       "note": "The linked code checks the absolute statement. Contextual inheritance indicated by underlining in the manuscript is not established by these modules. The matching is the original one paired with the identity. The code checks it against the transported cone, using a direct cone argument.",
       "declarations": [
         {
-          "module": "Chapter01.Section06.DiagonalPullbacks",
+          "module": "Chapter01.Section06.Coordinates.DiagonalPullbacks",
           "name": "value",
           "qualified": "DiagonalPullback.Square.value",
           "role": "definition"
         },
         {
-          "module": "Chapter01.Section06.DiagonalPullbacks",
+          "module": "Chapter01.Section06.Coordinates.DiagonalPullbacks",
           "name": "preserve",
           "qualified": "DiagonalPullback.Square.preserve",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section06.DiagonalPullbacks",
+          "module": "Chapter01.Section06.Coordinates.DiagonalPullbacks",
           "name": "matching-comparison",
           "qualified": "DiagonalPullback.Square.matching-comparison",
           "role": "derived"
@@ -5231,13 +5231,13 @@
       "note": "The linked code checks the absolute statement. Contextual inheritance indicated by underlining in the manuscript is not established by these modules.",
       "declarations": [
         {
-          "module": "Chapter01.Section06.InitialPullbacks",
+          "module": "Chapter01.Section06.CoproductCalculus.InitialPullbacks",
           "name": "initialCone",
           "qualified": "initialCone",
           "role": "definition"
         },
         {
-          "module": "Chapter01.Section06.InitialPullbacks",
+          "module": "Chapter01.Section06.CoproductCalculus.InitialPullbacks",
           "name": "initial-square",
           "qualified": "initial-square",
           "role": "derived"
@@ -5329,19 +5329,19 @@
       "note": "The linked code checks the absolute statement. Contextual inheritance indicated by underlining in the manuscript is not established by these modules.",
       "declarations": [
         {
-          "module": "Chapter01.Section06.CoproductDescentSquare",
+          "module": "Chapter01.Section06.CoproductCalculus.CoproductDescentSquare",
           "name": "direct-square",
           "qualified": "DescentSquare.direct-square",
           "role": "definition"
         },
         {
-          "module": "Chapter01.Section06.CoproductDescentSquare",
+          "module": "Chapter01.Section06.CoproductCalculus.CoproductDescentSquare",
           "name": "direct-square-isPullback",
           "qualified": "DescentSquare.direct-square-isPullback",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section06.CoproductDescentSquare",
+          "module": "Chapter01.Section06.CoproductCalculus.CoproductDescentSquare",
           "name": "matching-comparison",
           "qualified": "DescentSquare.matching-comparison",
           "role": "derived"
@@ -5436,7 +5436,7 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter01.Section06.ParametrizedCases",
+          "module": "Chapter01.Section06.CoproductCalculus.ParametrizedCases",
           "name": "cases",
           "qualified": "Cases.cases",
           "role": "definition"
@@ -5451,13 +5451,13 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter01.Section06.ParametrizedCases",
+          "module": "Chapter01.Section06.CoproductCalculus.ParametrizedCases",
           "name": "cases-β₁",
           "qualified": "Cases.cases-β₁",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section06.ParametrizedCases",
+          "module": "Chapter01.Section06.CoproductCalculus.ParametrizedCases",
           "name": "cases-β₂",
           "qualified": "Cases.cases-β₂",
           "role": "derived"
@@ -5472,13 +5472,13 @@
       "note": "The linked code checks the absolute statement. Contextual inheritance indicated by underlining in the manuscript is not established by these modules. The code derives initial contractibility from disjointness, then uses strictness to conclude for every category.",
       "declarations": [
         {
-          "module": "Chapter01.Section06.ContractibleCoproduct",
+          "module": "Chapter01.Section06.CoproductCalculus.ContractibleCoproduct",
           "name": "two-contractible-implies-all",
           "qualified": "two-contractible-implies-all",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section06.ContractibleCoproduct",
+          "module": "Chapter01.Section06.CoproductCalculus.ContractibleCoproduct",
           "name": "all-contractible-implies-two",
           "qualified": "all-contractible-implies-two",
           "role": "derived"
@@ -5572,7 +5572,7 @@
       "note": "The linked code checks the absolute statement. Contextual inheritance indicated by underlining in the manuscript is not established by these modules. The code names the displayed lower and right legs in the opposite order.",
       "declarations": [
         {
-          "module": "Chapter01.Section06.EmbeddingCalculus",
+          "module": "Chapter01.Section06.EmbeddingCalculus.EmbeddingCalculus",
           "name": "base-change-embedding",
           "qualified": "base-change-embedding",
           "role": "derived"
@@ -5619,13 +5619,13 @@
       "note": "The linked code checks the absolute statement. Contextual inheritance indicated by underlining in the manuscript is not established by these modules.",
       "declarations": [
         {
-          "module": "Chapter01.Section06.EmbeddingCalculus",
+          "module": "Chapter01.Section06.EmbeddingCalculus.EmbeddingCalculus",
           "name": "auxiliaryCone",
           "qualified": "auxiliaryCone",
           "role": "definition"
         },
         {
-          "module": "Chapter01.Section06.EmbeddingCalculus",
+          "module": "Chapter01.Section06.EmbeddingCalculus.EmbeddingCalculus",
           "name": "auxiliary-isPullback",
           "qualified": "auxiliary-isPullback",
           "role": "derived"
@@ -5641,13 +5641,13 @@
       "note": "The linked code checks the absolute statement. Contextual inheritance indicated by underlining in the manuscript is not established by these modules.",
       "declarations": [
         {
-          "module": "Chapter01.Section06.EmbeddingCalculus",
+          "module": "Chapter01.Section06.EmbeddingCalculus.EmbeddingCalculus",
           "name": "compose",
           "qualified": "LeftCancellation.compose",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section06.EmbeddingCalculus",
+          "module": "Chapter01.Section06.EmbeddingCalculus.EmbeddingCalculus",
           "name": "cancel",
           "qualified": "LeftCancellation.cancel",
           "role": "derived"
@@ -5663,13 +5663,13 @@
       "note": "The linked code checks the absolute statement. Contextual inheritance indicated by underlining in the manuscript is not established by these modules.",
       "declarations": [
         {
-          "module": "Chapter01.Section06.EmbeddingCalculus",
+          "module": "Chapter01.Section06.EmbeddingCalculus.EmbeddingCalculus",
           "name": "to-factorization",
           "qualified": "RelativeEmbedding.to-factorization",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section06.EmbeddingCalculus",
+          "module": "Chapter01.Section06.EmbeddingCalculus.EmbeddingCalculus",
           "name": "from-factorization",
           "qualified": "RelativeEmbedding.from-factorization",
           "role": "derived"
@@ -5685,7 +5685,7 @@
       "note": "The linked code checks the absolute statement. Contextual inheritance indicated by underlining in the manuscript is not established by these modules. The implementation constructs a section of the top comparison and uses the embedding calculus to prove that it is an equivalence.",
       "declarations": [
         {
-          "module": "Chapter01.Section06.EmbeddingCancellation",
+          "module": "Chapter01.Section06.EmbeddingCalculus.EmbeddingCancellation",
           "name": "top-isPullback",
           "qualified": "Cancellation.top-isPullback",
           "role": "derived"
@@ -5907,7 +5907,7 @@
       "note": "Representing.curry works for any category satisfying the universal property. Currying re-exports its specialization as funCurry.",
       "declarations": [
         {
-          "module": "Chapter01.Section07.Representation",
+          "module": "Chapter01.Section07.EvaluationCalculus.Representation",
           "name": "curry",
           "qualified": "Representing.curry",
           "role": "definition"
@@ -5922,7 +5922,7 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter01.Section07.Representation",
+          "module": "Chapter01.Section07.EvaluationCalculus.Representation",
           "name": "curry-β",
           "qualified": "Representing.curry-β",
           "role": "derived"
@@ -5982,13 +5982,13 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter01.Section07.Representation",
+          "module": "Chapter01.Section07.EvaluationCalculus.Representation",
           "name": "curry-β",
           "qualified": "Representing.curry-β",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section07.Representation",
+          "module": "Chapter01.Section07.EvaluationCalculus.Representation",
           "name": "curry-η",
           "qualified": "Representing.curry-η",
           "role": "derived"
@@ -6003,7 +6003,7 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter01.Section07.IsomorphismLifting",
+          "module": "Chapter01.Section07.EvaluationCalculus.IsomorphismLifting",
           "name": "funUncurry-isoMap-isEquiv",
           "qualified": "funUncurry-isoMap-isEquiv",
           "role": "derived"
@@ -6283,7 +6283,7 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter01.Section07.Representation",
+          "module": "Chapter01.Section07.EvaluationCalculus.Representation",
           "name": "curry",
           "qualified": "Representing.curry",
           "role": "definition"
@@ -6298,13 +6298,13 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter01.Section07.Representation",
+          "module": "Chapter01.Section07.EvaluationCalculus.Representation",
           "name": "curry-β",
           "qualified": "Representing.curry-β",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section07.Representation",
+          "module": "Chapter01.Section07.EvaluationCalculus.Representation",
           "name": "curry-η",
           "qualified": "Representing.curry-η",
           "role": "derived"
@@ -6426,7 +6426,7 @@
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section07.MappingTests",
+          "module": "Chapter01.Section07.EvaluationCalculus.MappingTests",
           "name": "postcomposition",
           "qualified": "postcomposition",
           "role": "derived"
@@ -6505,7 +6505,7 @@
           "role": "definition"
         },
         {
-          "module": "Chapter01.Section07.MappingTests",
+          "module": "Chapter01.Section07.EvaluationCalculus.MappingTests",
           "name": "forward-isEquiv",
           "qualified": "Test.forward-isEquiv",
           "role": "derived"
@@ -6520,13 +6520,13 @@
       "note": "The cone transport uses these uncurrying equivalences on its two legs.",
       "declarations": [
         {
-          "module": "Chapter01.Section07.MappingTests",
+          "module": "Chapter01.Section07.EvaluationCalculus.MappingTests",
           "name": "postcomposition",
           "qualified": "postcomposition",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section07.UncurryingCones",
+          "module": "Chapter01.Section07.PullbackCalculus.UncurryingCones",
           "name": "value",
           "qualified": "Transport.Forward.value",
           "role": "definition"
@@ -6541,19 +6541,19 @@
       "note": "The whole-square comparison and its matching equation are proved before any pullback hypothesis.",
       "declarations": [
         {
-          "module": "Chapter01.Section07.UncurryingSquares",
+          "module": "Chapter01.Section07.PullbackCalculus.UncurryingSquares",
           "name": "raw-evaluation",
           "qualified": "SquareComparison.raw-evaluation",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section07.UncurryingSquares",
+          "module": "Chapter01.Section07.PullbackCalculus.UncurryingSquares",
           "name": "square-comparison",
           "qualified": "SquareComparison.square-comparison",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section07.UncurryingSquares",
+          "module": "Chapter01.Section07.PullbackCalculus.UncurryingSquares",
           "name": "matching-comparison",
           "qualified": "SquareComparison.matching-comparison",
           "role": "derived"
@@ -6568,7 +6568,7 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter01.Section07.PullbackMappingTests",
+          "module": "Chapter01.Section07.PullbackCalculus.PullbackMappingTests",
           "name": "square-isPullback",
           "qualified": "MappingTest.square-isPullback",
           "role": "derived"
@@ -7094,13 +7094,13 @@
       "note": "Both implications retain the specified induced-square matching. The forward proof uses uncurrying and transposition of compatible cocones. The reverse proof first applies Map One to the functor-category pullback, then transfers this terminal test to the mapping-out square.",
       "declarations": [
         {
-          "module": "Chapter01.Section08.FunctorCriterionPreservation",
+          "module": "Chapter01.Section08.FunctorCategoryCalculus.FunctorCriterionPreservation",
           "name": "pushout→functor-criterion",
           "qualified": "pushout→functor-criterion",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section08.FunctorCriterionDetection",
+          "module": "Chapter01.Section08.FunctorCategoryCalculus.FunctorCriterionDetection",
           "name": "functor-criterion→pushout",
           "qualified": "functor-criterion→pushout",
           "role": "derived"
@@ -7116,13 +7116,13 @@
       "note": "The definition includes the specified matching; Induced.matching-β identifies its uncurrying.",
       "declarations": [
         {
-          "module": "Chapter01.Section08.FunctorSquares",
+          "module": "Chapter01.Section08.FunctorCategoryCalculus.FunctorSquares",
           "name": "functorOut",
           "qualified": "functorOut",
           "role": "definition"
         },
         {
-          "module": "Chapter01.Section08.FunctorSquares",
+          "module": "Chapter01.Section08.FunctorCategoryCalculus.FunctorSquares",
           "name": "value",
           "qualified": "Induced.value",
           "role": "definition"
@@ -7137,7 +7137,7 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter01.Section08.FunctorSquares",
+          "module": "Chapter01.Section08.FunctorCategoryCalculus.FunctorSquares",
           "name": "FunctorCriterion",
           "qualified": "FunctorCriterion",
           "role": "definition"
@@ -7152,19 +7152,19 @@
       "note": "These compare whole restriction cones with cocones on the product square, including the matching. This is the cone-level implementation of the displayed square comparison.",
       "declarations": [
         {
-          "module": "Chapter01.Section08.RestrictionSquareEvaluation",
+          "module": "Chapter01.Section08.MappingCalculus.Restriction.RestrictionSquareEvaluation",
           "name": "fun-evaluate",
           "qualified": "Evaluated.fun-evaluate",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section08.FunRestrictionCones",
+          "module": "Chapter01.Section08.FunctorCategoryCalculus.FunRestrictionCones",
           "name": "uncurryRestriction",
           "qualified": "uncurryRestriction",
           "role": "definition"
         },
         {
-          "module": "Chapter01.Section08.FunRestrictionCones",
+          "module": "Chapter01.Section08.FunctorCategoryCalculus.FunRestrictionCones",
           "name": "comparison",
           "qualified": "CurryRestriction.comparison",
           "role": "derived"
@@ -7179,19 +7179,19 @@
       "note": "Transposition uses product symmetry and currying; the inverse comparison retains the cocone matching.",
       "declarations": [
         {
-          "module": "Chapter01.Section08.CoconeTransposition",
+          "module": "Chapter01.Section08.CoconeCalculus.CoconeTransposition",
           "name": "transposeCocone",
           "qualified": "transposeCocone",
           "role": "definition"
         },
         {
-          "module": "Chapter01.Section08.CoconeTransposition",
+          "module": "Chapter01.Section08.CoconeCalculus.CoconeTransposition",
           "name": "value",
           "qualified": "UntransposeCocone.value",
           "role": "definition"
         },
         {
-          "module": "Chapter01.Section08.CoconeTransposition",
+          "module": "Chapter01.Section08.CoconeCalculus.CoconeTransposition",
           "name": "comparison",
           "qualified": "UntransposeCocone.comparison",
           "role": "derived"
@@ -7218,7 +7218,7 @@
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section06.TerminalPullbackTest",
+          "module": "Chapter01.Section06.MappingCalculus.TerminalPullbackTest",
           "name": "comparison",
           "qualified": "Test.Factor.comparison",
           "role": "derived",
@@ -7234,13 +7234,13 @@
       "note": "Both implications retain the specified induced-square matching. The forward proof uses uncurrying and transposition of compatible cocones. The reverse proof first applies Map One to the functor-category pullback, then transfers this terminal test to the mapping-out square.",
       "declarations": [
         {
-          "module": "Chapter01.Section08.FunctorCriterionPreservation",
+          "module": "Chapter01.Section08.FunctorCategoryCalculus.FunctorCriterionPreservation",
           "name": "pushout→functor-criterion",
           "qualified": "pushout→functor-criterion",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section08.FunctorCriterionDetection",
+          "module": "Chapter01.Section08.FunctorCategoryCalculus.FunctorCriterionDetection",
           "name": "functor-criterion→pushout",
           "qualified": "functor-criterion→pushout",
           "role": "derived"
@@ -7418,7 +7418,7 @@
           "role": "definition"
         },
         {
-          "module": "Chapter02.Section01.EndpointFibers",
+          "module": "Chapter02.Section01.EvaluationCalculus.EndpointFibers",
           "name": "endpoints",
           "qualified": "endpoints",
           "role": "definition"
@@ -7590,7 +7590,7 @@
           "role": "definition"
         },
         {
-          "module": "Chapter02.Section01.LatticePullbacks",
+          "module": "Chapter02.Section01.SquareCalculus.LatticePullbacks",
           "name": "isPullback",
           "qualified": "UniversalEndpointCone.isPullback",
           "role": "derived"
@@ -7792,37 +7792,37 @@
           "role": "derived"
         },
         {
-          "module": "Chapter02.Section01.MiddleVertex",
+          "module": "Chapter02.Section01.DiagramCalculus.MiddleVertex",
           "qualified": "source-compatible",
           "name": "source-compatible",
           "role": "derived"
         },
         {
-          "module": "Chapter02.Section01.MiddleVertex",
+          "module": "Chapter02.Section01.DiagramCalculus.MiddleVertex",
           "qualified": "target-compatible",
           "name": "target-compatible",
           "role": "derived"
         },
         {
-          "module": "Chapter02.Section01.OuterVertices",
+          "module": "Chapter02.Section01.DiagramCalculus.OuterVertices",
           "qualified": "Bottom.source-compatible",
           "name": "source-compatible",
           "role": "derived"
         },
         {
-          "module": "Chapter02.Section01.OuterVertices",
+          "module": "Chapter02.Section01.DiagramCalculus.OuterVertices",
           "qualified": "Bottom.target-compatible",
           "name": "target-compatible",
           "role": "derived"
         },
         {
-          "module": "Chapter02.Section01.OuterVertices",
+          "module": "Chapter02.Section01.DiagramCalculus.OuterVertices",
           "qualified": "Top.source-compatible",
           "name": "source-compatible",
           "role": "derived"
         },
         {
-          "module": "Chapter02.Section01.OuterVertices",
+          "module": "Chapter02.Section01.DiagramCalculus.OuterVertices",
           "qualified": "Top.target-compatible",
           "name": "target-compatible",
           "role": "derived"
@@ -7902,7 +7902,7 @@
           "role": "definition"
         },
         {
-          "module": "Chapter02.Section01.CompositeWitnesses",
+          "module": "Chapter02.Section01.DiagramCalculus.CompositeWitnesses",
           "name": "CompositeWitness",
           "qualified": "CompositeWitness",
           "role": "definition"
@@ -7918,13 +7918,13 @@
       "note": "The CompositeWitness constructions include compatibility of the edge comparisons at the shared vertices.",
       "declarations": [
         {
-          "module": "Chapter02.Section01.IdentityComposites",
+          "module": "Chapter02.Section01.DiagramCalculus.IdentityComposites",
           "name": "compose-left-identity",
           "qualified": "compose-left-identity",
           "role": "derived"
         },
         {
-          "module": "Chapter02.Section01.IdentityComposites",
+          "module": "Chapter02.Section01.DiagramCalculus.IdentityComposites",
           "name": "compose-right-identity",
           "qualified": "compose-right-identity",
           "role": "derived"
@@ -7988,7 +7988,7 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter02.Section01.SquareShape",
+          "module": "Chapter02.Section01.SquareCalculus.SquareShape",
           "name": "CommutativeSquare",
           "qualified": "CommutativeSquare",
           "role": "definition"
@@ -8004,13 +8004,13 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter02.Section01.SquareShape",
+          "module": "Chapter02.Section01.SquareCalculus.SquareShape",
           "name": "j₀",
           "qualified": "j₀",
           "role": "definition"
         },
         {
-          "module": "Chapter02.Section01.SquareShape",
+          "module": "Chapter02.Section01.SquareCalculus.SquareShape",
           "name": "j₁",
           "qualified": "j₁",
           "role": "definition"
@@ -8032,7 +8032,7 @@
           "role": "assumption"
         },
         {
-          "module": "Chapter02.Section01.SquareFamilies",
+          "module": "Chapter02.Section01.SquareCalculus.SquareFamilies",
           "name": "square-functor-pullback",
           "qualified": "square-functor-pullback",
           "role": "derived"
@@ -8072,13 +8072,13 @@
           "role": "derived"
         },
         {
-          "module": "Chapter02.Section01.SquareFamilies",
+          "module": "Chapter02.Section01.SquareCalculus.SquareFamilies",
           "name": "square-in",
           "qualified": "Families.square-in",
           "role": "definition"
         },
         {
-          "module": "Chapter02.Section01.SquareFamilies",
+          "module": "Chapter02.Section01.SquareCalculus.SquareFamilies",
           "name": "square-in-β",
           "qualified": "Families.square-in-β",
           "role": "derived"
@@ -8094,49 +8094,49 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter02.Section01.SquareRetractions",
+          "module": "Chapter02.Section01.SquareCalculus.SquareRetractions",
           "name": "p₀",
           "qualified": "p₀",
           "role": "definition"
         },
         {
-          "module": "Chapter02.Section01.SquareRetractions",
+          "module": "Chapter02.Section01.SquareCalculus.SquareRetractions",
           "name": "p₂",
           "qualified": "p₂",
           "role": "definition"
         },
         {
-          "module": "Chapter02.Section01.SquareRetractions",
+          "module": "Chapter02.Section01.SquareCalculus.SquareRetractions",
           "name": "lower-cocone",
           "qualified": "lower-cocone",
           "role": "definition"
         },
         {
-          "module": "Chapter02.Section01.SquareRetractions",
+          "module": "Chapter02.Section01.SquareCalculus.SquareRetractions",
           "name": "upper-cocone",
           "qualified": "upper-cocone",
           "role": "definition"
         },
         {
-          "module": "Chapter02.Section01.SquareRetractions",
+          "module": "Chapter02.Section01.SquareCalculus.SquareRetractions",
           "name": "p₀-j₀",
           "qualified": "p₀-j₀",
           "role": "derived"
         },
         {
-          "module": "Chapter02.Section01.SquareRetractions",
+          "module": "Chapter02.Section01.SquareCalculus.SquareRetractions",
           "name": "p₀-j₁",
           "qualified": "p₀-j₁",
           "role": "derived"
         },
         {
-          "module": "Chapter02.Section01.SquareRetractions",
+          "module": "Chapter02.Section01.SquareCalculus.SquareRetractions",
           "name": "p₂-j₀",
           "qualified": "p₂-j₀",
           "role": "derived"
         },
         {
-          "module": "Chapter02.Section01.SquareRetractions",
+          "module": "Chapter02.Section01.SquareCalculus.SquareRetractions",
           "name": "p₂-j₁",
           "qualified": "p₂-j₁",
           "role": "derived"
@@ -8152,13 +8152,13 @@
       "note": "Proof route: the first projection is recognized from its full retargeted cocone, including the common-edge comparison. The second projection is recognized from its horizontal endpoints, instead of comparing its restrictions to both triangles as in the prose.",
       "declarations": [
         {
-          "module": "Chapter02.Section01.SquareCalculus",
+          "module": "Chapter02.Section01.SquareCalculus.SquareCalculus",
           "name": "square-first-projection",
           "qualified": "square-first-projection",
           "role": "derived"
         },
         {
-          "module": "Chapter02.Section01.SquareCalculus",
+          "module": "Chapter02.Section01.SquareCalculus.SquareCalculus",
           "name": "square-second-projection",
           "qualified": "square-second-projection",
           "role": "derived"
@@ -8174,13 +8174,13 @@
       "note": "Proof route: Agda recognizes the glued functors by their horizontal endpoint values, using endpoint uniqueness. The manuscript instead compares the restrictions to the two triangles.",
       "declarations": [
         {
-          "module": "Chapter02.Section01.SquareCalculus",
+          "module": "Chapter02.Section01.SquareCalculus.SquareCalculus",
           "name": "square-minimum",
           "qualified": "square-minimum",
           "role": "derived"
         },
         {
-          "module": "Chapter02.Section01.SquareCalculus",
+          "module": "Chapter02.Section01.SquareCalculus.SquareCalculus",
           "name": "square-maximum",
           "qualified": "square-maximum",
           "role": "derived"
@@ -8196,49 +8196,49 @@
       "note": "Proof route: the coordinate identities follow from endpoint recognition. The manuscript obtains them by postcomposing the glued squares. The resulting functor identifications agree in type; this correspondence does not assert equality of the proofs.",
       "declarations": [
         {
-          "module": "Chapter02.Section01.SquareRetractions",
+          "module": "Chapter02.Section01.SquareCalculus.SquareRetractions",
           "name": "j₀-p₀",
           "qualified": "j₀-p₀",
           "role": "derived"
         },
         {
-          "module": "Chapter02.Section01.SquareRetractions",
+          "module": "Chapter02.Section01.SquareCalculus.SquareRetractions",
           "name": "j₁-p₀",
           "qualified": "j₁-p₀",
           "role": "derived"
         },
         {
-          "module": "Chapter02.Section01.SquareRetractions",
+          "module": "Chapter02.Section01.SquareCalculus.SquareRetractions",
           "name": "j₀-p₂",
           "qualified": "j₀-p₂",
           "role": "derived"
         },
         {
-          "module": "Chapter02.Section01.SquareRetractions",
+          "module": "Chapter02.Section01.SquareCalculus.SquareRetractions",
           "name": "j₁-p₂",
           "qualified": "j₁-p₂",
           "role": "derived"
         },
         {
-          "module": "Chapter02.Section01.SquareRetractions",
+          "module": "Chapter02.Section01.SquareCalculus.SquareRetractions",
           "name": "s₀-p₀",
           "qualified": "s₀-p₀",
           "role": "derived"
         },
         {
-          "module": "Chapter02.Section01.SquareRetractions",
+          "module": "Chapter02.Section01.SquareCalculus.SquareRetractions",
           "name": "s₁-p₀",
           "qualified": "s₁-p₀",
           "role": "derived"
         },
         {
-          "module": "Chapter02.Section01.SquareRetractions",
+          "module": "Chapter02.Section01.SquareCalculus.SquareRetractions",
           "name": "s₀-p₂",
           "qualified": "s₀-p₂",
           "role": "derived"
         },
         {
-          "module": "Chapter02.Section01.SquareRetractions",
+          "module": "Chapter02.Section01.SquareCalculus.SquareRetractions",
           "name": "s₁-p₂",
           "qualified": "s₁-p₂",
           "role": "derived"
@@ -8473,7 +8473,7 @@
       "note": "This is an identification of morphism expressions, including both endpoint compatibilities.",
       "declarations": [
         {
-          "module": "Chapter02.Section01.IdentityPreservation",
+          "module": "Chapter02.Section01.DiagramCalculus.IdentityPreservation",
           "name": "post-identity",
           "qualified": "post-identity",
           "role": "derived"
@@ -8539,7 +8539,7 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter02.Section01.SliceFibers",
+          "module": "Chapter02.Section01.DiagramCalculus.SliceFibers",
           "name": "fiber-to-hom-isEquiv",
           "qualified": "FiberComparison.fiber-to-hom-isEquiv",
           "role": "derived"
@@ -8554,7 +8554,7 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter02.Section01.SliceFibers",
+          "module": "Chapter02.Section01.DiagramCalculus.SliceFibers",
           "name": "terminal-hom-contractible",
           "qualified": "terminal-hom-contractible",
           "role": "derived"
@@ -8569,7 +8569,7 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter02.Section01.SliceFibers",
+          "module": "Chapter02.Section01.DiagramCalculus.SliceFibers",
           "name": "initial-hom-contractible",
           "qualified": "initial-hom-contractible",
           "role": "derived"
@@ -8614,19 +8614,19 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter02.Section01.SquareShape",
+          "module": "Chapter02.Section01.SquareCalculus.SquareShape",
           "name": "gluing-square",
           "qualified": "gluing-square",
           "role": "definition"
         },
         {
-          "module": "Chapter02.Section01.SquareShape",
+          "module": "Chapter02.Section01.SquareCalculus.SquareShape",
           "name": "j₀-diagonal",
           "qualified": "j₀-diagonal",
           "role": "definition"
         },
         {
-          "module": "Chapter02.Section01.SquareShape",
+          "module": "Chapter02.Section01.SquareCalculus.SquareShape",
           "name": "j₁-diagonal",
           "qualified": "j₁-diagonal",
           "role": "definition"
@@ -8830,7 +8830,7 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter02.Section01.CompositeWitnesses",
+          "module": "Chapter02.Section01.DiagramCalculus.CompositeWitnesses",
           "name": "CompositeWitness",
           "qualified": "CompositeWitness",
           "role": "definition"
@@ -8887,7 +8887,7 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter02.Section01.SquareShape",
+          "module": "Chapter02.Section01.SquareCalculus.SquareShape",
           "name": "CommutativeSquare",
           "qualified": "CommutativeSquare",
           "role": "definition"
@@ -8902,13 +8902,13 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter02.Section01.SquareShape",
+          "module": "Chapter02.Section01.SquareCalculus.SquareShape",
           "name": "j₀",
           "qualified": "j₀",
           "role": "definition"
         },
         {
-          "module": "Chapter02.Section01.SquareShape",
+          "module": "Chapter02.Section01.SquareCalculus.SquareShape",
           "name": "j₁",
           "qualified": "j₁",
           "role": "definition"
@@ -8923,13 +8923,13 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter02.Section01.SquareRetractions",
+          "module": "Chapter02.Section01.SquareCalculus.SquareRetractions",
           "name": "p₀",
           "qualified": "p₀",
           "role": "definition"
         },
         {
-          "module": "Chapter02.Section01.SquareRetractions",
+          "module": "Chapter02.Section01.SquareCalculus.SquareRetractions",
           "name": "lower-cocone",
           "qualified": "lower-cocone",
           "role": "definition"
@@ -8944,13 +8944,13 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter02.Section01.SquareRetractions",
+          "module": "Chapter02.Section01.SquareCalculus.SquareRetractions",
           "name": "p₂",
           "qualified": "p₂",
           "role": "definition"
         },
         {
-          "module": "Chapter02.Section01.SquareRetractions",
+          "module": "Chapter02.Section01.SquareCalculus.SquareRetractions",
           "name": "upper-cocone",
           "qualified": "upper-cocone",
           "role": "definition"
@@ -9003,13 +9003,13 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter02.Section02.CompositionExpressions",
+          "module": "Chapter02.Section02.MorphismCalculus.CompositionExpressions",
           "name": "compose-expression",
           "qualified": "compose-expression",
           "role": "definition"
         },
         {
-          "module": "Chapter02.Section02.GlobalCompositionExpressions",
+          "module": "Chapter02.Section02.MorphismCalculus.GlobalCompositionExpressions",
           "name": "global-compose-expression",
           "qualified": "global-compose-expression",
           "role": "definition",
@@ -9025,13 +9025,13 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter02.Section02.CompositePresentations",
+          "module": "Chapter02.Section02.MorphismCalculus.CompositePresentations",
           "name": "composition-presentation",
           "qualified": "composition-presentation",
           "role": "definition"
         },
         {
-          "module": "Chapter02.Section02.CompositionExpressions",
+          "module": "Chapter02.Section02.MorphismCalculus.CompositionExpressions",
           "name": "short-edges",
           "qualified": "Complete.short-edges",
           "role": "derived",
@@ -9070,13 +9070,13 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter02.Section02.CompositionExpressions",
+          "module": "Chapter02.Section02.MorphismCalculus.CompositionExpressions",
           "name": "hom-compose",
           "qualified": "hom-compose",
           "role": "definition"
         },
         {
-          "module": "Chapter02.Section02.CompositionIdentifications",
+          "module": "Chapter02.Section02.MorphismCalculus.CompositionIdentifications",
           "name": "compose-expression-cong",
           "qualified": "compose-expression-cong",
           "role": "derived"
@@ -9097,7 +9097,7 @@
           "role": "definition"
         },
         {
-          "module": "Chapter02.Section02.CompositionExpressions",
+          "module": "Chapter02.Section02.MorphismCalculus.CompositionExpressions",
           "name": "hom-compose",
           "qualified": "hom-compose",
           "role": "definition"
@@ -9205,7 +9205,7 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter02.Section02.CompositionExpressions",
+          "module": "Chapter02.Section02.MorphismCalculus.CompositionExpressions",
           "name": "hom-compose",
           "qualified": "hom-compose",
           "role": "definition"
@@ -9232,7 +9232,7 @@
           "role": "derived"
         },
         {
-          "module": "Chapter02.Section02.GlobalCompositionExpressions",
+          "module": "Chapter02.Section02.MorphismCalculus.GlobalCompositionExpressions",
           "name": "global-composition-comparison",
           "qualified": "global-composition-comparison",
           "role": "derived",
@@ -9248,13 +9248,13 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter02.Section02.GlobalCompositionExpressions",
+          "module": "Chapter02.Section02.MorphismCalculus.GlobalCompositionExpressions",
           "name": "global-compose-expression",
           "qualified": "global-compose-expression",
           "role": "definition"
         },
         {
-          "module": "Chapter02.Section02.CompositionIdentifications",
+          "module": "Chapter02.Section02.MorphismCalculus.CompositionIdentifications",
           "name": "compose-expression-cong",
           "qualified": "compose-expression-cong",
           "role": "derived"
@@ -9270,7 +9270,7 @@
       "note": "expression-pair records the cone, including the matching supplied by the endpoint identifications. Applying pullbackLift gives the displayed functor into the category of composable arrows.",
       "declarations": [
         {
-          "module": "Chapter02.Section02.CompositionExpressions",
+          "module": "Chapter02.Section02.MorphismCalculus.CompositionExpressions",
           "name": "expression-pair",
           "qualified": "expression-pair",
           "role": "definition"
@@ -9285,13 +9285,13 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter02.Section02.CompositionIdentifications",
+          "module": "Chapter02.Section02.MorphismCalculus.CompositionIdentifications",
           "name": "compose-expression-cong",
           "qualified": "compose-expression-cong",
           "role": "derived"
         },
         {
-          "module": "Chapter02.Section02.GlobalCompositionExpressions",
+          "module": "Chapter02.Section02.MorphismCalculus.GlobalCompositionExpressions",
           "name": "global-composition-comparison",
           "qualified": "global-composition-comparison",
           "role": "derived",
@@ -9307,13 +9307,13 @@
       "note": "The formal comparison is oriented from F(g) ∘ F(f) to F(g ∘ f), opposite to the displayed identification. Its inverse gives the manuscript orientation and retains the same endpoint data.",
       "declarations": [
         {
-          "module": "Chapter02.Section02.PostcompositionPresentations",
+          "module": "Chapter02.Section02.MorphismCalculus.PostcompositionPresentations",
           "name": "global-post-composition",
           "qualified": "global-post-composition",
           "role": "derived"
         },
         {
-          "module": "Chapter02.Section02.PostcompositionPresentations",
+          "module": "Chapter02.Section02.MorphismCalculus.PostcompositionPresentations",
           "name": "post-composition",
           "qualified": "post-composition",
           "role": "derived",
@@ -9330,7 +9330,7 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter02.Section02.PostcompositionPresentations",
+          "module": "Chapter02.Section02.MorphismCalculus.PostcompositionPresentations",
           "name": "post-presentation",
           "qualified": "post-presentation",
           "role": "derived"
@@ -9345,20 +9345,20 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter02.Section02.TriangleComparisons",
+          "module": "Chapter02.Section02.MorphismCalculus.TriangleComparisons",
           "name": "triangle-comparison",
           "qualified": "Compare.triangle-comparison",
           "role": "derived"
         },
         {
-          "module": "Chapter02.Section02.CompositePresentations",
+          "module": "Chapter02.Section02.MorphismCalculus.CompositePresentations",
           "name": "composite-unique",
           "qualified": "composite-unique",
           "role": "derived",
           "secondary": true
         },
         {
-          "module": "Chapter02.Section02.PostcompositionPresentations",
+          "module": "Chapter02.Section02.MorphismCalculus.PostcompositionPresentations",
           "name": "post-composition",
           "qualified": "post-composition",
           "role": "derived",
@@ -9374,13 +9374,13 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter02.Section02.PostcompositionPresentations",
+          "module": "Chapter02.Section02.MorphismCalculus.PostcompositionPresentations",
           "name": "source-vertex",
           "qualified": "At.source-vertex",
           "role": "derived"
         },
         {
-          "module": "Chapter02.Section02.PostcompositionPresentations",
+          "module": "Chapter02.Section02.MorphismCalculus.PostcompositionPresentations",
           "name": "target-vertex",
           "qualified": "At.target-vertex",
           "role": "derived"
@@ -9395,7 +9395,7 @@
       "note": "The implementation uses an absolute parameter category Γ. This does not assert contextual validity of the entire theory over arbitrary categorical bases.",
       "declarations": [
         {
-          "module": "Chapter02.Section02.PostcompositionPresentations",
+          "module": "Chapter02.Section02.MorphismCalculus.PostcompositionPresentations",
           "name": "global-post-composition",
           "qualified": "global-post-composition",
           "role": "derived"
@@ -9432,7 +9432,7 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter02.Section02.DirectUnitPresentations",
+          "module": "Chapter02.Section02.UnitCalculus.DirectUnitPresentations",
           "name": "presentation",
           "qualified": "Universal.Left.presentation",
           "role": "definition"
@@ -9447,19 +9447,19 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter02.Section02.DirectUnitPresentations",
+          "module": "Chapter02.Section02.UnitCalculus.DirectUnitPresentations",
           "name": "middle-vertex",
           "qualified": "Universal.Left.middle-vertex",
           "role": "derived"
         },
         {
-          "module": "Chapter02.Section02.DirectUnitPresentations",
+          "module": "Chapter02.Section02.UnitCalculus.DirectUnitPresentations",
           "name": "source-vertex",
           "qualified": "Universal.Left.source-vertex",
           "role": "derived"
         },
         {
-          "module": "Chapter02.Section02.DirectUnitPresentations",
+          "module": "Chapter02.Section02.UnitCalculus.DirectUnitPresentations",
           "name": "target-vertex",
           "qualified": "Universal.Left.target-vertex",
           "role": "derived"
@@ -9474,13 +9474,13 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter02.Section02.TriangleComparisons",
+          "module": "Chapter02.Section02.MorphismCalculus.TriangleComparisons",
           "name": "triangle-comparison",
           "qualified": "Compare.triangle-comparison",
           "role": "derived"
         },
         {
-          "module": "Chapter02.Section02.DirectUnitPresentations",
+          "module": "Chapter02.Section02.UnitCalculus.DirectUnitPresentations",
           "name": "comparison",
           "qualified": "Universal.Left.comparison",
           "role": "derived",
@@ -9532,7 +9532,7 @@
           "role": "derived"
         },
         {
-          "module": "Chapter02.Section02.DirectUnitPresentations",
+          "module": "Chapter02.Section02.UnitCalculus.DirectUnitPresentations",
           "name": "comparison",
           "qualified": "Universal.Right.comparison",
           "role": "derived",
@@ -9631,13 +9631,13 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter02.Section02.GluedCompositePresentations",
+          "module": "Chapter02.Section02.MorphismCalculus.GluedCompositePresentations",
           "name": "square",
           "qualified": "Glue.square",
           "role": "definition"
         },
         {
-          "module": "Chapter02.Section02.GluedCompositePresentations",
+          "module": "Chapter02.Section02.MorphismCalculus.GluedCompositePresentations",
           "name": "gluing-comparison",
           "qualified": "Glue.gluing-comparison",
           "role": "derived"
@@ -9652,7 +9652,7 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter02.Section02.GluedCompositePresentations",
+          "module": "Chapter02.Section02.MorphismCalculus.GluedCompositePresentations",
           "name": "gluing-comparison",
           "qualified": "Glue.gluing-comparison",
           "role": "derived"
@@ -9667,7 +9667,7 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter02.Section02.GluedFramedSquares",
+          "module": "Chapter02.Section02.SquareCalculus.GluedFramedSquares",
           "name": "square",
           "qualified": "At.square",
           "role": "definition"
@@ -9682,7 +9682,7 @@
       "note": "The Second module applies the same gluing construction to the other pair of triangles.",
       "declarations": [
         {
-          "module": "Chapter02.Section02.GluedFramedSquares",
+          "module": "Chapter02.Section02.SquareCalculus.GluedFramedSquares",
           "name": "square",
           "qualified": "At.square",
           "role": "definition"
@@ -9697,7 +9697,7 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter02.Section02.ArrowCategorySquares",
+          "module": "Chapter02.Section02.SquareCalculus.ArrowCategorySquares",
           "name": "FramedSquare",
           "qualified": "FramedSquare",
           "role": "definition"
@@ -9712,7 +9712,7 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter02.Section02.ArrowCategorySquares",
+          "module": "Chapter02.Section02.SquareCalculus.ArrowCategorySquares",
           "name": "square",
           "qualified": "Compose.square",
           "role": "definition"
@@ -9727,7 +9727,7 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter02.Section02.ArrowCategorySquares",
+          "module": "Chapter02.Section02.SquareCalculus.ArrowCategorySquares",
           "name": "framed-evaluation-composition",
           "qualified": "framed-evaluation-composition",
           "role": "derived"
@@ -9742,13 +9742,13 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter02.Section02.FramedSquareCommutativity",
+          "module": "Chapter02.Section02.SquareCalculus.FramedSquareCommutativity",
           "name": "comparison",
           "qualified": "At.comparison",
           "role": "derived"
         },
         {
-          "module": "Chapter02.Section02.SquareCompositePresentations",
+          "module": "Chapter02.Section02.MorphismCalculus.SquareCompositePresentations",
           "name": "commutes",
           "qualified": "At.commutes",
           "role": "derived",
@@ -10104,14 +10104,14 @@
           "role": "definition"
         },
         {
-          "module": "Chapter02.Section03.InverseTriangleLift",
+          "module": "Chapter02.Section03.InverseCalculus.InverseTriangleLift",
           "name": "invertible-lift",
           "qualified": "invertible-lift",
           "role": "derived",
           "secondary": true
         },
         {
-          "module": "Chapter02.Section03.LiftedInverseWitnesses",
+          "module": "Chapter02.Section03.InverseCalculus.LiftedInverseWitnesses",
           "qualified": "lift-invertible",
           "name": "lift-invertible",
           "role": "derived"
@@ -10124,7 +10124,7 @@
           "secondary": true
         },
         {
-          "module": "Chapter02.Section03.LiftedInverseExpressions",
+          "module": "Chapter02.Section03.InverseCalculus.LiftedInverseExpressions",
           "qualified": "lift-invertible-expression",
           "name": "lift-invertible-expression",
           "role": "derived",
@@ -10454,13 +10454,13 @@
       "note": "Apply the generic comparison with parameter category Composable C and the whole short-edge comparisons of the chosen triangles.",
       "declarations": [
         {
-          "module": "Chapter02.Section02.TriangleComparisons",
+          "module": "Chapter02.Section02.MorphismCalculus.TriangleComparisons",
           "qualified": "Compare.long-comparison",
           "name": "long-comparison",
           "role": "derived"
         },
         {
-          "module": "Chapter02.Section02.TriangleComparisons",
+          "module": "Chapter02.Section02.MorphismCalculus.TriangleComparisons",
           "qualified": "Compare.triangle-comparison",
           "name": "triangle-comparison",
           "role": "derived",
@@ -11048,7 +11048,7 @@
           "role": "definition"
         },
         {
-          "module": "Chapter02.Section01.CoreInclusions",
+          "module": "Chapter02.Section01.EvaluationCalculus.CoreInclusions",
           "qualified": "coreInclusion-natural",
           "name": "coreInclusion-natural",
           "role": "derived"
@@ -11105,6 +11105,1995 @@
           "role": "derived"
         }
       ]
+    },
+    {
+      "id": "ch3-cons-post-composition-on-mapping-spaces",
+      "title": "Postcomposition on mapping animae",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section01.MappingCalculus.MappingAction",
+          "name": "mappingAction",
+          "qualified": "mappingAction",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section01.MappingCalculus.MappingAction",
+          "name": "mappingAction-β",
+          "qualified": "mappingAction-β",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "subcategories",
+      "tex_label": "cons:Post_Composition_On_Mapping_Spaces"
+    },
+    {
+      "id": "ch3-def-subcategory",
+      "title": "Subcategories",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section01.Subcategories",
+          "name": "IsSubcategory",
+          "qualified": "IsSubcategory",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "subcategories",
+      "tex_label": "def:Subcategory"
+    },
+    {
+      "id": "ch3-lem-subcategory-is-embedding",
+      "title": "Subcategories are embeddings",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section01.Subcategories",
+          "name": "subcategory-isEmbedding",
+          "qualified": "subcategory-isEmbedding",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "subcategories",
+      "tex_label": "lem:Subcategory_Is_Embedding"
+    },
+    {
+      "id": "ch3-def-collection-of-morphisms",
+      "title": "Collections of morphisms",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section01.MorphismCollections",
+          "name": "MorphismCollection",
+          "qualified": "MorphismCollection",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "subcategories",
+      "tex_label": "def:Collection_Of_Morphisms"
+    },
+    {
+      "id": "ch3-conv-morphisms-in-a-collection",
+      "title": "Membership in a morphism collection",
+      "note": "Membership includes the specified identification with the image in the mapping anima.",
+      "declarations": [
+        {
+          "module": "Chapter03.Section01.MorphismCollections",
+          "name": "Contains",
+          "qualified": "MorphismCollection.Contains",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter03.Section01.MorphismCollections",
+          "name": "membership-unique",
+          "qualified": "MorphismCollection.membership-unique",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "subcategories",
+      "tex_label": "conv:Morphisms_In_A_Collection"
+    },
+    {
+      "id": "ch3-ex-morphisms-in-subcategory",
+      "title": "Morphisms of a subcategory",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section01.MorphismCollections",
+          "name": "subcategoryMorphisms",
+          "qualified": "subcategoryMorphisms",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section01.SubcategoryClosure",
+          "name": "subcategory-morphisms-closed",
+          "qualified": "subcategory-morphisms-closed",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "subcategories",
+      "tex_label": "ex:Morphisms_In_Subcategory"
+    },
+    {
+      "id": "ch3-lem-collection-of-isomorphisms",
+      "title": "The collection of isomorphisms",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section01.IsomorphismCollections",
+          "name": "isomorphisms",
+          "qualified": "isomorphisms",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section01.IsomorphismCollections",
+          "name": "isomorphismInclusion-isEmbedding",
+          "qualified": "isomorphismInclusion-isEmbedding",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section01.ClosureCalculus.IsomorphismClosure",
+          "name": "isomorphisms-closed",
+          "qualified": "isomorphisms-closed",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "subcategories",
+      "tex_label": "lem:Collection_of_Isomorphisms"
+    },
+    {
+      "id": "ch3-axiom-h-subcategory-axiom",
+      "title": "The subcategory axiom",
+      "note": "The interface assumes the factorization form of the first clause. Its equivalence form is derived as SubcategoryPresentation.first-clause.",
+      "declarations": [
+        {
+          "module": "Chapter03.Section01.SubcategoryAxiom",
+          "name": "SubcategoryAxiom",
+          "qualified": "SubcategoryAxiom",
+          "role": "assumption"
+        },
+        {
+          "module": "Chapter03.Section01.SubcategoryAxiom",
+          "name": "SubcategoryPresentation",
+          "qualified": "SubcategoryPresentation",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "subcategories",
+      "tex_label": "axiom:H_Subcategory_Axiom"
+    },
+    {
+      "id": "ch3-cor-morphisms-in-subcategory-constructor",
+      "title": "Morphisms of the generated subcategory",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section01.GeneratedMorphisms",
+          "name": "generated-morphisms-isEquiv",
+          "qualified": "generated-morphisms-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "subcategories",
+      "tex_label": "cor:Morphisms_In_Subcategory_Constructor"
+    },
+    {
+      "id": "ch3-cor-subcategory-constructor-is-a-subcategory",
+      "title": "The generated inclusion is a subcategory",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section01.Lifting.PresentationConsequences",
+          "name": "inclusion-isSubcategory",
+          "qualified": "Presented.inclusion-isSubcategory",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "subcategories",
+      "tex_label": "cor:Subcategory_Constructor_Is_A_Subcategory"
+    },
+    {
+      "id": "ch3-lem-recovering-subcategories-from-morphisms",
+      "title": "Recovering a subcategory",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section01.RecoveringSubcategories",
+          "name": "recovery",
+          "qualified": "Recovery.recovery",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section01.RecoveringSubcategories",
+          "name": "recovery-over-C",
+          "qualified": "Recovery.recovery-over-C",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section01.RecoveringSubcategories",
+          "name": "recovery-isEquiv",
+          "qualified": "Recovery.recovery-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "subcategories",
+      "tex_label": "lem:Recovering_Subcategories_From_Morphisms"
+    },
+    {
+      "id": "ch3-lem-subcategory-on-all-morphisms",
+      "title": "The subcategory on all morphisms",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section01.Lifting.PresentationConsequences",
+          "name": "subcategory-on-all-morphisms",
+          "qualified": "subcategory-on-all-morphisms",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "subcategories",
+      "tex_label": "lem:Subcategory_On_All_Morphisms"
+    },
+    {
+      "id": "ch3-def-functor-preserving-morphisms",
+      "title": "Preserving a collection of morphisms",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section01.MorphismCollections",
+          "name": "PreservesMorphisms",
+          "qualified": "PreservesMorphisms",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "subcategories",
+      "tex_label": "def:Functor_Preserving_Morphisms"
+    },
+    {
+      "id": "ch3-cons-functoriality-subcategory",
+      "title": "Functoriality of generated subcategories",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section01.SubcategoryFunctoriality",
+          "name": "functor",
+          "qualified": "Induced.functor",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section01.SubcategoryFunctoriality",
+          "name": "comparison",
+          "qualified": "Induced.comparison",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "subcategories",
+      "tex_label": "cons:Functoriality_Subcategory"
+    },
+    {
+      "id": "ch3-rmk-functoriality-subcategory",
+      "title": "Laws of subcategory functoriality",
+      "note": "Partial coverage: uniqueness, identification invariance, identities and composition are checked. Preservation of equivalences of both the ambient categories and their morphism collections is not yet linked to a completed theorem.",
+      "declarations": [
+        {
+          "module": "Chapter03.Section01.Lifting.PresentationConsequences",
+          "name": "factorization-unique",
+          "qualified": "Presented.factorization-unique",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section01.SubcategoryFunctoriality",
+          "name": "induced-cong",
+          "qualified": "induced-cong",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section01.SubcategoryFunctoriality",
+          "name": "induced-identity",
+          "qualified": "induced-identity",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section01.SubcategoryFunctoriality",
+          "name": "induced-composition",
+          "qualified": "induced-composition",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "subcategories",
+      "tex_label": "rmk:Functoriality_Subcategory"
+    },
+    {
+      "id": "ch3-con-restriction-to-groupoid-cores",
+      "title": "Restriction to groupoid cores",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section02.FullSubcategories",
+          "name": "restrictionToCores",
+          "qualified": "restrictionToCores",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "full-subcategories",
+      "tex_label": "con:Restriction_To_Groupoid_Cores"
+    },
+    {
+      "id": "ch3-def-full-subcategory",
+      "title": "Full subcategories",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section02.FullSubcategories",
+          "name": "IsFullSubcategory",
+          "qualified": "IsFullSubcategory",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "full-subcategories",
+      "tex_label": "def:Full_Subcategory"
+    },
+    {
+      "id": "ch3-cor-full-subcat-is-emb",
+      "title": "Full subcategories are embeddings",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section02.FullSubcategories",
+          "name": "full-subcategory-isEmbedding",
+          "qualified": "full-subcategory-isEmbedding",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "full-subcategories",
+      "tex_label": "cor:full-subcat-is-emb"
+    },
+    {
+      "id": "ch3-def-collection-of-objects",
+      "title": "Collections of objects",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section02.ObjectCollections",
+          "name": "ObjectCollection",
+          "qualified": "ObjectCollection",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "full-subcategories",
+      "tex_label": "def:Collection_Of_Objects"
+    },
+    {
+      "id": "ch3-def-full-subcategory-spanned-by",
+      "title": "The subcategory spanned by a collection",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section02.ObjectCollections",
+          "name": "collectionOfMorphisms",
+          "qualified": "SpannedMorphisms.collectionOfMorphisms",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter03.Section02.SpannedSubcategories",
+          "name": "category",
+          "qualified": "Spanned.category",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter03.Section02.SpannedSubcategories",
+          "name": "inclusion",
+          "qualified": "Spanned.inclusion",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "full-subcategories",
+      "tex_label": "def:Full_Subcategory_Spanned_By"
+    },
+    {
+      "id": "ch3-lem-core-full-subcategory",
+      "title": "Core of a spanned subcategory",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section02.SpannedCore",
+          "name": "comparison",
+          "qualified": "CoreComparison.comparison",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section02.SpannedCore",
+          "name": "over-core",
+          "qualified": "CoreComparison.over-core",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section02.SpannedCore",
+          "name": "comparison-isEquiv",
+          "qualified": "CoreComparison.comparison-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "full-subcategories",
+      "tex_label": "lem:Core_Full_Subcategory"
+    },
+    {
+      "id": "ch3-prop-full-subcategory-is-full-subcategory",
+      "title": "Spanned subcategories are full",
+      "note": "The checked proof uses family factorization and the embedding pullback criterion to establish the stated square.",
+      "declarations": [
+        {
+          "module": "Chapter03.Section02.FullSubcategoryCharacterization",
+          "name": "isFullSubcategory",
+          "qualified": "Characterization.isFullSubcategory",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "full-subcategories",
+      "tex_label": "prop:Full_Subcategory_Is_Full_Subcategory"
+    },
+    {
+      "id": "ch3-prop-characterization-full-subcategory",
+      "title": "Characterization of full subcategories",
+      "note": "The tested pullback is the displayed square for the chosen collection of objects.",
+      "declarations": [
+        {
+          "module": "Chapter03.Section02.FullSubcategoryCharacterization",
+          "name": "square",
+          "qualified": "Characterization.square",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section02.FullSubcategoryCharacterization",
+          "name": "isPullback",
+          "qualified": "Characterization.Tested.isPullback",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "full-subcategories",
+      "tex_label": "prop:Characterization_Full_Subcategory"
+    },
+    {
+      "id": "ch3-lem-full-subcategory-on-all-objects",
+      "title": "The full subcategory on all objects",
+      "note": "The formal proof uses recovery from all morphisms and equivalences on endpoint maps. The manuscript instead uses the mapping-anima characterization.",
+      "declarations": [
+        {
+          "module": "Chapter03.Section02.FullSubcategoryCharacterization",
+          "name": "full-subcategory-on-all-objects",
+          "qualified": "full-subcategory-on-all-objects",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "full-subcategories",
+      "tex_label": "lem:Full_Subcategory_On_All_Objects"
+    },
+    {
+      "id": "ch3-lem-full-subcategory-former-commutes-with-products",
+      "title": "Products of full subcategories",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section02.FullSubcategoryProducts",
+          "name": "forward",
+          "qualified": "ProductObjects.SpannedProduct.forward",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section02.FullSubcategoryProducts",
+          "name": "isEquiv",
+          "qualified": "ProductObjects.SpannedProduct.isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "full-subcategories",
+      "tex_label": "lem:Full_Subcategory_Former_Commutes_With_Products"
+    },
+    {
+      "id": "ch3-lem-pullback-of-full-subcategories",
+      "title": "Pullbacks of full subcategories",
+      "note": "The formal proof uses universal-family factorization and the embedding pullback criterion. The manuscript tests mapping animae and pastes a cube.",
+      "declarations": [
+        {
+          "module": "Chapter03.Section02.FullSubcategoryPullbacks",
+          "name": "isPullback",
+          "qualified": "BaseChange.Square.isPullback",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "full-subcategories",
+      "tex_label": "lem:Pullback_Of_Full_Subcategories"
+    },
+    {
+      "id": "ch3-lem-full-subcategory-is-equivalence-iff-equivalence-on-objects",
+      "title": "Detecting equivalence of a full subcategory",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section02.FullSubcategories",
+          "name": "full-subcategory-core-detects-equivalence",
+          "qualified": "full-subcategory-core-detects-equivalence",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section02.FullSubcategories",
+          "name": "equivalence-on-cores",
+          "qualified": "equivalence-on-cores",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "full-subcategories",
+      "tex_label": "lem:Full_Subcategory_Is_Equivalence_Iff_Equivalence_On_Objects"
+    },
+    {
+      "id": "ch3-con-functors-inverting-a-collection",
+      "title": "Functors inverting a collection",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section03.InvertingFunctors",
+          "name": "Inverts",
+          "qualified": "Inverts",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter03.Section03.InvertingFunctors",
+          "name": "maps",
+          "qualified": "Inverting.maps",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter03.Section03.InvertingFunctors",
+          "name": "functors",
+          "qualified": "Inverting.Category.functors",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "localizations",
+      "tex_label": "con:Functors_Inverting_A_Collection"
+    },
+    {
+      "id": "ch3-rmk-functors-inverting-w-natural-in-w",
+      "title": "Restriction of inverting functors",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section03.MappingCalculus.InvertingRestriction",
+          "name": "maps",
+          "qualified": "Restrict.maps",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section03.MappingCalculus.InvertingRestriction",
+          "name": "functor",
+          "qualified": "Restrict.OnFunctors.functor",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "localizations",
+      "tex_label": "rmk:Functors_Inverting_W_Natural_In_W"
+    },
+    {
+      "id": "ch3-lem-functor-into-groupoid-inverts-everything",
+      "title": "Functors into groupoids invert every morphism",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section03.MappingCalculus.InvertingGroupoids",
+          "name": "inverting-maps-into-groupoid",
+          "qualified": "inverting-maps-into-groupoid",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section03.MappingCalculus.InvertingGroupoids",
+          "name": "inverting-functors-into-groupoid",
+          "qualified": "inverting-functors-into-groupoid",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "localizations",
+      "tex_label": "lem:Functor_Into_Groupoid_Inverts_Everything"
+    },
+    {
+      "id": "ch3-prop-every-functor-preserves-isomorphisms",
+      "title": "Functors preserve isomorphisms",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section03.MappingCalculus.PreservingIsomorphisms",
+          "name": "object-inclusion-isEquiv",
+          "qualified": "Preservation.object-inclusion-isEquiv",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section03.MappingCalculus.PreservingIsomorphismMaps",
+          "name": "maps-isEquiv",
+          "qualified": "Preservation.maps-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "localizations",
+      "tex_label": "prop:Every_Functor_Preserves_Isomorphisms"
+    },
+    {
+      "id": "ch3-con-restriction-along-an-inverting-functor",
+      "title": "Restriction along an inverting functor",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section03.MappingCalculus.LocalizationRestriction",
+          "name": "functor",
+          "qualified": "RestrictionAlong.functor",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section03.MappingCalculus.LocalizationRestriction",
+          "name": "comparison",
+          "qualified": "RestrictionAlong.comparison",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "localizations",
+      "tex_label": "con:Restriction_Along_An_Inverting_Functor"
+    },
+    {
+      "id": "ch3-def-localization",
+      "title": "Localizations",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section03.Localizations",
+          "name": "IsLocalization",
+          "qualified": "WithSubcategories.IsLocalization",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter03.Section03.Localizations",
+          "name": "Localization",
+          "qualified": "WithSubcategories.Localization",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "localizations",
+      "tex_label": "def:Localization"
+    },
+    {
+      "id": "ch3-axiom-m-localization-axiom",
+      "title": "The localization axiom",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section03.Localizations",
+          "name": "LocalizationAxiom",
+          "qualified": "WithSubcategories.LocalizationAxiom",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "localizations",
+      "tex_label": "axiom:M_Localization_Axiom"
+    },
+    {
+      "id": "ch3-prop-localization-as-ordinary-universal-property",
+      "title": "The mapping-anima criterion for localization",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section03.LocalizationCriterion",
+          "name": "comparison-isEquiv",
+          "qualified": "Criterion.comparison-isEquiv",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section03.LocalizationCriterion",
+          "name": "isLocalization",
+          "qualified": "Criterion.isLocalization",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "localizations",
+      "tex_label": "prop:localization_as_ordinary_universal_property"
+    },
+    {
+      "id": "ch3-remark-localization-as-pushout",
+      "title": "Localization as a pushout",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section03.LocalizationPushouts",
+          "name": "square",
+          "qualified": "Pushout.square",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section03.LocalizationPushouts",
+          "name": "isPushout",
+          "qualified": "Pushout.isPushout",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "localizations",
+      "tex_label": "remark:localization_as_pushout"
+    },
+    {
+      "id": "ch3-cons-functoriality-localization",
+      "title": "Functoriality of localization",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section03.LocalizationFunctoriality",
+          "name": "functor",
+          "qualified": "Induced.functor",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section03.LocalizationFunctoriality",
+          "name": "comparison",
+          "qualified": "Induced.comparison",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section03.LocalizationFunctoriality",
+          "name": "unique",
+          "qualified": "Induced.unique",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "localizations",
+      "tex_label": "cons:Functoriality_Localization"
+    },
+    {
+      "id": "ch3-def-geometric-realization",
+      "title": "Geometric realization",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section04.GeometricRealization",
+          "name": "category",
+          "qualified": "Realization.category",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter03.Section04.GeometricRealization",
+          "name": "localization",
+          "qualified": "Realization.localization",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "geometric-realizations",
+      "tex_label": "def:Geometric_Realization"
+    },
+    {
+      "id": "ch3-lem-realization-of-a-groupoid",
+      "title": "Realization of a groupoid",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section04.RealizationOfGroupoids",
+          "name": "localization-isEquiv",
+          "qualified": "OnGroupoids.localization-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "geometric-realizations",
+      "tex_label": "lem:Realization_Of_A_Groupoid"
+    },
+    {
+      "id": "ch3-lem-fundamental-groupoid-functor-left-adjoint-to-inclusion",
+      "title": "Mapping out of geometric realization",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section03.LocalizationGroupoids",
+          "name": "isEquiv",
+          "qualified": "IntoGroupoids.At.isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "geometric-realizations",
+      "tex_label": "lem:Fundamental_Groupoid_Functor_Left_Adjoint_To_Inclusion"
+    },
+    {
+      "id": "ch3-prop-equivalent-conditions-geometric-realization",
+      "title": "Equivalent criteria for geometric realization",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section04.GeometricRealizationCriteria",
+          "name": "groupoids-to-contractible-interval",
+          "qualified": "Criteria.groupoids-to-contractible-interval",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section04.GeometricRealizationCriteria",
+          "name": "contractible-interval-to-full-constants",
+          "qualified": "Criteria.contractible-interval-to-full-constants",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section04.GeometricRealizationCriteria",
+          "name": "full-constants-to-full-isomorphisms",
+          "qualified": "Criteria.full-constants-to-full-isomorphisms",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section04.GeometricRealizationCriteria",
+          "name": "full-isomorphisms-to-full-constants",
+          "qualified": "Criteria.full-isomorphisms-to-full-constants",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section04.GeometricRealizationCriteria",
+          "name": "full-constants-to-arrow-detection",
+          "qualified": "Criteria.full-constants-to-arrow-detection",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section04.GeometricRealizationCriteria",
+          "name": "arrow-detection-to-groupoid-subcategories",
+          "qualified": "Criteria.arrow-detection-to-groupoid-subcategories",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section04.GeometricRealizationCriteria",
+          "name": "groupoid-subcategories-to-cores",
+          "qualified": "Criteria.groupoid-subcategories-to-cores",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section04.GeometricRealizationCriteria",
+          "name": "cores-to-groupoid-realizations",
+          "qualified": "Criteria.cores-to-groupoid-realizations",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "geometric-realizations",
+      "tex_label": "prop:Equivalent_Conditions_Geometric_Realization"
+    },
+    {
+      "id": "ch3-axiom-n-fundamental-groupoid-axiom",
+      "title": "Geometric realizations are animae",
+      "note": "Despite its historical TeX label, this is a derived proposition, not an additional axiom.",
+      "declarations": [
+        {
+          "module": "Chapter03.Section04.FundamentalGroupoids",
+          "name": "realization-isGroupoid",
+          "qualified": "Consequences.realization-isGroupoid",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section04.FundamentalGroupoids",
+          "name": "realization-isAn",
+          "qualified": "Consequences.realization-isAn",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "geometric-realizations",
+      "tex_label": "axiom:N_Fundamental_Groupoid_Axiom"
+    },
+    {
+      "id": "ch3-prop-objectwise-criterion-natural-isomorphisms",
+      "title": "Objectwise criterion for natural isomorphisms",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section04.ObjectwiseNaturalIsomorphisms",
+          "name": "isNaturalIso",
+          "qualified": "Transformation.FromComponents.isNaturalIso",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section04.ObjectwiseNaturalIsomorphisms",
+          "name": "components-invertible",
+          "qualified": "Transformation.FromNaturalIso.components-invertible",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "geometric-realizations",
+      "tex_label": "prop:Objectwise_Criterion_Natural_Isomorphisms"
+    },
+    {
+      "id": "ch3-cor-fundamental-groupoid-preserves-pushout-squares",
+      "title": "Geometric realization preserves pushouts",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section04.RealizationPushouts",
+          "name": "preserves-pushout",
+          "qualified": "Preservation.preserves-pushout",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "geometric-realizations",
+      "tex_label": "cor:Fundamental_Groupoid_Preserves_Pushout_Squares"
+    },
+    {
+      "id": "ch3-def-relative-functor-category-global-sections",
+      "title": "Functors over a base",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.RelativeCategories.Functors",
+          "name": "FunOver",
+          "qualified": "FunOver",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter03.RelativeCategories.Functors",
+          "name": "MapOver",
+          "qualified": "MapOver",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter03.RelativeCategories.Functors",
+          "name": "FunctorOver",
+          "qualified": "FunctorOver",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "exponentiable-functors",
+      "tex_label": "def:Relative_Functor_Category_Global_Sections"
+    },
+    {
+      "id": "ch3-con-base-change-of-functor-categories",
+      "title": "Base change of functors over a base",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.RelativeCategories.BaseChange.BaseChange",
+          "name": "functor",
+          "qualified": "BaseChange.functor",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.RelativeCategories.BaseChange.BaseChange",
+          "name": "maps",
+          "qualified": "BaseChange.maps",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "exponentiable-functors",
+      "tex_label": "con:Base_Change_Of_Functor_Categories"
+    },
+    {
+      "id": "ch3-def-dependent-product",
+      "title": "Dependent products",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section05.DependentProducts",
+          "name": "IsDependentProduct",
+          "qualified": "IsDependentProduct",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter03.Section05.DependentProducts",
+          "name": "DependentProduct",
+          "qualified": "DependentProduct",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter03.Section05.DependentProducts",
+          "name": "uncurrying",
+          "qualified": "EvaluationAlong.uncurrying",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "exponentiable-functors",
+      "tex_label": "def:Dependent_Product"
+    },
+    {
+      "id": "ch3-cons-beck-chevalley-exponentiability",
+      "title": "The Beck–Chevalley comparison",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section05.BaseChange.BeckChevalley",
+          "name": "over",
+          "qualified": "BeckChevalley.over",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section05.BaseChange.BeckChevalley",
+          "name": "functor",
+          "qualified": "BeckChevalley.functor",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section05.BaseChange.BeckChevalley",
+          "name": "uncurrying-comparison",
+          "qualified": "BeckChevalley.uncurrying-comparison",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "exponentiable-functors",
+      "tex_label": "cons:Beck-Chevalley_Exponentiability"
+    },
+    {
+      "id": "ch3-def-exponentiable-functor",
+      "title": "Exponentiable functors",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section05.ExponentiableFunctors",
+          "name": "IsExponentiable",
+          "qualified": "IsExponentiable",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "exponentiable-functors",
+      "tex_label": "def:Exponentiable_Functor"
+    },
+    {
+      "id": "ch3-con-functoriality-of-dependent-products",
+      "title": "Functoriality of dependent products",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section05.DependentProductAction",
+          "name": "over",
+          "qualified": "Induced.over",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section05.DependentProductActionLaws",
+          "name": "identity",
+          "qualified": "Action.identity",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section05.DependentProductActionLaws",
+          "name": "comparison",
+          "qualified": "Action.Composite.comparison",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "exponentiable-functors",
+      "tex_label": "con:Functoriality_Of_Dependent_Products"
+    },
+    {
+      "id": "ch3-cor-dependent-product-preserves-embeddings",
+      "title": "Dependent products preserve embeddings",
+      "note": "The formal proof is direct, using relative currying and the embedding criterion. It does not use preservation of pullbacks, whose formal proof remains incomplete.",
+      "declarations": [
+        {
+          "module": "Chapter03.Section05.DependentProductEmbeddings",
+          "name": "projection-isEmbedding",
+          "qualified": "Product.projection-isEmbedding",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "exponentiable-functors",
+      "tex_label": "cor:Dependent_Product_Preserves_Embeddings"
+    },
+    {
+      "id": "ch3-def-relative-functor-category",
+      "title": "Relative functor categories",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section05.InternalFunctorCalculus.RelativeInternalFunctors",
+          "name": "category",
+          "qualified": "Internal.category",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter03.Section05.InternalFunctorCalculus.RelativeInternalFunctors",
+          "name": "evaluation",
+          "qualified": "Internal.evaluation",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter03.Section05.InternalFunctorCalculus.InternalEvaluation",
+          "name": "uncurrying-isEquiv",
+          "qualified": "Evaluation.At.uncurrying-isEquiv",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "exponentiable-functors",
+      "tex_label": "def:Relative_Functor_Category"
+    },
+    {
+      "id": "ch3-rmk-functors-into-relative-functor-category",
+      "title": "Evaluation into a relative functor category",
+      "note": "This is the universal property for a fixed structural functor to the base. A separate theorem packaging all pairs of structural functors and relative maps is not exported.",
+      "declarations": [
+        {
+          "module": "Chapter03.Section05.InternalFunctorCalculus.InternalEvaluation",
+          "name": "uncurrying-isEquiv",
+          "qualified": "Evaluation.At.uncurrying-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "exponentiable-functors",
+      "tex_label": "rmk:Functors_Into_Relative_Functor_Category"
+    },
+    {
+      "id": "ch3-obs-relative-functor-categories-compatible-with-pullback",
+      "title": "Base change and fibers of relative functor categories",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section05.InternalFunctorsBaseChange",
+          "name": "isPullback",
+          "qualified": "ChangeBase.isPullback",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section05.InternalFunctorFibers",
+          "name": "functor-isEquiv",
+          "qualified": "Fiber.functor-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "exponentiable-functors",
+      "tex_label": "obs:Relative_Functor_Categories_Compatible_With_Pullback"
+    },
+    {
+      "id": "ch3-prop-map-to-the-point-is-exponentiable",
+      "title": "Terminal functors are exponentiable",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section05.TerminalExponentiability",
+          "name": "isExponentiable",
+          "qualified": "Terminal.isExponentiable",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section05.InternalFunctorSections",
+          "name": "comparison-isEquiv",
+          "qualified": "GlobalSections.comparison-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "exponentiable-functors",
+      "tex_label": "prop:map_to_the_point_is exponentiable"
+    },
+    {
+      "id": "ch3-cor-map-to-the-point-is-exponentiable",
+      "title": "Mapping animae as cores of global sections",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section05.InternalFunctorSections",
+          "name": "maps-isEquiv",
+          "qualified": "GlobalSections.maps-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "exponentiable-functors",
+      "tex_label": "cor:map_to_the_point_is exponentiable"
+    },
+    {
+      "id": "ch3-axiom-k-joins",
+      "title": "The mapping-out join axiom",
+      "note": "The mapping-out axiom assumes that the base is an anima.",
+      "declarations": [
+        {
+          "module": "Chapter03.Section06.JoinAxiom",
+          "name": "JoinData",
+          "qualified": "JoinData",
+          "role": "assumption"
+        },
+        {
+          "module": "Chapter03.Section06.JoinAxiom",
+          "name": "JoinPushout",
+          "qualified": "JoinPushout",
+          "role": "assumption"
+        },
+        {
+          "module": "Chapter03.Section06.JoinAxiom",
+          "name": "mapping-out",
+          "qualified": "JoinAxiom.mapping-out",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "joins",
+      "tex_label": "axiom:K_Joins"
+    },
+    {
+      "id": "ch3-rmk-mapping-out-of-join",
+      "title": "Mapping out of a join",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section06.JoinMappingOut",
+          "name": "isPullback",
+          "qualified": "MappingOut.isPullback",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "joins",
+      "tex_label": "rmk:Mapping_Out_Of_Join"
+    },
+    {
+      "id": "ch3-ex-0-star-0-is-1",
+      "title": "The join of two points",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section06.JoinOfPoints",
+          "name": "comparison-isEquiv",
+          "qualified": "comparison-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "joins",
+      "tex_label": "ex:[0]star[0]is[1]"
+    },
+    {
+      "id": "ch3-ex-join-associative-on-simplices",
+      "title": "Joins forming a triangle",
+      "note": "The formal comparisons point from the triangle to the joins; their inverses give the displayed direction.",
+      "declarations": [
+        {
+          "module": "Chapter03.Section06.TriangleJoins",
+          "name": "comparison-isEquiv",
+          "qualified": "Triangle.Left.comparison-isEquiv",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section06.TriangleJoins",
+          "name": "comparison-isEquiv",
+          "qualified": "Triangle.Right.comparison-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "joins",
+      "tex_label": "ex:Join_Associative_On_Simplices"
+    },
+    {
+      "id": "ch3-con-functoriality-of-joins",
+      "title": "The mapping-out action on joins",
+      "note": "Partial coverage: this constructs the manuscript action and its full cocone compatibility. Identity and composition laws are currently proved for a separate dependent-product action in JoinFunctoriality; agreement of the two actions is not yet proved.",
+      "declarations": [
+        {
+          "module": "Chapter03.Section06.JoinPushoutAction",
+          "name": "functor",
+          "qualified": "Action.functor",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section06.JoinPushoutAction",
+          "name": "comparison",
+          "qualified": "Action.comparison",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "joins",
+      "tex_label": "con:Functoriality_Of_Joins"
+    },
+    {
+      "id": "ch3-axiom-k2-join-as-dependent-product",
+      "title": "The mapping-in join axiom",
+      "note": "This is the absolute axiom parametrized by an arbitrary base category. The link does not assert full categorical-context inheritance.",
+      "declarations": [
+        {
+          "module": "Chapter03.Section06.JoinAxiom",
+          "name": "boundary-isEquiv",
+          "qualified": "JoinAxiom.boundary-isEquiv",
+          "role": "assumption"
+        },
+        {
+          "module": "Chapter03.Section06.JoinAxiom",
+          "name": "mapping-in",
+          "qualified": "JoinAxiom.mapping-in",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "joins",
+      "tex_label": "axiom:K2_Join_As_Dependent_Product"
+    },
+    {
+      "id": "ch3-def-relative-join",
+      "title": "Relative joins",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section06.JoinAxiom",
+          "name": "JoinOver",
+          "qualified": "JoinData.JoinOver",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter03.Section06.Joins",
+          "name": "join-dependent-product",
+          "qualified": "join-dependent-product",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "joins",
+      "tex_label": "def:Relative_Join"
+    },
+    {
+      "id": "ch3-prop-core-of-join",
+      "title": "Core of a join",
+      "note": "The formal proof takes cores of the boundary pullback and uses the boundary equivalence on cores. The manuscript instead constructs an embedding with a section in the opposite direction.",
+      "declarations": [
+        {
+          "module": "Chapter03.Section06.CoreOfJoin",
+          "name": "comparison-isEquiv",
+          "qualified": "RelativeCore.comparison-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "joins",
+      "tex_label": "prop:core_of_join"
+    },
+    {
+      "id": "ch3-lem-unitality-of-joins",
+      "title": "Unitality of joins",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section06.JoinUnits",
+          "name": "inclusion-isEquiv",
+          "qualified": "LeftUnit.inclusion-isEquiv",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section06.JoinUnits",
+          "name": "inclusion-isEquiv",
+          "qualified": "RightUnit.inclusion-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "joins",
+      "tex_label": "lem:Unitality_Of_Joins"
+    },
+    {
+      "id": "ch3-def-left-and-right-cones",
+      "title": "Left and right cones",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section06.Joins",
+          "name": "leftCone",
+          "qualified": "leftCone",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter03.Section06.Joins",
+          "name": "rightCone",
+          "qualified": "rightCone",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "joins",
+      "tex_label": "def:Left_And_Right_Cones"
+    },
+    {
+      "id": "ch3-cons-general-slice-category",
+      "title": "Relative slice categories",
+      "note": "The construction is parametrized by an arbitrary base category. This does not claim full categorical-context inheritance. Boundary specializes to the slice or coslice through the public module aliases at the end of this file.",
+      "declarations": [
+        {
+          "module": "Chapter03.Section07.RelativeSlices",
+          "name": "category",
+          "qualified": "Construction.Boundary.category",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter03.Section07.RelativeSlices",
+          "name": "universal",
+          "qualified": "Construction.Boundary.universal",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "slice-categories",
+      "tex_label": "cons:General_Slice_Category"
+    },
+    {
+      "id": "ch3-lem-functor-categories-into-slices",
+      "title": "Functors into absolute slices",
+      "note": "The theorem uses the absolute slice implementation in Section07.Slices. The comparison with the chosen relative slice over the terminal category has not yet been exported.",
+      "declarations": [
+        {
+          "module": "Chapter03.Section07.FunctorsIntoSlices",
+          "name": "isPullback",
+          "qualified": "SliceComparison.isPullback",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "slice-categories",
+      "tex_label": "lem:Functor_Categories_Into_Slices"
+    },
+    {
+      "id": "ch3-con-contextual-slice-categories",
+      "title": "Relative coslice categories",
+      "note": "The construction is parametrized by an arbitrary base category. This does not claim full categorical-context inheritance. Boundary specializes to the slice or coslice through the public module aliases at the end of this file.",
+      "declarations": [
+        {
+          "module": "Chapter03.Section07.RelativeSlices",
+          "name": "category",
+          "qualified": "Construction.Boundary.category",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter03.Section07.RelativeSlices",
+          "name": "universal",
+          "qualified": "Construction.Boundary.universal",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "slice-categories",
+      "tex_label": "con:Contextual_Slice_Categories"
+    },
+    {
+      "id": "ch3-exercise-description-mapping-object-over-gamma",
+      "title": "Internal functors from a constant family",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section05.InternalFunctorCalculus.ConstantFamilyInternalFunctors",
+          "name": "category",
+          "qualified": "ConstantFamily.category",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section05.ConstantFamilyUniversalProperty",
+          "name": "maps-isEquiv",
+          "qualified": "UniversalProperty.At.maps-isEquiv",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section05.ConstantFamilyEvaluation",
+          "name": "evaluation-comparison",
+          "qualified": "Evaluation.Parameters.evaluation-comparison",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "chapter-3-exercises",
+      "tex_label": "exercise:Description_Mapping_Object_Over_Gamma"
+    },
+    {
+      "id": "ch3-exercise-full-subcategory-former-commutes-with-products",
+      "title": "Products of full subcategories",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section02.FullSubcategoryProducts",
+          "name": "isEquiv",
+          "qualified": "ProductObjects.SpannedProduct.isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "chapter-3-exercises",
+      "tex_label": "exercise:Full_Subcategory_Former_Commutes_With_Products"
+    },
+    {
+      "id": "ch3-exercise-functoriality-subcategory",
+      "title": "Subcategory functoriality: items (1)–(3)",
+      "note": "Only items (1)–(3) have completed targets here. Item (4), preservation of equivalences of the ambient categories and morphism collections, is not covered by these declarations.",
+      "declarations": [
+        {
+          "module": "Chapter03.Section01.Lifting.PresentationConsequences",
+          "name": "factorization-unique",
+          "qualified": "Presented.factorization-unique",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section01.SubcategoryFunctoriality",
+          "name": "induced-cong",
+          "qualified": "induced-cong",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section01.SubcategoryFunctoriality",
+          "name": "induced-identity",
+          "qualified": "induced-identity",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section01.SubcategoryFunctoriality",
+          "name": "induced-composition",
+          "qualified": "induced-composition",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "chapter-3-exercises",
+      "tex_label": "exercise:Functoriality_Subcategory"
+    },
+    {
+      "id": "ch3-exercise-uniqueness-of-localizations",
+      "title": "Uniqueness of localizations",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section03.LocalizationUniqueness",
+          "name": "forward-isEquiv",
+          "qualified": "Uniqueness.forward-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "chapter-3-exercises",
+      "tex_label": "exercise:Uniqueness_Of_Localizations"
+    },
+    {
+      "id": "ch3-exercise-localization-as-pushout",
+      "title": "Localization as a pushout",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section03.LocalizationPushouts",
+          "name": "isPushout",
+          "qualified": "Pushout.isPushout",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "chapter-3-exercises",
+      "tex_label": "exercise:Localization_As_Pushout"
+    },
+    {
+      "id": "ch3-exercise-uniqueness-of-dependent-products",
+      "title": "Uniqueness of dependent products",
+      "note": "The public Uniqueness module specializes these declarations with the native currying computations, so no extra computation hypothesis is needed.",
+      "declarations": [
+        {
+          "module": "Chapter03.Section05.DependentProductUniqueness",
+          "name": "forward",
+          "qualified": "FromComputations.forward",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section05.DependentProductUniqueness",
+          "name": "backward",
+          "qualified": "FromComputations.backward",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section05.DependentProductUniqueness",
+          "name": "left-inverse",
+          "qualified": "FromComputations.left-inverse",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section05.DependentProductUniqueness",
+          "name": "right-inverse",
+          "qualified": "FromComputations.right-inverse",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter03.Section05.DependentProductUniqueness",
+          "name": "forward-isEquiv",
+          "qualified": "FromComputations.forward-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "chapter-3-exercises",
+      "tex_label": "exercise:Uniqueness_Of_Dependent_Products"
+    },
+    {
+      "id": "ch3-subcategory-term",
+      "title": "Subcategories",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section01.Subcategories",
+          "name": "IsSubcategory",
+          "qualified": "IsSubcategory",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "subcategories"
+    },
+    {
+      "id": "ch3-morphism-collection-term",
+      "title": "Collections of morphisms",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section01.MorphismCollections",
+          "name": "MorphismCollection",
+          "qualified": "MorphismCollection",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "subcategories"
+    },
+    {
+      "id": "ch3-composition-closed-term",
+      "title": "Closure under composition",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section01.ClosureCalculus.CompositionClosure",
+          "name": "ClosedUnderComposition",
+          "qualified": "ClosedUnderComposition",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "subcategories"
+    },
+    {
+      "id": "ch3-membership-term",
+      "title": "Membership in a morphism collection",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section01.MorphismCollections",
+          "name": "Contains",
+          "qualified": "MorphismCollection.Contains",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "subcategories"
+    },
+    {
+      "id": "ch3-preserves-morphisms-term",
+      "title": "Preserving morphism collections",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section01.MorphismCollections",
+          "name": "PreservesMorphisms",
+          "qualified": "PreservesMorphisms",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "subcategories"
+    },
+    {
+      "id": "ch3-full-subcategory-term",
+      "title": "Full subcategories",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section02.FullSubcategories",
+          "name": "IsFullSubcategory",
+          "qualified": "IsFullSubcategory",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "full-subcategories"
+    },
+    {
+      "id": "ch3-object-collection-term",
+      "title": "Collections of objects",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section02.ObjectCollections",
+          "name": "ObjectCollection",
+          "qualified": "ObjectCollection",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "full-subcategories"
+    },
+    {
+      "id": "ch3-spanned-subcategory-term",
+      "title": "Spanned subcategories",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section02.SpannedSubcategories",
+          "name": "category",
+          "qualified": "Spanned.category",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter03.Section02.SpannedSubcategories",
+          "name": "inclusion",
+          "qualified": "Spanned.inclusion",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "full-subcategories"
+    },
+    {
+      "id": "ch3-localization-term",
+      "title": "Localizations",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section03.Localizations",
+          "name": "IsLocalization",
+          "qualified": "WithSubcategories.IsLocalization",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "localizations"
+    },
+    {
+      "id": "ch3-geometric-realization-term",
+      "title": "Geometric realization",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section04.GeometricRealization",
+          "name": "category",
+          "qualified": "Realization.category",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "geometric-realizations"
+    },
+    {
+      "id": "ch3-functors-over-term",
+      "title": "Functors over a base",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.RelativeCategories.Functors",
+          "name": "FunOver",
+          "qualified": "FunOver",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter03.RelativeCategories.Functors",
+          "name": "FunctorOver",
+          "qualified": "FunctorOver",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "exponentiable-functors"
+    },
+    {
+      "id": "ch3-dependent-product-term",
+      "title": "Dependent products",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section05.DependentProducts",
+          "name": "DependentProduct",
+          "qualified": "DependentProduct",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "exponentiable-functors"
+    },
+    {
+      "id": "ch3-beck-chevalley-term",
+      "title": "The Beck–Chevalley map",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section05.BaseChange.BeckChevalley",
+          "name": "over",
+          "qualified": "BeckChevalley.over",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "exponentiable-functors"
+    },
+    {
+      "id": "ch3-exponentiable-term",
+      "title": "Exponentiable functors",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section05.ExponentiableFunctors",
+          "name": "IsExponentiable",
+          "qualified": "IsExponentiable",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "exponentiable-functors"
+    },
+    {
+      "id": "ch3-relative-functor-term",
+      "title": "Relative functor categories",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section05.InternalFunctorCalculus.RelativeInternalFunctors",
+          "name": "category",
+          "qualified": "Internal.category",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "exponentiable-functors"
+    },
+    {
+      "id": "ch3-left-cone-term",
+      "title": "Left cones",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section06.Joins",
+          "name": "leftCone",
+          "qualified": "leftCone",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "joins"
+    },
+    {
+      "id": "ch3-right-cone-term",
+      "title": "Right cones",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section06.Joins",
+          "name": "rightCone",
+          "qualified": "rightCone",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "joins"
+    },
+    {
+      "id": "ch3-relative-uncurrying",
+      "title": "Relative uncurrying",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section05.DependentProducts",
+          "name": "uncurry",
+          "qualified": "RelativeCurrying.At.uncurry",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "exponentiable-functors"
+    },
+    {
+      "id": "ch3-relative-currying",
+      "title": "Relative currying",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section05.DependentProducts",
+          "name": "curry",
+          "qualified": "RelativeCurrying.At.curry",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "exponentiable-functors"
+    },
+    {
+      "id": "ch3-exponentiable-base-change",
+      "title": "Exponentiable functors and base change",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section05.ExponentiableFunctors",
+          "name": "isExponentiable",
+          "qualified": "Exponentiable.AfterBaseChange.isExponentiable",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "exponentiable-functors"
+    },
+    {
+      "id": "ch3-join-introduction",
+      "title": "Joins",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section06.Joins",
+          "name": "_⋆_",
+          "qualified": "_⋆_",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "joins"
+    },
+    {
+      "id": "ch3-relative-join-introduction",
+      "title": "Relative joins",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section06.JoinAxiom",
+          "name": "JoinOver",
+          "qualified": "JoinData.JoinOver",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "joins"
+    },
+    {
+      "id": "ch3-join-mapping-in",
+      "title": "Mapping into a relative join",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter03.Section06.JoinMappingIn",
+          "name": "maps-isEquiv",
+          "qualified": "Endpoints.maps-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/3_Constructions.tex",
+      "page": "joins"
     }
   ],
   "reverse_only": [
@@ -11306,31 +13295,31 @@
       "note": "The main law has four MAP A inputs. UniversalComposition.comparison is an optional explicit product-source view, requiring the whole surrounding module definitions. Naturality of product identity/composition comparisons is supporting code beyond the two displayed exercise formulas.",
       "declarations": [
         {
-          "module": "Chapter01.Section03.FamilyProductFunctor",
+          "module": "Chapter01.Section03.ProductCalculus.FamilyProductFunctor",
           "name": "productMap-comp-family",
           "qualified": "productMap-comp-family",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section03.ProductFunctorUnits",
+          "module": "Chapter01.Section03.ProductCalculus.ProductFunctorUnits",
           "name": "productMap-unitˡ",
           "qualified": "productMap-unitˡ",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section03.ProductFunctorUnits",
+          "module": "Chapter01.Section03.ProductCalculus.ProductFunctorUnits",
           "name": "productMap-unitʳ",
           "qualified": "productMap-unitʳ",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section03.FamilyProductFunctor",
+          "module": "Chapter01.Section03.ProductCalculus.FamilyProductFunctor",
           "name": "productFamily-pre",
           "qualified": "productFamily-pre",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section03.ProductFunctorCoherence",
+          "module": "Chapter01.Section03.ProductCalculus.ProductFunctorCoherence",
           "name": "prewhisker-square",
           "qualified": "prewhisker-square",
           "role": "derived"
@@ -11345,37 +13334,37 @@
       "note": "The formal comparison functors act on higher identifications; the old separate item was removed.",
       "declarations": [
         {
-          "module": "Chapter01.Section03.PairingCoherence",
+          "module": "Chapter01.Section03.ProductCalculus.PairingCoherence",
           "name": "pairIsoMap",
           "qualified": "pairIsoMap",
           "role": "definition"
         },
         {
-          "module": "Chapter01.Section03.PairingCoherence",
+          "module": "Chapter01.Section03.ProductCalculus.PairingCoherence",
           "name": "pair-cong-Iso₂",
           "qualified": "pair-cong-Iso₂",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section03.ProductFunctorCoherence",
+          "module": "Chapter01.Section03.ProductCalculus.ProductFunctorCoherence",
           "name": "productIsoMap",
           "qualified": "productIsoMap",
           "role": "definition"
         },
         {
-          "module": "Chapter01.Section03.ProductFunctorCoherence",
+          "module": "Chapter01.Section03.ProductCalculus.ProductFunctorCoherence",
           "name": "productMap-cong-Iso₂",
           "qualified": "productMap-cong-Iso₂",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section03.PairingCoherence",
+          "module": "Chapter01.Section03.ProductCalculus.PairingCoherence",
           "name": "pairIsoMap-at",
           "qualified": "pairIsoMap-at",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section03.ProductFunctorCoherence",
+          "module": "Chapter01.Section03.ProductCalculus.ProductFunctorCoherence",
           "name": "productIsoMap-at",
           "qualified": "productIsoMap-at",
           "role": "derived"
@@ -11390,7 +13379,7 @@
       "note": "Component comparisons construct the pairing comparison.",
       "declarations": [
         {
-          "module": "Chapter01.Section03.FamilyPairing",
+          "module": "Chapter01.Section03.ProductCalculus.FamilyPairing",
           "name": "pairing",
           "qualified": "pairing",
           "role": "definition"
@@ -11411,25 +13400,25 @@
       "note": "The same comparison includes its prescribed projections.",
       "declarations": [
         {
-          "module": "Chapter01.Section03.FamilyPairing",
+          "module": "Chapter01.Section03.ProductCalculus.FamilyPairing",
           "name": "pairing-β₁",
           "qualified": "pairing-β₁",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section03.FamilyPairing",
+          "module": "Chapter01.Section03.ProductCalculus.FamilyPairing",
           "name": "pairing-β₂",
           "qualified": "pairing-β₂",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section03.PairingCoherence",
+          "module": "Chapter01.Section03.ProductCalculus.PairingCoherence",
           "name": "pair-cong-β₁",
           "qualified": "pair-cong-β₁",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section03.PairingCoherence",
+          "module": "Chapter01.Section03.ProductCalculus.PairingCoherence",
           "name": "pair-cong-β₂",
           "qualified": "pair-cong-β₂",
           "role": "derived"
@@ -11444,13 +13433,13 @@
       "note": "Include exact Boundaries module header; pentagon/triangle are supplied assumptions in the module interface. The shortened proof groups successive-precomposition checks into its projection argument.",
       "declarations": [
         {
-          "module": "Chapter01.Section03.IteratedPairing",
+          "module": "Chapter01.Section03.ProductCalculus.IteratedPairing",
           "name": "compatibility",
           "qualified": "Boundaries.compatibility",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section03.PairingUnits",
+          "module": "Chapter01.Section03.ProductCalculus.PairingUnits",
           "name": "pair-pre-id",
           "qualified": "pair-pre-id",
           "role": "derived"
@@ -11465,13 +13454,13 @@
       "note": "The finite proof modules implement reflection through the product equivalence. Linking only Whiskering.postWhisker-isEquiv would miss the actual lifting step. Lifting the projected comparisons is a detail of the shortened compatibility proof.",
       "declarations": [
         {
-          "module": "Chapter01.Section03.PairingCoherence",
+          "module": "Chapter01.Section03.ProductCalculus.PairingCoherence",
           "name": "pair-iso-extensionality",
           "qualified": "pair-iso-extensionality",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section03.FamilyPairing",
+          "module": "Chapter01.Section03.ProductCalculus.FamilyPairing",
           "name": "family-extensionality",
           "qualified": "family-extensionality",
           "role": "derived"
@@ -11486,13 +13475,13 @@
       "note": "Action on higher identifications is supporting detail for compatibility with input identifications.",
       "declarations": [
         {
-          "module": "Chapter01.Section03.PairingCoherence",
+          "module": "Chapter01.Section03.ProductCalculus.PairingCoherence",
           "name": "pair-cong-Iso₂",
           "qualified": "pair-cong-Iso₂",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section03.ProductFunctorCoherence",
+          "module": "Chapter01.Section03.ProductCalculus.ProductFunctorCoherence",
           "name": "productMap-cong-Iso₂",
           "qualified": "productMap-cong-Iso₂",
           "role": "derived"
@@ -11522,43 +13511,43 @@
       "note": "Both implications concern the specified induced square, including its matching. The formal proof implements the square comparisons by uncurrying and transposing compatible cocones, then lifting and reflecting their comparisons.",
       "declarations": [
         {
-          "module": "Chapter01.Section08.FunctorCriterionPreservation",
+          "module": "Chapter01.Section08.FunctorCategoryCalculus.FunctorCriterionPreservation",
           "name": "isPullback",
           "qualified": "Preservation.isPullback",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section08.FunctorCriterionPreservation",
+          "module": "Chapter01.Section08.FunctorCategoryCalculus.FunctorCriterionPreservation",
           "name": "comparison",
           "qualified": "Preservation.Lift.comparison",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section08.FunctorCriterionPreservation",
+          "module": "Chapter01.Section08.FunctorCategoryCalculus.FunctorCriterionPreservation",
           "name": "comparison",
           "qualified": "Preservation.Compare.comparison",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section08.RestrictionTransfer",
+          "module": "Chapter01.Section08.MappingCalculus.Restriction.RestrictionTransfer",
           "name": "isPullback",
           "qualified": "Detection.isPullback",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section08.RestrictionTransfer",
+          "module": "Chapter01.Section08.MappingCalculus.Restriction.RestrictionTransfer",
           "name": "comparison",
           "qualified": "Detection.Lift.comparison",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section08.RestrictionTransfer",
+          "module": "Chapter01.Section08.MappingCalculus.Restriction.RestrictionTransfer",
           "name": "comparison",
           "qualified": "Detection.Compare.comparison",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section08.FunctorSquares",
+          "module": "Chapter01.Section08.FunctorCategoryCalculus.FunctorSquares",
           "name": "matching-β",
           "qualified": "Induced.matching-β",
           "role": "derived"
@@ -11585,19 +13574,19 @@
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section08.MappingPastingComparison",
+          "module": "Chapter01.Section08.MappingCalculus.Restriction.MappingPastingComparison",
           "name": "comparison",
           "qualified": "Diagram.comparison",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section08.PastingTransfer",
+          "module": "Chapter01.Section08.MappingCalculus.Restriction.PastingTransfer",
           "name": "paste",
           "qualified": "Diagram.At.WithComparison.paste",
           "role": "derived"
         },
         {
-          "module": "Chapter01.Section08.PastingTransfer",
+          "module": "Chapter01.Section08.MappingCalculus.Restriction.PastingTransfer",
           "name": "cancel",
           "qualified": "Diagram.At.WithComparison.cancel",
           "role": "derived"
@@ -11612,13 +13601,13 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter02.Section01.SquareCalculus",
+          "module": "Chapter02.Section01.SquareCalculus.SquareCalculus",
           "name": "first-projection-cocone",
           "qualified": "first-projection-cocone",
           "role": "definition"
         },
         {
-          "module": "Chapter02.Section01.SquareCalculus",
+          "module": "Chapter02.Section01.SquareCalculus.SquareCalculus",
           "name": "second-projection-cocone",
           "qualified": "second-projection-cocone",
           "role": "definition"
@@ -11633,13 +13622,13 @@
       "note": "",
       "declarations": [
         {
-          "module": "Chapter02.Section01.LatticeUniqueness",
+          "module": "Chapter02.Section01.SquareCalculus.LatticeUniqueness",
           "name": "recognize-min",
           "qualified": "recognize-min",
           "role": "derived"
         },
         {
-          "module": "Chapter02.Section01.LatticeUniqueness",
+          "module": "Chapter02.Section01.SquareCalculus.LatticeUniqueness",
           "name": "recognize-max",
           "qualified": "recognize-max",
           "role": "derived"
@@ -11777,31 +13766,31 @@
       "note": "The two constructions pass between an invertible arrow and a lift to Iso(C), with endpoint-framed inverse witnesses.",
       "declarations": [
         {
-          "module": "Chapter02.Section03.InverseTriangleLift",
+          "module": "Chapter02.Section03.InverseCalculus.InverseTriangleLift",
           "name": "common",
           "qualified": "LiftInverse.common",
           "role": "definition"
         },
         {
-          "module": "Chapter02.Section03.InverseTriangleLift",
+          "module": "Chapter02.Section03.InverseCalculus.InverseTriangleLift",
           "name": "inverse-cone",
           "qualified": "LiftInverse.inverse-cone",
           "role": "definition"
         },
         {
-          "module": "Chapter02.Section03.InverseTriangleLift",
+          "module": "Chapter02.Section03.InverseCalculus.InverseTriangleLift",
           "name": "value",
           "qualified": "LiftInverse.value",
           "role": "definition"
         },
         {
-          "module": "Chapter02.Section03.InverseTriangleLift",
+          "module": "Chapter02.Section03.InverseCalculus.InverseTriangleLift",
           "name": "arrow-comparison",
           "qualified": "LiftInverse.arrow-comparison",
           "role": "derived"
         },
         {
-          "module": "Chapter02.Section03.LiftedInverseWitnesses",
+          "module": "Chapter02.Section03.InverseCalculus.LiftedInverseWitnesses",
           "qualified": "lift-invertible",
           "name": "lift-invertible",
           "role": "derived"
@@ -11868,7 +13857,7 @@
           "secondary": true
         },
         {
-          "module": "Chapter02.Section03.ConstantArrows",
+          "module": "Chapter02.Section03.InverseCalculus.ConstantArrows",
           "name": "constant-identification",
           "qualified": "constant-identification",
           "role": "definition",

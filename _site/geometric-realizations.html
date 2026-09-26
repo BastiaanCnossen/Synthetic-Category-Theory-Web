@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Geometric realizations | Synthetic category theory</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/reader-shell.css"><link rel="stylesheet" href="assets/reader.css?v=cb97990c1670a826"><link rel="stylesheet" href="assets/Agda.css">
+<script src="assets/math-config.js"></script><script defer src="vendor/mathjax/tex-chtml.js"></script><script defer src="assets/agda-context.js?v=41beaa3dfc2ba203"></script><script defer src="assets/reader.js?v=1fc2a32e54b9ace6"></script></head>
+<body class="hide-agda-links has-passages"><a class="skip-link" href="#main">Skip to content</a><aside class="utility-dock" aria-label="Reading tools">
+<button id="reading-settings-button" class="utility-button" type="button" aria-label="Reading settings" title="Reading settings" aria-controls="reading-settings" aria-expanded="false"><span aria-hidden="true">⚙</span></button>
+<a class="utility-button" href="book.pdf" aria-label="Read the web edition PDF" title="Read the web edition PDF"><span aria-hidden="true">📖</span></a>
+<section id="reading-settings" class="settings-panel" aria-label="Reading preferences" hidden><h2>Reading preferences</h2>
+<label><input id="collapse-proofs" type="checkbox"> Collapse book proofs</label>
+<label><input id="show-agda-links" type="checkbox"> Show links to Agda code</label>
+</section></aside>
+<header class="site-header"><div class="header-top"><nav class="book-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Synthetic category theory</a></li><li><a href="constructions-introduction.html" title="Constructions of categories">Chapter 3</a></li><li aria-current="page">Section 3.4</li></ol></nav><nav class="page-turns" aria-label="Reading navigation"><a rel="prev" data-step="prev-chapter" href="internal-structure-introduction.html" title="The internal structure of categories" aria-label="Previous chapter: Chapter 2, The internal structure of categories"><span class="turn-direction">← Previous chapter</span><span class="turn-target">Chapter 2</span></a><button type="button" disabled data-step="next-chapter" aria-label="No next chapter" title="No next chapter in this web edition"><span class="turn-direction">→ Next chapter</span><span class="turn-target">Not available</span></button><a rel="prev" data-step="prev-section" href="localizations.html" title="Localizations" aria-label="Previous section: Section 3.3, Localizations"><span class="turn-direction">← Previous section</span><span class="turn-target">Section 3.3</span></a><a rel="next" data-step="next-section" href="exponentiable-functors.html" title="Exponentiable functors" aria-label="Next section: Section 3.5, Exponentiable functors"><span class="turn-direction">→ Next section</span><span class="turn-target">Section 3.5</span></a></nav></div><p class="eyebrow">Volume I · Experimental web edition</p><h1>Geometric realizations</h1></header>
+<div class="reader-grid"><aside class="reader-nav" aria-label="Book navigation"><h2>Resources</h2><nav aria-label="Resources" class="reader-resources"><a href="code-index.html">All Agda code</a><a href="formalization.html">Agda guide</a><a href="build-report.html">Build details</a></nav><h2>Contents</h2><nav aria-label="Contents"><a href="index.html">Overview</a><a href="introduction.html">Introduction</a><a href="overview-of-the-axioms.html">Overview of the axioms</a><details class="contents-chapter"><summary><span class="chapter-number">Chapter 1</span><span class="chapter-name">The language of synthetic category theory</span></summary><div class="chapter-sections"><a href="chapter-introduction.html">Chapter introduction</a><a href="basic-vocabulary.html">1.1 · The basic vocabulary</a><a href="coherences.html">1.2 · Coherences</a><a href="equivalences.html">1.3 · Equivalences of categories</a><a href="mapping-animae.html">1.4 · Mapping animae</a><a href="initial-categories-and-coproducts.html">1.5 · Initial categories and coproducts</a><a href="pullbacks.html">1.6 · Pullbacks of categories</a><a href="functor-categories.html">1.7 · Functor categories</a><a href="pushouts.html">1.8 · Pushout squares</a></div></details><details class="contents-chapter"><summary><span class="chapter-number">Chapter 2</span><span class="chapter-name">The internal structure of categories</span></summary><div class="chapter-sections"><a href="internal-structure-introduction.html">Chapter introduction</a><a href="morphisms-and-diagrams.html">2.1 · Morphisms and diagrams</a><a href="segal-axiom.html">2.2 · The Segal axiom</a><a href="rezk-axiom.html">2.3 · The Rezk axiom</a><a href="groupoids.html">2.4 · Groupoids</a><a href="recognizing-animae.html">2.5 · Recognizing animae</a><a href="chapter-2-exercises.html">2.6 · Exercises</a></div></details><details class="contents-chapter" open><summary><span class="chapter-number">Chapter 3</span><span class="chapter-name">Constructions of categories</span></summary><div class="chapter-sections"><a href="constructions-introduction.html">Chapter introduction</a><a href="subcategories.html">3.1 · Subcategories</a><a href="full-subcategories.html">3.2 · Full subcategories</a><a href="localizations.html">3.3 · Localizations</a><a aria-current="page" href="geometric-realizations.html">3.4 · Geometric realizations</a><a href="exponentiable-functors.html">3.5 · Exponentiable functors</a><a href="joins.html">3.6 · Joins</a><a href="slice-categories.html">3.7 · Slice categories</a><a href="chapter-3-exercises.html">3.8 · Exercises</a></div></details></nav></aside>
+<main id="main" class="notes-page" tabindex="-1"><p class="agda-help"><span class="agda-invitation"><a class="agda-start" data-module="SCT.VolumeI.Chapter03.Section04.GeometricRealization" href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html">Read the Agda code</a> alongside the book.</span><span class="agda-instructions">Click dotted-underlined prose to read its Agda code alongside the book. <button type="button" class="agda-hide text-button">Hide links.</button> <a href="code-index.html">Browse all code.</a></span></p><h3 class="sectionHead" id="geometric-realizations"><span class="titlemark">3.4    </span> <a id="x1-460003.4"></a>Geometric realizations</h3>
+<p class="noindent"><span class="source-anchor" id="sec:Geometric_Realizations"></span>
+</p><p class="noindent">The localization of a category \(C\) at <span class="ntx-Italic-tlf-t1-x-x-109">all </span>its morphisms deserves special notation and terminology:
+</p><p class="noindent"></p><section class="statement" data-environment="definition" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-46001r1"></a>
+<a class="agda-trigger agda-heading" id="text-ch3-def-geometric-realization" href="geometric-realizations.html#agda-ch3-def-geometric-realization" data-agda="ch3-def-geometric-realization" title="Agda: category, localization" aria-controls="agda-ch3-def-geometric-realization"><span class="ntx-Bold-tlf-t1-x-x-109">Definition 3.4.1 </span></a>(Geometric realization)<span class="ntx-Bold-tlf-t1-x-x-109">.</span>  </span><span class="source-anchor" id="def:Geometric_Realization"></span> In the case where \(W := \Map ([1],C)\) consists of all morphisms in \(C\), we write
+\[ \geom {C} \quad :=\quad C[W^{-1}], \] and we denote the localization functor by \(\lambda _C \colon C \to \geom {C}\). We refer to \(\geom {C}\) as the <a class="agda-trigger" data-agda="ch3-geometric-realization-term" href="geometric-realizations.html#agda-ch3-geometric-realization-term" id="text-ch3-geometric-realization-term" title="Agda: category" aria-controls="agda-ch3-geometric-realization-term"><span class="ntx-Italic-tlf-t1-x-x-109">geometric realization </span>of \(C\)</a>.
+</p><details class="agda-panel agda-inline" id="agda-ch3-def-geometric-realization"><summary><span class="agda-tag">Agda</span> Geometric realization</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section04.GeometricRealization" data-declaration="Realization.category"><h4><code>category</code></h4><p class="status">Definition, checked</p><pre class="Agda signature">  <a></a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2926" class="Function">category</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">  <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2926" class="Function">category</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2958" class="Bound">C</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2292" class="Field">Localization.category</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2812" class="Function">chosen</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2958" class="Bound">C</a><a class="Symbol">)</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level; _⊔_)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+
+module SCT.VolumeI.Chapter03.Section04.GeometricRealization
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E) where
+
+module Realization (L : SubcategoryAxiom) (Z : WithSubcategories.LocalizationAxiom L) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2926">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section04/GeometricRealization.lagda.md">Literate source, line 53</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section04.GeometricRealization" data-declaration="Realization.localization"><h4><code>localization</code></h4><p class="status">Definition, checked</p><pre class="Agda signature">  <a></a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2998" class="Function">localization</a> <a class="Symbol">:</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#3014" class="Bound">C</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a><a class="Symbol">)</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#579" class="Function">MAP</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#3014" class="Bound">C</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2926" class="Function">category</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#3014" class="Bound">C</a><a class="Symbol">)</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">  <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2998" class="Function">localization</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#3059" class="Bound">C</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2313" class="Field">Localization.functor</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2812" class="Function">chosen</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#3059" class="Bound">C</a><a class="Symbol">)</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level; _⊔_)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+
+module SCT.VolumeI.Chapter03.Section04.GeometricRealization
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E) where
+
+module Realization (L : SubcategoryAxiom) (Z : WithSubcategories.LocalizationAxiom L) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2998">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section04/GeometricRealization.lagda.md">Literate source, line 56</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="geometric-realizations.html#text-ch3-def-geometric-realization">Return to this passage</a> · <a class="permalink" href="geometric-realizations.html#agda-ch3-def-geometric-realization">Panel link</a></p></div></details><details class="agda-panel agda-inline" id="agda-ch3-geometric-realization-term"><summary><span class="agda-tag">Agda</span> Geometric realization</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section04.GeometricRealization" data-declaration="Realization.category"><h4><code>category</code></h4><p class="status">Definition, checked</p><pre class="Agda signature">  <a></a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2926" class="Function">category</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">  <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2926" class="Function">category</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2958" class="Bound">C</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2292" class="Field">Localization.category</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2812" class="Function">chosen</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2958" class="Bound">C</a><a class="Symbol">)</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level; _⊔_)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+
+module SCT.VolumeI.Chapter03.Section04.GeometricRealization
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E) where
+
+module Realization (L : SubcategoryAxiom) (Z : WithSubcategories.LocalizationAxiom L) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2926">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section04/GeometricRealization.lagda.md">Literate source, line 53</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="geometric-realizations.html#text-ch3-geometric-realization-term">Return to this passage</a> · <a class="permalink" href="geometric-realizations.html#agda-ch3-geometric-realization-term">Panel link</a></p></div></details>
+</div>
+<p class="noindent"> </p></section>
+<p></p><p class="noindent">In other words, the geometric realization is characterized by the property that for every category \(D\), the
+functor \[ \lambda _C^*\colon \Fun (\geom {C},D) \to \Fun ^{\Map ([1],C)}(C,D) \] is an equivalence.
+</p><p class="noindent">By Construction <a href="localizations.html#cons:Functoriality_Localization">3.3.9</a>, the assignment \(C \mapsto \geom {C}\) is functorial in \(C\): every functor \(f\colon C \to D\) induces a functor \[ \geom {f}\colon \geom {C} \to \geom {D}. \]
+</p><p class="noindent"></p><section class="statement" data-environment="lemma" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-46002r2"></a>
+<a class="agda-trigger agda-heading" id="text-ch3-lem-realization-of-a-groupoid" href="geometric-realizations.html#agda-ch3-lem-realization-of-a-groupoid" data-agda="ch3-lem-realization-of-a-groupoid" title="Agda: localization-isEquiv" aria-controls="agda-ch3-lem-realization-of-a-groupoid"><span class="ntx-Bold-tlf-t1-x-x-109">Lemma 3.4.2.</span></a>  </span><span class="source-anchor" id="lem:Realization_Of_A_Groupoid"> </span><span class="ntx-Italic-tlf-t1-x-x-109">Assume that</span> \(X\) <span class="ntx-Italic-tlf-t1-x-x-109">is a groupoid. Then the localization functor</span> \(\lambda _X\colon X \to \geom {X}\) <span class="ntx-Italic-tlf-t1-x-x-109">is an equivalence.</span>
+</p><details class="agda-panel agda-inline" id="agda-ch3-lem-realization-of-a-groupoid"><summary><span class="agda-tag">Agda</span> Realization of a groupoid</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section04.RealizationOfGroupoids" data-declaration="OnGroupoids.localization-isEquiv"><h4><code>localization-isEquiv</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">  <a></a><a href="agda/SCT.VolumeI.Chapter03.Section04.RealizationOfGroupoids.html#2998" class="Function">localization-isEquiv</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#1591" class="Record">IsEquiv</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2998" class="Function">Geom.localization</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.RealizationOfGroupoids.html#2480" class="Bound">C</a><a class="Symbol">)</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">  <a href="agda/SCT.VolumeI.Chapter03.Section04.RealizationOfGroupoids.html#2998" class="Function">localization-isEquiv</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter01.Section04.EquivalenceDetection.html#4843" class="Function">pre-tests-all</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2998" class="Function">Geom.localization</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.RealizationOfGroupoids.html#2480" class="Bound">C</a><a class="Symbol">)</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.RealizationOfGroupoids.html#2692" class="Function">restriction-isEquiv</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level; _⊔_)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+
+module SCT.VolumeI.Chapter03.Section04.RealizationOfGroupoids
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E) where
+
+module OnGroupoids (L : SubcategoryAxiom) (Z : WithSubcategories.LocalizationAxiom L)
+  (C : CAT) (groupoid : IsGroupoid C) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section04.RealizationOfGroupoids.html#2998">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section04/RealizationOfGroupoids.lagda.md">Literate source, line 50</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="geometric-realizations.html#text-ch3-lem-realization-of-a-groupoid">Return to this passage</a> · <a class="permalink" href="geometric-realizations.html#agda-ch3-lem-realization-of-a-groupoid">Panel link</a></p></div></details>
+</div>
+<p class="noindent"> </p></section>
+<p></p>
+<details class="book-proof" open><summary>Proof</summary><div class="proof-content">
+
+
+
+<p class="noindent"><span class="head">
+<span class="ntx-Italic-tlf-t1-x-x-109">Proof.</span> </span>Using that \(\Iso (X) \simeq \Fun ([1],X)\), we obtain by Proposition <a href="localizations.html#prop:Every_Functor_Preserves_Isomorphisms">3.3.4</a> equivalences \[ \Fun ^{\Map ([1],X)}(X,D) \simeq \Fun ^{\Iso (X)^{\simeq }}(X,D) \simeq \Fun (X,D), \] which shows that the identity map
+\(X \to X\) exhibits \(X\) as a localization of \(X\) at all its morphisms. This gives the claim.                                          □
+</p>
+</div></details>
+<p class="noindent"></p><section class="statement" data-environment="lemma" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-46003r3"></a>
+<a class="agda-trigger agda-heading" id="text-ch3-lem-fundamental-groupoid-functor-left-adjoint-to-inclusion" href="geometric-realizations.html#agda-ch3-lem-fundamental-groupoid-functor-left-adjoint-to-inclusion" data-agda="ch3-lem-fundamental-groupoid-functor-left-adjoint-to-inclusion" title="Agda: isEquiv" aria-controls="agda-ch3-lem-fundamental-groupoid-functor-left-adjoint-to-inclusion"><span class="ntx-Bold-tlf-t1-x-x-109">Lemma 3.4.3.</span></a>  </span><span class="source-anchor" id="lem:Fundamental_Groupoid_Functor_Left_Adjoint_To_Inclusion"> </span><span class="ntx-Italic-tlf-t1-x-x-109">If</span> \(C\) <span class="ntx-Italic-tlf-t1-x-x-109">is a category and</span> \(\Gamma \) <span class="ntx-Italic-tlf-t1-x-x-109">is a groupoid, then precomposition with the localization functor</span>
+\(\lambda _C\colon C \to \geom {C}\) <span class="ntx-Italic-tlf-t1-x-x-109">defines an equivalence </span>\[ \lambda _C^*\colon \Fun (\geom {C}, \Gamma ) \iso \Fun (C,\Gamma ) \]
+</p><details class="agda-panel agda-inline" id="agda-ch3-lem-fundamental-groupoid-functor-left-adjoint-to-inclusion"><summary><span class="agda-tag">Agda</span> Mapping out of geometric realization</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section03.LocalizationGroupoids" data-declaration="IntoGroupoids.At.isEquiv"><h4><code>isEquiv</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationGroupoids.html#2545" class="Function">isEquiv</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#1591" class="Record">IsEquiv</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section07.Functoriality.html#1028" class="Function">funPre</a> <a class="Symbol">{</a><a class="Argument">D</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationGroupoids.html#2378" class="Bound">D</a><a class="Symbol">}</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationGroupoids.html#2263" class="Bound">l</a><a class="Symbol">)</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">    <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationGroupoids.html#2545" class="Function">isEquiv</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter01.Section03.Equivalences.html#4580" class="Function">equiv-transport</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.LocalizationRestriction.html#2781" class="Function">Restriction.comparison</a>
+      <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section03.Equivalences.html#4859" class="Function">equiv-compose</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.LocalizationRestriction.html#2690" class="Function">Restriction.functor</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.InvertingFunctors.html#4402" class="Function">Inverting.Category.functorInclusion</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationGroupoids.html#2234" class="Bound">W</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationGroupoids.html#2378" class="Bound">D</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationGroupoids.html#2199" class="Bound">L</a><a class="Symbol">)</a>
+        <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.Localizations.html#2121" class="Field">IsLocalization.universal</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationGroupoids.html#2277" class="Bound">localization</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationGroupoids.html#2378" class="Bound">D</a><a class="Symbol">)</a>
+        <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section03.MappingCalculus.InvertingGroupoids.html#3104" class="Function">inverting-functors-into-groupoid</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationGroupoids.html#2199" class="Bound">L</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationGroupoids.html#2234" class="Bound">W</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationGroupoids.html#2378" class="Bound">D</a> <a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationGroupoids.html#2388" class="Bound">groupoid</a><a class="Symbol">))</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level; _⊔_)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+
+module SCT.VolumeI.Chapter03.Section03.LocalizationGroupoids
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E) where
+
+module IntoGroupoids (L : SubcategoryAxiom) {C T : CAT} (W : MorphismCollection C)
+  (l : MAP C T) (localization : WithSubcategories.IsLocalization L W l) where
+
+  module At (D : CAT) (groupoid : IsGroupoid D) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section03.LocalizationGroupoids.html#2545">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section03/LocalizationGroupoids.lagda.md">Literate source, line 43</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="geometric-realizations.html#text-ch3-lem-fundamental-groupoid-functor-left-adjoint-to-inclusion">Return to this passage</a> · <a class="permalink" href="geometric-realizations.html#agda-ch3-lem-fundamental-groupoid-functor-left-adjoint-to-inclusion">Panel link</a></p></div></details>
+</div>
+<p class="noindent"> </p></section>
+<p></p>
+<details class="book-proof" open><summary>Proof</summary><div class="proof-content">
+<p class="noindent"><span class="head">
+<span class="ntx-Italic-tlf-t1-x-x-109">Proof.</span> </span>We may simply compose the equivalence \(\Fun (\geom {C},\Gamma ) \iso \Fun ^{\Map ([1],C)}(C,\Gamma )\) with the equivalence \(\Fun ^{\Map ([1],C)}(C,\Gamma ) \iso \Fun (C,\Gamma )\) from Lemma <a href="localizations.html#lem:Functor_Into_Groupoid_Inverts_Everything">3.3.3</a>.          □
+</p>
+</div></details>
+<p class="noindent">Since we have obtained \(\geom {C}\) from \(C\) by inverting all its morphisms, one may expect it to be a groupoid. While this
+is indeed the case, this question is somewhat more subtle than it may seem at first, since a priori the
+localization may create new morphisms that do not lift to \(C\) itself. This problem is closely related to a variety
+of other statements we may expect to hold. Let us first formulate these and prove that they are equivalent;
+we will see afterwards that they are in fact satisfied.
+</p><p class="noindent"></p><section class="statement" data-environment="proposition" data-scope="ordinary">
+
+
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-46004r4"></a>
+<a class="agda-trigger agda-heading" id="text-ch3-prop-equivalent-conditions-geometric-realization" href="geometric-realizations.html#agda-ch3-prop-equivalent-conditions-geometric-realization" data-agda="ch3-prop-equivalent-conditions-geometric-realization" title="Agda: groupoids-to-contractible-interval, contractible-interval-to-full-constants, full-constants-to-full-isomorphisms, full-isomorphisms-to-full-constants, full-constants-to-arrow-detection, arrow-detection-to-groupoid-subcategories, groupoid-subcategories-to-cores, cores-to-groupoid-realizations" aria-controls="agda-ch3-prop-equivalent-conditions-geometric-realization"><span class="ntx-Bold-tlf-t1-x-x-109">Proposition 3.4.4.</span></a>  </span><span class="source-anchor" id="prop:Equivalent_Conditions_Geometric_Realization"> </span><span class="ntx-Italic-tlf-t1-x-x-109">The following conditions are equivalent:</span>
+     </p><details class="agda-panel agda-inline" id="agda-ch3-prop-equivalent-conditions-geometric-realization"><summary><span class="agda-tag">Agda</span> Equivalent criteria for geometric realization</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria" data-declaration="Criteria.groupoids-to-contractible-interval"><h4><code>groupoids-to-contractible-interval</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#5080" class="Function">groupoids-to-contractible-interval</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#4517" class="Function">RealizationsAreGroupoids</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#4587" class="Function">IntervalRealizationIsContractible</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">    <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#5080" class="Function">groupoids-to-contractible-interval</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#5217" class="Bound">all</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.RecognitionCalculus.GroupoidRealizationInterval.html#4230" class="Function">GroupoidInterval.groupoid-isContractible</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#3969" class="Bound">L</a>
+      <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2926" class="Function">Geom.category</a> <a href="agda/SCT.VolumeI.Chapter02.Section01.WalkingMorphism.html#763" class="Function">[1]</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2998" class="Function">Geom.localization</a> <a href="agda/SCT.VolumeI.Chapter02.Section01.WalkingMorphism.html#763" class="Function">[1]</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#3098" class="Function">Geom.universal</a> <a href="agda/SCT.VolumeI.Chapter02.Section01.WalkingMorphism.html#763" class="Function">[1]</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#5217" class="Bound">all</a> <a href="agda/SCT.VolumeI.Chapter02.Section01.WalkingMorphism.html#763" class="Function">[1]</a><a class="Symbol">)</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+import SCT.VolumeI.Chapter02.Section05.Recognition as Recognition
+
+module SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E)
+  (N : Recognition.RecognitionAxiom 𝒯 M ℱ P I E R) where
+
+module Criteria (L : SubcategoryAxiom) (Z : WithSubcategories.LocalizationAxiom L) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#5080">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section04/GeometricRealizationCriteria.lagda.md">Literate source, line 83</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria" data-declaration="Criteria.contractible-interval-to-full-constants"><h4><code>contractible-interval-to-full-constants</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#5352" class="Function">contractible-interval-to-full-constants</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#4587" class="Function">IntervalRealizationIsContractible</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#4660" class="Function">ConstantDiagramsAreFull</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">    <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#5352" class="Function">contractible-interval-to-full-constants</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.RecognitionCalculus.ConstantFullSubcategory.html#3958" class="Function">FromContractible.At.identityArrow-isFullSubcategory</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#3969" class="Bound">L</a>
+      <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2926" class="Function">Geom.category</a> <a href="agda/SCT.VolumeI.Chapter02.Section01.WalkingMorphism.html#763" class="Function">[1]</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2998" class="Function">Geom.localization</a> <a href="agda/SCT.VolumeI.Chapter02.Section01.WalkingMorphism.html#763" class="Function">[1]</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#3098" class="Function">Geom.universal</a> <a href="agda/SCT.VolumeI.Chapter02.Section01.WalkingMorphism.html#763" class="Function">[1]</a><a class="Symbol">)</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+import SCT.VolumeI.Chapter02.Section05.Recognition as Recognition
+
+module SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E)
+  (N : Recognition.RecognitionAxiom 𝒯 M ℱ P I E R) where
+
+module Criteria (L : SubcategoryAxiom) (Z : WithSubcategories.LocalizationAxiom L) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#5352">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section04/GeometricRealizationCriteria.lagda.md">Literate source, line 87</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria" data-declaration="Criteria.full-constants-to-full-isomorphisms"><h4><code>full-constants-to-full-isomorphisms</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#5630" class="Function">full-constants-to-full-isomorphisms</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#4660" class="Function">ConstantDiagramsAreFull</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#4738" class="Function">IsomorphismsAreFull</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">    <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#5630" class="Function">full-constants-to-full-isomorphisms</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#5754" class="Bound">full</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#5759" class="Bound">C</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GroupoidCriterion.html#2578" class="Function">isomorphism-full-from-constant-full</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#5759" class="Bound">C</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#5754" class="Bound">full</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#5759" class="Bound">C</a><a class="Symbol">)</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+import SCT.VolumeI.Chapter02.Section05.Recognition as Recognition
+
+module SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E)
+  (N : Recognition.RecognitionAxiom 𝒯 M ℱ P I E R) where
+
+module Criteria (L : SubcategoryAxiom) (Z : WithSubcategories.LocalizationAxiom L) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#5630">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section04/GeometricRealizationCriteria.lagda.md">Literate source, line 91</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria" data-declaration="Criteria.full-isomorphisms-to-full-constants"><h4><code>full-isomorphisms-to-full-constants</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#5815" class="Function">full-isomorphisms-to-full-constants</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#4738" class="Function">IsomorphismsAreFull</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#4660" class="Function">ConstantDiagramsAreFull</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">    <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#5815" class="Function">full-isomorphisms-to-full-constants</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#5939" class="Bound">full</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#5944" class="Bound">C</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GroupoidCriterion.html#2300" class="Function">constant-full-from-isomorphism-full</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#5944" class="Bound">C</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#5939" class="Bound">full</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#5944" class="Bound">C</a><a class="Symbol">)</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+import SCT.VolumeI.Chapter02.Section05.Recognition as Recognition
+
+module SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E)
+  (N : Recognition.RecognitionAxiom 𝒯 M ℱ P I E R) where
+
+module Criteria (L : SubcategoryAxiom) (Z : WithSubcategories.LocalizationAxiom L) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#5815">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section04/GeometricRealizationCriteria.lagda.md">Literate source, line 94</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria" data-declaration="Criteria.full-constants-to-arrow-detection"><h4><code>full-constants-to-arrow-detection</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6000" class="Function">full-constants-to-arrow-detection</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#4660" class="Function">ConstantDiagramsAreFull</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#4807" class="Function">GroupoidsAreDetectedOnArrows</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">    <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6000" class="Function">full-constants-to-arrow-detection</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6129" class="Bound">full</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6134" class="Bound">C</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GroupoidCriterion.html#3152" class="Function">morphismwise-groupoid-criterion</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6134" class="Bound">C</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6129" class="Bound">full</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6134" class="Bound">C</a><a class="Symbol">)</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+import SCT.VolumeI.Chapter02.Section05.Recognition as Recognition
+
+module SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E)
+  (N : Recognition.RecognitionAxiom 𝒯 M ℱ P I E R) where
+
+module Criteria (L : SubcategoryAxiom) (Z : WithSubcategories.LocalizationAxiom L) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6000">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section04/GeometricRealizationCriteria.lagda.md">Literate source, line 97</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria" data-declaration="Criteria.arrow-detection-to-groupoid-subcategories"><h4><code>arrow-detection-to-groupoid-subcategories</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6186" class="Function">arrow-detection-to-groupoid-subcategories</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#4807" class="Function">GroupoidsAreDetectedOnArrows</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#4891" class="Function">IsomorphismSubcategoriesAreGroupoids</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">    <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6186" class="Function">arrow-detection-to-groupoid-subcategories</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6344" class="Bound">detect</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6351" class="Bound">C</a> <a class="Symbol">=</a>
+      <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6344" class="Bound">detect</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#4320" class="Function">Selected.category</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6351" class="Bound">C</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.IsomorphismSubcategoryCore.html#5585" class="Function">Selected.CoreData.constantMap-isEquiv</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6351" class="Bound">C</a><a class="Symbol">)</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+import SCT.VolumeI.Chapter02.Section05.Recognition as Recognition
+
+module SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E)
+  (N : Recognition.RecognitionAxiom 𝒯 M ℱ P I E R) where
+
+module Criteria (L : SubcategoryAxiom) (Z : WithSubcategories.LocalizationAxiom L) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6186">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section04/GeometricRealizationCriteria.lagda.md">Literate source, line 100</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria" data-declaration="Criteria.groupoid-subcategories-to-cores"><h4><code>groupoid-subcategories-to-cores</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6437" class="Function">groupoid-subcategories-to-cores</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#4891" class="Function">IsomorphismSubcategoriesAreGroupoids</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#4977" class="Function">CoresAreIsomorphismSubcategories</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">    <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6437" class="Function">groupoid-subcategories-to-cores</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6579" class="Bound">groupoids</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6589" class="Bound">C</a> <a class="Symbol">=</a>
+      <a href="agda/SCT.VolumeI.Chapter03.Section04.IsomorphismSubcategoryCore.html#5787" class="Function">Selected.CoreData.IfGroupoid.from-core-isEquiv</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6589" class="Bound">C</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter02.Section05.Recognition.html#1417" class="Field">groupoid-isAn</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6579" class="Bound">groupoids</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6589" class="Bound">C</a><a class="Symbol">))</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+import SCT.VolumeI.Chapter02.Section05.Recognition as Recognition
+
+module SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E)
+  (N : Recognition.RecognitionAxiom 𝒯 M ℱ P I E R) where
+
+module Criteria (L : SubcategoryAxiom) (Z : WithSubcategories.LocalizationAxiom L) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6437">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section04/GeometricRealizationCriteria.lagda.md">Literate source, line 104</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria" data-declaration="Criteria.cores-to-groupoid-realizations"><h4><code>cores-to-groupoid-realizations</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6683" class="Function">cores-to-groupoid-realizations</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#4977" class="Function">CoresAreIsomorphismSubcategories</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#4517" class="Function">RealizationsAreGroupoids</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">    <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6683" class="Function">cores-to-groupoid-realizations</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6811" class="Bound">cores</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6817" class="Bound">C</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.RealizationGroupoidCriterion.html#5183" class="Function">FromCore.realization-isGroupoid</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#3969" class="Bound">L</a>
+      <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2998" class="Function">Geom.localization</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6817" class="Bound">C</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#3098" class="Function">Geom.universal</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6817" class="Bound">C</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#4169" class="Function">Selected.presentation</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2926" class="Function">Geom.category</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6817" class="Bound">C</a><a class="Symbol">))</a>
+      <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.IsomorphismSubcategoryCore.html#3685" class="Function">Selected.CoreData.from-core</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2926" class="Function">Geom.category</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6817" class="Bound">C</a><a class="Symbol">))</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6811" class="Bound">cores</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2926" class="Function">Geom.category</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6817" class="Bound">C</a><a class="Symbol">))</a>
+      <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.IsomorphismSubcategoryCore.html#3741" class="Function">Selected.CoreData.from-core-over-C</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2926" class="Function">Geom.category</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6817" class="Bound">C</a><a class="Symbol">))</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+import SCT.VolumeI.Chapter02.Section05.Recognition as Recognition
+
+module SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E)
+  (N : Recognition.RecognitionAxiom 𝒯 M ℱ P I E R) where
+
+module Criteria (L : SubcategoryAxiom) (Z : WithSubcategories.LocalizationAxiom L) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealizationCriteria.html#6683">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section04/GeometricRealizationCriteria.lagda.md">Literate source, line 108</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="geometric-realizations.html#text-ch3-prop-equivalent-conditions-geometric-realization">Return to this passage</a> · <a class="permalink" href="geometric-realizations.html#agda-ch3-prop-equivalent-conditions-geometric-realization">Panel link</a></p></div></details><dl class="enumerate"><dt class="enumerate">
+  (1) </dt><dd class="enumerate">
+     <p class="noindent"><a id="x1-460051"></a><span class="source-anchor" id="it:Geom_Real_Groupoid"> </span><span class="ntx-Italic-tlf-t1-x-x-109">For every category</span> \(C\)<span class="ntx-Italic-tlf-t1-x-x-109">, the category</span> \(\geom {C}\) <span class="ntx-Italic-tlf-t1-x-x-109">is a groupoid;</span>
+     </p></dd><dt class="enumerate">
+  (2) </dt><dd class="enumerate">
+     <p class="noindent"><a id="x1-460062"></a><span class="source-anchor" id="it:Geom_Real_[1]_Contr"> </span><span class="ntx-Italic-tlf-t1-x-x-109">The geometric realization</span> \(\geom {[1]}\) <span class="ntx-Italic-tlf-t1-x-x-109">of the walking morphism</span> \([1]\) <span class="ntx-Italic-tlf-t1-x-x-109">is contractible;</span>
+     </p></dd><dt class="enumerate">
+  (3) </dt><dd class="enumerate">
+     <p class="noindent"><a id="x1-460073"></a><span class="source-anchor" id="it:id_Map_Full"> </span><span class="ntx-Italic-tlf-t1-x-x-109">For every category</span> \(C\)<span class="ntx-Italic-tlf-t1-x-x-109">, the functor</span> \(p_{[1]}^* \colon C \to \Fun ([1],C)\) <span class="ntx-Italic-tlf-t1-x-x-109">is a full subcategory of</span> \(\Fun ([1],C)\) <span class="ntx-Italic-tlf-t1-x-x-109">(in the sense of Definition </span><a href="full-subcategories.html#def:Full_Subcategory"><span class="ntx-Italic-tlf-t1-x-x-109">3.2.2</span></a><span class="ntx-Italic-tlf-t1-x-x-109">);</span>
+     </p></dd><dt class="enumerate">
+  (4) </dt><dd class="enumerate">
+     <p class="noindent"><a id="x1-460084"></a><span class="source-anchor" id="it:Pi_Iso_Full"> </span><span class="ntx-Italic-tlf-t1-x-x-109">For every category</span> \(C\)<span class="ntx-Italic-tlf-t1-x-x-109">, the functor</span> \(\pi _{\Iso }\colon \Iso (C) \to \Fun ([1],C)\) <span class="ntx-Italic-tlf-t1-x-x-109">is a full subcategory;</span>
+     </p></dd><dt class="enumerate">
+  (5) </dt><dd class="enumerate">
+     <p class="noindent"><a id="x1-460095"></a><span class="source-anchor" id="it:Testing_Groupoid_Morphismwise"> </span><span class="ntx-Italic-tlf-t1-x-x-109">Every category</span> \(C\) <span class="ntx-Italic-tlf-t1-x-x-109">for which the map</span> \(C^{\simeq } \simeq \Map (*,C) \xrightarrow {p_{[1]}^*} \Map ([1],C)\) <span class="ntx-Italic-tlf-t1-x-x-109">is an equivalence is a groupoid;</span>
+     </p></dd><dt class="enumerate">
+  (6) </dt><dd class="enumerate">
+     <p class="noindent"><a id="x1-460106"></a><span class="source-anchor" id="it:Subcat_Isos"> </span><span class="ntx-Italic-tlf-t1-x-x-109">For every category</span> \(C\)<span class="ntx-Italic-tlf-t1-x-x-109">, the subcategory</span> \(\lra {\Iso (C)^{\simeq }}_C \subseteq C\) <span class="ntx-Italic-tlf-t1-x-x-109">spanned by all the isomorphisms in</span> \(C\) <span class="ntx-Italic-tlf-t1-x-x-109">is a groupoid;</span>
+     </p></dd><dt class="enumerate">
+  (7) </dt><dd class="enumerate">
+     <p class="noindent"><a id="x1-460117"></a><span class="source-anchor" id="it:Core_Is_Subcat_Isos"> </span><span class="ntx-Italic-tlf-t1-x-x-109">For every category</span> \(C\)<span class="ntx-Italic-tlf-t1-x-x-109">, the inclusion</span> \(C^{\simeq } \hookrightarrow C\) <span class="ntx-Italic-tlf-t1-x-x-109">induces an equivalence</span> \(C^{\simeq } \iso \lra {\Iso (C)^{\simeq }}_C\) <span class="ntx-Italic-tlf-t1-x-x-109">between the groupoid core of</span> \(C\) <span class="ntx-Italic-tlf-t1-x-x-109">and
+     the subcategory of</span> \(C\) <span class="ntx-Italic-tlf-t1-x-x-109">spanned by all its isomorphisms.</span></p></dd></dl>
+
+
+
+</div>
+<p class="noindent"> </p></section>
+<p></p>
+<details class="book-proof" open><summary>Proof</summary><div class="proof-content">
+<p class="noindent"><span class="head">
+<span class="ntx-Italic-tlf-t1-x-x-109">Proof.</span> </span>We start by showing that (<a href="geometric-realizations.html#it:Geom_Real_Groupoid">1</a>) implies (<a href="geometric-realizations.html#it:Geom_Real_[1]_Contr">2</a>). By (<a href="geometric-realizations.html#it:Geom_Real_Groupoid">1</a>), the category \(\geom {[1]}\) is a groupoid, so it suffices
+by Proposition <a href="mapping-animae.html#prop:Check_Equivalences_On_Mapping_Spaces">1.4.11</a> to show that for every groupoid \(\Gamma \) the induced map \[ \Map (*,\Gamma ) \to \Map (\geom {[1]},\Gamma ) \] is an equivalence. By
+Lemma <a href="geometric-realizations.html#lem:Fundamental_Groupoid_Functor_Left_Adjoint_To_Inclusion">3.4.3</a>, this map corresponds under the canonical equivalences to the map \[ p_{[1]}^*\colon \Gamma \to \Map ([1],\Gamma ). \] But this map is
+an equivalence since \(\Gamma \) is a groupoid, finishing the proof.
+</p><p class="noindent">For  (<a href="geometric-realizations.html#it:Geom_Real_[1]_Contr">2</a>)  \(\implies \)  (<a href="geometric-realizations.html#it:id_Map_Full">3</a>),  the  equivalence  \(\geom {[1]}\iso *\)  and  the  universal  property  of  geometric  realization  show  that
+precomposition with \(p_{[1]}\colon [1]\to *\) induces an equivalence \[ C \iso \Fun ^{\Map ([1],[1])}([1],C), \] where the right-hand side is a full subcategory of \(\Fun ([1],C)\) by
+construction. Thus \(p_{[1]}^*\) exhibits \(C\) as that full subcategory.
+</p><p class="noindent">The Rezk equivalence \(C\iso \Iso (C)\) identifies \(p_{[1]}^*\) with the composite \(C\to \Iso (C)\xrightarrow {\pi _{\Iso }}\Fun ([1],C)\). Hence (<a href="geometric-realizations.html#it:id_Map_Full">3</a>) and (<a href="geometric-realizations.html#it:Pi_Iso_Full">4</a>) are equivalent.
+</p><p class="noindent">For (<a href="geometric-realizations.html#it:id_Map_Full">3</a>) \(\implies \) (<a href="geometric-realizations.html#it:Testing_Groupoid_Morphismwise">5</a>), recall that \(C\) is a groupoid if and only if the map \(C \to \Fun ([1],C)\) is an equivalence. Since this functor is
+a full subcategory by (<a href="geometric-realizations.html#it:id_Map_Full">3</a>), it follows from Lemma <a href="full-subcategories.html#lem:Full_Subcategory_Is_Equivalence_Iff_Equivalence_On_Objects">3.2.12</a> that we may check this on objects, giving
+the criterion from (<a href="geometric-realizations.html#it:Testing_Groupoid_Morphismwise">5</a>).
+</p><p class="noindent">We will now deduce (<a href="geometric-realizations.html#it:Subcat_Isos">6</a>) from (<a href="geometric-realizations.html#it:Testing_Groupoid_Morphismwise">5</a>). To show \(\lra {\Iso (C)^{\simeq }}_C\) is a groupoid, it suffices by (<a href="geometric-realizations.html#it:Testing_Groupoid_Morphismwise">5</a>) to show that the map \((\lra {\Iso (C)^{\simeq }}_C)^{\simeq } \to \Map ([1],\lra {\Iso (C)^{\simeq }}_C)\) is
+an equivalence. To this end, consider the following commutative diagram, where the two horizontal
+maps are induced by the inclusion \(i\colon \lra {\Iso (C)^{\simeq }}_C \hookrightarrow C\):
+</p><p class="noindent"></p><figure class="diagram"><img src="assets/diagrams/diagram-1bb4c4f10fa017a2.svg" alt="Commutative diagram from the manuscript; its arrows and comparisons are described in the surrounding text."></figure>
+<p></p><p class="noindent">By the 2-out-of-3 property it remains to show that the top map is an equivalence. To construct an
+inverse, we consider the inclusion \(\imath _C\colon C^{\simeq } \to C\). It sends all morphisms to isomorphisms, so induces a functor \(C^{\simeq } \to \lra {\Iso (C)^{\simeq }}_C\).
+Since the source is a groupoid, it factors through a map \(\varphi \colon C^{\simeq } \to (\lra {\Iso (C)^{\simeq }}_C)^{\simeq }\). To check the relations \(\varphi \circ i^{\simeq } = \id \) and \(i^{\simeq } \circ \varphi = \id \), we may do so
+after composing with the embedding \(\imath _C\colon C^{\simeq } \hookrightarrow C\) from Corollary <a href="recognizing-animae.html#prop:Groupoid_Core_Embeds_Into_C">2.5.3</a> and the embeddings \((\lra {\Iso (C)^{\simeq }}_C)^{\simeq } \hookrightarrow \lra {\Iso (C)^{\simeq }}_C\) and \(\lra {\Iso (C)^{\simeq }}_C \hookrightarrow C\) (Lemma <a href="subcategories.html#lem:Subcategory_Is_Embedding">3.1.5</a>)
+after which the claim becomes a tautology. This establishes (<a href="geometric-realizations.html#it:Subcat_Isos">6</a>).
+</p><p class="noindent">Assume (<a href="geometric-realizations.html#it:Subcat_Isos">6</a>). The functor \(C^{\simeq } \to \lra {\Iso (C)^{\simeq }}_C\) constructed above is then a functor between groupoids. Its map on groupoid
+cores is inverse to the equivalence \(i^{\simeq }\) constructed in the preceding paragraph. Since the groupoid-core
+inclusions of its source and target are equivalences by Axiom <a href="recognizing-animae.html#axiom:D_Groupoid_Core">G</a> and Proposition <a href="mapping-animae.html#prop:Absolute_Objects_And_Terminal_Context">1.4.15</a>, the functor
+itself is an equivalence by 2-out-of-3. This proves (<a href="geometric-realizations.html#it:Core_Is_Subcat_Isos">7</a>).
+</p><p class="noindent">Finally,  we  show  that  (<a href="geometric-realizations.html#it:Core_Is_Subcat_Isos">7</a>)  implies  (<a href="geometric-realizations.html#it:Geom_Real_Groupoid">1</a>).  The  localization  functor  \(\lambda _C\colon C \to \geom {C}\)  sends  all  morphisms  of  \(C\)  to
+isomorphisms, hence it factors through the subcategory of \(\geom {C}\) spanned by its isomorphisms. By (<a href="geometric-realizations.html#it:Core_Is_Subcat_Isos">7</a>) this
+subcategory is equivalent to the groupoid core of \(\geom {C}\). The resulting functor \(C \to \geom {C}^{\simeq }\) still inverts all morphisms in
+\(C\), hence induces a functor \(\geom {C} \to \geom {C}^{\simeq }\). By uniqueness of the localization factorization, the composite \(\geom {C} \to \geom {C}^{\simeq } \hookrightarrow \geom {C}\) is identified
+
+
+with the identity. Thus the embedding \(\geom {C}^{\simeq } \hookrightarrow \geom {C}\) admits a section and is an equivalence by Lemma <a href="pullbacks.html#lem:Embedding_With_Section_Is_Homotopy_Equivalence">1.6.24</a>. It
+follows that \(\geom {C}\) is a groupoid.                                                                                                                  □
+</p>
+</div></details>
+<p class="noindent"></p><section class="statement" data-environment="proposition" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-46012r5"></a>
+<a class="agda-trigger agda-heading" id="text-ch3-axiom-n-fundamental-groupoid-axiom" href="geometric-realizations.html#agda-ch3-axiom-n-fundamental-groupoid-axiom" data-agda="ch3-axiom-n-fundamental-groupoid-axiom" title="Agda: realization-isGroupoid, realization-isAn" aria-controls="agda-ch3-axiom-n-fundamental-groupoid-axiom"><span class="ntx-Bold-tlf-t1-x-x-109">Proposition 3.4.5.</span></a>  </span><span class="source-anchor" id="axiom:N_Fundamental_Groupoid_Axiom"> </span><span class="ntx-Italic-tlf-t1-x-x-109">All of the equivalent conditions from Proposition </span><a href="geometric-realizations.html#prop:Equivalent_Conditions_Geometric_Realization"><span class="ntx-Italic-tlf-t1-x-x-109">3.4.4</span></a> <span class="ntx-Italic-tlf-t1-x-x-109">are satisfied.</span>
+</p><details class="agda-panel agda-inline" id="agda-ch3-axiom-n-fundamental-groupoid-axiom"><summary><span class="agda-tag">Agda</span> Geometric realizations are animae</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section04.FundamentalGroupoids" data-declaration="Consequences.realization-isGroupoid"><h4><code>realization-isGroupoid</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section04.FundamentalGroupoids.html#5802" class="Function">realization-isGroupoid</a> <a class="Symbol">:</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.FundamentalGroupoids.html#5828" class="Bound">C</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a><a class="Symbol">)</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter02.Section04.Groupoids.html#1254" class="Function">IsGroupoid</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2926" class="Function">Geom.category</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.FundamentalGroupoids.html#5828" class="Bound">C</a><a class="Symbol">)</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">    <a href="agda/SCT.VolumeI.Chapter03.Section04.FundamentalGroupoids.html#5802" class="Function">realization-isGroupoid</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.FundamentalGroupoids.html#5895" class="Bound">C</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.RealizationGroupoidCriterion.html#5183" class="Function">FromCore.realization-isGroupoid</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.FundamentalGroupoids.html#3796" class="Bound">L</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2998" class="Function">Geom.localization</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.FundamentalGroupoids.html#5895" class="Bound">C</a><a class="Symbol">)</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#3098" class="Function">Geom.universal</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.FundamentalGroupoids.html#5895" class="Bound">C</a><a class="Symbol">)</a>
+      <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.FundamentalGroupoids.html#4907" class="Function">IsomorphismSubcategory.presentation</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2926" class="Function">Geom.category</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.FundamentalGroupoids.html#5895" class="Bound">C</a><a class="Symbol">))</a>
+      <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.FundamentalGroupoids.html#5452" class="Function">IsomorphismSubcategory.from-core</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2926" class="Function">Geom.category</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.FundamentalGroupoids.html#5895" class="Bound">C</a><a class="Symbol">))</a>
+      <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.FundamentalGroupoids.html#5657" class="Function">IsomorphismSubcategory.from-core-isEquiv</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2926" class="Function">Geom.category</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.FundamentalGroupoids.html#5895" class="Bound">C</a><a class="Symbol">))</a>
+      <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.FundamentalGroupoids.html#5526" class="Function">IsomorphismSubcategory.from-core-over-C</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2926" class="Function">Geom.category</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.FundamentalGroupoids.html#5895" class="Bound">C</a><a class="Symbol">))</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+import SCT.VolumeI.Chapter02.Section05.Recognition as Recognition
+import SCT.VolumeI.Chapter01.Section05.Initial as Initial
+
+module SCT.VolumeI.Chapter03.Section04.FundamentalGroupoids
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E)
+  (N : Recognition.RecognitionAxiom 𝒯 M ℱ P I E R) where
+
+module Consequences (L : SubcategoryAxiom) (Z : WithSubcategories.LocalizationAxiom L) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section04.FundamentalGroupoids.html#5802">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section04/FundamentalGroupoids.lagda.md">Literate source, line 104</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section04.FundamentalGroupoids" data-declaration="Consequences.realization-isAn"><h4><code>realization-isAn</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section04.FundamentalGroupoids.html#6233" class="Function">realization-isAn</a> <a class="Symbol">:</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.FundamentalGroupoids.html#6253" class="Bound">C</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#540" class="Function">CAT</a><a class="Symbol">)</a> <a class="Symbol">→</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#556" class="Function">isAn</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.GeometricRealization.html#2926" class="Function">Geom.category</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.FundamentalGroupoids.html#6253" class="Bound">C</a><a class="Symbol">)</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">    <a href="agda/SCT.VolumeI.Chapter03.Section04.FundamentalGroupoids.html#6233" class="Function">realization-isAn</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.FundamentalGroupoids.html#6308" class="Bound">C</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter02.Section05.Recognition.html#1417" class="Field">groupoid-isAn</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter03.Section04.FundamentalGroupoids.html#5802" class="Function">realization-isGroupoid</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.FundamentalGroupoids.html#6308" class="Bound">C</a><a class="Symbol">)</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+import SCT.VolumeI.Chapter02.Section05.Recognition as Recognition
+import SCT.VolumeI.Chapter01.Section05.Initial as Initial
+
+module SCT.VolumeI.Chapter03.Section04.FundamentalGroupoids
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E)
+  (N : Recognition.RecognitionAxiom 𝒯 M ℱ P I E R) where
+
+module Consequences (L : SubcategoryAxiom) (Z : WithSubcategories.LocalizationAxiom L) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section04.FundamentalGroupoids.html#6233">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section04/FundamentalGroupoids.lagda.md">Literate source, line 111</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p>Despite its historical TeX label, this is a derived proposition, not an additional axiom.</p><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="geometric-realizations.html#text-ch3-axiom-n-fundamental-groupoid-axiom">Return to this passage</a> · <a class="permalink" href="geometric-realizations.html#agda-ch3-axiom-n-fundamental-groupoid-axiom">Panel link</a></p></div></details>
+</div>
+<p class="noindent"> </p></section>
+<p></p>
+<details class="book-proof" open><summary>Proof</summary><div class="proof-content">
+<p class="noindent"><span class="head">
+<span class="ntx-Italic-tlf-t1-x-x-109">Proof.</span> </span>It will suffice to show that the map \(\geom {[1]} \to *\) is an equivalence. By Proposition <a href="mapping-animae.html#prop:Check_Equivalences_On_Mapping_Spaces">1.4.11</a>, it will suffice
+to show that for any category \(D\), the induced functor \(D^{\simeq } \simeq \Map (*,D) \to \Map (\geom {[1]},D) \simeq \Map ^{\Map ([1],[1])}([1],D)\) is an equivalence. Recall from Remark <a href="morphisms-and-diagrams.html#ex:Walking_Morphisms_Has_Three_Morphisms">2.1.29</a>
+that the groupoid \(\Map ([1],[1])\) is a disjoint union of three points, corresponding to the identity on \(0\), the identity
+on \(1\), and the canonical map from \(0\) to \(1\) in \([1]\). Spelling out the definition of \(\Map ^{\Map ([1],[1])}([1],D)\), we obtain a pullback square
+</p><p class="noindent"></p><figure class="diagram"><img src="assets/diagrams/diagram-84473725a698dc8b.svg" alt="Commutative diagram from the manuscript; its arrows and comparisons are described in the surrounding text."></figure>
+<p></p><p class="noindent">The bottom map is the third power of the embedding \(p_{[1]}^*\colon D^{\simeq }\to \Map ([1],D)\). Hence the pullback consists of those morphisms
+\(f\colon x\to y\) for which \(\id _x\), \(\id _y\), and \(f\) lie in the image of \(p_{[1]}^*\). The first two conditions are automatic, while the third says
+precisely that \(f\) is an isomorphism. The Rezk equivalence \(D^{\simeq }\iso \Iso (D)^{\simeq }\) therefore identifies the pullback with \(D^{\simeq }\),
+compatibly with the displayed map from \(D^{\simeq }\). This proves the claim.                                                     □
+</p>
+</div></details>
+<p class="noindent"></p><section class="statement" data-environment="proposition" data-scope="ordinary">
+<p></p>
+
+
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-46013r6"></a>
+<a class="agda-trigger agda-heading" id="text-ch3-prop-objectwise-criterion-natural-isomorphisms" href="geometric-realizations.html#agda-ch3-prop-objectwise-criterion-natural-isomorphisms" data-agda="ch3-prop-objectwise-criterion-natural-isomorphisms" title="Agda: isNaturalIso, components-invertible" aria-controls="agda-ch3-prop-objectwise-criterion-natural-isomorphisms"><span class="ntx-Bold-tlf-t1-x-x-109">Proposition 3.4.6 </span></a>(Objectwise criterion for natural isomorphisms)<span class="ntx-Bold-tlf-t1-x-x-109">.</span>  </span><span class="source-anchor" id="prop:Objectwise_Criterion_Natural_Isomorphisms"> </span><span class="ntx-Italic-tlf-t1-x-x-109">Let</span> \(f,g\colon C\to D\) <span class="ntx-Italic-tlf-t1-x-x-109">be functors and let</span> \(\alpha \colon f\to g\) <span class="ntx-Italic-tlf-t1-x-x-109">be a
+natural transformation. Then</span> \(\alpha \) <span class="ntx-Italic-tlf-t1-x-x-109">is a natural isomorphism if and only if</span> \(\alpha _x\colon f(x)\to g(x)\) <span class="ntx-Italic-tlf-t1-x-x-109">is an isomorphism for every
+object</span> \(x\) <span class="ntx-Italic-tlf-t1-x-x-109">of</span> \(C\)<span class="ntx-Italic-tlf-t1-x-x-109">.</span>
+</p><details class="agda-panel agda-inline" id="agda-ch3-prop-objectwise-criterion-natural-isomorphisms"><summary><span class="agda-tag">Agda</span> Objectwise criterion for natural isomorphisms</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section04.ObjectwiseNaturalIsomorphisms" data-declaration="Transformation.FromComponents.isNaturalIso"><h4><code>isNaturalIso</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section04.ObjectwiseNaturalIsomorphisms.html#3622" class="Function">isNaturalIso</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter02.Section03.Isomorphisms.html#2264" class="Record">IsoLift</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.ObjectwiseNaturalIsomorphisms.html#2308" class="Function">arrow</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">    <a href="agda/SCT.VolumeI.Chapter03.Section04.ObjectwiseNaturalIsomorphisms.html#3622" class="Function">isNaturalIso</a> <a class="Symbol">=</a> <a class="Keyword">record</a>
+      <a class="Symbol">{</a> <a href="agda/SCT.VolumeI.Chapter02.Section03.Isomorphisms.html#2329" class="Field">lift</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter02.Section03.IdentityIsomorphisms.html#3625" class="Function">identityIso</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#636" class="Function Operator">∘</a> <a href="agda/SCT.VolumeI.Chapter01.Section07.AbsoluteObjects.html#1034" class="Function">nameFun</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.ObjectwiseNaturalIsomorphisms.html#2791" class="Function">center</a>
+      <a class="Symbol">;</a> <a href="agda/SCT.VolumeI.Chapter02.Section03.Isomorphisms.html#2354" class="Field">comparison</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.ObjectwiseNaturalIsomorphisms.html#3468" class="Function">constant-transformation</a> <a href="agda/SCT.VolumeI.Chapter01.Section02.Coherence.html#1647" class="Function Operator">∙</a>
+          <a class="Symbol">((</a><a href="agda/SCT.VolumeI.Chapter02.Section03.IdentityIsomorphisms.html#3721" class="Function">identityIso-arrow</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#2568" class="Function Operator">▷</a> <a href="agda/SCT.VolumeI.Chapter01.Section07.AbsoluteObjects.html#1034" class="Function">nameFun</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.ObjectwiseNaturalIsomorphisms.html#2791" class="Function">center</a><a class="Symbol">)</a> <a href="agda/SCT.VolumeI.Chapter01.Section02.Coherence.html#1647" class="Function Operator">∙</a>
+            <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section02.Coherence.html#1419" class="Function">comp-assoc</a> <a class="Symbol">(</a><a href="agda/SCT.VolumeI.Chapter01.Section07.AbsoluteObjects.html#1034" class="Function">nameFun</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.ObjectwiseNaturalIsomorphisms.html#2791" class="Function">center</a><a class="Symbol">)</a> <a href="agda/SCT.VolumeI.Chapter02.Section03.IdentityIsomorphisms.html#3625" class="Function">identityIso</a> <a href="agda/SCT.VolumeI.Chapter02.Section03.Isomorphisms.html#2168" class="Function">isoArrow</a><a class="Symbol">)</a> <a href="agda/SCT.VolumeI.Chapter01.Section01.Vocabulary.html#2700" class="Function Operator">⁻¹</a><a class="Symbol">)</a> <a class="Symbol">}</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+
+module SCT.VolumeI.Chapter03.Section04.ObjectwiseNaturalIsomorphisms
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E) where
+
+module Transformation (C D : CAT) (α : NatTrans C D) where
+
+  module FromComponents (full : IsFullSubcategory (isoArrow {D})) (inverted : ComponentsInvertible) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section04.ObjectwiseNaturalIsomorphisms.html#3622">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section04/ObjectwiseNaturalIsomorphisms.lagda.md">Literate source, line 72</a></p></section><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section04.ObjectwiseNaturalIsomorphisms" data-declaration="Transformation.FromNaturalIso.components-invertible"><h4><code>components-invertible</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section04.ObjectwiseNaturalIsomorphisms.html#5326" class="Function">components-invertible</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.ObjectwiseNaturalIsomorphisms.html#2407" class="Function">ComponentsInvertible</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">    <a href="agda/SCT.VolumeI.Chapter03.Section04.ObjectwiseNaturalIsomorphisms.html#5326" class="Function">components-invertible</a> <a class="Symbol">=</a> <a class="Keyword">record</a>
+      <a class="Symbol">{</a> <a href="agda/SCT.VolumeI.Chapter01.Section03.Equivalences.html#952" class="Field">lift</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter01.Section04.Functoriality.html#828" class="Function">mapPost</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.ObjectwiseNaturalIsomorphisms.html#5014" class="Function">component-lift</a>
+      <a class="Symbol">;</a> <a href="agda/SCT.VolumeI.Chapter01.Section03.Equivalences.html#971" class="Field">comparison</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter01.Section04.Functoriality.html#1471" class="Function">mapPost-cong</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.ObjectwiseNaturalIsomorphisms.html#5102" class="Function">component-comparison</a> <a href="agda/SCT.VolumeI.Chapter01.Section02.Coherence.html#1647" class="Function Operator">∙</a> <a href="agda/SCT.VolumeI.Chapter01.Section04.Functoriality.html#3911" class="Function">mapPost-comp</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.ObjectwiseNaturalIsomorphisms.html#5014" class="Function">component-lift</a> <a href="agda/SCT.VolumeI.Chapter02.Section03.Isomorphisms.html#2168" class="Function">isoArrow</a> <a class="Symbol">}</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+
+module SCT.VolumeI.Chapter03.Section04.ObjectwiseNaturalIsomorphisms
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E) where
+
+module Transformation (C D : CAT) (α : NatTrans C D) where
+
+  module FromNaturalIso (inverted : IsoLift arrow) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section04.ObjectwiseNaturalIsomorphisms.html#5326">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section04/ObjectwiseNaturalIsomorphisms.lagda.md">Literate source, line 109</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="geometric-realizations.html#text-ch3-prop-objectwise-criterion-natural-isomorphisms">Return to this passage</a> · <a class="permalink" href="geometric-realizations.html#agda-ch3-prop-objectwise-criterion-natural-isomorphisms">Panel link</a></p></div></details>
+</div>
+<p class="noindent"> </p></section>
+<p></p>
+<details class="book-proof" open><summary>Proof</summary><div class="proof-content">
+<p class="noindent"><span class="head">
+<span class="ntx-Italic-tlf-t1-x-x-109">Proof.</span> </span>By Propositions <a href="geometric-realizations.html#prop:Equivalent_Conditions_Geometric_Realization">3.4.4</a> and <a href="geometric-realizations.html#axiom:N_Fundamental_Groupoid_Axiom">3.4.5</a>, the functor \(\Iso (D)\to \Fun ([1],D)\) is a full subcategory. Unwinding, this means
+we have a pullback square
+</p><p class="noindent"></p><figure class="diagram"><img src="assets/diagrams/diagram-0a5976ef824cf7c0.svg" alt="Commutative diagram from the manuscript; its arrows and comparisons are described in the surrounding text."></figure>
+<p></p><p class="noindent">The transformation \(\alpha \) determines a term of the upper right corner, and the right-hand map restricts it
+to its components. If every component is invertible, applying this hypothesis to the universal object
+in the anima \(C^{\simeq }\) gives a lift to the lower left corner. The pullback property then supplies a lift \(C\to \Iso (D)\) of the
+functor encoding \(\alpha \). It follows from Lemma <a href="functor-categories.html#lem:Functor_Category_Preserves_Pullbacks">1.7.11</a> that \(\Fun (C,\Iso (D)) \simeq \Iso (\Fun (C,D))\), so that this lift provides the inverse data for
+\(\alpha \) in \(\Fun (C,D)\), showing that \(\alpha \) is a natural isomorphism. Conversely, evaluation at each object sends an inverse
+of \(\alpha \) to an inverse of its component.                                                                                                      □
+</p>
+</div></details>
+<p class="noindent"></p><section class="statement" data-environment="corollary" data-scope="ordinary">
+<p></p>
+<div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-46014r7"></a>
+
+
+<a class="agda-trigger agda-heading" id="text-ch3-cor-fundamental-groupoid-preserves-pushout-squares" href="geometric-realizations.html#agda-ch3-cor-fundamental-groupoid-preserves-pushout-squares" data-agda="ch3-cor-fundamental-groupoid-preserves-pushout-squares" title="Agda: preserves-pushout" aria-controls="agda-ch3-cor-fundamental-groupoid-preserves-pushout-squares"><span class="ntx-Bold-tlf-t1-x-x-109">Corollary 3.4.7.</span></a>  </span><span class="source-anchor" id="cor:Fundamental_Groupoid_Preserves_Pushout_Squares"> </span><span class="ntx-Italic-tlf-t1-x-x-109">Consider a pushout square of categories</span>
+</p><details class="agda-panel agda-inline" id="agda-ch3-cor-fundamental-groupoid-preserves-pushout-squares"><summary><span class="agda-tag">Agda</span> Geometric realization preserves pushouts</summary><div class="agda-content"><section class="agda-declaration" data-module="SCT.VolumeI.Chapter03.Section04.RealizationPushouts" data-declaration="Preservation.preserves-pushout"><h4><code>preserves-pushout</code></h4><p class="status">Derivation, checked</p><pre class="Agda signature">    <a></a><a href="agda/SCT.VolumeI.Chapter03.Section04.RealizationPushouts.html#6166" class="Function">preserves-pushout</a> <a class="Symbol">:</a> <a href="agda/SCT.VolumeI.Chapter01.Section08.PushoutSquares.html#1407" class="Function">IsPushout</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.RecognitionCalculus.RealizationComparisons.html#5064" class="Function">Image.value</a></pre><details class="agda-proof"><summary>Proof / implementation</summary><pre class="Agda">    <a href="agda/SCT.VolumeI.Chapter03.Section04.RealizationPushouts.html#6166" class="Function">preserves-pushout</a> <a class="Symbol">=</a> <a href="agda/SCT.VolumeI.Chapter01.Section08.RecognizingPushouts.html#1301" class="Function">cocone-extension→pushout</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.RecognitionCalculus.RealizationComparisons.html#5064" class="Function">Image.value</a> <a href="agda/SCT.VolumeI.Chapter03.Section04.RealizationPushouts.html#5918" class="Function">extensions</a></pre></details><details class="module-context"><summary>Enclosing interface and module parameters</summary><p>The enclosing headers show supplied parameters. Open the full module for imports and surrounding definitions.</p><pre>{-# OPTIONS --safe --without-K #-}
+open import Agda.Primitive using (Level)
+open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
+import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
+import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
+import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
+import SCT.VolumeI.Chapter02.Section02.SegalAxiom as Segal
+import SCT.VolumeI.Chapter02.Section01.CommutativeSquareAxiom as Squares
+import SCT.VolumeI.Chapter02.Section03.RezkAxiom as Rezk
+import SCT.VolumeI.Chapter02.Section05.Recognition as Recognition
+
+module SCT.VolumeI.Chapter03.Section04.RealizationPushouts
+  {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
+  (ℱ : Categories.FunctorCategories 𝒯 M) (P : Pullbacks.PullbackStructure 𝒯)
+  (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
+  (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
+  (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E)
+  (R : Rezk.RezkAxiom 𝒯 M ℱ P I E)
+  (N : Recognition.RecognitionAxiom 𝒯 M ℱ P I E R) where
+
+module Preservation (L : SubcategoryAxiom) (Z : WithSubcategories.LocalizationAxiom L)
+  {A B C D : CAT} {u : MAP A B} {v : MAP A C} {r : MAP B D} {s : MAP C D}
+  (square : Square u v r s) (pushout : IsPushout square) where</pre></details><p class="source-links"><a href="agda/SCT.VolumeI.Chapter03.Section04.RealizationPushouts.html#6166">Open full module</a> · <a href="source-files/SCT/VolumeI/Chapter03/Section04/RealizationPushouts.lagda.md">Literate source, line 96</a></p></section><details class="mapping-note"><summary>About this correspondence</summary><p class="scope-note">Checked source correspondences for Chapter 1 Sections 1.1–1.8, Chapter 2 Sections 2.1–2.6, and selected declarations throughout Chapter 3. Contextual inheritance is outside the formalization scope. Passage notes identify partial coverage, proof-route and representation differences.</p></details><p class="panel-return"><a href="geometric-realizations.html#text-ch3-cor-fundamental-groupoid-preserves-pushout-squares">Return to this passage</a> · <a class="permalink" href="geometric-realizations.html#agda-ch3-cor-fundamental-groupoid-preserves-pushout-squares">Panel link</a></p></div></details><p class="noindent"></p><figure class="diagram"><img src="assets/diagrams/diagram-dd0d2cf9c8cb2ecc.svg" alt="Commutative diagram from the manuscript; its arrows and comparisons are described in the surrounding text."></figure>
+<p></p><p class="noindent"><span class="ntx-Italic-tlf-t1-x-x-109">Then the induced square</span>
+</p><p class="noindent"></p><figure class="diagram"><img src="assets/diagrams/diagram-3989a87b5d4e66cb.svg" alt="Commutative diagram from the manuscript; its arrows and comparisons are described in the surrounding text."></figure>
+<p></p><p class="noindent"><span class="ntx-Italic-tlf-t1-x-x-109">is again a pushout square.</span>
+</p>
+</div>
+<p class="noindent"> </p></section>
+<p></p>
+<details class="book-proof" open><summary>Proof</summary><div class="proof-content">
+<p class="noindent"><span class="head">
+<span class="ntx-Italic-tlf-t1-x-x-109">Proof.</span> </span>By Definition <a href="pushouts.html#def:Pushout_Square">1.8.1</a>, it will suffice to show that the square becomes a pullback square after
+applying \(\Map (-,E)\) for every category \(E\). By Corollary <a href="mapping-animae.html#cor:Animated_Core_Is_Universal">1.4.13</a> and Lemma <a href="geometric-realizations.html#lem:Fundamental_Groupoid_Functor_Left_Adjoint_To_Inclusion">3.4.3</a>, there are equivalences \[ \Map (\geom {C},E) \simeq \Map (\geom {C},E^{\simeq }) \simeq \Map (C,E^{\simeq }), \] and
+similarly for \(C\) replaced with \(C'\), \(D\) and \(D'\). The claim now follows from the assumption on the original
+square.                                                                                                                                                 □
+</p>
+</div></details>
+<p class="noindent">
+</p>
+</main></div>
+<footer>Experimental web edition · Generated from annotated LaTeX and Agda sources. <a href="build-report.html">Build details</a></footer></body></html>

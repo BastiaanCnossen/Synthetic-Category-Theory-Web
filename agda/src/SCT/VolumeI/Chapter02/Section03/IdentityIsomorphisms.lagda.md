@@ -22,7 +22,7 @@ module SCT.VolumeI.Chapter02.Section03.IdentityIsomorphisms
 open import SCT.VolumeI.Chapter02.Section03.Isomorphisms 𝒯 M ℱ P I E public
 open Laws.PullbackStructure P
 open import SCT.VolumeI.Chapter01.Section06.Cones 𝒯
-open import SCT.VolumeI.Chapter01.Section07.IsomorphismLifting 𝒯 M ℱ using (funIsoReflect; funIsoReflect-β)
+open import SCT.VolumeI.Chapter01.Section07.EvaluationCalculus.IsomorphismLifting 𝒯 M ℱ using (funIsoReflect; funIsoReflect-β)
 
 constant-restriction-raw : {A B C : CAT} (f : MAP A B) →
   (funUncurry (funPre f ∘ constantDiagram B C)) =₁ (funUncurry (constantDiagram A C))

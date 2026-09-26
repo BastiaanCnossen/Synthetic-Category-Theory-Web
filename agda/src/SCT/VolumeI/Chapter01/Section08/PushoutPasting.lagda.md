@@ -22,8 +22,8 @@ module SCT.VolumeI.Chapter01.Section08.PushoutPasting
 
 open import SCT.VolumeI.Chapter01.Section05.Setup 𝒯 M
 open import SCT.VolumeI.Chapter01.Section08.PushoutSquares 𝒯 M P
-import SCT.VolumeI.Chapter01.Section08.PastingTransfer as Transfer
-import SCT.VolumeI.Chapter01.Section08.MappingPastingComparison as Comparison
+import SCT.VolumeI.Chapter01.Section08.MappingCalculus.Restriction.PastingTransfer as Transfer
+import SCT.VolumeI.Chapter01.Section08.MappingCalculus.Restriction.MappingPastingComparison as Comparison
 
 module Pasting {A₁ A₂ A₃ B₁ B₂ B₃ : CAT}
   {g₁ : MAP A₁ A₂} {g₂ : MAP A₂ A₃}

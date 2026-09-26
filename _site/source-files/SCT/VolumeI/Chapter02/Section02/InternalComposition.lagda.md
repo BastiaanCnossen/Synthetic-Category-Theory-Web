@@ -15,8 +15,8 @@ module SCT.VolumeI.Chapter02.Section02.InternalComposition
   {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
   (ℱ : Categories.FunctorCategories 𝒯 M) where
 
-open import SCT.VolumeI.Chapter02.Section01.EndpointEvaluation 𝒯 M ℱ public
-open import SCT.VolumeI.Chapter01.Section07.IsomorphismLifting 𝒯 M ℱ using (funIsoReflect; funIsoReflect-β)
+open import SCT.VolumeI.Chapter02.Section01.EvaluationCalculus.EndpointEvaluation 𝒯 M ℱ public
+open import SCT.VolumeI.Chapter01.Section07.EvaluationCalculus.IsomorphismLifting 𝒯 M ℱ using (funIsoReflect; funIsoReflect-β)
 
 product-pair : {Γ A B C D : CAT} (f : MAP A C) (g : MAP B D) (h : MAP Γ A) (k : MAP Γ B) →
   (productMap f g ∘ pair h k) =₁ pair (f ∘ h) (g ∘ k)

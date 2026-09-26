@@ -24,8 +24,8 @@ module SCT.VolumeI.Chapter02.Section01.Morphisms
   {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
   (ℱ : Categories.FunctorCategories 𝒯 M) (I : Walking.WalkingMorphism 𝒯) where
 
-open import SCT.VolumeI.Chapter02.Section01.EndpointEvaluation 𝒯 M ℱ public
-open import SCT.VolumeI.Chapter01.Section07.IsomorphismLifting 𝒯 M ℱ using (funIsoReflect)
+open import SCT.VolumeI.Chapter02.Section01.EvaluationCalculus.EndpointEvaluation 𝒯 M ℱ public
+open import SCT.VolumeI.Chapter01.Section07.EvaluationCalculus.IsomorphismLifting 𝒯 M ℱ using (funIsoReflect)
 open Walking.WalkingMorphism I public
 
 Ar : CAT → CAT

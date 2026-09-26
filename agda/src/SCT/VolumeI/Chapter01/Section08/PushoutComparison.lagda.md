@@ -10,25 +10,25 @@ open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
 import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Laws
-import SCT.VolumeI.Chapter01.Section08.DecodeRestrictionCones as Decode
-import SCT.VolumeI.Chapter01.Section08.DecodeSquareEvaluation as Evaluation
-import SCT.VolumeI.Chapter01.Section06.UniversalConeLifting as Lifting
+import SCT.VolumeI.Chapter01.Section08.MappingCalculus.Decoding.DecodeRestrictionCones as Decode
+import SCT.VolumeI.Chapter01.Section08.MappingCalculus.Decoding.DecodeSquareEvaluation as Evaluation
+import SCT.VolumeI.Chapter01.Section06.ConeCalculus.UniversalConeLifting as Lifting
 
 module SCT.VolumeI.Chapter01.Section08.PushoutComparison
   {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
   (P : Laws.PullbackStructure 𝒯) where
 
 open import SCT.VolumeI.Chapter01.Section05.Setup 𝒯 M
-open import SCT.VolumeI.Chapter01.Section04.CoherenceTransport 𝒯
-open import SCT.VolumeI.Chapter01.Section06.InverseCalculus 𝒯 using (pre-inverse)
+open import SCT.VolumeI.Chapter01.Section04.Substitution.CoherenceTransport 𝒯
+open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.InverseCalculus 𝒯 using (pre-inverse)
 open import SCT.VolumeI.Chapter01.Section06.PullbackSquares 𝒯 P
 open import SCT.VolumeI.Chapter01.Section08.PushoutSquares 𝒯 M P
-open import SCT.VolumeI.Chapter01.Section08.SquareCocones 𝒯
+open import SCT.VolumeI.Chapter01.Section08.Squares 𝒯 using (squareCocone)
 open import SCT.VolumeI.Chapter01.Section08.Cocones 𝒯
-open import SCT.VolumeI.Chapter01.Section08.CoconeUniversality 𝒯
-open import SCT.VolumeI.Chapter01.Section08.CoconePostcomposition 𝒯 using (coconePost; cocone-action)
-open import SCT.VolumeI.Chapter01.Section08.DecodingCalculus 𝒯 M
-open import SCT.VolumeI.Chapter01.Section08.DecodedLegCalculus 𝒯
+open import SCT.VolumeI.Chapter01.Section08.CoconeCalculus.CoconeUniversality 𝒯
+open import SCT.VolumeI.Chapter01.Section08.CoconeCalculus.CoconePostcomposition 𝒯 using (coconePost; cocone-action)
+open import SCT.VolumeI.Chapter01.Section08.MappingCalculus.Decoding.DecodingCalculus 𝒯 M
+open import SCT.VolumeI.Chapter01.Section08.MappingCalculus.Decoding.DecodedLegCalculus 𝒯
 module DC = Decode 𝒯 M
 
 module PrescribedComparison {A B C D E : CAT}

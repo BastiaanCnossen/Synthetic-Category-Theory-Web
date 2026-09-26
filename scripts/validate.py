@@ -26,8 +26,35 @@ def validate(site=SITE):
         require(not any(n.has('agda-panel') or n.has('agda-trigger') or n.has('agda-help') for n in tree.all()),
                 'Unexpected Agda correspondence on opening page: '+opening['slug'])
     id_sets={}
+    for chapter in BOOK_CHAPTERS:
+        for slug in [chapter['slug']]+[s[0] for s in chapter['sections']]:
+            tree=trees[site/(slug+'.html')]
+            turns=next(n for n in tree.all('nav') if n.has('page-turns'))
+            controls=[n for n in turns.all() if 'data-step' in n.attrs]
+            require([n.attrs['data-step'] for n in controls]==['prev-chapter','next-chapter','prev-section','next-section'],
+                    'Missing or reordered navigation controls: '+slug)
+            trail=next(n for n in tree.all('nav') if n.has('book-breadcrumbs'))
+            expected=['index.html']+([chapter['slug']+'.html'] if slug!=chapter['slug'] else [])
+            require([a.attrs['href'] for a in trail.all('a')]==expected,'Breadcrumb ancestry differs: '+slug)
+        landing=trees[site/(chapter['slug']+'.html')]
+        cards=next(n for n in landing.all('section') if n.has('available-sections'))
+        require([a.attrs['href'] for a in cards.all('a') if a.parent.tag=='h3']==[s[0]+'.html' for s in chapter['sections']],
+                'Chapter cards omit or reorder sections: '+chapter['slug'])
     for file,tree in trees.items():
+        require(next(tree.all('body')).has('hide-agda-links'),'Agda links must default to hidden: '+file.name)
+        tools=next(n for n in tree.all('aside') if n.has('utility-dock'))
+        preferences=list(tools.all('input'))
+        require([n.attrs.get('id') for n in preferences]==['collapse-proofs','show-agda-links'] and
+                all('checked' not in n.attrs for n in preferences),'Unexpected default reading preferences: '+file.name)
+        require('hidden' in next(tools.all('section')).attrs,'Settings panel open by default: '+file.name)
+        sidebar=next(n for n in tree.all('aside') if n.has('reader-nav'))
+        require(not any(isinstance(n,Node) and n.tag=='details' for n in sidebar.children),
+                'Contents still wrapped in a disclosure: '+file.name)
+        require([n.text() for n in sidebar.all('h2')]==['Resources','Contents'],
+                'Resources must precede Contents: '+file.name)
         ids=[n.attrs['id'] for n in tree.all() if 'id' in n.attrs]
+        require(all(not any(c.isspace() for c in identifier) for identifier in ids),
+                f'Whitespace in HTML ID: {file.name}')
         duplicates=[x for x,c in Counter(ids).items() if c>1]
         require(not duplicates,f'Duplicate IDs in {file.name}: {duplicates[:5]}')
         id_sets[file.resolve()]=set(ids)
@@ -74,7 +101,8 @@ def validate(site=SITE):
     # Unnumbered subsubsections and the unlabeled framed principle inherit an
     # incidental previous counter differently between classes. They retain
     # stable source anchors, but have no number of their own to compare.
-    for label in ('sec:Products_Of_Categories','sec:Products_And_Coproducts_Of_Categories','ref:Fundamental_Principle_Higher_Category_Theory'):
+    for label in ('sec:Products_Of_Categories','sec:Products_And_Coproducts_Of_Categories',
+                  'sec:Unitality_And_Associativity','ref:Fundamental_Principle_Higher_Category_Theory'):
         pdf.pop(label,None); html.pop(label,None)
     require(pdf==html,'PDF and HTML theorem/reference counters differ')
     for log in ('pilot.log','pilot-pdf.log'):
@@ -116,6 +144,13 @@ def validate(site=SITE):
     require({e['module'] for e in info['source_inventory']}=={p.stem for p in (BUILD/'agda').glob('SCT.*.html')},'Published source inventory differs from checked SCT modules')
     from reader_context import focused_lines
     reader=json.loads(read(BUILD/'agda-context.json'))
+    from book_navigation import AGDA_ENTRY_MODULES
+    for slug,module in AGDA_ENTRY_MODULES.items():
+        tree=trees[site/(slug+'.html')]
+        entry=next(n for n in tree.all('a') if n.has('agda-start'))
+        require(entry.attrs['data-module']=='SCT.VolumeI.'+module and
+                entry.attrs['data-module'] in reader['modules'],'Unavailable reader entry module: '+slug)
+        require(any(n.has('agda-trigger') for n in tree.all()),'Agda invitation without passage links: '+slug)
     source_targets={}
     require(read(site/'assets/agda-context.js')=='window.SCT_AGDA = '+json.dumps(reader,ensure_ascii=False)+';\n','Side-reader script/data differ')
     require(set(reader['passages'])=={p['id'] for p in manifest['passages']+manifest.get('reverse_only',[])},'Side-reader passage coverage differs')
@@ -130,6 +165,20 @@ def validate(site=SITE):
     require(sorted(navigation_modules(reader['module_tree']))==sorted(expected_modules),'Module hierarchy drops or duplicates a module')
     index_modules=[node.attrs['data-module'] for node in trees[site/'code-index.html'].all('article') if node.has('code-index-entry')]
     require(sorted(index_modules)==sorted(expected_modules),'Code index drops or duplicates a module')
+    expected_groups={}
+    def collect_groups(node, parents=()):
+        ancestors=parents+(node['key'],) if node['key'] else parents
+        for module in node['modules']: expected_groups[module]=ancestors
+        for child in node['children']: collect_groups(child,ancestors)
+    collect_groups(reader['module_tree'])
+    for entry in trees[site/'code-index.html'].all('article'):
+        if not entry.has('code-index-entry'): continue
+        ancestors=[]; parent=entry.parent
+        while parent is not None:
+            if parent.has('module-group'): ancestors.insert(0,parent.attrs.get('data-module-group'))
+            parent=parent.parent
+        require(tuple(ancestors)==expected_groups[entry.attrs['data-module']],
+                'Code index places module in wrong folder: '+entry.attrs['data-module'])
     for module,payload in reader['modules'].items():
         src=SNAP/'agda/src'/Path(*module.split('.')).with_suffix('.lagda.md')
         if not src.exists(): src=src.with_suffix('').with_suffix('.agda')

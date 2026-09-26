@@ -3,7 +3,10 @@ import re
 from module_layout import canonical_module
 
 CHAPTER_TITLES = {('I', 1): 'The language of synthetic category theory',
-                  ('I', 2): 'The internal structure of categories'}
+                  ('I', 2): 'The internal structure of categories',
+                  ('I', 3): 'Constructions of categories',
+                  ('I', 4): 'Synthetic categories and contexts',
+                  ('I', 5): 'Cartesian and cocartesian fibrations'}
 SECTION_TITLES = {('I', 1, 1): 'The basic vocabulary',
                   ('I', 1, 2): 'Coherences',
                   ('I', 1, 3): 'Equivalences of categories',
@@ -17,13 +20,21 @@ SECTION_TITLES = {('I', 1, 1): 'The basic vocabulary',
                   ('I', 2, 3): 'The Rezk axiom',
                   ('I', 2, 4): 'Groupoids',
                   ('I', 2, 5): 'Recognizing animae',
-                  ('I', 2, 6): 'Exercises'}
+                  ('I', 2, 6): 'Exercises',
+                  ('I', 3, 1): 'Subcategories',
+                  ('I', 3, 2): 'Full subcategories',
+                  ('I', 3, 3): 'Localizations',
+                  ('I', 3, 4): 'Geometric realizations',
+                  ('I', 3, 5): 'Exponentiable functors',
+                  ('I', 3, 6): 'Joins',
+                  ('I', 3, 7): 'Slice categories',
+                  ('I', 3, 8): 'Exercises'}
 BOOK_MODULE = re.compile(r'^SCT\.Volume([IVXLCDM]+)\.Chapter(\d+)(?:\.Section(\d+))?\.(.+)$')
 
 
 def module_label(module):
     match = BOOK_MODULE.match(module)
-    return match[4] if match else module.removeprefix('SCT.')
+    return match[4].rsplit('.',1)[-1] if match else module.removeprefix('SCT.')
 
 
 def natural_key(value):
@@ -56,6 +67,9 @@ def module_tree(modules, *, retained=False):
                 title = SECTION_TITLES.get((volume, chapter, section))
                 parent = child(parent, f'{chapter_key}.Section{section:02d}',
                                f'{chapter}.{section}' + (' '+title if title else ''))
+            for folder in match[4].split('.')[:-1]:
+                label=re.sub(r'(?<=[a-z])(?=[A-Z])',' ',folder)
+                parent=child(parent,parent['key']+'.'+folder,label)
         parent['modules'].append(name)
     def sort_groups(node):
         node['children'].sort(key=lambda child:natural_key(child['key']))

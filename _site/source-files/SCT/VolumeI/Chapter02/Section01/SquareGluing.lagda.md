@@ -22,11 +22,11 @@ module SCT.VolumeI.Chapter02.Section01.SquareGluing
   (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
   (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E) where
 
-open import SCT.VolumeI.Chapter02.Section01.SquareShape 𝒯 M ℱ P I E public
+open import SCT.VolumeI.Chapter02.Section01.SquareCalculus.SquareShape 𝒯 M ℱ P I E public
 open Squares.CommutativeSquareAxiom Q
 open import SCT.VolumeI.Chapter01.Section08.Cocones 𝒯 public
-open import SCT.VolumeI.Chapter01.Section08.CoconePostcomposition 𝒯 using (coconePost)
-open import SCT.VolumeI.Chapter01.Section08.SquareCocones 𝒯 using (squareCocone)
+open import SCT.VolumeI.Chapter01.Section08.CoconeCalculus.CoconePostcomposition 𝒯 using (coconePost)
+open import SCT.VolumeI.Chapter01.Section08.Squares 𝒯 using (squareCocone)
 
 glue : {C : CAT} → Cocone d₁ d₁ C → CommutativeSquare C
 glue {C} t = Extensions.Extensions.Lift.value 𝒯 M P gluing-square square-isPushout C t

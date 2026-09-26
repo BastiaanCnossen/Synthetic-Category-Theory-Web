@@ -15,8 +15,8 @@ import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
 import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Laws
 import SCT.VolumeI.Chapter02.Section01.WalkingMorphism as Walking
 import SCT.VolumeI.Chapter02.Section01.IntervalEndpoints as Endpoints
-import SCT.VolumeI.Chapter02.Section01.MiddleVertex as Middle
-import SCT.VolumeI.Chapter02.Section01.OuterVertices as Outer
+import SCT.VolumeI.Chapter02.Section01.DiagramCalculus.MiddleVertex as Middle
+import SCT.VolumeI.Chapter02.Section01.DiagramCalculus.OuterVertices as Outer
 
 module SCT.VolumeI.Chapter02.Section01.WalkingTriangle
   {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)

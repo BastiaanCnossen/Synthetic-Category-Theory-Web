@@ -117,8 +117,8 @@ def prepare(frozen=False, manuscript_only=False):
                    [selected_source(read(SNAP/chapter['source']),chapter['source']) for chapter in BOOK_CHAPTERS])
     stop=len(body)
     write(BUILD/'selected-source.tex',body)
-    sections=list(re.finditer(r'\\section\{([^}]+)\}\s*\\label\[section\]\{([^}]+)\}',body))
-    if [m[2] for m in sections] != [label for _, _, label in BOOK_SECTIONS]: raise ValueError('Selected section boundary changed; review selection')
+    sections=section_headings(body)
+    if [m['label'] for m in sections] != [label for _, _, label in BOOK_SECTIONS]: raise ValueError('Selected section boundary changed; review selection')
     # A standalone faithful PDF is built from precisely the same selected source.
     preamble=read(SNAP/'preamble.tex')
     write(BUILD/'preamble.tex',preamble)
@@ -176,7 +176,7 @@ def prepare(frozen=False, manuscript_only=False):
         return '\\par\\HCode{<section class="statement" data-environment="'+env+'" data-scope="'+scope+'">}\n'+m[0]
     body=re.sub(r'\\begin\{([^}]+)\}',begin,body)
     body=re.sub(r'\\end\{([^}]+)\}',lambda m:m[0]+ ('\n\\HCode{</section>}' if m[1] in envs else ''),body)
-    def anchor(label): return '\\HCode{<span class="source-anchor" id="'+label+'"></span>}'
+    def anchor(label): return '\\HCode{<span class="source-anchor" id="'+conversion_anchor(label)+'"></span>}'
     # MathJax receives equation bodies verbatim, so HTML anchors must sit outside.
     equations=[]
     def protect_equation(match):
@@ -189,7 +189,7 @@ def prepare(frozen=False, manuscript_only=False):
     body=re.sub(r'PILOTEQUATIONTOKEN(\d+)END',lambda m:equations[int(m[1])],body)
     # Keep references and bibliography delegated to the actual TeX packages.
     write(BUILD/'pilot.tex',wrapper+body+'\n\\printbibliography\n\\end{document}\n')
-    dump(BUILD/'selection.json',{'frontmatter':[p['source'] for p in BOOK_FRONTMATTER],'chapters':[c['source'] for c in BOOK_CHAPTERS],'sections':[{'title':m[1],'label':m[2]} for m in sections],'diagrams':diagrams,'source_characters':stop,'labels':re.findall(r'\\label(?:\[[^\]]+\])?\{([^}]+)\}',body)})
+    dump(BUILD/'selection.json',{'frontmatter':[p['source'] for p in BOOK_FRONTMATTER],'chapters':[c['source'] for c in BOOK_CHAPTERS],'sections':[{'title':m['title'],'label':m['label']} for m in sections],'diagrams':diagrams,'source_characters':stop,'labels':re.findall(r'\\label(?:\[[^\]]+\])?\{([^}]+)\}',body)})
     print(f'Prepared {len(sections)} sections, {len(diagrams)} diagram displays, {len(inventory["files"])} pinned inputs.')
 
 if __name__=='__main__': prepare('--frozen' in sys.argv)

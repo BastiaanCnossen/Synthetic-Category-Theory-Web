@@ -20,11 +20,11 @@ module SCT.VolumeI.Chapter01.Section06.EmbeddingCharacterizations
 open Setup 𝒯 M
 open Laws.PullbackStructure P
 open import SCT.VolumeI.Chapter01.Section06.Cones 𝒯
-open import SCT.VolumeI.Chapter01.Section06.ConeCalculus 𝒯 using (coneRetarget; coneRetarget-β; coneIso-inverse)
+open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.Comparisons 𝒯 using (coneRetarget; coneRetarget-β; coneIso-inverse)
 open import SCT.VolumeI.Chapter01.Section06.PullbackSquares 𝒯 P using (IsPullback; pullback-cone-invariant)
 open import SCT.VolumeI.Chapter01.Section06.Embeddings 𝒯 P
 open import SCT.VolumeI.Chapter01.Section06.MappingPullbacks 𝒯 M P using (module MappingPullback; mappedCone)
-open import SCT.VolumeI.Chapter01.Section06.DiagonalPullbacks 𝒯 P using (module DiagonalPullback)
+open import SCT.VolumeI.Chapter01.Section06.Coordinates.DiagonalPullbacks 𝒯 P using (module DiagonalPullback)
 open import SCT.VolumeI.Chapter01.Section04.EquivalenceDetection 𝒯 M using (post-tests-all)
 
 map-preserves-embedding : {C D : CAT} (T : CAT) (f : MAP C D) →

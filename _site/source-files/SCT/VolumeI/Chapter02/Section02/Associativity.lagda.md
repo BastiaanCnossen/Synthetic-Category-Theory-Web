@@ -29,7 +29,7 @@ module SCT.VolumeI.Chapter02.Section02.Associativity
 
 open import SCT.VolumeI.Chapter02.Section02.ExpressionAssociativity 𝒯 M ℱ P I E S Q
   public using (associativity; global-associativity)
-open import SCT.VolumeI.Chapter02.Section02.GlobalCompositionExpressions 𝒯 M ℱ P I E S public
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.GlobalCompositionExpressions 𝒯 M ℱ P I E S public
 open import SCT.VolumeI.Chapter01.Section06.Cones 𝒯
 open Laws.PullbackStructure P
 

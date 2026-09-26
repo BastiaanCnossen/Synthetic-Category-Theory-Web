@@ -27,7 +27,7 @@ open Laws.PullbackStructure P
 open Universality 𝒯 M B P
 open CoproductUniversality U
 open import SCT.VolumeI.Chapter01.Section05.CoproductCalculus 𝒯 M B
-open import SCT.VolumeI.Chapter01.Section06.NestedPullbacks 𝒯 P using (module Nested)
+open import SCT.VolumeI.Chapter01.Section06.Pasting.NestedPullbacks 𝒯 P using (module Nested)
 open import SCT.VolumeI.Chapter01.Section06.PullbackArrowChange 𝒯 P using (module ChangeLeft)
 open import SCT.VolumeI.Chapter01.Section06.PullbackSymmetry 𝒯 P using (pullbackSwap; pullbackSwap-isEquiv)
 

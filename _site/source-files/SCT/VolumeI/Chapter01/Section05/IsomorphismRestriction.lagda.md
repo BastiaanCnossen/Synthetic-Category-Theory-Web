@@ -18,8 +18,8 @@ module SCT.VolumeI.Chapter01.Section05.IsomorphismRestriction
 open import SCT.VolumeI.Chapter01.Section05.Setup 𝒯 M
 open Coproducts.CoproductStructure B
 open import SCT.VolumeI.Chapter01.Section05.RestrictionCalculus 𝒯
-open import SCT.VolumeI.Chapter01.Section04.DecodingNaturality 𝒯 M
-open import SCT.VolumeI.Chapter01.Section04.CoherenceTransport 𝒯
+open import SCT.VolumeI.Chapter01.Section04.Substitution.DecodingNaturality 𝒯 M
+open import SCT.VolumeI.Chapter01.Section04.Substitution.CoherenceTransport 𝒯
 
 coproductIsoRestriction : {C D E : CAT} (h k : MAP (C ⊔ D) E) →
   MAP (h ＝ k) (((h ∘ in₁) ＝ (k ∘ in₁)) × ((h ∘ in₂) ＝ (k ∘ in₂)))
