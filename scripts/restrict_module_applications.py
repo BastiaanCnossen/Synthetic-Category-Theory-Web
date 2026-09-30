@@ -3,6 +3,8 @@
 Usage:  python scripts/restrict_module_applications.py agda/src [path-prefix ...]
 e.g.    python scripts/restrict_module_applications.py agda/src SCT/VolumeI/Chapter02/Section02
 
+Path prefixes accept either slash convention.
+
 Rewrites files in place (preserving line endings); run it on a clean git
 state so the diff can be reviewed, then check the affected modules.
 Applications that may be reached from downstream modules (their name occurs
@@ -17,7 +19,11 @@ that are opened wholesale (`open X` without using) are left alone.
 import re, os, sys, json
 
 SRC = sys.argv[1]
-only = sys.argv[2:]  # optional path prefixes (relative to SRC) to transform
+only = [prefix.replace("\\", "/") for prefix in sys.argv[2:]]  # relative to SRC
+
+def relative_path(p):
+    """Use one slash convention for module names and prefix selection."""
+    return os.path.relpath(p, SRC).replace("\\", "/")
 
 def code_blocks(text, path):
     if path.endswith('.lagda.md'):
@@ -32,7 +38,7 @@ for dp, _, fs in os.walk(SRC):
             files[p] = open(p, encoding='utf8', newline='').read()
 
 def modname(p):
-    r = os.path.relpath(p, SRC)
+    r = relative_path(p)
     return r.removesuffix('.lagda.md').removesuffix('.agda').replace('/', '.')
 
 importers = {}
@@ -59,7 +65,7 @@ def used_downstream(X, m):
 stats = {'apps': 0, 'restricted': 0, 'skipped_open': 0, 'skipped_other': 0}
 changed = []
 for p, text in files.items():
-    rel = os.path.relpath(p, SRC)
+    rel = relative_path(p)
     if only and not any(rel.startswith(o) for o in only):
         continue
     blocks = code_blocks(text, p)
