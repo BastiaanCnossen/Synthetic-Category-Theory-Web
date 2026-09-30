@@ -18,6 +18,8 @@ import SCT.VolumeI.Chapter01.Section03.ProductCalculus.ProductFunctorUnits as Pr
 import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.Parameterized as Parameterized
 import SCT.VolumeI.Chapter01.Section02.Isomorphisms as Isomorphisms
 
+import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.FramedSubstitution as FramedSubstitution
+
 module SCT.VolumeI.Chapter01.Section04.ProductCalculus.ProductSecondCoordinate
   {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯) where
 
@@ -30,6 +32,10 @@ open Parameterized.WhiskeringLaws vocabulary terminal products productLaws compo
   using (preWhisker-comp-at)
 open Isomorphisms vocabulary terminal products productLaws composition vertical whiskering
   using (reassociateFour; cancel-inverse)
+
+private
+  module Framed = FramedSubstitution vocabulary terminal products productLaws composition vertical whiskering
+    using (module Composition)
 
 second-normalization : {Y X Z : CAT} (C : CAT) (f : MAP X Z) (σ : MAP Y X)
   → (Coordinates.second C f σ) =₂
@@ -53,49 +59,18 @@ second-coordinate-assoc C f σ τ =
       st = productMap (σ ∘ τ) (id C)
       κ = slice-comparison {C = C} σ τ
       q = id C ∘ pr₂
-      v = comp-unitˡ pr₂
       b = pair-β₂ (σ ∘ pr₁) (id C ∘ pr₂)
       bst = pair-β₂ ((σ ∘ τ) ∘ pr₁) (id C ∘ pr₂)
       S = Coordinates.second C f σ
       T = Coordinates.second C (f ∘ σ) τ
-      Aq = comp-assoc t s q
-      Aπ = comp-assoc t s pr₂
-      vv = (v ▷ s) ▷ t
       normalized = T ∙ (S ▷ t)
-
-      leftStart :
-        (Coordinates.second C f (σ ∘ τ) ∙ ((q ◁ κ) ∙ Aq)) =₂
-        ((bst ∙ (pr₂ ◁ κ)) ∙ ((v ▷ (s ∘ t)) ∙ Aq))
-      leftStart = (isoComp-assoc-at bst (pr₂ ◁ κ) ((v ▷ (s ∘ t)) ∙ Aq)) ⁻¹ ∙
-        (isoComp-cong (idIso bst) (isoComp-assoc-at (pr₂ ◁ κ) (v ▷ (s ∘ t)) Aq) ∙
-        (isoComp-cong (idIso bst) (isoComp-cong (interchange-at v κ) (idIso Aq)) ∙
-        (reassociateFour bst (v ▷ st) (q ◁ κ) Aq ∙
-          isoComp-cong (second-normalization C f (σ ∘ τ)) (idIso ((q ◁ κ) ∙ Aq)))))
-
-      middle :
-        ((bst ∙ (pr₂ ◁ κ)) ∙ ((v ▷ (s ∘ t)) ∙ Aq)) =₂
-        ((T ∙ ((b ▷ t) ∙ Aπ ⁻¹)) ∙ (Aπ ∙ vv))
-      middle = isoComp-cong (Coordinates.projection₂ C σ τ)
-        ((preWhisker-comp-at v s t) ⁻¹)
-
-      cancellation :
-        ((T ∙ ((b ▷ t) ∙ Aπ ⁻¹)) ∙ (Aπ ∙ vv)) =₂
-        (T ∙ ((b ▷ t) ∙ vv))
-      cancellation = isoComp-cong (idIso T)
-          (isoComp-cong (idIso (b ▷ t))
-            (isoComp-unitˡ-at vv ∙
-              (isoComp-cong (isoComp-inverseˡ-at Aπ) (idIso vv) ∙
-                (isoComp-assoc-at (Aπ ⁻¹) Aπ vv) ⁻¹)) ∙
-            isoComp-assoc-at (b ▷ t) (Aπ ⁻¹) (Aπ ∙ vv)) ∙
-        isoComp-assoc-at T ((b ▷ t) ∙ Aπ ⁻¹) (Aπ ∙ vv)
-
-      rightFinish : (T ∙ ((b ▷ t) ∙ vv)) =₂ normalized
-      rightFinish = isoComp-cong (idIso T)
-        ((preWhisker t ◁ (second-normalization C f σ) ⁻¹) ∙
-          (preWhisker-isoComp-at b (v ▷ s) t) ⁻¹)
-
-      insertIdentity : normalized =₂ ((idIso (id C) ▷ pr₂) ∙ normalized)
+      composition = Framed.Composition.compatible s t st κ q pr₂
+        (id C ∘ pr₂) (id C ∘ pr₂) (comp-unitˡ pr₂) b bst S T
+        (Coordinates.second C f (σ ∘ τ))
+        (second-normalization C f σ)
+        (second-normalization C f (σ ∘ τ))
+        (Coordinates.projection₂ C σ τ)
       insertIdentity =
         (isoComp-unitˡ-at normalized ∙ isoComp-cong (preWhisker-idIso (id C) pr₂) (idIso normalized)) ⁻¹
-  in insertIdentity ∙ (rightFinish ∙ (cancellation ∙ (middle ∙ leftStart)))
+  in insertIdentity ∙ composition
 ```

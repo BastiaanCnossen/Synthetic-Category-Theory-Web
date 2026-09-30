@@ -98,3 +98,65 @@ import SCT.VolumeI.Chapter01.Section06.PullbackSymmetry
 import SCT.VolumeI.Chapter01.Section06.Representability
 import SCT.VolumeI.Chapter01.Section06.RepresentabilityDiagonal
 import SCT.VolumeI.Chapter01.Section06.UniversalCoproducts
+import SCT.VolumeI.Chapter01.Section06.ConeCalculus.UniversalFactorComparisons
+import SCT.VolumeI.Chapter01.Section06.ConeCalculus.SplitComparisonLifts
+import SCT.VolumeI.Chapter01.Section06.ConeCalculus.SplitRetractionMatching
+import SCT.VolumeI.Chapter01.Section06.ConeCalculus.QuotientComparisons
+import SCT.VolumeI.Chapter01.Section06.Cospans.FixedBaseConeAction
+import SCT.VolumeI.Chapter01.Section06.Coordinates.PointFrameRestriction
+import SCT.VolumeI.Chapter01.Section06.Coordinates.FramedProjectionRestriction
+import SCT.VolumeI.Chapter01.Section06.Pasting.ComparisonCancellation
+import SCT.VolumeI.Chapter01.Section06.Pasting.ComparisonPasting
+import SCT.VolumeI.Chapter01.Section06.SectionBaseChange
+
+import SCT.VolumeI.Chapter01.Section06.EmbeddingCalculus.PrescribedLifting
+
+import SCT.VolumeI.Chapter01.Section06.EmbeddingCalculus.ConeLifting
+
+import SCT.VolumeI.Chapter01.Section06.ConeCalculus.SquareRotation
+
+import SCT.VolumeI.Chapter01.Section06.Pasting.FactoredComposition
+
+import SCT.VolumeI.Chapter01.Section06.ConeCalculus.FramedEdgeCones
+
+import SCT.VolumeI.Chapter01.Section06.Cospans.FiberImages
+
+import SCT.VolumeI.Chapter01.Section06.Cospans.Fibers
+
+import SCT.VolumeI.Chapter01.Section06.ConeCalculus.SquareTransport
+
+import SCT.VolumeI.Chapter01.Section06.ConeCalculus.TriangleCones
+
+import SCT.VolumeI.Chapter01.Section06.Cospans.FiberInterchangeProjections
+
+import SCT.VolumeI.Chapter01.Section06.Cospans.FiberInterchangeSquare
+
+import SCT.VolumeI.Chapter01.Section06.Cospans.FiberInterchange
+
+import SCT.VolumeI.Chapter01.Section06.Coordinates.ProjectedSquareRestriction
+
+import SCT.VolumeI.Chapter01.Section06.Cospans.PairedSquares
+
+import SCT.VolumeI.Chapter01.Section06.Cospans.ProjectedImages
+
+import SCT.VolumeI.Chapter01.Section06.Cospans.PairedMaps
+
+import SCT.VolumeI.Chapter01.Section06.Cospans.PullbackCubeFibers
+
+import SCT.VolumeI.Chapter01.Section06.Coordinates.BoundaryTransport
+
+import SCT.VolumeI.Chapter01.Section06.Coordinates.ProductFamilyFrames
+
+import SCT.VolumeI.Chapter01.Section06.Cospans.FamilyChange
+
+import SCT.VolumeI.Chapter01.Section06.Cospans.FiberImageFamilyChange
+
+import SCT.VolumeI.Chapter01.Section06.Coordinates.ProductConeFrames
+
+import SCT.VolumeI.Chapter01.Section06.ConeCalculus.CospanSymmetry
+import SCT.VolumeI.Chapter01.Section06.ConeCalculus.CospanPullbacksLeft
+import SCT.VolumeI.Chapter01.Section06.Cospans.FixedParameterConeAction
+import SCT.VolumeI.Chapter01.Section06.Pasting.BaseChangeConeRecovery
+import SCT.VolumeI.Chapter01.Section06.Cospans.SquareSubstitution
+import SCT.VolumeI.Chapter01.Section06.ConeCalculus.PullbackReindexing
+import SCT.VolumeI.Chapter01.Section06.Pasting.FiberSquares

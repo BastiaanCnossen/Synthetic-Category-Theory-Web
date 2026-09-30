@@ -7,7 +7,7 @@ used to justify lifting a retained comparison without losing its first
 projection witness.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.Setup as Setup
@@ -24,12 +24,15 @@ import SCT.VolumeI.Chapter01.Section02.Isomorphisms as Isomorphisms
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.ProductFunctorUnits as ProductFunctorUnits
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingCoherence as PairingCoherence
 import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.Structural as Structural
+import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.CoordinateNaturality as CoordinateNaturality
 
 module SCT.VolumeI.Chapter01.Section04.CompositionCalculus.RetainedComparisonLaws
   {c m a : Level} (𝒯 : Theory c m a)
   (M : MappingAnimae.MappingAnimae 𝒯) where
 
 open Setup 𝒯
+private
+  module Coordinate = CoordinateNaturality vocabulary terminal products productLaws composition vertical whiskering
 open MappingAnimae.MappingAnimae M
 open InternalCoherence 𝒯 M
 open MapComposition 𝒯 M
@@ -320,9 +323,7 @@ triangle-with-identity-comparison g f j ε =
 cancel-two-front : {X C : CAT} {f g h k : MAP X C}
   (b : h =₁ k) (a : g =₁ h) (x : f =₁ k)
   → ((b ∙ a) ∙ (a ⁻¹ ∙ (b ⁻¹ ∙ x))) =₂ x
-cancel-two-front b a x = cancel-inverse b x ∙
-  (isoComp-cong (idIso b) (cancel-inverse a (b ⁻¹ ∙ x)) ∙
-    isoComp-assoc-at b a (a ⁻¹ ∙ (b ⁻¹ ∙ x)))
+cancel-two-front = cancel-two-inverses
 
 module RetainedNaturality (P : CAT) where
   open ParameterRetaining P
@@ -355,11 +356,9 @@ module RetainedNaturality (P : CAT) where
             (retain-cong-composition u′ x) ⁻¹)
         moved = move-square r′ (retainedIso α ⋆ retainedIso β) (retain-cong y) r
           (retain-compose-natural (mapUncurryIso α) (mapUncurryIso β))
-    in isoComp-assoc-at (retainedIso α ⋆ retainedIso β) (r ⁻¹) (retain-cong u) ∙
-      (isoComp-cong moved (idIso (retain-cong u)) ∙
-      ((isoComp-assoc-at (r′ ⁻¹) (retain-cong y) (retain-cong u)) ⁻¹ ∙
-      (isoComp-cong (idIso (r′ ⁻¹)) lifted ∙
-        isoComp-assoc-at (r′ ⁻¹) (retain-cong u′) (retainedIso (composeTerm-cong α β)))))
+    in Coordinate.paste-squares (retain-cong u) (retain-cong u′) (r ⁻¹) (r′ ⁻¹)
+      (retainedIso (composeTerm-cong α β)) (retain-cong y)
+      (retainedIso α ⋆ retainedIso β) lifted moved
 
   retained-compose-natural : {C D E : CAT}
     {g g′ : MAP P (Map D E)} {f f′ : MAP P (Map C D)}
@@ -435,11 +434,9 @@ module TriangleCalculation {P A B C : CAT} (pAn : isAn P)
 
   middle-edge-image :
     (changeEndpoints source-comparison middle-comparison (retainedIso middle)) =₂ external-middle
-  middle-edge-image = square-to-changeEndpoints source-comparison middle-comparison
-    (retainedIso middle) external-middle
-    (cancel-two-front (G ◁ retained-compose I f) (retained-compose g (composeTerm I f))
-      (external-middle ∙ source-comparison) ∙
-      isoComp-cong (idIso middle-comparison) (compose-assoc-retained-β pAn g I f))
+  middle-edge-image = inverse-route-image source-comparison
+    (G ◁ retained-compose I f) (retained-compose g (composeTerm I f))
+    (retainedIso middle) external-middle (compose-assoc-retained-β pAn g I f)
 
   right-edge-image : RightNaturality
     → (changeEndpoints middle-comparison target-comparison (retainedIso right)) =₂ external-right

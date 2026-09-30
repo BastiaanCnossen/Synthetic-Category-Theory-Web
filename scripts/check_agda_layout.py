@@ -10,6 +10,13 @@ def code_text(source):
     return '\n'.join(re.findall(r'```agda\s*\n(.*?)```',source,re.S))
 
 
+def has_safe_options(code):
+    options = {flag for block in re.findall(r'\{-#\s+OPTIONS\s+(.*?)#-\}', code, re.S)
+               for flag in block.split()}
+    return ({'--safe', '--without-K'} <= options
+            and not {'--with-K', '--no-safe'} & options)
+
+
 def check():
     root=ROOT/'agda/src'
     modules={}
@@ -20,7 +27,7 @@ def check():
         source=read(path); code=code_text(source)
         declared=re.findall(r'^module (SCT\.[\w.]+)(?=\s)',code,re.M)
         if declared!=[name]: raise ValueError('Module/path mismatch: '+str(path))
-        if '{-# OPTIONS --safe --without-K #-}' not in code: raise ValueError('Missing safe options: '+name)
+        if not has_safe_options(code): raise ValueError('Missing safe options: '+name)
         modules[name]={'path':path,'source':source,'imports':set(re.findall(r'\bimport (SCT\.[\w.]+)',code))}
     for name,data in modules.items():
         missing=data['imports']-modules.keys()

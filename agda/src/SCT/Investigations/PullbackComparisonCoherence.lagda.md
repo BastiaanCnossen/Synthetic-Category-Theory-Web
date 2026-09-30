@@ -19,9 +19,9 @@ module SCT.Investigations.PullbackComparisonCoherence
 open Setup 𝒯
 open Laws.PullbackStructure P
 open import SCT.VolumeI.Chapter01.Section06.PullbackSquares 𝒯 P
-open import SCT.VolumeI.Chapter01.Section06.ConeAction 𝒯 using (module Action)
-open import SCT.VolumeI.Chapter01.Section06.ConeSymmetry 𝒯 using (cone-match-change)
-open import SCT.VolumeI.Chapter01.Section06.UniversalConeComparison 𝒯 P
+open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.ConeAction 𝒯 using (module Action)
+open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.ConeSymmetry 𝒯 using (cone-match-change)
+open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.UniversalConeComparison 𝒯 P
 
 module DirectComparison {C D E T S : CAT} {f : MAP C E} {g : MAP D E}
   (s : Cone f g T) (es : IsPullback s) (h k : MAP S T) where

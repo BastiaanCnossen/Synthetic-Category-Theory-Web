@@ -13,15 +13,17 @@ import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
 import SCT.VolumeI.Chapter01.Section04.Currying as Currying
 import SCT.VolumeI.Chapter01.Section04.Substitution.Compatibility as Compatibility
 import SCT.VolumeI.Chapter01.Section04.Composition as MapComposition
-import SCT.VolumeI.Chapter01.Section04.CompositionCalculus.CompositionNaturality as CompositionNaturality
 import SCT.VolumeI.Chapter01.Section04.Substitution.EvaluationParameterChange as EvaluationParameterChange
-import SCT.VolumeI.Chapter01.Section04.ProductCalculus.ProductAssociativity as ProductAssociativity
 import SCT.VolumeI.Chapter01.Section04.ProductCalculus.ProductSubstitution as ProductSubstitution
 import SCT.VolumeI.Chapter01.Section04.ProductCalculus.ProductSecondCoordinate as ProductSecondCoordinate
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.ProductFunctorUnits as ProductFunctorUnits
-import SCT.VolumeI.Chapter01.Section03.ProductCalculus.IteratedPairing as IteratedPairing
 import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.Structural as Structural
-import SCT.VolumeI.Chapter01.Section02.Isomorphisms as Isomorphisms
+
+import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.CoordinateComparisons as CoordinateComparisons
+import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.FramedSubstitution as FramedSubstitution
+import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingAssembly as Assembly
+import SCT.VolumeI.Chapter01.Section03.ProductCalculus.ChosenPairing as ChosenPairing
+import SCT.VolumeI.Chapter01.Section03.ProductCalculus.ChosenPairingFunctoriality as ChosenPairingFunctoriality
 
 module SCT.VolumeI.Chapter01.Section04.Substitution.EvaluationInputChange
   {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯) where
@@ -31,40 +33,24 @@ open Mapping.MappingAnimae M
 open Currying 𝒯 M using (mapUncurry-restrict)
 open Compatibility 𝒯 M using (slice-comparison)
 open MapComposition 𝒯 M
-open CompositionNaturality 𝒯 M using (coordinate-at)
-open EvaluationParameterChange 𝒯 M using (module AtCoordinates; coordinate-at-change; post-change-comparison)
-open ProductAssociativity 𝒯 M using (module PairingAssembly; cancel-forward)
+open EvaluationParameterChange 𝒯 M using (module AtCoordinates)
+open CoordinateComparisons vocabulary terminal products productLaws composition vertical whiskering
+  pentagonTriangle using (coordinate-at; coordinate-at-change; post-change-with-inverse; cancel-forward)
+open CoordinateComparisons vocabulary terminal products productLaws composition vertical whiskering
+  pentagonTriangle public using (coordinate-at-outer-composition)
+private
+  module Chosen = ChosenPairing vocabulary terminal products productLaws composition vertical whiskering
+  module ChosenLaws = ChosenPairingFunctoriality vocabulary terminal products productLaws
+    composition vertical whiskering pentagonTriangle
+  module Framed = FramedSubstitution vocabulary terminal products productLaws composition vertical whiskering
+open Assembly vocabulary terminal products productLaws composition vertical whiskering
+  Chosen.operations ChosenLaws.functoriality using (module PairingAssembly)
 module ProductCoordinates = ProductSubstitution.Coordinates 𝒯 M
 open ProductSecondCoordinate 𝒯 M using (second-normalization)
 open ProductFunctorUnits vocabulary terminal products productLaws composition vertical whiskering pentagonTriangle
   using (pair-pre-cong-triangle₁; pair-pre-cong-triangle₂; left-unitor-comp)
-open IteratedPairing vocabulary terminal products productLaws composition vertical whiskering pentagonTriangle
-  using (pentagon-whiskered)
 open Structural vocabulary terminal products productLaws composition whiskering
   using (postWhisker-comp-at; postWhisker-id-at; preWhisker-comp-at)
-open Isomorphisms vocabulary terminal products productLaws composition vertical whiskering
-  using (reassociateFour; cancel-inverse)
-
-coordinate-at-outer-composition : {R K X Y Z : CAT}
-  (F : MAP Y Z) (G : MAP X Y) (π : MAP K X) (t : MAP R K)
-  {p : MAP R X} (b : (π ∘ t) =₁ p)
-  → (comp-assoc p G F ∙ coordinate-at (F ∘ G) π t b) =₂
-      ((F ◁ coordinate-at G π t b) ∙
-        (comp-assoc t (G ∘ π) F ∙ (comp-assoc π G F ▷ t)))
-coordinate-at-outer-composition F G π t {p} b =
-  let A = comp-assoc p G F
-      B = (F ∘ G) ◁ b
-      C = comp-assoc t π (F ∘ G)
-      D = F ◁ (G ◁ b)
-      E = comp-assoc (π ∘ t) G F
-      I = F ◁ comp-assoc t π G
-      J = comp-assoc t (G ∘ π) F
-      K = comp-assoc π G F ▷ t
-  in isoComp-cong ((postWhisker-isoComp-at F (G ◁ b) (comp-assoc t π G)) ⁻¹) (idIso (J ∙ K)) ∙
-    ((isoComp-assoc-at D I (J ∙ K)) ⁻¹ ∙
-    (isoComp-cong (idIso D) (pentagon-whiskered t π G F) ∙
-    (isoComp-assoc-at D E C ∙
-    (isoComp-cong (postWhisker-comp-at b G F) (idIso C) ∙ (isoComp-assoc-at A B C) ⁻¹))))
 
 at-second-normalization : {Γ X Y C : CAT} (f : MAP X Y) (p : MAP Γ X) (x : MAP Γ C)
   → (AtCoordinates.second f p x) =₂ (pair-β₂ p x ∙ (comp-unitˡ pr₂ ▷ pair p x))
@@ -143,27 +129,12 @@ second-input-change {C = C} f σ p x =
       b′ = pair-β₂ (σ ∘ p) x
       S = ProductCoordinates.second C f σ
       T = AtCoordinates.second (f ∘ σ) p x
-      Aq = comp-assoc t h q
-      Aπ = comp-assoc t h pr₂
-      vv = (v ▷ h) ▷ t
       normalized = T ∙ (S ▷ t)
-      leftStart = (isoComp-assoc-at b′ (pr₂ ◁ n) ((v ▷ (h ∘ t)) ∙ Aq)) ⁻¹ ∙
-        (isoComp-cong (idIso b′) (isoComp-assoc-at (pr₂ ◁ n) (v ▷ (h ∘ t)) Aq) ∙
-        (isoComp-cong (idIso b′) (isoComp-cong (interchange-at v n) (idIso Aq)) ∙
-        (reassociateFour b′ (v ▷ pair (σ ∘ p) x) (q ◁ n) Aq ∙
-          isoComp-cong (at-second-normalization f (σ ∘ p) x) (idIso ((q ◁ n) ∙ Aq)))))
-      middle = isoComp-cong (at-comparison-projection₂ σ p x) ((preWhisker-comp-at v h t) ⁻¹)
-      cancellation = isoComp-cong (idIso T)
-          (isoComp-cong (idIso (b ▷ t))
-            (isoComp-unitˡ-at vv ∙
-              (isoComp-cong (isoComp-inverseˡ-at Aπ) (idIso vv) ∙
-                (isoComp-assoc-at (Aπ ⁻¹) Aπ vv) ⁻¹)) ∙
-            isoComp-assoc-at (b ▷ t) (Aπ ⁻¹) (Aπ ∙ vv)) ∙
-        isoComp-assoc-at T ((b ▷ t) ∙ Aπ ⁻¹) (Aπ ∙ vv)
-      rightFinish = isoComp-cong (idIso T)
-        ((preWhisker t ◁ (second-normalization C f σ) ⁻¹) ∙
-          (preWhisker-isoComp-at b (v ▷ h) t) ⁻¹)
-  in (isoComp-unitˡ-at normalized) ⁻¹ ∙ (rightFinish ∙ (cancellation ∙ (middle ∙ leftStart)))
+      composition = Framed.Composition.compatible h t (pair (σ ∘ p) x) n q pr₂
+        (id C ∘ pr₂) x v b b′ S T (AtCoordinates.second f (σ ∘ p) x)
+        (second-normalization C f σ) (at-second-normalization f (σ ∘ p) x)
+        (at-comparison-projection₂ σ p x)
+  in (isoComp-unitˡ-at normalized) ⁻¹ ∙ composition
 
 at-input-change : {Γ Q P Y C : CAT}
   (f : MAP P Y) (σ : MAP Q P) (p : MAP Γ Q) (x : MAP Γ C)
@@ -191,6 +162,13 @@ at-input-change {C = C} f σ p x =
           (preWhisker (pair p x) ◁ ProductCoordinates.normalization C f σ))
   in normalizeLong ⁻¹ ∙ (assembled ∙ normalizeShort)
 
+```
+
+Postcompose the paired square by evaluation. To recover the desired direction,
+we cancel the forward restriction comparison against the prescribed reverse
+restriction comparison. The following witness records precisely that cancellation.
+
+```agda
 forward-uncurry-restrict : {P Q C D : CAT} (f : MAP P (Map C D)) (σ : MAP Q P)
   → (mapUncurry f ∘ productMap σ (id C)) =₁ (mapUncurry (f ∘ σ))
 forward-uncurry-restrict {C = C} f σ = (mapEval ◁ slice-comparison f σ) ∙
@@ -199,13 +177,8 @@ forward-uncurry-restrict {C = C} f σ = (mapEval ◁ slice-comparison f σ) ∙
 forward-uncurry-restrict-cancel : {P Q C D : CAT} (f : MAP P (Map C D)) (σ : MAP Q P)
   → (forward-uncurry-restrict f σ ∙ mapUncurry-restrict f σ) =₂ (idIso (mapUncurry (f ∘ σ)))
 forward-uncurry-restrict-cancel {C = C} f σ =
-  let κ = slice-comparison {C = C} f σ
-      A = comp-assoc (productMap σ (id C)) (productMap f (id C)) mapEval
-  in postWhisker-idIso mapEval (productMap (f ∘ σ) (id C)) ∙
-    ((postWhisker mapEval ◁ isoComp-inverseʳ-at κ) ∙
-    ((postWhisker-isoComp-at mapEval κ (κ ⁻¹)) ⁻¹ ∙
-    (isoComp-cong (idIso (mapEval ◁ κ)) (cancel-inverse A (mapEval ◁ κ ⁻¹)) ∙
-      isoComp-assoc-at (mapEval ◁ κ) A (A ⁻¹ ∙ (mapEval ◁ κ ⁻¹)))))
+  Framed.post-comparison-inverse mapEval (productMap f (id C))
+    (productMap σ (id C)) (slice-comparison {C = C} f σ)
 
 mapUncurry-at-input-change : {Γ Q P C D : CAT}
   (f : MAP P (Map C D)) (σ : MAP Q P) (p : MAP Γ Q) (x : MAP Γ C)
@@ -217,27 +190,10 @@ mapUncurry-at-input-change : {Γ Q P C D : CAT}
           (comp-assoc (pair p x) (productMap σ (id C)) (mapUncurry f) ∙
             (mapUncurry-restrict f σ ▷ pair p x))))
 mapUncurry-at-input-change {C = C} f σ p x =
-  let t = pair p x
-      n = AtCoordinates.comparison σ p x
-      A = comp-assoc t (productMap σ (id C)) (mapUncurry f)
-      before = forward-uncurry-restrict f σ ▷ t
-      back = mapUncurry-restrict f σ ▷ t
-      target = applyTerm-cong (comp-assoc p σ f) (idIso x) ∙ mapUncurry-at (f ∘ σ) p x
-      short = mapUncurry-at f (σ ∘ p) x
-      step = mapUncurry f ◁ n
-      cancel = preWhisker-idIso (mapUncurry (f ∘ σ)) t ∙
-        ((preWhisker t ◁ forward-uncurry-restrict-cancel f σ) ∙
-          (preWhisker-isoComp-at (forward-uncurry-restrict f σ) (mapUncurry-restrict f σ) t) ⁻¹)
-      compare = (isoComp-assoc-at (applyTerm-cong (comp-assoc p σ f) (idIso x))
-          (mapUncurry-at (f ∘ σ) p x) before) ⁻¹ ∙
-        post-change-comparison mapEval (productMap f (id C)) (productMap σ (id C)) t
-          (pair (σ ∘ p) x) n (slice-comparison f σ) (AtCoordinates.comparison (f ∘ σ) p x)
-          (AtCoordinates.comparison f (σ ∘ p) x)
-          (pair-cong (comp-assoc p σ f) (idIso x)) (at-input-change f σ p x)
-  in isoComp-cong (idIso short) (isoComp-assoc-at step A back) ∙
-    (isoComp-assoc-at short (step ∙ A) back ∙
-    (isoComp-cong (compare ⁻¹) (idIso back) ∙
-    ((isoComp-assoc-at target before back) ⁻¹ ∙
-    (isoComp-cong (idIso target) (cancel ⁻¹) ∙ (isoComp-unitʳ-at target) ⁻¹))))
-```
+  post-change-with-inverse mapEval (productMap f (id C)) (productMap σ (id C))
+    (pair p x) (pair (σ ∘ p) x) (AtCoordinates.comparison σ p x)
+    (slice-comparison f σ) (AtCoordinates.comparison (f ∘ σ) p x)
+    (AtCoordinates.comparison f (σ ∘ p) x)
+    (pair-cong (comp-assoc p σ f) (idIso x)) (at-input-change f σ p x)
+    (mapUncurry-restrict f σ) (forward-uncurry-restrict-cancel f σ)
 ```

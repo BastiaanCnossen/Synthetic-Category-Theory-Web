@@ -15,6 +15,7 @@ completed in `CompositionInputCalculus`.
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.Substitution.ProofCalculus as Setup
+import SCT.Calculus.Squares as Squares
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
 import SCT.VolumeI.Chapter01.Section04.Currying as Currying
 import SCT.VolumeI.Chapter01.Section04.Composition as MapComposition
@@ -143,30 +144,14 @@ module InputNormalization {P Q C D E : CAT}
           restriction = mapUncurry-at-restriction g pr₁ (mapUncurry f) s
           natural : (G ∙ W₁) =₂ (W₂ ∙ paired)
           natural = (mapUncurry-at-inner g β (idIso (mapUncurry f ∘ s))) ⁻¹
-          lower : (common-action ∙ (G ∙ (W₁ ∙ (pairPre ∙ Aret)))) =₂
-            (common-action ∙ (W₂ ∙ (postB ∙ Aret)))
-          lower = isoComp-cong (idIso common-action)
-            (isoComp-cong (idIso W₂)
-              (isoComp-cong ((postWhisker-isoComp-at (mapUncurry g)
-                (output-normalization f) (pair-pre pr₁ (mapUncurry f) s)) ⁻¹) (idIso Aret)) ∙
-              reassociateFour W₂ paired pairPre Aret) ∙
-            isoComp-cong (idIso common-action)
-              (isoComp-cong natural (idIso (pairPre ∙ Aret)) ∙
-                (isoComp-assoc-at G W₁ (pairPre ∙ Aret)) ⁻¹)
-          beforeCancel : (N ∙ (pre ∙ W)) =₂ ((common-normalization ∙ postB) ∙ Aret)
-          beforeCancel = (isoComp-assoc-at common-normalization postB Aret) ⁻¹ ∙
-            ((isoComp-assoc-at common-action W₂ (postB ∙ Aret)) ⁻¹ ∙
-            (lower ∙
-            (isoComp-cong (idIso common-action) (isoComp-cong (idIso G) restriction) ∙
-            (isoComp-cong (idIso common-action) (isoComp-assoc-at G A (pre ∙ W)) ∙
-            (isoComp-assoc-at common-action (G ∙ A) (pre ∙ W) ∙
-              isoComp-cong splitN (idIso (pre ∙ W)))))))
-          regroup : target-normalization =₂ ((N ∙ (pre ∙ W)) ∙ Aret ⁻¹)
-          regroup = (isoComp-assoc-at N (pre ∙ W) (Aret ⁻¹)) ⁻¹ ∙
-            isoComp-cong (idIso N) ((isoComp-assoc-at pre W (Aret ⁻¹)) ⁻¹)
-      in cancel-right Aret (common-normalization ∙ postB) ∙
-        (isoComp-cong beforeCancel (idIso (Aret ⁻¹)) ∙ regroup)
-
+      in Squares.common-frame-pasting
+        (comparisonAlgebra (Q × C) E) (comparisonLaws (Q × C) E)
+        common-action G A N pre W W₁ W₂ paired pairPre postB Aret (Aret ⁻¹)
+        splitN restriction natural
+        ((postWhisker-isoComp-at (mapUncurry g)
+          (output-normalization f) (pair-pre pr₁ (mapUncurry f) s)) ⁻¹)
+        (reassociateFour W₂ paired pairPre Aret)
+        (cancel-right Aret (common-normalization ∙ postB))
 
 
   input-pair :

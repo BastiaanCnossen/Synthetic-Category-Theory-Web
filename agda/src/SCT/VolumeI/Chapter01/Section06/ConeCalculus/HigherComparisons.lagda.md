@@ -16,6 +16,7 @@ module SCT.VolumeI.Chapter01.Section06.ConeCalculus.HigherComparisons
 
 open import SCT.VolumeI.Chapter01.Section04.Setup 𝒯
 open import SCT.VolumeI.Chapter01.Section06.Cones 𝒯
+open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.ConeSymmetry 𝒯 using (cone-match-change)
 open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.Comparisons 𝒯
   using (coneIso-compose; coneIso-inverse)
 open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.ConeComparisonEncoding 𝒯 using (module Encoding)
@@ -35,6 +36,29 @@ module Calculus {C D E T : CAT} {f : MAP C E} {g : MAP D E}
       where
       decoded : ConeIso₂ (E.decode (E.encode Φ)) Ψ
       decoded = E.decode-into (E.encode Φ) Ψ Ω
+
+
+  -- Changing the compatibility witness retains both specified legs.
+  -- The encoded calculation is named separately so consumers can use the
+  -- full comparison without expanding their concrete cone expressions.
+  compatibility-change-calculation : (Φ : ConeIso s t)
+    (κ : (Cone.match t ∙ (f ◁ ConeIso.leftIso Φ)) =₂
+      ((g ◁ ConeIso.rightIso Φ) ∙ Cone.match s)) →
+    ConeIso.compatible Φ =₃ κ →
+    ConeIso₂ Φ (record { leftIso = ConeIso.leftIso Φ ; rightIso = ConeIso.rightIso Φ ; compatible = κ })
+  compatibility-change-calculation Φ κ γ = decode-between
+    {Φ = Φ} {Ψ = record { leftIso = ConeIso.leftIso Φ ; rightIso = ConeIso.rightIso Φ ; compatible = κ }}
+    (cone-match-change _ _ _ _
+      (isoComp-cong (idIso ((E.rightEvaluation (ConeIso.rightIso Φ)) ⁻¹))
+        (isoComp-cong γ (idIso (E.leftEvaluation (ConeIso.leftIso Φ))))))
+
+  opaque
+    compatibility-change : (Φ : ConeIso s t)
+      (κ : (Cone.match t ∙ (f ◁ ConeIso.leftIso Φ)) =₂
+        ((g ◁ ConeIso.rightIso Φ) ∙ Cone.match s)) →
+      ConeIso.compatible Φ =₃ κ →
+      ConeIso₂ Φ (record { leftIso = ConeIso.leftIso Φ ; rightIso = ConeIso.rightIso Φ ; compatible = κ })
+    compatibility-change = compatibility-change-calculation
 
   opaque
     unfolding decode-between E.decode-into E.decode-comparison

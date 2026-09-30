@@ -28,6 +28,7 @@ module SCT.VolumeI.Chapter03.Section03.LocalizationUniqueness
   (R : Rezk.RezkAxiom 𝒯 M ℱ P I E) where
 
 open import SCT.VolumeI.Chapter01.Section05.Setup 𝒯 M
+  using (CAT; MAP; IsEquiv; _∘_; _=₁_; id; _⁻¹; _∙_; _◁_; comp-unitˡ; comp-assoc)
 open import SCT.VolumeI.Chapter03.Section01.MorphismCollections 𝒯 M P I using (MorphismCollection)
 open import SCT.VolumeI.Chapter03.Section01.SubcategoryAxiom 𝒯 M ℱ P I E S using (SubcategoryAxiom)
 open import SCT.VolumeI.Chapter03.Section03.Localizations 𝒯 M ℱ P I E S Q R using (module WithSubcategories)

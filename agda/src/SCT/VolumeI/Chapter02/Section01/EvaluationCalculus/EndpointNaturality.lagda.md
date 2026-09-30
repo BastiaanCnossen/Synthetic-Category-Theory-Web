@@ -17,7 +17,9 @@ module SCT.VolumeI.Chapter02.Section01.EvaluationCalculus.EndpointNaturality
 
 open import SCT.VolumeI.Chapter02.Section01.EvaluationCalculus.EndpointEvaluation 𝒯 M ℱ public
 open import SCT.VolumeI.Chapter01.Section04.Uncurrying 𝒯 M using (productMap-pair)
-open import SCT.VolumeI.Chapter01.Section04.Substitution.IdentityParameterChange 𝒯 M using (terminal-Iso₂)
+import SCT.VolumeI.Chapter01.Section03.Equivalences as TerminalComparisons
+open TerminalComparisons.TerminalTargets vocabulary terminal products productLaws composition
+  using (terminal-Iso₂)
 open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.ComparisonSquares 𝒯 using (quotient-square; post-square)
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingNaturality as PN
 import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.Structural as Structural

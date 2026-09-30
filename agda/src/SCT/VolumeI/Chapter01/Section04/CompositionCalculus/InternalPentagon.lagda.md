@@ -11,7 +11,7 @@ with change of parameter. This file does not identify those two choices
 without that comparison.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.Setup as Setup
@@ -21,6 +21,7 @@ import SCT.VolumeI.Chapter01.Section04.CompositionCalculus.InternalCoherence as 
 import SCT.VolumeI.Chapter01.Section04.CompositionCalculus.RetainedComparisonLaws as RetainedComparisonLaws
 import SCT.VolumeI.Chapter01.Section04.Substitution.CoherenceTransport as CoherenceTransport
 import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.Structural as Structural
+import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.CoordinateNaturality as CoordinateNaturality
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.IteratedPairing as IteratedPairing
 
 module SCT.VolumeI.Chapter01.Section04.CompositionCalculus.InternalPentagon
@@ -28,6 +29,8 @@ module SCT.VolumeI.Chapter01.Section04.CompositionCalculus.InternalPentagon
   (M : MappingAnimae.MappingAnimae 𝒯) where
 
 open Setup 𝒯
+private
+  module Coordinate = CoordinateNaturality vocabulary terminal products productLaws composition vertical whiskering
 open MappingAnimae.MappingAnimae M
 open MapComposition 𝒯 M
 open InternalCoherence 𝒯 M
@@ -94,11 +97,8 @@ module Edges (P : CAT) (pAn : isAn P) where
             (idIso c) ∙ retained-compose-natural α (idIso f)
           pre-square = preWhisker-isoComp-at β p F ∙
             ((preWhisker F ◁ square) ∙ (preWhisker-isoComp-at q (retainedIso α) F) ⁻¹)
-      in isoComp-assoc-at (β ▷ F) (p ▷ F) c ∙
-        (isoComp-cong pre-square (idIso c) ∙
-        ((isoComp-assoc-at (q ▷ F) (retainedIso α ▷ F) c) ⁻¹ ∙
-        (isoComp-cong (idIso (q ▷ F)) natural ∙
-          isoComp-assoc-at (q ▷ F) c′ (retainedIso image))))
+      in Coordinate.paste-squares c c′ (p ▷ F) (q ▷ F)
+        (retainedIso image) (retainedIso α ▷ F) (β ▷ F) natural pre-square
 
     postwhiskered-edge : {A B C : CAT}
       (g : MAP P (Map B C)) {f f′ : MAP P (Map A B)}
@@ -119,11 +119,8 @@ module Edges (P : CAT) (pAn : isAn P) where
             (idIso c) ∙ retained-compose-natural (idIso g) α
           post-square = postWhisker-isoComp-at G β p ∙
             ((postWhisker G ◁ square) ∙ (postWhisker-isoComp-at G q (retainedIso α)) ⁻¹)
-      in isoComp-assoc-at (G ◁ β) (G ◁ p) c ∙
-        (isoComp-cong post-square (idIso c) ∙
-        ((isoComp-assoc-at (G ◁ q) (G ◁ retainedIso α) c) ⁻¹ ∙
-        (isoComp-cong (idIso (G ◁ q)) natural ∙
-          isoComp-assoc-at (G ◁ q) c′ (retainedIso image))))
+      in Coordinate.paste-squares c c′ (G ◁ p) (G ◁ q)
+        (retainedIso image) (G ◁ retainedIso α) (G ◁ β) natural post-square
 ```
 
 ```agda
@@ -205,11 +202,9 @@ module PentagonCalculation {P A B C D E : CAT} (pAn : isAn P)
           cs = retained-compose (composeTerm kh g) f
           ct = retained-compose (composeTerm k hg) f
           source-normal : ((a ▷ F) ∙ cs) =₂ p₀
-          source-normal = isoComp-assoc-at ((ckh ▷ G) ▷ F) (retained-compose kh g ▷ F) cs ∙
-            isoComp-cong (preWhisker-isoComp-at (ckh ▷ G) (retained-compose kh g) F) (idIso cs)
+          source-normal = prewhiskered-composite F (ckh ▷ G) (retained-compose kh g) cs
           target-normal : ((b ▷ F) ∙ ct) =₂ p₂
-          target-normal = isoComp-assoc-at ((K ◁ chg) ▷ F) (retained-compose k hg ▷ F) ct ∙
-            isoComp-cong (preWhisker-isoComp-at (K ◁ chg) (retained-compose k hg) F) (idIso ct)
+          target-normal = prewhiskered-composite F (K ◁ chg) (retained-compose k hg) ct
       in isoComp-cong (idIso γ′) source-normal ∙
         (prewhiskered-edge f (compose-assoc pAn k h g) a b (comp-assoc G H K)
           (associator-square k h g) ∙
@@ -222,11 +217,9 @@ module PentagonCalculation {P A B C D E : CAT} (pAn : isAn P)
           cs = retained-compose k (composeTerm hg f)
           ct = retained-compose k (composeTerm h gf)
           source-normal : ((K ◁ a) ∙ cs) =₂ p₃
-          source-normal = isoComp-assoc-at (K ◁ (chg ▷ F)) (K ◁ retained-compose hg f) cs ∙
-            isoComp-cong (postWhisker-isoComp-at K (chg ▷ F) (retained-compose hg f)) (idIso cs)
+          source-normal = postwhiskered-composite K (chg ▷ F) (retained-compose hg f) cs
           target-normal : ((K ◁ b) ∙ ct) =₂ p₄
-          target-normal = isoComp-assoc-at (K ◁ (H ◁ cgf)) (K ◁ retained-compose h gf) ct ∙
-            isoComp-cong (postWhisker-isoComp-at K (H ◁ cgf) (retained-compose h gf)) (idIso ct)
+          target-normal = postwhiskered-composite K (H ◁ cgf) (retained-compose h gf) ct
       in isoComp-cong (idIso ε′) source-normal ∙
         (postwhiskered-edge k (compose-assoc pAn h g f) a b (comp-assoc F G H)
           (associator-square h g f) ∙

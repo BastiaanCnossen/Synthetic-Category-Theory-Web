@@ -1,6 +1,12 @@
 {-# OPTIONS --safe --without-K #-}
 module SCT.VolumeI.Chapter02.Section03.Everything where
 
+import SCT.VolumeI.Chapter02.Section03.InverseCalculus.PrimitiveInverses
+
+import SCT.VolumeI.Chapter02.Section03.InverseCalculus.ExpressionOperations
+import SCT.VolumeI.Chapter02.Section03.InverseCalculus.ExpressionInverseLaws
+import SCT.VolumeI.Chapter02.Section03.InverseCalculus.RetractionsReflectInverses
+
 import SCT.VolumeI.Chapter02.Section03.CompositionCalculus.LeftTriangleAction
 import SCT.VolumeI.Chapter02.Section03.CompositionCalculus.RightTriangleAction
 import SCT.VolumeI.Chapter02.Section03.CompositionCalculus.SourceCompositionCones
@@ -34,3 +40,11 @@ import SCT.VolumeI.Chapter02.Section03.RezkAxiom
 import SCT.VolumeI.Chapter02.Section03.RezkFibers
 import SCT.VolumeI.Chapter02.Section03.RezkIdentification
 import SCT.VolumeI.Chapter02.Section03.RezkRecovery
+import SCT.VolumeI.Chapter02.Section03.InverseCalculus.NaturalTransformationCancellation
+import SCT.VolumeI.Chapter02.Section03.InverseCalculus.ExpressionCalculusLifts
+import SCT.VolumeI.Chapter02.Section03.InverseCalculus.NormalizedTriangles
+import SCT.VolumeI.Chapter02.Section03.InverseCalculus.UncurryingInvertibility
+
+import SCT.VolumeI.Chapter02.Section03.InverseCalculus.PullbackInvertibility
+
+import SCT.VolumeI.Chapter02.Section03.InverseCalculus.ProjectedRestriction

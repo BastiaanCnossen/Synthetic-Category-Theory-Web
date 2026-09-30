@@ -20,7 +20,9 @@ module SCT.VolumeI.Chapter02.Section06.HomCalculus.HomCoordinates
 
 open import SCT.VolumeI.Chapter02.Section01.HomAndSlices 𝒯 M ℱ P I public
 open import SCT.VolumeI.Chapter01.Section06.PullbackSquares 𝒯 P
-open import SCT.VolumeI.Chapter01.Section04.Substitution.IdentityParameterChange 𝒯 M using (terminal-Iso₂)
+import SCT.VolumeI.Chapter01.Section03.Equivalences as TerminalComparisons
+open TerminalComparisons.TerminalTargets vocabulary terminal products productLaws composition
+  using (terminal-Iso₂)
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingCoherence as PC
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingNaturality as PN
 import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.Structural as Structural

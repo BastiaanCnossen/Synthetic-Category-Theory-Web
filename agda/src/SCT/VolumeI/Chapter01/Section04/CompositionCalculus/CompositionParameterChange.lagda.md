@@ -10,26 +10,25 @@ open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.Substitution.ApplicationRouteNormalization as ApplicationRouteNormalization
 import SCT.VolumeI.Chapter01.Section04.Substitution.NestedApplicationRestriction as NestedApplicationRestriction
+import SCT.Calculus.Squares as Squares
 import SCT.VolumeI.Chapter01.Section04.Substitution.ProofCalculus as Setup
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
 import SCT.VolumeI.Chapter01.Section04.Composition as MapComposition
-import SCT.VolumeI.Chapter01.Section04.ProductCalculus.ProductAssociativity as ProductAssociativity
+import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.CoordinateComparisons as CoordinateComparisons
 import SCT.VolumeI.Chapter01.Section04.CompositionCalculus.CompositionNaturality as CompositionNaturality
-import SCT.VolumeI.Chapter01.Section04.Substitution.EvaluationParameterChange as EvaluationParameterChange
 import SCT.VolumeI.Chapter01.Section04.Currying as Currying
 import SCT.VolumeI.Chapter01.Section04.CompositionCalculus.InternalCoherence as InternalCoherence
 import SCT.VolumeI.Chapter01.Section04.Substitution.ParameterChange as ParameterChange
 import SCT.VolumeI.Chapter01.Section04.ProductCalculus.ProductSubstitution as ProductSubstitution
-import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.Structural as Structural
-import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingCoherence as PairingCoherence
-import SCT.VolumeI.Chapter01.Section03.ProductCalculus.ProductFunctorUnits as ProductFunctorUnits
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingNaturality as PairingNaturality
-import SCT.VolumeI.Chapter01.Section03.ProductCalculus.IteratedPairing as IteratedPairing
+import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.FunctorCoherence as FunctorCoherence
 
 module SCT.VolumeI.Chapter01.Section04.CompositionCalculus.CompositionParameterChange
   {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯) where
 
 open Setup 𝒯
+private
+  module Paste (X Y : CAT) = Squares (comparisonAlgebra X Y) (comparisonLaws X Y)
 open Mapping.MappingAnimae M
 open MapComposition 𝒯 M
 open CompositionNaturality 𝒯 M
@@ -39,17 +38,12 @@ open Currying 𝒯 M hiding (mapUncurry-actions-agree)
 open InternalCoherence 𝒯 M using (uncurry-compose; evaluate-compose; module RetainedEvaluation)
 open ParameterChange 𝒯 M using (retained-parameter-change)
 open ProductSubstitution 𝒯 M using (module Coordinates)
-open Structural vocabulary terminal products productLaws composition whiskering
-  using (preWhisker-comp-at)
-open PairingCoherence vocabulary terminal products productLaws composition vertical whiskering
-  using (pair-cong-id; pair-cong-comp; pair-cong-Iso₂; pair-pre-triangle₁; pair-pre-triangle₂)
-open ProductFunctorUnits vocabulary terminal products productLaws composition vertical whiskering pentagonTriangle
-  using (pair-pre-cong-triangle₁; pair-pre-cong-triangle₂)
-open ProductAssociativity 𝒯 M using (post-pasting; cancel-forward)
+open CoordinateComparisons vocabulary terminal products productLaws composition vertical whiskering
+  pentagonTriangle using (cancel-forward)
 open PairingNaturality vocabulary terminal products productLaws composition vertical whiskering
-  using (cancel-right; move-square; cancel-left-reflect; cancel-left)
-open IteratedPairing vocabulary terminal products productLaws composition vertical whiskering pentagonTriangle
-  using (pair-pre-iterated; pre-inverse-at)
+  using (cancel-right; move-square; cancel-left-reflect)
+open FunctorCoherence vocabulary terminal products productLaws composition vertical whiskering pentagonTriangle
+  using (pre-inverse-at)
 
 
 open import SCT.VolumeI.Chapter01.Section04.CompositionCalculus.CompositionRestrictionCalculus 𝒯 M public
@@ -275,14 +269,13 @@ module UncurriedCompositionRestriction {P Q C D E : CAT}
                 (argument-normalization ∙ isoComp-cong (idIso η) (pre-inverse-at (mapUncurry-as-apply f) s)) ∙
               (apply-cong-comp a (idIso ((g ∘ pr₁) ∘ s)) η
                 ((mapUncurry-as-apply f) ⁻¹ ▷ s)) ⁻¹
-            exchange = isoComp-assoc-at U′ before tail ∙
-              (isoComp-cong natural (idIso tail) ∙ (isoComp-assoc-at after (U ▷ s) tail) ⁻¹)
-            expand = isoComp-cong (idIso after)
-              (isoComp-assoc-at (U ▷ s) (V ▷ s) B ∙
-                isoComp-cong (preWhisker-isoComp-at U V s) (idIso B))
-        in isoComp-cong join (idIso (before ∙ tail)) ∙
-          ((isoComp-assoc-at N U′ (before ∙ tail)) ⁻¹ ∙
-            isoComp-cong (idIso N) (exchange ∙ expand))
+            split = isoComp-assoc-at (U ▷ s) (V ▷ s) B ∙
+              isoComp-cong (preWhisker-isoComp-at U V s) (idIso B)
+        in Paste.compose-input-square (Q × C) E
+          N after (U ▷ s) tail U′ before (((U ∙ V) ▷ s) ∙ B)
+          (applyTerm-cong a
+            (applyTerm-cong (Coordinates.first C f σ) (AsApplicationChange.argument-change f σ) ∙
+              applyTerm-pre (f ∘ pr₁) pr₂ s)) natural join split
 
   abstract
     normalize-argument : evaluation-route =₂ nested-restriction-route

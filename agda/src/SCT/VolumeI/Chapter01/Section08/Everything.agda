@@ -80,3 +80,13 @@ import SCT.VolumeI.Chapter01.Section08.PushoutPasting
 import SCT.VolumeI.Chapter01.Section08.PushoutSquares
 import SCT.VolumeI.Chapter01.Section08.RecognizingPushouts
 import SCT.VolumeI.Chapter01.Section08.Squares
+import SCT.VolumeI.Chapter01.Section08.ProductCalculus.NormalizedRestrictionPentagon
+import SCT.VolumeI.Chapter01.Section08.ProductCalculus.NormalizedRestrictionComposition
+import SCT.VolumeI.Chapter01.Section08.ProductCalculus.NormalizedRestrictionChange
+import SCT.VolumeI.Chapter01.Section08.ProductCalculus.NormalizedRestrictionCompositeCoordinate
+import SCT.VolumeI.Chapter01.Section08.ProductCalculus.NormalizedRestrictionImage
+import SCT.VolumeI.Chapter01.Section08.ProductCalculus.NormalizedRestrictionAssociativity
+import SCT.VolumeI.Chapter01.Section08.ProductCalculus.NormalizedSeparationFrames
+import SCT.VolumeI.Chapter01.Section08.ProductCalculus.ChangedSeparationFrames
+import SCT.VolumeI.Chapter01.Section08.ProductCalculus.SeparationFrameTransport
+import SCT.VolumeI.Chapter01.Section08.ProductCalculus.SeparationEndpointTransport

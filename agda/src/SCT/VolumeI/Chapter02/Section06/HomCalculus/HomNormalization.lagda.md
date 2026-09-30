@@ -22,7 +22,9 @@ module SCT.VolumeI.Chapter02.Section06.HomCalculus.HomNormalization
 open import SCT.VolumeI.Chapter02.Section06.HomCalculus.HomCoordinates 𝒯 M ℱ P I public
 open Laws.PullbackStructure P
 open import SCT.VolumeI.Chapter01.Section06.PullbackSquares 𝒯 P
-open import SCT.VolumeI.Chapter01.Section04.Substitution.IdentityParameterChange 𝒯 M using (terminal-Iso₂)
+import SCT.VolumeI.Chapter01.Section03.Equivalences as TerminalComparisons
+open TerminalComparisons.TerminalTargets vocabulary terminal products productLaws composition
+  using (terminal-Iso₂)
 open import SCT.VolumeI.Chapter02.Section01.DiagramCalculus.ExpressionComparisons 𝒯 M ℱ P I using (module Decode)
 import SCT.VolumeI.Chapter01.Section06.Coordinates.PairedConeCoordinates 𝒯 as Paired
 

@@ -10,6 +10,8 @@ open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
 import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
+import SCT.Calculus.Pasting as Pasting
+import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.VerticalComposition as VerticalComposition
 
 module SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.UniversalArrowEvaluation
   {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
@@ -17,8 +19,15 @@ module SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.UniversalArrowEvaluati
 
 
 open import SCT.VolumeI.Chapter02.Section01.EvaluationCalculus.EndpointEvaluation 𝒯 M ℱ public
+private
+  module Vertical = VerticalComposition vocabulary terminal products productLaws composition vertical
+    using (comparisons)
+  module Paste (X Y : CAT) = Pasting (Vertical.comparisons X Y)
+    (record { assoc = isoComp-assoc-at; unitˡ = isoComp-unitˡ-at; unitʳ = isoComp-unitʳ-at })
 open import SCT.VolumeI.Chapter01.Section04.Uncurrying 𝒯 M using (productMap-pair)
-open import SCT.VolumeI.Chapter01.Section04.Substitution.IdentityParameterChange 𝒯 M using (terminal-Iso₂)
+import SCT.VolumeI.Chapter01.Section03.Equivalences as TerminalComparisons
+open TerminalComparisons.TerminalTargets vocabulary terminal products productLaws composition
+  using (terminal-Iso₂)
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingCoherence as Pairing
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingNaturality as PN
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingUnits as PU
@@ -72,13 +81,10 @@ unit-pair-projection {A = A} π h h′ J δ u b b′ bJ out step unit-triangle o
         (isoComp-assoc-at b (comp-unitˡ (π ∘ h)) (comp-assoc h π (id A)) ∙
         (isoComp-cong (postWhisker-id-at b) (idIso (comp-assoc h π (id A))) ∙
           (isoComp-assoc-at (comp-unitˡ u) (id A ◁ b) (comp-assoc h π (id A))) ⁻¹))
-      left-normal = isoComp-assoc-at b (comp-unitˡ π ▷ h) transport ∙
-        (isoComp-cong coordinate (idIso transport) ∙
-        ((isoComp-assoc-at (comp-unitˡ u) e transport) ⁻¹ ∙
-        (isoComp-cong (idIso (comp-unitˡ u)) step-triangle ∙
-        (isoComp-assoc-at (comp-unitˡ u) b′ (π ◁ step) ∙
-        (isoComp-cong out-triangle (idIso (π ◁ step)) ∙
-          project-composite π out step b)))))
+      left-normal = Paste.projected-triangles _ _
+        b (π ◁ out) (π ◁ step) (comp-unitˡ u) b′ e transport
+        b (comp-unitˡ π ▷ h) (b ∙ (π ◁ (out ∙ step)))
+        (project-composite π out step b) out-triangle step-triangle coordinate
       assoc = comp-assoc h (id _) π
       triangle-solved =
         (cancel-right assoc (π ◁ comp-unitˡ h) ∙

@@ -21,7 +21,7 @@ module SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionRestriction
 open import SCT.VolumeI.Chapter02.Section01.Morphisms 𝒯 M ℱ I
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingNaturality as PN
 open PN vocabulary terminal products productLaws composition vertical whiskering
-  using (pre-square-projection)
+  using (pre-square-projection; substitution-square-projection)
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingUnits as RestrictionUnits
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.IteratedPairing as RestrictionAssociativity
 open RestrictionUnits vocabulary terminal products productLaws composition vertical whiskering pentagonTriangle
@@ -89,4 +89,19 @@ restrict-expression-compose {x = x} {y} f r s = record
     isoComp-assoc-at (comp-assoc s r z) (transport-pre v F.arrow p r ▷ s)
       ((comp-assoc s (F.arrow ∘ r) v) ⁻¹) ∙
     (transport-pre-assoc v F.arrow z p r s) ⁻¹
+```
+
+An identification of parameter maps also acts on a restricted expression.
+Its endpoint changes are the images of that same identification.
+
+```agda
+restrict-expression-parameter : {Γ Δ C : CAT} {x y : MAP Γ C}
+  (f : MorphismExpression x y) {r s : MAP Δ Γ} (α : r =₁ s) →
+  ExpressionIso (retarget-expression (restrict-expression f r) (x ◁ α) (y ◁ α))
+    (restrict-expression f s)
+restrict-expression-parameter {x = x} {y} f α = record
+  { comparison = F.arrow ◁ α
+  ; source-compatible = substitution-square-projection ev₀ F.arrow x F.source-frame α
+  ; target-compatible = substitution-square-projection ev₁ F.arrow y F.target-frame α }
+  where module F = MorphismExpression f
 ```

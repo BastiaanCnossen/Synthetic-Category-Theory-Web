@@ -21,7 +21,11 @@ open import SCT.VolumeI.Chapter01.Section04.SquareCalculus.ProjectionSquares �
 open import SCT.VolumeI.Chapter01.Section08.ProductCalculus.ProjectionBaseCalculus 𝒯 using (lift-assoc)
 open PN vocabulary terminal products productLaws composition vertical whiskering using (move-square)
 open Iterated vocabulary terminal products productLaws composition vertical whiskering pentagonTriangle using (pre-inverse-at)
-open import SCT.VolumeI.Chapter01.Section04.Substitution.IdentityParameterChange 𝒯 M using (terminal-Iso₂)
+import SCT.VolumeI.Chapter01.Section03.Equivalences as TerminalComparisons
+import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.Structural as Structural
+open Structural vocabulary terminal products productLaws composition whiskering using (postWhisker-comp-at)
+open TerminalComparisons.TerminalTargets vocabulary terminal products productLaws composition
+  using (terminal-Iso₂)
 
 abstract
   const-pre-compose : {X Y Z A : CAT} (x : MAP One A) (h : MAP X Y) (k : MAP Y Z) →
@@ -50,4 +54,27 @@ abstract
       (lift-base r (const x) h (const-pre x h)) (comp-assoc (terminate Y) x r ▷ h)
       (lift-assoc (terminate Y) (terminate X) h (terminal-iso _ _) x r)) ⁻¹ ∙
     isoComp-cong (idIso (const-pre (r ∘ x) h)) (pre-inverse-at (comp-assoc (terminate Y) x r) h)
+```
+
+The source normalization is natural under an identification of parameter
+maps. The only uniqueness used is again that of identifications into the
+terminal category.
+
+```agda
+abstract
+  const-pre-natural : {Γ B C : CAT} (x : Obj-abs C) {b d : MAP Γ B} (σ : b =₁ d) →
+    (const-pre x d ∙ (const x ◁ σ)) =₂ const-pre x b
+  const-pre-natural {Γ} {B} x {b} {d} σ =
+    isoComp-cong
+      ((postWhisker x ◁ terminal-Iso₂ (ηd ∙ (terminate B ◁ σ)) ηb) ∙
+        (postWhisker-isoComp-at x ηd (terminate B ◁ σ)) ⁻¹)
+      (idIso (comp-assoc b (terminate B) x)) ∙
+    ((isoComp-assoc-at (x ◁ ηd) (x ◁ (terminate B ◁ σ)) (comp-assoc b (terminate B) x)) ⁻¹ ∙
+    (isoComp-cong (idIso (x ◁ ηd)) (postWhisker-comp-at σ (terminate B) x) ∙
+      isoComp-assoc-at (x ◁ ηd) (comp-assoc d (terminate B) x) (const x ◁ σ)))
+    where
+    ηb : (terminate B ∘ b) =₁ terminate Γ
+    ηb = terminal-iso (terminate B ∘ b) (terminate Γ)
+    ηd : (terminate B ∘ d) =₁ terminate Γ
+    ηd = terminal-iso (terminate B ∘ d) (terminate Γ)
 ```

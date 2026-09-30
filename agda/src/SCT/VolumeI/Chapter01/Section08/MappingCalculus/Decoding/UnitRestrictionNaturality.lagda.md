@@ -20,7 +20,9 @@ module SCT.VolumeI.Chapter01.Section08.MappingCalculus.Decoding.UnitRestrictionN
 
 open import SCT.VolumeI.Chapter01.Section05.Setup 𝒯 M
 open import SCT.VolumeI.Chapter01.Section08.ProductCalculus.ProjectionBaseCalculus 𝒯 using (lift-base-outer)
-open import SCT.VolumeI.Chapter01.Section04.Substitution.IdentityParameterChange 𝒯 M using (terminal-Iso₂)
+import SCT.VolumeI.Chapter01.Section03.Equivalences as TerminalComparisons
+open TerminalComparisons.TerminalTargets vocabulary terminal products productLaws composition
+  using (terminal-Iso₂)
 open PN vocabulary terminal products productLaws composition vertical whiskering
   using (pre-square-projection; substitution-square-projection; projected-square)
 open Pairing vocabulary terminal products productLaws composition vertical whiskering

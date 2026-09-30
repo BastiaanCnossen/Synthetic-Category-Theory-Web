@@ -18,6 +18,8 @@ module SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionFrameCalculus
 
 open import SCT.VolumeI.Chapter02.Section01.Morphisms 𝒯 M ℱ I public
 open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionPostcomposition 𝒯 M ℱ I using (post-boundary-normal)
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionIdentifications 𝒯 M ℱ I
+  using (expressionIso-compose; expressionIso-inverse; retarget-expressionIso)
 
 same-arrow : {Γ C : CAT} {x y : MAP Γ C} (h : MAP Γ (Ar C))
   (p p′ : (ev₀ ∘ h) =₁ x) (q q′ : (ev₁ ∘ h) =₁ y) → p′ =₂ p → q′ =₂ q →
@@ -63,4 +65,64 @@ post-retarget F f α β = same-arrow (funPost F ∘ A.arrow) _ _ _ _
     isoComp-cong ((postWhisker-isoComp-at F q p) ⁻¹) (idIso (evaluate-post-at v F A.arrow)) ∙
     (isoComp-assoc-at (F ◁ q) (F ◁ p) (evaluate-post-at v F A.arrow)) ⁻¹ ∙
     isoComp-cong (idIso (F ◁ q)) (post-boundary-normal v F A.arrow p)
+```
+
+Retargeting is reversible as an operation on framed expressions. In
+particular, a comparison whose source was retargeted backwards can be
+moved across the endpoint changes without forgetting either frame.
+
+```agda
+restrict-retarget : {Γ Δ C : CAT} {x y x′ y′ : MAP Γ C}
+  (f : MorphismExpression x y) (p : x =₁ x′) (q : y =₁ y′) (r : MAP Δ Γ) →
+  ExpressionIso (restrict-expression (retarget-expression f p q) r)
+    (retarget-expression (restrict-expression f r) (p ▷ r) (q ▷ r))
+restrict-retarget f p q r = same-arrow (F.arrow ∘ r) _ _ _ _
+  (endpoint ev₀ F.source-frame p) (endpoint ev₁ F.target-frame q)
+  where
+  module F = MorphismExpression f
+  endpoint : (v : MAP (Ar _) _) {z z′ : MAP _ _}
+    (b : (v ∘ F.arrow) =₁ z) (a : z =₁ z′) →
+    ((a ▷ r) ∙ ((b ▷ r) ∙ (comp-assoc r F.arrow v) ⁻¹)) =₂
+    (((a ∙ b) ▷ r) ∙ (comp-assoc r F.arrow v) ⁻¹)
+  endpoint v b a =
+    isoComp-cong ((preWhisker-isoComp-at a b r) ⁻¹)
+      (idIso ((comp-assoc r F.arrow v) ⁻¹)) ∙
+    (isoComp-assoc-at (a ▷ r) (b ▷ r) ((comp-assoc r F.arrow v) ⁻¹)) ⁻¹
+
+restrict-retarget-outer : {Γ Δ C : CAT} {x y x′ y′ : MAP Γ C}
+  {u v : MAP Δ C} (f : MorphismExpression x y)
+  (p : x =₁ x′) (q : y =₁ y′) (r : MAP Δ Γ)
+  (a : (x′ ∘ r) =₁ u) (b : (y′ ∘ r) =₁ v) →
+  ExpressionIso (retarget-expression (restrict-expression (retarget-expression f p q) r) a b)
+    (retarget-expression (restrict-expression f r) (a ∙ (p ▷ r)) (b ∙ (q ▷ r)))
+restrict-retarget-outer f p q r a b = expressionIso-compose
+  (retarget-assoc (restrict-expression f r) (p ▷ r) (q ▷ r) a b)
+  (retarget-expressionIso (restrict-retarget f p q r) a b)
+
+retarget-cancel : {Γ C : CAT} {x y x′ y′ : MAP Γ C}
+  (f : MorphismExpression x y) (p : x =₁ x′) (q : y =₁ y′) →
+  ExpressionIso
+    (retarget-expression (retarget-expression f p q) (p ⁻¹) (q ⁻¹)) f
+retarget-cancel f p q = expressionIso-compose (retarget-id f)
+  (expressionIso-compose
+    (retarget-cong f (isoComp-inverseˡ-at p) (isoComp-inverseˡ-at q))
+    (retarget-assoc f p q (p ⁻¹) (q ⁻¹)))
+
+retarget-cancel-inverse : {Γ C : CAT} {x y x′ y′ : MAP Γ C}
+  (f : MorphismExpression x′ y′) (p : x =₁ x′) (q : y =₁ y′) →
+  ExpressionIso
+    (retarget-expression (retarget-expression f (p ⁻¹) (q ⁻¹)) p q) f
+retarget-cancel-inverse f p q = expressionIso-compose (retarget-id f)
+  (expressionIso-compose
+    (retarget-cong f (isoComp-inverseʳ-at p) (isoComp-inverseʳ-at q))
+    (retarget-assoc f (p ⁻¹) (q ⁻¹) p q))
+
+retarget-move : {Γ C : CAT} {x y x′ y′ : MAP Γ C}
+  {f : MorphismExpression x′ y′} {g : MorphismExpression x y}
+  (p : x =₁ x′) (q : y =₁ y′) →
+  ExpressionIso (retarget-expression f (p ⁻¹) (q ⁻¹)) g →
+  ExpressionIso (retarget-expression g p q) f
+retarget-move {f = f} p q α = expressionIso-compose
+  (retarget-cancel-inverse f p q)
+  (retarget-expressionIso (expressionIso-inverse α) p q)
 ```

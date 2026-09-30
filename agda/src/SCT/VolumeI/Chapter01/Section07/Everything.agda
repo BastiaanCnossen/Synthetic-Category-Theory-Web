@@ -1,6 +1,9 @@
 {-# OPTIONS --safe --without-K #-}
 module SCT.VolumeI.Chapter01.Section07.Everything where
 
+import SCT.VolumeI.Chapter01.Section07.EvaluationCalculus.RestrictedFrames
+import SCT.VolumeI.Chapter01.Section07.EvaluationCalculus.RestrictedFrameNaturality
+
 import SCT.VolumeI.Chapter01.Section07.AbsoluteObjects
 import SCT.VolumeI.Chapter01.Section07.Contractible
 import SCT.VolumeI.Chapter01.Section07.CoproductDomain
@@ -36,3 +39,20 @@ import SCT.VolumeI.Chapter01.Section07.PullbackCalculus.UncurryingSquares
 import SCT.VolumeI.Chapter01.Section07.Setup
 import SCT.VolumeI.Chapter01.Section07.TerminalDomain
 import SCT.VolumeI.Chapter01.Section07.Uniqueness
+import SCT.VolumeI.Chapter01.Section07.EvaluationCalculus.UncurryingUnits
+import SCT.VolumeI.Chapter01.Section07.EvaluationCalculus.PostcompositionTriangleFrames
+import SCT.VolumeI.Chapter01.Section07.EvaluationCalculus.PostcompositionUnitFrame
+import SCT.VolumeI.Chapter01.Section07.EvaluationCalculus.PrecompositionTriangleFrames
+import SCT.VolumeI.Chapter01.Section07.EvaluationCalculus.PrecompositionProductFrameComparison
+import SCT.VolumeI.Chapter01.Section07.EvaluationCalculus.EvaluatedAssociativitySquare
+import SCT.VolumeI.Chapter01.Section07.EvaluationCalculus.PrecompositionMiddleEvaluation
+import SCT.VolumeI.Chapter01.Section07.EvaluationCalculus.EvaluatedSeparationChange
+import SCT.VolumeI.Chapter01.Section07.EvaluationCalculus.PrecompositionMiddleRestriction
+import SCT.VolumeI.Chapter01.Section07.EvaluationCalculus.ProductSeparationUnits
+import SCT.VolumeI.Chapter01.Section07.EvaluationCalculus.EvaluatedUnitSquare
+import SCT.VolumeI.Chapter01.Section07.EvaluationCalculus.PrecompositionUnitEvaluation
+import SCT.VolumeI.Chapter01.Section07.EvaluationCalculus.EvaluatedProjectionNormalization
+import SCT.VolumeI.Chapter01.Section07.EvaluationCalculus.PrecompositionOuterFrame
+import SCT.VolumeI.Chapter01.Section07.EvaluationCalculus.NestedCoordinateNaturality
+import SCT.VolumeI.Chapter01.Section07.EvaluationCalculus.EvaluatedRightUnit
+import SCT.VolumeI.Chapter01.Section07.EvaluationCalculus.PrecompositionRestrictedOuterFrame

@@ -71,3 +71,10 @@ import SCT.VolumeI.Chapter01.Section04.Substitution.Specialization
 import SCT.VolumeI.Chapter01.Section04.Substitution.SubstitutionCoherence
 import SCT.VolumeI.Chapter01.Section04.Substitution.UncurriedIdentityParameterChange
 import SCT.VolumeI.Chapter01.Section04.Uncurrying
+import SCT.VolumeI.Chapter01.Section04.SquareCalculus.SectionFrames
+import SCT.VolumeI.Chapter01.Section04.SquareCalculus.EquivalenceSectionFrames
+import SCT.VolumeI.Chapter01.Section04.SquareCalculus.TriangleEvaluation
+import SCT.VolumeI.Chapter01.Section04.ProductCalculus.ProductSubstitutionPairing
+import SCT.VolumeI.Chapter01.Section04.ProductCalculus.ProductSubstitutionUnits
+
+import SCT.VolumeI.Chapter01.Section04.Substitution.ConstantPointRestriction

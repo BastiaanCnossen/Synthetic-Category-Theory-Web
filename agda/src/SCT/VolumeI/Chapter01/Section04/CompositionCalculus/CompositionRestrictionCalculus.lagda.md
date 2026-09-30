@@ -11,7 +11,6 @@ open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.Substitution.ProofCalculus as Setup
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
 import SCT.VolumeI.Chapter01.Section04.Composition as MapComposition
-import SCT.VolumeI.Chapter01.Section04.ProductCalculus.ProductAssociativity as ProductAssociativity
 import SCT.VolumeI.Chapter01.Section04.CompositionCalculus.CompositionNaturality as CompositionNaturality
 import SCT.VolumeI.Chapter01.Section04.Substitution.EvaluationParameterChange as EvaluationParameterChange
 import SCT.VolumeI.Chapter01.Section04.Currying as Currying
@@ -24,10 +23,15 @@ import SCT.VolumeI.Chapter01.Section03.ProductCalculus.ProductFunctorUnits as Pr
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingNaturality as PairingNaturality
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.IteratedPairing as IteratedPairing
 
+import SCT.Calculus.Squares as Squares
+
 module SCT.VolumeI.Chapter01.Section04.CompositionCalculus.CompositionRestrictionCalculus
   {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯) where
 
 open Setup 𝒯
+private
+  module Paste (X Y : CAT) = Squares (comparisonAlgebra X Y) (comparisonLaws X Y)
+
 open Mapping.MappingAnimae M
 open MapComposition 𝒯 M
 open CompositionNaturality 𝒯 M
@@ -43,7 +47,6 @@ open PairingCoherence vocabulary terminal products productLaws composition verti
   using (pair-cong-id; pair-cong-comp; pair-cong-Iso₂; pair-pre-triangle₁; pair-pre-triangle₂)
 open ProductFunctorUnits vocabulary terminal products productLaws composition vertical whiskering pentagonTriangle
   using (pair-pre-cong-triangle₁; pair-pre-cong-triangle₂)
-open ProductAssociativity 𝒯 M using (post-pasting; cancel-forward)
 open PairingNaturality vocabulary terminal products productLaws composition vertical whiskering
   using (cancel-right; move-square; cancel-left-reflect; cancel-left)
 open IteratedPairing vocabulary terminal products productLaws composition vertical whiskering pentagonTriangle
@@ -133,36 +136,28 @@ module BinaryOperation {A B Z : CAT} (F : MAP (A × B) Z) where
         (act (a′ ∙ ((H ◁ δ) ∙ comp-assoc r q H))
           (b′ ∙ ((K ◁ δ) ∙ comp-assoc r q K)) ∙ base)
       short-normalization =
-        let paired = act a′ b′
-            changed = act (H ◁ δ) (K ◁ δ)
-            A = comp-assoc r q (term H K)
-            substitute = isoComp-assoc-at changed (pre H K (q ∘ r)) A ∙
-              (isoComp-cong (binary-pre-substitution F H K δ) (idIso A) ∙
-                (isoComp-assoc-at (pre H K q′) (term H K ◁ δ) A) ⁻¹)
-            iterate = isoComp-cong (idIso changed) (binary-pre-iterated F H K q r)
-            combineInner = combine (H ◁ δ) (K ◁ δ)
-              (comp-assoc r q H) (comp-assoc r q K) base
-        in combine a′ b′ ((H ◁ δ) ∙ comp-assoc r q H) ((K ◁ δ) ∙ comp-assoc r q K) base ∙
-          (isoComp-cong (idIso paired) (combineInner ∙ (iterate ∙ substitute)) ∙
-            isoComp-assoc-at paired (pre H K q′) ((term H K ◁ δ) ∙ A))
-  
+        Paste.normalized-substitution-square R Z
+          (act a′ b′) (pre H K q′) (term H K ◁ δ)
+          (comp-assoc r q (term H K)) (act (H ◁ δ) (K ◁ δ))
+          (pre H K (q ∘ r)) (act (comp-assoc r q H) (comp-assoc r q K))
+          base (act ((H ◁ δ) ∙ comp-assoc r q H) ((K ◁ δ) ∙ comp-assoc r q K))
+          (act (a′ ∙ ((H ◁ δ) ∙ comp-assoc r q H)) (b′ ∙ ((K ◁ δ) ∙ comp-assoc r q K)))
+          (binary-pre-substitution F H K δ) (binary-pre-iterated F H K q r)
+          (combine (H ◁ δ) (K ◁ δ) (comp-assoc r q H) (comp-assoc r q K) base)
+          (combine a′ b′ ((H ◁ δ) ∙ comp-assoc r q H) ((K ◁ δ) ∙ comp-assoc r q K) base)
+
     abstract
       long-normalization : long =₂
         (act (c ∙ (a ▷ r)) (d ∙ (b ▷ r)) ∙ base)
       long-normalization =
-        let outer = act c d
-            before = pre H K q ▷ r
-            middle = pre f x r
-            input = act a b ▷ r
-            output = act (a ▷ r) (b ▷ r)
-            exchange = isoComp-assoc-at output (pre (H ∘ q) (K ∘ q) r) before ∙
-              (isoComp-cong (binary-pre-inputs F a b r) (idIso before) ∙
-                (isoComp-assoc-at middle input before) ⁻¹)
-        in combine c d (a ▷ r) (b ▷ r) base ∙
-          (isoComp-cong (idIso outer) exchange ∙
-            isoComp-cong (idIso outer) (isoComp-cong (idIso middle)
-              (preWhisker-isoComp-at (act a b) (pre H K q) r)))
-  
+        Paste.normalized-input-square R Z
+          (act c d) (pre f x r) (act a b ▷ r) (pre H K q ▷ r)
+          (act (a ▷ r) (b ▷ r)) (pre (H ∘ q) (K ∘ q) r)
+          (normalization ▷ r) (act (c ∙ (a ▷ r)) (d ∙ (b ▷ r)))
+          (binary-pre-inputs F a b r)
+          (preWhisker-isoComp-at (act a b) (pre H K q) r)
+          (combine c d (a ▷ r) (b ▷ r) base)
+
     abstract
       assemble :
         (a′ ∙ ((H ◁ δ) ∙ comp-assoc r q H)) =₂ (c ∙ (a ▷ r))
@@ -390,28 +385,11 @@ module ApplicationInputRestriction {R Γ X C D : CAT}
               (idIso (x ∘ r)) (idIso (x ∘ r))) ⁻¹
           restriction : (middle ∙ tail) =₂ (secondAction ∙ (applicationPre ∙ (left ▷ r)))
           restriction = (mapUncurry-at-restriction F p x r) ⁻¹
-          normalizeEnd : (firstAction ∙ (secondAction ∙ (applicationPre ∙ (left ▷ r)))) =₂
-            (leftOutput ∙ (left ▷ r))
-          normalizeEnd = (isoComp-assoc-at
-              (applyTerm-cong (mappingChange) (idIso (x ∘ r))) applicationPre (left ▷ r)) ⁻¹ ∙
-            (isoComp-cong normalizeAction (idIso (applicationPre ∙ (left ▷ r))) ∙
-              (isoComp-assoc-at firstAction secondAction (applicationPre ∙ (left ▷ r))) ⁻¹)
-          useRestriction : ((firstAction ∙ middle) ∙ tail) =₂
-            (firstAction ∙ (secondAction ∙ (applicationPre ∙ (left ▷ r))))
-          useRestriction = isoComp-cong (idIso firstAction) restriction ∙
-            isoComp-assoc-at firstAction middle ((mapUncurry F ◁ pairPre) ∙ A)
-          useChange : (left′ ∙ ((mapUncurry F ◁ changed) ∙ tail)) =₂
-            ((firstAction ∙ middle) ∙ tail)
-          useChange = isoComp-cong
-              (mapUncurry-at-inner F δ (idIso (x ∘ r)))
-              (idIso ((mapUncurry F ◁ pairPre) ∙ A)) ∙
-            (isoComp-assoc-at left′ (mapUncurry F ◁ changed)
-              ((mapUncurry F ◁ pairPre) ∙ A)) ⁻¹
-          expand : (left′ ∙ sourceChange) =₂
-            (left′ ∙ ((mapUncurry F ◁ changed) ∙ tail))
-          expand = isoComp-cong (idIso left′)
-            (isoComp-assoc-at (mapUncurry F ◁ changed) (mapUncurry F ◁ pairPre) A ∙
-              isoComp-cong (postWhisker-isoComp-at (mapUncurry F) changed pairPre) (idIso A))
-      in normalizeEnd ∙ (useRestriction ∙ (useChange ∙ expand))
+      in Paste.change-restriction-square R D
+        left′ (mapUncurry F ◁ changed) middle firstAction secondAction applicationPre
+        (left ▷ r) tail sourceChange (applyTerm-cong mappingChange (idIso (x ∘ r)))
+        normalizeAction restriction (mapUncurry-at-inner F δ (idIso (x ∘ r)))
+        (isoComp-assoc-at (mapUncurry F ◁ changed) (mapUncurry F ◁ pairPre) A ∙
+          isoComp-cong (postWhisker-isoComp-at (mapUncurry F) changed pairPre) (idIso A))
 
 ```

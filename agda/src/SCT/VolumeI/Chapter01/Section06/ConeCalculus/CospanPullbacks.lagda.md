@@ -4,6 +4,9 @@ A map of cospans with an equivalence on the left and a cartesian right
 square sends any specified pullback cone to a pullback cone. The proof
 retains the matching produced by `CospanMap.mapCone`: paste with the
 right square, change the left arrow, and cancel the target pullback.
+`Specified` accepts any target pullback and a map with its whole-cone
+comparison; `Mapped` specializes this to the chosen pullback, preserving
+its existing factorization map and computation rule.
 
 ```agda
 {-# OPTIONS --safe --without-K #-}
@@ -24,7 +27,7 @@ open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.ConeSymmetry 𝒯 using
 open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.InverseCalculus 𝒯
 open import SCT.VolumeI.Chapter01.Section06.PullbackFunctor 𝒯 P
 open import SCT.VolumeI.Chapter01.Section06.PullbackSquares 𝒯 P
-  using (IsPullback; pullbackCone-isPullback; pullback-cone-invariant)
+  using (IsPullback; pullbackCone-isPullback; pullback-cone-invariant; pullback-restrict-equivalence)
 open import SCT.VolumeI.Chapter01.Section06.PullbackEquivalences 𝒯 P
 open import SCT.VolumeI.Chapter01.Section06.PullbackSymmetry 𝒯 P using (pullback-swap)
 open import SCT.VolumeI.Chapter01.Section06.PullbackArrowChange 𝒯 P using (module ChangeLeft)
@@ -42,18 +45,17 @@ rightSquareOf : {C D E C′ D′ E′ : CAT} {f : MAP C E} {g : MAP D E}
   Cone g′ (CospanMap.base F) D
 rightSquareOf F = record { left = CospanMap.right F ; right = _ ; match = CospanMap.rightSquare F }
 
-module Mapped {C D E C′ D′ E′ X : CAT}
+module Specified {C D E C′ D′ E′ X Y : CAT}
   {f : MAP C E} {g : MAP D E} {f′ : MAP C′ E′} {g′ : MAP D′ E′}
   (F : CospanMap f g f′ g′)
   (right-pullback : IsPullback (rightSquareOf F))
-  (source : Cone f g X) (source-isPullback : IsPullback source) where
+  (source : Cone f g X) (source-isPullback : IsPullback source)
+  (target : Cone f′ g′ Y) (target-isPullback : IsPullback target)
+  (H : MAP X Y) (pullbackMap-β : ConeIso (conePre H target) (CospanMap.mapCone F source)) where
 
   open CospanMap F using (mapCone) renaming (left to u; right to v; base to w; leftSquare to α; rightSquare to β)
-  target = pullbackCone f′ g′
   p = Cone.left source
   q = Cone.right source
-  H = pullbackLift (mapCone source)
-  pullbackMap-β = pullbackLift-β (mapCone source)
   legLeft = ConeIso.leftIso pullbackMap-β
   ρ = ConeIso.rightIso pullbackMap-β
   σ = Cone.match (mapCone source)
@@ -100,7 +102,7 @@ module Mapped {C D E C′ D′ E′ X : CAT}
 
   projectionSquare : Cone u (Cone.left target) X
   projectionSquare = record { left = p ; right = H ; match = legLeft ⁻¹ }
-  module TargetPaste = Pasting u f′ g′ target (pullbackCone-isPullback f′ g′)
+  module TargetPaste = Pasting u f′ g′ target target-isPullback
 
   outer-comparison : ConeIso (TargetPaste.Paste.flatten projectionSquare) outerMapped
   outer-comparison = compositeCone-compatible u f′ _ _ (idIso p) ρ
@@ -127,6 +129,19 @@ module Mapped {C D E C′ D′ E′ X : CAT}
 
   abstract
     isPullback : IsEquiv u → IsPullback (mapCone source)
-    isPullback eu = degenerate-pullback-converse eu (coneSwap projectionSquare)
-      (pullback-swap projectionSquare projection-square-isPullback)
+    isPullback eu = pullback-cone-invariant pullbackMap-β
+      (pullback-restrict-equivalence target H target-isPullback
+        (degenerate-pullback-converse eu (coneSwap projectionSquare)
+          (pullback-swap projectionSquare projection-square-isPullback)))
+
+module Mapped {C D E C′ D′ E′ X : CAT}
+  {f : MAP C E} {g : MAP D E} {f′ : MAP C′ E′} {g′ : MAP D′ E′}
+  (F : CospanMap f g f′ g′)
+  (right-pullback : IsPullback (rightSquareOf F))
+  (source : Cone f g X) (source-isPullback : IsPullback source) where
+  target = pullbackCone f′ g′
+  H = pullbackLift (CospanMap.mapCone F source)
+  pullbackMap-β = pullbackLift-β (CospanMap.mapCone F source)
+  open Specified F right-pullback source source-isPullback
+    target (pullbackCone-isPullback f′ g′) H pullbackMap-β public
 ```

@@ -11,18 +11,21 @@ open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.Setup as Setup
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
 import SCT.VolumeI.Chapter01.Section04.Composition as MapComposition
-import SCT.VolumeI.Chapter01.Section04.CompositionCalculus.CompositionNaturality as CompositionNaturality
-import SCT.VolumeI.Chapter01.Section04.ProductCalculus.ProductAssociativity as ProductAssociativity
+import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingAssembly as Assembly
+import SCT.VolumeI.Chapter01.Section03.ProductCalculus.ChosenPairing as ChosenPairing
+import SCT.VolumeI.Chapter01.Section03.ProductCalculus.ChosenPairingFunctoriality as ChosenPairingFunctoriality
 import SCT.VolumeI.Chapter01.Section04.ProductCalculus.ProductSubstitution as ProductSubstitution
 import SCT.VolumeI.Chapter01.Section04.ProductCalculus.ProductSecondCoordinate as ProductSecondCoordinate
 import SCT.VolumeI.Chapter01.Section04.Substitution.Compatibility as Compatibility
 import SCT.VolumeI.Chapter01.Section04.Currying as Currying
 import SCT.VolumeI.Chapter01.Section02.Isomorphisms as Isomorphisms
-import SCT.VolumeI.Chapter01.Section04.Substitution.ApplicationRestriction as ApplicationRestriction
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingCoherence as PairingCoherence
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingNaturality as PairingNaturality
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.ProductFunctorUnits as ProductFunctorUnits
 import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.Structural as Structural
+
+import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.CoordinateComparisons as CoordinateComparisons
+import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.FramedSubstitution as FramedSubstitution
 
 module SCT.VolumeI.Chapter01.Section04.Substitution.EvaluationParameterChange
   {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯) where
@@ -31,12 +34,18 @@ open Setup 𝒯
 open Mapping.MappingAnimae M
 open Currying 𝒯 M using (mapUncurry-restrict)
 open MapComposition 𝒯 M
-open CompositionNaturality 𝒯 M using (coordinate-at)
-open ProductAssociativity 𝒯 M using (post-pasting; module PairingAssembly; combine-pair; cancel-forward)
+private
+  module Chosen = ChosenPairing vocabulary terminal products productLaws composition vertical whiskering
+    using (operations)
+  module ChosenLaws = ChosenPairingFunctoriality vocabulary terminal products productLaws
+    composition vertical whiskering pentagonTriangle using (functoriality)
+open Assembly vocabulary terminal products productLaws composition vertical whiskering
+  Chosen.operations ChosenLaws.functoriality using (module PairingAssembly; module FramedPairing; combine-pair)
+open CoordinateComparisons vocabulary terminal products productLaws composition vertical whiskering
+  pentagonTriangle using (cancel-forward)
 open Compatibility 𝒯 M using (slice-comparison)
 module ProductCoordinates = ProductSubstitution.Coordinates 𝒯 M
 open ProductSecondCoordinate 𝒯 M using (second-normalization)
-open ApplicationRestriction 𝒯 M using (post-iterated-comparison)
 open PairingCoherence vocabulary terminal products productLaws composition vertical whiskering
   using (pair-cong-comp; pair-cong-Iso₂; pair-cong-id; pair-pre-triangle₁; pair-pre-triangle₂)
 open PairingNaturality vocabulary terminal products productLaws composition vertical whiskering
@@ -48,33 +57,18 @@ open Structural vocabulary terminal products productLaws composition whiskering
 open Isomorphisms vocabulary terminal products productLaws composition vertical whiskering
   using (cancel-inverse)
 
-coordinate-at-change : {Q R K A B : CAT}
-  (F : MAP A B) (π : MAP K A) (h : MAP R K) (t : MAP Q R)
-  (s : MAP Q K) (δ : (h ∘ t) =₁ s)
-  {q : MAP R A} {v : MAP Q A}
-  (b : (π ∘ h) =₁ q) (b′ : (π ∘ s) =₁ v) (c : (q ∘ t) =₁ v)
-  → (b′ ∙ (π ◁ δ)) =₂ (c ∙ ((b ▷ t) ∙ (comp-assoc t h π) ⁻¹))
-  →
-      (coordinate-at F π s b′ ∙ (((F ∘ π) ◁ δ) ∙ comp-assoc t h (F ∘ π))) =₂
-      ((F ◁ c) ∙ (comp-assoc t q F ∙ (coordinate-at F π h b ▷ t)))
-coordinate-at-change F π h t s δ b b′ c square =
-  let leftImage = F ◁ b′
-      inputA = comp-assoc s π F
-      change = (F ∘ π) ◁ δ
-      sourceA = comp-assoc t h (F ∘ π)
-      across = F ◁ (π ◁ δ)
-      afterA = comp-assoc (h ∘ t) π F
-      projected = c ∙ ((b ▷ t) ∙ (comp-assoc t h π) ⁻¹)
-      projectImage = (postWhisker F ◁ square) ∙ (postWhisker-isoComp-at F b′ (π ◁ δ)) ⁻¹
-      moveInput = isoComp-assoc-at across afterA sourceA ∙
-        (isoComp-cong (postWhisker-comp-at δ π F) (idIso sourceA) ∙
-          (isoComp-assoc-at inputA change sourceA) ⁻¹)
-      removeInner = isoComp-cong projectImage (idIso (afterA ∙ sourceA)) ∙
-        (isoComp-assoc-at leftImage across (afterA ∙ sourceA)) ⁻¹
-  in post-pasting F π h t b c ∙
-    (removeInner ∙ (isoComp-cong (idIso leftImage) moveInput ∙
-      isoComp-assoc-at leftImage inputA (change ∙ sourceA)))
+open CoordinateComparisons vocabulary terminal products productLaws composition vertical whiskering
+  pentagonTriangle public using (coordinate-at-change)
+open CoordinateComparisons vocabulary terminal products productLaws composition vertical whiskering
+  pentagonTriangle using (coordinate-at)
 
+```
+
+First normalize the chosen product comparison into its two coordinates.
+Their restriction squares assemble to the restriction square for the pair;
+postcomposition with evaluation then gives `mapUncurry-at-restriction`.
+
+```agda
 module AtCoordinates {Γ X Y C : CAT} (f : MAP X Y) (p : MAP Γ X) (x : MAP Γ C) where
 
   first : ((f ∘ pr₁) ∘ pair p x) =₁ (f ∘ p)
@@ -160,33 +154,8 @@ at-comparison-restriction {C = C} f p x r =
   in long-normal ∙
     (assembled ∙ isoComp-cong (AtCoordinates.normalization f (p ∘ r) (x ∘ r)) (idIso _))
 
-post-change-comparison : {Q R X A B : CAT}
-  (F : MAP A B) (H : MAP X A) (h : MAP R X) (t : MAP Q R)
-  (s : MAP Q X) (δ : (h ∘ t) =₁ s)
-  {H₁ : MAP R A} {H₂ H₃ : MAP Q A}
-  (u : (H ∘ h) =₁ H₁) (v : (H₁ ∘ t) =₁ H₂)
-  (w : (H ∘ s) =₁ H₃) (z : H₂ =₁ H₃)
-  → (w ∙ ((H ◁ δ) ∙ comp-assoc t h H)) =₂ (z ∙ (v ∙ (u ▷ t)))
-  →
-      (((F ◁ w) ∙ comp-assoc s H F) ∙ (((F ∘ H) ◁ δ) ∙ comp-assoc t h (F ∘ H))) =₂
-      ((F ◁ z) ∙ (((F ◁ v) ∙ comp-assoc t H₁ F) ∙
-        (((F ◁ u) ∙ comp-assoc h H F) ▷ t)))
-post-change-comparison F H h t s δ u v w z square =
-  let image = F ◁ w
-      inputA = comp-assoc s H F
-      change = (F ∘ H) ◁ δ
-      outsideA = comp-assoc t h (F ∘ H)
-      across = F ◁ (H ◁ δ)
-      middleA = comp-assoc (h ∘ t) H F
-      normalization = (isoComp-assoc-at (F ◁ (w ∙ (H ◁ δ))) middleA outsideA) ⁻¹ ∙
-        (isoComp-cong ((postWhisker-isoComp-at F w (H ◁ δ)) ⁻¹) (idIso (middleA ∙ outsideA)) ∙
-        ((isoComp-assoc-at image across (middleA ∙ outsideA)) ⁻¹ ∙
-        (isoComp-cong (idIso image) (isoComp-assoc-at across middleA outsideA) ∙
-        (isoComp-cong (idIso image) (isoComp-cong (postWhisker-comp-at δ H F) (idIso outsideA)) ∙
-        (isoComp-cong (idIso image) ((isoComp-assoc-at inputA change outsideA) ⁻¹) ∙
-          isoComp-assoc-at image inputA (change ∙ outsideA))))))
-  in post-iterated-comparison F H h t u v (w ∙ (H ◁ δ)) z
-      (square ∙ isoComp-assoc-at w (H ◁ δ) (comp-assoc t h H)) ∙ normalization
+open CoordinateComparisons vocabulary terminal products productLaws composition vertical whiskering
+  pentagonTriangle public using (post-change-comparison)
 
 mapUncurry-at-restriction : {R Γ X C D : CAT}
   (f : MAP X (Map C D)) (p : MAP Γ X) (x : MAP Γ C) (r : MAP R Γ)
@@ -203,6 +172,13 @@ mapUncurry-at-restriction {C = C} f p x r =
     (pair-cong (comp-assoc r p f) (idIso (x ∘ r)))
     (at-comparison-restriction f p x r)) ⁻¹
 
+```
+
+For the comparison with application, use the unit of the second coordinate
+as a frame. The two coordinate normalizations give the framed pairing square.
+Its image under evaluation is the required square for uncurrying.
+
+```agda
 module AsApplyChange {P Q C D : CAT} (f : MAP P (Map C D)) (σ : MAP Q P) where
 
   s : MAP (Q × C) (P × C)
@@ -236,11 +212,6 @@ module AsApplyChange {P Q C D : CAT} (f : MAP P (Map C D)) (σ : MAP Q P) where
         d = ProductCoordinates.second C f σ
         unitBefore = comp-unitˡ pr₂
         unitAfter = comp-unitˡ pr₂
-        base = pair-pre (f ∘ pr₁) (id C ∘ pr₂) s
-        leftFirst = A ∙ (idIso ((f ∘ σ) ∘ pr₁) ∙ e)
-        leftSecond = idIso pr₂ ∙ (unitAfter ∙ d)
-        rightFirst = first ∙ (idIso (f ∘ pr₁) ▷ s)
-        rightSecond = second ∙ (unitBefore ▷ s)
         firstNormalize = (isoComp-cong (idIso first) (preWhisker-idIso (f ∘ pr₁) s)) ⁻¹ ∙
           ((isoComp-unitʳ-at first) ⁻¹ ∙
             (cancel-forward A first ∙ isoComp-cong (idIso A) (isoComp-unitˡ-at e)))
@@ -248,53 +219,19 @@ module AsApplyChange {P Q C D : CAT} (f : MAP P (Map C D)) (σ : MAP Q P) where
             (pair-β₂ (σ ∘ pr₁) (id C ∘ pr₂)) (unitBefore ▷ s)) ⁻¹ ∙
           (isoComp-cong (idIso unitAfter) (second-normalization C f σ) ∙
             isoComp-unitˡ-at (unitAfter ∙ d))
-        normalizeLeft = combine-pair A (idIso pr₂)
-            (idIso ((f ∘ σ) ∘ pr₁) ∙ e) (unitAfter ∙ d) base ∙
-          (isoComp-cong (idIso finish)
-              (combine-pair (idIso ((f ∘ σ) ∘ pr₁)) unitAfter e d base) ∙
-          (isoComp-assoc-at finish after (pair-cong e d ∙ base) ∙
-            isoComp-cong (idIso (finish ∙ after)) (ProductCoordinates.normalization C f σ)))
-        normalizeRight = combine-pair first second
-            (idIso (f ∘ pr₁) ▷ s) (unitBefore ▷ s) base ∙
-          (isoComp-cong (idIso (pair-cong first second))
-            ((pair-pre-natural-inputs (idIso (f ∘ pr₁)) unitBefore s) ⁻¹) ∙
-            isoComp-assoc-at (pair-cong first second) (pair-pre (f ∘ pr₁) pr₂ s) (before ▷ s))
-    in normalizeRight ⁻¹ ∙
-      (isoComp-cong (pair-cong-Iso₂ firstNormalize secondNormalize) (idIso base) ∙ normalizeLeft)
+    in FramedPairing.comparison-square s
+      (idIso (f ∘ pr₁)) unitBefore
+      (idIso ((f ∘ σ) ∘ pr₁)) unitAfter A (idIso pr₂)
+      e d first second κ (ProductCoordinates.normalization C f σ)
+      firstNormalize secondNormalize
 
   comparison :
     (applyTerm-cong (comp-assoc pr₁ σ f) (idIso pr₂) ∙ mapUncurry-as-apply (f ∘ σ)) =₂
     (applyTerm-cong first second ∙
       (applyTerm-pre (f ∘ pr₁) pr₂ s ∙ ((mapUncurry-as-apply f ▷ s) ∙ mapUncurry-restrict f σ)))
-  comparison =
-    (let e = mapEval
-         out = pair-cong first second
-         pre = pair-pre (f ∘ pr₁) pr₂ s
-         x = e ◁ out
-         y = e ◁ pre
-         A = comp-assoc s (pair (f ∘ pr₁) pr₂) e
-         b = (e ◁ before) ▷ s
-         Aold = comp-assoc s (productMap f (id C)) e
-         B = Aold ⁻¹
-         c = e ◁ κ ⁻¹
-         d = e ◁ (before ▷ s)
-         natural = whisker-mixed-at before s e
-         collapse = isoComp-cong (idIso d) (cancel-inverse Aold c) ∙
-           (isoComp-assoc-at d Aold (B ∙ c) ∙
-           (isoComp-cong natural (idIso (B ∙ c)) ∙
-             (isoComp-assoc-at A b (B ∙ c)) ⁻¹))
-         normalize = isoComp-cong (idIso x)
-           (isoComp-cong (idIso y) collapse ∙ isoComp-assoc-at y A (b ∙ (B ∙ c)))
-         merge = (postWhisker-isoComp-at e out (pre ∙ ((before ▷ s) ∙ κ ⁻¹))) ⁻¹ ∙
-           isoComp-cong (idIso x)
-             ((postWhisker-isoComp-at e pre ((before ▷ s) ∙ κ ⁻¹)) ⁻¹ ∙
-               isoComp-cong (idIso y) ((postWhisker-isoComp-at e (before ▷ s) (κ ⁻¹)) ⁻¹))
-         solve = cancel-right κ (finish ∙ after) ∙
-           (isoComp-cong (comparison-square ⁻¹) (idIso (κ ⁻¹)) ∙
-           ((isoComp-assoc-at changed (before ▷ s) (κ ⁻¹)) ⁻¹ ∙
-             (isoComp-assoc-at out pre ((before ▷ s) ∙ κ ⁻¹)) ⁻¹))
-     in postWhisker-isoComp-at e finish after ∙
-       ((postWhisker e ◁ solve) ∙ (merge ∙ normalize))) ⁻¹
+  comparison = FramedSubstitution.post-frame-square vocabulary terminal products productLaws
+    composition vertical whiskering mapEval s before after finish
+    (pair-cong first second) (pair-pre (f ∘ pr₁) pr₂ s) κ comparison-square
 
 mapUncurry-as-apply-parameter-change : {P Q C D : CAT}
   (f : MAP P (Map C D)) (σ : MAP Q P)

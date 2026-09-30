@@ -13,6 +13,7 @@ open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.Substitution.ProofCalculus as Setup
 import SCT.VolumeI.Chapter01.Section04.SquareCalculus.ParameterSquarePasting as ParameterSquarePasting
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingNaturality as PairingNaturality
+import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.FunctorCoherence as FunctorCoherence
 import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.Structural as Structural
 
 module SCT.VolumeI.Chapter01.Section04.SquareCalculus.ParameterSquareNaturality
@@ -24,6 +25,9 @@ open PairingNaturality vocabulary terminal products productLaws composition vert
   using (move-square)
 open Structural vocabulary terminal products productLaws composition whiskering
   using (postWhisker-comp-at; preWhisker-comp-at; whisker-mixed-at)
+
+open FunctorCoherence vocabulary terminal products productLaws composition vertical whiskering pentagonTriangle
+  using (hcomp-idOuter; hcomp-idInner)
 
 abstract
   identity-square : {X Y : CAT} {f g : MAP X Y} (α : f =₁ g)
@@ -200,4 +204,229 @@ abstract
     ((isoComp-assoc-at ((ψ ▷ F′) ▷ x₀) ((G ◁ φ) ▷ x₀) (paste β α)) ⁻¹ ∙
     (isoComp-cong (idIso ((ψ ▷ F′) ▷ x₀)) (target-inner β α φ) ∙
       target-outer β ((φ ▷ x₀) ∙ α) ψ))
+```
+
+
+Pasting respects simultaneous specified comparisons on both sides of the
+parameter squares. When one pair of functors is unchanged, the horizontal
+identity comparisons give the two whiskering forms below. These are useful
+for both the associator and the unit comparisons, without requiring a
+mapping-anima parameter.
+
+```agda
+opaque
+  paste-natural : {A₀ A₁ A₂ B₀ B₁ B₂ : CAT}
+    {f f′ : MAP A₀ A₁} {g g′ : MAP A₁ A₂} {F F′ : MAP B₀ B₁} {G G′ : MAP B₁ B₂}
+    {x₀ : MAP A₀ B₀} {x₁ : MAP A₁ B₁} {x₂ : MAP A₂ B₂}
+    (β : (x₂ ∘ g) =₁ (G ∘ x₁)) (β′ : (x₂ ∘ g′) =₁ (G′ ∘ x₁))
+    (α : (x₁ ∘ f) =₁ (F ∘ x₀)) (α′ : (x₁ ∘ f′) =₁ (F′ ∘ x₀))
+    (θ : g =₁ g′) (η : f =₁ f′) (ψ : G =₁ G′) (φ : F =₁ F′)
+    → ((ψ ▷ x₁) ∙ β) =₂ (β′ ∙ (x₂ ◁ θ))
+    → ((φ ▷ x₀) ∙ α) =₂ (α′ ∙ (x₁ ◁ η))
+    → (((ψ ⋆ φ) ▷ x₀) ∙ paste β α) =₂ (paste β′ α′ ∙ (x₂ ◁ (θ ⋆ η)))
+  paste-natural {x₀ = x₀} {x₁} β β′ α α′ θ η ψ φ b a =
+    (paste-target-normalization β α ψ φ ∙
+      paste-source-square ((ψ ▷ x₁) ∙ β) β′ ((φ ▷ x₀) ∙ α) α′ θ η (b ⁻¹) (a ⁻¹)) ⁻¹
+
+  unchanged-parameter-square : {A B C D : CAT}
+    {f : MAP A B} {F : MAP C D} {x : MAP A C} {y : MAP B D}
+    (α : (y ∘ f) =₁ (F ∘ x))
+    → ((idIso F ▷ x) ∙ α) =₂ (α ∙ (y ◁ idIso f))
+  unchanged-parameter-square {f = f} {F} {x} {y} α =
+    isoComp-cong (idIso α) ((postWhisker-idIso y f) ⁻¹) ∙
+    ((isoComp-unitʳ-at α) ⁻¹ ∙
+    (isoComp-unitˡ-at α ∙ isoComp-cong (preWhisker-idIso F x) (idIso α)))
+
+  paste-natural-outer : {A₀ A₁ A₂ B₀ B₁ B₂ : CAT}
+    {f : MAP A₀ A₁} {g g′ : MAP A₁ A₂} {F : MAP B₀ B₁} {G G′ : MAP B₁ B₂}
+    {x₀ : MAP A₀ B₀} {x₁ : MAP A₁ B₁} {x₂ : MAP A₂ B₂}
+    (β : (x₂ ∘ g) =₁ (G ∘ x₁)) (β′ : (x₂ ∘ g′) =₁ (G′ ∘ x₁))
+    (α : (x₁ ∘ f) =₁ (F ∘ x₀)) (θ : g =₁ g′) (ψ : G =₁ G′)
+    → ((ψ ▷ x₁) ∙ β) =₂ (β′ ∙ (x₂ ◁ θ))
+    → (((ψ ▷ F) ▷ x₀) ∙ paste β α) =₂
+        (paste β′ α ∙ (x₂ ◁ (θ ▷ f)))
+  paste-natural-outer {f = f} {g} {g′} {F} {G} {G′} {x₀} {x₁} {x₂} β β′ α θ ψ square =
+    isoComp-cong (idIso (paste β′ α)) (postWhisker x₂ ◁ hcomp-idInner θ f) ∙
+      (paste-natural {f = f} {f′ = f} {g = g} {g′ = g′}
+        {F = F} {F′ = F} {G = G} {G′ = G′} {x₀ = x₀} {x₁ = x₁} {x₂ = x₂}
+        β β′ α α θ (idIso f) ψ (idIso F) square (unchanged-parameter-square α) ∙
+        isoComp-cong (preWhisker x₀ ◁ (hcomp-idInner ψ F) ⁻¹) (idIso (paste β α)))
+
+  paste-natural-inner : {A₀ A₁ A₂ B₀ B₁ B₂ : CAT}
+    {f f′ : MAP A₀ A₁} {g : MAP A₁ A₂} {F F′ : MAP B₀ B₁} {G : MAP B₁ B₂}
+    {x₀ : MAP A₀ B₀} {x₁ : MAP A₁ B₁} {x₂ : MAP A₂ B₂}
+    (β : (x₂ ∘ g) =₁ (G ∘ x₁))
+    (α : (x₁ ∘ f) =₁ (F ∘ x₀)) (α′ : (x₁ ∘ f′) =₁ (F′ ∘ x₀))
+    (η : f =₁ f′) (φ : F =₁ F′)
+    → ((φ ▷ x₀) ∙ α) =₂ (α′ ∙ (x₁ ◁ η))
+    → (((G ◁ φ) ▷ x₀) ∙ paste β α) =₂
+        (paste β α′ ∙ (x₂ ◁ (g ◁ η)))
+  paste-natural-inner {f = f} {f′} {g} {F} {F′} {G} {x₀} {x₁} {x₂} β α α′ η φ square =
+    isoComp-cong (idIso (paste β α′)) (postWhisker x₂ ◁ hcomp-idOuter g η) ∙
+      (paste-natural {f = f} {f′ = f′} {g = g} {g′ = g}
+        {F = F} {F′ = F′} {G = G} {G′ = G} {x₀ = x₀} {x₁ = x₁} {x₂ = x₂}
+        β β α α′ (idIso g) η (idIso G) φ (unchanged-parameter-square β) square ∙
+        isoComp-cong (preWhisker x₀ ◁ (hcomp-idOuter G φ) ⁻¹) (idIso (paste β α)))
+
+
+  paste-natural-outer-computation : {A₀ A₁ A₂ B₀ B₁ B₂ : CAT}
+    {f : MAP A₀ A₁} {g g′ : MAP A₁ A₂} {F : MAP B₀ B₁} {G G′ : MAP B₁ B₂}
+    {x₀ : MAP A₀ B₀} {x₁ : MAP A₁ B₁} {x₂ : MAP A₂ B₂}
+    (β : (x₂ ∘ g) =₁ (G ∘ x₁)) (β′ : (x₂ ∘ g′) =₁ (G′ ∘ x₁))
+    (α : (x₁ ∘ f) =₁ (F ∘ x₀)) (θ : g =₁ g′) (ψ : G =₁ G′)
+    (square : ((ψ ▷ x₁) ∙ β) =₂ (β′ ∙ (x₂ ◁ θ)))
+    → (paste-natural-outer β β′ α θ ψ square) =₃
+        (isoComp-cong (idIso (paste β′ α)) (postWhisker x₂ ◁ hcomp-idInner θ f) ∙
+          (paste-natural β β′ α α θ (idIso f) ψ (idIso F) square (unchanged-parameter-square α) ∙
+            isoComp-cong (preWhisker x₀ ◁ (hcomp-idInner ψ F) ⁻¹) (idIso (paste β α))))
+  paste-natural-outer-computation β β′ α θ ψ square = idIso _
+
+  paste-natural-inner-computation : {A₀ A₁ A₂ B₀ B₁ B₂ : CAT}
+    {f f′ : MAP A₀ A₁} {g : MAP A₁ A₂} {F F′ : MAP B₀ B₁} {G : MAP B₁ B₂}
+    {x₀ : MAP A₀ B₀} {x₁ : MAP A₁ B₁} {x₂ : MAP A₂ B₂}
+    (β : (x₂ ∘ g) =₁ (G ∘ x₁))
+    (α : (x₁ ∘ f) =₁ (F ∘ x₀)) (α′ : (x₁ ∘ f′) =₁ (F′ ∘ x₀))
+    (η : f =₁ f′) (φ : F =₁ F′)
+    (square : ((φ ▷ x₀) ∙ α) =₂ (α′ ∙ (x₁ ◁ η)))
+    → (paste-natural-inner β α α′ η φ square) =₃
+        (isoComp-cong (idIso (paste β α′)) (postWhisker x₂ ◁ hcomp-idOuter g η) ∙
+          (paste-natural β β α α′ (idIso g) η (idIso G) φ (unchanged-parameter-square β) square ∙
+            isoComp-cong (preWhisker x₀ ◁ (hcomp-idOuter G φ) ⁻¹) (idIso (paste β α))))
+  paste-natural-inner-computation β α α′ η φ square = idIso _
+```
+
+
+For successive comparisons, paste the two naturality squares and then
+combine their whiskered boundaries. This fixes the normalization used
+when comparing the two parenthesizations of a triple composite.
+The named pasting below displays the calculation and gives a concise
+computation statement for the packaged comparison.
+
+```agda
+comparison-chain-pasting : {A B C D : CAT}
+  {f₀ f₁ f₂ : MAP A B} {g₀ g₁ g₂ : MAP C D}
+  (s : MAP A C) (t : MAP B D)
+  (α : f₀ =₁ f₁) (α′ : g₀ =₁ g₁)
+  (β : f₁ =₁ f₂) (β′ : g₁ =₁ g₂)
+  (p : (t ∘ f₀) =₁ (g₀ ∘ s))
+  (q : (t ∘ f₁) =₁ (g₁ ∘ s))
+  (r : (t ∘ f₂) =₁ (g₂ ∘ s))
+  → (q ∙ (t ◁ α)) =₂ ((α′ ▷ s) ∙ p)
+  → ((β′ ▷ s) ∙ q) =₂ (r ∙ (t ◁ β))
+  → (r ∙ (t ◁ (β ∙ α))) =₂ (((β′ ∙ α′) ▷ s) ∙ p)
+comparison-chain-pasting s t α α′ β β′ p q r first second =
+  isoComp-cong ((preWhisker-isoComp-at β′ α′ s) ⁻¹) (idIso p) ∙
+    ((paste-squares (t ◁ α) (α′ ▷ s) (t ◁ β) (β′ ▷ s)
+      p q r (first ⁻¹) second) ⁻¹ ∙
+      isoComp-cong (idIso r) (postWhisker-isoComp-at t β α))
+
+
+opaque
+  paste-comparison-chain : {A B C D : CAT}
+    {f₀ f₁ f₂ : MAP A B} {g₀ g₁ g₂ : MAP C D}
+    (s : MAP A C) (t : MAP B D)
+    (α : f₀ =₁ f₁) (α′ : g₀ =₁ g₁)
+    (β : f₁ =₁ f₂) (β′ : g₁ =₁ g₂)
+    (p : (t ∘ f₀) =₁ (g₀ ∘ s))
+    (q : (t ∘ f₁) =₁ (g₁ ∘ s))
+    (r : (t ∘ f₂) =₁ (g₂ ∘ s))
+    → (q ∙ (t ◁ α)) =₂ ((α′ ▷ s) ∙ p)
+    → ((β′ ▷ s) ∙ q) =₂ (r ∙ (t ◁ β))
+    → (r ∙ (t ◁ (β ∙ α))) =₂ (((β′ ∙ α′) ▷ s) ∙ p)
+  paste-comparison-chain s t α α′ β β′ p q r first second =
+    comparison-chain-pasting s t α α′ β β′ p q r first second
+
+  paste-comparison-chain-computation : {A B C D : CAT}
+    {f₀ f₁ f₂ : MAP A B} {g₀ g₁ g₂ : MAP C D}
+    (s : MAP A C) (t : MAP B D)
+    (α : f₀ =₁ f₁) (α′ : g₀ =₁ g₁)
+    (β : f₁ =₁ f₂) (β′ : g₁ =₁ g₂)
+    (p : (t ∘ f₀) =₁ (g₀ ∘ s))
+    (q : (t ∘ f₁) =₁ (g₁ ∘ s))
+    (r : (t ∘ f₂) =₁ (g₂ ∘ s))
+    (first : (q ∙ (t ◁ α)) =₂ ((α′ ▷ s) ∙ p))
+    (second : ((β′ ▷ s) ∙ q) =₂ (r ∙ (t ◁ β)))
+    → (paste-comparison-chain s t α α′ β β′ p q r first second) =₃
+        (comparison-chain-pasting s t α α′ β β′ p q r first second)
+  paste-comparison-chain-computation s t α α′ β β′ p q r first second = idIso _
+```
+
+When one side of a pasted square is itself compared with a composite,
+first paste its comparison with the unchanged side, then combine it with
+the given comparison for the whole composite. The two forms distinguish
+which side changes; both retain the specified normalization.
+
+```agda
+opaque
+  paste-comparison-chain-outer : {A₀ A₁ A₂ B₀ B₁ B₂ : CAT}
+    {f : MAP A₀ A₁} {g g′ : MAP A₁ A₂} {F : MAP B₀ B₁} {G G′ : MAP B₁ B₂}
+    {u : MAP A₀ A₂} {U : MAP B₀ B₂}
+    {x₀ : MAP A₀ B₀} {x₁ : MAP A₁ B₁} {x₂ : MAP A₂ B₂}
+    (κ : (x₂ ∘ u) =₁ (U ∘ x₀))
+    (β : (x₂ ∘ g) =₁ (G ∘ x₁)) (β′ : (x₂ ∘ g′) =₁ (G′ ∘ x₁))
+    (α : (x₁ ∘ f) =₁ (F ∘ x₀))
+    (q : u =₁ (g ∘ f)) (p : U =₁ (G ∘ F))
+    (θ : g =₁ g′) (ψ : G =₁ G′)
+    → (paste β α ∙ (x₂ ◁ q)) =₂ ((p ▷ x₀) ∙ κ)
+    → ((ψ ▷ x₁) ∙ β) =₂ (β′ ∙ (x₂ ◁ θ))
+    → (paste β′ α ∙ (x₂ ◁ ((θ ▷ f) ∙ q))) =₂
+        ((((ψ ▷ F) ∙ p) ▷ x₀) ∙ κ)
+  paste-comparison-chain-outer {f = f} {F = F} {x₀ = x₀} {x₂ = x₂}
+    κ β β′ α q p θ ψ first second =
+    paste-comparison-chain x₀ x₂ q p (θ ▷ f) (ψ ▷ F)
+      κ (paste β α) (paste β′ α) first
+      (paste-natural-outer β β′ α θ ψ second)
+
+  paste-comparison-chain-inner : {A₀ A₁ A₂ B₀ B₁ B₂ : CAT}
+    {f f′ : MAP A₀ A₁} {g : MAP A₁ A₂} {F F′ : MAP B₀ B₁} {G : MAP B₁ B₂}
+    {u : MAP A₀ A₂} {U : MAP B₀ B₂}
+    {x₀ : MAP A₀ B₀} {x₁ : MAP A₁ B₁} {x₂ : MAP A₂ B₂}
+    (κ : (x₂ ∘ u) =₁ (U ∘ x₀))
+    (β : (x₂ ∘ g) =₁ (G ∘ x₁))
+    (α : (x₁ ∘ f) =₁ (F ∘ x₀)) (α′ : (x₁ ∘ f′) =₁ (F′ ∘ x₀))
+    (q : u =₁ (g ∘ f)) (p : U =₁ (G ∘ F))
+    (η : f =₁ f′) (φ : F =₁ F′)
+    → (paste β α ∙ (x₂ ◁ q)) =₂ ((p ▷ x₀) ∙ κ)
+    → ((φ ▷ x₀) ∙ α) =₂ (α′ ∙ (x₁ ◁ η))
+    → (paste β α′ ∙ (x₂ ◁ ((g ◁ η) ∙ q))) =₂
+        ((((G ◁ φ) ∙ p) ▷ x₀) ∙ κ)
+  paste-comparison-chain-inner {g = g} {G = G} {x₀ = x₀} {x₂ = x₂}
+    κ β α α′ q p η φ first second =
+    paste-comparison-chain x₀ x₂ q p (g ◁ η) (G ◁ φ)
+      κ (paste β α) (paste β α′) first
+      (paste-natural-inner β α α′ η φ second)
+
+  paste-comparison-chain-outer-computation : {A₀ A₁ A₂ B₀ B₁ B₂ : CAT}
+    {f : MAP A₀ A₁} {g g′ : MAP A₁ A₂} {F : MAP B₀ B₁} {G G′ : MAP B₁ B₂}
+    {u : MAP A₀ A₂} {U : MAP B₀ B₂}
+    {x₀ : MAP A₀ B₀} {x₁ : MAP A₁ B₁} {x₂ : MAP A₂ B₂}
+    (κ : (x₂ ∘ u) =₁ (U ∘ x₀))
+    (β : (x₂ ∘ g) =₁ (G ∘ x₁)) (β′ : (x₂ ∘ g′) =₁ (G′ ∘ x₁))
+    (α : (x₁ ∘ f) =₁ (F ∘ x₀))
+    (q : u =₁ (g ∘ f)) (p : U =₁ (G ∘ F))
+    (θ : g =₁ g′) (ψ : G =₁ G′)
+    (first : (paste β α ∙ (x₂ ◁ q)) =₂ ((p ▷ x₀) ∙ κ))
+    (second : ((ψ ▷ x₁) ∙ β) =₂ (β′ ∙ (x₂ ◁ θ)))
+    → (paste-comparison-chain-outer κ β β′ α q p θ ψ first second) =₃
+        (paste-comparison-chain x₀ x₂ q p (θ ▷ f) (ψ ▷ F)
+          κ (paste β α) (paste β′ α) first
+          (paste-natural-outer β β′ α θ ψ second))
+  paste-comparison-chain-outer-computation κ β β′ α q p θ ψ first second = idIso _
+
+  paste-comparison-chain-inner-computation : {A₀ A₁ A₂ B₀ B₁ B₂ : CAT}
+    {f f′ : MAP A₀ A₁} {g : MAP A₁ A₂} {F F′ : MAP B₀ B₁} {G : MAP B₁ B₂}
+    {u : MAP A₀ A₂} {U : MAP B₀ B₂}
+    {x₀ : MAP A₀ B₀} {x₁ : MAP A₁ B₁} {x₂ : MAP A₂ B₂}
+    (κ : (x₂ ∘ u) =₁ (U ∘ x₀))
+    (β : (x₂ ∘ g) =₁ (G ∘ x₁))
+    (α : (x₁ ∘ f) =₁ (F ∘ x₀)) (α′ : (x₁ ∘ f′) =₁ (F′ ∘ x₀))
+    (q : u =₁ (g ∘ f)) (p : U =₁ (G ∘ F))
+    (η : f =₁ f′) (φ : F =₁ F′)
+    (first : (paste β α ∙ (x₂ ◁ q)) =₂ ((p ▷ x₀) ∙ κ))
+    (second : ((φ ▷ x₀) ∙ α) =₂ (α′ ∙ (x₁ ◁ η)))
+    → (paste-comparison-chain-inner κ β α α′ q p η φ first second) =₃
+        (paste-comparison-chain x₀ x₂ q p (g ◁ η) (G ◁ φ)
+          κ (paste β α) (paste β α′) first
+          (paste-natural-inner β α α′ η φ second))
+  paste-comparison-chain-inner-computation κ β α α′ q p η φ first second = idIso _
 ```

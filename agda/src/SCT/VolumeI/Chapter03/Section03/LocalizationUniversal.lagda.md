@@ -26,6 +26,7 @@ module SCT.VolumeI.Chapter03.Section03.LocalizationUniversal
   (R : Rezk.RezkAxiom 𝒯 M ℱ P I E) where
 
 open import SCT.VolumeI.Chapter01.Section05.Setup 𝒯 M
+  using (CAT; MAP; Map; FunctorLift; IsEquiv; _∘_; _=₁_; mapPre; unnamedIso; equiv-reflect; nameMap; _⁻¹; _∙_; nameMapIso; mapPre-name; _▷_; comp-assoc)
 open import SCT.VolumeI.Chapter01.Section06.Embeddings 𝒯 P using (embedding-reflect)
 open import SCT.VolumeI.Chapter03.Section01.MorphismCollections 𝒯 M P I using (MorphismCollection)
 open import SCT.VolumeI.Chapter03.Section01.SubcategoryAxiom 𝒯 M ℱ P I E S using (SubcategoryAxiom)

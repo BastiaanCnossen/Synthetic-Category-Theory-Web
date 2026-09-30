@@ -9,10 +9,9 @@ finite categorical calculus of `Theory`.
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.Substitution.ProofCalculus as Setup
-import SCT.VolumeI.Chapter01.Section03.ProductCalculus.ProductFunctorCoherence as ProductFunctorCoherence
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.IteratedPairing as IteratedPairing
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
-import SCT.VolumeI.Chapter01.Section04.ProductCalculus.ProductSubstitution as ProductSubstitution
+import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.CoordinateComparisons as CoordinateComparisons
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingNaturality as PairingNaturality
 import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.Structural as Structural
 import SCT.VolumeI.Chapter01.Section02.Isomorphisms as Isomorphisms
@@ -125,13 +124,14 @@ abstract
         (expand ∙ isoComp-cong (idIso A) cancelB))))))
 ```
 
-The associativity proof reuses the already verified coordinate transport
-calculation. Its module carries `M` solely because that helper currently
-lives in `ProductSubstitution`; the calculation itself uses only `Theory`.
+The associativity proof reuses the coordinate transport calculation.
+It requires only the finite coherence structure in `Theory`; no mapping-anima
+structure is needed.
 
 ```agda
-module Coherence (M : Mapping.MappingAnimae 𝒯) where
-  open ProductSubstitution 𝒯 M using (coordinate-outer-comp)
+module PastingAssociativity where
+  open CoordinateComparisons vocabulary terminal products productLaws composition vertical whiskering
+    pentagonTriangle using (coordinate-outer-comp)
 
   abstract
     paste-assoc : {A₀ A₁ A₂ A₃ B₀ B₁ B₂ B₃ : CAT}
@@ -178,4 +178,14 @@ module Coherence (M : Mapping.MappingAnimae 𝒯) where
               ((isoComp-assoc-at hp (N ∙ tγ) last) ⁻¹ ∙
                 isoComp-cong (idIso hp) ((isoComp-assoc-at N tγ last) ⁻¹)))
       in finish ∙ (merge ∙ (transport ∙ (expand ∙ (outer ∙ start))))
+```
+
+The parameter-free theorem is available directly. `Coherence` retains the
+former module interface so that existing applications need no change.
+
+```agda
+open PastingAssociativity public
+
+module Coherence (M : Mapping.MappingAnimae 𝒯) where
+  open PastingAssociativity public
 ```

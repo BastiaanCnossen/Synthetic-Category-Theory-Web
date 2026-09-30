@@ -20,6 +20,8 @@ module SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ConstantFunctorExpressio
   (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I) where
 
 open import SCT.VolumeI.Chapter02.Section01.Morphisms 𝒯 M ℱ I public
+open import SCT.VolumeI.Chapter02.Section01.DiagramCalculus.ExpressionComparisons 𝒯 M ℱ P I
+  using (reflect-retarget-comparison)
 open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionIdentifications 𝒯 M ℱ I
 open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionFrameCalculus 𝒯 M ℱ I using (retarget-cong; retarget-assoc; post-retarget)
 open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionPostcomposition 𝒯 M ℱ I using (post-expressionIso)
@@ -69,6 +71,15 @@ module At {Γ C D : CAT} (y : Obj-abs D) {x x′ : MAP Γ C} (f : MorphismExpres
       (retarget-cong double (cancel-inverse-tail (y ◁ Source.τ) Source.ρ) (cancel-inverse-tail (y ◁ Target.τ) Target.ρ))
       (expressionIso-compose (retarget-assoc double Source.ρ Target.ρ Source.frame Target.frame)
         (expressionIso-inverse (retarget-expressionIso Paste.comparison Source.frame Target.frame))))
+
+abstract
+  constant-post-unique : {Γ C D : CAT} (y : Obj-abs D) {x x′ : MAP Γ C}
+    (f g : MorphismExpression x x′) →
+    ExpressionIso (post-expression (const y) f) (post-expression (const y) g)
+  constant-post-unique y {x} {x′} f g = reflect-retarget-comparison
+    (post-expression (const y) f) (post-expression (const y) g)
+    (Change.frame y x) (Change.frame y x′)
+    (expressionIso-compose (expressionIso-inverse (At.comparison y g)) (At.comparison y f))
 
 point-frame : {D : CAT} (y : Obj-abs D) → const {P = One} y =₁ y
 point-frame y = comp-unitʳ y ∙ (y ◁ terminal-iso (terminate One) (id One))

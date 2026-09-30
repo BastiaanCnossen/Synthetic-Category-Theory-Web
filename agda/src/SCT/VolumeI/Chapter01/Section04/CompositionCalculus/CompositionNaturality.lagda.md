@@ -17,6 +17,10 @@ import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingCoherence as Pairi
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingNaturality as PairingNaturality
 import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.Structural as Structural
 
+import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.CoordinateNaturality as CoordinateNaturality
+
+import SCT.VolumeI.Chapter01.Section03.ProductCalculus.BinaryFunctorCalculus as BinaryFunctorCalculus
+
 module SCT.VolumeI.Chapter01.Section04.CompositionCalculus.CompositionNaturality
   {c m a : Level} (𝒯 : Theory c m a)
   (M : MappingAnimae.MappingAnimae 𝒯) where
@@ -32,18 +36,8 @@ open PairingNaturality vocabulary terminal products productLaws composition vert
   using (pair-pre-natural-inputs; pair-pre-natural-substitution; move-square)
 open Structural vocabulary terminal products productLaws composition whiskering
 
-post-square : {X Y Z : CAT} (F : MAP Y Z)
-  {a a′ b b′ : MAP X Y}
-  (u : a =₁ b) (u′ : a′ =₁ b′)
-  (α : a =₁ a′) (β : b =₁ b′)
-  → (u′ ∙ α) =₂ (β ∙ u)
-  → ((F ◁ u′) ∙ (F ◁ α)) =₂ ((F ◁ β) ∙ (F ◁ u))
-post-square F u u′ α β p = postWhisker-isoComp-at F β u ∙
-  ((postWhisker F ◁ p) ∙ (postWhisker-isoComp-at F u′ α) ⁻¹)
-
-identity-square : {X Y : CAT} {f g : MAP X Y} (α : f =₁ g)
-  → (idIso g ∙ α) =₂ (α ∙ idIso f)
-identity-square α = (isoComp-unitʳ-at α) ⁻¹ ∙ isoComp-unitˡ-at α
+open CoordinateNaturality vocabulary terminal products productLaws composition vertical whiskering
+  public using (post-square; identity-square; coordinate-at; coordinate-at-outer; coordinate-at-inner)
 
 apply-square : {X C D : CAT}
   {f f′ g g′ : MAP X (Map C D)} {x x′ y y′ : MAP X C}
@@ -63,67 +57,12 @@ apply-cong-Iso₂ : {X C D : CAT}
   {α α′ : f =₁ f′} {β β′ : x =₁ x′}
   → α =₂ α′ → β =₂ β′
   → (applyTerm-cong α β) =₂ (applyTerm-cong α′ β′)
-apply-cong-Iso₂ p q = postWhisker mapEval ◁ pair-cong-Iso₂ p q
+apply-cong-Iso₂ p q =
+  BinaryFunctorCalculus.binary-cong-Iso₂ vocabulary terminal products productLaws composition vertical whiskering
+    mapEval p q
 
-binary-pre-inputs : {X Y A B C : CAT} (F : MAP (A × B) C)
-  {f f′ : MAP X A} {g g′ : MAP X B}
-  (α : f =₁ f′) (β : g =₁ g′) (r : MAP Y X)
-  → let before = (F ◁ pair-pre f g r) ∙ comp-assoc r (pair f g) F
-        after = (F ◁ pair-pre f′ g′ r) ∙ comp-assoc r (pair f′ g′) F
-    in (after ∙ ((F ◁ pair-cong α β) ▷ r)) =₂
-        ((F ◁ pair-cong (α ▷ r) (β ▷ r)) ∙ before)
-binary-pre-inputs F {f} {f′} {g} {g′} α β r =
-  paste-squares (comp-assoc r (pair f g) F) (comp-assoc r (pair f′ g′) F)
-    (F ◁ pair-pre f g r) (F ◁ pair-pre f′ g′ r)
-    ((F ◁ pair-cong α β) ▷ r) (F ◁ (pair-cong α β ▷ r))
-    (F ◁ pair-cong (α ▷ r) (β ▷ r))
-    (whisker-mixed-at (pair-cong α β) r F)
-    (post-square F (pair-pre f g r) (pair-pre f′ g′ r)
-      (pair-cong α β ▷ r) (pair-cong (α ▷ r) (β ▷ r))
-      ((pair-pre-natural-inputs α β r) ⁻¹))
-
-binary-pre-substitution : {X Y A B C : CAT} (F : MAP (A × B) C)
-  (f : MAP X A) (g : MAP X B) {r s : MAP Y X} (γ : r =₁ s)
-  → let before = (F ◁ pair-pre f g r) ∙ comp-assoc r (pair f g) F
-        after = (F ◁ pair-pre f g s) ∙ comp-assoc s (pair f g) F
-    in (after ∙ ((F ∘ pair f g) ◁ γ)) =₂
-        ((F ◁ pair-cong (f ◁ γ) (g ◁ γ)) ∙ before)
-binary-pre-substitution F f g {r} {s} γ =
-  paste-squares (comp-assoc r (pair f g) F) (comp-assoc s (pair f g) F)
-    (F ◁ pair-pre f g r) (F ◁ pair-pre f g s)
-    ((F ∘ pair f g) ◁ γ) (F ◁ (pair f g ◁ γ))
-    (F ◁ pair-cong (f ◁ γ) (g ◁ γ))
-    (postWhisker-comp-at γ (pair f g) F)
-    (post-square F (pair-pre f g r) (pair-pre f g s)
-      (pair f g ◁ γ) (pair-cong (f ◁ γ) (g ◁ γ))
-      ((pair-pre-natural-substitution f g γ) ⁻¹))
-
-coordinate-at : {X K A B : CAT} (F : MAP A B) (π : MAP K A)
-  (t : MAP X K) {p : MAP X A} → (π ∘ t) =₁ p
-  → ((F ∘ π) ∘ t) =₁ (F ∘ p)
-coordinate-at F π t b = (F ◁ b) ∙ comp-assoc t π F
-
-coordinate-at-outer : {X K A B : CAT} {F G : MAP A B}
-  (α : F =₁ G) (π : MAP K A) (t : MAP X K)
-  {p : MAP X A} (b : (π ∘ t) =₁ p)
-  → (coordinate-at G π t b ∙ ((α ▷ π) ▷ t)) =₂
-      ((α ▷ p) ∙ coordinate-at F π t b)
-coordinate-at-outer {F = F} {G} α π t {p} b =
-  paste-squares (comp-assoc t π F) (comp-assoc t π G) (F ◁ b) (G ◁ b)
-    ((α ▷ π) ▷ t) (α ▷ (π ∘ t)) (α ▷ p)
-    (preWhisker-comp-at α π t) ((interchange-at α b) ⁻¹)
-
-coordinate-at-inner : {X K A B : CAT} (F : MAP A B) (π : MAP K A)
-  {t t′ : MAP X K} {p p′ : MAP X A}
-  (b : (π ∘ t) =₁ p) (b′ : (π ∘ t′) =₁ p′)
-  (δ : t =₁ t′) (α : p =₁ p′)
-  → (b′ ∙ (π ◁ δ)) =₂ (α ∙ b)
-  → (coordinate-at F π t′ b′ ∙ ((F ∘ π) ◁ δ)) =₂
-      ((F ◁ α) ∙ coordinate-at F π t b)
-coordinate-at-inner F π {t} {t′} b b′ δ α p =
-  paste-squares (comp-assoc t π F) (comp-assoc t′ π F) (F ◁ b) (F ◁ b′)
-    ((F ∘ π) ◁ δ) (F ◁ (π ◁ δ)) (F ◁ α)
-    (postWhisker-comp-at δ π F) (post-square F b b′ (π ◁ δ) α p)
+open BinaryFunctorCalculus vocabulary terminal products productLaws composition vertical whiskering
+  public using (binary-pre-inputs; binary-pre-substitution)
 
 productMap-pair-outer : {X A B C D : CAT}
   {f f′ : MAP A B} {g g′ : MAP C D}
@@ -324,8 +263,8 @@ apply-cong-comp : {X C D : CAT}
   → (applyTerm-cong (α₂ ∙ α₁) (β₂ ∙ β₁)) =₂
       (applyTerm-cong α₂ β₂ ∙ applyTerm-cong α₁ β₁)
 apply-cong-comp α₂ α₁ β₂ β₁ =
-  postWhisker-isoComp-at mapEval (pair-cong α₂ β₂) (pair-cong α₁ β₁) ∙
-    (postWhisker mapEval ◁ pair-cong-comp α₂ α₁ β₂ β₁)
+  BinaryFunctorCalculus.binary-cong-comp vocabulary terminal products productLaws composition vertical whiskering
+    mapEval α₂ α₁ β₂ β₁
 
 chain-input-squares : {X Y : CAT} {a b c d e f : MAP X Y}
   (u : a =₁ d) (v : b =₁ e) (w : c =₁ f)
