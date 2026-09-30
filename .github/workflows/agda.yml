@@ -1,0 +1,107 @@
+# Checks the Agda formalization on GitHub's machines.
+#
+# - On every push that changes agda/src: the routine check (same as
+#   `python scripts/check_agda.py` locally).
+# - Every night: the full check, including the slow uncurrying branch.
+# - Every Sunday: the lossy-unification audit (see scripts/audit_lossy.py).
+# - Any of these can also be started by hand from the Actions tab.
+#
+# Compiled interfaces are cached between runs, so a run only rechecks the
+# modules that changed and their dependents. Per-module timings are saved as
+# a downloadable artifact of every run.
+name: Check Agda formalization
+
+on:
+  push:
+    branches: [main]
+    paths: ['agda/src/**', 'scripts/check_agda.py', 'scripts/audit_lossy.py', '.github/workflows/agda.yml']
+  schedule:
+    - cron: '17 1 * * *'   # nightly full check, about 03:17 Berlin time
+    - cron: '43 3 * * 0'   # Sunday lossy-unification audit
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'What to run'
+        type: choice
+        options: [routine, full, lossy-audit]
+        default: routine
+
+concurrency:
+  group: agda-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  AGDA_VERSION: '2.8.0'
+  # GitHub's standard Linux machine has 4 cores and 16 GB of memory.
+  GHCRTS: '-M13G -A128M'
+
+jobs:
+  check:
+    if: github.event_name != 'schedule' || github.event.schedule == '17 1 * * *'
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Agda
+        run: |
+          curl -sSL -o agda.tar.xz "https://github.com/agda/agda/releases/download/v${AGDA_VERSION}/Agda-v${AGDA_VERSION}-linux.tar.xz"
+          mkdir -p "$HOME/agda-bin" && tar xf agda.tar.xz -C "$HOME/agda-bin"
+          # Wrapper that also records how long each module takes.
+          printf '#!/bin/sh\nexec "%s/agda-bin/agda" --profile=modules "$@"\n' "$HOME" > "$HOME/agda-bin/agda-profiled"
+          chmod +x "$HOME/agda-bin/agda-profiled"
+          "$HOME/agda-bin/agda" --version
+
+      - name: Restore compiled interfaces
+        uses: actions/cache/restore@v4
+        with:
+          path: agda/_build/${{ env.AGDA_VERSION }}
+          key: agda-${{ env.AGDA_VERSION }}-${{ hashFiles('agda/src/**') }}
+          restore-keys: agda-${{ env.AGDA_VERSION }}-
+
+      - name: Check
+        run: |
+          MODE='${{ inputs.mode }}'
+          if [ "${{ github.event_name }}" = "schedule" ] || [ "$MODE" = "full" ]; then FLAG=--full; else FLAG=; fi
+          python scripts/check_agda.py $FLAG --agda "$HOME/agda-bin/agda-profiled"
+
+      - name: Save compiled interfaces (also after a failure or timeout)
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: agda/_build/${{ env.AGDA_VERSION }}
+          key: agda-${{ env.AGDA_VERSION }}-${{ hashFiles('agda/src/**') }}-${{ github.run_id }}
+
+      - name: Upload log and per-module timings
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agda-check-${{ github.run_id }}
+          path: _build/agda-check/
+          retention-days: 90
+
+  lossy-audit:
+    if: (github.event_name == 'schedule' && github.event.schedule == '43 3 * * 0') || inputs.mode == 'lossy-audit'
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Agda
+        run: |
+          curl -sSL -o agda.tar.xz "https://github.com/agda/agda/releases/download/v${AGDA_VERSION}/Agda-v${AGDA_VERSION}-linux.tar.xz"
+          mkdir -p "$HOME/agda-bin" && tar xf agda.tar.xz -C "$HOME/agda-bin"
+      - name: Restore compiled interfaces
+        uses: actions/cache/restore@v4
+        with:
+          path: agda/_build/${{ env.AGDA_VERSION }}
+          key: agda-${{ env.AGDA_VERSION }}-${{ hashFiles('agda/src/**') }}
+          restore-keys: agda-${{ env.AGDA_VERSION }}-
+      - name: Check every lossy module without lossy unification
+        run: python scripts/audit_lossy.py --agda "$HOME/agda-bin/agda"
+      - name: Upload audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lossy-audit-${{ github.run_id }}
+          path: _build/lossy-audit/report.*
+          retention-days: 90
