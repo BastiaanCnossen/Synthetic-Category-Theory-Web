@@ -30,7 +30,7 @@ import SCT.VolumeI.Chapter01.Section06.ConeCalculus.Comparisons as Comparisons
 import SCT.VolumeI.Chapter01.Section06.ConeCalculus.ConeSymmetry as Symmetry
 import SCT.VolumeI.Chapter01.Section06.ConeCalculus.InverseCalculus as Inverses
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingNaturality as Pairing
-import SCT.VolumeI.Chapter01.Section02.Isomorphisms as Iso
+import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.BoundaryTransport as Boundary
 import SCT.VolumeI.Chapter01.Section04.Substitution.CoherenceTransport as Endpoint
 
 module SCT.VolumeI.Chapter05.Section02.SumCones
@@ -52,9 +52,9 @@ open Pasting W K P using (paste)
 open T using (_∘_; _∙_; _◁_; _▷_; _⁻¹)
 open Calculus T
 open Pairing T.vocabulary T.terminal T.products T.productLaws T.composition T.vertical T.whiskering
-  using (move-square; cancel-right)
-open Iso T.vocabulary T.terminal T.products T.productLaws T.composition T.vertical T.whiskering
-  using (cancel-inverse)
+  using (move-square)
+open Boundary T.vocabulary T.terminal T.products T.productLaws T.composition T.vertical
+  using (restore-boundaries)
 open Comparisons T using (coneRetarget; coneRetarget-β; coneIso-compose; coneIso-inverse; coneIso-adjust)
 open Symmetry T using (cone-match-change)
 open Endpoint T using (changeEndpoints-reflect; changeEndpoints-comp; square-to-changeEndpoints)
@@ -185,11 +185,9 @@ module Extension {B : T.CAT} {C D E : S.CAT} {f : S.MAP C E} {g : S.MAP D E}
   value = record { left = left ; right = right ; match = reflect rawMatch }
 
   match-β : T._=₂_ (TC.Cone.match (restrictCone value)) desired
-  match-β = cancel-right leftChange desired ∙
-    (isoComp-cong (cancel-inverse rightChange (desired ∙ leftChange)) (T.idIso (leftChange ⁻¹)) ∙
-    ((isoComp-assoc-at rightChange rawMatch (leftChange ⁻¹)) ⁻¹ ∙
-      isoComp-cong (T.idIso rightChange)
-        (isoComp-cong (reflect-β rawMatch) (T.idIso (leftChange ⁻¹)))))
+  match-β = restore-boundaries leftChange rightChange desired
+    (action (SC.Cone.match value))
+    (reflect-β rawMatch)
 
   abstract
     comparison : TC.ConeIso (restrictCone value) s
