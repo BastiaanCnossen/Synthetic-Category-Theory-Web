@@ -69,6 +69,7 @@ import SCT.VolumeI.Chapter01.Section04.Substitution.SectionComparisonEvaluation
 import SCT.VolumeI.Chapter01.Section04.Substitution.SectionComparisonRestriction
 import SCT.VolumeI.Chapter01.Section04.Substitution.Specialization
 import SCT.VolumeI.Chapter01.Section04.Substitution.SubstitutionCoherence
+import SCT.VolumeI.Chapter01.Section04.Substitution.TransportedSquares
 import SCT.VolumeI.Chapter01.Section04.Substitution.UncurriedIdentityParameterChange
 import SCT.VolumeI.Chapter01.Section04.Uncurrying
 import SCT.VolumeI.Chapter01.Section04.SquareCalculus.SectionFrames
