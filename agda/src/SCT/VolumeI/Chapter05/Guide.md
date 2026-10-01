@@ -57,6 +57,12 @@ local functors by computing its restriction and reflecting the resulting squares
 absolute cospans and computes their restriction, including the matching.
 It also lifts cone comparisons; no computation of the lifted compatibility
 witness at the next level is asserted.
+The reflections of cone comparisons in SumCones,
+[ProductConeReflection](Section02/ProductCalculus/ProductConeReflection.lagda.md)
+and `Section03/MappingOverBaseCalculus/RelativeNames` use the Chapter 1
+[reflection of transported squares](../Chapter01/Section04/Substitution/TransportedSquares.lagda.md).
+[ConeCalculus/TransportedSquares](Section02/ConeCalculus/TransportedSquares.lagda.md)
+re-exports it during migration.
 
 [Frobenius](Section02/Frobenius.lagda.md) constructs the equivalence, and
 [FrobeniusComparison](Section02/FrobeniusComparison.lagda.md) identifies its

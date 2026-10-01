@@ -30,8 +30,8 @@ import SCT.VolumeI.Chapter01.Section06.ConeCalculus.Comparisons as Comparisons
 import SCT.VolumeI.Chapter01.Section06.ConeCalculus.ConeSymmetry as Symmetry
 import SCT.VolumeI.Chapter01.Section06.ConeCalculus.InverseCalculus as Inverses
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingNaturality as Pairing
-import SCT.VolumeI.Chapter01.Section02.Isomorphisms as Iso
-import SCT.VolumeI.Chapter01.Section04.Substitution.CoherenceTransport as Endpoint
+import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.BoundaryTransport as Boundary
+import SCT.VolumeI.Chapter05.Section02.ConeCalculus.TransportedSquares as Squares
 
 module SCT.VolumeI.Chapter05.Section02.SumCones
   {l : Level} {S T : Theory l l l} (W : Weakening S T)
@@ -52,12 +52,12 @@ open Pasting W K P using (paste)
 open T using (_∘_; _∙_; _◁_; _▷_; _⁻¹)
 open Calculus T
 open Pairing T.vocabulary T.terminal T.products T.productLaws T.composition T.vertical T.whiskering
-  using (move-square; cancel-right)
-open Iso T.vocabulary T.terminal T.products T.productLaws T.composition T.vertical T.whiskering
-  using (cancel-inverse)
+  using (move-square)
+open Boundary T.vocabulary T.terminal T.products T.productLaws T.composition T.vertical
+  using (restore-boundaries)
 open Comparisons T using (coneRetarget; coneRetarget-β; coneIso-compose; coneIso-inverse; coneIso-adjust)
 open Symmetry T using (cone-match-change)
-open Endpoint T using (changeEndpoints-reflect; changeEndpoints-comp; square-to-changeEndpoints)
+open Squares T using (reflect-transported-square)
 open Inverses T using (inverse-composite; isoInverse-unique)
 
 restrictCone : {B : T.CAT} {C D E : S.CAT} {f : S.MAP C E} {g : S.MAP D E}
@@ -152,15 +152,9 @@ module Reflection {B : T.CAT} {C D E : S.CAT} {f : S.MAP C E} {g : S.MAP D E}
   β = action (S._◁_ g right)
 
   rawSquare : T._=₂_ (τt ∙ α) (β ∙ τs)
-  rawSquare = changeEndpoints-reflect fs gt _ _
-    (changeEndpoints-comp fs gs gt β τs ∙
-    (isoComp-cong
-      ((square-to-changeEndpoints gs gt β (W.map g ◁ action right) (naturality g right)) ⁻¹)
-      (T.idIso (TC.Cone.match (restrictCone s))) ∙
-    (TC.ConeIso.compatible adjusted ∙
-    (isoComp-cong (T.idIso (TC.Cone.match (restrictCone t)))
-      (square-to-changeEndpoints fs ft α (W.map f ◁ action left) (naturality f left)) ∙
-      (changeEndpoints-comp fs ft gt τt α) ⁻¹))))
+  rawSquare = reflect-transported-square fs gs ft gt τs τt
+    α β (W.map f ◁ action left) (W.map g ◁ action right)
+    (naturality f left) (naturality g right) (TC.ConeIso.compatible adjusted)
 
   comparison : SC.ConeIso s t
   comparison = record
@@ -185,11 +179,9 @@ module Extension {B : T.CAT} {C D E : S.CAT} {f : S.MAP C E} {g : S.MAP D E}
   value = record { left = left ; right = right ; match = reflect rawMatch }
 
   match-β : T._=₂_ (TC.Cone.match (restrictCone value)) desired
-  match-β = cancel-right leftChange desired ∙
-    (isoComp-cong (cancel-inverse rightChange (desired ∙ leftChange)) (T.idIso (leftChange ⁻¹)) ∙
-    ((isoComp-assoc-at rightChange rawMatch (leftChange ⁻¹)) ⁻¹ ∙
-      isoComp-cong (T.idIso rightChange)
-        (isoComp-cong (reflect-β rawMatch) (T.idIso (leftChange ⁻¹)))))
+  match-β = restore-boundaries leftChange rightChange desired
+    (action (SC.Cone.match value))
+    (reflect-β rawMatch)
 
   abstract
     comparison : TC.ConeIso (restrictCone value) s
