@@ -72,9 +72,8 @@ through the actual uncurrying equivalence. The beta comparison below is
 a comparison of whole cocones. Reflection uses the same anima hypothesis.
 
 ```agda
-open PN vocabulary terminal products productLaws composition vertical whiskering using (cancel-right)
-open import SCT.VolumeI.Chapter01.Section02.Isomorphisms
-  vocabulary terminal products productLaws composition vertical whiskering using (cancel-inverse)
+open import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.BoundaryTransport
+  vocabulary terminal products productLaws composition vertical using (restore-boundaries)
 open import SCT.VolumeI.Chapter01.Section04.Substitution.CoherenceTransport 𝒯
 
 module CurryRestriction {X A B C E : CAT} {u : MAP A B} {v : MAP A C}
@@ -95,11 +94,9 @@ module CurryRestriction {X A B C E : CAT} {u : MAP A B} {v : MAP A C}
 
   abstract
     match-β : (Cocone.match (uncurryRestriction {u = u} {v = v} value)) =₂ desired
-    match-β = cancel-right leftChange desired ∙
-      (isoComp-cong (cancel-inverse rightChange (desired ∙ leftChange)) (idIso (leftChange ⁻¹)) ∙
-      ((isoComp-assoc-at rightChange rawMatch (leftChange ⁻¹)) ⁻¹ ∙
-        isoComp-cong (idIso rightChange)
-          (isoComp-cong (mapReflect-β xAn _ _ rawMatch) (idIso (leftChange ⁻¹)))))
+    match-β = restore-boundaries leftChange rightChange desired
+      (mapUncurryIso (Cone.match value))
+      (mapReflect-β xAn _ _ rawMatch)
 
     comparison : CoconeIso (uncurryRestriction {u = u} {v = v} value) s
     comparison = coconeIso-compose
