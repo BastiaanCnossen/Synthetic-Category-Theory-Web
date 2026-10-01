@@ -15,7 +15,8 @@ module SCT.VolumeI.Chapter01.Section06.MappingCalculus.ConeReflection
   {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯) where
 
 open Setup 𝒯 M
-open import SCT.VolumeI.Chapter01.Section04.Substitution.CoherenceTransport 𝒯
+open import SCT.VolumeI.Chapter01.Section04.Substitution.TransportedSquares 𝒯
+  using (reflect-transported-square)
 open import SCT.VolumeI.Chapter01.Section06.MappingCalculus.ConeUncurrying 𝒯 M
 open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.Comparisons 𝒯 using (coneIso-adjust)
 open import SCT.VolumeI.Chapter01.Section06.MappingCalculus.MappingCompatibility 𝒯 M
@@ -39,15 +40,10 @@ module ReflectCone {X T C D E : CAT} {f : MAP C E} {g : MAP D E}
   β = mapUncurryIso (mapPost g ◁ right)
 
   rawSquare : (τt ∙ α) =₂ (β ∙ τs)
-  rawSquare = changeEndpoints-reflect fs gt _ _
-    (changeEndpoints-comp fs gs gt β τs ∙
-    (isoComp-cong
-      ((square-to-changeEndpoints gs gt β (g ◁ mapUncurryIso right) (mapPost-uncurry-natural g right)) ⁻¹)
-      (idIso (Cone.match (uncurryCone s))) ∙
-    (ConeIso.compatible adjusted ∙
-    (isoComp-cong (idIso (Cone.match (uncurryCone t)))
-      (square-to-changeEndpoints fs ft α (f ◁ mapUncurryIso left) (mapPost-uncurry-natural f left)) ∙
-      (changeEndpoints-comp fs ft gt τt α) ⁻¹))))
+  rawSquare = reflect-transported-square fs gs ft gt τs τt
+    α β (f ◁ mapUncurryIso left) (g ◁ mapUncurryIso right)
+    (mapPost-uncurry-natural f left) (mapPost-uncurry-natural g right)
+    (ConeIso.compatible adjusted)
 
   comparison : ConeIso s t
   comparison = record
