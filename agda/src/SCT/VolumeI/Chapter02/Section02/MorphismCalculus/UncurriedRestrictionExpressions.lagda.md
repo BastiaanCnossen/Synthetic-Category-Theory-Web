@@ -26,6 +26,7 @@ open PN vocabulary terminal products productLaws composition vertical whiskering
 
 module At {Γ Δ C : CAT} {f g : MAP Γ C} (α : MorphismExpression f g) (r : MAP Δ Γ) where
   module A = MorphismExpression α
+    using (arrow; source-frame; target-frame)
   H = funUncurry A.arrow
   step = productMap r (id [1])
   comparison : funUncurry (MorphismExpression.arrow (restrict-expression α r)) =₁ (H ∘ step)

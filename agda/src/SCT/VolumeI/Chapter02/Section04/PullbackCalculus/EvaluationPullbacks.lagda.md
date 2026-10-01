@@ -26,6 +26,7 @@ open import SCT.VolumeI.Chapter02.Section04.PullbackCalculus.EvaluationCones ùí
 module EvaluatePullback {T C D E : CAT} (z : Obj-abs T) (f : MAP C E) (g : MAP D E) where
   module Evaluation = EvaluationCone z f g
   module FunctorSquare = FunctorPullback T f g
+    using (comparison; comparison-computation; comparison-isEquiv; square)
   original = pullbackCone f g
   middle = pullbackCone (funPost {C = T} f) (funPost g)
 

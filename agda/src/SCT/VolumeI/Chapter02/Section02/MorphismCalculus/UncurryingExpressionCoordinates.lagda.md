@@ -22,6 +22,7 @@ import SCT.VolumeI.Chapter01.Section03.ProductCalculus.NestedSymmetry as Symmetr
 
 module Coordinates (Γ X : CAT) where
   module Swap = Symmetry.At 𝒯 Γ [1] X
+    using (forward; inner; last; parameter)
   permutation = Swap.forward
   step : MAP ((Γ × X) × [1]) (Γ × [1])
   step = productMap pr₁ (id [1])

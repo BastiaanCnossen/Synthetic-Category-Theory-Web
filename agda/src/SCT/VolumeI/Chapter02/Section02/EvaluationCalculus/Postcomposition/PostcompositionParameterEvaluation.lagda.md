@@ -39,6 +39,7 @@ module At {Γ A C D : CAT} (F : MAP C D) (h : MAP Γ (Fun A C)) (z : Obj-abs A) 
   original = evaluate-insertion (funUncurry k) h z
   changed = evaluate-insertion (F ∘ e) h z
   module Square = Post.At 𝒯 M e F h R i j (insert-natural h z)
+    using (J; J₀; J₁; comparison)
   rest = (Qk ▷ h) ∙ tail
 
   abstract

@@ -33,14 +33,15 @@ import SCT.VolumeI.Chapter03.Section05.BaseChange.BeckChevalleyFamilies as Geome
 module Pulled {S T S′ T′ C D : CAT} (p : MAP S T) (b : MAP T′ T)
   (square : Cone p b S′) (square-isPullback : IsPullback square) (g : MAP D T) (f : MAP C S)
   (ε : FunctorOver (pullback₂ {f = g} {p}) f) where
-  module Dom = Domain p b square g
-  module Eval = Evaluation Dom.h f ε Dom.into-over
+  module Dom = Domain p b square g using (h; into-over; p′; t)
+  private
+    module Eval = Evaluation Dom.h f ε Dom.into-over using (pulled; comparison)
   pulled = Eval.pulled
 
   module At {K X : CAT} (k : MAP K T′) (u : FunctorOver (k ∘ pr₂ {C = X}) Dom.t) where
-    module Geometric = Geometry.Family 𝒯 M ℱ P p b square square-isPullback g k u
+    module Geometric = Geometry.Family 𝒯 M ℱ P p b square square-isPullback g k u using (J; argument; comparison; module New; module Old; module Parameters)
     open Geometric using (J; argument)
-    module Target = Families Dom.h f Geometric.Parameters.rN
+    module Target = Families Dom.h f Geometric.Parameters.rN using (forward; forward-identification)
     old-evaluated = compose-over ε Geometric.Old.pulled
     common = compose-over old-evaluated argument
 

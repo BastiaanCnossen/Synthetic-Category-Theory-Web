@@ -22,6 +22,7 @@ import SCT.VolumeI.Chapter01.Section04.SquareCalculus.ProjectionSquares as Proje
 open import SCT.VolumeI.Chapter01.Section02.Isomorphisms
   vocabulary terminal products productLaws composition vertical whiskering using (cancel-inverse)
 module PS = Projections 𝒯
+  using (Square; compose-base)
 
 coinsert : {A B : CAT} → Obj-abs A → MAP B (A × B)
 coinsert {B = B} u = pair (const u) (id B)

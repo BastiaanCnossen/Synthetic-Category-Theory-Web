@@ -55,6 +55,7 @@ module At {Γ C : CAT} {x y z w : MAP Γ C}
   (lower : CompositePresentation left bottom diagonal) where
   module Glued = Glue upper lower
   module Curried = Currying.At 𝒯 M ℱ Glued.square
+    using (nested; module Horizontal; module Vertical)
   module Upper = CompositePresentation Glued.upper-presentation
   module Lower = CompositePresentation Glued.lower-presentation
 

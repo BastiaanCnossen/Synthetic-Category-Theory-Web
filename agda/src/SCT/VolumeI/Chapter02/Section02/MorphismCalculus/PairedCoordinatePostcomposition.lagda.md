@@ -4,7 +4,7 @@ Applying a functor to the second coordinate preserves its pairing with
 the identity in the first coordinate, with the specified product frames.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
@@ -40,8 +40,10 @@ module At {X A B C : CAT} (F : MAP B C) {u v : MAP (X × A) B} (β : MorphismExp
   source-frame = source-change ∙ productMap-pair (id X) F pr₁ u
   target-frame = target-change ∙ productMap-pair (id X) F pr₁ v
   module Mapped = Functoriality.At 𝒯 M ℱ P I E S (id X) F (identity-expression pr₁) β
+    using (value)
   module ProductFrames = Frames.At 𝒯 M ℱ I (post-expression (id X) (identity-expression pr₁)) (post-expression F β)
     (comp-unitˡ pr₁) (comp-unitˡ pr₁) (idIso (F ∘ u)) (idIso (F ∘ v))
+    using (value)
 
   abstract
     first : ExpressionIso

@@ -39,6 +39,7 @@ restrict-expressionIso {f = f} {g} α r = record
   where
   module F = MorphismExpression f
   module G = MorphismExpression g
+    using (arrow; source-frame; target-frame)
   module A = ExpressionIso α
 
   endpoint : (v : MAP (Ar _) _) {z : MAP _ _}

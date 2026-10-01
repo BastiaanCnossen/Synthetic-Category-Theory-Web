@@ -27,6 +27,7 @@ open Pairing vocabulary terminal products productLaws composition vertical whisk
 
 module Product {A B : CAT} (X : CAT) (x : Obj-abs A) (z : Obj-abs B) where
   module Coords = Coordinates.At 𝒯 M ℱ X x z
+    using (b₁; constant-comparison; first-coordinate; i; point; right-second; s; second-coordinate; t; π; ρ)
   open Coords using (π; ρ; i; t; s; b₁; point; constant-comparison)
   j = insert {X = X} z
   K = productMap (id X) (const {P = A} z)
@@ -35,6 +36,7 @@ module Product {A B : CAT} (X : CAT) (x : Obj-abs A) (z : Obj-abs B) where
   vertex = pair-cong (idIso (id X)) (point ▷ t)
   χ = Restriction.insertion 𝒯 M ℱ X (const {P = A} z) x
   module Insert = Restriction.At 𝒯 M ℱ X (const {P = A} z) x
+    using (first; normalization; second)
   step = pair-pre (id X ∘ π) (const {P = A} z ∘ ρ) i
   module Compared = PairSection.ComparedInputs 𝒯 π i b₁ (id X) (const {P = X} z)
     (idIso (id X ∘ π)) constant-comparison
@@ -59,6 +61,7 @@ module At {A B C : CAT} (x : Obj-abs A) (z : Obj-abs B) where
   X = Fun B C
   module Products = Product X x z
   module Coords = Coordinates.At 𝒯 M ℱ X x z
+    using (b₁; constant-comparison; first-coordinate; i; point; right-second; s; second-coordinate; t; π; ρ)
   e = funEval {C = B} {D = C}
   open Products using (j; K; comparison-to-constant; χ; vertex)
   open Coords using (π; i; b₁; point)

@@ -8,7 +8,7 @@ Transporting the square along this identification gives the claimed
 pullback for the actual implementation.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
@@ -41,9 +41,10 @@ open import SCT.VolumeI.Chapter03.RelativeCategories.Composition.Postcomposition
 
 module Postcomposition {K C D S : CAT} (k : MAP K S)
   {f : MAP C S} {g : MAP D S} (u : FunctorOver f g) where
-  module Higher = Post K u using (triangle; module OnCone)
-  module Pullback = Cartesian (nameFun k) Higher.triangle using (square; square-isPullback)
-  module Actual = Postcompose k u using (functor; family-comparison)
+  private
+    module Higher = Post K u using (triangle; module OnCone)
+    module Pullback = Cartesian (nameFun k) Higher.triangle using (square; square-isPullback)
+    module Actual = Postcompose k u using (functor; family-comparison)
   source = pullbackCone (funPost f) (nameFun k)
   target = pullbackCone (funPost g) (nameFun k)
   acted = Change.cone (nameFun k) Higher.triangle
@@ -54,7 +55,8 @@ module Postcomposition {K C D S : CAT} (k : MAP K S)
     evaluated = compose-iso-over (Higher.OnCone.comparison k source)
       (evaluated-comparison (pullbackLift-β acted))
   family-comparison = compose-iso-over (inverse-iso-over Actual.family-comparison) evaluated
-  module Lifted = Identification k g fiber-map Actual.functor family-comparison
+  private
+    module Lifted = Identification k g fiber-map Actual.functor family-comparison
   abstract
     comparison : fiber-map =₁ Actual.functor
     comparison = Lifted.comparison
@@ -94,10 +96,11 @@ module Postcomposition {K C D S : CAT} (k : MAP K S)
   module Restricted {X : CAT} (F : MAP X (FunOver k f)) where
     restricted = conePre F square
     β = FunctorOverIso.underlying (postcompose-family k u F)
-    module Normalize = SquareRestriction.Restrict 𝒯 M ℱ P (FunctorLift.lift u)
-      (Over.forget k f) (Over.forget k g) Actual.functor (Cone.match square)
-      (FunctorOverIso.underlying Actual.family-comparison) evaluated-matching-normal F
-      using (normalized)
+    private
+      module Normalize = SquareRestriction.Restrict 𝒯 M ℱ P (FunctorLift.lift u)
+        (Over.forget k f) (Over.forget k g) Actual.functor (Cone.match square)
+        (FunctorOverIso.underlying Actual.family-comparison) evaluated-matching-normal F
+        using (normalized)
     abstract
       evaluation : (β ∙ funUncurryIso (Cone.match restricted)) =₂
         funPost-uncurry (FunctorLift.lift u) (Over.forget k f ∘ F)

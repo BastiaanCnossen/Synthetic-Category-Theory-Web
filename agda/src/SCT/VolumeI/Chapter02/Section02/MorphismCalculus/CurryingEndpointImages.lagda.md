@@ -24,10 +24,13 @@ open PN vocabulary terminal products productLaws composition vertical whiskering
 module At {Γ X C : CAT} (f g : MAP Γ (Fun X C))
   (α : MorphismExpression (funUncurry f) (funUncurry g)) where
   module A = Currying.Curry 𝒯 M ℱ I f g α
+    using (diagram; first-curry; original; permutation; module Endpoint)
   module Original = MorphismExpression α
+    using (arrow)
   module Endpoint (z : Obj-abs [1]) (h : MAP Γ (Fun X C))
     (b : (evaluate z ∘ Original.arrow) =₁ funUncurry h) where
     module New = A.Endpoint z h b
+      using (insertion-comparison; raw; reflected; reflected-image)
     i = insert {X = Γ} z
     s = productMap i (id X)
     ρ : funUncurry (A.first-curry ∘ i) =₁ (funUncurry A.first-curry ∘ s)

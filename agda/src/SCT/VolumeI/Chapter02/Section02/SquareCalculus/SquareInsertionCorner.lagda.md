@@ -24,6 +24,7 @@ import SCT.VolumeI.Chapter02.Section02.SquareCalculus.SquareCurryingCoordinates 
 import SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Restriction.InsertionProjectionWitnesses as Insertion
 import SCT.VolumeI.Chapter01.Section04.SquareCalculus.ProjectionSquares as Projections
 module PS = Projections 𝒯
+  using (Square; lift-base; lift-square)
 
 module At (Γ A B : CAT) (u : Obj-abs A) (v : Obj-abs B) where
   module Coordinates = Rectangles.Coordinates 𝒯 M ℱ Γ A B

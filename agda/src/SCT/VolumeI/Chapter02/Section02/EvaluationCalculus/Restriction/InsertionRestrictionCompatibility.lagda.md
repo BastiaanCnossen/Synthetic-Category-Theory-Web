@@ -33,6 +33,7 @@ open PN vocabulary terminal products productLaws composition vertical whiskering
 open import SCT.VolumeI.Chapter01.Section08.ProductCalculus.ProjectionBaseCalculus 𝒯 using (change-middle)
 open Pairing vocabulary terminal products productLaws composition vertical whiskering using (pair-iso-extensionality)
 module PS = Projection 𝒯
+  using (Square; associator-square; compose-base; compose-square; inverse-square; lift-base; lift-compose; lift-square; post-square; pre-square)
 
 module RestrictionFirst {A B : CAT} (X : CAT) (r : MAP A B) (x : Obj-abs A) where
   i = insert {X = X} x

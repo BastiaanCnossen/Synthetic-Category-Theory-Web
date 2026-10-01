@@ -33,6 +33,7 @@ module Lifts {B C : CAT} (u v : MAP B C) where
     module F = Fiber u v
       using (encode-comparison; encode-decode; decode-encode; decode-restrict; decode)
   module H = EndpointFiber u v
+    using (base; category; cone; lift; lift-β)
 
   restrict : {Γ Δ : CAT} (b : MAP Γ B)
     (f : MorphismExpression (u ∘ b) (v ∘ b)) (h : MAP Δ Γ) →

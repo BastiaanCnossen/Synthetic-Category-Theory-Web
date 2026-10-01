@@ -27,7 +27,9 @@ open PN vocabulary terminal products productLaws composition vertical whiskering
 
 module UncurryComparison {Γ C : CAT} {x y : MAP Γ C} {f g : MorphismExpression x y} (ξ : ExpressionIso f g) where
   module F = MorphismExpression f
+    using (arrow; source-frame; target-frame)
   module G = MorphismExpression g
+    using (arrow; source-frame; target-frame)
   module X = ExpressionIso ξ
   underlying = funUncurryIso X.comparison
 

@@ -7,7 +7,7 @@ then gives a single comparison of the two functors, with its full
 evaluated computation.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
@@ -29,13 +29,18 @@ open import SCT.VolumeI.Chapter03.RelativeCategories.Composition.JointCompositio
 module Postcomposition {A B C D S : CAT} (f : MAP A S) (g : MAP B S)
   {h : MAP C S} {k : MAP D S} (w : FunctorOver h k) where
   parameter = FunOver g h × FunOver f g
-  module Old = Joint f g h using (functor; inner; outer; composite; module Inner)
-  module New = Joint f g k using (functor; module At)
-  module InnerPost = Postcompose g w using (functor)
-  module WholePost = Postcompose f w using (functor)
+  private
+    module Old = Joint f g h using (functor; inner; outer; composite; module Inner)
+  private
+    module New = Joint f g k using (functor; module At)
+  private
+    module InnerPost = Postcompose g w using (functor)
+  private
+    module WholePost = Postcompose f w using (functor)
   outer-name : MAP parameter (FunOver g k)
   outer-name = InnerPost.functor ∘ pr₁
-  module NewAt = New.At pr₂ outer-name using (evaluation)
+  private
+    module NewAt = New.At pr₂ outer-name using (evaluation)
   source : MAP parameter (FunOver f k)
   source = WholePost.functor ∘ Old.functor
   parameter-map : MAP parameter (FunOver g k × FunOver f g)
@@ -57,8 +62,9 @@ module Postcomposition {A B C D S : CAT} (f : MAP A S) (g : MAP B S)
     family-comparison : FunctorOverIso (family f k source) (family f k target)
     family-comparison = compose-iso-over (inverse-iso-over target-evaluation) source-evaluation
 
-  module Lifted = CoherentLifting.Families 𝒯 M ℱ P f k source target
-    using (action; lift; computation)
+  private
+    module Lifted = CoherentLifting.Families 𝒯 M ℱ P f k source target
+      using (action; lift; computation)
 
   opaque
     comparison : source =₁ target

@@ -37,8 +37,11 @@ module Family {Γ C : CAT} where
 
   module Arrow {x y : Obj-abs (Fun Γ C)} (f : Morphism x y) where
     module F = Morphism f
+      using (diagram; source-identification; target-identification)
     module Source = Corners.Edge 𝒯 M ℱ P F.diagram zero x F.source-identification
+      using (comparison; family; target)
     module Target = Corners.Edge 𝒯 M ℱ P F.diagram one y F.target-identification
+      using (comparison; family; left-frame; right-frame; target)
 
     as-expression : MorphismExpression (object x) (object y)
     as-expression = record
@@ -50,18 +53,28 @@ module Family {Γ C : CAT} where
     {f : Morphism x y} {g : Morphism y z} {h : Morphism x z}
     (w : CompositeWitness f g h) where
     module T = TransposedWitness w
+      using (first-edge-agrees; long-edge-agrees; middle-vertex; second-edge-agrees; source-vertex; target-vertex; triangle)
     module F = Morphism f
+      using (diagram; source-identification; target-identification)
     module G = Morphism g
+      using (diagram; source-identification; target-identification)
     module H = Morphism h
+      using (diagram; source-identification; target-identification)
     module First = Arrow f
+      using (as-expression)
     module Second = Arrow g
+      using (as-expression)
     module Long = Arrow h
+      using (as-expression)
     module Middle = Conversion.Framed 𝒯 M ℱ P F.diagram G.diagram one zero y
       F.target-identification G.source-identification
+      using (comparison; target)
     module Source = Conversion.Framed 𝒯 M ℱ P H.diagram F.diagram zero zero x
       H.source-identification F.source-identification
+      using (comparison; family; target)
     module Target = Conversion.Framed 𝒯 M ℱ P G.diagram H.diagram one one z
       G.target-identification H.target-identification
+      using (comparison; family; left-frame; right-frame; target)
 
     middle-cone = convert (conePre T.triangle (functorOut middle-square C))
     source-cone = convert (conePre T.triangle (functorOut source-square C))

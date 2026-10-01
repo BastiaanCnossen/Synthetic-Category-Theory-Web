@@ -37,6 +37,7 @@ module Successive {X Y Z A C : CAT}
   restriction = (comp-assoc H K e) ⁻¹ ∙ (e ◁ κ ⁻¹)
   module Pasted = Square.Pasting 𝒯 M e h k H K (insert x) (insert x) (insert x)
     (insert-natural h x) (insert-natural k x)
+    using (comparison)
 
   abstract
     comparison :

@@ -28,6 +28,7 @@ module UniversalEndpointCone {B C : CAT} (u v : MAP B C)
   (e : IsEquiv (EndpointFiber.base u v))
   (α : MorphismExpression (u ∘ id B) (v ∘ id B)) where
   module F = EndpointFiber u v
+    using (base; cone; lift-base)
   cone : Cone endpoints (pair u v) B
   cone = F.cone (id B) α
 

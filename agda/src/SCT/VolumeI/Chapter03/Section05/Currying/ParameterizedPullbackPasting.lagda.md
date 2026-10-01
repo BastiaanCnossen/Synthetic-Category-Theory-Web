@@ -49,6 +49,7 @@ module Pasted {S T S′ T′ K : CAT} (p : MAP S T) (b : MAP T′ T)
   h = Cone.left square
   p′ = Cone.right square
   module Nest = Nested k b p (coneSwap square) (pullback-swap square square-isPullback)
+    using (N; Outer; flatten; flatten-isEquiv; α; β; flatCone)
   N = Nest.N
   O = Nest.Outer
   e = Nest.flatten
@@ -67,17 +68,22 @@ module Pasted {S T S′ T′ K : CAT} (p : MAP S T) (b : MAP T′ T)
   πK : MAP (X × K) K
   πK = pr₂
   H = productMap (id X) e
-  module PN = Parameter X (pullbackCone k p′)
-  module PO = Parameter X (pullbackCone (b ∘ k) p)
-  module Paste = PasteCones k b (coneSwap square)
-  module Product = Products.Normalized 𝒯 (id X) (id X) e lO (comp-unitˡ (id X)) Nest.α
+  private
+    module PN = Parameter X (pullbackCone k p′) using (cone; projection; β; R)
+  private
+    module PO = Parameter X (pullbackCone (b ∘ k) p) using (cone; projection; β; R)
+  private
+    module Paste = PasteCones k b (coneSwap square) using (flatten-iso; flatten-pre)
+  private
+    module Product = Products.Normalized 𝒯 (id X) (id X) e lO (comp-unitˡ (id X)) Nest.α
+      using (value; projection₂)
   A = comp-assoc πK k b
   target = conePre H PO.cone
   source = changeLeft (A ⁻¹) (PasteCones.flatten (k ∘ πK) b (coneSwap square) PN.cone)
   left = Product.value
   flatten-over : FunctorOver (h ∘ rN) rO
   flatten-over = record { lift = e ; comparison = Nest.β }
-  module Arg = Argument flatten-over
+  module Arg = Argument flatten-over using (family)
   right = comp-assoc πN rN h ∙ FunctorLift.comparison (Arg.family X)
 
   outer₁ = coneIso-inverse (compositeCone-pre πK (b ∘ k) H PO.cone)

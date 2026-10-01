@@ -28,7 +28,9 @@ module Constant (T C X : CAT) where
   module First = ExponentialLaw T C X
   module Second = ExponentialLaw C T X
   module TC = Associativity N T C
+    using (backward; backward-first)
   module CT = Associativity N C T
+    using (backward)
   exchange : MAP (N × (C × T)) (N × (T × C))
   exchange = productMap (id N) (swap {C} {T})
   drop : MAP ((N × T) × C) (N × C)

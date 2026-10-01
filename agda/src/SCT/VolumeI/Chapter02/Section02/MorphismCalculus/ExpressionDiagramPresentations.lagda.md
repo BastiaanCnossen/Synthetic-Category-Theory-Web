@@ -6,7 +6,7 @@ expression. The operations below retain this information while replacing
 diagrams. This packages the comparisons used in currying calculations.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
@@ -20,7 +20,7 @@ module SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionDiagramPresent
   (ℱ : Categories.FunctorCategories 𝒯 M) (P : Laws.PullbackStructure 𝒯)
   (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I) where
 
-open import SCT.VolumeI.Chapter02.Section01.Morphisms 𝒯 M ℱ I public
+open import SCT.VolumeI.Chapter02.Section01.Morphisms 𝒯 M ℱ I
 open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionIdentifications 𝒯 M ℱ I
   using (expressionIso-compose)
 import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.DiagramExpressionIdentifications as Diagrams
@@ -51,16 +51,18 @@ record Presentation {Γ C : CAT} {f g : MAP Γ C} (α : MorphismExpression f g) 
 
 module Recovery {Γ C : CAT} {f g : MAP Γ C} {α : MorphismExpression f g} (W : Presentation α) where
   module W = Presentation W
-  module A = Diagrams.Recovery 𝒯 M ℱ P I E α
   value : ExpressionIso α (expression W.diagram W.source-frame W.target-frame)
   value = expressionIso-compose
-    (Diagrams.At.comparison 𝒯 M ℱ P I E A.H W.diagram W.comparison A.p A.q
+    (Diagrams.At.comparison 𝒯 M ℱ P I E
+      (Diagrams.Recovery.H 𝒯 M ℱ P I E α) W.diagram W.comparison
+      (Diagrams.Recovery.p 𝒯 M ℱ P I E α) (Diagrams.Recovery.q 𝒯 M ℱ P I E α)
       W.source-frame W.target-frame W.source-compatible W.target-compatible)
-    A.comparison
+    (Diagrams.Recovery.comparison 𝒯 M ℱ P I E α)
 
 module Postcompose {Γ C D : CAT} {f g : MAP Γ C} {α : MorphismExpression f g}
   (F : MAP C D) (W : Presentation α) where
   module A = MorphismExpression α
+    using (arrow; source-frame; target-frame)
   module W = Presentation W
   H = funUncurry A.arrow
   K = W.diagram
@@ -113,8 +115,13 @@ module Pairing {Γ C D : CAT} {f g : MAP Γ C} {h k : MAP Γ D}
   {α : MorphismExpression f g} {β : MorphismExpression h k}
   (A : Presentation α) (B : Presentation β) where
   module A = Presentation A
+    using (comparison; diagram; source-compatible; source-frame; target-compatible; target-frame)
   module B = Presentation B
-  module Product = Products.At 𝒯 M ℱ P I E α β
+  -- Restructured: one application restricted to four names; the endpoint
+  -- instances of UncurriedProductExpressions are used by direct calls.
+  private
+    module Product = Products.At 𝒯 M ℱ P I E α β
+      using (H; K; comparison; original)
   comparison = pair-cong A.comparison B.comparison ∙ Product.comparison
 
   module Endpoint (z : Obj-abs [1]) {x : MAP Γ C} {y : MAP Γ D}
@@ -136,10 +143,6 @@ module Pairing {Γ C D : CAT} {f g : MAP Γ C} {h k : MAP Γ D}
         isoComp-assoc-at (pair-cong p q) (pair-pre A.diagram B.diagram i)
           (pair-cong A.comparison B.comparison ▷ i)
 
-  module Source = Endpoint zero A.source-frame B.source-frame
-    Product.Source.frontF Product.Source.frontG A.source-compatible B.source-compatible
-  module Target = Endpoint one A.target-frame B.target-frame
-    Product.Target.frontF Product.Target.frontG A.target-compatible B.target-compatible
 
   endpoint : (z : Obj-abs [1]) {v : MAP Γ (C × D)}
     (p : (pair A.diagram B.diagram ∘ insert z) =₁ v)
@@ -152,16 +155,35 @@ module Pairing {Γ C D : CAT} {f g : MAP Γ C} {h k : MAP Γ D}
     (isoComp-assoc-at p (pair-cong A.comparison B.comparison ▷ insert z) (Product.comparison ▷ insert z)) ⁻¹ ∙
     isoComp-cong (idIso p) (preWhisker-isoComp-at (pair-cong A.comparison B.comparison) Product.comparison (insert z))
 
+  -- The endpoint instances, as named abbreviations of direct calls.
+  private
+    module Source where
+      frontF = Products.At.Source.frontF 𝒯 M ℱ P I E α β
+      frontG = Products.At.Source.frontG 𝒯 M ℱ P I E α β
+      frame = Endpoint.frame zero A.source-frame B.source-frame frontF frontG
+        A.source-compatible B.source-compatible
+      compatible = Endpoint.compatible zero A.source-frame B.source-frame frontF frontG
+        A.source-compatible B.source-compatible
+    module Target where
+      frontF = Products.At.Target.frontF 𝒯 M ℱ P I E α β
+      frontG = Products.At.Target.frontG 𝒯 M ℱ P I E α β
+      frame = Endpoint.frame one A.target-frame B.target-frame frontF frontG
+        A.target-compatible B.target-compatible
+      compatible = Endpoint.compatible one A.target-frame B.target-frame frontF frontG
+        A.target-compatible B.target-compatible
+
   value : Presentation (pair-expression α β)
   value = record
     { diagram = pair A.diagram B.diagram
     ; source-frame = Source.frame
     ; target-frame = Target.frame
     ; comparison = comparison
-    ; source-compatible = endpoint zero Source.frame Product.Source.frame Product.Source.front
-        Source.compatible Product.Source.compatible
-    ; target-compatible = endpoint one Target.frame Product.Target.frame Product.Target.front
-        Target.compatible Product.Target.compatible }
+    ; source-compatible = endpoint zero Source.frame
+        (Products.At.Source.frame 𝒯 M ℱ P I E α β) (Products.At.Source.front 𝒯 M ℱ P I E α β)
+        Source.compatible (Products.At.Source.compatible 𝒯 M ℱ P I E α β)
+    ; target-compatible = endpoint one Target.frame
+        (Products.At.Target.frame 𝒯 M ℱ P I E α β) (Products.At.Target.front 𝒯 M ℱ P I E α β)
+        Target.compatible (Products.At.Target.compatible 𝒯 M ℱ P I E α β) }
 
 module Identity {Γ C : CAT} (f : MAP Γ C) where
   H = f ∘ pr₁ {Γ} {[1]}
@@ -186,12 +208,17 @@ module Identity {Γ C : CAT} (f : MAP Γ C) where
     ; comparison = β ; source-compatible = endpoint zero ; target-compatible = endpoint one }
 
 module Restricted {Γ Δ C : CAT} {f g : MAP Γ C} (α : MorphismExpression f g) (r : MAP Δ Γ) where
-  module R = Restriction.At 𝒯 M ℱ I α r
+  -- Restructured: the application is restricted to the names used here.
+  private
+    module R = Restriction.At 𝒯 M ℱ I α r
+      using (H; step; comparison; module Endpoint)
   value : Presentation (restrict-expression α r)
   value = record { diagram = R.H ∘ R.step
-    ; source-frame = R.Source.frame ; target-frame = R.Target.frame
+    ; source-frame = R.Endpoint.frame zero (MorphismExpression.source-frame α)
+    ; target-frame = R.Endpoint.frame one (MorphismExpression.target-frame α)
     ; comparison = R.comparison
-    ; source-compatible = R.Source.compatible ; target-compatible = R.Target.compatible }
+    ; source-compatible = R.Endpoint.compatible zero (MorphismExpression.source-frame α)
+    ; target-compatible = R.Endpoint.compatible one (MorphismExpression.target-frame α) }
 
 module Evaluation {Γ X C : CAT} {f g : MAP Γ (Fun X C)} (α : MorphismExpression f g) where
   restricted = Restricted.value α (pr₁ {Γ} {X})

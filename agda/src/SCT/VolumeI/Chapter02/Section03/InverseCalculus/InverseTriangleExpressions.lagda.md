@@ -57,6 +57,7 @@ module Right {Γ C : CAT} {x y z : MAP Γ C}
   (long : (edge₁ ∘ σ) =₁ (identityArrow ∘ z)) where
   private
     module F = MorphismExpression f
+      using (source-frame; target-frame)
     middle = Cone.match (conePre σ (triangle-cone C))
     source-corner = Cone.match (conePre σ (source-cone C))
     target-corner = Cone.match (conePre σ (target-cone C))
@@ -64,6 +65,7 @@ module Right {Γ C : CAT} {x y z : MAP Γ C}
     l = constant-frame ev₁ identity-target z ∙ (ev₁ ◁ long)
     ρ = t ∙ l ⁻¹
     module Moved = MoveConstant long ρ
+      using (comparison; endpoint)
     u = constant-frame ev₀ identity-source y ∙ (ev₀ ◁ Moved.comparison)
     v = (ev₀ ◁ β) ∙ middle
 
@@ -107,6 +109,7 @@ module Left {Γ C : CAT} {x y z : MAP Γ C}
   (long : (edge₁ ∘ σ) =₁ (identityArrow ∘ z)) where
   private
     module F = MorphismExpression f
+      using (source-frame; target-frame)
     middle = Cone.match (conePre σ (triangle-cone C))
     source-corner = Cone.match (conePre σ (source-cone C))
     target-corner = Cone.match (conePre σ (target-cone C))
@@ -114,6 +117,7 @@ module Left {Γ C : CAT} {x y z : MAP Γ C}
     l = constant-frame ev₀ identity-source z ∙ (ev₀ ◁ long)
     ρ = s ∙ l ⁻¹
     module Moved = MoveConstant long ρ
+      using (comparison; endpoint)
     u = constant-frame ev₁ identity-target x ∙ (ev₁ ◁ Moved.comparison)
     v = F.target-frame ∙ (ev₁ ◁ α)
     frame = v ∙ middle ⁻¹

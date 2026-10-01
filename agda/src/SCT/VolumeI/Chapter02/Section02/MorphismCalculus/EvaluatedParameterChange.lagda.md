@@ -5,7 +5,7 @@ Its endpoint frames retain both the separation comparison and the
 chosen comparison for the final coordinate functor.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
@@ -65,8 +65,10 @@ module At {A B C K : CAT} (σ : MAP A B) (W : MAP A C)
         isoComp-assoc-at ((s ∙ r) ∙ (β ▷ z)) ((comp-assoc z σ d) ⁻¹) p ∙
         isoComp-cong ((isoComp-assoc-at (s ∙ r) (β ▷ z) ((comp-assoc z σ d) ⁻¹)) ⁻¹) (idIso p)
   module Source = Endpoint v₀ z₀ ν₀ χ₀
+    using (combined; normalization; p; q; r; s; Ξ)
   module Target = Endpoint v₁ z₁ ν₁ χ₁
   module Identified = Pasting.At 𝒯 M ℱ P I E σ d (e ∘ W) β γX
+    using (comparison)
 
   abstract
     restricted : ExpressionIso (retarget-expression original Source.p Target.p)

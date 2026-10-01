@@ -38,13 +38,16 @@ module At {Γ Δ Ω Θ A B : CAT} {f g : MAP Γ A} (α : MorphismExpression f g)
   original = restrict-expression α (pr₁ {Γ} {Δ})
   constant = identity-expression (h ∘ pr₂ {Γ} {Δ})
   module Product = Products.At 𝒯 M ℱ P I E S original constant σ
+    using (value)
   module First = Square.At 𝒯 M ℱ I α (pr₁ {Γ} {Δ}) σ r (pr₁ {Ω} {Θ})
     (pair-β₁ (r ∘ pr₁) (s ∘ pr₂))
+    using (source-change; target-change; value)
   second : ((h ∘ pr₂) ∘ σ) =₁ ((h ∘ s) ∘ pr₂ {Ω} {Θ})
   second = (comp-assoc pr₂ s h) ⁻¹ ∙
     ((h ◁ pair-β₂ (r ∘ pr₁) (s ∘ pr₂)) ∙ comp-assoc σ pr₂ h)
   module Paired = ProductFrames.At 𝒯 M ℱ I (restrict-expression original σ) (restrict-expression constant σ)
     First.source-change First.target-change second second
+    using (value)
 
   abstract
     second-comparison : ExpressionIso (retarget-expression (restrict-expression constant σ) second second)

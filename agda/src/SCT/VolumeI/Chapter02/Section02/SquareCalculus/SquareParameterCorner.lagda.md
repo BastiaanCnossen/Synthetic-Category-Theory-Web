@@ -24,9 +24,11 @@ open import SCT.VolumeI.Chapter01.Section04.SquareCalculus.SplitProjectionNatura
 open import SCT.VolumeI.Chapter01.Section04.SquareCalculus.SplitProjectionCalculus 𝒯 using (section-image)
 open import SCT.VolumeI.Chapter01.Section08.ProductCalculus.ProjectionBaseCalculus 𝒯 using (change-middle)
 module PS = Projections 𝒯
+  using (Square; associator-square; compose-base; compose-square; inverse-square; post-square; pre-square)
 
 module At (Γ A B : CAT) (u : Obj-abs A) (v : Obj-abs B) where
   module Input = Corner.At 𝒯 M ℱ Γ A B u v
+    using (corner; ia; ib; parameter-outgoing; parameter-square; module Coordinates; module H; module V)
   module Coordinates = Input.Coordinates
   module H = Input.H
   module V = Input.V

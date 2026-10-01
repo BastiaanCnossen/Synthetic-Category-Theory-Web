@@ -43,6 +43,7 @@ module At {X A B C : CAT} (r : MAP A B) (h : MAP X (Fun B C)) (x : Obj-abs A) wh
   u = funUncurry-restrict R h
   q = funPre-uncurry r h
   module Product = ProductEvaluation.At 𝒯 M ℱ e h r x
+    using (comparison; restriction-evaluation)
 
   at-target = evaluate-uncurry (r ∘ x) h
   vertex = (e ◁ χY) ▷ h

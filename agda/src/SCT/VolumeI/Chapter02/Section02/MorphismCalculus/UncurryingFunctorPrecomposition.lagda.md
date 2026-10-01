@@ -5,7 +5,7 @@ along the product parameter map. Both endpoint changes are the chosen
 `funPre-uncurry` comparisons.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
@@ -33,6 +33,7 @@ import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.UncurryingIdentifiedPost
 
 module At {Γ B C D : CAT} (r : MAP B C) {f g : MAP Γ (Fun C D)} (α : MorphismExpression f g) where
   module Separate = Separation.At 𝒯 M ℱ P I E S α r
+    using (left; right; value)
   J : MAP (Fun C D × B) (Fun C D × C)
   J = productMap (id (Fun C D)) r
   σ : MAP (Γ × B) (Γ × C)
@@ -65,7 +66,9 @@ module At {Γ B C D : CAT} (r : MAP B C) {f g : MAP Γ (Fun C D)} (α : Morphism
     third : funUncurry (funPre {D = D} r ∘ h) =₁ (evaluation ∘ (productMap h (id C) ∘ σ))
     third = across ∙ second
   module Source = Endpoint f
+    using (across; after; before; first; second; third)
   module Target = Endpoint g
+    using (across; after; before; first; second; third)
 
   abstract
     first : ExpressionIso (retarget-expression original Source.first Target.first)

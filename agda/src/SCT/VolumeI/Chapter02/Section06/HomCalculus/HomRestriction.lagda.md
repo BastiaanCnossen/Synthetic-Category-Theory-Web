@@ -36,7 +36,9 @@ hom-restrict-cong {x = x} {y} Φ r = retarget-expressionIso (restrict-expression
 module RestrictedCone {Γ Δ C : CAT} {x y : Obj-abs C}
   (f : MorphismExpression (const {P = Γ} x) (const y)) (r : MAP Δ Γ) where
   module F = MorphismExpression f
+    using (arrow; source-frame; target-frame)
   module H = EndpointFiber x y
+    using (cone)
   module Coordinates = Paired.Coordinates (ev₀ {C}) ev₁ x y
     using (edge₁; edge₂; edge₁-restrict; edge₂-restrict; encode-edge₁; encode-edge₂; cone-from-coordinates)
   before = H.cone (terminate Γ) f

@@ -32,8 +32,11 @@ import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.IdentityExpressionRetarg
 
 module At {Γ C : CAT} {x y z : MAP Γ C} (α : x =₁ y) (β : y =₁ z) where
   module X = MorphismExpression (identity-expression x)
+    using (arrow; source-frame; target-frame)
   module Y = MorphismExpression (identity-expression y)
+    using (target-frame)
   module Change = ExpressionIso (IdChange.At.comparison 𝒯 M ℱ P I E α)
+    using (comparison; source-compatible; target-compatible)
 
   normalized : {v : MAP Γ C} (γ : x =₁ v) →
     ExpressionIso (retarget-expression (identity-expression x) (idIso x) γ)

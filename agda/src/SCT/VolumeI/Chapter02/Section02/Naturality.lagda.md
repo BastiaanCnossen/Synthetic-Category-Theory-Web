@@ -33,6 +33,7 @@ import SCT.VolumeI.Chapter02.Section02.SquareCalculus.FramedSquareCommutativity 
 module At {Γ C D : CAT} {F G : MAP C D} (α : MorphismExpression F G)
   {x y : MAP Γ C} (u : MorphismExpression x y) where
   module A = MorphismExpression α
+    using (arrow; source-frame; target-frame)
   top = post-expression F u
   right = restrict-expression α y
   left = restrict-expression α x

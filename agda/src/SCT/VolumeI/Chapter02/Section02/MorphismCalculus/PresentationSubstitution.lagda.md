@@ -34,12 +34,16 @@ module Corners {Γ C : CAT} {x y z : MAP Γ C}
   {f : MorphismExpression x y} {g : MorphismExpression y z} {h : MorphismExpression x z}
   (p : CompositePresentation f g h) where
   module P₀ = CompositePresentation p
+    using (long-edge; short-edges; triangle)
   module F = MorphismExpression f
   module G = MorphismExpression g
+    using (arrow; source-frame; target-frame)
   module H = MorphismExpression h
   module Long = ExpressionIso P₀.long-edge
+    using (comparison; source-compatible; target-compatible)
   module V = Vertices f g h P₀.triangle
     (ConeIso.leftIso P₀.short-edges) (ConeIso.rightIso P₀.short-edges) Long.comparison
+    using (MiddleVertex; SourceVertex; TargetVertex; presentation)
 
   middle : V.MiddleVertex
   middle = ConeIso.compatible P₀.short-edges
@@ -70,8 +74,10 @@ module Restrict {Γ Δ C : CAT} {x y z : MAP Γ C}
   (p : CompositePresentation f g h) (r : MAP Δ Γ) where
   module K = Corners p
   module P₀ = CompositePresentation p
+    using (long-edge; short-edges; triangle)
   module F = MorphismExpression f
   module G = MorphismExpression g
+    using (arrow; source-frame; target-frame)
   module H = MorphismExpression h
   module Middle = Framed.RestrictComparison 𝒯 M ℱ P (triangle-cone C) P₀.triangle r
     F.arrow G.arrow F.target-frame G.source-frame P₀.short-edges
@@ -81,6 +87,7 @@ module Restrict {Γ Δ C : CAT} {x y z : MAP Γ C}
     H.arrow G.arrow H.target-frame G.target-frame K.target-cone-comparison
   module V = Vertices (restrict-expression f r) (restrict-expression g r) (restrict-expression h r)
     (P₀.triangle ∘ r) Middle.left-edge Middle.right-edge Source.left-edge
+    using (MiddleVertex; SourceVertex; TargetVertex; presentation)
 
   middle-vertex : V.MiddleVertex
   middle-vertex = ConeIso.compatible Middle.comparison
@@ -97,13 +104,16 @@ module Retarget {Γ C : CAT} {x y z x′ y′ z′ : MAP Γ C}
   (p : CompositePresentation f g h) (α : x =₁ x′) (β : y =₁ y′) (γ : z =₁ z′) where
   module K = Corners p
   module P₀ = CompositePresentation p
+    using (long-edge; short-edges; triangle)
   module F = MorphismExpression f
   module G = MorphismExpression g
+    using (arrow; source-frame; target-frame)
   module H = MorphismExpression h
   module V = Vertices (retarget-expression f α β) (retarget-expression g β γ)
     (retarget-expression h α γ) P₀.triangle
     (ConeIso.leftIso P₀.short-edges) (ConeIso.rightIso P₀.short-edges)
     (ExpressionIso.comparison P₀.long-edge)
+    using (MiddleVertex; SourceVertex; TargetVertex; presentation)
 
   middle-vertex : V.MiddleVertex
   middle-vertex = K.middle ∙ isoComp-cong (quotient-common F.target-frame G.source-frame β)

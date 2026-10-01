@@ -80,6 +80,7 @@ module At {Γ A B C D : CAT} (F : MAP C D) (r : MAP A B) (h : MAP Γ (Fun B C)) 
     fq = F ◁ q
     module Reflected = ReflectedEndpoint z source target ψ θ edge-comparison
       (funIsoReflect-β source target raw)
+      using (endpoint)
 
     abstract
       restriction-image : (Qvertex ∙ pre) =₂ (prefix ∙ ((q ▷ i) ∙ Q))

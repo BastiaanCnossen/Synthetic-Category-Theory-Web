@@ -25,9 +25,13 @@ module SCT.VolumeI.Chapter02.Section02.SquareCalculus.SquareFaceCorners
 
 open import SCT.VolumeI.Chapter02.Section01.SquareCalculus.SquareShape 𝒯 M ℱ P I E public
 module PS = Projection 𝒯
+  using (inverse-square)
 module Mid = Middle 𝒯 M ℱ P I E
+  using (source-after; source-before; source-compatible; target-after; target-before; target-compatible)
 module Out = Outer 𝒯 M ℱ P I E
+  using (module Bottom; module Top)
 module Pair = Pairing 𝒯 M ℱ
+  using (module At)
 
 module UpperMiddle where
   module Face = Pair.At s₀ s₁ d₂ d₀ one zero

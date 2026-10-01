@@ -5,7 +5,7 @@ at both endpoints. Projection to each factor reduces the claim to the
 existing restriction and postcomposition comparisons.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
@@ -42,46 +42,112 @@ open PC vocabulary terminal products productLaws composition vertical whiskering
 module At {Γ Δ C D : CAT} {x y : MAP Γ C} {u v : MAP Γ D}
   (α : MorphismExpression x y) (β : MorphismExpression u v) (r : MAP Δ Γ) where
   module Old = Products.At 𝒯 M ℱ I α β
+    using (first-projection; second-projection)
   module New = Products.At 𝒯 M ℱ I (restrict-expression α r) (restrict-expression β r)
+    using (first-projection; second-projection)
   old = pair-expression α β
   new = pair-expression (restrict-expression α r) (restrict-expression β r)
   p = pair-pre x u r
   q = pair-pre y v r
   changed = retarget-expression (restrict-expression old r) p q
 
-  module Projection {Y : CAT} (π : MAP (C × D) Y) {a b : MAP Γ Y}
-    (τ : MorphismExpression a b)
-    (b₀ : (π ∘ pair x u) =₁ a) (b₁ : (π ∘ pair y v) =₁ b)
-    (c₀ : (π ∘ pair (x ∘ r) (u ∘ r)) =₁ (a ∘ r))
-    (c₁ : (π ∘ pair (y ∘ r) (v ∘ r)) =₁ (b ∘ r))
-    (first : ExpressionIso (retarget-expression (post-expression π old) b₀ b₁) τ)
-    (second : ExpressionIso (retarget-expression (post-expression π new) c₀ c₁) (restrict-expression τ r))
-    (source : (c₀ ∙ (π ◁ p)) =₂ ((b₀ ▷ r) ∙ (comp-assoc r (pair x u) π) ⁻¹))
-    (target : (c₁ ∙ (π ◁ q)) =₂ ((b₁ ▷ r) ∙ (comp-assoc r (pair y v) π) ⁻¹)) where
-    source-frame = (π ◁ p) ∙ comp-assoc r (pair x u) π
-    target-frame = (π ◁ q) ∙ comp-assoc r (pair y v) π
+  -- A parameterless module of functions rather than a module with a
+  -- twelve-parameter telescope (rule A10). The names, their arguments (now
+  -- explicit function arguments) and their statements are unchanged.
+  module Projection where
+    source-frame :
+      {Y : CAT} (π : MAP (C × D) Y) {a b : MAP Γ Y}
+      (τ : MorphismExpression a b)
+      (b₀ : (π ∘ pair x u) =₁ a) (b₁ : (π ∘ pair y v) =₁ b)
+      (c₀ : (π ∘ pair (x ∘ r) (u ∘ r)) =₁ (a ∘ r))
+      (c₁ : (π ∘ pair (y ∘ r) (v ∘ r)) =₁ (b ∘ r))
+      (first : ExpressionIso (retarget-expression (post-expression π old) b₀ b₁) τ)
+      (second : ExpressionIso (retarget-expression (post-expression π new) c₀ c₁) (restrict-expression τ r))
+      (source : (c₀ ∙ (π ◁ p)) =₂ ((b₀ ▷ r) ∙ (comp-assoc r (pair x u) π) ⁻¹))
+      (target : (c₁ ∙ (π ◁ q)) =₂ ((b₁ ▷ r) ∙ (comp-assoc r (pair y v) π) ⁻¹)) →
+      ((π ∘ pair x u) ∘ r) =₁ (π ∘ pair (x ∘ r) (u ∘ r))
+    source-frame π τ b₀ b₁ c₀ c₁ first second source target =
+      (π ◁ p) ∙ comp-assoc r (pair x u) π
+    target-frame :
+      {Y : CAT} (π : MAP (C × D) Y) {a b : MAP Γ Y}
+      (τ : MorphismExpression a b)
+      (b₀ : (π ∘ pair x u) =₁ a) (b₁ : (π ∘ pair y v) =₁ b)
+      (c₀ : (π ∘ pair (x ∘ r) (u ∘ r)) =₁ (a ∘ r))
+      (c₁ : (π ∘ pair (y ∘ r) (v ∘ r)) =₁ (b ∘ r))
+      (first : ExpressionIso (retarget-expression (post-expression π old) b₀ b₁) τ)
+      (second : ExpressionIso (retarget-expression (post-expression π new) c₀ c₁) (restrict-expression τ r))
+      (source : (c₀ ∙ (π ◁ p)) =₂ ((b₀ ▷ r) ∙ (comp-assoc r (pair x u) π) ⁻¹))
+      (target : (c₁ ∙ (π ◁ q)) =₂ ((b₁ ▷ r) ∙ (comp-assoc r (pair y v) π) ⁻¹)) →
+      ((π ∘ pair y v) ∘ r) =₁ (π ∘ pair (y ∘ r) (v ∘ r))
+    target-frame π τ b₀ b₁ c₀ c₁ first second source target =
+      (π ◁ q) ∙ comp-assoc r (pair y v) π
 
     abstract
-      source-normal : (c₀ ∙ source-frame) =₂ (b₀ ▷ r)
-      source-normal = cancel-inverse-tail (b₀ ▷ r) (comp-assoc r (pair x u) π) ∙
+      source-normal :
+        {Y : CAT} (π : MAP (C × D) Y) {a b : MAP Γ Y}
+        (τ : MorphismExpression a b)
+        (b₀ : (π ∘ pair x u) =₁ a) (b₁ : (π ∘ pair y v) =₁ b)
+        (c₀ : (π ∘ pair (x ∘ r) (u ∘ r)) =₁ (a ∘ r))
+        (c₁ : (π ∘ pair (y ∘ r) (v ∘ r)) =₁ (b ∘ r))
+        (first : ExpressionIso (retarget-expression (post-expression π old) b₀ b₁) τ)
+        (second : ExpressionIso (retarget-expression (post-expression π new) c₀ c₁) (restrict-expression τ r))
+        (source : (c₀ ∙ (π ◁ p)) =₂ ((b₀ ▷ r) ∙ (comp-assoc r (pair x u) π) ⁻¹))
+        (target : (c₁ ∙ (π ◁ q)) =₂ ((b₁ ▷ r) ∙ (comp-assoc r (pair y v) π) ⁻¹)) →
+        (c₀ ∙ (source-frame π τ b₀ b₁ c₀ c₁ first second source target)) =₂ (b₀ ▷ r)
+      source-normal π τ b₀ b₁ c₀ c₁ first second source target =
+        cancel-inverse-tail (b₀ ▷ r) (comp-assoc r (pair x u) π) ∙
         isoComp-cong source (idIso (comp-assoc r (pair x u) π)) ∙
         (isoComp-assoc-at c₀ (π ◁ p) (comp-assoc r (pair x u) π)) ⁻¹
-      target-normal : (c₁ ∙ target-frame) =₂ (b₁ ▷ r)
-      target-normal = cancel-inverse-tail (b₁ ▷ r) (comp-assoc r (pair y v) π) ∙
+      target-normal :
+        {Y : CAT} (π : MAP (C × D) Y) {a b : MAP Γ Y}
+        (τ : MorphismExpression a b)
+        (b₀ : (π ∘ pair x u) =₁ a) (b₁ : (π ∘ pair y v) =₁ b)
+        (c₀ : (π ∘ pair (x ∘ r) (u ∘ r)) =₁ (a ∘ r))
+        (c₁ : (π ∘ pair (y ∘ r) (v ∘ r)) =₁ (b ∘ r))
+        (first : ExpressionIso (retarget-expression (post-expression π old) b₀ b₁) τ)
+        (second : ExpressionIso (retarget-expression (post-expression π new) c₀ c₁) (restrict-expression τ r))
+        (source : (c₀ ∙ (π ◁ p)) =₂ ((b₀ ▷ r) ∙ (comp-assoc r (pair x u) π) ⁻¹))
+        (target : (c₁ ∙ (π ◁ q)) =₂ ((b₁ ▷ r) ∙ (comp-assoc r (pair y v) π) ⁻¹)) →
+        (c₁ ∙ (target-frame π τ b₀ b₁ c₀ c₁ first second source target)) =₂ (b₁ ▷ r)
+      target-normal π τ b₀ b₁ c₀ c₁ first second source target =
+        cancel-inverse-tail (b₁ ▷ r) (comp-assoc r (pair y v) π) ∙
         isoComp-cong target (idIso (comp-assoc r (pair y v) π)) ∙
         (isoComp-assoc-at c₁ (π ◁ q) (comp-assoc r (pair y v) π)) ⁻¹
 
-      normalized : ExpressionIso (retarget-expression (post-expression π changed) c₀ c₁)
-        (restrict-expression τ r)
-      normalized = expressionIso-compose (restrict-expressionIso first r)
+      normalized :
+        {Y : CAT} (π : MAP (C × D) Y) {a b : MAP Γ Y}
+        (τ : MorphismExpression a b)
+        (b₀ : (π ∘ pair x u) =₁ a) (b₁ : (π ∘ pair y v) =₁ b)
+        (c₀ : (π ∘ pair (x ∘ r) (u ∘ r)) =₁ (a ∘ r))
+        (c₁ : (π ∘ pair (y ∘ r) (v ∘ r)) =₁ (b ∘ r))
+        (first : ExpressionIso (retarget-expression (post-expression π old) b₀ b₁) τ)
+        (second : ExpressionIso (retarget-expression (post-expression π new) c₀ c₁) (restrict-expression τ r))
+        (source : (c₀ ∙ (π ◁ p)) =₂ ((b₀ ▷ r) ∙ (comp-assoc r (pair x u) π) ⁻¹))
+        (target : (c₁ ∙ (π ◁ q)) =₂ ((b₁ ▷ r) ∙ (comp-assoc r (pair y v) π) ⁻¹)) →
+        ExpressionIso (retarget-expression (post-expression π changed) c₀ c₁) (restrict-expression τ r)
+      normalized π τ b₀ b₁ c₀ c₁ first second source target =
+        expressionIso-compose (restrict-expressionIso first r)
         (expressionIso-compose (expressionIso-inverse (restrict-retarget (post-expression π old) b₀ b₁ r))
-          (expressionIso-compose (retarget-cong (restrict-expression (post-expression π old) r) source-normal target-normal)
+          (expressionIso-compose (retarget-cong (restrict-expression (post-expression π old) r)
+              (source-normal π τ b₀ b₁ c₀ c₁ first second source target)
+              (target-normal π τ b₀ b₁ c₀ c₁ first second source target))
             (expressionIso-compose (retarget-assoc (restrict-expression (post-expression π old) r)
-                source-frame target-frame c₀ c₁)
+                (source-frame π τ b₀ b₁ c₀ c₁ first second source target) (target-frame π τ b₀ b₁ c₀ c₁ first second source target) c₀ c₁)
               (retarget-expressionIso (expressionIso-inverse (restrict-post-frames π old r p q)) c₀ c₁))))
 
-      comparison : ExpressionIso (post-expression π changed) (post-expression π new)
-      comparison = retarget-reflect c₀ c₁ (expressionIso-compose (expressionIso-inverse second) normalized)
+      comparison :
+        {Y : CAT} (π : MAP (C × D) Y) {a b : MAP Γ Y}
+        (τ : MorphismExpression a b)
+        (b₀ : (π ∘ pair x u) =₁ a) (b₁ : (π ∘ pair y v) =₁ b)
+        (c₀ : (π ∘ pair (x ∘ r) (u ∘ r)) =₁ (a ∘ r))
+        (c₁ : (π ∘ pair (y ∘ r) (v ∘ r)) =₁ (b ∘ r))
+        (first : ExpressionIso (retarget-expression (post-expression π old) b₀ b₁) τ)
+        (second : ExpressionIso (retarget-expression (post-expression π new) c₀ c₁) (restrict-expression τ r))
+        (source : (c₀ ∙ (π ◁ p)) =₂ ((b₀ ▷ r) ∙ (comp-assoc r (pair x u) π) ⁻¹))
+        (target : (c₁ ∙ (π ◁ q)) =₂ ((b₁ ▷ r) ∙ (comp-assoc r (pair y v) π) ⁻¹)) →
+        ExpressionIso (post-expression π changed) (post-expression π new)
+      comparison π τ b₀ b₁ c₀ c₁ first second source target = retarget-reflect c₀ c₁
+        (expressionIso-compose (expressionIso-inverse second) (normalized π τ b₀ b₁ c₀ c₁ first second source target))
 
   value : ExpressionIso changed new
   value = product-expression-reflect

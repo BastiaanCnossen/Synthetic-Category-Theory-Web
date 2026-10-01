@@ -5,7 +5,7 @@ first and restrict along the product parameter map. The two expressions
 agree with the chosen uncurrying restriction comparisons at their endpoints.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
@@ -49,15 +49,19 @@ module At {Γ Δ X C : CAT} {f g : MAP Γ (Fun X C)}
   constant = identity-expression fixed
   paired = pair-expression original constant
   module Source = Substitution.Coordinates 𝒯 M X f r
+    using (first; normalized; second)
   module Target = Substitution.Coordinates 𝒯 M X g r
   second : (fixed ∘ σ) =₁ (id X ∘ pr₂ {Δ} {X})
   second = Source.second
   first-coordinate : (pr₁ ∘ σ) =₁ (r ∘ pr₁ {Δ} {X})
   first-coordinate = pair-β₁ (r ∘ pr₁) (id X ∘ pr₂)
   module First = Square.At 𝒯 M ℱ I α (pr₁ {Γ} {X}) σ r (pr₁ {Δ} {X}) first-coordinate
+    using (value)
   module PairRestriction = Products.At 𝒯 M ℱ P I E S original constant σ
+    using (value)
   module PairFrames = Frames.At 𝒯 M ℱ I (restrict-expression original σ) (restrict-expression constant σ)
     Source.first Target.first second second
+    using (value)
 
   abstract
     constant-comparison : ExpressionIso (retarget-expression (restrict-expression constant σ) second second)
@@ -80,7 +84,9 @@ module At {Γ Δ X C : CAT} {f g : MAP Γ (Fun X C)}
 
   module Frame (h : MAP Γ (Fun X C)) where
     module Product = Substitution.Coordinates 𝒯 M X h r
+      using (normalization; normalized)
     module Uncurried = UncurriedFrames.At 𝒯 M ℱ h r (idIso (h ∘ r))
+      using (inverse-restriction)
     change : (funUncurry h ∘ σ) =₁ funUncurry (h ∘ r)
     change = (funEval ◁ Product.normalized) ∙ comp-assoc σ (productMap h (id X)) funEval
     normalization : (funUncurry-restrict h r) ⁻¹ =₂ change

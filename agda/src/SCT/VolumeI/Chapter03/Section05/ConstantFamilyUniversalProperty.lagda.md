@@ -29,12 +29,14 @@ open import SCT.VolumeI.Chapter03.RelativeCategories.Composition.EvaluatedPrecom
 open import SCT.VolumeI.Chapter03.Section05.InternalFunctorCalculus.ConstantFamilyInternalFunctors 𝒯 M ℱ P using (module ConstantFamily)
 
 module UniversalProperty (D : CAT) {E Γ : CAT} (q : MAP E Γ) where
-  module Constant = ConstantFamily D q using (category; projection; module At)
+  private
+    module Constant = ConstantFamily D q using (category; projection; module At)
   category = Constant.category
   projection = Constant.projection
 
   module At {K : CAT} (k : MAP K Γ) where
-    module Product = Constant.At k using (functor; functor-isEquiv)
+    private
+      module Product = Constant.At k using (functor; functor-isEquiv)
     source = FunOver k projection
     source-structure : MAP (Pullback k (pr₂ {D} {Γ})) Γ
     source-structure = k ∘ pullback₁
@@ -43,16 +45,19 @@ module UniversalProperty (D : CAT) {E Γ : CAT} (q : MAP E Γ) where
     swap-over : FunctorOver (k ∘ pr₂ {C = D}) (k ∘ pr₁ {D = D})
     swap-over = record { lift = swap
       ; comparison = (k ◁ pair-β₁ pr₂ pr₁) ∙ comp-assoc swap pr₁ k }
-    module Swapped = Precompose q swap-over using (functor; module Equivalence)
+    private
+      module Swapped = Precompose q swap-over using (functor; module Equivalence)
     swap-isEquivalence : IsEquiv Swapped.functor
     swap-isEquivalence = Swapped.Equivalence.functor-isEquiv (swap-isEquiv D K)
 
-    module Domain = SecondFactor D k using (square; square-isPullback)
+    private
+      module Domain = SecondFactor D k using (square; square-isPullback)
     inclusion : FunctorOver (k ∘ pr₂ {C = D}) source-structure
     inclusion = record { lift = pullbackLift Domain.square
       ; comparison = (k ◁ ConeIso.leftIso (pullbackLift-β Domain.square)) ∙
           comp-assoc (pullbackLift Domain.square) pullback₁ k }
-    module Restricted = Precompose q inclusion using (functor; module Equivalence)
+    private
+      module Restricted = Precompose q inclusion using (functor; module Equivalence)
     restriction-isEquiv : IsEquiv Restricted.functor
     restriction-isEquiv = Restricted.Equivalence.functor-isEquiv Domain.square-isPullback
 

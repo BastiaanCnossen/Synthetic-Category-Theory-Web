@@ -6,7 +6,7 @@ transformation. The endpoint comparisons are the chosen uncurrying
 restriction comparisons.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
@@ -48,10 +48,13 @@ module At {Γ X A D : CAT} (L : MAP A (Fun X D))
   J : MAP (A × X) (Fun X D × X)
   J = productMap L (id X)
   module Source = Normalization.At 𝒯 M X L f
+    using (comparison; first-frame; second-frame)
   module Target = Normalization.At 𝒯 M X L g
   module Product = Products.At 𝒯 M ℱ P I E S L (id X) original constant
+    using (value)
   module PairFrames = Frames.At 𝒯 M ℱ I (post-expression L original) (post-expression (id X) constant)
     Source.first-frame Target.first-frame Source.second-frame Target.second-frame
+    using (value)
 
   abstract
     first : ExpressionIso (retarget-expression (post-expression L original) Source.first-frame Target.first-frame)
@@ -76,6 +79,7 @@ module At {Γ X A D : CAT} (L : MAP A (Fun X D))
 
   module Endpoint (h : MAP Γ A) where
     module Inv = Inverse.At 𝒯 M ℱ L h (idIso (L ∘ h))
+      using (inverse-restriction)
     change : (funUncurry L ∘ productMap h (id X)) =₁ funUncurry (L ∘ h)
     change = (funEval ◁ slice-comparison L h) ∙ comp-assoc (productMap h (id X)) J funEval
     normalization : (funUncurry-restrict L h) ⁻¹ =₂ change

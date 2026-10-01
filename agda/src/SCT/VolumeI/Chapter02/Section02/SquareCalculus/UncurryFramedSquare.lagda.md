@@ -21,6 +21,7 @@ open import SCT.VolumeI.Chapter02.Section01.EvaluationCalculus.EndpointEvaluatio
 
 module Permutation (Γ A B : CAT) where
   module Coordinate = Coordinates.Coordinates 𝒯 M ℱ Γ A B
+    using (inner; outer; parameter; permute; rectangle)
   J = Coordinate.permute
   first : MAP (Γ × (A × B)) (Γ × B)
   first = pair pr₁ (pr₂ ∘ pr₂)
@@ -46,6 +47,7 @@ module Permutation (Γ A B : CAT) where
 
 module At {Γ A B C : CAT} (N : MAP Γ (Fun B (Fun A C))) where
   module Coordinate = Permutation Γ A B
+    using (J; backward; backward-forward)
   diagram : MAP ((Γ × B) × A) C
   diagram = funUncurry (funUncurry N)
   square : MAP Γ (Fun (A × B) C)

@@ -23,7 +23,7 @@ The fixed-endpoint roundtrips do not establish compatibility of these
 conversions with identities, composition, or endpoint changes.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping

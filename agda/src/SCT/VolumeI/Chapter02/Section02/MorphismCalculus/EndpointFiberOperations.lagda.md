@@ -45,10 +45,13 @@ module Realize {B C D : CAT} {u v : MAP B C} {s t : MAP B D}
   (operation : ExpressionOperation u v s t) where
   private
     module O = ExpressionOperation operation
+      using (apply; on-comparison; on-restriction)
     module Source = Fiber u v using (decode; decode-restrict; read; encode-decode)
     module Target = Lifts s t using (lift-restrict; lift-cong)
   module H = EndpointFiber u v
+    using (base; category; lift)
   module K = EndpointFiber s t
+    using (base; category; lift; lift-base)
 
   universal : MorphismExpression (u ∘ H.base) (v ∘ H.base)
   universal = Source.decode (pullbackCone endpoints (pair u v))
@@ -77,11 +80,15 @@ module InverseOperations {B C D : CAT} {u v : MAP B C} {s t : MAP B D}
     ExpressionIso (ExpressionOperation.apply backward b (ExpressionOperation.apply forward b f)) f) where
   private
     module F = ExpressionOperation forward
+      using (apply)
     module G = ExpressionOperation backward
+      using (apply; on-change; on-comparison)
     module A = Realize forward using (functor; base; universal; lift-universal)
     module Z = Realize backward using (functor; on-family)
     module H = EndpointFiber u v
+      using (base; category; lift)
     module K = EndpointFiber s t
+      using (base; category; lift; lift-base)
     module Source = Lifts u v using (lift-change)
     module Target = Fiber s t using (read; read-lift)
 

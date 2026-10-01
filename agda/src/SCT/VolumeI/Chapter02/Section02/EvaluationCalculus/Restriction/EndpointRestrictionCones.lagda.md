@@ -185,6 +185,7 @@ module Framed {Γ A B C : CAT}
   (α : (f ∘ u) =₁ z) (β : (g ∘ v) =₁ z) where
   open Endpoints C
   module Raw = Frames.FramedCorner 𝒯 M ℱ P f g u v z α β
+    using (left-frame; matching; right-frame; module Curried; module Left; module Right)
   left-frame = frame u Raw.Left.family Raw.left-frame
   right-frame = frame v Raw.Right.family Raw.right-frame
 

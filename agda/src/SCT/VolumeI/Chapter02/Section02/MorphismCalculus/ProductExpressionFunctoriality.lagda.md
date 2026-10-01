@@ -39,8 +39,10 @@ import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.PostcompositionPairing a
 module At {Γ A B C D : CAT} (F : MAP A B) (G : MAP C D)
   {x y : MAP Γ A} {u v : MAP Γ C} (α : MorphismExpression x y) (β : MorphismExpression u v) where
   module Paired = Pairs.At 𝒯 M ℱ I α β
+    using (first-projection; second-projection)
   paired = pair-expression α β
   module Action = Pairing.At 𝒯 M ℱ P I E S (F ∘ pr₁) (G ∘ pr₂) paired
+    using (value)
 
   module Projection {Y Z : CAT} (π : MAP (A × C) Y) (H : MAP Y Z) {a b : MAP Γ Y}
     (τ : MorphismExpression a b) (p : (π ∘ pair x u) =₁ a) (q : (π ∘ pair y v) =₁ b)
@@ -57,9 +59,12 @@ module At {Γ A B C D : CAT} (F : MAP A B) (G : MAP C D)
               (comp-assoc (pair x u) π H) (comp-assoc (pair y v) π H) (H ◁ p) (H ◁ q)))))
 
   module First = Projection pr₁ F α (pair-β₁ x u) (pair-β₁ y v) Paired.first-projection
+    using (source-change; target-change; value)
   module Second = Projection pr₂ G β (pair-β₂ x u) (pair-β₂ y v) Paired.second-projection
+    using (source-change; target-change; value)
   module ProductFrames = Frames.At 𝒯 M ℱ I (post-expression (F ∘ pr₁) paired) (post-expression (G ∘ pr₂) paired)
     First.source-change First.target-change Second.source-change Second.target-change
+    using (value)
 
   abstract
     value : ExpressionIso (retarget-expression (post-expression (productMap F G) paired)

@@ -39,13 +39,20 @@ open import SCT.VolumeI.Chapter03.RelativeCategories.Composition.Postcomposition
 
 module Preservation {K C D E S : CAT} (k : MAP K S)
   {f : MAP C S} {g : MAP D S} {h : MAP E S} (u : FunctorOver f h) (v : FunctorOver g h) where
-  module R = RelativePullback u v using (category; projection; first; left-map; right-map)
-  module U = Postcompose k u using (functor)
-  module V = Postcompose k v using (functor)
-  module First = Postcompose k R.first using (functor)
-  module CU = Postcomposition k u using (square; square-isPullback)
-  module CV = Postcomposition k v using (square; square-isPullback)
-  module CF = Postcomposition k R.first using (square; square-isPullback)
+  private
+    module R = RelativePullback u v using (category; projection; first; left-map; right-map)
+  private
+    module U = Postcompose k u using (functor)
+  private
+    module V = Postcompose k v using (functor)
+  private
+    module First = Postcompose k R.first using (functor)
+  private
+    module CU = Postcomposition k u using (square; square-isPullback)
+  private
+    module CV = Postcomposition k v using (square; square-isPullback)
+  private
+    module CF = Postcomposition k R.first using (square; square-isPullback)
   A = FunOver k f
   B = FunOver k g
   H = FunOver k h
@@ -61,6 +68,7 @@ module Preservation {K C D E S : CAT} (k : MAP K S)
     ordinary-isPullback : IsPullback ordinary
     ordinary-isPullback = fun-preserves-pullback K _ (pullbackCone-isPullback R.left-map R.right-map)
   module Paste = Pasting forgetA ordinary-left ordinary-right ordinary ordinary-isPullback
+    using (module Paste; paste-isPullback)
   outer = Paste.Paste.flatten (coneSwap CF.square)
   abstract
     outer-isPullback : IsPullback outer
@@ -71,9 +79,11 @@ module Preservation {K C D E S : CAT} (k : MAP K S)
   cospan = record { left = id A ; right = forgetB ; base = forgetH
     ; leftSquare = Cone.match CU.square ∙ comp-unitʳ (ordinary-left ∘ forgetA)
     ; rightSquare = Cone.match CV.square }
-  module Change = CospanMap cospan using (pullbackMap; pullbackMap-β; mapCone)
-  module Cartesian = CospanCartesian cospan (id-isEquiv A) CV.square-isPullback
-    using (pullbackMap-isEquiv)
+  private
+    module Change = CospanMap cospan using (pullbackMap; pullbackMap-β; mapCone)
+  private
+    module Cartesian = CospanCartesian cospan (id-isEquiv A) CV.square-isPullback
+      using (pullbackMap-isEquiv)
   intermediate = Pullback (ordinary-left ∘ forgetA) ordinary-right
   backward = IsEquiv.inverse Cartesian.pullbackMap-isEquiv
   functor : MAP Source Target

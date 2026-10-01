@@ -32,15 +32,24 @@ module Witness {Γ C : CAT} {x y z : Obj-abs (Fun Γ C)}
   {f : Morphism x y} {g : Morphism y z} {h : Morphism x z}
   (w : CompositeWitness f g h) where
   module Family = Evaluated.Family.Witness 𝒯 M ℱ P I E w
+    using (first-edge; long-edge; middle-vertex; second-edge; source-vertex; target-vertex)
   module T = TransposedWitness w
+    using (triangle)
   module First = Evaluated.Family.Arrow 𝒯 M ℱ P I E f
+    using (as-expression)
   module Second = Evaluated.Family.Arrow 𝒯 M ℱ P I E g
+    using (as-expression)
   module Long = Evaluated.Family.Arrow 𝒯 M ℱ P I E h
+    using (as-expression)
   module Middle = Corners.At 𝒯 M ℱ P middle-square T.triangle
+    using (matching)
   module Source = Corners.At 𝒯 M ℱ P source-square T.triangle
+    using (matching)
   module Target = Corners.At 𝒯 M ℱ P target-square T.triangle
+    using (reversed-matching)
   module V = Vertices First.as-expression Second.as-expression Long.as-expression
     T.triangle Family.first-edge Family.second-edge Family.long-edge
+    using (MiddleVertex; SourceVertex; TargetVertex; composite-comparison; presentation)
 
   abstract
     middle-vertex : V.MiddleVertex

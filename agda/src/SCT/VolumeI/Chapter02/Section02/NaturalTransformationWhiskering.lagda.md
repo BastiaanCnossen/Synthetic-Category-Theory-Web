@@ -38,10 +38,13 @@ module Pre {B C D : CAT} (u : MAP B C) {F G : MAP C D}
   (α : MorphismExpression (nameFun F) (nameFun G)) where
   private
     module InternalAction = Internal.At 𝒯 M ℱ B C D
+      using (composeFunctor; module FixLeft; module FixRight; module Named)
   private
     module Coordinate = Fixed.FixRight 𝒯 M ℱ P I E S {A = Fun C D} {B = Fun B C} (nameFun u)
+      using (frame; insertion; module Arrow)
   private
     module Unary = InternalAction.FixRight u
+      using (comparison)
   paired : MorphismExpression (pair (nameFun F) (nameFun u)) (pair (nameFun G) (nameFun u))
   paired = pair-expression α (identity-expression (nameFun u))
   private
@@ -53,6 +56,7 @@ module Pre {B C D : CAT} (u : MAP B C) {F G : MAP C D}
       α paired (Coordinate.frame (nameFun F)) (Coordinate.frame (nameFun G))
       (InternalAction.Named.comparison F u) (InternalAction.Named.comparison G u)
       (Coordinate.Arrow.comparison α)
+      using (action; comparison)
   action : MorphismExpression (nameFun (F ∘ u)) (nameFun (G ∘ u))
   action = Compared.action
   comparison : ExpressionIso
@@ -64,10 +68,13 @@ module Post {B C D : CAT} (F : MAP C D) {u v : MAP B C}
   (β : MorphismExpression (nameFun u) (nameFun v)) where
   private
     module InternalAction = Internal.At 𝒯 M ℱ B C D
+      using (composeFunctor; module FixLeft; module FixRight; module Named)
   private
     module Coordinate = Fixed.FixLeft 𝒯 M ℱ P I E S {A = Fun C D} {B = Fun B C} (nameFun F)
+      using (frame; insertion; module Arrow)
   private
     module Unary = InternalAction.FixLeft F
+      using (comparison)
   paired : MorphismExpression (pair (nameFun F) (nameFun u)) (pair (nameFun F) (nameFun v))
   paired = pair-expression (identity-expression (nameFun F)) β
   private
@@ -79,6 +86,7 @@ module Post {B C D : CAT} (F : MAP C D) {u v : MAP B C}
       β paired (Coordinate.frame (nameFun u)) (Coordinate.frame (nameFun v))
       (InternalAction.Named.comparison F u) (InternalAction.Named.comparison F v)
       (Coordinate.Arrow.comparison β)
+      using (action; comparison)
   action : MorphismExpression (nameFun (F ∘ u)) (nameFun (F ∘ v))
   action = Compared.action
   comparison : ExpressionIso

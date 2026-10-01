@@ -44,7 +44,9 @@ module Universal (C : CAT) where
 
   private
     module RightInverse = Right arrow right-triangle right-short right-long
+      using (inverse-expression; inverse-law)
     module LeftInverse = Left arrow left-triangle left-short left-long
+      using (inverse-expression; inverse-law)
 
   inverse-data : IsInvertibleExpression arrow
   inverse-data = record

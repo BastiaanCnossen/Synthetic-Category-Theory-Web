@@ -44,6 +44,7 @@ module Curried {Γ C : CAT} {x y : MAP Γ C} (H : MAP (Γ × [1]) C)
   module Target = Endpoint one q
   module Diagram = Diagrams.At 𝒯 M ℱ P I E (id C ∘ H) H (comp-unitˡ H)
     (comp-unitˡ x ∙ Source.before) (comp-unitˡ y ∙ Target.before) p q Source.compatible Target.compatible
+    using (comparison)
 
   comparison : ExpressionIso
     (retarget-expression (post-expression (id C) (expression H p q)) (comp-unitˡ x) (comp-unitˡ y))

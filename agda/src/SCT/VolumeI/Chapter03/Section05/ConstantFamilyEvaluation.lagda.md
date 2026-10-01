@@ -8,7 +8,7 @@ evaluation functor composed with the family times `D`, after reassociating
 the parameter product.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
@@ -31,12 +31,16 @@ import SCT.VolumeI.Chapter03.Section05.InternalFunctorCalculus.ConstantFamilyNat
 open import SCT.VolumeI.Chapter03.Section05.InternalFunctorCalculus.ConstantFamilyReassociation 𝒯 M ℱ P using (module Regroup)
 
 module Evaluation (D : CAT) {E Γ : CAT} (q : MAP E Γ) {K : CAT} (k : MAP K Γ) where
-  module Constant = ConstantFamily D q
-  module At = Constant.At k
-  module Structure = Source (Constant.uncurry-constant k) q
+  private
+    module Constant = ConstantFamily D q
+  private
+    module At = Constant.At k
+  private
+    module Structure = Source (Constant.uncurry-constant k) q
   SourceCategory = FunOver k Constant.projection
   module Parameters (X : CAT) where
-    module Uncurried = Family q (Constant.constant ∘ k) X
+    private
+      module Uncurried = Family q (Constant.constant ∘ k) X
     value : FunctorOver (k ∘ pr₂ {C = X}) Constant.projection →
       FunctorOver ((k ∘ pr₁ {D = D}) ∘ pr₂ {C = X}) q
     value u = change-source (Constant.uncurry-constant k ▷ pr₂)
@@ -61,8 +65,10 @@ module Evaluation (D : CAT) {E Γ : CAT} (q : MAP E Γ) {K : CAT} (k : MAP K Γ)
         (FunctorLift.lift Constant.evaluation) ∙
         (funUncurry-restrict Constant.sections (FunctorLift.lift u) ▷ Uncurried.regroup)
 
-    module Regrouped = Regroup D q k X using (argument; module On)
-    module Native = NativeEvaluation.Evaluation 𝒯 M ℱ P D q (k ∘ pr₂ {C = X}) using (module On; module Native)
+    private
+      module Regrouped = Regroup D q k X using (argument; module On)
+    private
+      module Native = NativeEvaluation.Evaluation 𝒯 M ℱ P D q (k ∘ pr₂ {C = X}) using (module On; module Native)
 
     argument : FunctorOver (k ∘ pr₂ {C = X}) Constant.projection →
       FunctorOver ((k ∘ pr₁ {D = D}) ∘ pr₂ {C = X}) (Constant.projection ∘ pr₁ {D = D})

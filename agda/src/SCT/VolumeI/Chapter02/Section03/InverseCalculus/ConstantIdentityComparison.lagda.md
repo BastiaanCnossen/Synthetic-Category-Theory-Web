@@ -49,8 +49,10 @@ module At {Γ C : CAT} (r : MAP Γ C) where
     i = insert {X = Γ} z
     j = insert {X = C} z
     module Projection = Insertion.Parameter 𝒯 M ℱ r z
+      using (projection₁)
     module Reflected = ReflectedEndpoint z (F ∘ r) G (funCurry-β K) θ δ
       (funIsoReflect-β (F ∘ r) G raw)
+      using (endpoint)
     Q = evaluate-uncurry z F
     Qr = evaluate-uncurry z (F ∘ r)
     A = (comp-assoc r F (evaluate z)) ⁻¹

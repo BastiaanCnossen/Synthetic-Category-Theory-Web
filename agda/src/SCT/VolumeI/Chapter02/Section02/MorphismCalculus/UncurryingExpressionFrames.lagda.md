@@ -46,6 +46,7 @@ module At {Γ X C : CAT} {f g f′ g′ : MAP Γ (Fun X C)}
   source-change = pair-cong first (idIso fixed)
   target-change = pair-cong last (idIso fixed)
   module Product = Frames.At 𝒯 M ℱ I original constant first last (idIso fixed) (idIso fixed)
+    using (value)
 
   frame-normalization : {a b : MAP Γ (Fun X C)} (r : a =₁ b) →
     funUncurryIso r =₂ (funEval ◁ pair-cong (r ▷ pr₁ {Γ} {X}) (idIso fixed))

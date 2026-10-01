@@ -65,6 +65,7 @@ NatIsoBetween f g = IsoBetween (nameFun f) (nameFun g)
 module NaturalIdentification {C D : CAT} (f g : MAP C D) where
   private
     module Fiber = IdentificationFiber (nameFun f) (nameFun g)
+      using (identification-to-iso; identification-to-iso-isEquiv)
 
   identification-to-natural-iso : MAP (f ＝ g) (NatIsoBetween f g)
   identification-to-natural-iso = Fiber.identification-to-iso ∘ nameFun-isoMap f g

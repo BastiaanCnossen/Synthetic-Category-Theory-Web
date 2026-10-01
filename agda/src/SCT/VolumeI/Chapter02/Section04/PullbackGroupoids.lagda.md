@@ -56,7 +56,9 @@ module PullbackGroupoid {X Y C : CAT} (f : MAP X C) (g : MAP Y C)
     ; leftSquare = constant-natural [1] f ; rightSquare = constant-natural [1] g }
   module Constant = CospanMap constant-cospan using (pullbackMap)
   module AtZero = EvaluatePullback zero f g
+    using (evaluation-isEquiv; module Evaluation)
   module Evaluation = AtZero.Evaluation
+    using (cospan; module Induced)
   module Both = Successive constant-cospan Evaluation.cospan
     (constant-evaluation-isEquiv X) (constant-evaluation-isEquiv Y) (constant-evaluation-isEquiv C)
     using (composite-isEquiv)

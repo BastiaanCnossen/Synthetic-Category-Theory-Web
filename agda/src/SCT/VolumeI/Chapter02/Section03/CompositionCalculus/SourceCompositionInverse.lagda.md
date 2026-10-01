@@ -40,7 +40,9 @@ module Inverse {B C : CAT} {x y : MAP B C}
   (law : ExpressionIso (compose-expression g f) (identity-expression x)) where
   private
     module F = Actions.Action 𝒯 M ℱ P I E S f
+      using (act; input)
     module G = Actions.Action 𝒯 M ℱ P I E S g
+      using (act; composite; input)
 
   module At {Γ : CAT} (t : Cone (ev₀ {C}) x Γ) where
     private
@@ -50,6 +52,7 @@ module Inverse {B C : CAT} {x y : MAP B C}
       gq = restrict-expression g q
       fg = compose-expression fq u
       module FG = MorphismExpression fg
+        using (arrow; source-frame; target-frame)
       w = G.composite (F.act t)
 
       input-comparison : ExpressionIso

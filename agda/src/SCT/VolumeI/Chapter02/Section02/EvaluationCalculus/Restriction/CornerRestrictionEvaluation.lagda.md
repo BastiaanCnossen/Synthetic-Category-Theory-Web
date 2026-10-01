@@ -32,6 +32,7 @@ module At {Γ B C : CAT} (u v : Obj-abs [1]) (d k : MAP [1] B)
   (δ : (d ∘ u) =₁ (k ∘ v)) (W : MAP Γ (Fun B C)) where
   module R = Routes.At 𝒯 M ℱ I u v d k δ W
   module Shape = Corners.At 𝒯 M ℱ Γ d k u v δ
+    using (comparison; middle; κ; κ′)
   module Left = Restrict.At 𝒯 M ℱ d W u
   module Right = Restrict.At 𝒯 M ℱ k W v
   h = funUncurry W

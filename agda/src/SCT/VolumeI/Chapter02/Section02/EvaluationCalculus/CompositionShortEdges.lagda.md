@@ -58,7 +58,9 @@ module At {Γ C : CAT} (t : Cone (ev₁ {C}) ev₀ Γ) where
           (isoComp-assoc-at (r ◁ γ) (comp-assoc (j ∘ k) q r) ((β ▷ (j ∘ k)) ⁻¹)) ⁻¹))
 
   module First = Edge pullback₁ edge₂ (ConeIso.leftIso (composable-restriction-β C))
+    using (comparison)
   module Second = Edge pullback₂ edge₀ (ConeIso.rightIso (composable-restriction-β C))
+    using (comparison)
 
   abstract
     first-edge : (ConeIso.leftIso (Complete.short-edges t)) =₂

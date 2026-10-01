@@ -56,6 +56,7 @@ reframe-witness {f = f} {g} {h} α β γ w = record
   ; target-vertex = CoconeIso.compatible target-corner }
   where
   module W = CompositeWitness w
+    using (first-edge; long-edge; middle-comparison; second-edge; source-comparison; target-comparison; triangle)
   middle = coconeIso-adjust (coconeIso-compose
       (vertex-comparison (Morphism.target-identification f) (Morphism.source-identification g) β)
       W.middle-comparison) W.first-edge W.second-edge

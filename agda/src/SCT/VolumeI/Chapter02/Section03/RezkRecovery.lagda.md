@@ -43,7 +43,9 @@ open import SCT.VolumeI.Chapter01.Section02.Isomorphisms
 module Recover {Γ C : CAT} {x y : MAP Γ C}
   (f : MorphismExpression x y) (w : IsoLift (MorphismExpression.arrow f)) where
   module F = MorphismExpression f
+    using (arrow; source-frame; target-frame)
   module Found = Identify f w
+    using (center; constant-comparison; identification; source-identification; target-identification)
   z = Found.center
   δ = Found.constant-comparison
   source-frame = constant-frame ev₀ identity-source z

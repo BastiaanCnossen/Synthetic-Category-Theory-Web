@@ -26,7 +26,9 @@ module Family {Γ A B C : CAT} (W : MAP Γ (Fun (A × B) C)) where
   Nested = Fun B (Fun A C)
   module Curried = Currying.At 𝒯 M ℱ W
   module Exp = Exponentials.ExponentialLaw 𝒯 M ℱ B A C
+    using (backward; backward-represents; doubleReflect; doubleUncurry; forward; forward-backward; forward-isEquiv)
   module Assoc = Associativity Γ B A
+    using (forward)
 
   forward : MAP Γ Nested
   forward = Curried.nested

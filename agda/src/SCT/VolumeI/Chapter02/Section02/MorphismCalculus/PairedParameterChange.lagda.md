@@ -5,7 +5,7 @@ parameter in the first coordinate. The comparison uses specified endpoint
 frames and reflects their equality after product normalization.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
@@ -57,13 +57,16 @@ module At {X Y A B : CAT} (h : MAP X Y)
 
   module Restricted = Restriction.At 𝒯 M ℱ P I E S (identity-expression pr₁) βY σ (id (Y × B))
     ρ₁ ρ₁ r s first-restricted ζ
+    using (paired; source-product; target-product)
   source-change = pair-cong (idIso (h ∘ pr₁)) (comp-unitˡ uX)
   target-change = pair-cong (idIso (h ∘ pr₁)) (comp-unitˡ vX)
   source-frame = source-change ∙ productMap-pair h (id B) pr₁ uX
   target-frame = target-change ∙ productMap-pair h (id B) pr₁ vX
   module Mapped = Functoriality.At 𝒯 M ℱ P I E S h (id B) (identity-expression pr₁) βX
+    using (value)
   module ProductFrames = Frames.At 𝒯 M ℱ I (post-expression h (identity-expression pr₁)) (post-expression (id B) βX)
     (idIso (h ∘ pr₁)) (idIso (h ∘ pr₁)) (comp-unitˡ uX) (comp-unitˡ vX)
+    using (value)
 
   abstract
     first-mapped : ExpressionIso

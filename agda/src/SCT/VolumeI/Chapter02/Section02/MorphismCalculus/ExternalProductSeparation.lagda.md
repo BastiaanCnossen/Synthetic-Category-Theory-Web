@@ -5,7 +5,7 @@ product gives the same transformation. The comparison retains the chosen
 `productMap-separate` identification at both endpoints.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
@@ -54,7 +54,9 @@ module At {Γ A B C : CAT} {f g : MAP Γ A} (α : MorphismExpression f g) (r : M
         isoComp-cong (inverse-composite right-unit right-comp) (idIso left-normal)
 
   module Source = Endpoint f
+    using (left-comp; left-normal; left-unit; normalization; right-comp; right-normal; right-unit)
   module Target = Endpoint g
+    using (left-comp; left-normal; left-unit; normalization; right-comp; right-normal; right-unit)
 
   abstract
     left-comparison : ExpressionIso (retarget-expression left Source.left-normal Target.left-normal) common

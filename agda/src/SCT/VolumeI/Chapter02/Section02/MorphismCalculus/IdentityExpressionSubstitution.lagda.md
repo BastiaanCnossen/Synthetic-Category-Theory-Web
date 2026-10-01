@@ -47,10 +47,13 @@ module Restrict {Γ Δ C : CAT} (x : MAP Γ C) (r : MAP Δ Γ) where
     i = insert {X = Δ} z
     j = insert {X = Γ} z
     module Projection = Insertion.Parameter 𝒯 M ℱ r z
+      using (projection₁)
     module Boundary = Split.Along 𝒯 M pr₁ pr₁ i j (pair-β₁ _ _) (pair-β₁ _ _)
       r R bR (insert-natural r z) Projection.projection₁ x
+      using (comparison)
     module Reflected = ReflectedEndpoint z (F ∘ r) G (funCurry-β K) θ δ
       (funIsoReflect-β (F ∘ r) G raw)
+      using (endpoint)
     Q = evaluate-uncurry z F
     Qr = evaluate-uncurry z (F ∘ r)
     A = (comp-assoc r F (evaluate z)) ⁻¹

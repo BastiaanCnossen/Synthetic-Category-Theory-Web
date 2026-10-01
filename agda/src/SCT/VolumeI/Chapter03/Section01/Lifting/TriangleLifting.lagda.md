@@ -5,7 +5,7 @@ Lift its specified matching, fill the resulting cocone by Segal, and
 compare the two triangles using the same universal property.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
@@ -42,16 +42,17 @@ module LiftTriangle {A C Γ : CAT} (Γ-an : isAn Γ)
   (first : FunctorLift (mapPost f) (mapPre d₂ ∘ t))
   (second : FunctorLift (mapPost f) (mapPre d₀ ∘ t)) where
 
-  raw = uncurryRestriction (conePre t (mappingTriangleCone C))
-  raw-lift : {h : MAP Γ (Map [1] C)} → FunctorLift (mapPost f) h →
-    FunctorLift f (mapUncurry h)
-  raw-lift h = record { lift = mapUncurry (FunctorLift.lift h)
-    ; comparison = mapUncurryIso (FunctorLift.comparison h) ∙
-        (mapPost-uncurry f (FunctorLift.lift h)) ⁻¹ }
-  module L = LiftCocone f ef raw (raw-lift first) (raw-lift second)
-  module Curried = CurryRestriction Γ-an L.value
-  module AUniversal = UniversalCone (mappingTriangleCone A) (mappingTriangle-isPullback A)
-  module CUniversal = UniversalCone (mappingTriangleCone C) (mappingTriangle-isPullback C)
+  private
+    raw = uncurryRestriction (conePre t (mappingTriangleCone C))
+    raw-lift : {h : MAP Γ (Map [1] C)} → FunctorLift (mapPost f) h →
+      FunctorLift f (mapUncurry h)
+    raw-lift h = record { lift = mapUncurry (FunctorLift.lift h)
+      ; comparison = mapUncurryIso (FunctorLift.comparison h) ∙
+          (mapPost-uncurry f (FunctorLift.lift h)) ⁻¹ }
+    module L = LiftCocone f ef raw (raw-lift first) (raw-lift second)
+    module Curried = CurryRestriction Γ-an L.value
+    module AUniversal = UniversalCone (mappingTriangleCone A) (mappingTriangle-isPullback A)
+    module CUniversal = UniversalCone (mappingTriangleCone C) (mappingTriangle-isPullback C)
 
   triangle : MAP Γ (Map [2] A)
   triangle = AUniversal.factor Curried.value

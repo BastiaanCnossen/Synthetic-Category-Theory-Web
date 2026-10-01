@@ -43,12 +43,18 @@ module At {B C D : CAT} {F G : MAP C D} {u v : MAP B C}
   (α : MorphismExpression (nameFun F) (nameFun G))
   (β : MorphismExpression (nameFun u) (nameFun v)) where
   module InternalAction = Internal.At 𝒯 M ℱ B C D
+    using (composeFunctor; module Named)
   module Base = Product.At 𝒯 M ℱ P I E S {Γ = One} {A = Fun C D} {B = Fun B C} {C = Fun B D}
     InternalAction.composeFunctor {x = nameFun F} {x′ = nameFun G} {y = nameFun u} {y′ = nameFun v} α β
+    using (bottom; comparison; left; right; top)
   module Top = NaturalActions.Pre 𝒯 M ℱ P I E S {B} {C} {D} u {F} {G} α
+    using (action; comparison)
   module Right = NaturalActions.Post 𝒯 M ℱ P I E S {B} {C} {D} G {u} {v} β
+    using (action; comparison)
   module Left = NaturalActions.Post 𝒯 M ℱ P I E S {B} {C} {D} F {u} {v} β
+    using (action; comparison)
   module Bottom = NaturalActions.Pre 𝒯 M ℱ P I E S {B} {C} {D} v {F} {G} α
+    using (action; comparison)
   κ₀₀ = InternalAction.Named.comparison F u
   κ₀₁ = InternalAction.Named.comparison G u
   κ₁₀ = InternalAction.Named.comparison F v

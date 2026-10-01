@@ -42,6 +42,7 @@ open import SCT.VolumeI.Chapter01.Section02.Isomorphisms
 import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.Structural as Structural
 open Structural vocabulary terminal products productLaws composition whiskering using (postWhisker-id-at)
 module PS = Projections 𝒯
+  using (Square; compose-base; compose-square; inverse-square; lift-square)
 
 module At {A B D : CAT} (Γ : CAT) (f : MAP A D) (g : MAP B D)
   (u : Obj-abs A) (v : Obj-abs B) (δ : (f ∘ u) =₁ (g ∘ v)) where
@@ -58,7 +59,9 @@ module At {A B D : CAT} (Γ : CAT) (f : MAP A D) (g : MAP B D)
   comparison = κ′ ⁻¹ ∙ (middle ∙ κ)
 
   module FirstF = Compatibility.RestrictionFirst 𝒯 M ℱ Γ f u
+    using (source; square)
   module FirstG = Compatibility.RestrictionFirst 𝒯 M ℱ Γ g v
+    using (source; square)
   first-source = FirstF.source
   first-target = FirstG.source
   first-middle-source = pair-β₁ (id Γ) (const (f ∘ u))
@@ -77,7 +80,9 @@ module At {A B D : CAT} (Γ : CAT) (f : MAP A D) (g : MAP B D)
         middle κ middle-parameter FirstF.square)
 
   module SecondF = Restriction.At 𝒯 M ℱ Γ f u
+    using (projection₂)
   module SecondG = Restriction.At 𝒯 M ℱ Γ g v
+    using (projection₂)
   diagram-frame : {I : CAT} (r : MAP I D) (x : Obj-abs I) →
     (pr₂ ∘ (productMap (id Γ) r ∘ insert x)) =₁ const (r ∘ x)
   diagram-frame r x = Restriction.At.second 𝒯 M ℱ Γ r x ∙

@@ -29,6 +29,7 @@ module Apply {C D : CAT} {x y : Obj-abs C} {u v : Obj-abs D}
   (operation : ExpressionOperation x y u v) where
   private
     module O = ExpressionOperation operation
+      using (apply; on-change; on-comparison)
     module Source = Fiber x y using (read; decode-comparison; decode-encode)
     module Result = Realize operation using (functor; on-family)
     module Target = Lifts u v using (lift-change)

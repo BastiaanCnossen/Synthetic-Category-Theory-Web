@@ -32,6 +32,7 @@ square-functor-pullback = pushout→functor-criterion gluing-square square-isPus
 
 module Families (C : CAT) where
   module U = UniversalCone (functorOut gluing-square C) (square-functor-pullback C)
+    using (factor; factor-β; factor-η)
 
   square-in : {Γ : CAT} → Cone (funPre {D = C} d₁) (funPre d₁) Γ →
     MAP Γ (Fun ([1] × [1]) C)

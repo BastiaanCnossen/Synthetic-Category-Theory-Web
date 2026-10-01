@@ -40,8 +40,11 @@ isoArrow-isEmbedding C = embedding-cong Rearrange.comparison-arrow
     (change-right-projection leftInverseArrow Rearrange.comparison-arrow Fibers.left-inverse-projection-isEquiv))
   where
   module Rearrange = InverseComparison C
+    using (comparison-arrow; square; square-isPullback)
   module Fibers = UniversalFibers C
+    using (left-inverse-projection-isEquiv; right-inverse-projection-isEquiv)
   module Both = Intersection rightInverseArrow leftInverseArrow Rearrange.square Rearrange.square-isPullback
+    using (embedding)
 
 module WithRezk (R : Rezk.RezkAxiom 𝒯 M ℱ P I E) where
   open Rezk 𝒯 M ℱ P I E using (identityIso; identityIso-arrow)

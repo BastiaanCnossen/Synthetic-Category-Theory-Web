@@ -32,7 +32,9 @@ open import SCT.VolumeI.Chapter02.Section03.InverseCalculus.ConstantArrows 𝒯 
 module Identify {Γ C : CAT} {x y : MAP Γ C}
   (f : MorphismExpression x y) (w : IsoLift (MorphismExpression.arrow f)) where
   module F = MorphismExpression f
+    using (arrow; source-frame; target-frame)
   module W = IsoLift w
+    using (comparison; lift)
   chosen = equiv-lift (rezk-isEquiv C) W.lift
 
   center : MAP Γ C

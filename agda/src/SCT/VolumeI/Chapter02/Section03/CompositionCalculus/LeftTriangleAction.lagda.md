@@ -54,6 +54,7 @@ module At {B C : CAT} (f : MAP B (Ar C)) where
     swapped-segal = triangle-cone C
     module Paste = Pasting f ev₁ ev₀ swapped-segal
       (Segal.SegalAxiom.segal-isPullback S C)
+      using (paste-isPullback; module Paste)
     outer = Paste.Paste.flatten raw
 
   input-cone : Cone (ev₀ {C}) (ev₁ ∘ f) T
@@ -104,7 +105,9 @@ module At {B C : CAT} (f : MAP B (Ar C)) where
           ExpressionIso.source-compatible long-comparison }
 
     module ActionFunctor = Equivalence.At 𝒯 M ℱ P I E S Q arrow
+      using (compose-at-source-isEquiv)
     module Realized = Operations.Realize 𝒯 P (Equivalence.operation 𝒯 M ℱ P I E S Q arrow)
+      using (preserves-pullback)
 
   long-isPullback : IsInvertibleExpression arrow → IsPullback long-cone
   long-isPullback inverse-data = pullback-cone-invariant long-cone-comparison

@@ -65,10 +65,13 @@ module Corner {Γ A B D T C : CAT}
   module Boundary = CurryRestriction {u = u} {v = v} transposed-boundary
 
   module LeftEdge = Edge k p (Cocone.left boundary) (CoconeIso.leftIso edges)
+    using (comparison; raw)
   module RightEdge = Edge k q (Cocone.right boundary) (CoconeIso.rightIso edges)
+    using (comparison; raw)
   module EvaluatedFamily = FunEvaluation.Evaluation 𝒯 M ℱ P s family
     (FunComposition.CompositorEvaluation.comparison 𝒯 M ℱ P u p family)
     (FunComposition.CompositorEvaluation.comparison 𝒯 M ℱ P v q family)
+    using (comparison-left; comparison-right)
 
   abstract
     uncurried-corner : CoconeIso
@@ -106,6 +109,7 @@ module Corner {Γ A B D T C : CAT}
 
   module Reflected = ReflectRestriction {u = u} {v = v}
     (conePre family (functorOut s C)) Boundary.value specified-edges
+    using (comparison; comparison-left; comparison-right)
 
   abstract
     comparison : ConeIso (conePre family (functorOut s C)) Boundary.value

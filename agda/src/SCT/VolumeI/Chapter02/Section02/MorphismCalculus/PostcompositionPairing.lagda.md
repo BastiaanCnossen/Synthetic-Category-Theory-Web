@@ -29,10 +29,13 @@ import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionPostcompositio
 module At {Γ A B C : CAT} (F : MAP A B) (G : MAP A C)
   {x y : MAP Γ A} (α : MorphismExpression x y) where
   module First = Pasting.At 𝒯 M ℱ P I E (pair F G) pr₁ F (pair-β₁ F G) α
+    using (comparison; source-change; target-change)
   module Second = Pasting.At 𝒯 M ℱ P I E (pair F G) pr₂ G (pair-β₂ F G) α
+    using (comparison; source-change; target-change)
   module Compared = Fixed.Pairing 𝒯 M ℱ P I E S (pair F G) α (post-expression F α) (post-expression G α)
     First.source-change First.target-change Second.source-change Second.target-change
     First.comparison Second.comparison
+    using (comparison)
 
   value : ExpressionIso
     (retarget-expression (post-expression (pair F G) α) (pair-pre F G x) (pair-pre F G y))

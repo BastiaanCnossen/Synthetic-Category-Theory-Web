@@ -54,8 +54,10 @@ private
 module At {Γ X C : CAT} (f g : MAP Γ (Fun X C))
   {α β : MorphismExpression (funUncurry f) (funUncurry g)} (ξ : ExpressionIso α β) where
   module A = Currying.Curry 𝒯 M ℱ I f g α
+    using (diagram; first-curry; original; permutation; value; module Endpoint; module Source; module Target)
   module B = Currying.Curry 𝒯 M ℱ I f g β
   module U = Uncurried.UncurryComparison 𝒯 M ℱ P I E ξ
+    using (underlying; module Endpoint)
   δ = U.underlying
   δ-diagram = δ ▷ A.permutation
   bA = funCurry-β A.diagram
@@ -72,7 +74,9 @@ module At {Γ X C : CAT} (f g : MAP Γ (Fun X C))
     (q : (evaluate z ∘ MorphismExpression.arrow β) =₁ funUncurry h)
     (compatible : (q ∙ (evaluate z ◁ ExpressionIso.comparison ξ)) =₂ p) where
     module AE = A.Endpoint z h p
+      using (insertion-comparison; raw; reflected; reflected-image; step)
     module BE = B.Endpoint z h q
+      using (raw; reflected; reflected-image)
     i = insert {X = Γ} z
     j = insert {X = Γ × X} z
     step = AE.step

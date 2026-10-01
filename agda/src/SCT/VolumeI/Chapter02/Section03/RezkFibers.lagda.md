@@ -50,6 +50,7 @@ IsoBetween x y = Pullback (pair x y) isoEndpoints
 module IdentificationFiber {C : CAT} (x y : Obj-abs C) where
   private
     module D = Diagonal Rep x y
+      using (reversed-isPullback; reversed-square)
 
     change : CospanMap (pair x y) (pair (id C) (id C))
       (pair x y) isoEndpoints
@@ -59,6 +60,7 @@ module IdentificationFiber {C : CAT} (x y : Obj-abs C) where
       ; rightSquare = (comp-unitˡ (pair (id C) (id C))) ⁻¹ ∙ identityIso-endpoints }
 
     module Change = CospanMap change
+      using (pullbackMap)
     module CospanProof = CospanEquivalence change
       (id-isEquiv One) (rezk-isEquiv C) (id-isEquiv (C × C))
       using (pullbackMap-isEquiv)

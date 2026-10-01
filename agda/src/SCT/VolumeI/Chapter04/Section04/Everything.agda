@@ -1,0 +1,101 @@
+{-# OPTIONS --safe --without-K #-}
+module SCT.VolumeI.Chapter04.Section04.Everything where
+
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.FunctorCategoryEvaluation
+
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.ComponentNaturality
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.ComponentRestriction
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.ComponentTriangles
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.TransposeIdentifications
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.TransposeComparisons
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.TransposeRestriction
+
+import SCT.VolumeI.Chapter04.Section04.AdjointSections
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.SectionIdentifications
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.SectionTriangleInverses
+
+import SCT.VolumeI.Chapter04.Section04.Adjunctions
+import SCT.VolumeI.Chapter04.Section04.InitialAndTerminalObjects.Everything
+import SCT.VolumeI.Chapter04.Section04.HomAdjunctions
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.SealedTransposition
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.SealedFamilyTransposition
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.UniversalCounits
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.AdjunctionCounits
+import SCT.VolumeI.Chapter04.Section04.UniquenessOfAdjoints
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.NormalizedSections
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.EvaluationDeformations
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.EvaluationDeformationDiagrams
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.EvaluationDeformationCorners
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.EvaluationRestrictionFactorization
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.EvaluationRestrictionEndpoints
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.EvaluationScalarReflection
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.EvaluationOverBase
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.EvaluationSectionIdentity
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.SectionNormalization
+import SCT.VolumeI.Chapter04.Section04.EvaluationAdjunctions
+import SCT.VolumeI.Chapter04.Section04.EquivalenceAdjunctions
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.SealedComponents
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.CompositeTriangleAlgebra
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.UnitCounitData
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.RawComponentTriangles
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.CompositeComponentFrames
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.CompositeComponents
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.CompositeExpandedComponents
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.CompositeTriangles
+import SCT.VolumeI.Chapter04.Section04.CompositeAdjunctions
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.SectionNormalizationConverse
+import SCT.VolumeI.Chapter04.Section04.RelativeAdjunctions
+import SCT.VolumeI.Chapter04.Section04.RelativeUnitCriterion
+import SCT.VolumeI.Chapter04.Section04.RelativeAdjunctionMorphisms
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.CompositeInterface
+import SCT.VolumeI.Chapter04.Section04.RelativeComposition
+import SCT.VolumeI.Chapter04.Section04.RelativeSectionComposition
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.FunctorCategoryComponents
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.PostcompositionTriangleLegs
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.PostcompositionAdjunctions
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.PrecompositionEvaluatedTriangles
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.PrecompositionNormalizedComponents
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.ComponentRestrictionParameters
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.PrecompositionRestrictedComponents
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.PrecompositionWhiskeredComponents
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.PrecompositionCompositeMiddle
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.PrecompositionPostLegs
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.PairedComponentParameters
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.PrecompositionParameterEvaluation
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.PrecompositionRestrictionLegs
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.PrecompositionAdjunctions
+import SCT.VolumeI.Chapter04.Section04.FunctorCategoryLocalizations
+import SCT.VolumeI.Chapter04.Section04.FunctorCategoryAdjunctions
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.NormalizedRelativeDeformations
+import SCT.VolumeI.Chapter04.Section04.RelaxedAdjointSections
+
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.PullbackSectionCriterion
+
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.BaseChangeSectionComparisons
+
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.BaseChangeDeformations
+
+import SCT.VolumeI.Chapter04.Section04.AdjointSectionBaseChange
+
+import SCT.VolumeI.Chapter04.Section04.InitialAndTerminalObjects.LocalizationFibers
+
+import SCT.VolumeI.Chapter04.Section04.InitialAndTerminalObjects.SliceUniversalObjects
+
+import SCT.VolumeI.Chapter04.Section04.LocalizationInvariance
+
+import SCT.VolumeI.Chapter04.Section04.CompositeBaseChange
+
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.TransposeFamilyFormula
+
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.HomUnitFormula
+
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.HomCounitFormula
+
+import SCT.VolumeI.Chapter04.Section04.EvaluationHomEquivalences
+
+import SCT.VolumeI.Chapter04.Section04.CosliceAdjunctions
+import SCT.VolumeI.Chapter04.Section04.SquaresToIdentity
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCosliceSquares
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.TranspositionWithInvertibleUnit
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.CosliceTranspositionExpressions
+import SCT.VolumeI.Chapter04.Section04.AdjointSectionCosliceSquares

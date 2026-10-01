@@ -57,20 +57,24 @@ module Separated {C D A Γ₀ Γ₁ S X : CAT}
   r₀ = pullback₂
   r₁ : MAP X₁ Γ₁
   r₁ = pullback₂
-  module Domain = Sum (i₀ ∘ r₀) (i₁ ∘ r₁) using (projection; module Copair)
+  private
+    module Domain = Sum (i₀ ∘ r₀) (i₁ ∘ r₁) using (projection; module Copair)
   first : FunctorOver (i₀ ∘ r₀) r
   first = record { lift = pullback₁ ; comparison = pullbackMatch }
   second : FunctorOver (i₁ ∘ r₁) r
   second = record { lift = pullback₁ ; comparison = pullbackMatch }
-  module Reassembled = Domain.Copair first second using (over)
+  private
+    module Reassembled = Domain.Copair first second using (over)
   abstract
     reassembled-isEquiv : IsEquiv (FunctorLift.lift Reassembled.over)
     reassembled-isEquiv = Cover.copair-isEquiv i₀ i₁ r
       (coneSwap (pullbackCone r i₀)) (coneSwap (pullbackCone r i₁))
       (pullback-swap (pullbackCone r i₀) (pullbackCone-isPullback r i₀))
       (pullback-swap (pullbackCone r i₁) (pullbackCone-isPullback r i₁)) cover
-  module Restrict = Precompose projection Reassembled.over using (functor; module Equivalence)
-  module Pair = Split (i₀ ∘ r₀) (i₁ ∘ r₁) projection using (functor; functor-isEquiv)
+  private
+    module Restrict = Precompose projection Reassembled.over using (functor; module Equivalence)
+  private
+    module Pair = Split (i₀ ∘ r₀) (i₁ ∘ r₁) projection using (functor; functor-isEquiv)
 
   first-target : FunctorOver p (pullback₂ {f = projection} {i₀})
   first-target = lift-triangle s
@@ -82,10 +86,14 @@ module Separated {C D A Γ₀ Γ₁ S X : CAT}
     second-target-isEquiv : IsEquiv (FunctorLift.lift second-target)
     second-target-isEquiv = et
 
-  module FirstPost = Postcompose r₀ first-target using (functor)
-  module SecondPost = Postcompose r₁ second-target using (functor)
-  module FirstTarget = PullbackTarget i₀ projection r₀ using (functor; functor-isEquiv)
-  module SecondTarget = PullbackTarget i₁ projection r₁ using (functor; functor-isEquiv)
+  private
+    module FirstPost = Postcompose r₀ first-target using (functor)
+  private
+    module SecondPost = Postcompose r₁ second-target using (functor)
+  private
+    module FirstTarget = PullbackTarget i₀ projection r₀ using (functor; functor-isEquiv)
+  private
+    module SecondTarget = PullbackTarget i₁ projection r₁ using (functor; functor-isEquiv)
   first-component = FirstTarget.functor ∘ FirstPost.functor
   second-component = SecondTarget.functor ∘ SecondPost.functor
   abstract
@@ -104,7 +112,8 @@ module Separated {C D A Γ₀ Γ₁ S X : CAT}
       (equiv-compose Restrict.functor Pair.functor
         (Restrict.Equivalence.functor-isEquiv reassembled-isEquiv) Pair.functor-isEquiv)
       (productMap-isEquiv _ _ (equiv-inverse first-component-isEquiv) (equiv-inverse second-component-isEquiv))
-  module Cores = ProductComparison One (FunOver r₀ p) (FunOver r₁ q) using (forward; forward-isEquiv)
+  private
+    module Cores = ProductComparison One (FunOver r₀ p) (FunOver r₁ q) using (forward; forward-isEquiv)
   maps : MAP (MapOver r projection) (MapOver r₀ p × MapOver r₁ q)
   maps = Cores.forward ∘ mapPost functor
   abstract

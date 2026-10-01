@@ -45,6 +45,7 @@ module Frames {Γ Δ A B : CAT} {f g f′ g′ : MAP Γ A}
   {h k : MAP Δ B} (ρ : h =₁ k) where
   module Paired = ProductFrames.At 𝒯 M ℱ I (restrict-expression α (pr₁ {Γ} {Δ})) (identity-expression (h ∘ pr₂))
     (p ▷ pr₁) (q ▷ pr₁) (ρ ▷ pr₂) (ρ ▷ pr₂)
+    using (value)
 
   abstract
     value : ExpressionIso (retarget-expression (external-product α h) (productMap-cong p ρ) (productMap-cong q ρ))

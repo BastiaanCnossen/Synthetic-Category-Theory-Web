@@ -6,7 +6,7 @@ invertible. These comparisons use associativity and the unit laws, and
 retain the two endpoints throughout.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
@@ -94,5 +94,7 @@ compose-invertible f g ef eg = record
         (expressionIso-inverse (associativity f g (compose-expression G.left-inverse F.left-inverse)))) }
   where
   module F = IsInvertibleExpression ef
+    using (left-inverse; left-inverse-law; right-inverse; right-inverse-law)
   module G = IsInvertibleExpression eg
+    using (left-inverse; left-inverse-law; right-inverse; right-inverse-law)
 ```

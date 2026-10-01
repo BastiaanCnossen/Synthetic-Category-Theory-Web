@@ -45,6 +45,7 @@ module Vertices {Γ C : CAT} {x y z : MAP Γ C}
   (long-edge : (edge₁ ∘ σ) =₁ MorphismExpression.arrow h) where
   module F = MorphismExpression f
   module G = MorphismExpression g
+    using (source-frame; target-frame)
   module H = MorphismExpression h
 
   MiddleVertex : Set m

@@ -54,12 +54,14 @@ module Right {C : CAT} {x y z : Obj-abs C} (f : Morphism x y)
   (long : (σ ∘ d₁) =₁ const z) where
   private
     module F = Morphism f
+      using (source-identification; target-identification)
     middle = Cocone.match (coconePost σ triangle-edges)
     source-corner = Cocone.match (coconePost σ triangle-source)
     target-corner = Cocone.match (coconePost σ upper-edges)
     target-value = (F.target-identification ∙ (β ▷ one)) ∙ target-corner ⁻¹
     long-target = constant-boundary one z ∙ (long ▷ one)
     module Moved = MoveConstant long (target-value ∙ long-target ⁻¹)
+      using (comparison; endpoint)
     source-value = constant-boundary zero y ∙ (Moved.comparison ▷ zero)
     inverse-source = source-value ∙ source-corner ⁻¹
     inverse-target = F.source-identification ∙ ((β ▷ zero) ∙ middle)
@@ -101,12 +103,14 @@ module Left {C : CAT} {x y z : Obj-abs C} (f : Morphism x y)
   (long : (σ ∘ d₁) =₁ const z) where
   private
     module F = Morphism f
+      using (source-identification; target-identification)
     middle = Cocone.match (coconePost σ triangle-edges)
     source-corner = Cocone.match (coconePost σ triangle-source)
     target-corner = Cocone.match (coconePost σ upper-edges)
     source-value = (F.source-identification ∙ (α ▷ zero)) ∙ source-corner
     long-source = constant-boundary zero z ∙ (long ▷ zero)
     module Moved = MoveConstant long (source-value ∙ long-source ⁻¹)
+      using (comparison; endpoint)
     target-value = constant-boundary one x ∙ (Moved.comparison ▷ one)
     inverse-source = (F.target-identification ∙ (α ▷ one)) ∙ middle ⁻¹
     inverse-target = target-value ∙ target-corner

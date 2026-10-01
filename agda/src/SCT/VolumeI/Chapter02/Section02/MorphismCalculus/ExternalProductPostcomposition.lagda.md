@@ -5,7 +5,7 @@ functor separately. The endpoint comparison is the existing compositor
 for product functors.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
@@ -40,6 +40,7 @@ module At {Γ Δ A B C D : CAT} (F : MAP A C) (G : MAP B D)
   original = restrict-expression α (pr₁ {Γ} {Δ})
   constant = identity-expression (h ∘ pr₂ {Γ} {Δ})
   module Product = Products.At 𝒯 M ℱ P I E S F G original constant
+    using (value)
 
   module Endpoint (k : MAP Γ A) where
     first : (F ∘ (k ∘ pr₁ {Γ} {Δ})) =₁ ((F ∘ k) ∘ pr₁)
@@ -47,13 +48,17 @@ module At {Γ Δ A B C D : CAT} (F : MAP A C) (G : MAP B D)
     second : (G ∘ (h ∘ pr₂ {Γ} {Δ})) =₁ ((G ∘ h) ∘ pr₂)
     second = (comp-assoc pr₂ h G) ⁻¹
     module Pair = Pairing.ProductPair 𝒯 M F G (k ∘ pr₁) (h ∘ pr₂) first second
+      using (normalization)
     normalization : (pair-cong first second ∙ productMap-pair F G (k ∘ pr₁) (h ∘ pr₂)) =₂ productMap-comp k F h G
     normalization = Pair.normalization
 
   module Source = Endpoint f
+    using (first; normalization; second)
   module Target = Endpoint g
+    using (first; normalization; second)
   module Paired = ProductFrames.At 𝒯 M ℱ I (post-expression F original) (post-expression G constant)
     Source.first Target.first Source.second Target.second
+    using (value)
 
   abstract
     first : ExpressionIso (retarget-expression (post-expression F original) Source.first Target.first)

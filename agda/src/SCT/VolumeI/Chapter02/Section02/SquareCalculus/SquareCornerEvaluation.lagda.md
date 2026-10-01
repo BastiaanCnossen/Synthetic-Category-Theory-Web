@@ -31,6 +31,7 @@ open PN vocabulary terminal products productLaws composition vertical whiskering
 
 module At {Γ C : CAT} (W : MAP Γ (Fun ([1] × [1]) C)) (u v : Obj-abs [1]) where
   module D = Double.At 𝒯 M ℱ P I E W u v
+    using (boundary; comparison; h; ia; ib; left; right; module H; module V)
   module N = Normalize.At 𝒯 M ℱ Γ [1] [1] u v
   module R = Restriction.At 𝒯 M ℱ I v u (coinsert u) (insert v)
     N.Goal.K.ObjectCorner.corner W

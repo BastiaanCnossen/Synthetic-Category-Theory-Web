@@ -28,6 +28,7 @@ open import SCT.VolumeI.Chapter01.Section08.MappingCalculus.Restriction.Evaluati
 
 module At {A B D C : CAT} (f : MAP A B) (g : MAP B D) (x : Obj-abs A) where
   module Raw = Retained.AtObject 𝒯 M ℱ P {C = C} f g x
+    using (comparison; leading; prefix)
   X = Fun D C
   e = funEval {C = D} {D = C}
   F = productMap (id X) f

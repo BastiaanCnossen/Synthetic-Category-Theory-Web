@@ -28,6 +28,7 @@ module Recognition {B C : CAT} (u v : MAP B C) (universal : MorphismExpression u
     (f g : MorphismExpression (u ∘ b) (v ∘ b)) → ExpressionIso f g) where
   private
     module H = EndpointFiber u v
+      using (base; category; lift; lift-base)
     module F = Fiber u v using (decode)
     module L = Lifts u v using (restrict; lift-restrict; lift-change; lift-universal)
 

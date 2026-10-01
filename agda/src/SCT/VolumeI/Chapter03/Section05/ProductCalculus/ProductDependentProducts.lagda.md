@@ -24,11 +24,13 @@ open import SCT.VolumeI.Chapter03.Section05.DependentProducts 𝒯 M ℱ P
 open import SCT.VolumeI.Chapter03.Section05.ProductCalculus.ProductDependentUncurrying 𝒯 M ℱ P using (module Uncurrying)
 
 module AlongProjection {T S E : CAT} (r : MAP E (T × S)) where
-  module U = Uncurrying r
-  module Ev = U.Ev
+  private
+    module U = Uncurrying r
+    module Ev = U.Ev
 
   module At {K : CAT} (k : MAP K T) where
-    module F = U.At k
+    private
+      module F = U.At k
     uncurrying = EvaluationAlong.uncurrying Ev.F.projection r Ev.projection Ev.evaluation k
     abstract
       core-comparison : uncurrying =₁ mapPost F.functor

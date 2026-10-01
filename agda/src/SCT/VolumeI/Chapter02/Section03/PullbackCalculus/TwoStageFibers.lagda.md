@@ -37,9 +37,11 @@ module At {B A T E D : CAT} (f : MAP B A) (g : MAP T A) (h : MAP T E) (s : MAP D
 
   private
     module First = Nested triangle h s
+      using (insert; insert-isEquiv; insertionCone)
     module Last = UniversalNested.Nested 𝒯 P forget g f
       (coneSwap (pullbackCone f g))
       (pullback-swap (pullbackCone f g) (pullbackCone-isPullback f g))
+      using (flatCone; flatten; flatten-isEquiv; r)
     swap-pullback = pullbackSwap triangle forget
     middle = swap-pullback ∘ First.insert
 

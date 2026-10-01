@@ -31,8 +31,11 @@ open import SCT.VolumeI.Chapter02.Section03.InverseCalculus.LiftedInverseExpress
 module InvertiblePoint {C : CAT} {x y : Obj-abs C} (e : Obj-abs (Hom C x y))
   (w : IsoLift (MorphismExpression.arrow (hom-expression e))) where
   module F = At e
+    using (family; postcompose; postcompose-β; precompose; precompose-β)
   module H = EndpointFiber x y
+    using (arrow)
   module W = IsoLift w
+    using (comparison; lift)
 
   family-lift : (Γ : CAT) → IsoLift (MorphismExpression.arrow (F.family Γ))
   family-lift Γ = record { lift = W.lift ∘ terminate Γ
@@ -44,6 +47,7 @@ module InvertiblePoint {C : CAT} {x y : Obj-abs C} (e : Obj-abs (Hom C x y))
 
   module AtParameter (Γ : CAT) where
     module V = IsInvertibleExpression (family-invertible Γ)
+      using (left-inverse; left-inverse-law; right-inverse; right-inverse-law)
     module Left = InverseEquation (F.family Γ) V.left-inverse V.left-inverse-law
     module Right = InverseEquation V.right-inverse (F.family Γ) V.right-inverse-law
 

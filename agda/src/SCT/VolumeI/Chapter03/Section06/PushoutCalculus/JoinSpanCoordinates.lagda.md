@@ -49,22 +49,28 @@ module Coordinates {C D Γ V : CAT} (p : MAP C Γ) (q : MAP D Γ) (Γ-isAn : isA
   (h₀ : MAP V C) (h₁ : MAP V D)
   (β₀ : (pullback₁ ∘ e) =₁ h₀) (β₁ : (pullback₂ ∘ e) =₁ h₁) where
   module Original = Span p q
-  module Distribution = Distributivity Original.W One One
-  module Pushout = JoinPushout (mapping-out p q Γ-isAn)
+    using (W; top; left; left-distribute; distributed-left; left-component; right-component)
+  -- `Distributivity` and the `JoinPushout` record module are used through
+  -- direct calls rather than local module instantiations.
+  private
+    pushout-cocone = JoinPushout.cocone (mapping-out p q Γ-isAn)
+    pushout-extensions = pushout-extension-property (JoinPushout.square (mapping-out p q Γ-isAn))
+      (JoinPushout.universal (mapping-out p q Γ-isAn))
   top : MAP (V ⊔ V) (V × [1])
   top = copair (insert {V} zero) (insert {V} one)
   bottom = copair (in₁ ∘ h₀) (in₂ ∘ h₁)
   point = pair e (terminate V)
   doubled = coproductMap point point
-  boundary-change = Distribution.distribute ∘ doubled
+  boundary-change = Distributivity.distribute Original.W One One ∘ doubled
   cylinder-change = productMap e (id [1])
   abstract
     point-isEquiv : IsEquiv point
     point-isEquiv = equiv-cancel-left point pr₁ (product-unitʳ-isEquiv Original.W)
       (equiv-transport ((pair-β₁ e (terminate V)) ⁻¹) ee)
     boundary-isEquiv : IsEquiv boundary-change
-    boundary-isEquiv = equiv-compose doubled Distribution.distribute
-      (coproductMap-isEquiv point point point-isEquiv point-isEquiv) Distribution.distribute-isEquiv
+    boundary-isEquiv = equiv-compose doubled (Distributivity.distribute Original.W One One)
+      (coproductMap-isEquiv point point point-isEquiv point-isEquiv)
+      (Distributivity.distribute-isEquiv Original.W One One)
     cylinder-isEquiv : IsEquiv cylinder-change
     cylinder-isEquiv = productMap-isEquiv e (id [1]) ee (id-isEquiv [1])
 
@@ -73,7 +79,7 @@ module Coordinates {C D Γ V : CAT} (p : MAP C Γ) (q : MAP D Γ) (Γ-isAn : isA
     distribute-change = copair-cong
       (copair-pre₁ (productMap (id Original.W) in₁) (productMap (id Original.W) in₂) point)
       (copair-pre₂ (productMap (id Original.W) in₁) (productMap (id Original.W) in₂) point) ∙
-      copair-post (in₁ ∘ point) (in₂ ∘ point) Distribution.distribute
+      copair-post (in₁ ∘ point) (in₂ ∘ point) (Distributivity.distribute Original.W One One)
 
     endpoint-top : (i : MAP One ∂[1]) (endpoint : Obj-abs [1]) → (boundary ∘ i) =₁ endpoint →
       (Original.top ∘ (productMap (id Original.W) i ∘ point)) =₁
@@ -95,7 +101,8 @@ module Coordinates {C D Γ V : CAT} (p : MAP C Γ) (q : MAP D Γ) (Γ-isAn : isA
           (productMap (id Original.W) in₂ ∘ point) Original.top ∙
           (Original.top ◁ distribute-change)))
 
-    cancel-distribution : (Original.left ∘ Distribution.distribute) =₁ Original.distributed-left
+    cancel-distribution : (Original.left ∘ Distributivity.distribute Original.W One One) =₁
+      Original.distributed-left
     cancel-distribution = Original.left-distribute
 
     leg-comparison : {A : CAT} (h : MAP Original.W A) (h′ : MAP V A)
@@ -110,16 +117,21 @@ module Coordinates {C D Γ V : CAT} (p : MAP C Γ) (q : MAP D Γ) (Γ-isAn : isA
         (copair-cong (copair-pre₁ Original.left-component Original.right-component point)
           (copair-pre₂ Original.left-component Original.right-component point) ∙
           (copair-post (in₁ ∘ point) (in₂ ∘ point) Original.distributed-left ∙
-            ((cancel-distribution ▷ doubled) ∙ (comp-assoc doubled Distribution.distribute Original.left) ⁻¹))))
+            ((cancel-distribution ▷ doubled) ∙
+              (comp-assoc doubled (Distributivity.distribute Original.W One One) Original.left) ⁻¹))))
 
   module Universal = RestrictUniversal top bottom Original.top Original.left boundary-change cylinder-change
     (id (C ⊔ D)) top-comparison bottom-comparison boundary-isEquiv cylinder-isEquiv
-    (id-isEquiv (C ⊔ D)) Pushout.cocone (pushout-extension-property Pushout.square Pushout.universal) using (cocone; extensions)
+    (id-isEquiv (C ⊔ D)) pushout-cocone pushout-extensions using (cocone; extensions)
 
   module Compare {E : CAT} (s : Cocone top bottom E) (universal : CoconeExtensionProperty s) where
-    module Changed = Transfer top bottom Original.top Original.left boundary-change cylinder-change
+    forward = Transfer.Into.forward top bottom Original.top Original.left boundary-change cylinder-change
       (id (C ⊔ D)) top-comparison bottom-comparison boundary-isEquiv cylinder-isEquiv
-      (id-isEquiv (C ⊔ D)) s universal using (module Into)
-    module Result = Changed.Into Pushout.cocone (pushout-extension-property Pushout.square Pushout.universal) using (forward; isEquiv; comparison)
-    open Result public using (forward; isEquiv; comparison)
+      (id-isEquiv (C ⊔ D)) s universal pushout-cocone pushout-extensions
+    isEquiv = Transfer.Into.isEquiv top bottom Original.top Original.left boundary-change cylinder-change
+      (id (C ⊔ D)) top-comparison bottom-comparison boundary-isEquiv cylinder-isEquiv
+      (id-isEquiv (C ⊔ D)) s universal pushout-cocone pushout-extensions
+    comparison = Transfer.Into.comparison top bottom Original.top Original.left boundary-change cylinder-change
+      (id (C ⊔ D)) top-comparison bottom-comparison boundary-isEquiv cylinder-isEquiv
+      (id-isEquiv (C ⊔ D)) s universal pushout-cocone pushout-extensions
 ```

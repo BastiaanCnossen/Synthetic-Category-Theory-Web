@@ -49,8 +49,10 @@ module Change {Γ C D : CAT} (y : Obj-abs D) (x : MAP Γ C) where
 
 module At {Γ C D : CAT} (y : Obj-abs D) {x x′ : MAP Γ C} (f : MorphismExpression x x′) where
   module Source = Change y x
+    using (frame; ρ; τ)
   module Target = Change y x′
   module Paste = Pasting.At 𝒯 M ℱ P I E (terminate C) y (const y) (idIso (const y)) f
+    using (comparison)
   terminal-expression = post-expression (terminate C) f
   adjusted = retarget-expression terminal-expression Source.τ Target.τ
   double = post-expression y terminal-expression
@@ -89,6 +91,7 @@ constant-point-frame y x = point-frame y ∙ Change.frame y x
 
 module Absolute {C D : CAT} (y : Obj-abs D) {x x′ : Obj-abs C} (f : MorphismExpression x x′) where
   module Family = At y f
+    using (comparison)
   comparison : ExpressionIso
     (retarget-expression (post-expression (const y) f) (constant-point-frame y x) (constant-point-frame y x′))
     (identity-expression y)

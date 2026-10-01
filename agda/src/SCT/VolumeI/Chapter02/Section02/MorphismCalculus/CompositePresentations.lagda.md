@@ -62,7 +62,9 @@ composite-unique {f = f} {g} p q = expressionIso-compose Q.long-edge
     (expressionIso-inverse P.long-edge))
   where
   module P = CompositePresentation p
+    using (long-edge; short-edges; triangle)
   module Q = CompositePresentation q
+    using (long-edge; short-edges; triangle)
 
 recognize-composite : {Γ C : CAT} {x y z : MAP Γ C}
   {f : MorphismExpression x y} {g : MorphismExpression y z}

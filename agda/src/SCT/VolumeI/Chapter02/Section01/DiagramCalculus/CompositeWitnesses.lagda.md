@@ -45,6 +45,7 @@ module Boundary {C : CAT} {x y z : Obj-abs C}
 record CompositeWitness {C : CAT} {x y z : Obj-abs C}
   (f : Morphism x y) (g : Morphism y z) (h : Morphism x z) : Set m where
   module B = Boundary f g h
+    using (middle; source-corner; target-corner)
   field
     triangle : Triangle C
     first-edge : (triangle ∘ d₂) =₁ (Morphism.diagram f)
@@ -84,6 +85,7 @@ post-witness {f = f} {g} {h} F w = record
   ; target-vertex = CoconeIso.compatible target-corner }
   where
   module W = CompositeWitness w
+    using (first-edge; long-edge; middle-comparison; second-edge; source-comparison; target-comparison; triangle)
   middle = PostFramedComparison.comparison triangle-edges W.triangle F
     (Morphism.diagram f) (Morphism.diagram g)
     (Morphism.target-identification f) (Morphism.source-identification g) W.middle-comparison
@@ -108,6 +110,7 @@ retarget-witness {f = f} {f′} {g} {g′} {h} {h′} α β γ w = record
   ; target-vertex = CoconeIso.compatible (coconeIso-compose target-corner W.target-comparison) }
   where
   module W = CompositeWitness w
+    using (first-edge; long-edge; middle-comparison; second-edge; source-comparison; target-comparison; triangle)
   middle = framed-comparison
     (Morphism.target-identification f) (Morphism.source-identification g)
     (Morphism.target-identification f′) (Morphism.source-identification g′)

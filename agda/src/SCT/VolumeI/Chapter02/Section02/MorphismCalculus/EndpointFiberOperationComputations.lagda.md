@@ -27,9 +27,12 @@ module Of {B C D : CAT} {u v : MAP B C} {s t : MAP B D}
   (operation : ExpressionOperation u v s t) where
   private
     module O = ExpressionOperation operation
+      using (apply; on-change; on-comparison; on-restriction)
     module R = Realize operation using (functor; universal)
     module H = EndpointFiber u v
+      using (base; category; cone)
     module K = EndpointFiber s t
+      using (cone; lift-β)
     module Source = Fiber u v using (read; decode-restrict; read-lift; decode-comparison; decode-encode)
     module Target = Lifts s t using (restrict; encode-restrict; encode-cong)
     module Input = Lifts u v using (restrict)

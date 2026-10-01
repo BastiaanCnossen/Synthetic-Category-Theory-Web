@@ -28,6 +28,7 @@ module At {B C E T : CAT} (endpoint : MAP E C) (constant : MAP C E)
     h = Cone.left t
     inner = coneSwap (pullbackCone h constant)
     module Paste = Pasting constant endpoint b t et
+      using (paste-isPullback; module Paste)
     outer = Paste.Paste.flatten inner
 
   projection-isEquiv : IsEquiv (Cone.right t ∘ pullback₁ {f = h} {constant})

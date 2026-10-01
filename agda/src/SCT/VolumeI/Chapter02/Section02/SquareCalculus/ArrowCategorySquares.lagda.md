@@ -64,7 +64,9 @@ module Compose {Γ C : CAT} {x₀ x₁ x₂ y₀ y₁ y₂ : MAP Γ C}
   (A : FramedSquare top₀ middle left bottom₀)
   (B : FramedSquare top₁ right middle bottom₁) where
   module A₀ = FramedSquare A
+    using (bottom-edge; top-edge; vertical)
   module B₀ = FramedSquare B
+    using (bottom-edge; top-edge; vertical)
   module L = MorphismExpression left
   module K = MorphismExpression middle
   module R = MorphismExpression right

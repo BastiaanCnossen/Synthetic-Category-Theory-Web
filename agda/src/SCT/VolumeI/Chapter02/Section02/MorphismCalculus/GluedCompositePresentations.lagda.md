@@ -54,7 +54,9 @@ module Glue {Γ C : CAT} {x y z w : MAP Γ C}
   gluing-comparison = Families.square-in-β triangles
 
   module UpperRestriction = ChangeTriangle upper (ConeIso.leftIso gluing-comparison)
+    using (presentation)
   module LowerRestriction = ChangeTriangle lower (ConeIso.rightIso gluing-comparison)
+    using (presentation)
 
   upper-presentation : CompositePresentation top right diagonal
   upper-presentation = UpperRestriction.presentation

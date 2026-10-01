@@ -32,6 +32,7 @@ open import SCT.VolumeI.Chapter01.Section04.ProductCalculus.ProductAssociativity
 
 module At (Γ X : CAT) where
   module Coordinate = Coordinates.Coordinates 𝒯 M ℱ I Γ X
+    using (fixed; permutation; second; step; step-comparison)
   permutation = Coordinate.permutation
   first-coordinate : MAP ((Γ × X) × [1]) (Γ × [1])
   first-coordinate = Coordinate.step
@@ -53,6 +54,7 @@ module At (Γ X : CAT) where
     substitution = productMap i (id X)
     before = permutation ∘ substitution
     module Product = Substitution.Coordinates 𝒯 M X (id (Γ × [1])) i
+      using (second)
 
     first-pasting : ((first-coordinate ∘ permutation) ∘ substitution) =₁ (first-coordinate ∘ j)
     first-pasting = insert-natural pr₁ z ∙

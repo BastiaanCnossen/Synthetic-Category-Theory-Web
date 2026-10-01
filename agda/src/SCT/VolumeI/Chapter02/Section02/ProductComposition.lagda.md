@@ -5,7 +5,7 @@ the resulting endpoint-preserving comparisons. The product beta frames
 are displayed explicitly in each projected comparison.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
@@ -46,8 +46,11 @@ module At {Γ C D : CAT} {x₁ y₁ z₁ : MAP Γ C} {x₂ y₂ z₂ : MAP Γ D}
   (f₁ : MorphismExpression x₁ y₁) (g₁ : MorphismExpression y₁ z₁)
   (f₂ : MorphismExpression x₂ y₂) (g₂ : MorphismExpression y₂ z₂) where
   module First = Pairing.At 𝒯 M ℱ I f₁ f₂
+    using (first-projection; second-projection)
   module Second = Pairing.At 𝒯 M ℱ I g₁ g₂
+    using (first-projection; second-projection)
   module Long = Pairing.At 𝒯 M ℱ I (compose-expression f₁ g₁) (compose-expression f₂ g₂)
+    using (first-projection; second-projection)
   f = pair-expression f₁ f₂
   g = pair-expression g₁ g₂
   h = pair-expression (compose-expression f₁ g₁) (compose-expression f₂ g₂)
@@ -98,5 +101,7 @@ pair-expression-cong {x₁ = x₁} {y₁} {x₂} {y₂} {f} {f′} {g} {g′} α
       (expressionIso-compose β Old.second-projection)))
   where
   module Old = Pairing.At 𝒯 M ℱ I f g
+    using (first-projection; second-projection)
   module New = Pairing.At 𝒯 M ℱ I f′ g′
+    using (first-projection; second-projection)
 ```

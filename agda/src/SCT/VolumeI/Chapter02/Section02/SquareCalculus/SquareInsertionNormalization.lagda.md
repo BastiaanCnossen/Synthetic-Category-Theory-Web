@@ -40,6 +40,7 @@ import SCT.VolumeI.Chapter01.Section03.Equivalences as TerminalComparisons
 open TerminalComparisons.TerminalTargets vocabulary terminal products productLaws composition
   using (terminal-Iso₂)
 module PS = Projections 𝒯
+  using (Square; compose-base; lift-base; lift-compose; lift-square)
 
 abstract
   unitors-on-identity : (X : CAT) → comp-unitʳ (id X) =₂ comp-unitˡ (id X)

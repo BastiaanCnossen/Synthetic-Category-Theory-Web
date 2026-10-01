@@ -40,12 +40,15 @@ module ChangeTriangle {Γ C : CAT} {x y z : MAP Γ C}
   (p : CompositePresentation f g h) {σ : MAP Γ (Triangles C)}
   (δ : σ =₁ CompositePresentation.triangle p) where
   module P₀ = CompositePresentation p
+    using (short-edges)
   module Before = Original.Corners 𝒯 M ℱ P I E S p
+    using (source-cone-comparison; target-cone-comparison)
   middle = coneIso-compose P₀.short-edges (cone-action (triangle-cone C) δ)
   source-corner = coneIso-compose Before.source-cone-comparison (cone-action (source-cone C) δ)
   target-corner = coneIso-compose Before.target-cone-comparison (cone-action (target-cone C) δ)
   module V = Vertices f g h σ (ConeIso.leftIso middle) (ConeIso.rightIso middle)
     (ConeIso.leftIso source-corner)
+    using (MiddleVertex; SourceVertex; TargetVertex; presentation)
 
   middle-vertex : V.MiddleVertex
   middle-vertex = ConeIso.compatible middle

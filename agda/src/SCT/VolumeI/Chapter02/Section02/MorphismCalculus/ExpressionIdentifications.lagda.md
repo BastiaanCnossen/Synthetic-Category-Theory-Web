@@ -39,6 +39,7 @@ expressionIso-compose {f = f} {g} {h} β α = record
   where
   module F = MorphismExpression f
   module G = MorphismExpression g
+    using (arrow; source-frame; target-frame)
   module H = MorphismExpression h
   module A = ExpressionIso α
   module B = ExpressionIso β
@@ -60,6 +61,7 @@ expressionIso-inverse {f = f} {g} α = record
   where
   module F = MorphismExpression f
   module G = MorphismExpression g
+    using (arrow; source-frame; target-frame)
   module A = ExpressionIso α
   endpoint : (v : MAP (Ar _) _) {z : MAP _ _}
     (p : (v ∘ F.arrow) =₁ z) (q : (v ∘ G.arrow) =₁ z) →

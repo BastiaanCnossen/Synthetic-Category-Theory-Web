@@ -41,18 +41,28 @@ module Corners {Γ C : CAT} {x y z w : MAP Γ C}
   (lower : CompositePresentation left bottom diag) where
   module Arrows = At upper lower
   module G = Arrows.Glued
+    using (diagonal-compatible; lower-presentation; specified-matching; square; upper-presentation)
   module U = Arrows.Upper
+    using (short-edges)
   module L = Arrows.Lower
   module UC = Presentations.Corners 𝒯 M ℱ P I E S G.upper-presentation
+    using (source-cone-comparison; target-cone-comparison)
   module LC = Presentations.Corners 𝒯 M ℱ P I E S G.lower-presentation
+    using (source-cone-comparison; target-cone-comparison)
   module B = Boundaries.At 𝒯 M ℱ P I E G.square
+    using (module LowerMiddle; module LowerSource; module LowerTarget; module UpperMiddle; module UpperSource; module UpperTarget)
   module D = Diagonal.At 𝒯 M ℱ P {C = C} d₁ j₀ j₁ diagonal j₀-diagonal j₁-diagonal
+    using (module Family)
   module DF = D.Family G.square
+    using (comparison; left)
   module Top = MorphismExpression top
+    using (source-frame)
   module Right = MorphismExpression right
   module Left = MorphismExpression left
   module Bottom = MorphismExpression bottom
+    using (source-frame; target-frame)
   module Diag = MorphismExpression diag
+    using (source-frame; target-frame)
 
   upper-middle = coneIso-compose U.short-edges B.UpperMiddle.comparison
   lower-middle = coneIso-compose L.short-edges B.LowerMiddle.comparison

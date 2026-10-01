@@ -7,7 +7,7 @@ both projection images and their compatibility with the specified
 matching, rather than only the triangle over the new base.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
@@ -38,18 +38,25 @@ import SCT.VolumeI.Chapter03.RelativeCategories.BaseChange.Identifications as Na
 
 module Computation {C D S T : CAT} (p : MAP S T)
   {f : MAP C T} {g : MAP D T} (u v : FunctorOver f g) where
-  module Changed = Change p u v
-    using (first; second; hu; hv; source; restricted; transported; functor;
-      cone-computation; comparison; module Encoded; module Restricted; module Target)
-  module Input = Changed.Encoded
-  module Native = NativeBaseChange.Change 𝒯 M ℱ P p using (module Identification)
-  module Endpoints = Transport (coneIso-inverse (pullbackLift-β Changed.first))
-    (coneIso-inverse (pullbackLift-β Changed.second)) using (cospan; mapCone; module Right)
-  module Output = Encoding
-    (conePre Changed.hu (pullbackCone g p))
-    (conePre Changed.hv (pullbackCone g p))
-  module RestrictInput = Action.Action 𝒯 P Changed.Restricted.cospan using (module Identification)
-  module TransportInput = Action.Action 𝒯 P Endpoints.cospan using (module Identification)
+  private
+    module Changed = Change p u v
+      using (first; second; hu; hv; source; restricted; transported; functor;
+        cone-computation; comparison; module Encoded; module Restricted; module Target)
+  private
+    module Input = Changed.Encoded
+  private
+    module Native = NativeBaseChange.Change 𝒯 M ℱ P p using (module Identification)
+  private
+    module Endpoints = Transport (coneIso-inverse (pullbackLift-β Changed.first))
+      (coneIso-inverse (pullbackLift-β Changed.second)) using (cospan; mapCone; module Right)
+  private
+    module Output = Encoding
+      (conePre Changed.hu (pullbackCone g p))
+      (conePre Changed.hv (pullbackCone g p))
+  private
+    module RestrictInput = Action.Action 𝒯 P Changed.Restricted.cospan using (module Identification)
+  private
+    module TransportInput = Action.Action 𝒯 P Endpoints.cospan using (module Identification)
 
   prescribed : FunctorOverIso u v → Cone Output.leftMap Output.rightMap One
   prescribed Φ = Endpoints.mapCone

@@ -6,7 +6,7 @@ Cancelling those endpoint comparisons identifies the whole cone with the
 original pullback cone restricted along universal evaluation.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
@@ -67,14 +67,22 @@ module Transport {X Y : CAT} {x y a₀ b₀ a₁ b₁ a₂ b₂ : MAP X Y}
 
 module Evaluation {K C D E S : CAT} (k : MAP K S)
   {f : MAP C S} {g : MAP D S} {h : MAP E S} (u : FunctorOver f h) (v : FunctorOver g h) where
-  module R = RelativePullback u v using (projection; category; first; second; first-map; second-map; left-map; right-map; matching)
-  module First = Postcompose k R.first using (functor; family-comparison)
-  module Second = Postcompose k R.second using (functor; family-comparison)
-  module Match = Matching k u v using (matching; evaluated-image; native-comparison-underlying; left-family-underlying; right-family-underlying)
-  module CU = Postcomposition k u using (square; module Restricted)
-  module CV = Postcomposition k v using (square; module Restricted)
-  module U = CU.Restricted First.functor using (family-comparison-image)
-  module V = CV.Restricted Second.functor using (family-comparison-image)
+  private
+    module R = RelativePullback u v using (projection; category; first; second; first-map; second-map; left-map; right-map; matching)
+  private
+    module First = Postcompose k R.first using (functor; family-comparison)
+  private
+    module Second = Postcompose k R.second using (functor; family-comparison)
+  private
+    module Match = Matching k u v using (matching; evaluated-image; native-comparison-underlying; left-family-underlying; right-family-underlying)
+  private
+    module CU = Postcomposition k u using (square; module Restricted)
+  private
+    module CV = Postcomposition k v using (square; module Restricted)
+  private
+    module U = CU.Restricted First.functor using (family-comparison-image)
+  private
+    module V = CV.Restricted Second.functor using (family-comparison-image)
   Source = FunOver k R.projection
   forget = Over.forget k R.projection
   e = funUncurry forget
@@ -100,8 +108,9 @@ module Evaluation {K C D E S : CAT} (k : MAP K S)
   A = comp-assoc e R.first-map R.left-map
   B′ = comp-assoc e R.second-map R.right-map
   τ = R.matching ▷ e
-  module Changed = Transport κ κ′ (R.left-map ◁ β₁) (R.right-map ◁ β₂) A B′ τ ω
-    using (module WithImage)
+  private
+    module Changed = Transport κ κ′ (R.left-map ◁ β₁) (R.right-map ◁ β₂) A B′ τ ω
+      using (module WithImage)
   abstract
     uncurried-matching : funUncurryIso (Cone.match ordinary) =₂ changeEndpoints (uq ⁻¹) (vq ⁻¹) ω
     uncurried-matching =

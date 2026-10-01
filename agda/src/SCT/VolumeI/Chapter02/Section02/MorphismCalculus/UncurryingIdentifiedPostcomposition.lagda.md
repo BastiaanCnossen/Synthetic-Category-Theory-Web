@@ -5,7 +5,7 @@ identification of its uncurried diagram. The comparison below retains
 both endpoint restrictions and the chosen identification.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
@@ -31,7 +31,9 @@ import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.IsomorphicPostcompositio
 module At {Γ X A D : CAT} (L : MAP A (Fun X D)) (H : MAP (A × X) D)
   (β : funUncurry L =₁ H) {f g : MAP Γ A} (α : MorphismExpression f g) where
   module U = Uncurrying.At 𝒯 M ℱ P I E S L α
+    using (comparison; paired)
   module Beta = Identified.At 𝒯 M ℱ P I E β U.paired
+    using (value)
 
   abstract
     value : ExpressionIso (retarget-expression (uncurry-expression (post-expression L α))

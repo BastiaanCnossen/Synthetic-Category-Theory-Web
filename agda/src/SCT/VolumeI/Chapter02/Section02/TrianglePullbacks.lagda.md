@@ -54,6 +54,7 @@ abstract
 
 module At (C : CAT) where
   module U = UnitTriangles.Universal 𝒯 M ℱ P I E C
+    using (module Left; module Right)
   square-cone : Cone (edge₁ {C}) edge₁ (Fun ([1] × [1]) C)
   square-cone = functorOut gluing-square C
   segal-cone : Cone (ev₁ {C}) ev₀ (Triangles C)
@@ -73,6 +74,7 @@ module At (C : CAT) where
     right-isPullback : IsPullback right-square
     right-isPullback = pullback-swap square-cone (square-functor-pullback C)
     module Upper = Pasting (funPre s₀) edge₁ edge₁ right-square right-isPullback
+      using (cancel-isPullback; module Paste)
 
     upper-cone : Cone (funPre s₀) (funPre j₁) (Triangles C)
     upper-cone = record { left = edge₁ ; right = funPre p₀
@@ -85,6 +87,7 @@ module At (C : CAT) where
           (equiv-transport ((funPre-id [2] C ∙ (preCong p₀-j₀ ∙ preComp j₀ p₀)) ⁻¹) (id-isEquiv (Triangles C))))
 
     module Lower = Pasting identityArrow ev₁ ev₀ segal-cone (SegalAxiom.segal-isPullback S C)
+      using (cancel-isPullback; module Paste)
     lower-cone : Cone (identityArrow {C}) edge₂ (Ar C)
     lower-cone = record { left = ev₀ ; right = funPre s₀
       ; match = (U.Left.First.comparison) ⁻¹ ∙ constant-comparison ev₀ }
@@ -97,6 +100,7 @@ module At (C : CAT) where
 
     module Whole = Pasting (funPre j₁) edge₂ identityArrow
       (coneSwap lower-cone) (pullback-swap lower-cone lower-isPullback)
+      using (paste-isPullback; module Paste)
     pasted = Whole.Paste.flatten (coneSwap upper-cone)
     abstract
       pasted-isPullback : IsPullback pasted
@@ -106,6 +110,7 @@ module At (C : CAT) where
     side-comparison : (edge₂ ∘ funPre {D = C} j₁) =₁ (funPre (insert zero))
     side-comparison = preCong bottom-boundary ∙ preComp d₂ j₁
     module Side = ArrowChange.ChangeLeft 𝒯 P side-comparison identityArrow
+      using (preserve)
     square : Cone (funPre (insert zero)) (identityArrow {C}) (Triangles C)
     square = changeLeft side-comparison pasted
     abstract
@@ -125,6 +130,7 @@ module At (C : CAT) where
 
   module Right where
     module Upper = Pasting (funPre s₁) edge₁ edge₁ square-cone (square-functor-pullback C)
+      using (cancel-isPullback; module Paste)
     upper-cone : Cone (funPre s₁) (funPre j₀) (Triangles C)
     upper-cone = record { left = edge₁ ; right = funPre p₂
       ; match = (preComp j₀ p₂) ⁻¹ ∙ ((preCong p₂-j₀) ⁻¹ ∙ preComp s₁ d₁) }
@@ -137,6 +143,7 @@ module At (C : CAT) where
 
     module Lower = Pasting identityArrow ev₀ ev₁ (coneSwap segal-cone)
       (pullback-swap segal-cone (SegalAxiom.segal-isPullback S C))
+      using (cancel-isPullback; module Paste)
     lower-cone : Cone (identityArrow {C}) edge₀ (Ar C)
     lower-cone = record { left = ev₁ ; right = funPre s₁
       ; match = (U.Right.Second.comparison) ⁻¹ ∙ constant-comparison ev₁ }
@@ -149,6 +156,7 @@ module At (C : CAT) where
 
     module Whole = Pasting (funPre j₀) edge₀ identityArrow
       (coneSwap lower-cone) (pullback-swap lower-cone lower-isPullback)
+      using (paste-isPullback; module Paste)
     pasted = Whole.Paste.flatten (coneSwap upper-cone)
     abstract
       pasted-isPullback : IsPullback pasted
@@ -158,6 +166,7 @@ module At (C : CAT) where
     side-comparison : (edge₀ ∘ funPre {D = C} j₀) =₁ (funPre (insert one))
     side-comparison = preCong top-boundary ∙ preComp d₀ j₀
     module Side = ArrowChange.ChangeLeft 𝒯 P side-comparison identityArrow
+      using (preserve)
     square : Cone (funPre (insert one)) (identityArrow {C}) (Triangles C)
     square = changeLeft side-comparison pasted
     abstract

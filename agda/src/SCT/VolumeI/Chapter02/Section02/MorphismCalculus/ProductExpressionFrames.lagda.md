@@ -5,7 +5,7 @@ the paired identifications. The proof projects to each factor and uses
 the specified product beta comparisons throughout.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
@@ -40,7 +40,9 @@ module At {Γ C D : CAT} {x y x′ y′ : MAP Γ C} {u v u′ v′ : MAP Γ D}
   (α : MorphismExpression x y) (β : MorphismExpression u v)
   (p : x =₁ x′) (q : y =₁ y′) (r : u =₁ u′) (s : v =₁ v′) where
   module Old = Products.At 𝒯 M ℱ I α β
+    using (first-projection; second-projection)
   module New = Products.At 𝒯 M ℱ I (retarget-expression α p q) (retarget-expression β r s)
+    using (first-projection; second-projection)
   source-change = pair-cong p r
   target-change = pair-cong q s
   old = pair-expression α β

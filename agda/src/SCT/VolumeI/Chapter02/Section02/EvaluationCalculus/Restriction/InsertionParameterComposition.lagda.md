@@ -33,6 +33,7 @@ open import SCT.VolumeI.Chapter01.Section08.ProductCalculus.ProjectionBaseCalcul
 open ProductUnits vocabulary terminal products productLaws composition vertical whiskering pentagonTriangle using (left-unitor-comp)
 open Pairing vocabulary terminal products productLaws composition vertical whiskering using (pair-iso-extensionality)
 module PS = Projection 𝒯
+  using (Square; compose-base; compose-square; lift-base; lift-compose; lift-square; pre-square; module Pasting)
 
 module At {X Y Z A : CAT} (x : Obj-abs A) (h : MAP X Y) (k : MAP Y Z) where
   H = productMap h (id A)

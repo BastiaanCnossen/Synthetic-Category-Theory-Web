@@ -58,6 +58,7 @@ module At {Γ A B C : CAT} (h : MAP (Γ × (A × B)) C)
   E₂ = evaluate-square (h ∘ J) ib V.step ia H.step χ
   result = evaluate-square h ib V.restriction ia H.restriction K.matching
   module P = Post.At 𝒯 M J h ib V.step ia H.step χ
+    using (J₀; V; comparison)
   left-associator = comp-assoc H.step J h ▷ ib
   right-associator = comp-assoc V.step J h ▷ ia
   p = H.comparison ▷ ib

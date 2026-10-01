@@ -44,6 +44,7 @@ module At {Γ C : CAT} {x y : MAP Γ C} (f : MorphismExpression x y) where
   module F = MorphismExpression f
   module U = Universal.Universal 𝒯 M ℱ P I E S C
   module RestrictedArrow = Arrow.At 𝒯 M ℱ P I E f
+    using (comparison)
 
   identity-comparison : (v : MAP (Ar C) C) {z : MAP Γ C} (b : (v ∘ F.arrow) =₁ z) →
     ExpressionIso
@@ -57,6 +58,7 @@ module At {Γ C : CAT} {x y : MAP Γ C} (f : MorphismExpression x y) where
     module Restricted = Presentations.Restrict 𝒯 M ℱ P I E S U.Left.presentation F.arrow
     module Reframed = Presentations.Retarget 𝒯 M ℱ P I E S Restricted.value
       F.source-frame F.source-frame F.target-frame
+      using (value)
 
     comparison : ExpressionIso (compose-expression (identity-expression x) f) f
     comparison = expressionIso-compose RestrictedArrow.comparison
@@ -68,6 +70,7 @@ module At {Γ C : CAT} {x y : MAP Γ C} (f : MorphismExpression x y) where
     module Restricted = Presentations.Restrict 𝒯 M ℱ P I E S U.Right.presentation F.arrow
     module Reframed = Presentations.Retarget 𝒯 M ℱ P I E S Restricted.value
       F.source-frame F.target-frame F.target-frame
+      using (value)
 
     comparison : ExpressionIso (compose-expression f (identity-expression y)) f
     comparison = expressionIso-compose RestrictedArrow.comparison

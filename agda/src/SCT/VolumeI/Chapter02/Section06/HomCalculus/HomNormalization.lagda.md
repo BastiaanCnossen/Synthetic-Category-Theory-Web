@@ -30,6 +30,7 @@ import SCT.VolumeI.Chapter01.Section06.Coordinates.PairedConeCoordinates 𝒯 as
 
 module Normalize {Γ C : CAT} {x y : Obj-abs C} (h : MAP Γ (Hom C x y)) where
   module H = EndpointFiber x y
+    using (arrow; base; cone)
   module Coordinates = Paired.Coordinates (ev₀ {C}) ev₁ x y
     using (edge₁; edge₂; edge₁-restrict; edge₂-restrict; encode-edge₁; encode-edge₂; cone-from-coordinates)
   raw = conePre h (pullbackCone endpoints (pair x y))

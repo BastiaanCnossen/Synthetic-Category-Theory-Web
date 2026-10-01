@@ -29,6 +29,7 @@ module At {X Y A B C : CAT}
     using (HA; HB; LX; LY; ix; iy; jx; jy; χX; χY; separation; left; right)
   module Pasted = VerticalPasting.At 𝒯 M e h HA HB ix iy LX LY
     (insert-natural h x) separation
+    using (comparison; composite-square; together)
   restriction-evaluation = evaluate-square e HA HB LX LY separation
 
   abstract

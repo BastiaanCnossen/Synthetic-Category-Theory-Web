@@ -43,6 +43,7 @@ module At {Γ C : CAT} {x y : MAP Γ C}
     d = δ ▷ i
     module Reflected = ReflectedEndpoint v h k β θ comparison-arrow
       (funIsoReflect-β h k (β ⁻¹ ∙ θ))
+      using (endpoint)
 
     abstract
       compatible : ((r′ ∙ evaluate-curry v K) ∙ (evaluate v ◁ comparison-arrow)) =₂
@@ -83,6 +84,7 @@ module Recovery {Γ C : CAT} {x y : MAP Γ C} (f : MorphismExpression x y) where
     front = r ∙ Q ⁻¹
     module Reflected = ReflectedEndpoint v h (funCurry H) β (idIso H) comparison-arrow
       (funIsoReflect-β h (funCurry H) (β ⁻¹ ∙ idIso H))
+      using (endpoint)
     abstract
       compatible : ((front ∙ evaluate-curry v H) ∙ (evaluate v ◁ comparison-arrow)) =₂ r
       compatible = cancel-inverse-tail r Q ∙

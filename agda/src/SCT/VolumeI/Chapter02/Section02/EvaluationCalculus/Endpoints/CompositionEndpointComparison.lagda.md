@@ -31,6 +31,7 @@ open Laws.PullbackStructure P
 
 module At {Γ C : CAT} (t : Cone (ev₁ {C}) ev₀ Γ) where
   module Short = Edges.At 𝒯 M ℱ P I E S t
+    using (first-edge; second-edge)
   j = completeTriangle C
   k = pullbackLift t
   h = edge₁ {C}

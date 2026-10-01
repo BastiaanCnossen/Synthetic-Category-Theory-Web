@@ -13,7 +13,7 @@ pentagon, or supply a base-change compositor. In particular, the
 specified matching in the dependent-pullback comparison remains open.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
@@ -39,10 +39,11 @@ open FamilyAssociator 𝒯 M ℱ P using (module Families)
 module At {X A B C D S : CAT}
   (f : MAP A S) (g : MAP B S) (h : MAP C S) (k : MAP D S)
   (F : MAP X (FunOver f g)) (G : MAP X (FunOver g h)) (H : MAP X (FunOver h k)) where
-  module FG = Joint f g h
-  module GH = Joint g h k
-  module FH = Joint f h k
-  module GK = Joint f g k
+  private
+    module FG = Joint f g h
+    module GH = Joint g h k
+    module FH = Joint f h k
+    module GK = Joint f g k
   inner-name = FG.functor ∘ pair G F
   outer-name = GH.functor ∘ pair H G
   left = FH.functor ∘ pair H inner-name
@@ -50,8 +51,9 @@ module At {X A B C D S : CAT}
   u = family f g F
   v = family g h G
   w = family h k H
-  module U = Retained f g u
-  module A = Families f g h k u v w
+  private
+    module U = Retained f g u
+    module A = Families f g h k u v w
 
   opaque
     left-to-common : FunctorOverIso (family f k left) A.right
@@ -69,8 +71,9 @@ module At {X A B C D S : CAT}
     family-comparison = compose-iso-over (inverse-iso-over right-to-common)
       (compose-iso-over (inverse-iso-over A.comparison) left-to-common)
 
-  module Lifted = CoherentLifting.Families 𝒯 M ℱ P f k left right
-    using (action; lift; computation)
+  private
+    module Lifted = CoherentLifting.Families 𝒯 M ℱ P f k left right
+      using (action; lift; computation)
 
   opaque
     comparison : left =₁ right

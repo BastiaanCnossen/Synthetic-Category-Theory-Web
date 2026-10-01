@@ -5,7 +5,7 @@ transformation. Reflection curries the two inverse expressions and
 reflects their equations. No objectwise criterion or Rezk axiom is used.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
@@ -31,6 +31,7 @@ import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.UncurryingCurryingRecove
 module At {Γ X C : CAT} {f g : MAP Γ (Fun X C)} (α : MorphismExpression f g) where
   module Preserve (w : IsInvertibleExpression α) where
     module W = IsInvertibleExpression w
+      using (left-inverse; left-inverse-law; right-inverse; right-inverse-law)
     abstract
       value : IsInvertibleExpression (uncurry-expression α)
       value = record
@@ -45,6 +46,7 @@ module At {Γ X C : CAT} {f g : MAP Γ (Fun X C)} (α : MorphismExpression f g) 
 
   module Reflect (w : IsInvertibleExpression (uncurry-expression α)) where
     module W = IsInvertibleExpression w
+      using (left-inverse; left-inverse-law; right-inverse; right-inverse-law)
     module Right = Currying.Curry 𝒯 M ℱ I g f W.right-inverse using (value)
     module Left = Currying.Curry 𝒯 M ℱ I g f W.left-inverse using (value)
     module RightRecovery = Recovery.At 𝒯 M ℱ P I E g f W.right-inverse using (value)

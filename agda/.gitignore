@@ -6,4 +6,9 @@ _build/
 
 # Private planning and audit records, preserved locally.
 docs/
+bench/
+architecture/
 PLAN.md
+
+# Generated audit and scratch modules (scripts/lossy_term_audit.py).
+src/SCT/Scratch/

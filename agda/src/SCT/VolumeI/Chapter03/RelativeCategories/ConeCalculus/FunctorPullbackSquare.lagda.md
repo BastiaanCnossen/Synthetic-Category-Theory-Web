@@ -39,25 +39,38 @@ open import SCT.VolumeI.Chapter03.RelativeCategories.ConeCalculus.PullbackForget
 
 module Square {K C D E S : CAT} (k : MAP K S)
   {f : MAP C S} {g : MAP D S} {h : MAP E S} (u : FunctorOver f h) (v : FunctorOver g h) where
-  module R = RelativePullback u v using (projection; first; second; right-map; left-map)
-  module U = Postcompose k u using (functor)
-  module First = Postcompose k R.first using (functor)
-  module Second = Postcompose k R.second using (functor)
-  module CU = Postcomposition k u using (square)
-  module CV = Postcomposition k v using (square; square-isPullback)
-  module CF = Postcomposition k R.first using (square)
-  module CS = Postcomposition k R.second using (square)
-  module Match = Matching k u v using (cone; matching)
-  module Existing = Preservation k u v using (outer; outer-isPullback; module Paste)
-  module Evaluated = ConeEvaluation.Evaluation 𝒯 M ℱ P k u v using (ordinary)
-  module Whole = Forgetful k u v using (comparison; comparison-left; comparison-right)
+  private
+    module R = RelativePullback u v using (projection; first; second; right-map; left-map)
+  private
+    module U = Postcompose k u using (functor)
+  private
+    module First = Postcompose k R.first using (functor)
+  private
+    module Second = Postcompose k R.second using (functor)
+  private
+    module CU = Postcomposition k u using (square)
+  private
+    module CV = Postcomposition k v using (square; square-isPullback)
+  private
+    module CF = Postcomposition k R.first using (square)
+  private
+    module CS = Postcomposition k R.second using (square)
+  private
+    module Match = Matching k u v using (cone; matching)
+  private
+    module Existing = Preservation k u v using (outer; outer-isPullback; module Paste)
+  private
+    module Evaluated = ConeEvaluation.Evaluation 𝒯 M ℱ P k u v using (ordinary)
+  private
+    module Whole = Forgetful k u v using (comparison; comparison-left; comparison-right)
   forgetA = Over.forget k f
   forgetH = Over.forget k h
   ordinary-left = funPost {C = K} R.left-map
   ordinary-right = funPost {C = K} R.right-map
-  module RightPaste = Pasting U.functor forgetH ordinary-right (coneSwap CV.square)
-    (pullback-swap CV.square CV.square-isPullback)
-    using (module Paste; cancel-isPullback)
+  private
+    module RightPaste = Pasting U.functor forgetH ordinary-right (coneSwap CV.square)
+      (pullback-swap CV.square CV.square-isPullback)
+      using (module Paste; cancel-isPullback)
   rectangle = RightPaste.Paste.flatten Match.cone
   change = Cone.match CU.square ⁻¹
   changed = changeLeft change rectangle

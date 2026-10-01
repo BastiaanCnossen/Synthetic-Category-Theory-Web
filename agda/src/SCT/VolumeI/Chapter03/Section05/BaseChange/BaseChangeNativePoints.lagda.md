@@ -5,7 +5,7 @@ triangle. The comparison below retains the triangle over the new base;
 it is obtained by restricting the universal pullback cone to a point.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
@@ -40,14 +40,16 @@ open import SCT.VolumeI.Chapter03.RelativeCategories.ConeCalculus.PullbackTriang
 open import SCT.VolumeI.Chapter03.RelativeCategories.IdentificationCalculus.NamingComparisons 𝒯 M ℱ P using (module Triangles)
 
 module BaseChangePoints {C D S T : CAT} (p : MAP S T) (f : MAP C T) (g : MAP D T) where
-  module BC = BaseChange p f g
+  private
+    module BC = BaseChange p f g
   E : FunctorOver (f ∘ pr₂ {C = FunOver f g}) g
   E = EvaluatedCone (pullbackCone (funPost g) (nameFun f))
 
   module At (x : Obj-abs (MapOver f g)) where
     z : Obj-abs (FunOver f g)
     z = coreInclusion (FunOver f g) ∘ x
-    module Point = Points.At 𝒯 M ℱ P z (pullbackCone f p)
+    private
+      module Point = Points.At 𝒯 M ℱ P z (pullbackCone f p)
     tail = (FunctorLift.comparison E ▷ BC.parameter) ∙
       (comp-assoc BC.parameter (FunctorLift.lift E) g) ⁻¹
 

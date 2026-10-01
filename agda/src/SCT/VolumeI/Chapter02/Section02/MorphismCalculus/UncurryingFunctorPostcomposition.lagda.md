@@ -5,7 +5,7 @@ by `F`. The endpoint changes are precisely `funPost-uncurry`, with its
 chosen restriction and associator comparisons.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
@@ -30,7 +30,9 @@ import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.IsomorphicPostcompositio
 
 module At {Γ X C D : CAT} (F : MAP C D) {f g : MAP Γ (Fun X C)} (α : MorphismExpression f g) where
   module U = Uncurrying.At 𝒯 M ℱ P I E S (funPost F) α
+    using (comparison; paired)
   module Beta = Identified.At 𝒯 M ℱ P I E (funPost-β F) U.paired
+    using (value)
   original = uncurry-expression (post-expression (funPost F) α)
   source-restriction = funUncurry-restrict (funPost F) f
   target-restriction = funUncurry-restrict (funPost F) g

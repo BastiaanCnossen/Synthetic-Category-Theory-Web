@@ -45,12 +45,19 @@ module Successive {C D E C′ D′ E′ C″ D″ E″ : CAT}
   (eb : IsEquiv (CospanMap.base second ∘ CospanMap.base first)) where
 
   module F = CospanMap first
+    using (base; left; mapCone; pullbackMap; pullbackMap-β; right)
   module G = CospanMap second
+    using (base; left; mapCone; pullbackMap; pullbackMap-β; right)
   module FA = Action first
+    using (comparison; module Normal)
   module GA = Action second
+    using (comparison; map-iso; map-pre; module Normal)
   module LiftsLeft = Double F.left G.left el
+    using (value; module Isomorphisms; module Lift)
   module LiftsRight = Double F.right G.right er
+    using (value; module Isomorphisms; module Lift)
   module LiftsBase = Double F.base G.base eb
+    using (value; module Isomorphisms)
 
   left-normal : {Γ : CAT} (p : MAP Γ C) →
     LiftsBase.value (f ∘ p) =₁ (f″ ∘ LiftsLeft.value p)
@@ -119,18 +126,23 @@ module Successive {C D E C′ D′ E′ C″ D″ E″ : CAT}
   base-compose β α = postWhisker-isoComp-at G.base (F.base ◁ β) (F.base ◁ α) ∙
     (postWhisker G.base ◁ postWhisker-isoComp-at F.base β α)
 
+  -- Restructured: the lifting modules `LiftIso` and `Lift` are no longer
+  -- instantiated per cone; their results are used through direct calls.
   module Reflect {Γ : CAT} (s t : Cone f g Γ) (Φ : ConeIso (value s) (value t)) where
-    module LL = LiftsLeft.Isomorphisms.LiftIso (Cone.left s) (Cone.left t) (ConeIso.leftIso Φ)
-    module RR = LiftsRight.Isomorphisms.LiftIso (Cone.right s) (Cone.right t) (ConeIso.rightIso Φ)
-    α = LL.lift
-    β = RR.lift
+    private
+      LL-comparison = LiftsLeft.Isomorphisms.LiftIso.comparison
+        (Cone.left s) (Cone.left t) (ConeIso.leftIso Φ)
+      RR-comparison = LiftsRight.Isomorphisms.LiftIso.comparison
+        (Cone.right s) (Cone.right t) (ConeIso.rightIso Φ)
+    α = LiftsLeft.Isomorphisms.LiftIso.lift (Cone.left s) (Cone.left t) (ConeIso.leftIso Φ)
+    β = LiftsRight.Isomorphisms.LiftIso.lift (Cone.right s) (Cone.right t) (ConeIso.rightIso Φ)
     raw-square = reflect-transport-square
       (left-normal (Cone.left s)) (left-normal (Cone.left t))
       (right-normal (Cone.right s)) (right-normal (Cone.right t)) _ _ _ _ _ _
       (left-natural α) (right-natural β)
-      (isoComp-cong ((postWhisker g″ ◁ RR.comparison) ⁻¹) (idIso (Cone.match (value s))) ∙
+      (isoComp-cong ((postWhisker g″ ◁ RR-comparison) ⁻¹) (idIso (Cone.match (value s))) ∙
         (ConeIso.compatible Φ ∙ isoComp-cong (idIso (Cone.match (value t)))
-          (postWhisker f″ ◁ LL.comparison)))
+          (postWhisker f″ ◁ LL-comparison)))
 
     comparison : ConeIso s t
     comparison = record { leftIso = α ; rightIso = β
@@ -139,29 +151,37 @@ module Successive {C D E C′ D′ E′ C″ D″ E″ : CAT}
             (raw-square ∙ base-compose (Cone.match t) (f ◁ α))) }
 
   module LiftCone {Γ : CAT} (t : Cone f″ g″ Γ) where
-    module LL = LiftsLeft.Lift (Cone.left t)
-    module RR = LiftsRight.Lift (Cone.right t)
-    l = left-normal LL.lift
-    r = right-normal RR.lift
-    α = f″ ◁ LL.comparison
-    β = g″ ◁ RR.comparison
+    private
+      LL-lift = LiftsLeft.Lift.lift (Cone.left t)
+      LL-comparison = LiftsLeft.Lift.comparison (Cone.left t)
+      RR-lift = LiftsRight.Lift.lift (Cone.right t)
+      RR-comparison = LiftsRight.Lift.comparison (Cone.right t)
+    l = left-normal LL-lift
+    r = right-normal RR-lift
+    α = f″ ◁ LL-comparison
+    β = g″ ◁ RR-comparison
     desired = (β ∙ r) ⁻¹ ∙ (Cone.match t ∙ (α ∙ l))
-    module Match = LiftsBase.Isomorphisms.LiftIso (f ∘ LL.lift) (g ∘ RR.lift) desired
+    private
+      match-lift = LiftsBase.Isomorphisms.LiftIso.lift (f ∘ LL-lift) (g ∘ RR-lift) desired
+      match-comparison = LiftsBase.Isomorphisms.LiftIso.comparison (f ∘ LL-lift) (g ∘ RR-lift) desired
     lift : Cone f g Γ
-    lift = record { left = LL.lift ; right = RR.lift ; match = Match.lift }
+    lift = record { left = LL-lift ; right = RR-lift ; match = match-lift }
     comparison : ConeIso (value lift) t
-    comparison = record { leftIso = LL.comparison ; rightIso = RR.comparison
+    comparison = record { leftIso = LL-comparison ; rightIso = RR-comparison
       ; compatible = encoded-restriction-square l r α β (Cone.match t)
-          (G.base ◁ (F.base ◁ Match.lift)) Match.comparison }
+          (G.base ◁ (F.base ◁ match-lift)) match-comparison }
 
   module Preserve {S : CAT} (s : Cone f g S) (es : IsPullback s) where
     module Source = UniversalCone s es
+      using (factor; factor-β; reflect)
     target = pullbackCone f″ g″
-    module Lift = LiftCone target
-    inverse = Source.factor Lift.lift
+    private
+      target-lift = LiftCone.lift target
+      target-comparison = LiftCone.comparison target
+    inverse = Source.factor target-lift
     factorization : ConeIso (conePre inverse (value s)) target
-    factorization = coneIso-compose Lift.comparison
-      (coneIso-compose (value-iso (Source.factor-β Lift.lift))
+    factorization = coneIso-compose target-comparison
+      (coneIso-compose (value-iso (Source.factor-β target-lift))
         (coneIso-inverse (value-pre inverse s)))
     reflect : (h k : MAP S S) → ConeIso (conePre h (value s)) (conePre k (value s)) → h =₁ k
     reflect h k Φ = Source.reflect h k (Reflect.comparison (conePre h s) (conePre k s)

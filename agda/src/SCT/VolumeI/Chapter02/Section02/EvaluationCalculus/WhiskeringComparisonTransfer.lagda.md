@@ -37,6 +37,7 @@ module Transfer {A B C : CAT} (K : MAP B C) (J : MAP A B) (L : MAP A C) (η : (K
   (given : ExpressionIso (retarget-expression (post-expression J f) δ δ′) g) where
   private
     module Paste = Pasting.At 𝒯 M ℱ P I E J K L η f
+      using (comparison; source-change; target-change)
   double : MorphismExpression (K ∘ (J ∘ x)) (K ∘ (J ∘ x′))
   double = post-expression K (post-expression J f)
   source-change : (K ∘ (J ∘ x)) =₁ z

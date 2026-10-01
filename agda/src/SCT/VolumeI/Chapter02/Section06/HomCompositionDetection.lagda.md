@@ -5,7 +5,7 @@ inverse. Reflect the other inverse equation using the test at the source.
 Precomposition gives the dual argument. Only these two object tests are needed.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
@@ -31,6 +31,7 @@ open import SCT.VolumeI.Chapter02.Section03.InverseCalculus.UniversalInverseExpr
 
 module Detect {C : CAT} {x y : Obj-abs C} (e : Obj-abs (Hom C x y)) where
   module F = At e
+    using (family; family-at-point; postcompose; postcompose-β; precompose; precompose-β)
   f = F.family One
   identity-x = identity-expression (const {P = One} x)
   identity-y = identity-expression (const {P = One} y)
@@ -60,6 +61,7 @@ module Detect {C : CAT} {x y : Obj-abs C} (e : Obj-abs (Hom C x y)) where
         (expressionIso-inverse (F.postcompose-β y (FunctorLift.lift lifted-identity))))
 
     module Right = InverseEquation g f right-law
+      using (cancel-after)
     candidate = compose-expression f g
 
     same-image : (F.postcompose x ∘ hom-intro candidate) =₁ (F.postcompose x ∘ hom-intro identity-x)
@@ -87,6 +89,7 @@ module Detect {C : CAT} {x y : Obj-abs C} (e : Obj-abs (Hom C x y)) where
         (expressionIso-inverse (F.precompose-β x (FunctorLift.lift lifted-identity))))
 
     module Left = InverseEquation f g left-law
+      using (cancel-before)
     candidate = compose-expression g f
 
     same-image : (F.precompose y ∘ hom-intro candidate) =₁ (F.precompose y ∘ hom-intro identity-y)

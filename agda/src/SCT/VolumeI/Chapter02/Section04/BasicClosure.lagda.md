@@ -43,6 +43,7 @@ product-isGroupoid {C} {D} ec ed = equiv-cancel-left identityArrow A.forward A.f
   (equiv-transport (comparison ⁻¹) (productMap-isEquiv identityArrow identityArrow ec ed))
   where
   module A = ProductComparison [1] C D
+    using (forward; forward-isEquiv)
   comparison : (A.forward ∘ identityArrow) =₁ (productMap (identityArrow {C}) (identityArrow {D}))
   comparison = pair-cong (constant-natural [1] pr₁) (constant-natural [1] pr₂) ∙
     pair-pre (funPost pr₁) (funPost pr₂) identityArrow

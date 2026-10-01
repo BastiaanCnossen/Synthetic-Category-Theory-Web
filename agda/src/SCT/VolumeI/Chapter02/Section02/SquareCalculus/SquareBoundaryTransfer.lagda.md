@@ -60,14 +60,21 @@ module At {Γ C : CAT} (W : MAP Γ (Fun ([1] × [1]) C))
   (top : MorphismExpression x y) (right : MorphismExpression y z)
   (left : MorphismExpression x w) (bottom : MorphismExpression w z) where
   module G = Geometry.At 𝒯 M ℱ P I E S W
+    using (bottom; left; lower; right; top; upper)
   module T = MorphismExpression top
+    using (arrow; source-frame; target-frame)
   module R = MorphismExpression right
   module L = MorphismExpression left
   module B = MorphismExpression bottom
+    using (arrow; source-frame; target-frame)
   module GT = MorphismExpression G.top
+    using (arrow; source-frame; target-frame)
   module GR = MorphismExpression G.right
+    using (arrow; source-frame; target-frame)
   module GL = MorphismExpression G.left
+    using (arrow; source-frame; target-frame)
   module GB = MorphismExpression G.bottom
+    using (arrow; source-frame; target-frame)
 
   module Identified
     (α : GT.arrow =₁ T.arrow) (β : GR.arrow =₁ R.arrow)
@@ -85,7 +92,9 @@ module At {Γ C : CAT} (W : MAP Γ (Fun ([1] × [1]) C))
     w-change = vertex-change ev₁ GL.target-frame L.target-frame γ
     z-change = vertex-change ev₁ GR.target-frame R.target-frame β
     module Upper = Presentations.Retarget 𝒯 M ℱ P I E S G.upper x-change y-change z-change
+      using (value)
     module Lower = Presentations.Retarget 𝒯 M ℱ P I E S G.lower x-change w-change z-change
+      using (value)
 
     top-comparison : ExpressionIso (retarget-expression G.top x-change y-change) top
     top-comparison = record { comparison = α ; source-compatible = source-top ; target-compatible = target-top }

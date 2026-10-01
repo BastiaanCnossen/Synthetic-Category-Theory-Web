@@ -38,6 +38,7 @@ decode-edge τ r h ε = reflect-diagram-name
 module ReadWitnesses {C : CAT} {x y : Obj-abs C}
   (f : Morphism x y) (w : IsoLift (nameFun (Morphism.diagram f))) where
   module W = IsoLift w
+    using (comparison; lift)
   module U = Data.UniversalData C
     using (right-triangle; left-triangle; right-short; left-short; right-long; left-long)
 

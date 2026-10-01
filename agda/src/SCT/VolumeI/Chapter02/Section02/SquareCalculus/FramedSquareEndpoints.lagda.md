@@ -5,7 +5,7 @@ corresponding horizontal arrow in the arrow category. The calculation
 uses the retained double-evaluation comparison and the original side maps.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
@@ -38,9 +38,12 @@ module At {Γ C : CAT} (W : MAP Γ (Fun ([1] × [1]) C))
   module Vertex = Shape.Vertex 𝒯 M ℱ u v
   module Framing = Frames.At 𝒯 M ℱ P (coinsert u) (insert v) v u
     Vertex.horizontal-frame Vertex.vertical-frame W
+    using (matching; module Restricted)
   module Curried = Currying.At 𝒯 M ℱ W
   module H = Curried.Horizontal u
+    using (comparison)
   module V = Curried.Vertical v
+    using (boundary)
   module Route = Routes.At 𝒯 M ℱ I v u (coinsert u) (insert v) Vertex.corner W
   matching = Route.matching
 

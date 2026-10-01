@@ -26,8 +26,11 @@ open Iso vocabulary terminal products productLaws composition vertical whiskerin
 module At {Γ C D : CAT} {x₁ y₁ : MAP Γ C} {x₂ y₂ : MAP Γ D}
   (f : MorphismExpression x₁ y₁) (g : MorphismExpression x₂ y₂) where
   module F = MorphismExpression f
+    using (arrow; source-frame; target-frame)
   module G = MorphismExpression g
+    using (arrow; source-frame; target-frame)
   module Product = Products.ProductComparison 𝒯 M ℱ [1] C D
+    using (forward; forward-isEquiv)
   chosen = equiv-lift Product.forward-isEquiv (pair F.arrow G.arrow)
   arrow : MAP Γ (Ar (C × D))
   arrow = FunctorLift.lift chosen

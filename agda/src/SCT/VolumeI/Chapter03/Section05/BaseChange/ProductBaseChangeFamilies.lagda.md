@@ -6,7 +6,7 @@ chosen-pullback side, adjoin the parameter to the product comparison.
 Both cone comparisons retain the prescribed right leg.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
@@ -36,13 +36,18 @@ open import SCT.VolumeI.Chapter03.Section05.Currying.ActedConeRestriction 𝒯 M
 
 module Families {T S E K X : CAT} (r : MAP E (T × S)) (k : MAP K T)
   (u : FunctorOver (k ∘ pr₂ {C = X}) (Evaluation.projection r)) where
-  module Ev = Evaluation r
-  module Dk = Ev.F.Domain k
-  module Product = Evaluate r k u
-  module ProductCone = ProductParameters r k X
-  module Actual = Change Ev.F.projection k Ev.projection
+  private
+    module Ev = Evaluation r using (module F; module D; projection)
+  private
+    module Dk = Ev.F.Domain k using (square; inclusion)
+  private
+    module Product = Evaluate r k u using (argument; module R; module C)
+  private
+    module ProductCone = ProductParameters r k X using (target; inner; comparison)
+  module Actual = Change Ev.F.projection k Ev.projection using (module At)
   module Pulled = PullbackParameters (pullbackCone k Ev.F.projection) Dk.square Dk.inclusion
     (pullbackLift-β Dk.square) (idIso _) X
+    using (module Ps; module Pt; module Arg; comparison)
   source = compose-over Ev.D.inclusion Product.argument
   target = compose-over (Actual.At.pulled u) (Pulled.Arg.family X)
 

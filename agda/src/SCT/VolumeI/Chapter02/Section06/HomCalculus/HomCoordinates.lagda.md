@@ -37,7 +37,9 @@ module EncodeComparison {Γ B C : CAT} (u v : MAP B C) (y : MAP Γ B)
   {f g : MorphismExpression (u ∘ y) (v ∘ y)} (Φ : ExpressionIso f g) where
   private
     module F = MorphismExpression f
+      using (arrow; source-frame; target-frame)
     module G = MorphismExpression g
+      using (arrow; source-frame; target-frame)
     δ = ExpressionIso.comparison Φ
     p = pair-cong F.source-frame F.target-frame
     q = pair-cong G.source-frame G.target-frame
@@ -87,6 +89,7 @@ module ConstantBase {Γ A C : CAT} (b : MAP A One) (x : Obj-abs C)
 module HomIdentification {Γ C : CAT} {x y : Obj-abs C}
   {h k : MAP Γ (Hom C x y)} (α : h =₁ k) where
   module H = EndpointFiber x y
+    using (arrow; base; source-frame; target-frame)
 
   endpoint : (π : MAP (Ar C) C) (z : Obj-abs C) (frame : (π ∘ H.arrow) =₁ (z ∘ H.base)) →
     (((z ◁ terminal-iso (H.base ∘ k) (terminate Γ)) ∙

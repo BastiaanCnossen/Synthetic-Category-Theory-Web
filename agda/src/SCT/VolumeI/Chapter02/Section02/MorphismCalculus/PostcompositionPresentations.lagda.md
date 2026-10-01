@@ -31,10 +31,15 @@ module At {Γ C D : CAT} (F : MAP C D) {x y z : MAP Γ C}
   {f : MorphismExpression x y} {g : MorphismExpression y z} {h : MorphismExpression x z}
   (p : CompositePresentation f g h) where
   module P₀ = CompositePresentation p
+    using (short-edges; triangle)
   module Before = Original.Corners 𝒯 M ℱ P I E S p
+    using (source-cone-comparison; target-cone-comparison)
   module First = MorphismExpression f
+    using (arrow; source-frame; target-frame)
   module Second = MorphismExpression g
+    using (arrow; source-frame; target-frame)
   module Long = MorphismExpression h
+    using (arrow; source-frame; target-frame)
   triangle = funPost F ∘ P₀.triangle
 
   module Middle = Corners.FramedComparison 𝒯 M ℱ P I E F one zero d₂ d₀ (face-middle ⁻¹)
@@ -45,6 +50,7 @@ module At {Γ C D : CAT} (F : MAP C D) {x y z : MAP Γ C}
     P₀.triangle Long.arrow Second.arrow Long.target-frame Second.target-frame Before.target-cone-comparison
   module V = Vertices (post-expression F f) (post-expression F g) (post-expression F h)
     triangle Middle.left-edge Middle.right-edge Source.left-edge
+    using (MiddleVertex; SourceVertex; TargetVertex; presentation)
 
   middle-vertex : V.MiddleVertex
   middle-vertex = ConeIso.compatible Middle.comparison

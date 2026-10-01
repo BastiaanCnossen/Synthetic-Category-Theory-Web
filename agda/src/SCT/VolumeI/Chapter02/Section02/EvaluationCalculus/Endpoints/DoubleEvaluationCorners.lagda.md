@@ -41,8 +41,11 @@ module At {Γ A B C : CAT} (W : MAP Γ (Fun (A × B) C))
   module H = Curried.Horizontal u
   module V = Curried.Vertical v
   module Coord = Coordinates.At 𝒯 M ℱ Curried.H u v
+    using (E₂; comparison; result)
   module Inner = Restriction.At 𝒯 M ℱ Curried.diagram (insert v) u
+    using (comparison; raw)
   module Outer = Postcomposition.Evaluation 𝒯 M ℱ P I E (evaluate u) Curried.first-curry v
+    using (comparison; raw)
   h = Curried.H
   ia = insert {X = Γ} u
   ib = insert {X = Γ} v
@@ -56,7 +59,9 @@ module At {Γ A B C : CAT} (W : MAP Γ (Fun (A × B) C))
   θH = headH ∙ (aH ∙ (curry-edge ∙ Outer.raw))
   θV = headV ∙ (aV ∙ Inner.raw)
   module RefH = ReflectedEndpoint v H.evaluated H.side qH θH H.comparison H.comparison-β
+    using (endpoint)
   module RefV = ReflectedEndpoint u (Curried.first-curry ∘ ib) V.side qV θV V.restricted V.restricted-β
+    using (endpoint)
   left = (qH ▷ ib) ∙ evaluate-uncurry v H.side
   right = (qV ▷ ia) ∙ evaluate-uncurry u V.side
   outer-endpoint = evaluate-uncurry v H.evaluated

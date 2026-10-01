@@ -30,6 +30,7 @@ open import SCT.VolumeI.Chapter02.Section03.InverseCalculus.InverseTriangleExpre
 module ReadInverse {Γ C : CAT} {x y : MAP Γ C}
   (f : MorphismExpression x y) (w : IsoLift (MorphismExpression.arrow f)) where
   module W = IsoLift w
+    using (comparison; lift)
   module U = Universal C
     using (right-triangle; left-triangle; right-short; left-short; right-long; left-long)
 

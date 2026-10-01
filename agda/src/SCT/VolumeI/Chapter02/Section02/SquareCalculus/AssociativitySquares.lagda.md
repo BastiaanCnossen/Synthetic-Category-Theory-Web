@@ -43,11 +43,13 @@ module At {Γ C : CAT} {x y z w : MAP Γ C}
   module First = Glue (composition-presentation f g)
     (change-long (composition-presentation (identity-expression x) first-composite)
       (left-unit first-composite))
+    using (square)
 
   module Second = Glue
     (change-long (composition-presentation second-composite (identity-expression w))
       (right-unit second-composite))
     (composition-presentation g h)
+    using (square)
 
   first-square : MAP Γ (Fun ([1] × [1]) C)
   first-square = First.square

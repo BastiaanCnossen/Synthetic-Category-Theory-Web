@@ -24,6 +24,7 @@ module SCT.VolumeI.Chapter02.Section02.SquareCalculus.SquareBoundaryCones
 open import SCT.VolumeI.Chapter02.Section01.SquareCalculus.SquareShape 𝒯 M ℱ P I E public
 open import SCT.VolumeI.Chapter02.Section02.SquareCalculus.SquareCurryingCoordinates 𝒯 M ℱ using (coinsert)
 module Shape = Faces 𝒯 M ℱ P I E
+  using (module LowerMiddleForward; module LowerSource; module LowerTargetBack; module UpperMiddle; module UpperSource; module UpperTargetBack)
 module Corner = Corners 𝒯 M ℱ P
 
 module At {Γ C : CAT} (W : MAP Γ (Fun ([1] × [1]) C)) where

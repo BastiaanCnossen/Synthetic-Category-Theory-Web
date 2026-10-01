@@ -30,15 +30,19 @@ module Curried {Γ B A D : CAT} (r : MAP B A) (s : MAP A D) (t : MAP B D)
   (η : (s ∘ r) =₁ t) {x y : MAP Γ B}
   (H : MAP (Γ × [1]) B) (p : (H ∘ insert zero) =₁ x) (q : (H ∘ insert one) =₁ y) where
   module First = CurriedPost.At 𝒯 M ℱ P I E r H p q
+    using (comparison)
   module Second = CurriedPost.At 𝒯 M ℱ P I E s (r ∘ H)
     ((r ◁ p) ∙ comp-assoc (insert zero) H r)
     ((r ◁ q) ∙ comp-assoc (insert one) H r)
+    using (comparison)
   module Last = CurriedPost.At 𝒯 M ℱ P I E t H p q
+    using (comparison)
   module Source = Frames.At 𝒯 (insert zero) H r s t η p
   module Target = Frames.At 𝒯 (insert one) H r s t η q
   module Diagram = Diagrams.At 𝒯 M ℱ P I E (s ∘ (r ∘ H)) (t ∘ H) Source.diagram
     (Source.change ∙ Source.twice) (Target.change ∙ Target.twice)
     Source.output Target.output Source.comparison Target.comparison
+    using (comparison)
 
   comparison : ExpressionIso
     (retarget-expression (post-expression s (post-expression r (expression H p q)))
@@ -56,6 +60,7 @@ module At {Γ B A D : CAT} (r : MAP B A) (s : MAP A D) (t : MAP B D)
   (η : (s ∘ r) =₁ t) {x y : MAP Γ B} (f : MorphismExpression x y) where
   module Recover = Diagrams.Recovery 𝒯 M ℱ P I E f
   module Compared = Curried r s t η Recover.H Recover.p Recover.q
+    using (comparison)
   source-change = (η ▷ x) ∙ (comp-assoc x r s) ⁻¹
   target-change = (η ▷ y) ∙ (comp-assoc y r s) ⁻¹
 

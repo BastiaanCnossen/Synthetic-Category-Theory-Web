@@ -38,10 +38,14 @@ open PU vocabulary terminal products productLaws composition vertical whiskering
 module At {Γ X C : CAT} (f g : MAP Γ (Fun X C))
   (α : MorphismExpression (funUncurry f) (funUncurry g)) where
   module A = Currying.Curry 𝒯 M ℱ I f g α
+    using (arrow; diagram; first-curry; original; permutation; value; module Endpoint)
   module Original = MorphismExpression α
+    using (arrow; source-frame; target-frame)
   module N = Normalization.At 𝒯 M ℱ P I E A.value
   module Recovered = Diagrams.Recovery 𝒯 M ℱ P I E N.uncurried
+    using (comparison; p; q)
   module OriginalRecovery = Diagrams.Recovery 𝒯 M ℱ P I E α
+    using (comparison; p; q)
   β₁ : funUncurry A.arrow =₁ A.first-curry
   β₁ = funCurry-β A.first-curry
   β₂ : funUncurry A.first-curry =₁ A.diagram
@@ -61,9 +65,12 @@ module At {Γ X C : CAT} (f g : MAP Γ (Fun X C))
     (a : (evaluate z ∘ Original.arrow) =₁ funUncurry h)
     (b : (evaluate z ∘ N.B.arrow) =₁ funUncurry h) where
     module AE = A.Endpoint z h a
+      using (comparison; insertion-comparison; reflected)
     module NE = N.Endpoint z AE.comparison (b ∙ (evaluate-uncurry z N.B.arrow) ⁻¹)
+      using (R)
     module Image = Images.At.Endpoint 𝒯 M ℱ I f g α z h a
     module Frame = Frames.At 𝒯 M ℱ I A.first-curry z AE.reflected
+      using (comparison)
     i = insert {X = Γ} z
     j = insert {X = Γ × X} z
     s = productMap i (id X)
@@ -105,6 +112,7 @@ module At {Γ X C : CAT} (f g : MAP Γ (Fun X C))
           isoComp-assoc-at front (comparison ▷ j) before)
 
   module Source = Endpoint zero f Original.source-frame N.B.source-frame
+    using (compatible)
   module Target = Endpoint one g Original.target-frame N.B.target-frame
   diagram-comparison = Diagrams.At.comparison 𝒯 M ℱ P I E N.original A.original comparison
     Recovered.p Recovered.q OriginalRecovery.p OriginalRecovery.q

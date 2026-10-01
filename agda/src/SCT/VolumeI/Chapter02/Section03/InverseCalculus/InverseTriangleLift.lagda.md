@@ -30,6 +30,7 @@ open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.DiagramNames 𝒯 M
 module LiftInverse {C : CAT} {x y : Obj-abs C}
   (f : Morphism x y) (w : IsInvertible f) where
   module W = IsInvertible w
+    using (left-inverse-triangle; right-inverse-triangle)
   module Right = CompositeWitness W.right-inverse-triangle
   module Left = CompositeWitness W.left-inverse-triangle
 

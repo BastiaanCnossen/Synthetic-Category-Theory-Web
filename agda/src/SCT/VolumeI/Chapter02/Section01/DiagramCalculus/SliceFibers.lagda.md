@@ -26,6 +26,7 @@ open Laws.PullbackStructure P
 module FiberComparison {B C : CAT} (u v : MAP B C) (y : Obj-abs B)
   (x₀ x₁ : Obj-abs C) (α : (u ∘ y) =₁ x₀) (β : (v ∘ y) =₁ x₁) where
   module F = EndpointFiber u v
+    using (base)
   comparison-on-base : (pair u v ∘ y) =₁ (pair x₀ x₁)
   comparison-on-base = pair-cong α β ∙ pair-pre u v y
 

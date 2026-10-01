@@ -51,3 +51,4 @@ import SCT.VolumeI.Chapter02.Section01.EvaluationCalculus.ConstantConeComparison
 import SCT.VolumeI.Chapter02.Section01.EvaluationCalculus.ConstantConeFrames
 
 import SCT.VolumeI.Chapter02.Section01.EvaluationCalculus.ConstantConeNaturality
+import SCT.VolumeI.Chapter02.Section01.EvaluationCalculus.ConstantDiagramEvaluation

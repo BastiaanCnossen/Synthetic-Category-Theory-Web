@@ -30,12 +30,14 @@ import SCT.VolumeI.Chapter02.Section04.PullbackCalculus.EvaluationCones as Evalu
 module At {T C D E X : CAT} {f : MAP C E} {g : MAP D E}
   (v : Obj-abs T) (s : Cone (funPost {C = T} f) (funPost g) X) where
   module EC = Evaluation.EvaluationCone 𝒯 M ℱ P v f g
+    using (module At; module CoordinateEvaluation)
   value = EC.CoordinateEvaluation.read s
   comparison = EC.At.evaluated s
 
 module MappedAt {T C D E X : CAT} {f : MAP C E} {g : MAP D E}
   (v : Obj-abs T) (s : Cone f g X) where
   module MC = Mapped.MappedCone 𝒯 M ℱ P T s
+    using (value; module Curried)
   module Evaluated = At v MC.value
 
   raw-comparison = coneIso-compose

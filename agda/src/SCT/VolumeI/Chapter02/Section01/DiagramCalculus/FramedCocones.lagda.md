@@ -66,6 +66,7 @@ module PostFramedComparison {A B C D E H : CAT} {u : MAP A B} {v : MAP A C}
   (α : (p ∘ u) =₁ z) (β : (q ∘ v) =₁ z)
   (Φ : CoconeIso (coconePost σ s) (framed-cocone p q α β)) where
   module Frames = PostFrame F p q α β
+    using (comparison; target-cocone)
   left-edge = (F ◁ CoconeIso.leftIso Φ) ∙ comp-assoc (Cocone.left s) σ F
   right-edge = (F ◁ CoconeIso.rightIso Φ) ∙ comp-assoc (Cocone.right s) σ F
   together = coconeIso-compose (coconeIso-post F Φ) (coconePost-assoc F σ s)

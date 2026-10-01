@@ -52,8 +52,11 @@ module Intersection {R L A I : CAT} (r : MAP R A) (l : MAP L A)
   v = pullback₂
 
   module Boundary = ChangeLeft (pullbackMatch {f = r} {i}) l
+    using (forward; forward-isEquiv)
   module Inner = UniversalNested.Nested 𝒯 P u r l s es
+    using (flatCone; flatten; flatten-isEquiv)
   module Outer = Nested p r i
+    using (flatCone; flatten; flatten-isEquiv)
 
   embedding : IsEquiv (pullback₂ {f = r} {i}) →
     IsEquiv (pullback₂ {f = l} {i}) → IsEmbedding i

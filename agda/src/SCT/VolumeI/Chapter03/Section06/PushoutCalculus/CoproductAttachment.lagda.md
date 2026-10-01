@@ -43,30 +43,40 @@ module Attachment {A C X Y D : CAT} {u : MAP A X} {v : MAP A C}
   (universal : IsPushout original) (j : MAP D X) where
   module Left = Adjoin v D using (sum-map; square; isPushout)
   top = copair u j
-  module Outer = ChangeTop (copair-β₁ u j) (squareCocone original)
-    (pushout-extension-property original universal) using (value; extensions)
-  module Lift = UniversalPasting in₁ top Left.square Left.isPushout Y
-  module Chosen = Lift.LiftOuter Outer.value
-  chosen = Chosen.value
+  -- Results of `ChangeTop`, `UniversalPasting.LiftOuter`, `Pasting` and
+  -- `Pasted` are used as ordinary functions with explicit arguments.
+  private
+    outer-value = ChangeTop.value (copair-β₁ u j) (squareCocone original)
+      (pushout-extension-property original universal)
+    outer-value-extensions = ChangeTop.extensions (copair-β₁ u j) (squareCocone original)
+      (pushout-extension-property original universal)
+  chosen : Cocone top Left.sum-map Y
+  chosen = UniversalPasting.LiftOuter.value in₁ top Left.square Left.isPushout Y outer-value
   chosen-square : Square top Left.sum-map r (Cocone.right chosen)
   chosen-square = record { commute = Cocone.match chosen }
-  module Paste = Pasting Left.square chosen-square Left.isPushout
-  module Compared = Pasted Left.square chosen-square
   abstract
-    outer-extensions : CoconeExtensionProperty (squareCocone Paste.outer)
+    outer-extensions : CoconeExtensionProperty
+      (squareCocone (Pasting.outer Left.square chosen-square Left.isPushout))
     outer-extensions = Invariant.extensions
-      (coconeIso-compose Compared.comparison (coconeIso-inverse Chosen.comparison)) Outer.extensions
+      (coconeIso-compose (Pasted.comparison Left.square chosen-square)
+        (coconeIso-inverse
+          (UniversalPasting.LiftOuter.comparison in₁ top Left.square Left.isPushout Y outer-value)))
+      outer-value-extensions
     chosen-isPushout : IsPushout chosen-square
-    chosen-isPushout = Paste.cancel-isPushout (cocone-extension→pushout Paste.outer outer-extensions)
+    chosen-isPushout = Pasting.cancel-isPushout Left.square chosen-square Left.isPushout
+      (cocone-extension→pushout (Pasting.outer Left.square chosen-square Left.isPushout)
+        outer-extensions)
 
   bottom : MAP (C ⊔ D) Y
   bottom = copair s (r ∘ j)
   abstract
     first : (Cocone.right chosen ∘ in₁) =₁ s
-    first = Chosen.β
+    first = UniversalPasting.LiftOuter.β in₁ top Left.square Left.isPushout Y outer-value
     second : (Cocone.right chosen ∘ in₂) =₁ (r ∘ j)
     second = (r ◁ copair-β₂ u j) ∙
-      (comp-assoc in₂ top r ∙ ((Chosen.α ▷ in₂) ∙ (Adjoin.second v D (Cocone.right chosen)) ⁻¹))
+      (comp-assoc in₂ top r ∙
+        ((UniversalPasting.LiftOuter.α in₁ top Left.square Left.isPushout Y outer-value ▷ in₂) ∙
+          (Adjoin.second v D (Cocone.right chosen)) ⁻¹))
     bottom-comparison : Cocone.right chosen =₁ bottom
     bottom-comparison = coproduct-reflect _ bottom
       ((copair-β₁ s (r ∘ j)) ⁻¹ ∙ first) ((copair-β₂ s (r ∘ j)) ⁻¹ ∙ second)

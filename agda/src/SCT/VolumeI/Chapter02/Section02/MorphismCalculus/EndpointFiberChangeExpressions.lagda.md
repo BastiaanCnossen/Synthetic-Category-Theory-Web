@@ -38,7 +38,9 @@ module Along {B C : CAT} {u v u′ v′ : MAP B C}
     module Actual = Equivalences.ChangeEndpoints 𝒯 M ℱ P I α β using (map; map-isEquiv)
     module Original = Fiber u v using (decode; encode-decode)
     module Source = EndpointFiber u v
+      using (base; category; cone)
     module Target = EndpointFiber u′ v′
+      using (cone)
 
   module Encoded {Γ : CAT} (b : MAP Γ B) (f : MorphismExpression (u ∘ b) (v ∘ b)) where
     reframed : MorphismExpression (u′ ∘ b) (v′ ∘ b)

@@ -44,10 +44,15 @@ module TransposedWitness {Γ C : CAT} {x y z : Obj-abs (Fun Γ C)}
   {f : Morphism x y} {g : Morphism y z} {h : Morphism x z}
   (w : CompositeWitness f g h) where
   module W = CompositeWitness w
+    using (middle-comparison; source-comparison; target-comparison; triangle)
   module B = Boundary f g h
+    using (middle; source-corner; target-corner)
   module Middle = Corners.Corner 𝒯 M ℱ P middle-square W.triangle B.middle W.middle-comparison
+    using (comparison; comparison-left; comparison-right; module Boundary)
   module Source = Corners.Corner 𝒯 M ℱ P source-square W.triangle B.source-corner W.source-comparison
+    using (comparison; comparison-left; comparison-right; module Boundary)
   module Target = Corners.Corner 𝒯 M ℱ P target-square W.triangle B.target-corner W.target-comparison
+    using (comparison; comparison-left; comparison-right; module Boundary)
 
   triangle : MAP Γ (Triangles C)
   triangle = funCurry (transpose W.triangle)

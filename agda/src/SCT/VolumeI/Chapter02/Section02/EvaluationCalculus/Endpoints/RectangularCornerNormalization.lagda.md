@@ -29,6 +29,7 @@ open Naturality vocabulary terminal products productLaws composition vertical wh
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.ProductFunctorUnits as ProductUnits
 open ProductUnits vocabulary terminal products productLaws composition vertical whiskering pentagonTriangle using (left-unitor-comp)
 module PS = Projection 𝒯
+  using (compose-base; lift-base)
 
 module PairFrame {Q R X A B : CAT} (f : MAP X A) (g : MAP X B)
   (r : MAP R X) (t : MAP Q R) {u : MAP R A} {v : MAP R B}
@@ -39,6 +40,7 @@ module PairFrame {Q R X A B : CAT} (f : MAP X A) (g : MAP X B)
   frame = pair-pre u v t ∙ (first ▷ t)
   direct = pair-cong left right ∙ pair-pre f g (r ∘ t)
   module P = Paired.At 𝒯 M ℱ f g r t α β (idIso (u ∘ t)) (idIso (v ∘ t))
+    using (comparison; composite; direct)
 
   abstract
     direct-normal : P.direct =₂ direct
@@ -77,6 +79,7 @@ module VertexRestriction {Γ R X A B : CAT} (f : MAP X A) (g : MAP X B)
   module V = PairFrame f g x (terminate Γ) α β
   module Assemble = PairingAssembly f g r t (const x) δ
     b c d e V.left V.right (idIso (const u)) (idIso (const v))
+    using (assemble; shortFirst; shortSecond)
   first = pair-cong b c ∙ pair-pre f g r
   second = pair-cong d e ∙ pair-pre f₁ g₁ t
   inner = V.frame ∙ ((comp-assoc (terminate Γ) x (pair f g)) ⁻¹ ∙

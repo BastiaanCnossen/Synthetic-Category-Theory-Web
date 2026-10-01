@@ -81,6 +81,7 @@ module At {Γ C D : CAT} (F : MAP C D) {x y : MAP Γ C}
     post = evaluate-post-at v F h
     module Reflected = ReflectedEndpoint v source-arrow target-arrow β raw δ
       (funIsoReflect-β source-arrow target-arrow (β ⁻¹ ∙ raw))
+      using (endpoint)
 
     abstract
       compatible : (((front ∙ aH) ∙ Q) ∙ (evaluate v ◁ δ)) =₂ post-boundary v F h frame

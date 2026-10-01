@@ -51,6 +51,7 @@ module Change {A B C : CAT} {f g : MAP A B} (α : f =₁ g) (x : Obj-abs A) wher
 module At {A B D C : CAT} (f : MAP A B) (g : MAP B D) (x : Obj-abs A)
   (r : MAP A D) (α : (g ∘ f) =₁ r) (z : Obj-abs D) (b : (r ∘ x) =₁ z) where
   module Raw = Retained.AtObject 𝒯 M ℱ P {C = C} f g x
+    using (comparison; leading)
   X = Fun D C
   e = funEval {C = D} {D = C}
   i = insert {X = X} x

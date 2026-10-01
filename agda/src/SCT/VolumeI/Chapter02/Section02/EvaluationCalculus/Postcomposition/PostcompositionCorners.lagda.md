@@ -34,7 +34,9 @@ module At {Γ B C D : CAT} (F : MAP C D) (u v : Obj-abs [1]) (d k : MAP [1] B)
   (δ : (d ∘ u) =₁ (k ∘ v)) (h : MAP Γ (Fun B C)) where
   hF = funPost F ∘ h
   module Before = Routes.At 𝒯 M ℱ I u v d k δ h
+    using (clear-frames; family; left-route; matching; right-route; vertex)
   module After = Routes.At 𝒯 M ℱ I u v d k δ hF
+    using (family; left-route; matching; normalized; right-route)
   module Left = Edges.At 𝒯 M ℱ P I E F d h
   module Right = Edges.At 𝒯 M ℱ P I E F k h
   output = post-cone F u v Before.family
@@ -90,6 +92,7 @@ module FramedComparison {Γ B C D : CAT} (F : MAP C D)
   (Φ : ConeIso (Routes.At.family 𝒯 M ℱ I u v d k δ h) (Framed.original F u v f g p q)) where
   module Corner = At F u v d k δ h
   module Frames = Framed F u v f g p q
+    using (comparison; reframed)
   left-edge = (funPost F ◁ ConeIso.leftIso Φ) ∙ Corner.Left.edge-comparison
   right-edge = (funPost F ◁ ConeIso.rightIso Φ) ∙ Corner.Right.edge-comparison
   raw = coneIso-compose Frames.comparison

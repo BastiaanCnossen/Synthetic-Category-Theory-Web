@@ -32,7 +32,9 @@ module Pair {Γ C : CAT} {x y z : MAP Γ C}
   t = expression-pair f g
   module F = MorphismExpression f
   module G = MorphismExpression g
+    using (target-frame)
   module Boundary = Endpoints.At 𝒯 M ℱ P I E S t
+    using (source-comparison; target-comparison; module Source; module Target)
 
   value : MorphismExpression x z
   value = record

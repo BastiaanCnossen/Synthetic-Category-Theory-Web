@@ -6,7 +6,7 @@ each presentation. Segal uniqueness therefore compares the two composites
 with their specified source and target.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
@@ -32,6 +32,7 @@ import SCT.VolumeI.Chapter02.Section02.SquareCalculus.SquareBoundaryCones as Bou
 
 module At {Γ C : CAT} (W : MAP Γ (Fun ([1] × [1]) C)) where
   module B = Boundaries.At 𝒯 M ℱ P I E W
+    using (module LowerMiddle; module LowerSource; module LowerTarget; module UpperMiddle; module UpperSource; module UpperTarget)
   vertex : Obj-abs [1] → Obj-abs [1] → MAP Γ C
   vertex u v = evaluate (pair u v) ∘ W
 
@@ -64,8 +65,10 @@ module At {Γ C : CAT} (W : MAP Γ (Fun ([1] × [1]) C)) where
   lower-target = coneIso-inverse B.LowerTarget.comparison
   module Upper = Vertices top right diagonal-expression (funPre j₀ ∘ W)
     (ConeIso.leftIso upper-middle) (ConeIso.rightIso upper-middle) (ConeIso.leftIso upper-source)
+    using (presentation)
   module Lower = Vertices left bottom diagonal-expression (funPre j₁ ∘ W)
     (ConeIso.leftIso lower-middle) (ConeIso.rightIso lower-middle) (ConeIso.leftIso lower-source)
+    using (presentation)
 
   upper : CompositePresentation top right diagonal-expression
   upper = Upper.presentation (ConeIso.compatible upper-middle)

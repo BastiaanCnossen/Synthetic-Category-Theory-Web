@@ -39,6 +39,7 @@ operation f = record { act = F.act ; compare = F.Compared.comparison ; restrict 
 module At {B C : CAT} {x y : MAP B C} (f : MorphismExpression x y) where
   private
     module F = Realize (operation f)
+      using (act; map; module Compared; module Restriction)
 
   compose-at-target : MAP (Pullback (ev₁ {C}) x) (Pullback (ev₁ {C}) y)
   compose-at-target = F.map
@@ -52,8 +53,11 @@ module At {B C : CAT} {x y : MAP B C} (f : MorphismExpression x y) where
     (record { retraction = H.map ; comparison = Left.inverse-comparison ⁻¹ })
     where
     module W = IsInvertibleExpression witness
+      using (left-inverse; left-inverse-law; right-inverse; right-inverse-law)
     module G = Realize (operation W.right-inverse)
+      using (map)
     module H = Realize (operation W.left-inverse)
+      using (map)
     module Right = Inverse (operation W.right-inverse) (operation f)
       (Cancellation.Inverse.inverse-law 𝒯 M ℱ P I E S Q W.right-inverse f W.right-inverse-law)
     module Left = Inverse (operation f) (operation W.left-inverse)

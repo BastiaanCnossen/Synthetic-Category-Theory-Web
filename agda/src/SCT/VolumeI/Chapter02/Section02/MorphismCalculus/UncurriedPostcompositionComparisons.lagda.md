@@ -56,8 +56,10 @@ module At {Γ C D : CAT} {x y : MAP Γ C} {x′ y′ : MAP Γ D}
   (s : (F ∘ x) =₁ x′) (t : (F ∘ y) =₁ y′)
   (ξ : ExpressionIso (retarget-expression (post-expression F α) s t) β) where
   module A = MorphismExpression α
+    using (arrow)
   module B = MorphismExpression β
   module U = Uncurried.UncurryComparison 𝒯 M ℱ P I E ξ
+    using (underlying; module Endpoint)
   H = funUncurry A.arrow
   K = funUncurry B.arrow
   post-comparison = funPost-uncurry F A.arrow

@@ -34,10 +34,14 @@ module At {Γ C D : CAT} {x y : MAP Γ (C × D)} (f g : MorphismExpression x y)
   (first : ExpressionIso (post-expression pr₁ f) (post-expression pr₁ g))
   (second : ExpressionIso (post-expression pr₂ f) (post-expression pr₂ g)) where
   module F = MorphismExpression f
+    using (arrow; source-frame; target-frame)
   module G = MorphismExpression g
+    using (arrow; source-frame; target-frame)
   module A = ExpressionIso first
+    using (comparison; source-compatible; target-compatible)
   module B = ExpressionIso second
   module Product = Products.ProductComparison 𝒯 M ℱ [1] C D
+    using (forward; forward-isEquiv)
   h = F.arrow
   k = G.arrow
   l = Product.forward

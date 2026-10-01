@@ -43,6 +43,7 @@ module At {Γ C : CAT} {x y : MAP Γ C} (p : x =₁ y) where
     v = β ▷ i
     Q = evaluate-uncurry z F
     module Reflected = ReflectedEndpoint z F G (funCurry-β K) θ δ (funIsoReflect-β F G raw)
+      using (endpoint)
 
     abstract
       normalized : (b′ ∙ ((θ ▷ i) ∙ Q)) =₂ (p ∙ (b ∙ evaluate-curry z H))

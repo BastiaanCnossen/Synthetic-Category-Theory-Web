@@ -26,12 +26,14 @@ open PC vocabulary terminal products productLaws composition vertical whiskering
 
 module At (Γ X C : CAT) (h : MAP Γ (Ar (Fun X C))) where
   module Coordinate = Coordinates.At 𝒯 M ℱ I Γ X C h
+    using (H; comparison; diagram; fixed; paired; paired-comparison; permutation; step)
   open Coordinate using (H; step; fixed; permutation; paired; diagram)
 
   module Endpoint (z : Obj-abs [1]) {f : MAP Γ (Fun X C)}
     (p : (H ∘ insert z) =₁ f) where
     module J = Endpoints.At.Endpoint 𝒯 M ℱ I Γ X C h z p
     module Product = Substitution.Coordinates 𝒯 M X H (insert z)
+      using (normalization)
     open J using (i; j; s; κ; first-frame; second-frame)
 
     u : (paired ∘ permutation) =₁ productMap H (id X)
@@ -54,6 +56,7 @@ module At (Γ X C : CAT) (h : MAP Γ (Ar (Fun X C))) where
           (isoComp-cong (Product.normalization ⁻¹) (idIso (u ▷ s))) ∙ J.paired-square
 
     module Applied = Evaluation.At 𝒯 funEval paired permutation s j κ u v w triangle
+      using (V; W; comparison)
     frame : (diagram ∘ j) =₁ funUncurry f
     frame = Applied.W
     after-substitution : (funUncurry H ∘ s) =₁ funUncurry f

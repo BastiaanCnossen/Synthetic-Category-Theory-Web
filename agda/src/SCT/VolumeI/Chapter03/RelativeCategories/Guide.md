@@ -4,7 +4,7 @@ Fix functors `f : MAP C S` and `g : MAP D S`. A functor over `S` is a functor
 from `C` to `D` with a specified identification of its composite with `g`
 and `f`. An identification of two such functors must respect those triangles.
 The modules here develop these data and their mapping animae using the
-Chapter 1 structures. They do not assume dependent products or Chapter 6's
+Chapter 1 structures. They do not assume dependent products or Chapter 5's
 primitive contextual theories.
 
 ## Basic constructions

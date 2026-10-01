@@ -33,6 +33,7 @@ open Laws.PullbackStructure P
 
 module Fiber {B C : CAT} (u v : MAP B C) where
   module H = EndpointFiber u v
+    using (base; category; cone; lift; lift-base; lift-β)
   private
     module K = Paired.Coordinates 𝒯 (ev₀ {C}) ev₁ u v
       using (edge₁; edge₂; encode-edge₁; encode-edge₂; coordinate₁; coordinate₂; cone-from-coordinates;

@@ -23,7 +23,7 @@ module SCT.VolumeI.Chapter02.Section02.SquareCalculus.GluedFramedSquares
   (S : Segal.SegalAxiom 𝒯 M ℱ P I E)
   (Q : Squares.CommutativeSquareAxiom 𝒯 M ℱ P I E) where
 
-open import SCT.VolumeI.Chapter02.Section02.SquareCalculus.ArrowCategorySquares 𝒯 M ℱ P I E S public
+open import SCT.VolumeI.Chapter02.Section02.SquareCalculus.ArrowCategorySquares 𝒯 M ℱ P I E S
 import SCT.VolumeI.Chapter02.Section02.SquareCalculus.GluedSquareCorners as Corners
 import SCT.VolumeI.Chapter02.Section02.SquareCalculus.FramedSquareEndpoints as Endpoints
 
@@ -34,25 +34,36 @@ module At {Γ C : CAT} {x y z w : MAP Γ C}
   (upper : CompositePresentation top right diag)
   (lower : CompositePresentation left bottom diag) where
   module K = Corners.Corners 𝒯 M ℱ P I E S Q upper lower
+    using (corner₀₀; corner₀₁; corner₁₀; corner₁₁; module Arrows)
   module A = K.Arrows
+    using (vertical-expression; top-comparison; bottom-comparison; module Glued)
   module Top = MorphismExpression top
+    using (source-frame; target-frame)
   module Right = MorphismExpression right
   module Left = MorphismExpression left
   module Bottom = MorphismExpression bottom
-  module V₀₀ = Endpoints.At 𝒯 M ℱ P I E S A.Glued.square zero zero Top.source-frame Left.source-frame
-  module V₀₁ = Endpoints.At 𝒯 M ℱ P I E S A.Glued.square zero one Top.target-frame Right.source-frame
-  module V₁₀ = Endpoints.At 𝒯 M ℱ P I E S A.Glued.square one zero Bottom.source-frame Left.target-frame
-  module V₁₁ = Endpoints.At 𝒯 M ℱ P I E S A.Glued.square one one Bottom.target-frame Right.target-frame
+    using (source-frame; target-frame)
 
+  -- Restructured: the four endpoint instances are direct calls of
+  -- FramedSquareEndpoints.At.FromCone.compatible instead of four module
+  -- instantiations. K and A stay module applications, restricted to the
+  -- names used here: the corners are stated in their copied names, and with
+  -- direct calls for K and A (or a private abbreviation for the glued
+  -- square) the endpoint arguments agree only after unfolding, which is
+  -- slower than the original.
   square : FramedSquare top right left bottom
   square = record
     { vertical = A.vertical-expression
     ; top-edge = record
       { comparison = A.top-comparison
-      ; source-compatible = V₀₀.FromCone.compatible K.corner₀₀
-      ; target-compatible = V₀₁.FromCone.compatible K.corner₀₁ }
+      ; source-compatible = Endpoints.At.FromCone.compatible 𝒯 M ℱ P I E S A.Glued.square zero zero
+          Top.source-frame Left.source-frame K.corner₀₀
+      ; target-compatible = Endpoints.At.FromCone.compatible 𝒯 M ℱ P I E S A.Glued.square zero one
+          Top.target-frame Right.source-frame K.corner₀₁ }
     ; bottom-edge = record
       { comparison = A.bottom-comparison
-      ; source-compatible = V₁₀.FromCone.compatible K.corner₁₀
-      ; target-compatible = V₁₁.FromCone.compatible K.corner₁₁ } }
+      ; source-compatible = Endpoints.At.FromCone.compatible 𝒯 M ℱ P I E S A.Glued.square one zero
+          Bottom.source-frame Left.target-frame K.corner₁₀
+      ; target-compatible = Endpoints.At.FromCone.compatible 𝒯 M ℱ P I E S A.Glued.square one one
+          Bottom.target-frame Right.target-frame K.corner₁₁ } }
 ```

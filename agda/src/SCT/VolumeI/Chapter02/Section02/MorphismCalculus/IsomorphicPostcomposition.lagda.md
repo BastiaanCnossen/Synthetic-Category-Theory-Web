@@ -30,8 +30,11 @@ import SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.Postcomposition.CurryP
 module At {Γ C D : CAT} {F G : MAP C D} (η : F =₁ G)
   {x y : MAP Γ C} (α : MorphismExpression x y) where
   module R = Diagrams.Recovery 𝒯 M ℱ P I E α
+    using (H; comparison; p; q)
   module First = Post.At 𝒯 M ℱ P I E F R.H R.p R.q
+    using (comparison)
   module Second = Post.At 𝒯 M ℱ P I E G R.H R.p R.q
+    using (comparison)
   sourceF = (F ◁ R.p) ∙ comp-assoc (insert zero) R.H F
   targetF = (F ◁ R.q) ∙ comp-assoc (insert one) R.H F
   sourceG = (G ◁ R.p) ∙ comp-assoc (insert zero) R.H G
@@ -39,6 +42,7 @@ module At {Γ C D : CAT} {F G : MAP C D} (η : F =₁ G)
   module Compared = Diagrams.At 𝒯 M ℱ P I E (F ∘ R.H) (G ∘ R.H) (η ▷ R.H)
     ((η ▷ x) ∙ sourceF) ((η ▷ y) ∙ targetF) sourceG targetG
     (application-natural R.H (insert zero) R.p η) (application-natural R.H (insert one) R.q η)
+    using (comparison)
 
   abstract
     value : ExpressionIso (retarget-expression (post-expression F α) (η ▷ x) (η ▷ y))

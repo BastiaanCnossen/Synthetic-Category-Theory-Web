@@ -5,7 +5,7 @@ fixed-coordinate insertion. The endpoint identifications are constructed
 from the two projection comparisons and are independent of the arrow.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
@@ -47,17 +47,22 @@ module Pairing {Γ A B C : CAT} (J : MAP A (B × C)) {x y : MAP Γ A} (f : Morph
   target-frame = pair-iso ((pair-β₁ y₁ y₂) ⁻¹ ∙ q₁) ((pair-β₂ y₁ y₂) ⁻¹ ∙ q₂)
   value = retarget-expression (post-expression J f) source-frame target-frame
   module Paired = Pairs.At 𝒯 M ℱ I g h
+    using (comparison; first-projection; second-projection)
 
-  module Projection {Y : CAT} (π : MAP (B × C) Y) {u v : MAP Γ Y}
-    (s : (π ∘ pair x₁ x₂) =₁ u) (t : (π ∘ pair y₁ y₂) =₁ v)
-    (p : (π ∘ (J ∘ x)) =₁ u) (q : (π ∘ (J ∘ y)) =₁ v)
-    (source : (s ∙ (π ◁ source-frame)) =₂ p) (target : (t ∙ (π ◁ target-frame)) =₂ q)
-    (k : MorphismExpression u v)
-    (result : ExpressionIso (retarget-expression (post-expression π (post-expression J f)) p q) k)
-    (paired : ExpressionIso (retarget-expression (post-expression π (pair-expression g h)) s t) k) where
+  -- A parameterless module of functions rather than a module with a
+  -- twelve-parameter telescope (rule A10): the name `Projection.comparison`,
+  -- its arguments and its statement are unchanged.
+  module Projection where
     abstract
-      comparison : ExpressionIso (post-expression π value) (post-expression π (pair-expression g h))
-      comparison = retarget-reflect s t
+      comparison : {Y : CAT} (π : MAP (B × C) Y) {u v : MAP Γ Y}
+        (s : (π ∘ pair x₁ x₂) =₁ u) (t : (π ∘ pair y₁ y₂) =₁ v)
+        (p : (π ∘ (J ∘ x)) =₁ u) (q : (π ∘ (J ∘ y)) =₁ v)
+        (source : (s ∙ (π ◁ source-frame)) =₂ p) (target : (t ∙ (π ◁ target-frame)) =₂ q)
+        (k : MorphismExpression u v)
+        (result : ExpressionIso (retarget-expression (post-expression π (post-expression J f)) p q) k)
+        (paired : ExpressionIso (retarget-expression (post-expression π (pair-expression g h)) s t) k) →
+        ExpressionIso (post-expression π value) (post-expression π (pair-expression g h))
+      comparison π s t p q source target k result paired = retarget-reflect s t
         (expressionIso-compose (expressionIso-inverse paired)
           (expressionIso-compose result
             (expressionIso-compose (retarget-cong (post-expression π (post-expression J f)) source target)
@@ -95,7 +100,9 @@ module FixRight {A B : CAT} (y : Obj-abs B) where
 
   module Arrow {x x′ : Obj-abs A} (f : MorphismExpression x x′) where
     module First = Pasting.At 𝒯 M ℱ P I E insertion pr₁ (id A) identity-comparison f
+      using (comparison; source-change; target-change)
     module Second = Pasting.At 𝒯 M ℱ P I E insertion pr₂ (const y) constant-comparison f
+      using (comparison; source-change; target-change)
     first : ExpressionIso
       (retarget-expression (post-expression pr₁ (post-expression insertion f)) (identity-frame x) (identity-frame x′)) f
     first = expressionIso-compose (post-id f)
@@ -111,6 +118,7 @@ module FixRight {A B : CAT} (y : Obj-abs B) where
           Second.source-change Second.target-change (constant-point-frame y x) (constant-point-frame y x′))))
     module Paired = Pairing insertion f f (identity-expression y)
       (identity-frame x) (identity-frame x′) (constant-frame x) (constant-frame x′) first second
+      using (comparison)
     abstract
       comparison : ExpressionIso (retarget-expression (post-expression insertion f) (frame x) (frame x′))
         (pair-expression f (identity-expression y))
@@ -130,7 +138,9 @@ module FixLeft {A B : CAT} (x : Obj-abs A) where
 
   module Arrow {y y′ : Obj-abs B} (f : MorphismExpression y y′) where
     module First = Pasting.At 𝒯 M ℱ P I E insertion pr₁ (const x) constant-comparison f
+      using (comparison; source-change; target-change)
     module Second = Pasting.At 𝒯 M ℱ P I E insertion pr₂ (id B) identity-comparison f
+      using (comparison; source-change; target-change)
     first : ExpressionIso
       (retarget-expression (post-expression pr₁ (post-expression insertion f)) (constant-frame y) (constant-frame y′))
       (identity-expression x)
@@ -146,6 +156,7 @@ module FixLeft {A B : CAT} (x : Obj-abs A) where
           Second.source-change Second.target-change (comp-unitˡ y) (comp-unitˡ y′))))
     module Paired = Pairing insertion f (identity-expression x) f
       (constant-frame y) (constant-frame y′) (identity-frame y) (identity-frame y′) first second
+      using (comparison)
     abstract
       comparison : ExpressionIso (retarget-expression (post-expression insertion f) (frame y) (frame y′))
         (pair-expression (identity-expression x) f)

@@ -55,7 +55,8 @@ module Sum {C D S : CAT} (p : MAP C S) (q : MAP D S) where
       ((r ◁ α) ∙ comp-assoc in₁ F r))
     θ₂ = (copair-β₂ p q) ⁻¹ ∙ (FunctorLift.comparison v ∙
       ((r ◁ β) ∙ comp-assoc in₂ F r))
-    module Triangle = RestrictionLift (r ∘ F) projection θ₁ θ₂
+    private
+      module Triangle = RestrictionLift (r ∘ F) projection θ₁ θ₂
     over : FunctorOver projection r
     over = record { lift = F ; comparison = Triangle.lift }
 
@@ -85,8 +86,9 @@ module Sum {C D S : CAT} (p : MAP C S) (q : MAP D S) where
   module Compare {E : CAT} {r : MAP E S} (u v : FunctorOver projection r)
     (first-comparison : FunctorOverIso (compose-over u first) (compose-over v first))
     (second-comparison : FunctorOverIso (compose-over u second) (compose-over v second)) where
-    module Lift = RestrictionLift (FunctorLift.lift u) (FunctorLift.lift v)
-      (FunctorOverIso.underlying first-comparison) (FunctorOverIso.underlying second-comparison)
+    private
+      module Lift = RestrictionLift (FunctorLift.lift u) (FunctorLift.lift v)
+        (FunctorOverIso.underlying first-comparison) (FunctorOverIso.underlying second-comparison)
     abstract
       first-compatible : (FunctorLift.comparison (compose-over v first) ∙
         (r ◁ (Lift.lift ▷ in₁))) =₂ FunctorLift.comparison (compose-over u first)
@@ -109,14 +111,16 @@ module Sum {C D S : CAT} (p : MAP C S) (q : MAP D S) where
 module Action {C D C′ D′ S : CAT}
   {p : MAP C S} {q : MAP D S} {p′ : MAP C′ S} {q′ : MAP D′ S}
   (u : FunctorOver p p′) (v : FunctorOver q q′) where
-  module Source = Sum p q
-  module Target = Sum p′ q′
-  module Chosen = Source.Copair (compose-over Target.first u) (compose-over Target.second v)
+  private
+    module Source = Sum p q
+    module Target = Sum p′ q′
+    module Chosen = Source.Copair (compose-over Target.first u) (compose-over Target.second v)
   open Chosen public using (over; first-comparison; second-comparison)
 
 module Identity {C D S : CAT} (p : MAP C S) (q : MAP D S) where
-  module SumData = Sum p q
-  module A = Action (identity-over p) (identity-over q)
+  private
+    module SumData = Sum p q
+    module A = Action (identity-over p) (identity-over q)
   abstract
     first-comparison : FunctorOverIso (compose-over A.over SumData.first)
       (compose-over (identity-over SumData.projection) SumData.first)
@@ -135,12 +139,13 @@ module Composite {C D C′ D′ C″ D″ S : CAT}
   {p″ : MAP C″ S} {q″ : MAP D″ S}
   (u : FunctorOver p p′) (v : FunctorOver q q′)
   (u′ : FunctorOver p′ p″) (v′ : FunctorOver q′ q″) where
-  module Source = Sum p q
-  module Middle = Sum p′ q′
-  module Target = Sum p″ q″
-  module A = Action u v
-  module B = Action u′ v′
-  module CompositeAction = Action (compose-over u′ u) (compose-over v′ v)
+  private
+    module Source = Sum p q
+    module Middle = Sum p′ q′
+    module Target = Sum p″ q″
+    module A = Action u v
+    module B = Action u′ v′
+    module CompositeAction = Action (compose-over u′ u) (compose-over v′ v)
   abstract
     first-comparison : FunctorOverIso (compose-over (compose-over B.over A.over) Source.first)
       (compose-over CompositeAction.over Source.first)
@@ -167,10 +172,11 @@ module Identification {C D C′ D′ S : CAT}
   {p : MAP C S} {q : MAP D S} {p′ : MAP C′ S} {q′ : MAP D′ S}
   {u u′ : FunctorOver p p′} {v v′ : FunctorOver q q′}
   (α : FunctorOverIso u u′) (β : FunctorOverIso v v′) where
-  module Source = Sum p q
-  module Target = Sum p′ q′
-  module A = Action u v
-  module B = Action u′ v′
+  private
+    module Source = Sum p q
+    module Target = Sum p′ q′
+    module A = Action u v
+    module B = Action u′ v′
   abstract
     comparison : FunctorOverIso A.over B.over
     comparison = Source.Compare.comparison A.over B.over

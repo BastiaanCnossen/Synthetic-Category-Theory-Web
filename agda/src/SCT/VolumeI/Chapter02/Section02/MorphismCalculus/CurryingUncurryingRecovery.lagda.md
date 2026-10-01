@@ -30,21 +30,29 @@ open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionIdentific
 
 module At {Γ X C : CAT} {f g : MAP Γ (Fun X C)} (α : MorphismExpression f g) where
   module N = Normalization.At 𝒯 M ℱ P I E α
+    using (comparison; source-compatible; target-compatible; uncurried; module B; module Endpoint)
   module A = Currying.Curry 𝒯 M ℱ I f g N.uncurried
+    using (diagram; first-curry; value; module Endpoint; module Source; module Target)
   module Original = MorphismExpression α
+    using (arrow; source-frame; target-frame)
   module Recovery = Diagrams.Recovery 𝒯 M ℱ P I E α
+    using (H; comparison; p; q)
   β : funUncurry A.first-curry =₁ A.diagram
   β = funCurry-β A.diagram
   δ : funUncurry A.first-curry =₁ funUncurry Recovery.H
   δ = N.comparison ∙ β
   module Reflected = Reflection.Reflect 𝒯 M ℱ P I E A.first-curry Recovery.H δ
+    using (module WithEndpoints)
 
   module Endpoint (z : Obj-abs [1]) (h : MAP Γ (Fun X C))
     (a : (evaluate z ∘ Original.arrow) =₁ h)
     (b : (evaluate z ∘ N.B.arrow) =₁ funUncurry h) where
     module Old = N.Endpoint z a (b ∙ (evaluate-uncurry z N.B.arrow) ⁻¹)
+      using (R; before)
     module New = A.Endpoint z h b
+      using (reflected)
     module Image = Images.At.Endpoint 𝒯 M ℱ I f g N.uncurried z h b
+      using (comparison)
     i = insert {X = Γ} z
     s = productMap i (id X)
     ρ : funUncurry (A.first-curry ∘ i) =₁ (funUncurry A.first-curry ∘ s)
@@ -62,9 +70,12 @@ module At {Γ X C : CAT} {f g : MAP Γ (Fun X C)} (α : MorphismExpression f g) 
         isoComp-cong (idIso Old.R) (preWhisker-isoComp-at N.comparison β s)
 
   module Source = Endpoint zero f Original.source-frame N.B.source-frame
+    using (compatible)
   module Target = Endpoint one g Original.target-frame N.B.target-frame
+    using (compatible)
   module Compared = Reflected.WithEndpoints A.Source.reflected A.Target.reflected Recovery.p Recovery.q
     (Source.compatible N.source-compatible) (Target.compatible N.target-compatible)
+    using (value)
 
   value : ExpressionIso A.value α
   value = expressionIso-compose (expressionIso-inverse Recovery.comparison) Compared.value

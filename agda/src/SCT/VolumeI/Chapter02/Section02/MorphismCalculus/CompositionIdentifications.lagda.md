@@ -47,7 +47,9 @@ module ComposeIdentification {Γ C : CAT} {x y z : MAP Γ C}
   {f f′ : MorphismExpression x y} {g g′ : MorphismExpression y z}
   (α : ExpressionIso f f′) (β : ExpressionIso g g′) where
   module Before = Complete (expression-pair f g)
+    using (short-edges; triangle)
   module After = Complete (expression-pair f′ g′)
+    using (short-edges; triangle)
   pair-comparison = pair-identification α β
   short-comparison = coneIso-compose (coneIso-inverse After.short-edges)
     (coneIso-compose pair-comparison Before.short-edges)

@@ -41,9 +41,13 @@ leftInverseArrow = edge₂ ∘ pullback₁
 module At {B C : CAT} (f : MAP B (Ar C)) where
   private
     module RightAction = Right.At 𝒯 M ℱ P I E S Q f
+      using (arrow; long-cone; long-isPullback)
     module LeftAction = Left.At 𝒯 M ℱ P I E S Q f
+      using (arrow; long-cone; long-isPullback)
     module RightOrder = Reorder.At 𝒯 P f edge₀ edge₁ identityArrow
+      using (projection-isEquiv)
     module LeftOrder = Reorder.At 𝒯 P f edge₂ edge₁ identityArrow
+      using (projection-isEquiv)
 
   right-inverse-projection-isEquiv : IsInvertibleExpression RightAction.arrow →
     IsEquiv (pullback₂ {f = rightInverseArrow} {f})
@@ -60,7 +64,9 @@ module At {B C : CAT} (f : MAP B (Ar C)) where
 module UniversalFibers (C : CAT) where
   private
     module U = Universal C
+      using (inverse-data)
     module Fibers = At (isoArrow {C})
+      using (left-inverse-projection-isEquiv; right-inverse-projection-isEquiv)
 
   right-inverse-projection-isEquiv :
     IsEquiv (pullback₂ {f = rightInverseArrow} {isoArrow {C}})
