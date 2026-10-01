@@ -44,7 +44,9 @@ open import SCT.VolumeI.Chapter01.Section06.PullbackSquares 𝒯 P
 open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.ConeAction 𝒯 using (cone-action)
 open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.ConeSymmetry 𝒯 using (cone-match-change)
 open import SCT.VolumeI.Chapter01.Section04.Substitution.CoherenceTransport 𝒯
-  using (changeEndpoints-reflect; changeEndpoints-comp; square-to-changeEndpoints)
+  using (changeEndpoints-reflect)
+open import SCT.VolumeI.Chapter05.Section02.ConeCalculus.TransportedSquares 𝒯
+  using (reflect-transported-square)
 open import SCT.VolumeI.Chapter01.Section06.MappingCalculus.MappingCompatibility 𝒯 M
   using (mapPost-uncurry-natural)
 open import SCT.VolumeI.Chapter01.Section06.PullbackFunctor 𝒯 P using (CospanMap)
@@ -514,16 +516,9 @@ module FiberDecoding {C D S : CAT} (f : MAP C S) (g : MAP D S) where
       right-square = (isoComp-unitˡ-at gs) ⁻¹ ∙ right-natural right
 
       raw-square : (τt ∙ left-image) =₂ (right-image ∙ τs)
-      raw-square = changeEndpoints-reflect fs gt _ _
-        (changeEndpoints-comp fs gs gt right-image τs ∙
-          (isoComp-cong
-            ((square-to-changeEndpoints gs gt right-image (idIso f) right-square) ⁻¹)
-            (idIso (triangle s)) ∙
-          (adjusted ∙
-            (isoComp-cong (idIso (triangle t))
-              (square-to-changeEndpoints fs ft left-image (g ◁ decodeMapIso left)
-                (DecodePost.natural g left)) ∙
-              (changeEndpoints-comp fs ft gt τt left-image) ⁻¹))))
+      raw-square = reflect-transported-square fs gs ft gt τs τt
+        left-image right-image (g ◁ decodeMapIso left) (idIso f)
+        (DecodePost.natural g left) right-square adjusted
 
       comparison : ConeIso s t
       comparison = record
