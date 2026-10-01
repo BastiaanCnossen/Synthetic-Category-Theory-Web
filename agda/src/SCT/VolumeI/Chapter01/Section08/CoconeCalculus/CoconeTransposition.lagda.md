@@ -63,9 +63,8 @@ equivalence on isomorphism animae. The beta comparison is a comparison
 of whole cocones.
 
 ```agda
-open PN vocabulary terminal products productLaws composition vertical whiskering using (cancel-right)
-open import SCT.VolumeI.Chapter01.Section02.Isomorphisms
-  vocabulary terminal products productLaws composition vertical whiskering using (cancel-inverse)
+open import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.BoundaryTransport
+  vocabulary terminal products productLaws composition vertical using (restore-boundaries)
 open import SCT.VolumeI.Chapter01.Section04.Substitution.CoherenceTransport 𝒯
 
 module UntransposeCocone {X A B C E : CAT} {u : MAP A B} {v : MAP A C}
@@ -86,11 +85,9 @@ module UntransposeCocone {X A B C E : CAT} {u : MAP A B} {v : MAP A C}
 
   abstract
     match-β : (Cocone.match (transposeCocone {u = u} {v = v} value)) =₂ desired
-    match-β = cancel-right leftChange desired ∙
-      (isoComp-cong (cancel-inverse rightChange (desired ∙ leftChange)) (idIso (leftChange ⁻¹)) ∙
-      ((isoComp-assoc-at rightChange rawMatch (leftChange ⁻¹)) ⁻¹ ∙
-        isoComp-cong (idIso rightChange)
-          (isoComp-cong (transpose-reflect-β _ _ rawMatch) (idIso (leftChange ⁻¹)))))
+    match-β = restore-boundaries leftChange rightChange desired
+      (transposeIso (Cocone.match value))
+      (transpose-reflect-β _ _ rawMatch)
 
     comparison : CoconeIso (transposeCocone {u = u} {v = v} value) s
     comparison = coconeIso-compose

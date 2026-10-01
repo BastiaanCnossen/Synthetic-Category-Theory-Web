@@ -31,3 +31,4 @@ import SCT.VolumeI.Chapter01.Section03.ProductCalculus.BinaryFunctorCalculus
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.ProductPairing
 
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingBaseChange
+import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.BoundaryTransport

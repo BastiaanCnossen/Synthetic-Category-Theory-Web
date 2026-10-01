@@ -10,8 +10,7 @@ open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
 import SCT.VolumeI.Chapter01.Section07.Setup as Setup
-import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingNaturality as PN
-import SCT.VolumeI.Chapter01.Section02.Isomorphisms as Isomorphisms
+import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.BoundaryTransport as Boundary
 
 import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
 
@@ -24,8 +23,7 @@ open import SCT.VolumeI.Chapter01.Section07.EvaluationCalculus.IsomorphismLiftin
 open import SCT.VolumeI.Chapter01.Section07.PullbackCalculus.ConeUncurrying 𝒯 M ℱ
 open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.Comparisons 𝒯 using (coneRetarget; coneRetarget-β; coneIso-compose; coneIso-inverse)
 open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.ConeSymmetry 𝒯 using (cone-match-change)
-open PN vocabulary terminal products productLaws composition vertical whiskering using (cancel-right)
-open Isomorphisms vocabulary terminal products productLaws composition vertical whiskering using (cancel-inverse)
+open Boundary vocabulary terminal products productLaws composition vertical using (restore-boundaries)
 
 module CurryCone {X T C D E : CAT} {f : MAP C E} {g : MAP D E}
   (s : Cone f g (X × T)) where
@@ -46,11 +44,9 @@ module CurryCone {X T C D E : CAT} {f : MAP C E} {g : MAP D E}
     ; match = funIsoReflect _ _ rawMatch }
 
   match-β : (Cone.match (uncurryCone value)) =₂ desired
-  match-β = cancel-right leftChange desired ∙
-    (isoComp-cong (cancel-inverse rightChange (desired ∙ leftChange)) (idIso (leftChange ⁻¹)) ∙
-    ((isoComp-assoc-at rightChange rawMatch (leftChange ⁻¹)) ⁻¹ ∙
-      isoComp-cong (idIso rightChange)
-        (isoComp-cong (funIsoReflect-β _ _ rawMatch) (idIso (leftChange ⁻¹)))))
+  match-β = restore-boundaries leftChange rightChange desired
+    (funUncurryIso (Cone.match value))
+    (funIsoReflect-β _ _ rawMatch)
 
   abstract
     comparison : ConeIso (uncurryCone value) s

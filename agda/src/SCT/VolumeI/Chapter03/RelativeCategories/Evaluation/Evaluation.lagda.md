@@ -12,8 +12,7 @@ open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
 import SCT.VolumeI.Chapter01.Section07.FunctorCategories as Categories
 import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
-import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingNaturality as PN
-import SCT.VolumeI.Chapter01.Section02.Isomorphisms as Isomorphisms
+import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.BoundaryTransport as Boundary
 
 module SCT.VolumeI.Chapter03.RelativeCategories.Evaluation.Evaluation
   {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
@@ -28,8 +27,7 @@ open import SCT.VolumeI.Chapter01.Section07.Functoriality 𝒯 M ℱ using (funP
 open import SCT.VolumeI.Chapter03.RelativeCategories.Functors 𝒯 M ℱ P
 open import SCT.VolumeI.Chapter01.Section07.EvaluationCalculus.UncurryingAction 𝒯 M ℱ using (funUncurryIso)
 open import SCT.VolumeI.Chapter01.Section07.EvaluationCalculus.IsomorphismLifting 𝒯 M ℱ
-open PN vocabulary terminal products productLaws composition vertical whiskering using (cancel-right)
-open Isomorphisms vocabulary terminal products productLaws composition vertical whiskering using (cancel-inverse)
+open Boundary vocabulary terminal products productLaws composition vertical using (restore-boundaries)
 
 uncurry-constant-name : {X C S : CAT} (f : MAP C S) (u : MAP X One) →
   funUncurry (nameFun f ∘ u) =₁ (f ∘ pr₂)
@@ -63,13 +61,9 @@ module Curry {X C D S : CAT} (f : MAP C S) (g : MAP D S)
 
   matching-comparison :
     (rightChange ∙ (funUncurryIso (Cone.match cone) ∙ leftChange ⁻¹)) =₂ desired
-  matching-comparison = cancel-right leftChange desired ∙
-    (isoComp-cong (cancel-inverse rightChange (desired ∙ leftChange)) (idIso (leftChange ⁻¹)) ∙
-      ((isoComp-assoc-at rightChange rawMatch (leftChange ⁻¹)) ⁻¹ ∙
-        isoComp-cong (idIso rightChange)
-          (isoComp-cong
-            (funIsoReflect-β (funPost g ∘ funCurry v) (nameFun f ∘ terminate X) rawMatch)
-            (idIso (leftChange ⁻¹)))))
+  matching-comparison = restore-boundaries leftChange rightChange desired
+    (funUncurryIso (Cone.match cone))
+    (funIsoReflect-β (funPost g ∘ funCurry v) (nameFun f ∘ terminate X) rawMatch)
 
   functor : MAP X (FunOver f g)
   functor = pullbackLift cone
