@@ -1,12 +1,14 @@
 """Check every module that uses --lossy-unification once more without it.
 
 Why: lossy unification cannot make Agda accept a false statement, but it can
-solve an implicit argument differently from ordinary unification. Ordinary
-unification only commits to solutions that the constraints force. So if a
-module also checks WITHOUT the flag, every implicit argument it contains is
-forced, and the lossy elaboration produces the same terms up to definitional
-equality. The flag is then a pure performance switch. This audit establishes
-that for every module carrying the flag.
+solve an implicit argument differently from ordinary unification, which by
+default only commits to unique solutions (--require-unique-meta-solutions).
+This is a regression audit: it establishes only that every flagged module
+also type-checks without the flag. It does NOT compare the elaborated terms
+of the two runs, so it does not by itself show that a transparent
+construction or chosen comparison is the same term in both. That needs a
+separate term comparison, or keeping such constructions out of flagged
+modules.
 
 The audit works on a copy under _build/lossy-audit/; canonical sources and
 caches are not modified. Reports: _build/lossy-audit/report.md and report.json.

@@ -17,8 +17,20 @@ def has_safe_options(code):
             and not {'--with-K', '--no-safe'} & options)
 
 
+def check_source_cache_layout(root):
+    interfaces = sorted(root.rglob('*.agdai'))
+    if interfaces:
+        examples = ', '.join(str(p.relative_to(root)) for p in interfaces[:3])
+        raise ValueError(
+            f'Found {len(interfaces)} interface files in canonical agda/src: {examples}. '
+            'Keep project interfaces in agda/_build/<version>/agda/src; '
+            'exclude *.agdai when copying sources back from snapshots. '
+            'Inspect existing cache copies before removing source-adjacent files.')
+
+
 def check():
     root=ROOT/'agda/src'
+    check_source_cache_layout(root)
     modules={}
     for path in root.rglob('*'):
         if path.suffix!='.agda' and not path.name.endswith('.lagda.md'): continue
