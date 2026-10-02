@@ -1,7 +1,6 @@
 {-# OPTIONS --safe --without-K #-}
 module SCT.VolumeI.Chapter05.Section02.Everything where
 
-import SCT.VolumeI.Chapter05.Section02.ConeCalculus.Everything
 import SCT.VolumeI.Chapter05.Section02.DependentEquivalences
 import SCT.VolumeI.Chapter05.Section02.DependentProducts
 import SCT.VolumeI.Chapter05.Section02.DependentSums

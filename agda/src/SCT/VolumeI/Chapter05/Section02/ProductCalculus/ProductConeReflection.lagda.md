@@ -17,7 +17,7 @@ import SCT.VolumeI.Chapter05.Section02.ProductCalculus.ProductPostcomposition as
 import SCT.VolumeI.Chapter05.Section02.ProductCalculus.ProductCones as Cones
 import SCT.VolumeI.Chapter05.Section01.ComparisonCalculus.Calculus as Calculus
 import SCT.VolumeI.Chapter01.Section06.ConeCalculus.Comparisons as ConeCalculus
-import SCT.VolumeI.Chapter05.Section02.ConeCalculus.TransportedSquares as Squares
+import SCT.VolumeI.Chapter01.Section04.Substitution.TransportedSquares as Squares
 
 module SCT.VolumeI.Chapter05.Section02.ProductCalculus.ProductConeReflection
   {l : Level} {S T : Theory l l l} (W : Weakening S T)
