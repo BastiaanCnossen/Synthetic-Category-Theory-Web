@@ -31,7 +31,7 @@ import SCT.VolumeI.Chapter01.Section06.ConeCalculus.ConeSymmetry as Symmetry
 import SCT.VolumeI.Chapter01.Section06.ConeCalculus.InverseCalculus as Inverses
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingNaturality as Pairing
 import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.BoundaryTransport as Boundary
-import SCT.VolumeI.Chapter05.Section02.ConeCalculus.TransportedSquares as Squares
+import SCT.VolumeI.Chapter01.Section04.Substitution.TransportedSquares as Squares
 
 module SCT.VolumeI.Chapter05.Section02.SumCones
   {l : Level} {S T : Theory l l l} (W : Weakening S T)

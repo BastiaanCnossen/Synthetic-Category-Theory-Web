@@ -45,7 +45,7 @@ open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.ConeAction 𝒯 using (
 open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.ConeSymmetry 𝒯 using (cone-match-change)
 open import SCT.VolumeI.Chapter01.Section04.Substitution.CoherenceTransport 𝒯
   using (changeEndpoints-reflect)
-open import SCT.VolumeI.Chapter05.Section02.ConeCalculus.TransportedSquares 𝒯
+open import SCT.VolumeI.Chapter01.Section04.Substitution.TransportedSquares 𝒯
   using (reflect-transported-square)
 open import SCT.VolumeI.Chapter01.Section06.MappingCalculus.MappingCompatibility 𝒯 M
   using (mapPost-uncurry-natural)

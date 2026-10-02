@@ -74,7 +74,8 @@ a comparison of whole cocones. Reflection uses the same anima hypothesis.
 ```agda
 open import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.BoundaryTransport
   vocabulary terminal products productLaws composition vertical using (restore-boundaries)
-open import SCT.VolumeI.Chapter01.Section04.Substitution.CoherenceTransport 𝒯
+open import SCT.VolumeI.Chapter01.Section04.Substitution.TransportedSquares 𝒯
+  using (reflect-transported-square)
 
 module CurryRestriction {X A B C E : CAT} {u : MAP A B} {v : MAP A C}
   (xAn : isAn X) (s : Cocone (productMap (id X) u) (productMap (id X) v) E) where
@@ -123,17 +124,10 @@ module ReflectRestriction {X A B C E : CAT} {u : MAP A B} {v : MAP A C}
 
   abstract
     rawSquare : (τt ∙ α) =₂ (β ∙ τs)
-    rawSquare = changeEndpoints-reflect fs gt _ _
-      (changeEndpoints-comp fs gs gt β τs ∙
-      (isoComp-cong
-        ((square-to-changeEndpoints gs gt β
-          (mapUncurryIso right ▷ productMap (id X) v) (mapPre-uncurry-natural v right)) ⁻¹)
-        (idIso (Cocone.match (uncurryRestriction s))) ∙
-      (CoconeIso.compatible adjusted ∙
-      (isoComp-cong (idIso (Cocone.match (uncurryRestriction t)))
-        (square-to-changeEndpoints fs ft α
-          (mapUncurryIso left ▷ productMap (id X) u) (mapPre-uncurry-natural u left)) ∙
-        (changeEndpoints-comp fs ft gt τt α) ⁻¹))))
+    rawSquare = reflect-transported-square fs gs ft gt τs τt
+      α β (mapUncurryIso left ▷ productMap (id X) u) (mapUncurryIso right ▷ productMap (id X) v)
+      (mapPre-uncurry-natural u left) (mapPre-uncurry-natural v right)
+      (CoconeIso.compatible adjusted)
 
     comparison : ConeIso s t
     comparison = record
