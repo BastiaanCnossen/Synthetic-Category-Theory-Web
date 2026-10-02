@@ -63,7 +63,8 @@ equivalence. The beta comparison below is a comparison of whole cocones.
 ```agda
 open import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.BoundaryTransport
   vocabulary terminal products productLaws composition vertical using (restore-boundaries)
-open import SCT.VolumeI.Chapter01.Section04.Substitution.CoherenceTransport 𝒯
+open import SCT.VolumeI.Chapter01.Section04.Substitution.TransportedSquares 𝒯
+  using (reflect-transported-square)
 
 module NameRestriction {A B C E : CAT} {u : MAP A B} {v : MAP A C}
   (s : Cocone u v E) where
@@ -112,17 +113,10 @@ module ReflectDecodedRestriction {A B C E : CAT} {u : MAP A B} {v : MAP A C}
 
   abstract
     rawSquare : (τt ∙ α) =₂ (β ∙ τs)
-    rawSquare = changeEndpoints-reflect fs gt _ _
-      (changeEndpoints-comp fs gs gt β τs ∙
-      (isoComp-cong
-        ((square-to-changeEndpoints gs gt β
-          (decodeMapIso right ▷ v) (decodePre-absolute v right)) ⁻¹)
-        (idIso (Cocone.match (decodeRestriction s))) ∙
-      (CoconeIso.compatible adjusted ∙
-      (isoComp-cong (idIso (Cocone.match (decodeRestriction t)))
-        (square-to-changeEndpoints fs ft α
-          (decodeMapIso left ▷ u) (decodePre-absolute u left)) ∙
-        (changeEndpoints-comp fs ft gt τt α) ⁻¹))))
+    rawSquare = reflect-transported-square fs gs ft gt τs τt
+      α β (decodeMapIso left ▷ u) (decodeMapIso right ▷ v)
+      (decodePre-absolute u left) (decodePre-absolute v right)
+      (CoconeIso.compatible adjusted)
 
     comparison : ConeIso s t
     comparison = record
