@@ -1,9 +1,12 @@
 # Restriction of unit and counit components
 
-The component at a composite parameter map agrees with the restricted
-component. The endpoint changes display both nested functors. These
-comparisons provide the restriction equations needed to assemble the
-transposition formulas into functors between total categories.
+Restrict the unit and counit transformations, then normalize their endpoints
+by the unitor and associator. Mapping these sections through endpoint
+transport supplies both restriction and parameter-change comparisons.
+Their values are the explicit components defined in `Adjunctions`.
+
+`UnitCounitLaws` takes the two transformations without triangle identities.
+`Components` specializes it to an adjunction and retains the usual names.
 
 ```agda
 {-# OPTIONS --safe --without-K #-}
@@ -23,26 +26,23 @@ module SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.ComponentRestriction
   (S : Segal.SegalAxiom 𝒯 M ℱ P I E) where
 
 open import SCT.VolumeI.Chapter04.Section04.Adjunctions 𝒯 M ℱ P I E S public
-open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionRestrictionFrames 𝒯 M ℱ I
-  using (restrict-restriction-retarget)
-open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionRestriction 𝒯 M ℱ I
-  using (restrict-expression-parameter)
-open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionIdentifications 𝒯 M ℱ I
-open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionFrameCalculus 𝒯 M ℱ I
-  using (retarget-assoc; retarget-cong)
-import SCT.VolumeI.Chapter01.Section03.ProductCalculus.IteratedPairing as Iterated
-import SCT.VolumeI.Chapter01.Section03.ProductCalculus.ProductFunctorUnits as LeftUnits
-import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.Structural as Structural
-open Iterated vocabulary terminal products productLaws composition vertical whiskering pentagonTriangle
-  using (pentagon-whiskered)
-open LeftUnits vocabulary terminal products productLaws composition vertical whiskering pentagonTriangle
-  using (left-unitor-comp)
-open Structural vocabulary terminal products productLaws composition whiskering
-  using (postWhisker-id-at; postWhisker-comp-at)
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.UnitCounitData as Data
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionFamilies 𝒯 M ℱ I
+  using (FamilySection; variable-family; post; represented; unit-frame; associator-frame;
+    restricted-section; map-section; transport)
 
-module Components {C D : CAT} {l : MAP C D} {r : MAP D C}
-  (adj : Adjunction l r) where
-  private module A = Adjunction adj
+module UnitCounitLaws {C D : CAT} (l : MAP C D) (r : MAP D C)
+  (unit : MorphismExpression (id C) (r ∘ l))
+  (counit : MorphismExpression (l ∘ r) (id D)) where
+  private module A = Data.Data 𝒯 M ℱ P I E S l r unit counit
+
+  unit-section : FamilySection (variable-family C) (post r (represented l))
+  unit-section = map-section
+    (transport (unit-frame C) (associator-frame l r)) (restricted-section unit)
+
+  counit-section : FamilySection (post l (represented r)) (variable-family D)
+  counit-section = map-section
+    (transport (associator-frame r l) (unit-frame D)) (restricted-section counit)
 
   abstract
     unit-restrict : {Γ Δ : CAT} (x : MAP Γ C) (h : MAP Δ Γ) →
@@ -50,51 +50,22 @@ module Components {C D : CAT} {l : MAP C D} {r : MAP D C}
         (idIso (x ∘ h))
         ((r ◁ comp-assoc h x l) ∙ comp-assoc h (l ∘ x) r))
         (A.unit-at (x ∘ h))
-    unit-restrict x h = restrict-restriction-retarget A.unit x h
-      (comp-unitˡ x) (comp-assoc x l r) (idIso (x ∘ h))
-      ((r ◁ comp-assoc h x l) ∙ comp-assoc h (l ∘ x) r)
-      (comp-unitˡ (x ∘ h)) (comp-assoc (x ∘ h) l r)
-      ((left-unitor-comp h x) ⁻¹ ∙ isoComp-unitˡ-at (comp-unitˡ x ▷ h))
-      ((pentagon-whiskered h x l r) ⁻¹ ∙
-        isoComp-assoc-at (r ◁ comp-assoc h x l) (comp-assoc h (l ∘ x) r) (comp-assoc x l r ▷ h))
+    unit-restrict = FamilySection.on-restriction unit-section
 
     counit-restrict : {Γ Δ : CAT} (y : MAP Γ D) (h : MAP Δ Γ) →
       ExpressionIso (retarget-expression (restrict-expression (A.counit-at y) h)
         ((l ◁ comp-assoc h y r) ∙ comp-assoc h (r ∘ y) l)
         (idIso (y ∘ h))) (A.counit-at (y ∘ h))
-    counit-restrict y h = restrict-restriction-retarget A.counit y h
-      (comp-assoc y r l) (comp-unitˡ y)
-      ((l ◁ comp-assoc h y r) ∙ comp-assoc h (r ∘ y) l) (idIso (y ∘ h))
-      (comp-assoc (y ∘ h) r l) (comp-unitˡ (y ∘ h))
-      ((pentagon-whiskered h y r l) ⁻¹ ∙
-        isoComp-assoc-at (l ◁ comp-assoc h y r) (comp-assoc h (r ∘ y) l) (comp-assoc y r l ▷ h))
-      ((left-unitor-comp h y) ⁻¹ ∙ isoComp-unitˡ-at (comp-unitˡ y ▷ h))
+    counit-restrict = FamilySection.on-restriction counit-section
 
     unit-parameter : {Γ : CAT} {x x′ : MAP Γ C} (ξ : x =₁ x′) →
       ExpressionIso (retarget-expression (A.unit-at x) ξ (r ◁ (l ◁ ξ))) (A.unit-at x′)
-    unit-parameter {x = x} {x′} ξ = expressionIso-compose
-      (retarget-expressionIso (restrict-expression-parameter A.unit ξ)
-        (comp-unitˡ x′) (comp-assoc x′ l r))
-      (expressionIso-compose (expressionIso-inverse
-        (retarget-assoc (restrict-expression A.unit x) (id C ◁ ξ) ((r ∘ l) ◁ ξ)
-          (comp-unitˡ x′) (comp-assoc x′ l r)))
-        (expressionIso-compose
-          (retarget-cong (restrict-expression A.unit x)
-            ((postWhisker-id-at ξ) ⁻¹) ((postWhisker-comp-at ξ l r) ⁻¹))
-          (retarget-assoc (restrict-expression A.unit x) (comp-unitˡ x) (comp-assoc x l r)
-            ξ (r ◁ (l ◁ ξ)))))
+    unit-parameter = FamilySection.on-change unit-section
 
     counit-parameter : {Γ : CAT} {y y′ : MAP Γ D} (ξ : y =₁ y′) →
       ExpressionIso (retarget-expression (A.counit-at y) (l ◁ (r ◁ ξ)) ξ) (A.counit-at y′)
-    counit-parameter {y = y} {y′} ξ = expressionIso-compose
-      (retarget-expressionIso (restrict-expression-parameter A.counit ξ)
-        (comp-assoc y′ r l) (comp-unitˡ y′))
-      (expressionIso-compose (expressionIso-inverse
-        (retarget-assoc (restrict-expression A.counit y) ((l ∘ r) ◁ ξ) (id D ◁ ξ)
-          (comp-assoc y′ r l) (comp-unitˡ y′)))
-        (expressionIso-compose
-          (retarget-cong (restrict-expression A.counit y)
-            ((postWhisker-comp-at ξ r l) ⁻¹) ((postWhisker-id-at ξ) ⁻¹))
-          (retarget-assoc (restrict-expression A.counit y) (comp-assoc y r l) (comp-unitˡ y)
-            (l ◁ (r ◁ ξ)) ξ)))
+    counit-parameter = FamilySection.on-change counit-section
+
+module Components {C D : CAT} {l : MAP C D} {r : MAP D C}
+  (adj : Adjunction l r) = UnitCounitLaws l r (Adjunction.unit adj) (Adjunction.counit adj)
 ```

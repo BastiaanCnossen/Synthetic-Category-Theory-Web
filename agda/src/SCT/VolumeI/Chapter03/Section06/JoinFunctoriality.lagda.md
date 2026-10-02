@@ -36,6 +36,8 @@ open import SCT.VolumeI.Chapter01.Section05.Setup 𝒯 M hiding (_⋆_)
 open Coproducts.CoproductStructure B
 open import SCT.VolumeI.Chapter01.Section05.Copairing 𝒯 M B
 open import SCT.VolumeI.Chapter03.RelativeCategories.Functors 𝒯 M ℱ P
+open import SCT.VolumeI.Chapter01.Section03.FactorizationCalculus vocabulary terminal products
+  productLaws composition using (lift-retarget)
 open import SCT.VolumeI.Chapter03.RelativeCategories.Identifications 𝒯 M ℱ P
 open import SCT.VolumeI.Chapter03.Section05.DependentProducts 𝒯 M ℱ P
 open import SCT.VolumeI.Chapter03.Section05.BaseChange.DependentProductTargetTransport 𝒯 M ℱ P using (module Transport)
@@ -71,7 +73,7 @@ module Presentation (C D : CAT) where
     comparison : projection =₁ original
     comparison = copair-cong (endpoint in₁) (endpoint in₂)
   over : FunctorOver original projection
-  over = record { lift = id (C ⊔ D) ; comparison = comparison ∙ comp-unitʳ projection }
+  over = lift-retarget comparison (identity-over projection)
   dependent-product : DependentProduct (weakened-boundary One) projection
   dependent-product = Transport.dependent-product (weakened-boundary One) original projection
     over (id-isEquiv (C ⊔ D)) (join-dependent-product (terminate C) (terminate D))

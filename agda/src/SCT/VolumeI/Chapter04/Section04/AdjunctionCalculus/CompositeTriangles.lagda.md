@@ -4,7 +4,7 @@ The expanded triangle identities descend through the explicit endpoint
 associators of the composite unit and counit.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
@@ -25,7 +25,7 @@ module SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.CompositeTriangles
 open import SCT.VolumeI.Chapter04.Section04.Adjunctions 𝒯 M ℱ P I E S public
 open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionIdentifications 𝒯 M ℱ I
 open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionFrameCalculus 𝒯 M ℱ I
-  using (retarget-assoc; retarget-cong; retarget-cancel)
+  using (retarget-assoc; retarget-cong)
 open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.DoublePostcompositionFrames 𝒯 M ℱ P I E
   using (post-composite-frames; double-post-id; double-post-composition)
 open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.CompositionIdentifications 𝒯 M ℱ P I E S
@@ -34,19 +34,13 @@ open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.CompositionSubstitu
   using (retarget-composition)
 open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionPostcomposition 𝒯 M ℱ I
   using (post-expressionIso)
-import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.IdentityExpressionRetargeting as IdRetarget
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.NormalizedIdentityExpressions 𝒯 M ℱ P I E
+  using (identity-reflect)
 import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.CompositeComponents as Components
 import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.CompositeExpandedComponents as Expanded
 
 private
   abstract
-    remove-frame : {Γ C : CAT} {x y : MAP Γ C} (f : MorphismExpression x x) (a : x =₁ y) →
-      ExpressionIso (retarget-expression f a a) (identity-expression y) →
-      ExpressionIso f (identity-expression x)
-    remove-frame f a proof = expressionIso-compose (IdRetarget.At.comparison 𝒯 M ℱ P I E (a ⁻¹))
-      (expressionIso-compose (retarget-expressionIso proof (a ⁻¹) (a ⁻¹))
-        (expressionIso-inverse (retarget-cancel f a a)))
-
     double-id-frame : {Γ B C D : CAT} (F : MAP B C) (G : MAP C D) (x : MAP Γ B)
       {z : MAP Γ D} (a : z =₁ (G ∘ (F ∘ x))) →
       ((G ◁ (F ◁ idIso x)) ∙ a) =₂ a
@@ -91,7 +85,7 @@ module Composite {C D T : CAT} {l : MAP C D} {r : MAP D C}
             (retarget-cong second middle-comparison ((isoComp-unitʳ-at α) ⁻¹))))
 
       triangle : ExpressionIso (compose-expression first second) (identity-expression (L ∘ x))
-      triangle = remove-frame (compose-expression first second) α
+      triangle = identity-reflect (compose-expression first second) α
         (expressionIso-compose (X.left-triangle x)
           (expressionIso-compose (compose-expression-cong first-comparison second-comparison)
             (expressionIso-inverse (retarget-composition first second α middle α))))
@@ -127,7 +121,7 @@ module Composite {C D T : CAT} {l : MAP C D} {r : MAP D C}
           (retarget-cong second (idIso middle) ((double-id-frame s r y b) ⁻¹)))
 
       triangle : ExpressionIso (compose-expression first second) (identity-expression (R ∘ y))
-      triangle = remove-frame (compose-expression first second) b
+      triangle = identity-reflect (compose-expression first second) b
         (expressionIso-compose (X.right-triangle y)
           (expressionIso-compose (compose-expression-cong first-comparison second-comparison)
             (expressionIso-inverse (retarget-composition first second b middle b))))

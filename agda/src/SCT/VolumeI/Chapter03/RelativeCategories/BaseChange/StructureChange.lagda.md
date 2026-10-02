@@ -20,6 +20,8 @@ module SCT.VolumeI.Chapter03.RelativeCategories.BaseChange.StructureChange
 
 open import SCT.VolumeI.Chapter01.Section05.Setup 𝒯 M
 open import SCT.VolumeI.Chapter03.RelativeCategories.Functors 𝒯 M ℱ P
+open import SCT.VolumeI.Chapter01.Section03.FactorizationCalculus vocabulary terminal products
+  productLaws composition using (lift-retarget)
 open import SCT.VolumeI.Chapter03.RelativeCategories.Identifications 𝒯 M ℱ P
 
 open import SCT.VolumeI.Chapter03.RelativeCategories.ConeCalculus.EvaluatedRelativeCones 𝒯 M ℱ P using (parameter-over-functor)
@@ -32,7 +34,7 @@ open Isomorphisms vocabulary terminal products productLaws composition vertical 
 
 change-source : {C D S : CAT} {f f′ : MAP C S} {g : MAP D S} →
   f =₁ f′ → FunctorOver f g → FunctorOver f′ g
-change-source α u = record { lift = FunctorLift.lift u ; comparison = α ∙ FunctorLift.comparison u }
+change-source = lift-retarget
 
 change-source-iso : {C D S : CAT} {f f′ : MAP C S} {g : MAP D S}
   (α : f =₁ f′) {u v : FunctorOver f g} → FunctorOverIso u v →

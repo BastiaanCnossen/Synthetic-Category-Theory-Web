@@ -1,7 +1,9 @@
 # Composing triangles over a base
 
-These operations retain the triangle of a functor over a base. The
-inverse triangle uses the selected inverse of its underlying equivalence.
+These operations retain the triangle of a functor over a base. They are
+the composition and inverse of factorizations from the Chapter 1
+factorization calculus; the inverse triangle uses the selected inverse of
+its underlying equivalence.
 The assertion about inverse identifications over the base is supplied
 separately by the relative inverse theorem from Chapter 3.
 
@@ -20,21 +22,16 @@ module SCT.VolumeI.Chapter05.Section03.OverBaseCalculus {l : Level} (T : Theory 
 
 open View T
 open Calculus T using (_then_)
+open import SCT.VolumeI.Chapter01.Section03.FactorizationCalculus vocabulary terminal products
+  productLaws composition using (lift-compose; lift-inverse)
 
 compose : {A B C X : CAT} {p : MAP A X} {q : MAP B X} {r : MAP C X}
   → FunctorLift r q → FunctorLift q p → FunctorLift r p
-compose {r = r} g f = record
-  { lift = FunctorLift.lift g ∘ FunctorLift.lift f
-  ; comparison = (comp-assoc (FunctorLift.lift f) (FunctorLift.lift g) r) ⁻¹ then
-      (FunctorLift.comparison g ▷ FunctorLift.lift f) then FunctorLift.comparison f }
+compose = lift-compose
 
 inverse : {A B X : CAT} {p : MAP A X} {q : MAP B X}
   (f : FunctorLift q p) → IsEquiv (FunctorLift.lift f) → FunctorLift p q
-inverse {p = p} {q} f ef = record
-  { lift = IsEquiv.inverse ef
-  ; comparison = ((FunctorLift.comparison f) ⁻¹ ▷ IsEquiv.inverse ef) then
-      comp-assoc (IsEquiv.inverse ef) (FunctorLift.lift f) q then
-      (q ◁ (IsEquiv.retractionIso ef) ⁻¹) then comp-unitʳ q }
+inverse = lift-inverse
 
 module PullbackProjections (P : Pullbacks.PullbackStructure T) where
   open Pullbacks.PullbackStructure P

@@ -16,6 +16,9 @@ subdirectories. A main module contains the construction or argument itself.
    substitution diagrams before any particular product is chosen.
    `CoordinateNaturality` gives the elementary squares, and `Inverses`
    provides cancellation and inverse identities used later for cone matchings.
+   `FactorizationCalculus` constructs identities, composites, restrictions,
+   inverses and uniqueness of factorizations (`FunctorLift`) together with
+   their comparisons; later lifts and functors over a base use it.
    `BinaryFunctorCalculus` treats a functor from a product; the application
    and mapping-composition modules specialize it to evaluation.
 3. Section 1.4 develops mapping animae, their core, composition, and detection
@@ -41,6 +44,19 @@ subdirectories. A main module contains the construction or argument itself.
    composition and its laws, including the endpoint claims. The supporting
    `MorphismCalculus/`, `UnitCalculus/`, `SquareCalculus/`, and
    `EvaluationCalculus/` folders provide the detailed calculations.
+   For operations on families of morphisms, read `MorphismCalculus/ExpressionFamilies`
+   first: it separates endpoint formulas and their frames from representing
+   pullbacks, and constructs composition, endpoint transport, and sections with
+   their restriction and parameter-change comparisons.
+   `ExpressionFamilyEquivalences` supplies inverse operations and their equations.
+   `EndpointFiberOperations` and `EndpointFiberOperationEquivalences` then realize
+   these data using endpoint pullbacks. The construction layer needs neither
+   pullbacks nor the Segal axiom.
+   Here a parameter is a functor `b : MAP Γ B`. An endpoint family gives a
+   functor `Γ → C` for each such `b`: for example `F ∘ b` or `G ∘ (F ∘ b)`.
+   The family layer retains the difference between the latter and `(G ∘ F) ∘ b`,
+   together with the associator comparing them. This is the reason for the
+   extra interface; clients can assemble the operation and its laws together.
 3. Section 2.3 retains the Rezk axiom, isomorphism embedding, natural
    isomorphisms, and recovery results at its top level. Inverse witnesses and
    composition calculations are grouped underneath it.
@@ -53,7 +69,10 @@ subdirectories. A main module contains the construction or argument itself.
 
 1. Sections 3.1–3.4 retain the principal subcategory, localization, and
    geometric-realization results. Lifting, mapping, and cocone calculations
-   appear in supporting folders.
+   appear in supporting folders. Subcategories and full subcategories are
+   defined by the same square tested on `[1]` and on `One`;
+   `Section01/MappingCalculus/TestedInclusions` proves their common
+   consequences once for an arbitrary test category.
 2. [Relative categories](src/SCT/VolumeI/Chapter03/RelativeCategories/Guide.md)
    is a shared library for categories and functors over a base. It can be used
    independently of the dependent-product assumption.
@@ -102,8 +121,29 @@ in downstream proofs.
 `HomAdjunctions` constructs the hom-anima equivalence from an adjunction,
 including an inverse and both inverse identifications over the base.
 Its family operations are supplied by `SealedFamilyTransposition`, with
-restriction and parameter-change laws. This proves the forward implication
-of the hom-adjunction criterion; its converse remains to be formalized.
+restriction and parameter-change laws. To see their construction, read
+`AdjunctionCalculus/TransposeFamilies`: normalize the input endpoints, apply
+transposition, and restore the output endpoints. `TransposeFamilyInverses`
+composes the corresponding family equivalences. `ComponentRestriction`
+constructs unit and counit sections by restricting the transformations and
+transporting their endpoints; their compatibility laws are section fields.
+These constructions reuse the Chapter 2 family calculus.
+
+`UnitCounitData` contains the normalized expressions available before proving
+triangle identities; `Adjunctions` uses those same definitions. For component
+triangles, read `RawComponentTriangles` for the shared frame comparisons and
+`ComponentTriangles` for the three-step deduction from an adjunction's triangle
+identities. For composition of adjunctions, `CompositeFormulas` supplies the
+formulas and their comparisons before `CompositeTriangleAlgebra` proves their
+triangles. General associativity and postcomposition calculations belong to
+Chapter 2's `ExpressionCalculus`, whose derived laws also apply to any other
+instance of that interface.
+Formula-only clients use `ExpressionOperations`, the earlier package of chosen
+opaque operations and construction comparisons. The full calculus adds laws
+for those same operations; naming a composite therefore does not require
+importing its associativity proof.
+`HomAdjunctions` proves the forward implication of the hom-adjunction criterion;
+its converse remains to be formalized.
 `AdjunctionCalculus/HomUnitFormula` and `HomCounitFormula` compute these
 functors through the unit and counit. Cancelling an invertible component
 proves the corresponding hom-postcomposition equivalence for an adjoint

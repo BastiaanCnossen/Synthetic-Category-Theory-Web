@@ -3,6 +3,8 @@
 The existing hom functor sends a framed family of morphisms to its
 postcomposed family, with constant endpoints normalized by associativity.
 The comparison commutes with restriction and retains both endpoint equations.
+Its restriction law is assembled by composing postcomposition with endpoint
+transport along constant-image, using the shared endpoint-family constructors.
 
 ```agda
 {-# OPTIONS --safe --without-K --lossy-unification #-}
@@ -21,12 +23,11 @@ module SCT.VolumeI.Chapter02.Section06.HomCalculus.HomPostcomposition
 open import SCT.VolumeI.Chapter02.Section06.HomCalculus.HomRestriction 𝒯 M ℱ P I public
 open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionIdentifications 𝒯 M ℱ I
 open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionPostcomposition 𝒯 M ℱ I using (post-expressionIso)
-open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionFrameCalculus 𝒯 M ℱ I
-  using (retarget-assoc; retarget-cong; post-retarget; restrict-retarget-outer)
-open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionRestrictionPostcomposition 𝒯 M ℱ I
-  using (restrict-post)
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionFamilies 𝒯 M ℱ I
+  using (FamilyOperation; constant-family; post; constant-image-frame; transport; compose-operations; post-operation)
+
 open import SCT.VolumeI.Chapter01.Section04.Substitution.ConstantSubstitution 𝒯 M
-  using (constant-image; constant-image-pre)
+  using (constant-image)
 
 hom-image : {Γ C D : CAT} (F : MAP C D) {x y : Obj-abs C} →
   MorphismExpression (const {P = Γ} x) (const y) →
@@ -40,35 +41,23 @@ hom-image-cong : {Γ C D : CAT} (F : MAP C D) {x y : Obj-abs C}
 hom-image-cong {Γ} F {x} {y} Φ = retarget-expressionIso (post-expressionIso F Φ)
   (constant-image Γ F x) (constant-image Γ F y)
 
+hom-image-operation : {C D : CAT} (F : MAP C D) (x y : Obj-abs C) →
+  FamilyOperation (constant-family {B = One} x) (constant-family y)
+    (constant-family (F ∘ x)) (constant-family (F ∘ y))
+hom-image-operation F x y = compose-operations
+  {u = constant-family x} {v = constant-family y}
+  {s = post F (constant-family x)} {t = post F (constant-family y)}
+  {x = constant-family (F ∘ x)} {y = constant-family (F ∘ y)}
+  (transport {u = post F (constant-family x)} {v = post F (constant-family y)}
+    {s = constant-family (F ∘ x)} {t = constant-family (F ∘ y)}
+    (constant-image-frame F x) (constant-image-frame F y))
+  (post-operation F (constant-family x) (constant-family y))
+
 module Restrict {Γ Δ C D : CAT} (F : MAP C D) {x y : Obj-abs C}
   (α : MorphismExpression (const {P = Γ} x) (const y)) (r : MAP Δ Γ) where
-  private
-    raw = restrict-expression (post-expression F α) r
-    cx = constant-image Δ F x
-    cy = constant-image Δ F y
-    px = F ◁ const-pre x r
-    py = F ◁ const-pre y r
-    ax = comp-assoc r (const x) F
-    ay = comp-assoc r (const y) F
-
-    first = restrict-retarget-outer (post-expression F α)
-      (constant-image Γ F x) (constant-image Γ F y) r
-      (const-pre (F ∘ x) r) (const-pre (F ∘ y) r)
-    normalize = retarget-cong raw
-      ((isoComp-assoc-at cx px ax) ⁻¹ ∙ constant-image-pre r F x)
-      ((isoComp-assoc-at cy py ay) ⁻¹ ∙ constant-image-pre r F y)
-    split = expressionIso-inverse (retarget-assoc raw ax ay (cx ∙ px) (cy ∙ py))
-    commute = retarget-expressionIso (restrict-post F α r) (cx ∙ px) (cy ∙ py)
-    join = expressionIso-inverse
-      (retarget-assoc (post-expression F (restrict-expression α r)) px py cx cy)
-    last = retarget-expressionIso (expressionIso-inverse
-      (post-retarget F (restrict-expression α r) (const-pre x r) (const-pre y r))) cx cy
-
   comparison : ExpressionIso (hom-restrict (hom-image F α) r)
     (hom-image F (hom-restrict α r))
-  comparison = expressionIso-compose last (expressionIso-compose join
-    (expressionIso-compose commute (expressionIso-compose split
-      (expressionIso-compose normalize first))))
+  comparison = FamilyOperation.on-restriction (hom-image-operation F x y) (terminate Γ) α r
 
 hom-image-restrict : {Γ Δ C D : CAT} (F : MAP C D) {x y : Obj-abs C}
   (α : MorphismExpression (const {P = Γ} x) (const y)) (r : MAP Δ Γ) →

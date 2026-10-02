@@ -21,6 +21,9 @@ module SCT.VolumeI.Chapter02.Section02.MorphismCalculus.EndpointFiberOperationEq
 
 open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.EndpointFiberOperations 𝒯 M ℱ P I public
 
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionFamilyEquivalences 𝒯 M ℱ I
+  using (FamilyEquivalence; represented)
+
 record ExpressionOperationEquivalence {B C D : CAT}
   (u v : MAP B C) (s t : MAP B D) : Set (c ⊔ m) where
   field
@@ -33,4 +36,12 @@ record ExpressionOperationEquivalence {B C D : CAT}
 
   open EquivalenceOperations forward backward backward-forward forward-backward public
     using (isEquiv; equivalence)
+from-family-equivalence : {B C D : CAT} {u v : MAP B C} {s t : MAP B D} →
+  FamilyEquivalence (represented u) (represented v) (represented s) (represented t) →
+  ExpressionOperationEquivalence u v s t
+from-family-equivalence e = record
+  { forward = from-family-operation E.forward
+  ; backward = from-family-operation E.backward
+  ; backward-forward = E.backward-forward ; forward-backward = E.forward-backward }
+  where module E = FamilyEquivalence e
 ```

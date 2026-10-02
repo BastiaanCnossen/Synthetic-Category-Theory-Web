@@ -40,14 +40,12 @@ module At (Γ : CAT) where
   abstract
     post-cong : {C D : CAT} (F : MAP C D) {x y : MAP Γ C}
       {u v : MorphismExpression x y} → ExpressionIso u v → ExpressionIso (K.post F u) (K.post F v)
-    post-cong F {u = u} {v} same = expressionIso-compose (expressionIso-inverse (K.post-comparison F v))
-      (expressionIso-compose (post-expressionIso F same) (K.post-comparison F u))
+    post-cong = K.post-cong
 
     double-post-comparison : {B C D : CAT} (F : MAP B C) (G : MAP C D)
       {x y : MAP Γ B} (u : MorphismExpression x y) →
       ExpressionIso (K.post G (K.post F u)) (post-expression G (post-expression F u))
-    double-post-comparison F G u = expressionIso-compose (post-expressionIso G (K.post-comparison F u))
-      (K.post-comparison G (K.post F u))
+    double-post-comparison = K.post-comparison-twice
 
   module Components {C D : CAT} {l : MAP C D} {r : MAP D C} (adj : Adjunction l r) where
     module A = Adjunction adj using (unit-at; counit-at)

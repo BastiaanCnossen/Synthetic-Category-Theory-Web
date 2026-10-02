@@ -22,15 +22,14 @@ open Coproducts.CoproductStructure B
 open import SCT.VolumeI.Chapter01.Section04.Functoriality 𝒯 M
 open import SCT.VolumeI.Chapter01.Section05.Copairing 𝒯 M B
   using (copair; copair-β₁; copair-β₂)
+open import SCT.VolumeI.Chapter01.Section03.FactorizationCalculus
+  vocabulary terminal products productLaws composition
+  using (lift-retarget)
 open import SCT.VolumeI.Chapter03.Section01.Lifting.CoproductLifting 𝒯 M B
   using (mapPre-mapPost; lift-coproduct)
 open import SCT.VolumeI.Chapter01.Section04.Core 𝒯 M
   using (coreInclusion; core-of-anima; module CoreLift)
 open import SCT.VolumeI.Chapter02.Section01.EvaluationCalculus.CoreInclusions 𝒯 M using (coreInclusion-natural)
-
-retarget-lift : {Γ X Y : CAT} {m : MAP X Y} {h k : MAP Γ Y} →
-  h =₁ k → FunctorLift m h → FunctorLift m k
-retarget-lift α l = record { lift = FunctorLift.lift l ; comparison = α ∙ FunctorLift.comparison l }
 
 restriction-compose : {Γ A B C D : CAT} (f : MAP A B) (g : MAP B C) (h : MAP Γ (Map C D)) →
   (mapPre f ∘ (mapPre g ∘ h)) =₁ (mapPre (g ∘ f) ∘ h)
@@ -83,9 +82,9 @@ module ThreePoints {K : CAT} (x₀ x₁ x₂ : Obj-abs K)
 
     restricted : FunctorLift (mapPost m) whole
     restricted = lift-coproduct m whole
-      (lift-coproduct m firstTwo (retarget-lift (first-comparison ⁻¹) at₀)
-        (retarget-lift (second-comparison ⁻¹) at₁))
-      (retarget-lift (third-comparison ⁻¹) at₂)
+      (lift-coproduct m firstTwo (lift-retarget (first-comparison ⁻¹) at₀)
+        (lift-retarget (second-comparison ⁻¹) at₁))
+      (lift-retarget (third-comparison ⁻¹) at₂)
 
     factorization : FunctorLift (mapPost m) h
     factorization = AlongEquivalence.factorization points points-isEquiv m h restricted

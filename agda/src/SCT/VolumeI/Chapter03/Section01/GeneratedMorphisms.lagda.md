@@ -44,12 +44,15 @@ open import SCT.VolumeI.Chapter01.Section06.EmbeddingCharacterizations 𝒯 M P
   using (map-preserves-embedding)
 open import SCT.VolumeI.Chapter02.Section01.TriangleCore 𝒯 M ℱ P B U I E Q K
   using (intervalEndomorphisms-isEquiv)
+open import SCT.VolumeI.Chapter01.Section03.FactorizationCalculus
+  vocabulary terminal products productLaws composition
+  using (lift-id; lift-retarget; lift-compose; lift-unique)
 open import SCT.VolumeI.Chapter03.Section01.MorphismCollections 𝒯 M P I
   using (MorphismCollection; ClosedUnderIdentities)
 open import SCT.VolumeI.Chapter03.Section01.MappingCalculus.MappingAction 𝒯 M
   using (mappingAction; mappingAction-restrict-point)
 open import SCT.VolumeI.Chapter03.Section01.MappingCalculus.FiniteMappingLifts 𝒯 M B
-  using (retarget-lift; lift-core-family; module ThreePoints)
+  using (lift-core-family; module ThreePoints)
 open import SCT.VolumeI.Chapter03.Section01.SubcategoryAxiom 𝒯 M ℱ P I E S
   using (SubcategoryPresentation; presentationSquare)
 open import SCT.VolumeI.Chapter03.Section01.Lifting.PresentationConsequences 𝒯 M ℱ P I E S
@@ -67,11 +70,10 @@ module Morphisms {C : CAT} (W : MorphismCollection C) (closed : ClosedUnderIdent
   at-point : (f : MAP [1] [1]) → FunctorLift m (mapPre f ∘ m) →
     FunctorLift (mapPost m) (mapPre (nameMap f) ∘ action)
   at-point f l = lift-core-family collection-isAn (map-isAn [1] C) m _
-    (retarget-lift ((mappingAction-restrict-point f m collection-isAn) ⁻¹) l)
+    (lift-retarget ((mappingAction-restrict-point f m collection-isAn) ⁻¹) l)
 
   at-identity : FunctorLift m (mapPre (id [1]) ∘ m)
-  at-identity = record { lift = id X
-    ; comparison = (comp-unitˡ m ∙ (mapPre-id [1] C ▷ m)) ⁻¹ ∙ comp-unitʳ m }
+  at-identity = lift-retarget ((comp-unitˡ m ∙ (mapPre-id [1] C ▷ m)) ⁻¹) (lift-id m)
 
   action-lift : FunctorLift (mapPost m) action
   action-lift = Finite.lift-three m action
@@ -90,11 +92,12 @@ module Morphisms {C : CAT} (W : MorphismCollection C) (closed : ClosedUnderIdent
   section-over-C : (mapPost i ∘ section) =₁ m
   section-over-C = ConeIso.leftIso (Universal.factor-β cone)
 
+  section-factorization : FunctorLift (mapPost i) m
+  section-factorization = record { lift = section ; comparison = section-over-C }
+
   section-comparison : (j ∘ section) =₁ id X
-  section-comparison = embedding-reflect m m-embedding _ _
-    ((comp-unitʳ m) ⁻¹ ∙
-      (section-over-C ∙ ((FunctorLift.comparison arrows ▷ section) ∙
-        (comp-assoc section j m) ⁻¹)))
+  section-comparison = lift-unique (embedding-reflect m m-embedding)
+    (lift-compose arrows section-factorization) (lift-id m)
 
   comparison-isEmbedding : IsEmbedding j
   comparison-isEmbedding = LeftCancellation.cancel j m m-embedding

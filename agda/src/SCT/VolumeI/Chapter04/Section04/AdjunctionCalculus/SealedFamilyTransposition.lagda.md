@@ -28,36 +28,20 @@ module SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.SealedFamilyTransposit
 
 open import SCT.VolumeI.Chapter04.Section04.Adjunctions 𝒯 M ℱ P I E S public
 open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.EndpointFiberOperationEquivalences 𝒯 M ℱ P I public
-  using (ExpressionOperationEquivalence)
+  using (ExpressionOperationEquivalence; from-family-equivalence)
 open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.EndpointFiberOperations 𝒯 M ℱ P I
   using (ExpressionOperation)
 open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionIdentifications 𝒯 M ℱ I
   using (expressionIso-id)
 import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.TransposeFamilies as Families
-import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.TransposeFamilyRestriction as Restriction
 import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.TransposeFamilyInverses as Inverses
 
 abstract
   transposition : {B C D : CAT} {l : MAP C D} {r : MAP D C}
     (adj : Adjunction l r) (x : MAP B C) (y : MAP B D) →
     ExpressionOperationEquivalence (l ∘ x) y x (r ∘ y)
-  transposition adj x y = record
-    { forward = record
-        { apply = F.forward ; on-comparison = F.forward-cong
-        ; on-restriction = R.forward-restrict ; on-change = F.forward-change }
-    ; backward = record
-        { apply = F.backward ; on-comparison = F.backward-cong
-        ; on-restriction = R.backward-restrict ; on-change = F.backward-change }
-    ; backward-forward = V.backward-forward
-    ; forward-backward = V.forward-backward
-    }
-    where
-    module F = Families.Families 𝒯 M ℱ P I E S adj x y
-      using (forward; forward-cong; forward-change; backward; backward-cong; backward-change)
-    module R = Restriction.RestrictionFamilies 𝒯 M ℱ P I E S adj x y
-      using (forward-restrict; backward-restrict)
-    module V = Inverses.InverseFamilies 𝒯 M ℱ P I E S Q adj x y
-      using (backward-forward; forward-backward)
+  transposition adj x y = from-family-equivalence
+    (Inverses.InverseFamilies.family-equivalence 𝒯 M ℱ P I E S Q adj x y)
 
   forward-computation : {B C D Γ : CAT} {l : MAP C D} {r : MAP D C}
     (adj : Adjunction l r) (x : MAP B C) (y : MAP B D) (b : MAP Γ B)

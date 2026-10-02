@@ -8,8 +8,15 @@ from source_anchors import conversion_anchor
 ROOT = Path(__file__).resolve().parents[1]
 
 def _manuscript():
-    """Use the main private manuscript repository for shared source files."""
-    return Path(os.environ.get('SCT_MANUSCRIPT', str(ROOT.parent / 'Synthetic Category Theory'))).resolve()
+    """Use the main private manuscript repository for shared source files.
+
+    It is the sibling `Manuscript` folder, or the pre-2026-10 sibling name."""
+    if os.environ.get('SCT_MANUSCRIPT'):
+        return Path(os.environ['SCT_MANUSCRIPT']).resolve()
+    for name in ('Manuscript', 'Synthetic Category Theory'):
+        if (ROOT.parent / name).is_dir():
+            return (ROOT.parent / name).resolve()
+    return (ROOT.parent / 'Manuscript').resolve()
 
 REPO = _manuscript()
 ANNOTATED = ROOT / 'Annotated tex-files'

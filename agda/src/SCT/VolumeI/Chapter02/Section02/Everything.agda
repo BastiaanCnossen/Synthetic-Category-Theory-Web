@@ -157,6 +157,7 @@ import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionFrameSquares
 import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionEquivalences
 import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.EndpointFiberOperationEquivalences
 import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.IsomorphismExpressionOperations
+import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionOperations
 import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionCalculus
 import SCT.VolumeI.Chapter02.Section02.EvaluationCalculus.EvaluationIsomorphisms
 import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.IdentityFromDiagram
@@ -198,3 +199,5 @@ import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ConstantSourceRestrictio
 import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ConstantSourceImages
 import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.EndpointFiberChangeExpressions
 import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.EndpointFiberOperationComputations
+import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionFamilies
+import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionFamilyEquivalences

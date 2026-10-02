@@ -20,6 +20,8 @@ open import SCT.VolumeI.Chapter01.Section05.Setup 𝒯 M
 open import SCT.VolumeI.Chapter01.Section06.PullbackSquares 𝒯 P
   using (Cone; ConeIso; module UniversalCone)
 open import SCT.VolumeI.Chapter01.Section06.Embeddings 𝒯 P using (embedding-reflect)
+open import SCT.VolumeI.Chapter01.Section03.FactorizationCalculus vocabulary terminal products
+  productLaws composition using (lift-unique)
 open import SCT.VolumeI.Chapter03.Section01.MappingCalculus.MappingAction 𝒯 M using (mappingAction-name)
 open import SCT.VolumeI.Chapter03.Section02.FullSubcategories 𝒯 M P
 
@@ -48,6 +50,5 @@ module Factor {A C D : CAT} (i : MAP A C) (full : IsFullSubcategory i)
   factorization = record { lift = functor ; comparison = comparison }
 
   unique : (g h : FunctorLift i f) → FunctorLift.lift g =₁ FunctorLift.lift h
-  unique g h = embedding-reflect i (full-subcategory-isEmbedding i full) _ _
-    (FunctorLift.comparison h ⁻¹ ∙ FunctorLift.comparison g)
+  unique = lift-unique (embedding-reflect i (full-subcategory-isEmbedding i full))
 ```

@@ -175,11 +175,7 @@ construction to an isomorphism anima also lifts specified higher identifications
 ```agda
 lift-along : {X C D : CAT} {f : MAP C D} → IsEquiv f
   → (d : MAP X D) → FunctorLift f d
-lift-along {f = f} e d = record
-  { lift = IsEquiv.inverse e ∘ d
-  ; comparison = comp-unitˡ d ∙
-      (((IsEquiv.retractionIso e) ⁻¹ ▷ d) ∙
-        (comp-assoc d (IsEquiv.inverse e) f) ⁻¹) }
+lift-along = equiv-lift
 
 postWhisker-lift : {B C D : CAT} (F : MAP C D) → IsEquiv F
   → {f g : MAP B C} → (α : (F ∘ f) =₁ (F ∘ g))

@@ -24,7 +24,7 @@ import subprocess
 import time
 
 ROOT = Path(__file__).resolve().parents[1]
-AGDA = ROOT / "agda"
+AGDA = ROOT
 OUT = ROOT / "_build/lossy-audit"
 FLAG = re.compile(r"[ \t]*--lossy-unification")
 
@@ -51,7 +51,8 @@ def main():
     shutil.copy(AGDA / "sct.agda-lib", tree / "sct.agda-lib")
     if (AGDA / "_build").exists():  # reuse interfaces of unaffected modules
         shutil.copytree(AGDA / "_build", tree / "_build",
-                        ignore=shutil.ignore_patterns("agda-profile*", "*.log", "*.json"))
+                        ignore=shutil.ignore_patterns("agda-profile*", "agda-check", "lossy-audit",
+                                                     "*.lock", "*.log", "*.json"))
 
     lossy = []
     for path in sorted((tree / "src").rglob("*")):

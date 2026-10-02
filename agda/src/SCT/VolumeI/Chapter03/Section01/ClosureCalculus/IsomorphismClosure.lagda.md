@@ -38,20 +38,14 @@ open Recognition.RecognitionAxiom N using (anima-isGroupoid)
 open import SCT.VolumeI.Chapter02.Section05.PullbackAnimae 𝒯 M ℱ P I E S Q R N
   using (coreInclusion-isEmbedding)
 open import SCT.VolumeI.Chapter03.Section01.MappingCalculus.MappingCommutation 𝒯 M using (mapPre-mapPost)
+open import SCT.VolumeI.Chapter01.Section03.FactorizationCalculus
+  vocabulary terminal products productLaws composition
+  using (lift-from-equivalent-source)
 open import SCT.VolumeI.Chapter03.Section01.IsomorphismCollections 𝒯 M ℱ P I E S Q
 open WithRezk R
 open import SCT.VolumeI.Chapter03.Section01.ClosureCalculus.CompositionClosure 𝒯 M ℱ P I E S using (ClosedUnderComposition)
 open import SCT.VolumeI.Chapter03.Section01.ClosureCalculus.EmbeddingImageClosure 𝒯 M ℱ P I E S
   using () renaming (module Closure to ImageClosure)
-
-factor-via-equivalent-source : {X A B Z : CAT}
-  (f : MAP A Z) (g : MAP B Z) (u : MAP X A) (v : MAP X B) →
-  IsEquiv u → (f ∘ u) =₁ (g ∘ v) → FunctorLift g f
-factor-via-equivalent-source f g u v eu β = record { lift = v ∘ IsEquiv.inverse eu
-  ; comparison = comp-unitʳ f ∙
-      ((f ◁ (IsEquiv.retractionIso eu) ⁻¹) ∙
-        (comp-assoc (IsEquiv.inverse eu) u f ∙
-          ((β ⁻¹ ▷ IsEquiv.inverse eu) ∙ (comp-assoc (IsEquiv.inverse eu) v g) ⁻¹))) }
 
 module At (C : CAT) where
   core-arrows = mapPost {C = [1]} (coreInclusion C)
@@ -74,11 +68,11 @@ module At (C : CAT) where
       (mapPre-mapPost (terminate [1]) (coreInclusion C)) ⁻¹)
 
   from-core-arrows : FunctorLift (isomorphismInclusion C) core-arrows
-  from-core-arrows = factor-via-equivalent-source core-arrows (isomorphismInclusion C)
+  from-core-arrows = lift-from-equivalent-source core-arrows (isomorphismInclusion C)
     constant isomorphism constant-isEquiv square
 
   to-core-arrows : FunctorLift core-arrows (isomorphismInclusion C)
-  to-core-arrows = factor-via-equivalent-source (isomorphismInclusion C) core-arrows
+  to-core-arrows = lift-from-equivalent-source (isomorphismInclusion C) core-arrows
     isomorphism constant isomorphism-isEquiv (square ⁻¹)
 
   closed : ClosedUnderComposition (isomorphisms C)

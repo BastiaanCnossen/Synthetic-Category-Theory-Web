@@ -5,7 +5,8 @@ presentations of that collection are equivalent over the ambient category.
 This proves `lem:Recovering_Subcategories_From_Morphisms`.
 
 The two universal factorizations are inverse because both inclusions are
-embeddings. Their comparisons over the ambient category remain explicit.
+embeddings: each composite and the identity factor the same inclusion.
+Their comparisons over the ambient category remain explicit.
 
 ```agda
 {-# OPTIONS --safe --without-K #-}
@@ -32,6 +33,9 @@ open import SCT.VolumeI.Chapter01.Section04.Functoriality 𝒯 M using (mapPost)
 open import SCT.VolumeI.Chapter01.Section06.PullbackSquares 𝒯 P
   using (IsPullback; ConeIso; module UniversalCone)
 open import SCT.VolumeI.Chapter01.Section06.Embeddings 𝒯 P using (embedding-reflect)
+open import SCT.VolumeI.Chapter01.Section03.FactorizationCalculus
+  vocabulary terminal products productLaws composition
+  using (lift-id; lift-compose; lift-unique)
 open import SCT.VolumeI.Chapter01.Section06.EmbeddingCharacterizations 𝒯 M P
   using (map-preserves-embedding)
 open import SCT.VolumeI.Chapter03.Section01.MorphismCollections 𝒯 M P I
@@ -47,7 +51,7 @@ open import SCT.VolumeI.Chapter01.Section06.EmbeddingCalculus.PullbackProjection
 module Existing {A C : CAT} (f : MAP A C) (sub : IsSubcategory f) where
   W = subcategoryMorphisms f sub
   arrows : FunctorLift (mapPost {C = [1]} f) (mapPost f)
-  arrows = record { lift = id (Map [1] A) ; comparison = comp-unitʳ (mapPost f) }
+  arrows = lift-id (mapPost f)
 
   universal : (D : CAT) → IsPullback (presentationSquare W f arrows D)
   universal D = embedding-pullback (presentationSquare W f arrows D)
@@ -64,8 +68,8 @@ module PresentationComparison {C : CAT} (W : MorphismCollection C)
   (A B : SubcategoryPresentation W) where
   module A = SubcategoryPresentation A
   module B = SubcategoryPresentation B
-  module Forward = Presented.Factor W B A.inclusion A.arrows using (factor; comparison)
-  module Backward = Presented.Factor W A B.inclusion B.arrows using (factor; comparison)
+  module Forward = Presented.Factor W B A.inclusion A.arrows using (factor; comparison; lift)
+  module Backward = Presented.Factor W A B.inclusion B.arrows using (factor; comparison; lift)
 
   functor : MAP A.subcategory B.subcategory
   functor = Forward.factor
@@ -74,16 +78,14 @@ module PresentationComparison {C : CAT} (W : MorphismCollection C)
   over-C = Forward.comparison
 
   backward-forward : (Backward.factor ∘ functor) =₁ id A.subcategory
-  backward-forward = embedding-reflect A.inclusion (Presented.inclusion-isEmbedding W A) _ _
-    ((comp-unitʳ A.inclusion) ⁻¹ ∙
-      (Forward.comparison ∙ ((Backward.comparison ▷ functor) ∙
-        (comp-assoc functor Backward.factor A.inclusion) ⁻¹)))
+  backward-forward = lift-unique
+    (embedding-reflect A.inclusion (Presented.inclusion-isEmbedding W A))
+    (lift-compose Backward.lift Forward.lift) (lift-id A.inclusion)
 
   forward-backward : (functor ∘ Backward.factor) =₁ id B.subcategory
-  forward-backward = embedding-reflect B.inclusion (Presented.inclusion-isEmbedding W B) _ _
-    ((comp-unitʳ B.inclusion) ⁻¹ ∙
-      (Backward.comparison ∙ ((Forward.comparison ▷ Backward.factor) ∙
-        (comp-assoc Backward.factor functor B.inclusion) ⁻¹)))
+  forward-backward = lift-unique
+    (embedding-reflect B.inclusion (Presented.inclusion-isEmbedding W B))
+    (lift-compose Forward.lift Backward.lift) (lift-id B.inclusion)
 
   isEquiv : IsEquiv functor
   isEquiv = record { inverse = Backward.factor

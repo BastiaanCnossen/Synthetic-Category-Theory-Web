@@ -33,6 +33,8 @@ module SCT.VolumeI.Chapter03.Section04.RealizationGroupoidCriterion
   (N : Recognition.RecognitionAxiom 𝒯 M ℱ P I E R) where
 
 open import SCT.VolumeI.Chapter01.Section05.Setup 𝒯 M
+open import SCT.VolumeI.Chapter01.Section03.FactorizationCalculus vocabulary terminal products
+  productLaws composition using (lift-retarget)
 open Walking.WalkingMorphism I
 open import SCT.VolumeI.Chapter01.Section04.Core 𝒯 M using (Core; coreInclusion; core-isAn)
 open import SCT.VolumeI.Chapter01.Section06.Embeddings 𝒯 P using (embedding-with-section)
@@ -59,9 +61,7 @@ module FromCore (L : SubcategoryAxiom) {C T : CAT} (l : MAP C T)
   open WithSubcategories L using (IsLocalization)
   i = SubcategoryPresentation.inclusion A
   inverts : FunctorLift (isomorphismInclusion T) (mapPost {C = [1]} l)
-  inverts = record
-    { lift = FunctorLift.lift (IsLocalization.inverts localization)
-    ; comparison = comp-unitʳ (mapPost l) ∙ FunctorLift.comparison (IsLocalization.inverts localization) }
+  inverts = lift-retarget (comp-unitʳ (mapPost l)) (IsLocalization.inverts localization)
   module Factor = Presented.Factor (isomorphisms T) A l inverts using (factor; comparison)
   chosen = equiv-lift equivalent Factor.factor
 

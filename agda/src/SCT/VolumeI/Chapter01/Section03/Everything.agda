@@ -2,6 +2,7 @@
 module SCT.VolumeI.Chapter01.Section03.Everything where
 
 import SCT.VolumeI.Chapter01.Section03.Equivalences
+import SCT.VolumeI.Chapter01.Section03.FactorizationCalculus
 import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.FamilyNaturality
 import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.Parameterized
 import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.Structural

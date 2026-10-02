@@ -19,6 +19,7 @@ import SCT.VolumeI.Chapter03.Section01.MappingCalculus.MappingCommutation
 import SCT.VolumeI.Chapter03.Section01.MappingCalculus.MappingPrecomposition
 import SCT.VolumeI.Chapter03.Section01.MappingCalculus.MappingRestriction
 import SCT.VolumeI.Chapter03.Section01.MappingCalculus.MappingSegal
+import SCT.VolumeI.Chapter03.Section01.MappingCalculus.TestedInclusions
 import SCT.VolumeI.Chapter03.Section01.MorphismCollections
 import SCT.VolumeI.Chapter03.Section01.RecoveringSubcategories
 import SCT.VolumeI.Chapter03.Section01.Subcategories

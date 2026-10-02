@@ -35,6 +35,7 @@ open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionPostcompo
   using (post-expressionIso)
 import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.ComponentRestriction as Restriction
 import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.CompositeTriangleAlgebra as Algebra
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.CompositeFormulas as Formulas
 
 module At {Γ C D T : CAT} {l : MAP C D} {r : MAP D C}
   {k : MAP D T} {s : MAP T D} (adjA : Adjunction l r) (adjB : Adjunction k s) where
@@ -45,23 +46,20 @@ module At {Γ C D T : CAT} {l : MAP C D} {r : MAP D C}
   module X = Algebra.At.X 𝒯 M ℱ P I E S Q Γ
   module K = X.K
   module Core = Algebra.At.Composite 𝒯 M ℱ P I E S Q Γ adjA adjB
+  private module Formula = Formulas.At.Composite 𝒯 M ℱ P I E S Q Γ adjA adjB using (raw-unit; raw-counit; unit-comparison; counit-comparison)
 
   expanded-unit : (x : MAP Γ C) → MorphismExpression x (r ∘ (s ∘ (k ∘ (l ∘ x))))
-  expanded-unit x = compose-expression (A.unit-at x) (post-expression r (B.unit-at (l ∘ x)))
+  expanded-unit = Formula.raw-unit
 
   expanded-counit : (y : MAP Γ T) → MorphismExpression (k ∘ (l ∘ (r ∘ (s ∘ y)))) y
-  expanded-counit y = compose-expression (post-expression k (A.counit-at (s ∘ y))) (B.counit-at y)
+  expanded-counit = Formula.raw-counit
 
   abstract
     unit-comparison : (x : MAP Γ C) → ExpressionIso (expanded-unit x) (Core.expanded-unit x)
-    unit-comparison x = expressionIso-inverse (expressionIso-compose
-      (compose-expression-cong (expressionIso-id (A.unit-at x)) (K.post-comparison r (B.unit-at (l ∘ x))))
-      (K.composite-comparison (A.unit-at x) (K.post r (B.unit-at (l ∘ x)))))
+    unit-comparison = Formula.unit-comparison
 
     counit-comparison : (y : MAP Γ T) → ExpressionIso (expanded-counit y) (Core.expanded-counit y)
-    counit-comparison y = expressionIso-inverse (expressionIso-compose
-      (compose-expression-cong (K.post-comparison k (A.counit-at (s ∘ y))) (expressionIso-id (B.counit-at y)))
-      (K.composite-comparison (K.post k (A.counit-at (s ∘ y))) (B.counit-at y)))
+    counit-comparison = Formula.counit-comparison
 
     unit-parameter : {x x′ : MAP Γ C} (ξ : x =₁ x′) →
       ExpressionIso (retarget-expression (expanded-unit x) ξ (r ◁ (s ◁ (k ◁ (l ◁ ξ)))))

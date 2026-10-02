@@ -2,7 +2,9 @@
 
 These constructions depend on a unit and counit with their specified
 endpoints. They can be used while proving the triangle equations, before
-an adjunction record is available.
+an adjunction record is available. The `Adjunction` record reuses these
+normalizations, so the pre-triangle construction and its final record have
+one chosen definition of every component.
 
 ```agda
 {-# OPTIONS --safe --without-K #-}
@@ -21,18 +23,22 @@ module SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.UnitCounitData
   (I : Walking.WalkingMorphism 𝒯) (E : Endpoints.IntervalEndpoints 𝒯 M ℱ P I)
   (S : Segal.SegalAxiom 𝒯 M ℱ P I E) where
 
-open import SCT.VolumeI.Chapter04.Section04.Adjunctions 𝒯 M ℱ P I E S public
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.CompositionExpressions 𝒯 M ℱ P I E S public
 
 module Data {C D : CAT} (l : MAP C D) (r : MAP D C)
   (unit : MorphismExpression (id C) (r ∘ l))
   (counit : MorphismExpression (l ∘ r) (id D)) where
 
+  left-unit : MorphismExpression l ((l ∘ r) ∘ l)
   left-unit = retarget-expression (post-expression l unit)
     (comp-unitʳ l) ((comp-assoc l r l) ⁻¹)
+  left-counit : MorphismExpression ((l ∘ r) ∘ l) l
   left-counit = retarget-expression (restrict-expression counit l)
     (idIso ((l ∘ r) ∘ l)) (comp-unitˡ l)
+  right-unit : MorphismExpression r ((r ∘ l) ∘ r)
   right-unit = retarget-expression (restrict-expression unit r)
     (comp-unitˡ r) (idIso ((r ∘ l) ∘ r))
+  right-counit : MorphismExpression ((r ∘ l) ∘ r) r
   right-counit = retarget-expression (post-expression r counit)
     ((comp-assoc r l r) ⁻¹) (comp-unitʳ r)
 

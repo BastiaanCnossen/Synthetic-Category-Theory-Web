@@ -27,6 +27,7 @@ module SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.CompositeTriangleAlgeb
 open import SCT.VolumeI.Chapter04.Section04.Adjunctions 𝒯 M ℱ P I E S public
 open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionIdentifications 𝒯 M ℱ I
 import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.SealedComponents as Sealed
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.CompositeFormulas as Formulas
 
 module At (Γ : CAT) where
   module X = Sealed.At 𝒯 M ℱ P I E S Q Γ
@@ -38,9 +39,7 @@ module At (Γ : CAT) where
       (c₀ : MorphismExpression x₂ x₃) (d₀ : MorphismExpression x₃ x₄) →
       ExpressionIso (K.composite (K.composite a₀ b₀) (K.composite c₀ d₀))
         (K.composite a₀ (K.composite (K.composite b₀ c₀) d₀))
-    middle a₀ b₀ c₀ d₀ = expressionIso-compose
-      (K.composite-cong (expressionIso-id a₀) (K.associative b₀ c₀ d₀))
-      (expressionIso-inverse (K.associative a₀ b₀ (K.composite c₀ d₀)))
+    middle = K.composite-middle
 
     exchange : {C : CAT} {x₀ x₁ x₂ x₃ x₄ x₂′ : MAP Γ C}
       (a₀ : MorphismExpression x₀ x₁) (b₀ : MorphismExpression x₁ x₂)
@@ -49,19 +48,13 @@ module At (Γ : CAT) where
       ExpressionIso (K.composite b₀ c₀) (K.composite c₁ b₁) →
       ExpressionIso (K.composite (K.composite a₀ b₀) (K.composite c₀ d₀))
         (K.composite (K.composite a₀ c₁) (K.composite b₁ d₀))
-    exchange a₀ b₀ c₀ d₀ c₁ b₁ same = expressionIso-compose
-      (expressionIso-inverse (middle a₀ c₁ b₁ d₀))
-      (expressionIso-compose
-        (K.composite-cong (expressionIso-id a₀) (K.composite-cong same (expressionIso-id d₀)))
-        (middle a₀ b₀ c₀ d₀))
+    exchange = K.composite-exchange
 
     double-post-composite : {B C D : CAT} (F : MAP B C) (G : MAP C D)
       {x y z : MAP Γ B} (u : MorphismExpression x y) (v : MorphismExpression y z) →
       ExpressionIso (K.post G (K.post F (K.composite u v)))
         (K.composite (K.post G (K.post F u)) (K.post G (K.post F v)))
-    double-post-composite F G u v = expressionIso-compose
-      (expressionIso-inverse (K.post-composite G (K.post F u) (K.post F v)))
-      (X.post-cong G (expressionIso-inverse (K.post-composite F u v)))
+    double-post-composite = K.post-composite-twice
 
   module Composite {C D T : CAT} {l : MAP C D} {r : MAP D C}
     {k : MAP D T} {s : MAP T D} (a₀ : Adjunction l r) (b₀ : Adjunction k s) where
@@ -69,12 +62,13 @@ module At (Γ : CAT) where
     module B = Adjunction b₀ using (unit-at; counit-at)
     module AC = X.Components a₀
     module BC = X.Components b₀
+    private module Formula = Formulas.At.Composite 𝒯 M ℱ P I E S Q Γ a₀ b₀ using (expanded-unit; expanded-counit)
 
     expanded-unit : (x : MAP Γ C) → MorphismExpression x (r ∘ (s ∘ (k ∘ (l ∘ x))))
-    expanded-unit x = K.composite (A.unit-at x) (K.post r (B.unit-at (l ∘ x)))
+    expanded-unit = Formula.expanded-unit
 
     expanded-counit : (y : MAP Γ T) → MorphismExpression (k ∘ (l ∘ (r ∘ (s ∘ y)))) y
-    expanded-counit y = K.composite (K.post k (A.counit-at (s ∘ y))) (B.counit-at y)
+    expanded-counit = Formula.expanded-counit
 
     abstract
       left-triangle : (x : MAP Γ C) →

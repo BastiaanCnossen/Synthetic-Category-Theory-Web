@@ -22,7 +22,7 @@ open import SCT.VolumeI.Chapter02.Section01.Morphisms 𝒯 M ℱ I public
 open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionIdentifications 𝒯 M ℱ I
 open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionFrameCalculus 𝒯 M ℱ I using (retarget-cancel)
 open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.IsomorphismExpressionOperations 𝒯 M ℱ P I E
-  using (isomorphism-cong; framed-identity)
+  using (isomorphism-cong; isomorphism-id; framed-identity)
 open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.InverseCalculus 𝒯 using (inverse-inverse)
 
 abstract
@@ -35,4 +35,16 @@ abstract
     (expressionIso-compose (framed-identity (p ⁻¹) (q ⁻¹))
       (expressionIso-compose (retarget-expressionIso normalized (p ⁻¹) (q ⁻¹))
         (expressionIso-inverse (retarget-cancel f p q))))
+
+  identity-reflect : {Γ C : CAT} {x y : MAP Γ C}
+    (f : MorphismExpression x x) (p : x =₁ y) →
+    ExpressionIso (retarget-expression f p p) (identity-expression y) →
+    ExpressionIso f (identity-expression x)
+  identity-reflect {x = x} f p normalized = expressionIso-compose (isomorphism-id x)
+    (expressionIso-compose (isomorphism-cong (isoComp-inverseˡ-at p))
+      (normalized-identity f p p normalized))
 ```
+
+When the two endpoint identifications coincide, this recovers the original
+identity law. A later triangle calculation can therefore normalize its object
+first and reflect the identity law after the normalized calculation.

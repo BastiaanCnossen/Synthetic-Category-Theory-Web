@@ -30,7 +30,7 @@ open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionRestricti
 open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.CompositionIdentifications 𝒯 M ℱ P I E S
   using (compose-expression-cong)
 open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.CompositionSubstitution 𝒯 M ℱ P I E S
-  using (restrict-composition; retarget-composition)
+  using (restrict-composition-frames)
 import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.ComponentRestriction as Restriction
 import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.TransposeComparisons as Comparisons
 
@@ -58,13 +58,9 @@ module RestrictionLaws {C D : CAT} {l : MAP C D} {r : MAP D C}
           (retarget-cong (restrict-expression (post-expression r α) h)
             (idIso _) ((isoComp-unitˡ-at (comp-assoc h y r) ∙
               isoComp-cong (postWhisker-idIso r (y ∘ h)) (idIso (comp-assoc h y r))) ⁻¹))))
-      (expressionIso-compose
-        (expressionIso-inverse (retarget-composition
-          (restrict-expression (A.unit-at x) h) (restrict-expression (post-expression r α) h)
-          (idIso (x ∘ h)) ((r ◁ comp-assoc h x l) ∙ comp-assoc h (l ∘ x) r)
-          (comp-assoc h y r)))
-        (retarget-expressionIso (expressionIso-inverse (restrict-composition (A.unit-at x) (post-expression r α) h))
-          (idIso (x ∘ h)) (comp-assoc h y r)))
+      (restrict-composition-frames (A.unit-at x) (post-expression r α) h
+        (idIso (x ∘ h)) ((r ◁ comp-assoc h x l) ∙ comp-assoc h (l ∘ x) r)
+        (comp-assoc h y r))
 
     untranspose-restrict : {Γ Δ : CAT} (x : MAP Γ C) (y : MAP Γ D)
       (β : MorphismExpression x (r ∘ y)) (h : MAP Δ Γ) →
@@ -82,13 +78,9 @@ module RestrictionLaws {C D : CAT} {l : MAP C D} {r : MAP D C}
             ((isoComp-unitˡ-at (comp-assoc h x l) ∙
               isoComp-cong (postWhisker-idIso l (x ∘ h)) (idIso (comp-assoc h x l))) ⁻¹) (idIso _)))
         (R.counit-restrict y h))
-      (expressionIso-compose
-        (expressionIso-inverse (retarget-composition
-          (restrict-expression (post-expression l β) h) (restrict-expression (A.counit-at y) h)
-          (comp-assoc h x l) ((l ◁ comp-assoc h y r) ∙ comp-assoc h (r ∘ y) l)
-          (idIso (y ∘ h))))
-        (retarget-expressionIso (expressionIso-inverse (restrict-composition (post-expression l β) (A.counit-at y) h))
-          (comp-assoc h x l) (idIso (y ∘ h))))
+      (restrict-composition-frames (post-expression l β) (A.counit-at y) h
+        (comp-assoc h x l) ((l ◁ comp-assoc h y r) ∙ comp-assoc h (r ∘ y) l)
+        (idIso (y ∘ h)))
 
     transpose-restrict-change : {Γ Δ : CAT} (x : MAP Γ C) (y : MAP Γ D)
       (α : MorphismExpression (l ∘ x) y) (h : MAP Δ Γ) {x′ : MAP Δ C} {y′ : MAP Δ D}

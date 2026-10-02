@@ -24,39 +24,36 @@ module SCT.VolumeI.Chapter04.Section04.Adjunctions
   (S : Segal.SegalAxiom 𝒯 M ℱ P I E) where
 
 open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.CompositionExpressions 𝒯 M ℱ P I E S public
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.UnitCounitData as UnitCounit
 
 record Adjunction {C D : CAT} (l : MAP C D) (r : MAP D C) : Set m where
   field
     unit : MorphismExpression (id C) (r ∘ l)
     counit : MorphismExpression (l ∘ r) (id D)
 
+  private module Normalized = UnitCounit.Data 𝒯 M ℱ P I E S l r unit counit
+
   left-unit : MorphismExpression l ((l ∘ r) ∘ l)
-  left-unit = retarget-expression (post-expression l unit)
-    (comp-unitʳ l) ((comp-assoc l r l) ⁻¹)
+  left-unit = Normalized.left-unit
 
   left-counit : MorphismExpression ((l ∘ r) ∘ l) l
-  left-counit = retarget-expression (restrict-expression counit l)
-    (idIso ((l ∘ r) ∘ l)) (comp-unitˡ l)
+  left-counit = Normalized.left-counit
 
   right-unit : MorphismExpression r ((r ∘ l) ∘ r)
-  right-unit = retarget-expression (restrict-expression unit r)
-    (comp-unitˡ r) (idIso ((r ∘ l) ∘ r))
+  right-unit = Normalized.right-unit
 
   right-counit : MorphismExpression ((r ∘ l) ∘ r) r
-  right-counit = retarget-expression (post-expression r counit)
-    ((comp-assoc r l r) ⁻¹) (comp-unitʳ r)
+  right-counit = Normalized.right-counit
 
   field
     left-triangle : ExpressionIso (compose-expression left-unit left-counit) (identity-expression l)
     right-triangle : ExpressionIso (compose-expression right-unit right-counit) (identity-expression r)
 
   unit-at : {Γ : CAT} (x : MAP Γ C) → MorphismExpression x (r ∘ (l ∘ x))
-  unit-at x = retarget-expression (restrict-expression unit x)
-    (comp-unitˡ x) (comp-assoc x l r)
+  unit-at = Normalized.unit-at
 
   counit-at : {Γ : CAT} (y : MAP Γ D) → MorphismExpression (l ∘ (r ∘ y)) y
-  counit-at y = retarget-expression (restrict-expression counit y)
-    (comp-assoc y r l) (comp-unitˡ y)
+  counit-at = Normalized.counit-at
 
   transpose : {Γ : CAT} (x : MAP Γ C) (y : MAP Γ D) →
     MorphismExpression (l ∘ x) y → MorphismExpression x (r ∘ y)

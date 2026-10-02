@@ -1,32 +1,32 @@
-# Checks the Agda formalization on GitHub's machines.
+# Checks the web edition's snapshot of the Agda formalization on GitHub's machines.
 #
-# - On every push that changes agda/src: the routine check (same as
-#   `python scripts/check_agda.py` locally).
-# - Every night: the full check, including the slow uncurrying branch.
-# - Every Sunday: the lossy-unification audit (see scripts/audit_lossy.py).
-# - Any of these can also be started by hand from the Actions tab.
+# The formalization is developed in the private Synthetic-Category-Theory-Agda
+# repository. This repository holds a pinned snapshot in agda/ (see
+# agda/SNAPSHOT.json), refreshed only with the author's authorization by
+# scripts/update_agda_snapshot.py.
+#
+# - Whenever a push changes the snapshot: the full check, including the slow
+#   uncurrying branch (agda/scripts/check_agda.py --full).
+# - By hand from the Actions tab: routine, full, or the lossy-unification audit.
 #
 # Compiled interfaces are cached between runs, so a run only rechecks the
 # modules that changed and their dependents. Per-module timings are saved as
 # a downloadable artifact of every run. Checks use sequential section groups
 # sharing the cache. Import-only aggregates are audited statically, not loaded
 # together into one Agda process.
-name: Check Agda formalization
+name: Check Agda snapshot
 
 on:
   push:
     branches: [main]
-    paths: ['agda/src/**', 'scripts/check_agda.py', 'scripts/test_check_agda.py', 'scripts/audit_lossy.py', '.github/workflows/agda.yml']
-  schedule:
-    - cron: '17 1 * * *'   # nightly full check, about 03:17 Berlin time
-    - cron: '43 3 * * 0'   # Sunday lossy-unification audit
+    paths: ['agda/src/**', 'agda/sct.agda-lib', 'agda/SNAPSHOT.json', 'agda/scripts/**', '.github/workflows/agda.yml']
   workflow_dispatch:
     inputs:
       mode:
         description: 'What to run'
         type: choice
-        options: [routine, full, lossy-audit]
-        default: routine
+        options: [full, routine, lossy-audit]
+        default: full
 
 concurrency:
   group: agda-${{ github.ref }}
@@ -39,14 +39,11 @@ env:
 
 jobs:
   check:
-    if: github.event_name != 'schedule' || github.event.schedule == '17 1 * * *'
+    if: github.event_name == 'push' || inputs.mode != 'lossy-audit'
     runs-on: ubuntu-latest
     timeout-minutes: 350
     steps:
       - uses: actions/checkout@v4
-
-      - name: Test the check runner
-        run: python scripts/test_check_agda.py
 
       - name: Install Agda
         run: |
@@ -66,9 +63,8 @@ jobs:
 
       - name: Check
         run: |
-          MODE='${{ inputs.mode }}'
-          if [ "${{ github.event_name }}" = "schedule" ] || [ "$MODE" = "full" ]; then FLAG=--full; else FLAG=; fi
-          python scripts/check_agda.py $FLAG --batch-size 20 --agda "$HOME/agda-bin/agda-profiled"
+          if [ "${{ inputs.mode }}" = "routine" ]; then FLAG=; else FLAG=--full; fi
+          python agda/scripts/check_agda.py $FLAG --batch-size 20 --agda "$HOME/agda-bin/agda-profiled"
 
       - name: Save compiled interfaces (also after a failure or timeout)
         if: always()
@@ -82,11 +78,11 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: agda-check-${{ github.run_id }}
-          path: _build/agda-check/
+          path: agda/_build/agda-check/
           retention-days: 90
 
   lossy-audit:
-    if: (github.event_name == 'schedule' && github.event.schedule == '43 3 * * 0') || inputs.mode == 'lossy-audit'
+    if: inputs.mode == 'lossy-audit'
     runs-on: ubuntu-latest
     timeout-minutes: 350
     steps:
@@ -102,11 +98,11 @@ jobs:
           key: agda-${{ env.AGDA_VERSION }}-${{ hashFiles('agda/src/**') }}
           restore-keys: agda-${{ env.AGDA_VERSION }}-
       - name: Check every lossy module without lossy unification
-        run: python scripts/audit_lossy.py --agda "$HOME/agda-bin/agda"
+        run: python agda/scripts/audit_lossy.py --agda "$HOME/agda-bin/agda"
       - name: Upload audit report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: lossy-audit-${{ github.run_id }}
-          path: _build/lossy-audit/report.*
+          path: agda/_build/lossy-audit/report.*
           retention-days: 90

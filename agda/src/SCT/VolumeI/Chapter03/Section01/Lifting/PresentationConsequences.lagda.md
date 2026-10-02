@@ -30,6 +30,9 @@ open import SCT.VolumeI.Chapter01.Section04.Points 𝒯 M
   using (nameMap; nameMapIso; decodeMap; decodeMapIso; decode-name; oneProduct-in)
 open import SCT.VolumeI.Chapter01.Section04.Functoriality 𝒯 M
   using (mapPost; mapPost-isEquiv; mapPost-uncurry; mapPost-comp; mapPost-cong)
+open import SCT.VolumeI.Chapter01.Section03.FactorizationCalculus
+  vocabulary terminal products productLaws composition
+  using (lift-unique)
 open import SCT.VolumeI.Chapter01.Section04.EquivalenceDetection 𝒯 M
   using (mapPost-name; post-tests-all)
 open import SCT.VolumeI.Chapter01.Section06.PullbackSquares 𝒯 P
@@ -49,6 +52,7 @@ open import SCT.VolumeI.Chapter03.Section01.SubcategoryAxiom 𝒯 M ℱ P I E S
 open import SCT.VolumeI.Chapter03.Section01.Subcategories 𝒯 M P I
   using (IsSubcategory; subcategorySquare)
 open import SCT.VolumeI.Chapter01.Section06.EmbeddingCalculus.PullbackProjections 𝒯 P using (embedding-pullback)
+open import SCT.VolumeI.Chapter03.Section01.MappingCalculus.TestedInclusions 𝒯 M P using (module Boundary)
 open Pullbacks.PullbackStructure P
 
 decode-post : {B C D : CAT} (f : MAP C D) (x : Obj-abs (Map B C)) →
@@ -67,17 +71,8 @@ module Presented {C : CAT} (W : MorphismCollection C) (A : SubcategoryPresentati
 
   module SubcategorySquare (D : CAT) where
     tested = subcategorySquare inclusion D
-    p = pullback₁ {f = mappingAction [1] D C} {mapPost (mapPost inclusion)}
-    q = pullback₂ {f = mappingAction [1] D C} {mapPost (mapPost inclusion)}
-    j = FunctorLift.lift arrows
-    mW = MorphismCollection.inclusion W
-    boundary : (mapPost {C = Map [1] D} mW ∘ mapPost j) =₁ mapPost (mapPost inclusion)
-    boundary = mapPost-cong (FunctorLift.comparison arrows) ∙ mapPost-comp j mW
-
-    cone : Cone (mappingAction [1] D C) (mapPost mW) _
-    cone = record { left = p ; right = mapPost j ∘ q
-      ; match = comp-assoc q (mapPost j) (mapPost mW) ∙
-          ((boundary ⁻¹ ▷ q) ∙ pullbackMatch) }
+    open Boundary [1] inclusion (MorphismCollection.inclusion W) (FunctorLift.lift arrows)
+      (FunctorLift.comparison arrows) D using (cone)
     module U = UniversalCone (presentationSquare W inclusion arrows D) (universal D)
 
     isPullback : IsPullback tested
@@ -124,8 +119,7 @@ module Presented {C : CAT} (W : MorphismCollection C) (A : SubcategoryPresentati
 
   factorization-unique : {D : CAT} (f : MAP D C) (h k : FunctorLift inclusion f) →
     FunctorLift.lift h =₁ FunctorLift.lift k
-  factorization-unique f h k = embedding-reflect inclusion inclusion-isEmbedding _ _
-    ((FunctorLift.comparison k) ⁻¹ ∙ FunctorLift.comparison h)
+  factorization-unique f = lift-unique (embedding-reflect inclusion inclusion-isEmbedding)
 
 subcategory-on-all-morphisms : (C : CAT) (A : SubcategoryPresentation (allMorphisms C)) →
   IsEquiv (SubcategoryPresentation.inclusion A)

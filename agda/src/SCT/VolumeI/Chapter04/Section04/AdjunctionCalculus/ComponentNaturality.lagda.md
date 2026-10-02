@@ -5,6 +5,9 @@ associators to give their stated endpoints. The naturality comparisons
 below preserve precisely these frames. They hold for arbitrary absolute
 parameter categories and do not use functoriality of universals.
 
+`UnitCounitLaws` takes the two transformations without triangle identities.
+`Components` specializes it to an adjunction and retains the usual names.
+
 ```agda
 {-# OPTIONS --safe --without-K #-}
 open import Agda.Primitive using (Level)
@@ -23,6 +26,7 @@ module SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.ComponentNaturality
   (S : Segal.SegalAxiom 𝒯 M ℱ P I E) where
 
 open import SCT.VolumeI.Chapter04.Section04.Adjunctions 𝒯 M ℱ P I E S public
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.UnitCounitData as Data
 open import SCT.VolumeI.Chapter02.Section02.Naturality 𝒯 M ℱ P I E S using (naturality)
 open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionIdentifications 𝒯 M ℱ I
 open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.CompositionIdentifications 𝒯 M ℱ P I E S
@@ -34,9 +38,10 @@ open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionPostcompo
 open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.IdentityFunctorExpressions 𝒯 M ℱ P I E
   using (post-id)
 
-module Components {C D : CAT} {l : MAP C D} {r : MAP D C}
-  (adj : Adjunction l r) where
-  private module A = Adjunction adj
+module UnitCounitLaws {C D : CAT} (l : MAP C D) (r : MAP D C)
+  (unit : MorphismExpression (id C) (r ∘ l))
+  (counit : MorphismExpression (l ∘ r) (id D)) where
+  private module A = Data.Data 𝒯 M ℱ P I E S l r unit counit
 
   abstract
     unit-natural : {Γ : CAT} {x y : MAP Γ C} (u : MorphismExpression x y) →
@@ -47,11 +52,11 @@ module Components {C D : CAT} {l : MAP C D} {r : MAP D C}
       (compose-expression-cong (post-id u) (expressionIso-id (A.unit-at y)))
       (expressionIso-compose
         (expressionIso-inverse (retarget-composition (post-expression (id C) u)
-          (restrict-expression A.unit y) (comp-unitˡ x) (comp-unitˡ y) (comp-assoc y l r)))
+          (restrict-expression unit y) (comp-unitˡ x) (comp-unitˡ y) (comp-assoc y l r)))
         (expressionIso-compose
-          (retarget-expressionIso (naturality A.unit u) (comp-unitˡ x) (comp-assoc y l r))
+          (retarget-expressionIso (naturality unit u) (comp-unitˡ x) (comp-assoc y l r))
           (expressionIso-compose
-            (retarget-composition (restrict-expression A.unit x) (post-expression (r ∘ l) u)
+            (retarget-composition (restrict-expression unit x) (post-expression (r ∘ l) u)
               (comp-unitˡ x) (comp-assoc x l r) (comp-assoc y l r))
             (compose-expression-cong (expressionIso-id (A.unit-at x))
               (expressionIso-inverse (post-composite l r u))))))
@@ -63,14 +68,17 @@ module Components {C D : CAT} {l : MAP C D} {r : MAP D C}
     counit-natural {x = x} {y} u = expressionIso-compose
       (compose-expression-cong (expressionIso-id (A.counit-at x)) (post-id u))
       (expressionIso-compose
-        (expressionIso-inverse (retarget-composition (restrict-expression A.counit x)
+        (expressionIso-inverse (retarget-composition (restrict-expression counit x)
           (post-expression (id D) u) (comp-assoc x r l) (comp-unitˡ x) (comp-unitˡ y)))
         (expressionIso-compose
-          (retarget-expressionIso (expressionIso-inverse (naturality A.counit u))
+          (retarget-expressionIso (expressionIso-inverse (naturality counit u))
             (comp-assoc x r l) (comp-unitˡ y))
           (expressionIso-compose
-            (retarget-composition (post-expression (l ∘ r) u) (restrict-expression A.counit y)
+            (retarget-composition (post-expression (l ∘ r) u) (restrict-expression counit y)
               (comp-assoc x r l) (comp-assoc y r l) (comp-unitˡ y))
             (compose-expression-cong (expressionIso-inverse (post-composite r l u))
               (expressionIso-id (A.counit-at y))))))
+
+module Components {C D : CAT} {l : MAP C D} {r : MAP D C}
+  (adj : Adjunction l r) = UnitCounitLaws l r (Adjunction.unit adj) (Adjunction.counit adj)
 ```

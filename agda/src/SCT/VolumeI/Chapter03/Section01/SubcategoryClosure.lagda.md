@@ -5,8 +5,12 @@ composite triangle. The subcategory inclusion is an embedding, so the
 specified middle matching lifts too. The lifted triangle supplies the
 required composite. Identities follow from functoriality.
 
+The collection of morphisms of a subcategory is the morphism image of the
+embedding itself, via identity factorizations. The argument is therefore
+the closure of embedding images in `EmbeddingImageClosure`.
+
 ```agda
-{-# OPTIONS --safe --without-K --lossy-unification #-}
+{-# OPTIONS --safe --without-K #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
@@ -23,55 +27,26 @@ module SCT.VolumeI.Chapter03.Section01.SubcategoryClosure
   (S : Segal.SegalAxiom 𝒯 M ℱ P I E) where
 
 open import SCT.VolumeI.Chapter01.Section05.Setup 𝒯 M
-open Pullbacks.PullbackStructure P
 open Walking.WalkingMorphism I
-open Segal 𝒯 M ℱ P I E using ([2]; d₀; d₁; d₂)
+open import SCT.VolumeI.Chapter01.Section03.FactorizationCalculus
+  vocabulary terminal products productLaws composition
+  using (lift-id)
 open import SCT.VolumeI.Chapter03.Section01.Subcategories 𝒯 M P I
   using (IsSubcategory; subcategory-isEmbedding)
 open import SCT.VolumeI.Chapter03.Section01.MorphismCollections 𝒯 M P I
+  using (subcategoryMorphisms)
 open import SCT.VolumeI.Chapter03.Section01.ClosureCalculus.CompositionClosure 𝒯 M ℱ P I E S
-  using (ClosedUnderComposition; module ComposableIn)
-open import SCT.VolumeI.Chapter03.Section01.MappingCalculus.MappingSegal 𝒯 M ℱ P I E S
-  using (composeMorphisms; module Completion)
-open import SCT.VolumeI.Chapter03.Section01.MappingCalculus.MappingCommutation 𝒯 M using (mapPre-mapPost)
-open import SCT.VolumeI.Chapter03.Section01.Lifting.TriangleLifting 𝒯 M ℱ P I E S
-  using (module LiftTriangle)
+  using (ClosedUnderComposition)
+open import SCT.VolumeI.Chapter03.Section01.ClosureCalculus.EmbeddingImageClosure 𝒯 M ℱ P I E S
+  using () renaming (module Closure to ImageClosure)
 
 module Closure {A C : CAT} (f : MAP A C) (sub : IsSubcategory f) where
   W = subcategoryMorphisms f sub
-  module Pair = ComposableIn W
-  triangle = Completion.j C ∘ Pair.composableInclusion
-
-  first : FunctorLift (mapPost f) (mapPre d₂ ∘ triangle)
-  first = record { lift = pullback₁
-    ; comparison = ((pullbackLift-β₁ Pair.cone) ∙
-        ((Completion.first-edge C ▷ Pair.composableInclusion) ∙
-          (comp-assoc Pair.composableInclusion (Completion.j C) (mapPre d₂)) ⁻¹)) ⁻¹ }
-  second : FunctorLift (mapPost f) (mapPre d₀ ∘ triangle)
-  second = record { lift = pullback₂
-    ; comparison = ((pullbackLift-β₂ Pair.cone) ∙
-        ((Completion.second-edge C ▷ Pair.composableInclusion) ∙
-          (comp-assoc Pair.composableInclusion (Completion.j C) (mapPre d₀)) ⁻¹)) ⁻¹ }
-
-  module Lift = LiftTriangle Pair.Composable-isAn f (subcategory-isEmbedding f sub)
-    triangle first second
-
-  composite-lift : FunctorLift (mapPost f) Pair.composite
-  composite-lift = record { lift = mapPre d₁ ∘ Lift.triangle
-    ; comparison = (comp-assoc Pair.composableInclusion (Completion.j C) (mapPre d₁)) ⁻¹ ∙
-        ((mapPre d₁ ◁ Lift.comparison) ∙
-          (comp-assoc Lift.triangle (mapPost f) (mapPre d₁) ∙
-            (((mapPre-mapPost d₁ f) ⁻¹ ▷ Lift.triangle) ∙
-              (comp-assoc Lift.triangle (mapPre d₁) (mapPost f)) ⁻¹))) }
+  module Image = ImageClosure f (subcategory-isEmbedding f sub) W
+    (lift-id (mapPost f)) (lift-id (mapPost f))
 
   closed : ClosedUnderComposition W
-  closed = record
-    { identities = record
-        { source-identity = record { lift = mapPre (const zero)
-            ; comparison = (mapPre-mapPost (const zero) f) ⁻¹ }
-        ; target-identity = record { lift = mapPre (const one)
-            ; comparison = (mapPre-mapPost (const one) f) ⁻¹ } }
-    ; composition = composite-lift }
+  closed = Image.closed
 
 subcategory-morphisms-closed : {A C : CAT} (f : MAP A C) (sub : IsSubcategory f) →
   ClosedUnderComposition (subcategoryMorphisms f sub)

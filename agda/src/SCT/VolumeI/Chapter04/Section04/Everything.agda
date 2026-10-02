@@ -99,3 +99,5 @@ import SCT.VolumeI.Chapter04.Section04.AdjunctionCosliceSquares
 import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.TranspositionWithInvertibleUnit
 import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.CosliceTranspositionExpressions
 import SCT.VolumeI.Chapter04.Section04.AdjointSectionCosliceSquares
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.TransposeFamilyRestriction
+import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.CompositeFormulas

@@ -25,6 +25,9 @@ open import SCT.VolumeI.Chapter01.Section04.Functoriality 𝒯 M
   using (mapPost; mapPost-id; mapPost-comp; mapPre)
 open import SCT.VolumeI.Chapter01.Section06.EmbeddingCalculus.EmbeddingCalculus 𝒯 P
   using (IsEmbedding; embedding-reflect; equivalence-isEmbedding)
+open import SCT.VolumeI.Chapter01.Section03.FactorizationCalculus
+  vocabulary terminal products productLaws composition
+  using (lift-id; lift-retarget; lift-compose-along; lift-unique)
 open import SCT.VolumeI.Chapter03.Section01.Subcategories 𝒯 M P I using (IsSubcategory)
 
 record MorphismCollection (C : CAT) : Set (c ⊔ m ⊔ a) where
@@ -39,8 +42,7 @@ record MorphismCollection (C : CAT) : Set (c ⊔ m ⊔ a) where
 
   membership-unique : (f : MAP [1] C) (u v : Contains f) →
     FunctorLift.lift u =₁ FunctorLift.lift v
-  membership-unique f u v = embedding-reflect inclusion inclusion-isEmbedding _ _
-    ((FunctorLift.comparison v) ⁻¹ ∙ FunctorLift.comparison u)
+  membership-unique f = lift-unique (embedding-reflect inclusion inclusion-isEmbedding)
 
 abstract
   all-morphisms-inclusion-isEmbedding : (C : CAT) → IsEmbedding (id (Map [1] C))
@@ -69,7 +71,9 @@ record ClosedUnderIdentities {C : CAT} (W : MorphismCollection C) : Set m where
 
 A functor preserves collections when its action on arrows factors through
 the specified target collection (`def:Functor_Preserving_Morphisms`).
-The factorization retains its comparison with the inclusions.
+The factorization retains its comparison with the inclusions. Identities
+and composites are the corresponding operations on factorizations,
+retargeted along functoriality of `mapPost`.
 
 ```agda
 PreservesMorphisms : {C D : CAT} → MAP C D → MorphismCollection C → MorphismCollection D → Set m
@@ -77,22 +81,14 @@ PreservesMorphisms f V W = FunctorLift (MorphismCollection.inclusion W)
   (mapPost f ∘ MorphismCollection.inclusion V)
 
 identity-preserves : {C : CAT} (W : MorphismCollection C) → PreservesMorphisms (id C) W W
-identity-preserves {C} W = record
-  { lift = id (MorphismCollection.collection W)
-  ; comparison = (comp-unitˡ inclusion ∙ (mapPost-id [1] C ▷ inclusion)) ⁻¹ ∙
-      comp-unitʳ inclusion }
+identity-preserves {C} W = lift-retarget
+  ((comp-unitˡ inclusion ∙ (mapPost-id [1] C ▷ inclusion)) ⁻¹) (lift-id inclusion)
   where open MorphismCollection W
 
 composition-preserves : {C D E : CAT} (f : MAP C D) (g : MAP D E)
   {U : MorphismCollection C} {V : MorphismCollection D} {W : MorphismCollection E} →
   PreservesMorphisms f U V → PreservesMorphisms g V W → PreservesMorphisms (g ∘ f) U W
-composition-preserves f g {U} {V} {W} F G = record
-  { lift = FunctorLift.lift G ∘ FunctorLift.lift F
-  ; comparison = (mapPost-comp f g ▷ MorphismCollection.inclusion U) ∙
-      ((comp-assoc (MorphismCollection.inclusion U) (mapPost f) (mapPost g)) ⁻¹ ∙
-        ((mapPost g ◁ FunctorLift.comparison F) ∙
-          (comp-assoc (FunctorLift.lift F) (MorphismCollection.inclusion V) (mapPost g) ∙
-            ((FunctorLift.comparison G ▷ FunctorLift.lift F) ∙
-              (comp-assoc (FunctorLift.lift F) (FunctorLift.lift G)
-                (MorphismCollection.inclusion W)) ⁻¹)))) }
+composition-preserves f g {U} F G = lift-retarget (mapPost-comp f g ▷ MorphismCollection.inclusion U)
+  (lift-retarget ((comp-assoc (MorphismCollection.inclusion U) (mapPost f) (mapPost g)) ⁻¹)
+    (lift-compose-along (mapPost g) G F))
 ```

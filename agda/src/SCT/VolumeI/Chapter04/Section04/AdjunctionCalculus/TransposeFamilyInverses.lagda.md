@@ -1,10 +1,10 @@
 # Inverse equations for transposition over a base
 
-Normalizing and then restoring an endpoint frame gives the original
-expression. Applying these cancellations to the two component inverse
-laws proves that the transposition operations over a fixed base are
-inverse. The statement remains at the expression level; realization
-uses the separate restriction and base-change comparisons.
+The component inverse laws give an equivalence before the endpoints are
+normalized. Normalize the source, apply that equivalence, and undo the target
+normalization. Composition and endpoint transport of family equivalences supply
+the inverse equations together with all finite operation fields.
+The explicit forward and backward formulas remain those of TransposeFamilies.
 
 ```agda
 {-# OPTIONS --safe --without-K --lossy-unification #-}
@@ -27,45 +27,64 @@ module SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.TransposeFamilyInverse
 
 open import SCT.VolumeI.Chapter04.Section04.Adjunctions 𝒯 M ℱ P I E S public
 open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionIdentifications 𝒯 M ℱ I
-open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionFrameSquares 𝒯 M ℱ I using (cancel-frames)
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionFamilyEquivalences 𝒯 M ℱ I
+  using (FamilyEquivalence; represented; post; associator-frame; comparison-equivalence;
+    identity-endpoint-equivalence; transport-family-equivalence;
+    compose-family-equivalences; inverse-family-equivalence)
 import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.TransposeFamilies as Families
 import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.TransposeIdentifications as Inverses
-import SCT.VolumeI.Chapter04.Section04.AdjunctionCalculus.TransposeComparisons as Comparisons
 
 module InverseFamilies {B C D : CAT} {l : MAP C D} {r : MAP D C}
   (adj : Adjunction l r) (x : MAP B C) (y : MAP B D) where
   private
-    module A = Adjunction adj
-    module F = Families.Families 𝒯 M ℱ P I E S adj x y using (left-normal; right-normal; forward; backward)
-    module V = Inverses.InverseLaws 𝒯 M ℱ P I E S Q adj using (untranspose-transpose; transpose-untranspose)
-    module N = Comparisons.Comparisons 𝒯 M ℱ P I E S adj using (transpose-cong; untranspose-cong)
+    module F = Families.Families 𝒯 M ℱ P I E S adj x y
+      using (forward; backward; raw-forward; raw-backward)
+    module V = Inverses.InverseLaws 𝒯 M ℱ P I E S Q adj
+      using (untranspose-transpose; transpose-untranspose)
+
+    raw-equivalence : FamilyEquivalence (post l (represented x)) (represented y)
+      (represented x) (post r (represented y))
+    raw-equivalence = record
+      { forward = F.raw-forward ; backward = F.raw-backward
+      ; backward-forward = λ b f → V.untranspose-transpose (x ∘ b) (y ∘ b) f
+      ; forward-backward = λ b g → V.transpose-untranspose (x ∘ b) (y ∘ b) g }
+
+    left-normalization : FamilyEquivalence (represented (l ∘ x)) (represented y)
+      (post l (represented x)) (represented y)
+    left-normalization = transport-family-equivalence
+      {u = represented (l ∘ x)} {v = represented y}
+      {s = post l (represented x)} {t = represented y}
+      (comparison-equivalence {u = represented (l ∘ x)} {v = post l (represented x)} (associator-frame x l))
+      (identity-endpoint-equivalence (represented y))
+
+    right-normalization : FamilyEquivalence (represented x) (represented (r ∘ y))
+      (represented x) (post r (represented y))
+    right-normalization = transport-family-equivalence
+      {u = represented x} {v = represented (r ∘ y)}
+      {s = represented x} {t = post r (represented y)}
+      (identity-endpoint-equivalence (represented x))
+      (comparison-equivalence {u = represented (r ∘ y)} {v = post r (represented y)} (associator-frame y r))
+
+  family-equivalence : FamilyEquivalence (represented (l ∘ x)) (represented y)
+    (represented x) (represented (r ∘ y))
+  family-equivalence = compose-family-equivalences
+    {u = represented (l ∘ x)} {v = represented y}
+    {s = represented x} {t = post r (represented y)}
+    {x = represented x} {y = represented (r ∘ y)}
+    (inverse-family-equivalence right-normalization)
+    (compose-family-equivalences
+      {u = represented (l ∘ x)} {v = represented y}
+      {s = post l (represented x)} {t = represented y}
+      {x = represented x} {y = post r (represented y)} raw-equivalence left-normalization)
 
   abstract
     backward-forward : {Γ : CAT} (b : MAP Γ B)
       (f : MorphismExpression ((l ∘ x) ∘ b) (y ∘ b)) →
       ExpressionIso (F.backward b (F.forward b f)) f
-    backward-forward b f = expressionIso-compose
-      (cancel-frames f (comp-assoc b x l) (idIso (y ∘ b)) ((comp-assoc b x l) ⁻¹) (idIso (y ∘ b))
-        (isoComp-inverseˡ-at (comp-assoc b x l)) (isoComp-unitˡ-at (idIso (y ∘ b))))
-      (retarget-expressionIso
-        (expressionIso-compose (V.untranspose-transpose (x ∘ b) (y ∘ b) (F.left-normal b f))
-          (N.untranspose-cong (x ∘ b) (y ∘ b)
-            (cancel-frames (A.transpose (x ∘ b) (y ∘ b) (F.left-normal b f))
-              (idIso (x ∘ b)) ((comp-assoc b y r) ⁻¹) (idIso (x ∘ b)) (comp-assoc b y r)
-              (isoComp-unitˡ-at (idIso (x ∘ b))) (isoComp-inverseʳ-at (comp-assoc b y r)))))
-        ((comp-assoc b x l) ⁻¹) (idIso (y ∘ b)))
+    backward-forward b f = FamilyEquivalence.backward-forward family-equivalence b f
 
     forward-backward : {Γ : CAT} (b : MAP Γ B)
       (f : MorphismExpression (x ∘ b) ((r ∘ y) ∘ b)) →
       ExpressionIso (F.forward b (F.backward b f)) f
-    forward-backward b f = expressionIso-compose
-      (cancel-frames f (idIso (x ∘ b)) (comp-assoc b y r) (idIso (x ∘ b)) ((comp-assoc b y r) ⁻¹)
-        (isoComp-unitˡ-at (idIso (x ∘ b))) (isoComp-inverseˡ-at (comp-assoc b y r)))
-      (retarget-expressionIso
-        (expressionIso-compose (V.transpose-untranspose (x ∘ b) (y ∘ b) (F.right-normal b f))
-          (N.transpose-cong (x ∘ b) (y ∘ b)
-            (cancel-frames (A.untranspose (x ∘ b) (y ∘ b) (F.right-normal b f))
-              ((comp-assoc b x l) ⁻¹) (idIso (y ∘ b)) (comp-assoc b x l) (idIso (y ∘ b))
-              (isoComp-inverseʳ-at (comp-assoc b x l)) (isoComp-unitˡ-at (idIso (y ∘ b))))))
-        (idIso (x ∘ b)) ((comp-assoc b y r) ⁻¹))
+    forward-backward b f = FamilyEquivalence.forward-backward family-equivalence b f
 ```

@@ -16,6 +16,7 @@ import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
 import SCT.VolumeI.Chapter01.Section04.SquareCalculus.ProjectionSquares as ProjectionSquares
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingUnits as PU
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingNaturality as PN
+import SCT.VolumeI.Chapter01.Section02.Isomorphisms as Isomorphisms
 
 module SCT.VolumeI.Chapter03.RelativeCategories.Identifications
   {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯)
@@ -28,6 +29,9 @@ module Squares = ProjectionSquares 𝒯
 open PU vocabulary terminal products productLaws composition vertical whiskering pentagonTriangle
   using (triangle-whiskered; unit-square-projection)
 open PN vocabulary terminal products productLaws composition vertical whiskering using (cancel-right)
+open Isomorphisms vocabulary terminal products productLaws composition vertical whiskering using (cancel-inverse)
+open import SCT.VolumeI.Chapter01.Section06.Embeddings 𝒯 P using (IsEmbedding)
+open import SCT.VolumeI.Chapter01.Section06.EmbeddingCalculus.PrescribedLifting 𝒯 P using (embedding-lift)
 
 record FunctorOverIso {C D S : CAT} {f : MAP C S} {g : MAP D S}
   (u v : FunctorOver f g) : Set m where
@@ -95,6 +99,26 @@ right-unit-over : {C D S : CAT} {f : MAP C S} {g : MAP D S}
 right-unit-over {f = f} {g} u = record
   { underlying = comp-unitʳ (FunctorLift.lift u)
   ; compatible = (unit-square-projection g (FunctorLift.lift u) f (FunctorLift.comparison u)) ⁻¹ }
+```
+
+## Functors over an embedding
+
+Two functors over an embedding are identified over the base. Lift the
+identification of their images through the embedding; the specified
+image of the lift gives the compatibility with the two triangles. The
+underlying identification is the specified lift. It is not asserted to
+agree with `lift-unique` applied to `embedding-reflect`, which supplies
+only an identification of the underlying functors.
+
+```agda
+embedding-iso-over : {C S : CAT} (f : MAP C S) → IsEmbedding f →
+  {X : CAT} {t : MAP X S} (u v : FunctorOver t f) → FunctorOverIso u v
+embedding-iso-over f ef u v = record { underlying = FunctorLift.lift chosen
+  ; compatible = cancel-inverse θv θu ∙ isoComp-cong (idIso θv) (FunctorLift.comparison chosen) }
+  where
+  θu = FunctorLift.comparison u
+  θv = FunctorLift.comparison v
+  chosen = embedding-lift f ef (FunctorLift.lift u) (FunctorLift.lift v) (θv ⁻¹ ∙ θu)
 ```
 
 ## Identifications between relative identifications

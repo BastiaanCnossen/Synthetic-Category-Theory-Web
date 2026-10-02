@@ -9,11 +9,13 @@ primitive contextual theories.
 
 ## Basic constructions
 
-1. [Functors](Functors.lagda.md) defines `FunctorOver`, identity and composition,
+1. [Functors](Functors.lagda.md) defines `FunctorOver`, identity and composition
+   (the Chapter 1 factorization calculus),
    and the relative functor and mapping categories.
 2. [Identifications](Identifications.lagda.md) defines `FunctorOverIso` and
    `FunctorOverIso₂`, composition, inverses, whiskering, and the unit and
-   associativity comparisons over the base.
+   associativity comparisons over the base. Over an embedding, any two
+   functors are identified over the base (`embedding-iso-over`).
 3. [Equivalences](Equivalences.lagda.md) supplies relative inverse data.
 4. [Products](Products.lagda.md), [pullbacks](Pullbacks.lagda.md), and
    [coproducts](Coproducts.lagda.md) give the corresponding relative constructions.

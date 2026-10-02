@@ -36,6 +36,7 @@ open import SCT.VolumeI.Chapter03.Section02.ObjectCollections 𝒯 M P I
 open import SCT.VolumeI.Chapter03.Section02.SpannedCore 𝒯 M ℱ P I E S using (module CoreComparison)
 open import SCT.VolumeI.Chapter03.Section02.Factorization.ObjectFactorizationFamilies 𝒯 M ℱ P I E S using (module Factor)
 open import SCT.VolumeI.Chapter03.Section02.FullSubcategories 𝒯 M P
+open import SCT.VolumeI.Chapter03.Section01.MappingCalculus.TestedInclusions 𝒯 M P using (module Boundary)
 
 module Characterization {C : CAT} (V : ObjectCollection C)
   (A : SubcategoryPresentation (SpannedMorphisms.collectionOfMorphisms V)) where
@@ -68,15 +69,13 @@ module Characterization {C : CAT} (V : ObjectCollection C)
       (Factor.factorization V A parameter-isAn h objects pullbackMatch)
 
   module FullSquare (D : CAT) where
-    h = pullback₁ {f = restrictionToCores D C} {mapPost (mapPost i)}
-    q = pullback₂ {f = restrictionToCores D C} {mapPost (mapPost i)}
+    open Boundary One i j Core.comparison Core.over-core D using (h; q; cone)
     parameter-isAn : isAn (Pullback (restrictionToCores D C) (mapPost (mapPost i)))
     parameter-isAn = pullback-isAn _ _ (map-isAn D C) (map-isAn (Core D) (Core G))
       (map-isAn (Core D) (Core C))
     objects = mapPost Core.comparison ∘ q
     match : (restrictionToCores D C ∘ h) =₁ (mapPost j ∘ objects)
-    match = comp-assoc q (mapPost Core.comparison) (mapPost j) ∙
-      ((boundary D ⁻¹ ▷ q) ∙ pullbackMatch)
+    match = Cone.match cone
 
     isPullback : IsPullback (fullSubcategorySquare i D)
     isPullback = embedding-pullback (fullSubcategorySquare i D)

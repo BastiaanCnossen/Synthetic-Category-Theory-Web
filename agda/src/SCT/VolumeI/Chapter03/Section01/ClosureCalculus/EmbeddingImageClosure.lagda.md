@@ -3,7 +3,11 @@
 A collection presenting the arrows of an embedded category is closed
 under composition. Transport its two arrows into that category, lift the
 ambient triangle with its specified matching, and transport its long
-edge back to the collection. This also applies to the embedded core.
+edge back to the collection. This also applies to the embedded core, and,
+with identity transports, to the morphisms of a subcategory. The
+transports are compositions of factorizations; the long edge and the
+identities are carried along the commutation of restriction and
+postcomposition.
 
 ```agda
 {-# OPTIONS --safe --without-K --lossy-unification #-}
@@ -27,6 +31,9 @@ open Pullbacks.PullbackStructure P
 open Walking.WalkingMorphism I
 open Segal 𝒯 M ℱ P I E using ([2]; d₀; d₁; d₂)
 open import SCT.VolumeI.Chapter01.Section06.Embeddings 𝒯 P using (IsEmbedding)
+open import SCT.VolumeI.Chapter01.Section03.FactorizationCalculus
+  vocabulary terminal products productLaws composition
+  using (lift-retarget; lift-restrict; lift-compose; lift-along-square)
 open import SCT.VolumeI.Chapter03.Section01.MorphismCollections 𝒯 M P I using (MorphismCollection)
 open import SCT.VolumeI.Chapter03.Section01.ClosureCalculus.CompositionClosure 𝒯 M ℱ P I E S
   using (ClosedUnderComposition; module ComposableIn)
@@ -46,8 +53,7 @@ module Closure {A C : CAT} (f : MAP A C) (ef : IsEmbedding f) (W : MorphismColle
   short-lift : (p : MAP Pair.Composable (MorphismCollection.collection W))
     (edge : MAP (Map [2] C) (Map [1] C)) →
     (edge ∘ triangle) =₁ (inclusion ∘ p) → FunctorLift (mapPost f) (edge ∘ triangle)
-  short-lift p edge β = record { lift = to ∘ p
-    ; comparison = β ⁻¹ ∙ ((FunctorLift.comparison toImage ▷ p) ∙ (comp-assoc p to (mapPost f)) ⁻¹) }
+  short-lift p edge β = lift-retarget (β ⁻¹) (lift-restrict toImage p)
   first = short-lift pullback₁ (mapPre d₂)
     (pullbackLift-β₁ Pair.cone ∙
       ((Completion.first-edge C ▷ Pair.composableInclusion) ∙
@@ -58,27 +64,17 @@ module Closure {A C : CAT} (f : MAP A C) (ef : IsEmbedding f) (W : MorphismColle
         (comp-assoc Pair.composableInclusion (Completion.j C) (mapPre d₀)) ⁻¹))
   module Lift = LiftTriangle Pair.Composable-isAn f ef triangle first second
 
-  composite-image : (mapPost f ∘ (mapPre d₁ ∘ Lift.triangle)) =₁ Pair.composite
-  composite-image = (comp-assoc Pair.composableInclusion (Completion.j C) (mapPre d₁)) ⁻¹ ∙
-    ((mapPre d₁ ◁ Lift.comparison) ∙
-      (comp-assoc Lift.triangle (mapPost f) (mapPre d₁) ∙
-        (((mapPre-mapPost d₁ f) ⁻¹ ▷ Lift.triangle) ∙
-          (comp-assoc Lift.triangle (mapPre d₁) (mapPost f)) ⁻¹)))
+  composite-image : FunctorLift (mapPost f) Pair.composite
+  composite-image = lift-retarget
+    ((comp-assoc Pair.composableInclusion (Completion.j C) (mapPre d₁)) ⁻¹)
+    (lift-along-square (mapPre-mapPost d₁ f) Lift.factorization)
 
   composite-lift : FunctorLift inclusion Pair.composite
-  composite-lift = record { lift = from ∘ (mapPre d₁ ∘ Lift.triangle)
-    ; comparison = composite-image ∙
-        ((FunctorLift.comparison fromImage ▷ (mapPre d₁ ∘ Lift.triangle)) ∙
-          (comp-assoc (mapPre d₁ ∘ Lift.triangle) from inclusion) ⁻¹) }
+  composite-lift = lift-compose fromImage composite-image
 
   identity-lift : (x : Obj-abs [1]) → FunctorLift inclusion (mapPre (const x) ∘ inclusion)
-  identity-lift x = record { lift = from ∘ (mapPre (const x) ∘ to)
-    ; comparison = (mapPre (const x) ◁ FunctorLift.comparison toImage) ∙
-        (comp-assoc to (mapPost f) (mapPre (const x)) ∙
-          (((mapPre-mapPost (const x) f) ⁻¹ ▷ to) ∙
-            ((comp-assoc to (mapPre (const x)) (mapPost f)) ⁻¹ ∙
-              ((FunctorLift.comparison fromImage ▷ (mapPre (const x) ∘ to)) ∙
-                (comp-assoc (mapPre (const x) ∘ to) from inclusion) ⁻¹)))) }
+  identity-lift x = lift-compose fromImage
+    (lift-along-square (mapPre-mapPost (const x) f) toImage)
 
   closed : ClosedUnderComposition W
   closed = record { identities = record

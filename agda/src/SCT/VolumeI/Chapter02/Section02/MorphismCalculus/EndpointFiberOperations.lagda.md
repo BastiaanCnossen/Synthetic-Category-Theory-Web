@@ -4,6 +4,8 @@ An operation on parameterized morphism expressions that respects
 restriction defines a functor between endpoint pullbacks. Its action on
 an arbitrary family is obtained by restriction of the universal family.
 If two such operations are inverse, their realized functors are inverse.
+Operations assembled with the endpoint-family constructors enter this interface
+through `from-family-operation`; the construction layer needs no pullbacks.
 The endpoint-change law is needed when using the specified base comparison
 of a pullback lift.
 
@@ -23,6 +25,8 @@ module SCT.VolumeI.Chapter02.Section02.MorphismCalculus.EndpointFiberOperations
 
 open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.EndpointFiberLifts 𝒯 M ℱ P I public
 open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionIdentifications 𝒯 M ℱ I
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionFamilies 𝒯 M ℱ I
+  using (FamilyOperation; represented)
 open Laws.PullbackStructure P
 
 record ExpressionOperation {B C D : CAT} (u v : MAP B C) (s t : MAP B D) : Set (c ⊔ m) where
@@ -40,6 +44,14 @@ record ExpressionOperation {B C D : CAT} (u v : MAP B C) (s t : MAP B D) : Set (
       (f : MorphismExpression (u ∘ b) (v ∘ b)) (σ : b =₁ d) →
       ExpressionIso (retarget-expression (apply b f) (s ◁ σ) (t ◁ σ))
         (apply d (retarget-expression f (u ◁ σ) (v ◁ σ)))
+
+from-family-operation : {B C D : CAT} {u v : MAP B C} {s t : MAP B D} →
+  FamilyOperation (represented u) (represented v) (represented s) (represented t) →
+  ExpressionOperation u v s t
+from-family-operation F = record
+  { apply = O.apply ; on-comparison = O.on-comparison
+  ; on-restriction = O.on-restriction ; on-change = O.on-change }
+  where module O = FamilyOperation F
 
 module Realize {B C D : CAT} {u v : MAP B C} {s t : MAP B D}
   (operation : ExpressionOperation u v s t) where

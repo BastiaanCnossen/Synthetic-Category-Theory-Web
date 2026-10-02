@@ -23,6 +23,8 @@ module SCT.VolumeI.Chapter02.Section02.MorphismCalculus.CompositionSubstitution
 
 open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.CompositePresentations 𝒯 M ℱ P I E S public
 import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.PresentationSubstitution as Presentations
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionIdentifications 𝒯 M ℱ I
+  using (expressionIso-compose; expressionIso-inverse; retarget-expressionIso)
 
 restrict-composition : {Γ Δ C : CAT} {x y z : MAP Γ C}
   (f : MorphismExpression x y) (g : MorphismExpression y z) (r : MAP Δ Γ) →
@@ -38,4 +40,20 @@ retarget-composition : {Γ C : CAT} {x y z x′ y′ z′ : MAP Γ C}
     (retarget-expression (compose-expression f g) α γ)
 retarget-composition f g α β γ = recognize-composite
   (Presentations.Retarget.value 𝒯 M ℱ P I E S (composition-presentation f g) α β γ)
+```
+
+Restriction followed by specified endpoint frames distributes over a
+composite using the same middle frame for both arrows. This packages the
+two preceding laws in the orientation used by component calculations.
+
+```agda
+restrict-composition-frames : {Γ Δ C : CAT} {x y z : MAP Γ C}
+  (f : MorphismExpression x y) (g : MorphismExpression y z) (r : MAP Δ Γ)
+  {x′ y′ z′ : MAP Δ C} (p : (x ∘ r) =₁ x′) (q : (y ∘ r) =₁ y′) (t : (z ∘ r) =₁ z′) →
+  ExpressionIso (retarget-expression (restrict-expression (compose-expression f g) r) p t)
+    (compose-expression (retarget-expression (restrict-expression f r) p q)
+      (retarget-expression (restrict-expression g r) q t))
+restrict-composition-frames f g r p q t = expressionIso-compose
+  (expressionIso-inverse (retarget-composition (restrict-expression f r) (restrict-expression g r) p q t))
+  (retarget-expressionIso (expressionIso-inverse (restrict-composition f g r)) p t)
 ```

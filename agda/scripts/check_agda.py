@@ -17,8 +17,10 @@ import shutil
 import subprocess
 import time
 
+import agda_lock
+
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "agda/src"
+SOURCE = ROOT / "src"
 EXPENSIVE_MODULES = {
     "SCT.VolumeI.Chapter03.Section05.BaseChange.BeckChevalleyUncurrying",
     "SCT.VolumeI.Chapter03.Section05.ProductCalculus.FunctorCategoryUncurrying",
@@ -169,8 +171,11 @@ def grouped_plan(modules, selected, batch_size=20, check_aggregates=False):
     return groups, sorted(static)
 
 
-def run_groups(executable, build, groups, report, timeout=0):
-    """One child at a time, same canonical source tree and Agda interface cache."""
+def run_groups(executable, build, groups, report, timeout=0, lock=None):
+    """One child at a time, same canonical source tree and Agda interface cache.
+
+    The compiler lock, when given, records each running Agda child, so a compiler
+    left running after this process stops still holds the lock."""
     checks = [dict(group, status="not-run") for group in groups]
     report["checks"] = checks
     receipt = build / "receipt.json"
@@ -194,11 +199,13 @@ def run_groups(executable, build, groups, report, timeout=0):
         print(f"[{index}/{len(checks)}] {check['id']} {check['folder']} "
               f"({len(check['modules'])} modules)\nLog: {log_path}", flush=True)
         started = time.monotonic()
+        child = None
         try:
             with log_path.open("w", encoding="utf-8") as log:
-                result = subprocess.run(command, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT,
-                                        timeout=timeout or None)
-            code = result.returncode
+                child = subprocess.Popen(command, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT)
+                if lock:
+                    lock.set_child(child.pid)
+                code = child.wait(timeout=timeout or None)
             check.update(exit_code=code, status="passed" if code == 0 else "failed")
         except subprocess.TimeoutExpired:
             code = 124
@@ -209,6 +216,13 @@ def run_groups(executable, build, groups, report, timeout=0):
         except KeyboardInterrupt:
             code = 130
             check.update(exit_code=code, status="interrupted")
+        finally:
+            # Never leave an owned compiler running after a timeout or interruption.
+            if child and child.poll() is None:
+                child.kill()
+                child.wait()
+            if lock:
+                lock.set_child(None)
         check.update(seconds=round(time.monotonic() - started, 3),
                      finished_utc=datetime.now(timezone.utc).isoformat())
         save()
@@ -233,6 +247,8 @@ def main():
     parser.add_argument("--timeout", type=int, default=0, help="Seconds per group; 0 means no local timeout.")
     parser.add_argument("--plan", action="store_true", help="Show groups and coverage without running Agda.")
     parser.add_argument("--agda", default="agda", help="Path to the Agda executable.")
+    parser.add_argument("--no-wait", action="store_true",
+                        help="Fail instead of waiting when another Agda compiler holds the shared lock.")
     args = parser.parse_args()
     if args.timeout < 0:
         parser.error("Timeout must be nonnegative.")
@@ -257,6 +273,21 @@ def main():
     executable = shutil.which(args.agda)
     if not executable:
         parser.error("Agda was not found; supply --agda with its executable path.")
+    try:
+        lock = agda_lock.CompilerLock("check_agda", f"{mode} check, scope {scope}")
+        lock.acquire(wait=not args.no_wait)
+    except RuntimeError as error:
+        parser.error(str(error))
+    except KeyboardInterrupt:
+        return 130
+    try:
+        return run_locked(args, modules, selected, excluded, groups, static, report, mode, scope,
+                          executable, lock)
+    finally:
+        lock.release()
+
+
+def run_locked(args, modules, selected, excluded, groups, static, report, mode, scope, executable, lock):
     run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
     build = ROOT / "_build/agda-check" / mode / scope / run_id
     build.mkdir(parents=True, exist_ok=True)
@@ -266,7 +297,7 @@ def main():
           f"({mode}); {len(static)} import-only aggregates audited statically; {len(excluded)} excluded.", flush=True)
     for name in excluded:
         print(f"Excluded: {name}", flush=True)
-    code = run_groups(executable, build, groups, report, args.timeout)
+    code = run_groups(executable, build, groups, report, args.timeout, lock)
     report.update(exit_code=code, finished_utc=datetime.now(timezone.utc).isoformat(), stable_sources=False)
     try:
         after_modules = sources()

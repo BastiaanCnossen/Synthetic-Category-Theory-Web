@@ -7,6 +7,8 @@ retains the identification making the triangle commute.
 `FunOver` is the category of functors over the base; `MapOver` is its
 core. These are categories of global functors, as distinct from the
 relative internal functor category constructed later in this section.
+A functor over the base is a factorization in the sense of Chapter 1, and
+its identities and composites are those of the factorization calculus.
 
 ```agda
 {-# OPTIONS --safe --without-K #-}
@@ -39,20 +41,18 @@ open import SCT.VolumeI.Chapter02.Section01.EvaluationCalculus.CoreInclusions �
 open import SCT.VolumeI.Chapter01.Section04.EquivalenceDetection 𝒯 M using (mapPost-reflect)
 open WhiskeringEquivalences vocabulary terminal products productLaws composition vertical whiskering
   using (leftMultiply; rightMultiply; leftMultiply-isEquiv; rightMultiply-isEquiv)
+open import SCT.VolumeI.Chapter01.Section03.FactorizationCalculus vocabulary terminal products
+  productLaws composition using (lift-id; lift-compose)
 
 FunctorOver : {C D S : CAT} → MAP C S → MAP D S → Set m
 FunctorOver f g = FunctorLift g f
 
 identity-over : {C S : CAT} (f : MAP C S) → FunctorOver f f
-identity-over f = record { lift = id _ ; comparison = comp-unitʳ f }
+identity-over = lift-id
 
 compose-over : {B C D S : CAT} {f : MAP B S} {g : MAP C S} {h : MAP D S} →
   FunctorOver g h → FunctorOver f g → FunctorOver f h
-compose-over {h = h} v u = record
-  { lift = FunctorLift.lift v ∘ FunctorLift.lift u
-  ; comparison = FunctorLift.comparison u ∙
-      ((FunctorLift.comparison v ▷ FunctorLift.lift u) ∙
-        (comp-assoc (FunctorLift.lift u) (FunctorLift.lift v) h) ⁻¹) }
+compose-over = lift-compose
 
 FunOver : {C D S : CAT} → MAP C S → MAP D S → CAT
 FunOver f g = Pullback (funPost g) (nameFun f)
