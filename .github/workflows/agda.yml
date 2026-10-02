@@ -8,13 +8,15 @@
 #
 # Compiled interfaces are cached between runs, so a run only rechecks the
 # modules that changed and their dependents. Per-module timings are saved as
-# a downloadable artifact of every run.
+# a downloadable artifact of every run. Checks use sequential section groups
+# sharing the cache. Import-only aggregates are audited statically, not loaded
+# together into one Agda process.
 name: Check Agda formalization
 
 on:
   push:
     branches: [main]
-    paths: ['agda/src/**', 'scripts/check_agda.py', 'scripts/audit_lossy.py', '.github/workflows/agda.yml']
+    paths: ['agda/src/**', 'scripts/check_agda.py', 'scripts/test_check_agda.py', 'scripts/audit_lossy.py', '.github/workflows/agda.yml']
   schedule:
     - cron: '17 1 * * *'   # nightly full check, about 03:17 Berlin time
     - cron: '43 3 * * 0'   # Sunday lossy-unification audit
@@ -43,6 +45,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Test the check runner
+        run: python scripts/test_check_agda.py
+
       - name: Install Agda
         run: |
           curl -sSL -o agda.tar.xz "https://github.com/agda/agda/releases/download/v${AGDA_VERSION}/Agda-v${AGDA_VERSION}-linux.tar.xz"
@@ -63,7 +68,7 @@ jobs:
         run: |
           MODE='${{ inputs.mode }}'
           if [ "${{ github.event_name }}" = "schedule" ] || [ "$MODE" = "full" ]; then FLAG=--full; else FLAG=; fi
-          python scripts/check_agda.py $FLAG --agda "$HOME/agda-bin/agda-profiled"
+          python scripts/check_agda.py $FLAG --batch-size 20 --agda "$HOME/agda-bin/agda-profiled"
 
       - name: Save compiled interfaces (also after a failure or timeout)
         if: always()
