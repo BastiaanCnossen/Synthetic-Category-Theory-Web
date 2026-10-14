@@ -1,0 +1,87 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+\section*{Base change of triangles}
+
+Base change must carry the specified triangle of a functor over the base,
+not just its underlying functor. We spell out the calculation supporting
+\href{exponentiable-functors.html}{base change of relative functors}.
+Use the Chapter 1 structures and the conventions of
+\href{supplementary-triangles-over-a-base.html}{Triangles over a base}.
+
+Fix $p\colon S\to T$ and categories $f\colon C\to T$ and $g\colon D\to T$.
+Write $r\colon C\times_T S\to C$, $q\colon C\times_T S\to S$ and
+$\tau\colon fr=pq$ for the chosen pullback data. If $u=(h,\theta)$ is a
+functor from $f$ to $g$ over $T$, form the cone with legs $hr,q$ and matching
+\[
+ g(hr)\simeq(gh)r\xrightarrow{\theta r}fr\xrightarrow{\tau}pq.
+\]
+Its lift defines $p^*u$. The second projection computation is its specified
+triangle over $S$.
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Base_Change_Comparison}
+A comparison $u\simeq_T v$ induces a comparison $p^*u\simeq_S p^*v$.
+\end{lemma}
+\begin{proof}[Proof idea]
+Write $v=(k,\psi)$ and let $\alpha\colon h=k$ be the given comparison.
+Restrict $\psi\cdot(g\alpha)=\theta$ along $r$, and compare the two
+associations of the resulting composites. Pasting with $\tau$ gives the
+matching equation for the two cones. This retains the right leg $q$ and
+its identity comparison.
+
+The formal construction performs this lift on the universal family of
+relative comparisons and evaluates at the given comparison. The resulting
+identification carries its compatibility over $S$. This construction does
+not require identifying it with an independently chosen pointwise lift.
+\end{proof}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Reflecting_Base_Triangle}
+Let $a,b\colon X\to D\times_T S$ be equipped with triangles
+$\beta_a\colon q_Da=t$ and $\beta_b\colon q_Db=t$, where $q_D\colon D\times_T S\to S$ is the second projection and $t\colon X\to S$.
+Suppose $\Phi$ compares their full induced pullback cones and its right
+component comes with a specified identification
+\[
+ \beta_b\cdot\Phi_{\mathrm{right}}=\beta_a.
+\]
+Then $\Phi$ lifts to a comparison of $a$ and $b$ over $S$. The cone
+comparison induced by this lift is identified with $\Phi$, including
+its matching compatibility.
+\end{lemma}
+\begin{proof}[Proof idea]
+Use the identification-anima universal property of the pullback to lift
+$\Phi$ with its prescribed image. Its right projection computation transports
+the displayed equation to the triangle equation of the lifted
+identification. The full image computation also compares the matching
+witnesses. Thus the same lift serves both the pullback calculation and the
+calculation over the base.
+\end{proof}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Base_Change_Laws}
+There are comparisons over $S$
+\[
+ p^*(\operatorname{id})\simeq_S\operatorname{id},
+ \qquad (p^*v)(p^*u)\simeq_S p^*(vu)
+\]
+for composable functors $u,v$ over $T$.
+For composition, the resulting cone comparison recovers the comparison
+obtained by pasting the defining pullback computations.
+\end{lemma}
+\begin{proof}[Proof idea]
+For the identity, compare its defining cone with the original pullback
+cone. The unitor on the first leg and the identity on the second satisfy
+the matching equation by the triangle law.
+
+For composition, restrict the defining cone of $p^*v$ along $p^*u$.
+Apply its computation comparison, then the one for $p^*u$, and use the
+restriction and composition comparisons for the action on cones. This
+produces a full comparison with the defining cone of $p^*(vu)$.
+Its right component satisfies the equation in
+\Cref{lem:Supplementary_Reflecting_Base_Triangle}; checking that equation
+uses the actual second-projection computations defining the triangles.
+Reflection gives the desired comparison over $S$, together with its full
+cone and triangle computations.
+\end{proof}
+\end{document}

@@ -16,6 +16,8 @@ import SCT.VolumeI.Chapter01.Section03.ProductCalculus.FamilyPairing as FamilyPa
 import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.FamilyNaturality as Naturality
 import SCT.VolumeI.Chapter01.Section03.Whiskering as Multiplication
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingNaturality as Squares
+import SCT.VolumeI.Chapter01.Section06.ConeCalculus.ComparisonEquivalences as Comparisons
+import SCT.VolumeI.Chapter01.Section06.ConeCalculus.HigherComparisons as Higher
 
 module SCT.VolumeI.Chapter01.Section06.ConeCalculus.ConeIdentificationTransport
   {c m a : Level} (𝒯 : Theory c m a) (P : Laws.PullbackStructure 𝒯) where
@@ -199,4 +201,53 @@ module Transport {C D E T : CAT} {f : MAP C E} {g : MAP D E}
 
     equivalence : IsEquiv pullbackMap
     equivalence = CospanEquivalence.pullbackMap-isEquiv cospan Left.isEquiv Right.isEquiv Middle.isEquiv
+```
+
+
+The equivalence of comparison animae also gives operations on whole cone
+comparisons, with both inverse computations. These operations use the
+specified map of comparison animae above. Their agreement with a separately
+written pasting expression is a further statement, not an implicit law.
+
+```agda
+module WholeComparisons {C D E T : CAT} {f : MAP C E} {g : MAP D E}
+  {s s′ t t′ : Cone f g T} (Φ : ConeIso s s′) (Ψ : ConeIso t t′) where
+  private
+    module Source = Comparisons.Encoded 𝒯 P s t
+      using (point; value; point-computation; value-computation; point-congruence; value-congruence)
+    module Target = Transport Φ Ψ using (pullbackMap; equivalence)
+    module Presented = Comparisons.Equivalence 𝒯 P s′ t′ Target.pullbackMap Target.equivalence
+      using (action; lift; computation; congruence; reflection)
+    module SourceHigher = Higher.Calculus 𝒯 P s t using (compose)
+    module TargetHigher = Higher.Calculus 𝒯 P s′ t′ using (compose; inverse)
+
+  forward : ConeIso s t → ConeIso s′ t′
+  forward Θ = Presented.action (Source.point Θ)
+  backward : ConeIso s′ t′ → ConeIso s t
+  backward Θ = Source.value (Presented.lift Θ)
+
+  opaque
+    forward-backward : (Θ : ConeIso s′ t′) → ConeIso₂ (forward (backward Θ)) Θ
+    forward-backward Θ = TargetHigher.compose
+      {Φ = forward (backward Θ)} {Ψ = Presented.action (Presented.lift Θ)} {Ω = Θ}
+      (Presented.computation Θ)
+      (Presented.congruence (Source.value-computation (Presented.lift Θ)))
+
+    backward-forward : (Θ : ConeIso s t) → ConeIso₂ (backward (forward Θ)) Θ
+    backward-forward Θ = SourceHigher.compose
+      {Φ = backward (forward Θ)} {Ψ = Source.value (Source.point Θ)} {Ω = Θ}
+      (Source.point-computation Θ)
+      (Source.value-congruence (Presented.reflection (Presented.computation (forward Θ))))
+
+    forward-congruence : {Θ Ω : ConeIso s t} → ConeIso₂ Θ Ω → ConeIso₂ (forward Θ) (forward Ω)
+    forward-congruence {Θ} {Ω} ξ = Presented.congruence
+      (Source.point-congruence {Φ = Θ} {Ψ = Ω} ξ)
+
+    backward-congruence : {Θ Ω : ConeIso s′ t′} → ConeIso₂ Θ Ω → ConeIso₂ (backward Θ) (backward Ω)
+    backward-congruence {Θ} {Ω} ξ = Source.value-congruence
+      (Presented.reflection (TargetHigher.compose
+        {Φ = Presented.action (Presented.lift Θ)} {Ψ = Θ} {Ω = Presented.action (Presented.lift Ω)}
+        (TargetHigher.compose {Φ = Θ} {Ψ = Ω} {Ω = Presented.action (Presented.lift Ω)}
+          (TargetHigher.inverse (Presented.computation Ω)) ξ)
+        (Presented.computation Θ)))
 ```

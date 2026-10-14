@@ -67,3 +67,30 @@ module At {Γ B A D : CAT} (r : MAP B A) (s : MAP A D) (t : MAP B D)
       (retarget-expressionIso (post-expressionIso s (post-expressionIso r Recover.comparison))
         source-change target-change))
 ```
+
+For a literal composite functor, the endpoint changes reduce to the
+external associators. This form is useful in naturality calculations.
+
+```agda
+open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.ExpressionFrameCalculus 𝒯 M ℱ I
+  using (retarget-cong; retarget-move)
+
+post-composite : {Γ B A D : CAT} (r : MAP B A) (s : MAP A D)
+  {x y : MAP Γ B} (f : MorphismExpression x y) →
+  ExpressionIso
+    (retarget-expression (post-expression (s ∘ r) f)
+      (comp-assoc x r s) (comp-assoc y r s))
+    (post-expression s (post-expression r f))
+post-composite r s {x} {y} f = retarget-move
+  (comp-assoc x r s) (comp-assoc y r s)
+  (expressionIso-compose Paste.comparison
+    (retarget-cong (post-expression s (post-expression r f))
+      (normalize x ⁻¹) (normalize y ⁻¹)))
+  where
+  module Paste = At r s (s ∘ r) (idIso (s ∘ r)) f
+    using (comparison)
+  normalize : (z : MAP _ _) →
+    ((idIso (s ∘ r) ▷ z) ∙ (comp-assoc z r s) ⁻¹) =₂ (comp-assoc z r s) ⁻¹
+  normalize z = isoComp-unitˡ-at ((comp-assoc z r s) ⁻¹) ∙
+    isoComp-cong (preWhisker-idIso (s ∘ r) z) (idIso ((comp-assoc z r s) ⁻¹))
+```

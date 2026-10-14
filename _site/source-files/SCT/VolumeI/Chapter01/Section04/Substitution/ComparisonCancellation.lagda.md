@@ -1,8 +1,9 @@
-# Cancelling a restricted comparison
+# Cancelling and transporting comparisons
 
-This calculation cancels the same intermediate comparison before and
-after substitution. Stating it for arbitrary comparisons keeps the
-calculation independent of the construction that selected them.
+These calculations cancel intermediate comparisons and transport squares,
+triangles, and pentagons along specified edge comparisons. Stating them for
+arbitrary comparisons keeps the calculations independent of the
+constructions that selected those comparisons.
 
 ```agda
 {-# OPTIONS --safe --without-K #-}
@@ -86,4 +87,48 @@ opaque
       (isoComp-assoc-at KR rQ routeQ ∙
       (isoComp-cong (rightSquare ⁻¹) (idIso routeQ) ∙
         (isoComp-assoc-at rP κright routeQ) ⁻¹))))))))))
+```
+
+A comparison of each edge transports a pentagon with two edges on one
+side and three on the other. The calculation preserves the parenthesization
+of both paths, and uses each supplied comparison once.
+
+```agda
+module PentagonTransport {X Y : CAT} {a b c d e : MAP X Y}
+  (short₁ short₁′ : a =₁ b) (short₂ short₂′ : b =₁ e)
+  (long₁ long₁′ : a =₁ c) (long₂ long₂′ : c =₁ d) (long₃ long₃′ : d =₁ e)
+  (first : short₁ =₂ short₁′) (second : short₂ =₂ short₂′)
+  (third : long₁ =₂ long₁′) (fourth : long₂ =₂ long₂′) (fifth : long₃ =₂ long₃′)
+  (pentagon : (short₂′ ∙ short₁′) =₂ ((long₃′ ∙ long₂′) ∙ long₁′)) where
+
+  pasting : (short₂ ∙ short₁) =₂ ((long₃ ∙ long₂) ∙ long₁)
+  pasting = (isoComp-cong (isoComp-cong fifth fourth) third) ⁻¹ ∙
+    (pentagon ∙ isoComp-cong second first)
+
+  opaque
+    transport : (short₂ ∙ short₁) =₂ ((long₃ ∙ long₂) ∙ long₁)
+    transport = pasting
+
+    computation : transport =₃ pasting
+    computation = idIso _
+```
+
+The same transfer for a triangle compares its single edge with its
+specified two-edge route.
+
+```agda
+module TriangleTransport {X Y : CAT} {a b c : MAP X Y}
+  (short short′ : a =₁ c) (long₁ long₁′ : a =₁ b) (long₂ long₂′ : b =₁ c)
+  (first : short =₂ short′) (second : long₁ =₂ long₁′) (third : long₂ =₂ long₂′)
+  (triangle : short′ =₂ (long₂′ ∙ long₁′)) where
+
+  pasting : short =₂ (long₂ ∙ long₁)
+  pasting = (isoComp-cong third second) ⁻¹ ∙ (triangle ∙ first)
+
+  opaque
+    transport : short =₂ (long₂ ∙ long₁)
+    transport = pasting
+
+    computation : transport =₃ pasting
+    computation = idIso _
 ```

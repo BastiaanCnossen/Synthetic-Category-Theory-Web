@@ -7,7 +7,7 @@ composition squares, followed by reflection through retained evaluation.
 Thus it compares the specified associators themselves.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.Substitution.ProofCalculus as Setup

@@ -1,5 +1,6 @@
 """One chapter/section hierarchy for the index and the side reader."""
 import re
+from html import escape
 from module_layout import canonical_module
 
 CHAPTER_TITLES = {('I', 1): 'The language of synthetic category theory',
@@ -15,6 +16,7 @@ SECTION_TITLES = {('I', 1, 1): 'The basic vocabulary',
                   ('I', 1, 6): 'Pullbacks of categories',
                   ('I', 1, 7): 'Functor categories',
                   ('I', 1, 8): 'Pushout squares',
+                  ('I', 1, 9): 'Categories over a base',
                   ('I', 2, 1): 'Morphisms and diagrams',
                   ('I', 2, 2): 'The Segal axiom',
                   ('I', 2, 3): 'The Rezk axiom',
@@ -39,6 +41,40 @@ def module_label(module):
 
 def natural_key(value):
     return [int(part) if part.isdigit() else part for part in re.split(r'(\d+)', value)]
+
+
+def module_neighbors(module, modules):
+    """Section peers include supporting subfolders, but never a later section."""
+    match = BOOK_MODULE.match(module)
+    if match:
+        prefix = f'SCT.Volume{match[1]}.Chapter{match[2]}'
+        if match[3]:
+            prefix += '.Section' + match[3]
+            peers = [name for name in modules if name.startswith(prefix + '.')]
+            title = 'Other Agda modules in this section'
+        else:
+            peers = [name for name in modules if name.startswith(prefix + '.')
+                     and (m := BOOK_MODULE.match(name)) and m[3] is None]
+            title = 'Other Agda modules in this chapter'
+    else:
+        prefix = module.rsplit('.', 1)[0]
+        peers = [name for name in modules if name.rsplit('.', 1)[0] == prefix]
+        title = 'Other Agda modules in this folder'
+    return title, prefix, sorted(set(peers) - {module}, key=natural_key)
+
+
+def standalone_navigation(module, modules):
+    title, prefix, peers = module_neighbors(module, modules)
+    links = ''.join('<li><a href="' + escape(name, quote=True) + '.html">'
+                    + escape(name.removeprefix(prefix + '.')) + '</a></li>' for name in peers)
+    return ('<nav class="standalone-module-nav" aria-label="Agda module navigation" data-current-module="'
+            + escape(module, quote=True) + '"><a href="../code-index.html">All Agda code</a>'
+            '<details class="module-browser standalone-module-browser" hidden>'
+            '<summary class="module-picker">Choose Agda module</summary>'
+            '<div class="module-menu"><div class="module-tree"></div></div></details></nav>'
+            '<details class="module-peers" open><summary>' + title + ' (' + str(len(peers))
+            + ')</summary>' + ('<ul>' + links + '</ul>' if peers else '<p>No other modules in this group.</p>')
+            + '</details>')
 
 
 def module_tree(modules, *, retained=False):

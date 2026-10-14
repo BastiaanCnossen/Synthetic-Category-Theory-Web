@@ -30,12 +30,14 @@ module Restrict {C D B S X Y : CAT} {f : MAP C B} {g : MAP D B} {p : MAP S B}
   (v : FunctorOver (Cone.right t) (Cone.right s))
   (Φ : ConeIso (conePre (FunctorLift.lift v) s) t)
   (image : ConeIso.rightIso Φ =₂ FunctorLift.comparison v) where
-  module Act = Action p u
+  module Act = Action {C = C} {D = D} {S = S} {T = B} {f = f} {g = g} p u
+  cones : ConeIso (conePre (FunctorLift.lift v) (Act.value s)) (Act.value t)
   cones = coneIso-compose (Act.map-iso Φ) (Act.restriction (FunctorLift.lift v) s)
   abstract
     right-image : ConeIso.rightIso cones =₂ FunctorLift.comparison v
     right-image = image ∙ isoComp-unitʳ-at (ConeIso.rightIso Φ)
 
     comparison : FunctorOverIso (compose-over (lift-triangle (Act.value s)) v) (lift-triangle (Act.value t))
-    comparison = Restriction.comparison (Act.value s) (Act.value t) v cones right-image
+    comparison = Restriction.comparison {X = X} {Y = Y} {C = D} {D = S} {S = B} {g = g} {p = p}
+      (Act.value s) (Act.value t) v cones right-image
 ```

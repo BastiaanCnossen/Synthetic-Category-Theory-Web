@@ -155,7 +155,7 @@ unprojected comparison cells have terminal codomain.
 
 ```agda
 terminal-Iso₂ : {X : CAT} {f g : MAP X One} (α β : f =₁ g) → α =₂ β
-terminal-Iso₂ {f = f} {g} α β = equiv-reflect (terminalIso-isEquiv f g) α β (terminal-iso _ _)
+terminal-Iso₂ = Setup.TerminalTargets.terminal-Iso₂ 𝒯
 
 abstract
   const-pre-change : {Q R X A : CAT} (x : Obj-abs A)

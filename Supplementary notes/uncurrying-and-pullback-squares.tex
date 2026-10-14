@@ -1,0 +1,169 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+
+\section*{The compatibility hidden in the short proof}
+
+The book's \href{functor-categories.html\#lem:Functor_Category_Preserves_Pullbacks}{pullback-preservation lemma}
+proves that $\Fun(T,-)$ preserves pullbacks by testing with $\Map(S,-)$ and
+then uncurrying. The corner equivalences are
+\[
+  u_Z\colon \Map(S,\Fun(T,Z))\iso\Map(S\times T,Z).
+\]
+To use them, we must compare the specified commutativity identifications as
+well as the four arrows. This note expands that step and explains how the
+resulting comparison transfers the pullback property.
+
+We work with the absolute categories and the mapping-anima and functor-category
+structures of Sections 1.1--1.7. The cone conversion below does not require a
+pullback hypothesis. The later application also uses the pullback structure of
+Section 1.6. Statements about parameters $X$ below explicitly require $X$ to be
+an anima.
+
+\section*{Keeping the commutativity data}
+
+For a cospan $C\xrightarrow{f}E\xleftarrow{g}D$, a cone on $X$ consists of
+$a\colon X\to C$, $b\colon X\to D$, and an identification
+$\theta\colon f\circ a=g\circ b$. A
+%!% begin supp-cone-comparison
+comparison of cones
+%!% end supp-cone-comparison
+from $(a,b,\theta)$ to $(a',b',\theta')$ consists of identifications
+$\alpha\colon a=a'$ and $\beta\colon b=b'$, together with an identification
+\[
+  \theta'\cdot(f\circ\alpha)=(g\circ\beta)\cdot\theta.
+\]
+Here a dot denotes composition of identifications, with the right-hand
+identification applied first. Thus the comparison remembers a filling of the
+square between the two matchings. Precomposition of a cone uses the specified
+associativity identifications to give its new matching. We write $h^*q$ for
+this cone and $q\simeq q'$ for a comparison of cones in this sense.
+
+Fix categories $S,T$ and put
+\[
+ A_Z=\Map(S,\Fun(T,Z)),\qquad B_Z=\Map(S\times T,Z).
+\]
+Write $f_A,g_A$ and $f_B,g_B$ for the induced postcomposition functors on
+these two families. These symbols name the cospans used below; we do not need
+to construct a category of all cones.
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Cone_Conversion}
+For every anima $X$, there are conversions $U_X$ and $V_X$ between cones on
+$X$ over $(f_A,g_A)$ and over $(f_B,g_B)$. For a cone $r=(a,b,\theta)$,
+the legs of $U_X(r)$ are $u_C\circ a$ and $u_D\circ b$.
+Both conversions take comparisons of cones to comparisons of cones, and there
+are comparisons $V_X(U_X(r))\simeq r$ and $U_X(V_X(t))\simeq t$.
+Moreover, a comparison $U_X(r)\simeq U_X(r')$ gives a comparison $r\simeq r'$.
+\end{lemma}
+\begin{proof}[Proof idea]
+Uncurry the legs and matching of $r$ twice. This gives a cone over $(f,g)$ on
+$(X\times S)\times T$. Restrict along the associativity equivalence
+$X\times(S\times T)\to(X\times S)\times T$, and curry into the mapping
+anima for $S\times T$. The resulting legs are identified with
+$u_C\circ a$ and $u_D\circ b$. Transport the matching along these two
+identifications to obtain exactly these legs.
+
+For the reverse conversion, uncurry a cone over $(f_B,g_B)$, change the
+parenthesization in the opposite direction, and curry first into the functor
+category and then into the mapping anima. The evaluation comparisons and
+the inverse comparisons for product associativity give the two round trips.
+These are comparisons of whole cones, so they retain compatibility with the
+matchings. Uncurrying comparisons and reflecting them through the relevant
+mapping equivalences also gives the final reflection assertion.
+\end{proof}
+
+\section*{Comparing the specified squares}
+
+Let $q=(p,r,\eta)$ be any cone over $(f,g)$ with vertex $W$. Denote the cones
+obtained by the specified postcomposition constructions by $A(q)$ and $B(q)$,
+with vertices $A_W$ and $B_W$ respectively.
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Square_Compatibility}
+For every anima $X$ and every $h\colon X\to A_W$, there is a comparison
+\[
+ U_X\bigl(h^*A(q)\bigr)\simeq(u_W\circ h)^*B(q).
+\]
+In particular, converting $A(q)$ gives a cone comparison with $u_W^*B(q)$.
+This assertion does not require $q$ to be a pullback cone.
+\end{lemma}
+\begin{proof}[Proof idea]
+Double uncurrying and reassociation turn $h$ into a functor
+$\bar h\colon X\times(S\times T)\to W$. The evaluation comparison for
+the specified mapped cone identifies the uncurried left-hand cone with
+$\bar h^*q$. Uncurrying $u_W\circ h$ gives a second functor into $W$,
+equipped with the comparison expressing that $u_W$ represents uncurrying.
+Acting on $q$ by this comparison compares the two induced cones, including
+their matching identifications. Reflection through the mapping equivalence
+gives the asserted cone comparison.
+
+More explicitly, let $\alpha$ and $\beta$ be its two leg comparisons and
+let $\mu$ and $\nu$ be the source and target matchings. The compatibility
+supplied by the comparison is
+\[
+ \nu\cdot(f_B\circ\alpha)=(g_B\circ\beta)\cdot\mu.
+\]
+Equivalently, after transporting $\mu$ along $\alpha$ and $\beta$, it is
+identified with $\nu$. This is the precise matching obligation. Taking
+$X=A_W$ and $h$ the identity, and inserting the unit comparisons, gives the
+assertion about the square itself. The category $A_W$ is an anima.
+\end{proof}
+
+The leg comparisons here are those constructed by this cone conversion.
+The argument does not require an additional identification with independently
+chosen postcomposition-naturality witnesses. Nor does it assert all higher
+coherence laws for a category of cone diagrams.
+
+\section*{Transferring the pullback property}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Pullback_Transfer}
+Let $s$ and $t$ be cones over two cospans, with vertices $Y$ and $Z$, and let
+$u\colon Y\to Z$ be an equivalence. Suppose that, for every anima $X$, a
+conversion $K_X$ between cones over the two cospans preserves and reflects
+cone comparisons, and is equipped, for every $h\colon X\to Y$, with a comparison
+\[
+ K_X(h^*s)\simeq(u\circ h)^*t.
+\]
+If $t$ is a pullback cone, $Y$ is an anima, and the chosen pullback of the
+source cospan is an anima, then $s$ is a pullback cone.
+\end{lemma}
+\begin{proof}[Proof idea]
+For a cone $r$ on an anima $X$ over the source cospan, factor $K_X(r)$
+through $t$. Lift the factorizing functor through $u$. The displayed
+comparison and reflection of cone comparisons identify the cone induced by
+this lift with $r$.
+
+If two functors $h,k\colon X\to Y$ induce comparable cones, applying
+$K_X$ and the displayed comparisons gives comparable cones induced by
+$u\circ h$ and $u\circ k$. The pullback property of $t$ gives an
+identification between these functors, which reflects through $u$.
+
+Apply the first construction to the chosen pullback cone of the source
+cospan. It supplies a candidate inverse to the comparison from $Y$ to that
+pullback. Its first inverse comparison follows from its cone computation
+and the universal property of the chosen pullback. The second follows from
+the reflection property just proved, applied with $X=Y$. These two tests
+are legitimate by the anima hypotheses and prove that the comparison is an
+equivalence.
+\end{proof}
+
+\begin{corollary}
+\label[corollary]{cor:Supplementary_Functor_Pullbacks}
+For every category $T$, postcomposition sends a pullback cone $q$ to a
+pullback cone under $\Fun(T,-)$, with its specified commutativity identification.
+\end{corollary}
+\begin{proof}[Proof idea]
+For every category $S$, the cone $B(q)$ is a pullback by the mapping-anima
+criterion in \href{pullbacks.html}{Section 1.6}. Apply
+\Cref{lem:Supplementary_Pullback_Transfer} using $u_W$, the conversion of
+\Cref{lem:Supplementary_Cone_Conversion}, and the comparison of
+\Cref{lem:Supplementary_Square_Compatibility}. Its anima hypotheses hold:
+$A_W$ is a mapping anima, and pullbacks of animae are animae. Thus $A(q)$
+is a pullback for every $S$. Mapping-anima detection now shows that the
+specified $\Fun(T,-)$ cone is a pullback. This recovers the short argument
+in the book with its compatibility step made explicit.
+\end{proof}
+
+\end{document}

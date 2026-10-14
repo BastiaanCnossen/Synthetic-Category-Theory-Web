@@ -1,13 +1,29 @@
 {
   "status": "passed",
-  "html_pages": 853,
-  "local_links_checked": 479275,
-  "passage_panels": 627,
-  "declaration_mappings": 1186,
-  "reverse_only_passages": 32,
-  "underlined_statements": 114,
-  "pdf_html_counters": 318,
-  "input_hashes": 1117,
-  "source_modules": 818,
-  "omitted_source_modules": 273
+  "html_pages": 1222,
+  "local_links_checked": 1016697,
+  "chapter_1_source_modules": 135,
+  "chapter_1_omissions": 0,
+  "chapter_1_commit": "b982f5a32e1eb5e471c22de7d012d3c7558be09d",
+  "retained_chapters": [
+    2,
+    3
+  ],
+  "disabled_chapters": [
+    2,
+    3
+  ],
+  "baseline_validation": {
+    "status": "passed",
+    "html_pages": 1084,
+    "local_links_checked": 680723,
+    "passage_panels": 627,
+    "declaration_mappings": 1186,
+    "reverse_only_passages": 32,
+    "underlined_statements": 114,
+    "pdf_html_counters": 318,
+    "input_hashes": 1467,
+    "source_modules": 1024,
+    "omitted_source_modules": 596
+  }
 }

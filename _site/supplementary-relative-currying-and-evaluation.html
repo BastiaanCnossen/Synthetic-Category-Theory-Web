@@ -1,0 +1,109 @@
+<!doctype html>
+
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Relative currying and evaluation | Synthetic category theory</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/reader-shell.css"><link rel="stylesheet" href="assets/reader.css?v=e77c6ba976bccda0"><link rel="stylesheet" href="assets/Agda.css">
+<script src="assets/math-config.js"></script><script defer src="vendor/mathjax/tex-chtml.js"></script><script defer src="assets/reader.js?v=bb4820fd39f58f55"></script></head>
+<body class="hide-agda-links has-passages supplementary-page"><a class="skip-link" href="#main">Skip to content</a><aside class="utility-dock" aria-label="Reading tools">
+<button id="reading-settings-button" class="utility-button" type="button" aria-label="Reading settings" title="Reading settings" aria-controls="reading-settings" aria-expanded="false"><span aria-hidden="true">⚙</span></button>
+<a class="utility-button" href="book.pdf" aria-label="Read the web edition PDF" title="Read the web edition PDF"><span aria-hidden="true">📖</span></a>
+<section id="reading-settings" class="settings-panel" aria-label="Reading preferences" hidden><h2>Reading preferences</h2>
+<label><input id="collapse-proofs" type="checkbox"> Collapse book proofs</label>
+
+</section></aside>
+<header class="site-header"><div class="header-top"><nav class="book-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Synthetic category theory</a></li><li><a href="constructions-introduction.html">Chapter 3</a></li><li><a href="exponentiable-functors.html">Section 3.5</a></li><li><a href="supplementary-notes.html">Supplementary notes</a></li></ol></nav></div><p class="eyebrow">Supplementary note · AI-generated prose</p><h1>Relative currying and evaluation</h1><p class="ai-notice">AI-generated prose accompanying the Agda code. This note is supplementary to the book and is not part of the authors' manuscript.</p></header>
+<div class="reader-grid"><aside class="reader-nav" aria-label="Book navigation"><h2>Resources</h2><nav aria-label="Resources" class="reader-resources"><a href="code-index.html">All Agda code</a><a href="supplementary-notes.html">Supplementary notes</a><a href="formalization.html">Agda guide</a><a href="build-report.html">Build details</a></nav><h2>Contents</h2><nav aria-label="Contents"><a href="index.html">Overview</a><a href="introduction.html">Introduction</a><a href="overview-of-the-axioms.html">Overview of the axioms</a><details class="contents-chapter"><summary><span class="chapter-number">Chapter 1</span><span class="chapter-name">The language of synthetic category theory</span></summary><div class="chapter-sections"><a href="chapter-introduction.html">Chapter introduction</a><a href="basic-vocabulary.html">1.1 · The basic vocabulary</a><a href="coherences.html">1.2 · Coherences</a><a href="equivalences.html">1.3 · Equivalences of categories</a><a href="mapping-animae.html">1.4 · Mapping animae</a><a href="initial-categories-and-coproducts.html">1.5 · Initial categories and coproducts</a><a href="pullbacks.html">1.6 · Pullbacks of categories</a><a href="functor-categories.html">1.7 · Functor categories</a><a href="pushouts.html">1.8 · Pushout squares</a></div></details><details class="contents-chapter"><summary><span class="chapter-number">Chapter 2</span><span class="chapter-name">The internal structure of categories</span></summary><div class="chapter-sections"><a href="internal-structure-introduction.html">Chapter introduction</a><a href="morphisms-and-diagrams.html">2.1 · Morphisms and diagrams</a><a href="segal-axiom.html">2.2 · The Segal axiom</a><a href="rezk-axiom.html">2.3 · The Rezk axiom</a><a href="groupoids.html">2.4 · Groupoids</a><a href="recognizing-animae.html">2.5 · Recognizing animae</a><a href="chapter-2-exercises.html">2.6 · Exercises</a></div></details><details class="contents-chapter" open><summary><span class="chapter-number">Chapter 3</span><span class="chapter-name">Constructions of categories</span></summary><div class="chapter-sections"><a href="constructions-introduction.html">Chapter introduction</a><a href="subcategories.html">3.1 · Subcategories</a><a href="full-subcategories.html">3.2 · Full subcategories</a><a href="localizations.html">3.3 · Localizations</a><a href="geometric-realizations.html">3.4 · Geometric realizations</a><a aria-current="page" href="exponentiable-functors.html">3.5 · Exponentiable functors</a><a href="joins.html">3.6 · Joins</a><a href="slice-categories.html">3.7 · Slice categories</a><a href="chapter-3-exercises.html">3.8 · Exercises</a></div></details></nav></aside>
+<main id="main" class="notes-page" tabindex="-1"><p class="coverage-note edition-notice">Agda links are temporarily unavailable for Chapters 2 and 3 while their code is updated to the foundations used in Chapter 1.</p>
+   <h3 class="likesectionHead" id="relative-currying-and-evaluation"><a id="x1-1000"></a>Relative currying and evaluation</h3>
+<p class="noindent">The mapping-anima definition of a <a href="exponentiable-functors.html">dependent product</a> gives an equivalence. To
+use it in calculations with actual functors over a base, one must identify its value
+on the names of those functors. That is the subject of this note. We use the
+Chapter 1 structures and the comparison convention of <a href="supplementary-triangles-over-a-base.html">Triangles over a
+base</a>.
+</p><p class="indent">   Fix \(p\colon S\to T\), \(f\colon C\to S\) and a chosen dependent product \(\Pi C\to T\), with evaluation \(\varepsilon _C\colon p^*(\Pi C)\to C\) over \(S\). For \(t\colon E\to T\), denote
+the defining equivalence by \[ U_t\colon \Map _T(E,\Pi C)\iso \Map _S(p^*E,C). \] For a functor \(u\colon E\to \Pi C\) over \(T\), write \(\operatorname {ev}(u)=\varepsilon _Cp^*u\), with its pasted
+triangle over \(S\). Only the displayed dependent products are assumed to
+exist.
+</p><p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1001r1"></a>
+<span id="text-supp-relative-named-evaluation"><span class="ecbx-1095">Supplementary Lemma 1.</span></span>  </span><span id="lem:Supplementary_Relative_Named_Evaluation"> </span><span class="ecti-1095">There  is  an  identification  </span>\[ U_t(\ulcorner u\urcorner )=\ulcorner \operatorname {ev}(u)\urcorner \]  <span class="ecti-1095">in  the  relative
+mapping anima.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    The actual functor \(U_t\) is the composite of base change on relative
+mapping  animae  with  postcomposition  by  \(\varepsilon _C\).  Base  change  on  a  named
+triangle names the pullback lift together with its second-projection triangle.
+Postcomposition on a named triangle names the pasted composite. Combine
+these two computations and the associator. The resulting equality is in the
+relative mapping anima, so the base triangle is retained throughout.        □
+                                                                     
+
+                                                                     
+</p>
+   </div></details>
+<p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1002r2"></a>
+<span id="text-supp-relative-transposition"><span class="ecbx-1095">Supplementary Lemma 2.</span></span>  </span><span id="lem:Supplementary_Relative_Transposition"> </span><span class="ecti-1095">Every functor</span> \(w\colon p^*E\to C\) <span class="ecti-1095">over</span> \(S\) <span class="ecti-1095">has a transpose</span> \(\lambda w\colon E\to \Pi C\) <span class="ecti-1095">over</span> \(T\)
+<span class="ecti-1095">with a comparison</span> \(\operatorname {ev}(\lambda w)\simeq _S w\)<span class="ecti-1095">. A comparison</span> \(\operatorname {ev}(u)\simeq _S\operatorname {ev}(v)\) <span class="ecti-1095">induces a comparison</span> \(u\simeq _T v\)<span class="ecti-1095">.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    Lift the name of \(w\) through \(U_t\), and decode the resulting point to
+a triangle. The naming roundtrip and Supplementary Lemma <a href="#x1-1001r1">1</a> identify the
+name of its evaluation with the name of \(w\). Convert that identification to a
+comparison of triangles.
+</p><p class="indent">   For reflection, name the given comparison, use Supplementary Lemma <a href="#x1-1001r1">1</a>
+at both endpoints, and reflect through \(U_t\). Decoding gives a comparison over
+\(T\). This asserts the existence of that comparison; it does not prescribe its
+image as higher comparison data under a separately chosen evaluation action.
+The named evaluation computation used in both arguments is proved in
+Supplementary Lemma <a href="#x1-1001r1">1</a>.                                                               □
+</p>
+   </div></details>
+<p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1003r3"></a>
+                                                                     
+
+                                                                     
+<span id="text-supp-dependent-action-laws"><span class="ecbx-1095">Supplementary Lemma 3.</span></span>  </span><span id="lem:Supplementary_Dependent_Action_Laws">   </span><span class="ecti-1095">Given   chosen   dependent   products   for
+categories</span> \(C,D\) <span class="ecti-1095">over</span> \(S\) <span class="ecti-1095">and a functor</span> \(a\colon C\to D\) <span class="ecti-1095">over</span> \(S\)<span class="ecti-1095">, put</span> \(\Pi a=\lambda (a\varepsilon _C)\)<span class="ecti-1095">. There is a comparison </span>\[ \varepsilon _Dp^*(\Pi a)\simeq _S a\varepsilon _C. \] <span class="ecti-1095">The
+induced functors satisfy</span> \(\Pi (\operatorname {id})\simeq _T\operatorname {id}\) <span class="ecti-1095">and, whenever the three required dependent products
+are supplied,</span> \((\Pi b)(\Pi a)\simeq _T\Pi (ba)\)<span class="ecti-1095">.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    The evaluation comparison is the transposition computation of
+Supplementary Lemma <a href="#x1-1002r2">2</a>. For the identity law, compare both evaluations
+with \(\varepsilon _C\), using the base-change identity comparison and the unit laws over the
+base, and reflect.
+</p><p class="indent">   For  composition,  evaluation  of  a  composite  is  compared  with  the
+evaluation  of  its  second  factor  after  base  change  of  its  first.  This  uses
+the <a href="supplementary-base-change-of-triangles.html">base-change composition comparison</a>, including its base triangle. Apply
+the two evaluation comparisons, reassociate over \(S\), and obtain \((ba)\varepsilon _C\). Reflection
+now gives the composition comparison over \(T\). These are the stated identity
+and  composition  comparisons,  without  an  assertion  of  additional  higher
+coherence.                                                                                    □
+</p>
+   </div></details>
+    
+<span id="agda-supp-relative-named-evaluation"></span><span id="agda-supp-relative-transposition"></span><span id="agda-supp-dependent-action-laws"></span></main></div>
+<footer>Experimental web edition · Generated from annotated LaTeX and Agda sources. <a href="build-report.html">Build details</a></footer></body></html>

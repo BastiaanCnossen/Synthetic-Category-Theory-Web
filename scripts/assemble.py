@@ -6,6 +6,7 @@ import copy, textwrap, shutil
 from pilot_model import declaration_range, prelude
 from authored_pages import require_authored_pages
 from book_navigation import contents, page_turns, breadcrumbs, chapter_sections, reading_tools, book_sidebar, agda_invitation
+from supplementary import catalog, fingerprint, NOTICE, write_notes, section_notes, module_explanations
 
 from checked_code import publication_manifest, verify_checked_code
 MANIFEST=json.loads(read(ROOT/'correspondence.json'))
@@ -57,23 +58,41 @@ def math_config():
     macros.update({'iso':r'\xrightarrow{\sim}','inviso':r'\xleftarrow{\sim}','qedhere':'','qed':r'\square'})
     return {'loader':{'paths':{'fonts':'vendor/mathjax/fonts'},'load':['[tex]/mathtools']},'tex':{'inlineMath':[['\\(','\\)']],'displayMath':[['\\[','\\]']],'packages':{'[+]':['ams','mathtools']},'macros':macros},'options':{'enableMenu':False}}
 
-def page(title, content, current='', math=True, prefix=''):
+def page(title, content, current='', math=True, prefix='', supplementary=False):
     scripts=f'<script src="{prefix}assets/math-config.js"></script><script defer src="{prefix}vendor/mathjax/tex-chtml.js"></script>' if math else ''
-    has_passages=current in {slug for slug, _, _ in BOOK_SECTIONS}
+    note=next((n for n in catalog() if n['slug']==current),None)
+    has_passages=current in {slug for slug, _, _ in BOOK_SECTIONS} or note is not None
     # New passage/module data must not be masked by a cached previous edition.
     context_version=digest((BUILD/'agda-context.json').read_bytes())[:16] if has_passages else ''
     reader_script=f'<script defer src="{prefix}assets/agda-context.js?v={context_version}"></script>' if has_passages else ''
+    if 'class="standalone-module-nav"' in content:
+        nav_version=digest((ROOT/'assets/module-navigation.js').read_bytes())[:16]
+        tree_version=digest((BUILD/'module-navigation.json').read_bytes())[:16]
+        reader_script+=f'<script defer src="{prefix}assets/module-navigation-data.js?v={tree_version}"></script><script defer src="{prefix}assets/module-navigation.js?v={nav_version}"></script>'
+    if has_passages:
+        supplementary_version=digest(json.dumps([fingerprint(n) for n in catalog()]))[:16]
+        reader_script+=f'<script defer src="{prefix}assets/supplementary.js?v={supplementary_version}-{context_version}"></script>'
     reader_version=digest((ROOT/'assets/reader.js').read_bytes())[:16]
     style_version=digest((ROOT/'assets/reader.css').read_bytes())[:16]
     body_class='hide-agda-links'+(' has-passages' if has_passages else '')
+    if supplementary: body_class+=' supplementary-page'
+    trail=breadcrumbs(current,prefix)
+    if note:
+        chapter=next(c for c in BOOK_CHAPTERS if c['number']==note['chapter'])
+        trail='<nav class="book-breadcrumbs" aria-label="Breadcrumb"><ol>'+''.join(
+            '<li><a href="'+url+'">'+label+'</a></li>' for url,label in
+            [('index.html','Synthetic category theory'),(chapter['slug']+'.html','Chapter '+str(note['chapter'])),
+             (note['section']+'.html','Section '+note['section_number']),('supplementary-notes.html','Supplementary notes')])+'</ol></nav>'
+    eyebrow='Supplementary note · AI-generated prose' if note else 'Supplementary notes · AI-generated prose' if supplementary else 'Volume I · Experimental web edition'
+    notice='<p class="ai-notice">'+escape(NOTICE)+'</p>' if note else ''
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><title>{escape(title)} | Synthetic category theory</title>
 <link rel="icon" href="{prefix}assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="{prefix}assets/reader-shell.css"><link rel="stylesheet" href="{prefix}assets/reader.css?v={style_version}"><link rel="stylesheet" href="{prefix}assets/Agda.css">
 {scripts}{reader_script}<script defer src="{prefix}assets/reader.js?v={reader_version}"></script></head>
 <body class="{body_class}"><a class="skip-link" href="#main">Skip to content</a>{reading_tools(prefix)}
-<header class="site-header"><div class="header-top">{breadcrumbs(current,prefix)}{page_turns(current,prefix)}</div><p class="eyebrow">Volume I · Experimental web edition</p><h1>{escape(title)}</h1></header>
-<div class="reader-grid">{book_sidebar(current or title,prefix)}
+<header class="site-header"><div class="header-top">{trail}{page_turns(current,prefix)}</div><p class="eyebrow">{eyebrow}</p><h1>{escape(title)}</h1>{notice}</header>
+<div class="reader-grid">{book_sidebar(note['section'] if note else current or title,prefix)}
 <main id="main" class="notes-page" tabindex="-1">{content}</main></div>
 <footer>Experimental web edition · Generated from annotated LaTeX and Agda sources. <a href="{prefix}build-report.html">Build details</a></footer></body></html>'''
 
@@ -95,13 +114,18 @@ def code_range(source, name):
     return start,proof,end
 
 class Agda:
-    def __init__(self): self.cache={}; self.resolved=[]
+    def __init__(self, source_root=None, compiler_dir=None, href_prefix='agda/', source_prefix='source-files/'):
+        self.cache={}; self.resolved=[]
+        self.source_root=source_root or SNAP/'agda/src'
+        self.compiler_dir=compiler_dir or BUILD/'agda'
+        self.href_prefix=href_prefix
+        self.source_prefix=source_prefix
     def module(self, short):
         name=PREFIX+short
         if name in self.cache: return self.cache[name]
-        src=SNAP/'agda/src'/Path(*name.split('.')).with_suffix('.lagda.md')
+        src=self.source_root/Path(*name.split('.')).with_suffix('.lagda.md')
         source=read(src).replace('\r\n','\n')
-        tree=parse(read(BUILD/'agda'/(name+'.html')))
+        tree=parse(read(self.compiler_dir/(name+'.html')))
         pre=next(tree.all('pre'))
         # The all-highlighting backend retains exact literate input. This equality
         # makes character slicing fail closed if a backend changes its encoding.
@@ -118,7 +142,7 @@ class Agda:
             if begin+length<=start or begin>=end:
                 pos+=length; return ''
             attrs={k:v for k,v in child.attrs.items() if k not in ('id','name')}
-            if 'href' in attrs: attrs['href']='agda/'+attrs['href']
+            if 'href' in attrs: attrs['href']=self.href_prefix+attrs['href']
             inner=''.join(take(c) for c in child.children)
             attributes=''.join(f' {k}="{escape(v or "",quote=True)}"' for k,v in attrs.items())
             return f'<{child.tag}{attributes}>{inner}</{child.tag}>'
@@ -135,13 +159,21 @@ class Agda:
         qualified=d.get('qualified',d['name'])
         named=sum(1 for n in pre.all('a') if n.attrs.get('id')==qualified)
         if named!=1:
+            # Agda emits numeric definition anchors but no named anchors inside
+            # anonymous parameter modules. The exact source scope, position,
+            # definition token and self-link still identify the declaration.
+            anonymous=any(s['kind']=='module' and s['name']=='_' for s in loc['scopes'])
+            token=candidates[0]
+            numeric_definition=(anonymous and named==0
+                and token.attrs.get('href')==name+'.html#'+str(position+1)
+                and any(token.has(c) for c in ('Postulate','Function','Record','Datatype','Field','InductiveConstructor','CoinductiveConstructor')))
             # Agda omits named anchors for some fields of nested records.
             # Require the compiler's field classification and its named owner;
             # the qualified source scope and exact character anchor still agree.
             owner=qualified.rsplit('.',1)[0]
-            if named or not candidates[0].has('Field') or sum(1 for n in pre.all('a') if n.attrs.get('id')==owner)!=1:
+            if not numeric_definition and (named or not candidates[0].has('Field') or sum(1 for n in pre.all('a') if n.attrs.get('id')==owner)!=1):
                 raise ValueError(f'Missing qualified declaration anchor: {name}.{qualified}')
-        anchor=candidates[0].attrs['id']; target=f'agda/{name}.html#{anchor}'
+        anchor=candidates[0].attrs['id']; target=f'{self.href_prefix}{name}.html#{anchor}'
         role=d.get('role','derived'); signature_end=proof if proof is not None else end
         signature=self.fragment(pre,start,signature_end).rstrip()
         implementation=self.fragment(pre,proof,end) if proof is not None else ''
@@ -149,7 +181,7 @@ class Agda:
         self.resolved.append({'module':name,'declaration':d.get('qualified',d['name']),'target':target,'line':line,'start':start,'end':end,'source_sha256':digest(source),'role':role})
         context=prelude(source,loc)
         heading=f'<h4><code>{escape(d["name"])}</code></h4><p class="status">{ROLES[role]}</p>'
-        links=f'<p class="source-links"><a href="{target}">Open full module</a> · <a href="{quote('source-files/'+src.relative_to(SNAP/'agda/src').as_posix())}">Literate source, line {line}</a></p>'
+        links=f'<p class="source-links"><a href="{target}">Open full module</a> · <a href="{quote(self.source_prefix+src.relative_to(self.source_root).as_posix())}">Literate source, line {line}</a></p>'
         focus=', '.join(d.get('regions',[]))
         focus_html=f'<p class="focus-note">In this proof, inspect <code>{escape(focus)}</code>. The enclosing proof is shown to retain its local parameters.</p>' if focus else ''
         expanded=' open' if focus else ''
@@ -187,7 +219,7 @@ def join_footnotes(body, directory):
         disclosure.parent=parent
         parent.children.insert(parent.children.index(block)+1,disclosure)
 
-def assemble(site=SITE):
+def assemble(site=SITE, *, apply_chapter_overlay=True):
     global MANIFEST
     MANIFEST=publication_manifest()
     require_authored_pages(site)
@@ -288,6 +320,7 @@ def assemble(site=SITE):
         inserted[id(target)]=panel
     from reader_context import build_reader_data
     build_reader_data(agda,MANIFEST,site=site)
+    supplementary_data=write_notes(page,agda,site=site)
     # Native proof disclosure leaves the manuscript proof displayed initially.
     for proof in list(body.all('div')):
         if proof.has('proof'):
@@ -330,12 +363,19 @@ def assemble(site=SITE):
         content=''.join(n.html() if isinstance(n,Node) else escape(n) for n in nodes)
         content=agda_invitation(slug,MANIFEST)+content
         content+=chapter_sections(slug,read(site/'index.html'))
+        content+=section_notes(slug)
         write(site/(slug+'.html'),page(titles[slug],content,slug))
     write(site/'assets/math-config.js','window.MathJax = '+json.dumps(math_config(),ensure_ascii=False)+';\n')
     shutil.copyfile(BUILD/'agda/Agda.css',site/'assets/Agda.css')
     # Keep all dependency modules and compiler anchors in the same release.
     (site/'agda').mkdir(exist_ok=True)
     current_modules={f.name for f in (BUILD/'agda').glob('*.html')}
+    from module_navigation import module_tree, module_label, standalone_navigation
+    names={name.removesuffix('.html') for name in current_modules}
+    nav_data={'tree':module_tree(names),'labels':{name:module_label(name) for name in sorted(names)}}
+    dump(BUILD/'module-navigation.json',nav_data)
+    write(site/'assets/module-navigation-data.js','window.SCT_MODULE_NAVIGATION = '+json.dumps(nav_data,ensure_ascii=False)+';\n')
+    shutil.copyfile(ROOT/'assets/module-navigation.js',site/'assets/module-navigation.js')
     for stale in (site/'agda').glob('*.html'):
         if stale.name not in current_modules: stale.unlink()
     passages={p['id']:p for p in MANIFEST['passages']+MANIFEST.get('reverse_only',[])}
@@ -346,7 +386,7 @@ def assemble(site=SITE):
     for file in (BUILD/'agda').glob('*.html'):
         source_tree=parse(read(file)); pre=next(source_tree.all('pre'))
         unique_agda_ids(pre)
-        content='<p class="module-caption">Complete compiler-highlighted source. Follow a symbol to its declaration.</p>'+reverse_links(file.stem)+pre.html()
+        content=standalone_navigation(file.stem,names)+'<p class="module-caption">Complete compiler-highlighted source. Follow a symbol to its declaration.</p>'+module_explanations(file.stem,supplementary_data,'../')+reverse_links(file.stem)+pre.html()
         write(site/'agda'/file.name,page(file.stem,content,math=False,prefix='../'))
     from source_index import build_index
     inventory=build_index(page,current_modules,MANIFEST,site=site)
@@ -357,5 +397,11 @@ def assemble(site=SITE):
     write(site/'outside-selection.html',page('References beyond the selection',external))
     dump(site/'build-info.json',{'agda':receipt['agda'],'aggregate':receipt['aggregate'],'verification_mode':verification_mode,'manuscript_revision':inputs['base_revision'],'frontmatter':[{'slug':p['slug'],'title':p['title']} for p in BOOK_FRONTMATTER],'sections':selection['sections'],'declaration_mappings':len(agda.resolved),'published_modules':[e['module'] for e in inventory],'compiled_modules':sorted(file.stem for file in (BUILD/'agda').glob('*.html')),'diagrams':[d['id'] for d in selection['diagrams']]})
     print(f'Assembled web edition with {len(agda.resolved)} checked declaration mappings.')
+    from chapter_edition import CONFIG, clear_generated_overlay, apply
+    if CONFIG.exists():
+        clear_generated_overlay(site)
+        if apply_chapter_overlay:
+            config=json.loads(read(CONFIG))
+            apply(ROOT/config['bundle'],site)
 
 if __name__=='__main__': assemble()

@@ -1,0 +1,142 @@
+<!doctype html>
+
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Specializing coherence laws | Synthetic category theory</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/reader-shell.css"><link rel="stylesheet" href="assets/reader.css?v=e77c6ba976bccda0"><link rel="stylesheet" href="assets/Agda.css">
+<script src="assets/math-config.js"></script><script defer src="vendor/mathjax/tex-chtml.js"></script><script defer src="assets/agda-context.js?v=f7bbb485904189a1"></script><script defer src="assets/supplementary.js?v=88f0eed0769c41c3-f7bbb485904189a1"></script><script defer src="assets/reader.js?v=bb4820fd39f58f55"></script></head>
+<body class="hide-agda-links has-passages supplementary-page"><a class="skip-link" href="#main">Skip to content</a><aside class="utility-dock" aria-label="Reading tools">
+<button id="reading-settings-button" class="utility-button" type="button" aria-label="Reading settings" title="Reading settings" aria-controls="reading-settings" aria-expanded="false"><span aria-hidden="true">⚙</span></button>
+<a class="utility-button" href="book.pdf" aria-label="Read the web edition PDF" title="Read the web edition PDF"><span aria-hidden="true">📖</span></a>
+<section id="reading-settings" class="settings-panel" aria-label="Reading preferences" hidden><h2>Reading preferences</h2>
+<label><input id="collapse-proofs" type="checkbox"> Collapse book proofs</label>
+<label><input id="show-agda-links" type="checkbox"> Show links to Agda code</label>
+</section></aside>
+<header class="site-header"><div class="header-top"><nav class="book-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Synthetic category theory</a></li><li><a href="chapter-introduction.html">Chapter 1</a></li><li><a href="coherences.html">Section 1.2</a></li><li><a href="supplementary-notes.html">Supplementary notes</a></li></ol></nav></div><p class="eyebrow">Supplementary note · AI-generated prose</p><h1>Specializing coherence laws</h1><p class="ai-notice">AI-generated prose accompanying the Agda code. This note is supplementary to the book and is not part of the authors' manuscript.</p></header>
+<div class="reader-grid"><aside class="reader-nav" aria-label="Book navigation"><h2>Resources</h2><nav aria-label="Resources" class="reader-resources"><a href="code-index.html">All Agda code</a><a href="supplementary-notes.html">Supplementary notes</a><a href="formalization.html">Agda guide</a><a href="build-report.html">Build details</a></nav><h2>Contents</h2><nav aria-label="Contents"><a href="index.html">Overview</a><a href="introduction.html">Introduction</a><a href="overview-of-the-axioms.html">Overview of the axioms</a><details class="contents-chapter" open><summary><span class="chapter-number">Chapter 1</span><span class="chapter-name">The language of synthetic category theory</span></summary><div class="chapter-sections"><a href="chapter-introduction.html">Chapter introduction</a><a href="basic-vocabulary.html">1.1 · The basic vocabulary</a><a aria-current="page" href="coherences.html">1.2 · Coherences</a><a href="equivalences.html">1.3 · Equivalences of categories</a><a href="mapping-animae.html">1.4 · Mapping animae</a><a href="initial-categories-and-coproducts.html">1.5 · Initial categories and coproducts</a><a href="pullbacks.html">1.6 · Pullbacks of categories</a><a href="functor-categories.html">1.7 · Functor categories</a><a href="pushouts.html">1.8 · Pushout squares</a></div></details><details class="contents-chapter"><summary><span class="chapter-number">Chapter 2</span><span class="chapter-name">The internal structure of categories</span></summary><div class="chapter-sections"><a href="internal-structure-introduction.html">Chapter introduction</a><a href="morphisms-and-diagrams.html">2.1 · Morphisms and diagrams</a><a href="segal-axiom.html">2.2 · The Segal axiom</a><a href="rezk-axiom.html">2.3 · The Rezk axiom</a><a href="groupoids.html">2.4 · Groupoids</a><a href="recognizing-animae.html">2.5 · Recognizing animae</a><a href="chapter-2-exercises.html">2.6 · Exercises</a></div></details><details class="contents-chapter"><summary><span class="chapter-number">Chapter 3</span><span class="chapter-name">Constructions of categories</span></summary><div class="chapter-sections"><a href="constructions-introduction.html">Chapter introduction</a><a href="subcategories.html">3.1 · Subcategories</a><a href="full-subcategories.html">3.2 · Full subcategories</a><a href="localizations.html">3.3 · Localizations</a><a href="geometric-realizations.html">3.4 · Geometric realizations</a><a href="exponentiable-functors.html">3.5 · Exponentiable functors</a><a href="joins.html">3.6 · Joins</a><a href="slice-categories.html">3.7 · Slice categories</a><a href="chapter-3-exercises.html">3.8 · Exercises</a></div></details></nav></aside>
+<main id="main" class="notes-page" tabindex="-1"><p class="coverage-note edition-notice">This supplementary note and its code links describe the earlier formalization. Its proof explanation has not been migrated to rebuild2. <a href="chapter01-code.html">Browse the current Chapter 1 code.</a></p><p class="agda-help"><span class="agda-invitation"><a class="agda-start" data-module="SCT.VolumeI.Chapter01.Section02.Specialization" href="agda/SCT.VolumeI.Chapter01.Section02.Specialization.html">Read the Agda code</a> alongside this note.</span><span class="agda-instructions">Click dotted-underlined statements to read their Agda code. <button type="button" class="agda-hide text-button">Hide links.</button> <a href="code-index.html">Browse all code.</a></span></p>
+   <h3 class="likesectionHead" id="from-a-universal-law-to-a-particular-calculation"><a id="x1-1000"></a>From a universal law to a particular calculation</h3>
+<p class="noindent">In <a href="coherences.html#post:Composition_Of_Identifications">Section 1.2</a>, the laws for composition of identifications are stated as
+identifications of functors on animae of inputs. Applying such a law involves a
+small calculation: substitute the desired inputs, and compare the resulting
+endpoints with the expressions in the statement one wants to prove. This note
+makes that procedure explicit.
+</p><p class="indent">   We use the primitives, terminal category, products, and composition structure
+of Sections 1.1–1.2, together with the vertical coherence laws where indicated. All
+categories and functors below are absolute. A family with parameter \(X\) means an
+ordinary functor from \(X\) into a fixed identification anima. It does not mean a
+category varying over \(X\).
+</p><p class="indent">   We write \(\beta \cdot \alpha \) for vertical composition, with \(\alpha \) applied first, and \(u\star \alpha \) and \(\alpha \star r\) for
+postwhiskering and prewhiskering. For functor composition we retain
+\(\circ \).
+</p><p class="noindent">
+</p>
+   <h3 class="likesectionHead" id="lifting-two-projection-comparisons"><a id="x1-2000"></a>Lifting two projection comparisons</h3>
+<p class="noindent">The <a href="basic-vocabulary.html#post:Product_Of_Categories">product axiom</a> specifies an equivalence \[ q_{F,G}\colon (F=G)\iso (\pi _1F=\pi _1G)\times (\pi _2F=\pi _2G) \] for functors \(F,G\colon X\to C\times D\). Its components are
+postwhiskering with the two projections.
+</p><p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-2001r1"></a>
+<a class="agda-trigger" id="text-supp-product-lift" data-agda="supp-product-lift" href="#agda-supp-product-lift"><span class="ecbx-1095">Supplementary Lemma 1.</span></a>  </span><span id="lem:Supplementary_Product_Lift"> </span><span class="ecti-1095">For specified identifications</span> \(a\colon \pi _1F=\pi _1G\) <span class="ecti-1095">and</span> \(b\colon \pi _2F=\pi _2G\)<span class="ecti-1095">, there is an
+identification</span> \(\ell \colon F=G\) <span class="ecti-1095">equipped with identifications </span>\[ \pi _1\star \ell =a,\qquad \pi _2\star \ell =b. \]
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+                                                                     
+
+                                                                     
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    Choose the inverse \(q_{F,G}^{-1}\) supplied with the equivalence and put \(\ell =q_{F,G}^{-1}\circ \langle a,b\rangle \).
+The inverse comparison, the associator, and the left unitor give \[ q_{F,G}\circ \ell =\langle a,b\rangle . \] Postwhisker
+this comparison with each projection. The product projection comparisons,
+including  those  defining  the  components  of  \(q_{F,G}\),  give  the  two  asserted
+identifications. Thus the construction supplies the projection computations
+as well as the lift itself.                                                                   □
+</p>
+   </div></details>
+<p class="noindent">
+</p>
+   <h3 class="likesectionHead" id="substitution-through-pairing-and-composition"><a id="x1-3000"></a>Substitution through pairing and composition</h3>
+<p class="noindent">For \(a\colon X\to C\), \(b\colon X\to D\), and \(r\colon R\to X\), the projection comparisons and associator identify the projections of \(\langle a,b\rangle \circ r\)
+with those of \(\langle a\circ r,b\circ r\rangle \).
+</p><p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-3001r2"></a>
+<a class="agda-trigger" id="text-supp-substitution-comparisons" data-agda="supp-substitution-comparisons" href="#agda-supp-substitution-comparisons"><span class="ecbx-1095">Supplementary Lemma 2.</span></a>  </span><span id="lem:Supplementary_Substitution_Comparisons"> </span><span class="ecti-1095">There are identifications </span>\[ \langle a,b\rangle \circ r=\langle a\circ r,b\circ r\rangle . \] <span class="ecti-1095">For families</span> \(\sigma \colon X\to (f=g)\) <span class="ecti-1095">and</span>
+\(\tau \colon X\to (g=h)\)<span class="ecti-1095">, there is also an identification </span>\[ (\tau \cdot \sigma )\circ r =(\tau \circ r)\cdot (\sigma \circ r). \] <span class="ecti-1095">More generally, specified comparisons</span> \(\tau \circ r=\tau '\) <span class="ecti-1095">and</span> \(\sigma \circ r=\sigma '\)
+<span class="ecti-1095">give </span>\[ (\tau \cdot \sigma )\circ r=\tau '\cdot \sigma '. \]
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">     Apply   Supplementary   Lemma <a href="#x1-2001r1">1</a>   to   the   two   projection
+comparisons  to  obtain  the  pairing  formula.  Vertical  composition  of
+families  is  defined  by  composing  their  pairing  with  the  composition
+functor \((g=h)\times (f=g)\to (f=h)\). Reassociate, apply the pairing formula, and postwhisker it with
+this  composition  functor.  For  the  last  assertion,  pair  the  two  specified
+comparisons and apply the same composition functor.                           □
+</p>
+   </div></details>
+<p class="noindent">
+</p>
+   <h3 class="likesectionHead" id="keeping-the-endpoint-comparisons"><a id="x1-4000"></a>Keeping the endpoint comparisons</h3>
+<p class="noindent"></p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-4001r3"></a>
+<a class="agda-trigger" id="text-supp-normalized-specialization" data-agda="supp-normalized-specialization" href="#agda-supp-normalized-specialization"><span class="ecbx-1095">Supplementary Lemma 3.</span></a>  </span><span id="lem:Supplementary_Normalized_Specialization"> </span><span class="ecti-1095">Suppose</span> \(F,G\colon X\to Y\) <span class="ecti-1095">are equipped with an identification</span> \(\kappa \colon F=G\)<span class="ecti-1095">.
+Let</span> \(r\colon R\to X\)<span class="ecti-1095">, and suppose that</span> \(F',G'\colon R\to Y\) <span class="ecti-1095">are equipped with specified identifications </span>\[ l\colon F\circ r=F',\qquad t\colon G\circ r=G'. \] <span class="ecti-1095">Then there
+is an identification</span> \(F'=G'\)<span class="ecti-1095">, given by </span>\[ \bigl (t\cdot (\kappa \star r)\bigr )\cdot l^{-1}. \]
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    The inverse of \(l\) goes from \(F'\) to \(F\circ r\), prewhiskering \(\kappa \) goes from \(F\circ r\) to \(G\circ r\),
+and \(t\) goes from \(G\circ r\) to \(G'\). Compose these three identifications with the displayed
+parenthesization.                                                                           □
+                                                                     
+
+                                                                     
+</p>
+   </div></details>
+<p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-4002r4"></a>
+<a class="agda-trigger" id="text-supp-specialized-vertical-laws" data-agda="supp-specialized-vertical-laws" href="#agda-supp-specialized-vertical-laws"><span class="ecbx-1095">Supplementary Corollary 4.</span></a>  </span><span id="cor:Supplementary_Specialized_Vertical_Laws"> </span><span class="ecti-1095">For absolute identifications</span> \(\sigma \colon f=g\)<span class="ecti-1095">,</span> \(\tau \colon g=h\)<span class="ecti-1095">, and</span> \(\upsilon \colon h=k\)<span class="ecti-1095">, the
+universal vertical coherence laws give </span>\[ \mathrm {id}_g\cdot \sigma =\sigma , \qquad \sigma \cdot \mathrm {id}_f=\sigma , \] \[ (\upsilon \cdot \tau )\cdot \sigma =\upsilon \cdot (\tau \cdot \sigma ), \] \[ \sigma ^{-1}\cdot \sigma =\mathrm {id}_f, \qquad \sigma \cdot \sigma ^{-1}=\mathrm {id}_g. \] <span class="ecti-1095">These are identifications between the
+displayed absolute objects of identification animae.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    For a unit or inverse law, precompose the universal comparison
+with \(\sigma \colon *\to (f=g)\). Use Supplementary Lemma <a href="#x1-3001r2">2</a> to compare the substituted composite
+with the displayed composite. Constants specialize to their specified values
+using  uniqueness  of  functors  to  \(*\)  and  the  unitors.  For  associativity,  use
+the  point  whose  three  projections  are  \(\upsilon ,\tau ,\sigma \),  retaining  the  product  projection
+comparisons at each step. Apply Supplementary Lemma <a href="#x1-4001r3">3</a> to the resulting
+comparisons of both endpoints.                                                         □
+</p>
+   </div></details>
+<p class="indent">   The same procedure works with a functor from any parameter category into
+the relevant input anima. Each application retains its own endpoint comparisons.
+No choice of a universal normal form for all expressions is needed for these finite
+calculations.
+</p>
+    
+<section class="supplementary-targets"><h2>Checked declarations</h2><p>The linked Agda declarations were type-checked in the displayed edition. The explanatory prose and proof ideas are AI-generated and are not verified by that check.</p><ul><li id="agda-supp-product-lift">Supplementary Lemma 1: Lifting projection comparisons: <a href="agda/SCT.VolumeI.Chapter01.Section02.Specialization.html#1594"><code>ProductLift.lift</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section02.Specialization.html#1796"><code>ProductLift.β₁</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section02.Specialization.html#1959"><code>ProductLift.β₂</code></a></li><li id="agda-supp-substitution-comparisons">Supplementary Lemma 2: Substitution through composition: <a href="agda/SCT.VolumeI.Chapter01.Section02.Specialization.html#3049"><code>pair-pre</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section02.Specialization.html#3562"><code>isoComp-pre</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section02.Specialization.html#6009"><code>isoComp-evaluate</code></a></li><li id="agda-supp-normalized-specialization">Supplementary Lemma 3: Keeping endpoint comparisons: <a href="agda/SCT.VolumeI.Chapter01.Section02.Specialization.html#5819"><code>specialize</code></a></li><li id="agda-supp-specialized-vertical-laws">Supplementary Corollary 4: Specialized vertical laws: <a href="agda/SCT.VolumeI.Chapter01.Section02.Specialization.html#7482"><code>Units.isoComp-unitˡ-at</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section02.Specialization.html#7799"><code>Units.isoComp-unitʳ-at</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section02.Specialization.html#9799"><code>Units.isoComp-assoc-at</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section02.Specialization.html#8116"><code>Units.isoComp-inverseˡ-at</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section02.Specialization.html#8463"><code>Units.isoComp-inverseʳ-at</code></a></li></ul></section></main></div>
+<footer>Experimental web edition · Generated from annotated LaTeX and Agda sources. <a href="build-report.html">Build details</a></footer></body></html>

@@ -68,4 +68,22 @@ module Action {C D E C′ D′ E′ : CAT}
     ConeIso (mapCone (conePre r s)) (conePre r (mapCone s))
   map-pre r s = coneIso-compose (coneIso-pre r (coneIso-inverse (comparison s)))
     (coneIso-compose (Normal.read-pre r s) (comparison (conePre r s)))
+
+
+  map-iso-with-legs : {T : CAT} {s t : Cone f g T} → ConeIso s t → ConeIso (mapCone s) (mapCone t)
+  map-iso-with-legs {s = s} {t} Φ = coneIso-adjust (map-iso Φ)
+    (u ◁ ConeIso.leftIso Φ) (v ◁ ConeIso.rightIso Φ)
+    (isoComp-unitˡ-at _ ∙ isoComp-cong (inverse-identity (u ∘ Cone.left t)) (isoComp-unitʳ-at _))
+    (isoComp-unitˡ-at _ ∙ isoComp-cong (inverse-identity (v ∘ Cone.right t)) (isoComp-unitʳ-at _))
+
+  map-pre-with-legs : {S T : CAT} (r : MAP S T) (s : Cone f g T) →
+    ConeIso (mapCone (conePre r s)) (conePre r (mapCone s))
+  map-pre-with-legs r s = coneIso-adjust (map-pre r s)
+    ((comp-assoc r (Cone.left s) u) ⁻¹) ((comp-assoc r (Cone.right s) v) ⁻¹)
+    (isoComp-unitˡ-at _ ∙ isoComp-cong
+      (preWhisker-idIso (u ∘ Cone.left s) r ∙ (preWhisker r ◁ inverse-identity (u ∘ Cone.left s)))
+      (isoComp-unitʳ-at _))
+    (isoComp-unitˡ-at _ ∙ isoComp-cong
+      (preWhisker-idIso (v ∘ Cone.right s) r ∙ (preWhisker r ◁ inverse-identity (v ∘ Cone.right s)))
+      (isoComp-unitʳ-at _))
 ```

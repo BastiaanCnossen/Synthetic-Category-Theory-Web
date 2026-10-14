@@ -1,0 +1,113 @@
+<!doctype html>
+
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Reordering inverse conditions | Synthetic category theory</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/reader-shell.css"><link rel="stylesheet" href="assets/reader.css?v=e77c6ba976bccda0"><link rel="stylesheet" href="assets/Agda.css">
+<script src="assets/math-config.js"></script><script defer src="vendor/mathjax/tex-chtml.js"></script><script defer src="assets/reader.js?v=bb4820fd39f58f55"></script></head>
+<body class="hide-agda-links has-passages supplementary-page"><a class="skip-link" href="#main">Skip to content</a><aside class="utility-dock" aria-label="Reading tools">
+<button id="reading-settings-button" class="utility-button" type="button" aria-label="Reading settings" title="Reading settings" aria-controls="reading-settings" aria-expanded="false"><span aria-hidden="true">⚙</span></button>
+<a class="utility-button" href="book.pdf" aria-label="Read the web edition PDF" title="Read the web edition PDF"><span aria-hidden="true">📖</span></a>
+<section id="reading-settings" class="settings-panel" aria-label="Reading preferences" hidden><h2>Reading preferences</h2>
+<label><input id="collapse-proofs" type="checkbox"> Collapse book proofs</label>
+
+</section></aside>
+<header class="site-header"><div class="header-top"><nav class="book-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Synthetic category theory</a></li><li><a href="internal-structure-introduction.html">Chapter 2</a></li><li><a href="rezk-axiom.html">Section 2.3</a></li><li><a href="supplementary-notes.html">Supplementary notes</a></li></ol></nav></div><p class="eyebrow">Supplementary note · AI-generated prose</p><h1>Reordering inverse conditions</h1><p class="ai-notice">AI-generated prose accompanying the Agda code. This note is supplementary to the book and is not part of the authors' manuscript.</p></header>
+<div class="reader-grid"><aside class="reader-nav" aria-label="Book navigation"><h2>Resources</h2><nav aria-label="Resources" class="reader-resources"><a href="code-index.html">All Agda code</a><a href="supplementary-notes.html">Supplementary notes</a><a href="formalization.html">Agda guide</a><a href="build-report.html">Build details</a></nav><h2>Contents</h2><nav aria-label="Contents"><a href="index.html">Overview</a><a href="introduction.html">Introduction</a><a href="overview-of-the-axioms.html">Overview of the axioms</a><details class="contents-chapter"><summary><span class="chapter-number">Chapter 1</span><span class="chapter-name">The language of synthetic category theory</span></summary><div class="chapter-sections"><a href="chapter-introduction.html">Chapter introduction</a><a href="basic-vocabulary.html">1.1 · The basic vocabulary</a><a href="coherences.html">1.2 · Coherences</a><a href="equivalences.html">1.3 · Equivalences of categories</a><a href="mapping-animae.html">1.4 · Mapping animae</a><a href="initial-categories-and-coproducts.html">1.5 · Initial categories and coproducts</a><a href="pullbacks.html">1.6 · Pullbacks of categories</a><a href="functor-categories.html">1.7 · Functor categories</a><a href="pushouts.html">1.8 · Pushout squares</a></div></details><details class="contents-chapter" open><summary><span class="chapter-number">Chapter 2</span><span class="chapter-name">The internal structure of categories</span></summary><div class="chapter-sections"><a href="internal-structure-introduction.html">Chapter introduction</a><a href="morphisms-and-diagrams.html">2.1 · Morphisms and diagrams</a><a href="segal-axiom.html">2.2 · The Segal axiom</a><a aria-current="page" href="rezk-axiom.html">2.3 · The Rezk axiom</a><a href="groupoids.html">2.4 · Groupoids</a><a href="recognizing-animae.html">2.5 · Recognizing animae</a><a href="chapter-2-exercises.html">2.6 · Exercises</a></div></details><details class="contents-chapter"><summary><span class="chapter-number">Chapter 3</span><span class="chapter-name">Constructions of categories</span></summary><div class="chapter-sections"><a href="constructions-introduction.html">Chapter introduction</a><a href="subcategories.html">3.1 · Subcategories</a><a href="full-subcategories.html">3.2 · Full subcategories</a><a href="localizations.html">3.3 · Localizations</a><a href="geometric-realizations.html">3.4 · Geometric realizations</a><a href="exponentiable-functors.html">3.5 · Exponentiable functors</a><a href="joins.html">3.6 · Joins</a><a href="slice-categories.html">3.7 · Slice categories</a><a href="chapter-3-exercises.html">3.8 · Exercises</a></div></details></nav></aside>
+<main id="main" class="notes-page" tabindex="-1"><p class="coverage-note edition-notice">Agda links are temporarily unavailable for Chapters 2 and 3 while their code is updated to the foundations used in Chapter 1.</p>
+   <h3 class="likesectionHead" id="reordering-inverse-conditions"><a id="x1-1000"></a>Reordering inverse conditions</h3>
+<p class="noindent">In the <a href="rezk-axiom.html">construction of inverse data</a>, a triangle has one short edge prescribed and
+its long edge identified with an identity. One can impose these constraints in
+either order. The comparison must preserve the projection to the original family
+of arrows.
+</p><p class="indent">   The first two lemmas use only the absolute pullback structure of Chapter
+1.
+</p><p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1001r1"></a>
+<span id="text-supp-two-stage-fibers"><span class="ecbx-1095">Supplementary Lemma 1.</span></span>  </span><span id="lem:Supplementary_Two_Stage_Fibers"> </span><span class="ecti-1095">Let</span> \(f\colon B\to A\)<span class="ecti-1095">,</span> \(g\colon T\to A\)<span class="ecti-1095">,</span> \(h\colon T\to E\)<span class="ecti-1095">, and</span> \(s\colon D\to E\)<span class="ecti-1095">. Put</span> \(R=B\times _A T\)<span class="ecti-1095">, with projections</span> \(p,q\)<span class="ecti-1095">, and</span> \(J=T\times _E D\)<span class="ecti-1095">,
+with projection</span> \(j\colon J\to T\)<span class="ecti-1095">. There is a specified equivalence </span>\[ \Phi \colon R\times _E D\longrightarrow J\times _A B, \qquad \pi _B\Phi =p\pi _R, \] <span class="ecti-1095">where the two fiber products
+use</span> \((hq,s)\) <span class="ecti-1095">and</span> \((gj,f)\) <span class="ecti-1095">respectively. In particular, if</span> \(p\pi _R\) <span class="ecti-1095">is an equivalence, so is</span> \(\pi _B\)<span class="ecti-1095">.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">     Nested  pullback  comparison  first  gives  \(R\times _E D\simeq R\times _T J\).  Exchange  the  two
+legs to obtain \(J\times _T R\), then flatten using the defining pullback of \(R\), with its legs
+exchanged, to obtain \(J\times _A B\). All three comparison functors are equivalences by
+pullback pasting.
+</p><p class="indent">   Trace  the  projection  to  \(B\)  through  the  three  stages.  Their  specified
+projection comparisons give \(\pi _B\Phi =p\pi _R\). The two-out-of-three property then gives the
+last  assertion.  This  step  uses  the  projection  comparison  in  addition  to
+equivalence of the categories.                                                           □
+                                                                     
+
+                                                                     
+</p>
+   </div></details>
+<p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1002r2"></a>
+<span id="text-supp-section-fiber"><span class="ecbx-1095">Supplementary Lemma 2.</span></span>  </span><span id="lem:Supplementary_Section_Fiber"> </span><span class="ecti-1095">Let</span> \(e\colon E\to C\) <span class="ecti-1095">and</span> \(c\colon C\to E\) <span class="ecti-1095">be equipped with an identification</span> \(ec=\mathrm {id}_C\)<span class="ecti-1095">.
+Let</span> \(T\) <span class="ecti-1095">be a pullback of</span> \(e\) <span class="ecti-1095">along</span> \(b\colon B\to C\)<span class="ecti-1095">, with projections</span> \(h\colon T\to E\) <span class="ecti-1095">and</span> \(t\colon T\to B\)<span class="ecti-1095">. Then </span>\[ t\pi _T\colon T\times _E C\longrightarrow B \] <span class="ecti-1095">is an equivalence,
+where the pullback uses</span> \(h\) <span class="ecti-1095">and</span> \(c\)<span class="ecti-1095">.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    Paste the defining pullback of \(T\times _E C\) with the given pullback square
+for \(T\). The outer rectangle is a pullback of \(ec\) along \(b\). Since \(ec\) is identified with
+the identity, its pullback projection is an equivalence. Pullback symmetry
+supplies the orientation used in the nested construction.                        □
+</p>
+   </div></details>
+<p class="noindent">
+</p>
+   <h3 class="likesectionHead" id="application-to-inverse-triangles"><a id="x1-2000"></a>Application to inverse triangles</h3>
+<p class="noindent">Write \(\operatorname {Triang}(C)\) for the triangle category, \(\operatorname {Ar}(C)\) for the arrow category, and \(d_C\colon C\to \operatorname {Ar}(C)\) for the
+identity-arrow functor. Put \[ J(C)=\operatorname {Triang}(C)\times _{\operatorname {Ar}(C)} C, \] using long-edge restriction and \(d_C\). Its two short-edge
+maps to \(\operatorname {Ar}(C)\) describe the given arrow in one-sided inverse data.
+</p><p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+                                                                     
+
+                                                                     
+<p class="noindent"><span class="head">
+<a id="x1-2001r3"></a>
+<span id="text-supp-inverse-constraint-projection"><span class="ecbx-1095">Supplementary Lemma 3.</span></span>  </span><span id="lem:Supplementary_Inverse_Constraint_Projection"> </span><span class="ecti-1095">Assume the Segal and commutative-square
+axioms and their interval endpoint data. Let</span> \(f\colon B\to \operatorname {Ar}(C)\) <span class="ecti-1095">be a family. Its canonical
+morphism expression has endpoints</span> \(e_0f,e_1f\) <span class="ecti-1095">and identity frames, where</span> \(e_0,e_1\) <span class="ecti-1095">are endpoint
+evaluations. Suppose this expression is equipped with invertibility data. For
+either short-edge map</span> \(J(C)\to \operatorname {Ar}(C)\)<span class="ecti-1095">, the projection </span>\[ J(C)\times _{\operatorname {Ar}(C)}B\longrightarrow B \] <span class="ecti-1095">is an equivalence.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    Fix the relevant short edge first. Composition by that invertible
+arrow is an equivalence, so the corresponding long-edge square is a pullback.
+Apply  Supplementary  Lemma <a href="#x1-1002r2">2</a>  using  the  identity-arrow  section  of  the
+relevant  endpoint  evaluation  functor.  This  proves  the  projection  is  an
+equivalence when the long edge is made constant second.
+</p><p class="indent">   Apply  Supplementary  Lemma <a href="#x1-1001r1">1</a>  to  reverse  the  order  of  the  two
+constraints.  Its  projection  equation  identifies  the  tested  map  with  the
+displayed projection from one-sided inverse data. This proves the assertion
+for each short edge. The Rezk axiom is not used here.                           □
+</p>
+   </div></details>
+<p class="indent">   The later isomorphism-embedding argument combines the two inverse
+conditions. This note isolates the pullback calculation supplying their individual
+projections.
+</p>
+    
+<span id="agda-supp-two-stage-fibers"></span><span id="agda-supp-section-fiber"></span><span id="agda-supp-inverse-constraint-projection"></span></main></div>
+<footer>Experimental web edition · Generated from annotated LaTeX and Agda sources. <a href="build-report.html">Build details</a></footer></body></html>

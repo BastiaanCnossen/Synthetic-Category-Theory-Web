@@ -1,0 +1,114 @@
+<!doctype html>
+
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Identifications on coproducts | Synthetic category theory</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/reader-shell.css"><link rel="stylesheet" href="assets/reader.css?v=e77c6ba976bccda0"><link rel="stylesheet" href="assets/Agda.css">
+<script src="assets/math-config.js"></script><script defer src="vendor/mathjax/tex-chtml.js"></script><script defer src="assets/agda-context.js?v=f7bbb485904189a1"></script><script defer src="assets/supplementary.js?v=88f0eed0769c41c3-f7bbb485904189a1"></script><script defer src="assets/reader.js?v=bb4820fd39f58f55"></script></head>
+<body class="hide-agda-links has-passages supplementary-page"><a class="skip-link" href="#main">Skip to content</a><aside class="utility-dock" aria-label="Reading tools">
+<button id="reading-settings-button" class="utility-button" type="button" aria-label="Reading settings" title="Reading settings" aria-controls="reading-settings" aria-expanded="false"><span aria-hidden="true">⚙</span></button>
+<a class="utility-button" href="book.pdf" aria-label="Read the web edition PDF" title="Read the web edition PDF"><span aria-hidden="true">📖</span></a>
+<section id="reading-settings" class="settings-panel" aria-label="Reading preferences" hidden><h2>Reading preferences</h2>
+<label><input id="collapse-proofs" type="checkbox"> Collapse book proofs</label>
+<label><input id="show-agda-links" type="checkbox"> Show links to Agda code</label>
+</section></aside>
+<header class="site-header"><div class="header-top"><nav class="book-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Synthetic category theory</a></li><li><a href="chapter-introduction.html">Chapter 1</a></li><li><a href="initial-categories-and-coproducts.html">Section 1.5</a></li><li><a href="supplementary-notes.html">Supplementary notes</a></li></ol></nav></div><p class="eyebrow">Supplementary note · AI-generated prose</p><h1>Identifications on coproducts</h1><p class="ai-notice">AI-generated prose accompanying the Agda code. This note is supplementary to the book and is not part of the authors' manuscript.</p></header>
+<div class="reader-grid"><aside class="reader-nav" aria-label="Book navigation"><h2>Resources</h2><nav aria-label="Resources" class="reader-resources"><a href="code-index.html">All Agda code</a><a href="supplementary-notes.html">Supplementary notes</a><a href="formalization.html">Agda guide</a><a href="build-report.html">Build details</a></nav><h2>Contents</h2><nav aria-label="Contents"><a href="index.html">Overview</a><a href="introduction.html">Introduction</a><a href="overview-of-the-axioms.html">Overview of the axioms</a><details class="contents-chapter" open><summary><span class="chapter-number">Chapter 1</span><span class="chapter-name">The language of synthetic category theory</span></summary><div class="chapter-sections"><a href="chapter-introduction.html">Chapter introduction</a><a href="basic-vocabulary.html">1.1 · The basic vocabulary</a><a href="coherences.html">1.2 · Coherences</a><a href="equivalences.html">1.3 · Equivalences of categories</a><a href="mapping-animae.html">1.4 · Mapping animae</a><a aria-current="page" href="initial-categories-and-coproducts.html">1.5 · Initial categories and coproducts</a><a href="pullbacks.html">1.6 · Pullbacks of categories</a><a href="functor-categories.html">1.7 · Functor categories</a><a href="pushouts.html">1.8 · Pushout squares</a></div></details><details class="contents-chapter"><summary><span class="chapter-number">Chapter 2</span><span class="chapter-name">The internal structure of categories</span></summary><div class="chapter-sections"><a href="internal-structure-introduction.html">Chapter introduction</a><a href="morphisms-and-diagrams.html">2.1 · Morphisms and diagrams</a><a href="segal-axiom.html">2.2 · The Segal axiom</a><a href="rezk-axiom.html">2.3 · The Rezk axiom</a><a href="groupoids.html">2.4 · Groupoids</a><a href="recognizing-animae.html">2.5 · Recognizing animae</a><a href="chapter-2-exercises.html">2.6 · Exercises</a></div></details><details class="contents-chapter"><summary><span class="chapter-number">Chapter 3</span><span class="chapter-name">Constructions of categories</span></summary><div class="chapter-sections"><a href="constructions-introduction.html">Chapter introduction</a><a href="subcategories.html">3.1 · Subcategories</a><a href="full-subcategories.html">3.2 · Full subcategories</a><a href="localizations.html">3.3 · Localizations</a><a href="geometric-realizations.html">3.4 · Geometric realizations</a><a href="exponentiable-functors.html">3.5 · Exponentiable functors</a><a href="joins.html">3.6 · Joins</a><a href="slice-categories.html">3.7 · Slice categories</a><a href="chapter-3-exercises.html">3.8 · Exercises</a></div></details></nav></aside>
+<main id="main" class="notes-page" tabindex="-1"><p class="coverage-note edition-notice">This supplementary note and its code links describe the earlier formalization. Its proof explanation has not been migrated to rebuild2. <a href="chapter01-code.html">Browse the current Chapter 1 code.</a></p><p class="agda-help"><span class="agda-invitation"><a class="agda-start" data-module="SCT.VolumeI.Chapter01.Section05.IsomorphismRestriction" href="agda/SCT.VolumeI.Chapter01.Section05.IsomorphismRestriction.html">Read the Agda code</a> alongside this note.</span><span class="agda-instructions">Click dotted-underlined statements to read their Agda code. <button type="button" class="agda-hide text-button">Hide links.</button> <a href="code-index.html">Browse all code.</a></span></p>
+   <h3 class="likesectionHead" id="identifications-on-coproducts"><a id="x1-1000"></a>Identifications on coproducts</h3>
+<p class="noindent">The <a href="initial-categories-and-coproducts.html">coproduct universal property</a> is stated using mapping animae. To
+glue identifications of functors, we need the corresponding assertion for
+their identification animae, with the specified restriction functor. The
+passage between these formulations uses the decoding square from <a href="supplementary-decoding-and-restriction.html">Decoding
+mapping animae and restriction</a>. All categories and functors below are
+absolute. We write \(\star \) for whiskering, \(D(u)\) for the functor decoded from a point
+\(u\) of a mapping anima, and \(D_{u,v}\) for the decoding functor on identification
+animae.
+</p><p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1001r1"></a>
+<a class="agda-trigger" id="text-supp-paired-observation" data-agda="supp-paired-observation" href="#agda-supp-paired-observation"><span class="ecbx-1095">Supplementary Lemma 1.</span></a>  </span><span id="lem:Supplementary_Paired_Observation">  </span><span class="ecti-1095">Let</span>  \(F\colon X\to Y\)  <span class="ecti-1095">and</span>  \(G\colon X\to Z\)  <span class="ecti-1095">be  functors  such  that</span>  \((F,G)\colon X\to Y\times Z\)  <span class="ecti-1095">is  an
+equivalence. For</span> \(u,v\colon T\to X\)<span class="ecti-1095">, the functor </span>\[ (F\star -,G\star -)\colon (u=v)\longrightarrow (F\circ u=F\circ v)\times (G\circ u=G\circ v) \] <span class="ecti-1095">is an equivalence.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    Put \(H=(F,G)\). Postwhiskering by \(H\) is an equivalence on identification
+animae. Apply the product comparison to its target \((H\circ u=H\circ v)\). The two resulting
+components  are  successive  postwhiskerings  by  \(H\)  and  by  a  projection.
+Associator compatibility and the projection identifications \(\pi _1\circ H=F\) and \(\pi _2\circ H=G\) compare
+these components with postwhiskering by \(F\) and \(G\).
+</p><p class="indent">   Each comparison is a square with possibly different endpoints. Changing
+endpoints  by  the  specified  comparisons  gives  equivalences  of  the  target
+identification animae. Pair the two squares and transfer equivalence across
+                                                                     
+
+                                                                     
+them. Thus it is the displayed paired postwhiskering functor itself that is an
+equivalence.                                                                                  □
+</p>
+   </div></details>
+<p class="noindent">
+</p>
+   <h3 class="likesectionHead" id="restricting-to-the-two-summands"><a id="x1-2000"></a>Restricting to the two summands</h3>
+<p class="noindent"></p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-2001r2"></a>
+<a class="agda-trigger" id="text-supp-coproduct-restriction" data-agda="supp-coproduct-restriction" href="#agda-supp-coproduct-restriction"><span class="ecbx-1095">Supplementary Lemma 2.</span></a>  </span><span id="lem:Supplementary_Coproduct_Restriction"> </span><span class="ecti-1095">For</span> \(h,k\colon C\amalg D\to E\)<span class="ecti-1095">, restriction along the inclusions</span> \(i_C\colon C\to C\amalg D\) <span class="ecti-1095">and</span> \(i_D\colon D\to C\amalg D\) <span class="ecti-1095">is
+an equivalence </span>\[ R_{h,k}\colon (h=k)\longrightarrow (h\circ i_C=k\circ i_C)\times (h\circ i_D=k\circ i_D), \qquad R_{h,k}=(-\star i_C,-\star i_D). \]
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    First  suppose  \(h=D(u)\)  and  \(k=D(v)\)  are  decoded  absolute  objects  of  \(\Map (C\amalg D,E)\).  The
+coproduct  axiom  says  that  \[ (i_C^*,i_D^*)\colon \Map (C\amalg D,E) \longrightarrow \Map (C,E)\times \Map (D,E) \]  is  an  equivalence.  Apply  Supplementary
+Lemma <a href="#x1-1001r1">1</a>  to  this  functor  and  to  \(u,v\).  Decode  the  two  target  identification
+animae, using that decoding acts by equivalences.
+</p><p class="indent">   The decoding square identifies these two components with restriction
+of  decoded  identifications,  retaining  the  comparisons  \(D(i_C^*u)=D(u)\circ i_C\)  and  \(D(i_D^*u)=D(u)\circ i_D\),  and  the
+corresponding comparisons for \(v\). Pair the two squares, change endpoints, and
+cancel the equivalence \(D_{u,v}\). This proves that \(R_{D(u),D(v)}\) is an equivalence.
+</p><p class="indent">   For  general  \(h,k\),  take  their  names  in  the  mapping  anima.  The  decoding
+comparisons give \(D(\operatorname {name}(h))=h\) and \(D(\operatorname {name}(k))=k\). Restriction commutes with changing these endpoints:
+prewhisker  the  endpoint-change  square  by  each  inclusion.  Transport  the
+                                                                     
+
+                                                                     
+decoded  result  across  the  resulting  paired  square  to  obtain  the  asserted
+equivalence \(R_{h,k}\).                                                                                 □
+</p>
+   </div></details>
+<p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-2002r3"></a>
+<a class="agda-trigger" id="text-supp-coproduct-lift" data-agda="supp-coproduct-lift" href="#agda-supp-coproduct-lift"><span class="ecbx-1095">Supplementary Corollary 3.</span></a>  </span><span id="cor:Supplementary_Coproduct_Lift"> </span><span class="ecti-1095">Given identifications</span> \(\sigma \colon h\circ i_C=k\circ i_C\) <span class="ecti-1095">and</span> \(\tau \colon h\circ i_D=k\circ i_D\)<span class="ecti-1095">, there is an
+identification</span> \(\lambda \colon h=k\) <span class="ecti-1095">equipped with comparisons </span>\[ \lambda \star i_C=\sigma , \qquad \lambda \star i_D=\tau . \]
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    Lift the absolute object \((\sigma ,\tau )\) along the equivalence \(R_{h,k}\) of Supplementary
+Lemma <a href="#x1-2001r2">2</a>. This produces both \(\lambda \) and a comparison \(R_{h,k}(\lambda )=(\sigma ,\tau )\). Postcompose with each
+projection and apply the pairing projection comparisons. These are the two
+specified restriction comparisons.                                                      □
+</p>
+   </div></details>
+<p class="indent">   Keeping these comparisons makes the construction usable when gluing
+data with prescribed restrictions. The argument uses the mapping-anima
+universal property of \(C\amalg D\); it does not require the coproduct itself to be an
+anima.
+</p>
+    
+<section class="supplementary-targets"><h2>Checked declarations</h2><p>The linked Agda declarations were type-checked in the displayed edition. The explanatory prose and proof ideas are AI-generated and are not verified by that check.</p><ul><li id="agda-supp-paired-observation">Supplementary Lemma 1: Paired postwhiskering: <a href="agda/SCT.VolumeI.Chapter01.Section05.RestrictionCalculus.html#4348"><code>paired-post-isEquiv</code></a></li><li id="agda-supp-coproduct-restriction">Supplementary Lemma 2: Restriction to the summands: <a href="agda/SCT.VolumeI.Chapter01.Section05.IsomorphismRestriction.html#3417"><code>coproductIsoRestriction-isEquiv</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section05.IsomorphismRestriction.html#1779"><code>decoded-restriction-isEquiv</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section05.IsomorphismRestriction.html#1218"><code>decode-restriction-square</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section05.IsomorphismRestriction.html#2897"><code>restriction-change-square</code></a></li><li id="agda-supp-coproduct-lift">Supplementary Corollary 3: Lifting prescribed restrictions: <a href="agda/SCT.VolumeI.Chapter01.Section05.IsomorphismRestriction.html#4330"><code>RestrictionLift.lift</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section05.IsomorphismRestriction.html#4488"><code>RestrictionLift.left-image</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section05.IsomorphismRestriction.html#4631"><code>RestrictionLift.right-image</code></a></li></ul></section></main></div>
+<footer>Experimental web edition · Generated from annotated LaTeX and Agda sources. <a href="build-report.html">Build details</a></footer></body></html>

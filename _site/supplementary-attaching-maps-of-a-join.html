@@ -1,0 +1,107 @@
+<!doctype html>
+
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>The attaching maps of a join | Synthetic category theory</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/reader-shell.css"><link rel="stylesheet" href="assets/reader.css?v=e77c6ba976bccda0"><link rel="stylesheet" href="assets/Agda.css">
+<script src="assets/math-config.js"></script><script defer src="vendor/mathjax/tex-chtml.js"></script><script defer src="assets/reader.js?v=bb4820fd39f58f55"></script></head>
+<body class="hide-agda-links has-passages supplementary-page"><a class="skip-link" href="#main">Skip to content</a><aside class="utility-dock" aria-label="Reading tools">
+<button id="reading-settings-button" class="utility-button" type="button" aria-label="Reading settings" title="Reading settings" aria-controls="reading-settings" aria-expanded="false"><span aria-hidden="true">⚙</span></button>
+<a class="utility-button" href="book.pdf" aria-label="Read the web edition PDF" title="Read the web edition PDF"><span aria-hidden="true">📖</span></a>
+<section id="reading-settings" class="settings-panel" aria-label="Reading preferences" hidden><h2>Reading preferences</h2>
+<label><input id="collapse-proofs" type="checkbox"> Collapse book proofs</label>
+
+</section></aside>
+<header class="site-header"><div class="header-top"><nav class="book-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Synthetic category theory</a></li><li><a href="constructions-introduction.html">Chapter 3</a></li><li><a href="joins.html">Section 3.6</a></li><li><a href="supplementary-notes.html">Supplementary notes</a></li></ol></nav></div><p class="eyebrow">Supplementary note · AI-generated prose</p><h1>The attaching maps of a join</h1><p class="ai-notice">AI-generated prose accompanying the Agda code. This note is supplementary to the book and is not part of the authors' manuscript.</p></header>
+<div class="reader-grid"><aside class="reader-nav" aria-label="Book navigation"><h2>Resources</h2><nav aria-label="Resources" class="reader-resources"><a href="code-index.html">All Agda code</a><a href="supplementary-notes.html">Supplementary notes</a><a href="formalization.html">Agda guide</a><a href="build-report.html">Build details</a></nav><h2>Contents</h2><nav aria-label="Contents"><a href="index.html">Overview</a><a href="introduction.html">Introduction</a><a href="overview-of-the-axioms.html">Overview of the axioms</a><details class="contents-chapter"><summary><span class="chapter-number">Chapter 1</span><span class="chapter-name">The language of synthetic category theory</span></summary><div class="chapter-sections"><a href="chapter-introduction.html">Chapter introduction</a><a href="basic-vocabulary.html">1.1 · The basic vocabulary</a><a href="coherences.html">1.2 · Coherences</a><a href="equivalences.html">1.3 · Equivalences of categories</a><a href="mapping-animae.html">1.4 · Mapping animae</a><a href="initial-categories-and-coproducts.html">1.5 · Initial categories and coproducts</a><a href="pullbacks.html">1.6 · Pullbacks of categories</a><a href="functor-categories.html">1.7 · Functor categories</a><a href="pushouts.html">1.8 · Pushout squares</a></div></details><details class="contents-chapter"><summary><span class="chapter-number">Chapter 2</span><span class="chapter-name">The internal structure of categories</span></summary><div class="chapter-sections"><a href="internal-structure-introduction.html">Chapter introduction</a><a href="morphisms-and-diagrams.html">2.1 · Morphisms and diagrams</a><a href="segal-axiom.html">2.2 · The Segal axiom</a><a href="rezk-axiom.html">2.3 · The Rezk axiom</a><a href="groupoids.html">2.4 · Groupoids</a><a href="recognizing-animae.html">2.5 · Recognizing animae</a><a href="chapter-2-exercises.html">2.6 · Exercises</a></div></details><details class="contents-chapter" open><summary><span class="chapter-number">Chapter 3</span><span class="chapter-name">Constructions of categories</span></summary><div class="chapter-sections"><a href="constructions-introduction.html">Chapter introduction</a><a href="subcategories.html">3.1 · Subcategories</a><a href="full-subcategories.html">3.2 · Full subcategories</a><a href="localizations.html">3.3 · Localizations</a><a href="geometric-realizations.html">3.4 · Geometric realizations</a><a href="exponentiable-functors.html">3.5 · Exponentiable functors</a><a aria-current="page" href="joins.html">3.6 · Joins</a><a href="slice-categories.html">3.7 · Slice categories</a><a href="chapter-3-exercises.html">3.8 · Exercises</a></div></details></nav></aside>
+<main id="main" class="notes-page" tabindex="-1"><p class="coverage-note edition-notice">Agda links are temporarily unavailable for Chapters 2 and 3 while their code is updated to the foundations used in Chapter 1.</p>
+   <h3 class="likesectionHead" id="the-attaching-maps-of-a-join"><a id="x1-1000"></a>The attaching maps of a join</h3>
+<p class="noindent">The <a href="joins.html">mapping-out construction of a join</a> glues a cylinder to its two endpoint
+categories. To construct the map induced by functors on those categories, the two
+attaching squares must be compared with their specified restrictions. We describe
+this calculation for absolute joins. Assume the Chapter 1 structures, including
+universal coproducts, the walking morphism and the mapping-out join
+axiom.
+</p><p class="indent">   For \(C,D\), put \(W=C\times D\) and write \[ B=W\sqcup W,\qquad Z=W\times [1],\qquad E=C\sqcup D. \] Let \(\iota _e=(\operatorname {id}_W,e)\colon W\to Z\) be endpoint insertion. The two attaching maps are
+\[ t=[\iota _0,\iota _1]\colon B\to Z,\qquad b=[\operatorname {in}_C\operatorname {pr}_C, \operatorname {in}_D\operatorname {pr}_D]\colon B\to E. \]
+</p><p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1001r1"></a>
+<span id="text-supp-join-product-coordinates"><span class="ecbx-1095">Supplementary Lemma 1.</span></span>  </span><span id="lem:Supplementary_Join_Product_Coordinates"> </span><span class="ecti-1095">The chosen join</span> \(C\star D\) <span class="ecti-1095">is the pushout of</span> \(t\) <span class="ecti-1095">and</span> \(b\)<span class="ecti-1095">. Its
+boundary map</span> \(a\colon E\to C\star D\) <span class="ecti-1095">is the original join inclusion; its cylinder map</span> \(j\colon Z\to C\star D\) <span class="ecti-1095">carries a
+specified matching</span> \(jt=ab\)<span class="ecti-1095">.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    The comparison \(C\times D\to C\times _\star D\) is an equivalence with specified projection
+computations. Use it on the cylinder, and use distributivity to replace its
+boundary by two copies of \(W\). The projection computations identify the two
+attaching maps with \(t,b\). Transport the whole universal cocone through these
+equivalences. Finally identify its boundary leg with the original join inclusion
+and transport the matching along that identification. This gives the claimed
+pushout with its specified legs.                                                         □
+                                                                     
+
+                                                                     
+</p>
+   </div></details>
+<p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1002r2"></a>
+<span id="text-supp-join-attaching-comparisons"><span class="ecbx-1095">Supplementary Lemma 2.</span></span>  </span><span id="lem:Supplementary_Join_Attaching_Comparisons">  </span><span class="ecti-1095">For</span>   \(f\colon C\to C'\)   <span class="ecti-1095">and</span>   \(g\colon D\to D'\)<span class="ecti-1095">,   put</span>   \(v=f\times g\)<span class="ecti-1095">,</span>   \(d=v\sqcup v\)<span class="ecti-1095">,</span>   \(z=v\times \operatorname {id}_{[1]}\)   <span class="ecti-1095">and</span>   \(e=f\sqcup g\)<span class="ecti-1095">.   There
+are  comparisons  </span>\[ t'd=zt,\qquad b'd=eb \]  <span class="ecti-1095">whose  restrictions  to  the  two  summands  are  the
+endpoint-insertion and projection comparisons.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    On each summand the first equation reduces to \(\iota '_{\varepsilon }v=z\iota _{\varepsilon }\) for \(\varepsilon =0,1\). Compare
+the product projections: the \(W'\) projection is \(v\) and the interval projection is
+the same constant endpoint. For the second equation, compute the \(C'\) and \(D'\)
+projections of \(f\times g\) and then apply the appropriate coproduct inclusion.
+</p><p class="indent">   These calculations initially compare the restrictions of \(t'd,zt\) and \(b'd,eb\). Lift each
+pair through the equivalence on identification animae induced by coproduct
+restriction. Its two computation laws retain the specified comparisons on
+each summand. This is the <a href="supplementary-identifications-on-coproducts.html">prescribed-image coproduct calculation</a>.         □
+</p>
+   </div></details>
+<p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1003r3"></a>
+                                                                     
+
+                                                                     
+<span id="text-supp-join-cocone-computation"><span class="ecbx-1095">Supplementary Lemma 3.</span></span>  </span><span id="lem:Supplementary_Join_Cocone_Computation">  </span><span class="ecti-1095">There  is  a  functor</span>  \(F\colon C\star D\to C'\star D'\)  <span class="ecti-1095">with  comparisons  </span>\[ Fj=j'z,\qquad Fa=a'e, \]
+<span class="ecti-1095">compatible with the specified matchings on</span> \(B\)<span class="ecti-1095">.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    Restrict the target join cocone along the three maps \(d,z,e\), using
+the two comparisons of Supplementary Lemma <a href="#x1-1002r2">2</a>. This is a cocone on the
+source span. Extend it through the source pushout. The computation law
+of  the  extension  compares  the  entire  resulting  cocone  with  the  one  just
+constructed. Its two components are the displayed identifications, and its
+matching equation is their required compatibility.                                □
+</p>
+   </div></details>
+<p class="indent">   This is the pushout-defined action on joins. The checked declarations linked
+here do not supply its identity and composition laws or identify it with the
+separate action constructed using dependent products. General associativity of
+joins is also outside the scope of this note.
+</p>
+    
+<span id="agda-supp-join-product-coordinates"></span><span id="agda-supp-join-attaching-comparisons"></span><span id="agda-supp-join-cocone-computation"></span></main></div>
+<footer>Experimental web edition · Generated from annotated LaTeX and Agda sources. <a href="build-report.html">Build details</a></footer></body></html>

@@ -41,12 +41,18 @@ module At {Γ C : CAT} {x y z w : MAP Γ C}
   (f : MorphismExpression x y) (g : MorphismExpression y z) (h : MorphismExpression z w) where
   fg = compose-expression f g
   gh = compose-expression g h
-  module First = Gluing.At 𝒯 M ℱ P I E S Q (composition-presentation f g)
-    (change-long (composition-presentation (identity-expression x) fg) (left-unit fg))
-  module Second = Gluing.At 𝒯 M ℱ P I E S Q
-    (change-long (composition-presentation gh (identity-expression w)) (right-unit gh))
-    (composition-presentation g h)
-  module Outside = Compose First.square Second.square
+  private
+    module First = Gluing.At 𝒯 M ℱ P I E S Q (composition-presentation f g)
+      (change-long (composition-presentation (identity-expression x) fg) (left-unit fg))
+      using (square)
+  private
+    module Second = Gluing.At 𝒯 M ℱ P I E S Q
+      (change-long (composition-presentation gh (identity-expression w)) (right-unit gh))
+      (composition-presentation g h)
+      using (square)
+  private
+    module Outside = Compose First.square Second.square
+      using (square)
 
   comparison : ExpressionIso (compose-expression f gh) (compose-expression fg h)
   comparison = expressionIso-compose (left-unit (compose-expression fg h))

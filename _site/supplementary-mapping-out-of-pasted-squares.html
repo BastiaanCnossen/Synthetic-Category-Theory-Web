@@ -1,0 +1,114 @@
+<!doctype html>
+
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Mapping out of pasted squares | Synthetic category theory</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/reader-shell.css"><link rel="stylesheet" href="assets/reader.css?v=e77c6ba976bccda0"><link rel="stylesheet" href="assets/Agda.css">
+<script src="assets/math-config.js"></script><script defer src="vendor/mathjax/tex-chtml.js"></script><script defer src="assets/agda-context.js?v=f7bbb485904189a1"></script><script defer src="assets/supplementary.js?v=88f0eed0769c41c3-f7bbb485904189a1"></script><script defer src="assets/reader.js?v=bb4820fd39f58f55"></script></head>
+<body class="hide-agda-links has-passages supplementary-page"><a class="skip-link" href="#main">Skip to content</a><aside class="utility-dock" aria-label="Reading tools">
+<button id="reading-settings-button" class="utility-button" type="button" aria-label="Reading settings" title="Reading settings" aria-controls="reading-settings" aria-expanded="false"><span aria-hidden="true">⚙</span></button>
+<a class="utility-button" href="book.pdf" aria-label="Read the web edition PDF" title="Read the web edition PDF"><span aria-hidden="true">📖</span></a>
+<section id="reading-settings" class="settings-panel" aria-label="Reading preferences" hidden><h2>Reading preferences</h2>
+<label><input id="collapse-proofs" type="checkbox"> Collapse book proofs</label>
+<label><input id="show-agda-links" type="checkbox"> Show links to Agda code</label>
+</section></aside>
+<header class="site-header"><div class="header-top"><nav class="book-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Synthetic category theory</a></li><li><a href="chapter-introduction.html">Chapter 1</a></li><li><a href="pushouts.html">Section 1.8</a></li><li><a href="supplementary-notes.html">Supplementary notes</a></li></ol></nav></div><p class="eyebrow">Supplementary note · AI-generated prose</p><h1>Mapping out of pasted squares</h1><p class="ai-notice">AI-generated prose accompanying the Agda code. This note is supplementary to the book and is not part of the authors' manuscript.</p></header>
+<div class="reader-grid"><aside class="reader-nav" aria-label="Book navigation"><h2>Resources</h2><nav aria-label="Resources" class="reader-resources"><a href="code-index.html">All Agda code</a><a href="supplementary-notes.html">Supplementary notes</a><a href="formalization.html">Agda guide</a><a href="build-report.html">Build details</a></nav><h2>Contents</h2><nav aria-label="Contents"><a href="index.html">Overview</a><a href="introduction.html">Introduction</a><a href="overview-of-the-axioms.html">Overview of the axioms</a><details class="contents-chapter" open><summary><span class="chapter-number">Chapter 1</span><span class="chapter-name">The language of synthetic category theory</span></summary><div class="chapter-sections"><a href="chapter-introduction.html">Chapter introduction</a><a href="basic-vocabulary.html">1.1 · The basic vocabulary</a><a href="coherences.html">1.2 · Coherences</a><a href="equivalences.html">1.3 · Equivalences of categories</a><a href="mapping-animae.html">1.4 · Mapping animae</a><a href="initial-categories-and-coproducts.html">1.5 · Initial categories and coproducts</a><a href="pullbacks.html">1.6 · Pullbacks of categories</a><a href="functor-categories.html">1.7 · Functor categories</a><a aria-current="page" href="pushouts.html">1.8 · Pushout squares</a></div></details><details class="contents-chapter"><summary><span class="chapter-number">Chapter 2</span><span class="chapter-name">The internal structure of categories</span></summary><div class="chapter-sections"><a href="internal-structure-introduction.html">Chapter introduction</a><a href="morphisms-and-diagrams.html">2.1 · Morphisms and diagrams</a><a href="segal-axiom.html">2.2 · The Segal axiom</a><a href="rezk-axiom.html">2.3 · The Rezk axiom</a><a href="groupoids.html">2.4 · Groupoids</a><a href="recognizing-animae.html">2.5 · Recognizing animae</a><a href="chapter-2-exercises.html">2.6 · Exercises</a></div></details><details class="contents-chapter"><summary><span class="chapter-number">Chapter 3</span><span class="chapter-name">Constructions of categories</span></summary><div class="chapter-sections"><a href="constructions-introduction.html">Chapter introduction</a><a href="subcategories.html">3.1 · Subcategories</a><a href="full-subcategories.html">3.2 · Full subcategories</a><a href="localizations.html">3.3 · Localizations</a><a href="geometric-realizations.html">3.4 · Geometric realizations</a><a href="exponentiable-functors.html">3.5 · Exponentiable functors</a><a href="joins.html">3.6 · Joins</a><a href="slice-categories.html">3.7 · Slice categories</a><a href="chapter-3-exercises.html">3.8 · Exercises</a></div></details></nav></aside>
+<main id="main" class="notes-page" tabindex="-1"><p class="coverage-note edition-notice">This supplementary note and its code links describe the earlier formalization. Its proof explanation has not been migrated to rebuild2. <a href="chapter01-code.html">Browse the current Chapter 1 code.</a></p><p class="agda-help"><span class="agda-invitation"><a class="agda-start" data-module="SCT.VolumeI.Chapter01.Section08.MappingCalculus.Restriction.MappingPastingComparison" href="agda/SCT.VolumeI.Chapter01.Section08.MappingCalculus.Restriction.MappingPastingComparison.html">Read the Agda code</a> alongside this note.</span><span class="agda-instructions">Click dotted-underlined statements to read their Agda code. <button type="button" class="agda-hide text-button">Hide links.</button> <a href="code-index.html">Browse all code.</a></span></p>
+   <h3 class="likesectionHead" id="mapping-out-of-pasted-squares"><a id="x1-1000"></a>Mapping out of pasted squares</h3>
+<p class="noindent">The <a href="pushouts.html#lem:Pasting_Lemma_Pushouts">pushout pasting proof</a> applies the pullback pasting lemma after mapping out.
+This requires comparing the specified matching identifications on the two routes.
+The calculation uses the Chapter 1 mapping-anima and pullback structure;
+functor categories are not needed.
+</p><p class="indent">   Consider adjacent squares \(L,R\) with top arrows \(g_1\colon A_1\to A_2\), \(g_2\colon A_2\to A_3\), bottom arrows \(h_1\colon B_1\to B_2\), \(h_2\colon B_2\to B_3\), vertical
+arrows \(f_i\colon A_i\to B_i\), and matchings \[ \lambda \colon f_2g_1=h_1f_1,\qquad \rho \colon f_3g_2=h_2f_2. \] Their pasted square \(O\) uses the matching from \(f_3(g_2g_1)\) to \((h_2h_1)f_1\)
+obtained by reassociating, applying \(\rho \) along \(g_1\), reassociating, applying \(h_2\) to \(\lambda \), and
+reassociating back. The matching is part of the input, as well as the four
+boundary functors.
+</p><p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1001r1"></a>
+<a class="agda-trigger" id="text-supp-product-pasting" data-agda="supp-product-pasting" href="#agda-supp-product-pasting"><span class="ecbx-1095">Supplementary Lemma 1.</span></a>  </span><span id="lem:Supplementary_Product_Pasting"> </span><span class="ecti-1095">For an absolute category</span> \(X\)<span class="ecti-1095">, put</span> \(L_X(f)=\mathrm {id}_X\times f\)<span class="ecti-1095">, and write</span> \(\kappa _X(f,g)\colon L_X(g)L_X(f)=L_X(gf)\)
+<span class="ecti-1095">for its chosen composition comparison. The product images of</span> \(L,R\) <span class="ecti-1095">paste to a
+cocone which compares with the product image of</span> \(O\)<span class="ecti-1095">, after changing the upper
+span arrow by</span> \(\kappa _X(g_1,g_2)\)<span class="ecti-1095">. The comparison has the identity on the left leg and</span> \(\kappa _X(h_1,h_2)\) <span class="ecti-1095">on the
+right leg, with compatibility of the matchings.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    Expand the pasted matching into its five stages. Compatibility
+with  inverse  associators  handles  the  first  and  last  stages.  Naturality  of
+the product composition comparison handles the two whiskered matchings,
+and its associativity comparison handles the middle stage. Paste these five
+                                                                     
+
+                                                                     
+comparison squares and cancel the common outer composition comparison.
+Postcomposition  by  any  functor  \(X\times B_3\to E\)  preserves  the  resulting  whole-cocone
+comparison.                                                                                  □
+</p>
+   </div></details>
+<p class="indent">   For \(k\colon A\to B\), write \(k^*\colon \Map (B,E)\to \Map (A,E)\) for precomposition by \(k\).
+</p><p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1002r2"></a>
+<a class="agda-trigger" id="text-supp-mapping-pasting" data-agda="supp-mapping-pasting" href="#agda-supp-mapping-pasting"><span class="ecbx-1095">Supplementary Lemma 2.</span></a>  </span><span id="lem:Supplementary_Mapping_Pasting"> </span><span class="ecti-1095">For an absolute category</span> \(E\)<span class="ecti-1095">, let</span> \(M_E(L)\)<span class="ecti-1095">,</span> \(M_E(R)\)<span class="ecti-1095">, and</span> \(M_E(O)\) <span class="ecti-1095">be the
+mapping-out cones. Pasting</span> \(M_E(R)\) <span class="ecti-1095">and</span> \(M_E(L)\)<span class="ecti-1095">, in this reversed order, and changing its
+left cospan arrow by </span>\[ \kappa _g\colon g_1^*g_2^*=(g_2g_1)^* \] <span class="ecti-1095">produces a cone with a specified comparison to</span> \(M_E(O)\)<span class="ecti-1095">. This
+comparison includes its matching equation, without any pushout hypothesis
+on</span> \(L\) <span class="ecti-1095">or</span> \(R\)<span class="ecti-1095">.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    Use  the  universal  parameter  \(X=\Map (B_3,E)\)  and  uncurry  the  mapping-out
+cones at its identity. The composition comparison for precomposition on
+mapping  animae  evaluates  to  the  product  comparison  \(\kappa _X\).  The  two  square
+matchings  evaluate  to  the  corresponding  product  cocones,  postcomposed
+with evaluation \(X\times B_3\to E\).
+</p><p class="indent">   Apply Supplementary Lemma <a href="#x1-1001r1">1</a> and reflect the resulting whole-cocone
+comparison  through  uncurrying.  This  reflection  is  available  because  \(X\)  is
+an  anima.  Finally  remove  restriction  by  the  identity  with  the  cone  unit
+comparison.
+</p><p class="indent">   If \(U,V\) denote the source and target cones over a common cospan \((p,q)\), and \(a,b\)
+the constructed leg comparisons, the retained equation is \[ \operatorname {match}(V)\cdot (p\star a) =(q\star b)\cdot \operatorname {match}(U). \] Here \(\star \) denotes
+                                                                     
+
+                                                                     
+whiskering and vertical composition applies the rightmost factor first. The
+witnesses \(a,b\) are those constructed by uncurrying and reflection; the assertion
+includes their compatibility.                                                             □
+</p>
+   </div></details>
+<p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1003r3"></a>
+<a class="agda-trigger" id="text-supp-pushout-pasting" data-agda="supp-pushout-pasting" href="#agda-supp-pushout-pasting"><span class="ecbx-1095">Supplementary Corollary 3.</span></a>  </span><span id="cor:Supplementary_Pushout_Pasting"> </span><span class="ecti-1095">If</span> \(L\) <span class="ecti-1095">is a pushout, then</span> \(R\) <span class="ecti-1095">is a pushout if and
+only if the specified pasted square</span> \(O\) <span class="ecti-1095">is a pushout.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    For every \(E\), the mapping-out cone \(M_E(L)\) is a pullback. Contravariance
+makes it the fixed right square in the pullback pasting argument. Pasting
+and  cancellation  therefore  identify  the  pullback  conditions  for  \(M_E(R)\)  and  the
+pasted mapping cone. Changing the cospan arrow by \(\kappa _g\) preserves the pullback
+property. Supplementary Lemma <a href="#x1-1002r2">2</a> transfers it to \(M_E(O)\), including the specified
+matching. Quantify over \(E\).                                                                □
+</p>
+   </div></details>
+    
+<section class="supplementary-targets"><h2>Checked declarations</h2><p>The linked Agda declarations were type-checked in the displayed edition. The explanatory prose and proof ideas are AI-generated and are not verified by that check.</p><ul><li id="agda-supp-product-pasting">Supplementary Lemma 1: Products and specified pasting: <a href="agda/SCT.VolumeI.Chapter01.Section08.ProductCalculus.ProductRestrictionPasting.html#8690"><code>Action.Pasting.matching</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section08.ProductCalculus.ProductRestrictionPasting.html#9697"><code>Action.Pasting.comparison</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section08.ProductCalculus.ProductRestrictionPasting.html#10105"><code>Action.Pasting.postcomparison</code></a></li><li id="agda-supp-mapping-pasting">Supplementary Lemma 2: The mapping-out cone comparison: <a href="agda/SCT.VolumeI.Chapter01.Section08.MappingCalculus.Restriction.MappingPastingComparison.html#4052"><code>Diagram.evaluated-comparison</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section08.MappingCalculus.Restriction.MappingPastingComparison.html#4282"><code>Diagram.comparison</code></a></li><li id="agda-supp-pushout-pasting">Supplementary Corollary 3: Pushout pasting: <a href="agda/SCT.VolumeI.Chapter01.Section08.PushoutPasting.html#1837"><code>Pasting.paste-isPushout</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section08.PushoutPasting.html#1980"><code>Pasting.cancel-isPushout</code></a></li></ul></section></main></div>
+<footer>Experimental web edition · Generated from annotated LaTeX and Agda sources. <a href="build-report.html">Build details</a></footer></body></html>

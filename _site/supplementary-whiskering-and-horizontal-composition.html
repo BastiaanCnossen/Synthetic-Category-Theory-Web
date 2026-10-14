@@ -1,0 +1,132 @@
+<!doctype html>
+
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Whiskering and horizontal composition | Synthetic category theory</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/reader-shell.css"><link rel="stylesheet" href="assets/reader.css?v=e77c6ba976bccda0"><link rel="stylesheet" href="assets/Agda.css">
+<script src="assets/math-config.js"></script><script defer src="vendor/mathjax/tex-chtml.js"></script><script defer src="assets/agda-context.js?v=f7bbb485904189a1"></script><script defer src="assets/supplementary.js?v=88f0eed0769c41c3-f7bbb485904189a1"></script><script defer src="assets/reader.js?v=bb4820fd39f58f55"></script></head>
+<body class="hide-agda-links has-passages supplementary-page"><a class="skip-link" href="#main">Skip to content</a><aside class="utility-dock" aria-label="Reading tools">
+<button id="reading-settings-button" class="utility-button" type="button" aria-label="Reading settings" title="Reading settings" aria-controls="reading-settings" aria-expanded="false"><span aria-hidden="true">⚙</span></button>
+<a class="utility-button" href="book.pdf" aria-label="Read the web edition PDF" title="Read the web edition PDF"><span aria-hidden="true">📖</span></a>
+<section id="reading-settings" class="settings-panel" aria-label="Reading preferences" hidden><h2>Reading preferences</h2>
+<label><input id="collapse-proofs" type="checkbox"> Collapse book proofs</label>
+<label><input id="show-agda-links" type="checkbox"> Show links to Agda code</label>
+</section></aside>
+<header class="site-header"><div class="header-top"><nav class="book-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Synthetic category theory</a></li><li><a href="chapter-introduction.html">Chapter 1</a></li><li><a href="coherences.html">Section 1.2</a></li><li><a href="supplementary-notes.html">Supplementary notes</a></li></ol></nav></div><p class="eyebrow">Supplementary note · AI-generated prose</p><h1>Whiskering and horizontal composition</h1><p class="ai-notice">AI-generated prose accompanying the Agda code. This note is supplementary to the book and is not part of the authors' manuscript.</p></header>
+<div class="reader-grid"><aside class="reader-nav" aria-label="Book navigation"><h2>Resources</h2><nav aria-label="Resources" class="reader-resources"><a href="code-index.html">All Agda code</a><a href="supplementary-notes.html">Supplementary notes</a><a href="formalization.html">Agda guide</a><a href="build-report.html">Build details</a></nav><h2>Contents</h2><nav aria-label="Contents"><a href="index.html">Overview</a><a href="introduction.html">Introduction</a><a href="overview-of-the-axioms.html">Overview of the axioms</a><details class="contents-chapter" open><summary><span class="chapter-number">Chapter 1</span><span class="chapter-name">The language of synthetic category theory</span></summary><div class="chapter-sections"><a href="chapter-introduction.html">Chapter introduction</a><a href="basic-vocabulary.html">1.1 · The basic vocabulary</a><a aria-current="page" href="coherences.html">1.2 · Coherences</a><a href="equivalences.html">1.3 · Equivalences of categories</a><a href="mapping-animae.html">1.4 · Mapping animae</a><a href="initial-categories-and-coproducts.html">1.5 · Initial categories and coproducts</a><a href="pullbacks.html">1.6 · Pullbacks of categories</a><a href="functor-categories.html">1.7 · Functor categories</a><a href="pushouts.html">1.8 · Pushout squares</a></div></details><details class="contents-chapter"><summary><span class="chapter-number">Chapter 2</span><span class="chapter-name">The internal structure of categories</span></summary><div class="chapter-sections"><a href="internal-structure-introduction.html">Chapter introduction</a><a href="morphisms-and-diagrams.html">2.1 · Morphisms and diagrams</a><a href="segal-axiom.html">2.2 · The Segal axiom</a><a href="rezk-axiom.html">2.3 · The Rezk axiom</a><a href="groupoids.html">2.4 · Groupoids</a><a href="recognizing-animae.html">2.5 · Recognizing animae</a><a href="chapter-2-exercises.html">2.6 · Exercises</a></div></details><details class="contents-chapter"><summary><span class="chapter-number">Chapter 3</span><span class="chapter-name">Constructions of categories</span></summary><div class="chapter-sections"><a href="constructions-introduction.html">Chapter introduction</a><a href="subcategories.html">3.1 · Subcategories</a><a href="full-subcategories.html">3.2 · Full subcategories</a><a href="localizations.html">3.3 · Localizations</a><a href="geometric-realizations.html">3.4 · Geometric realizations</a><a href="exponentiable-functors.html">3.5 · Exponentiable functors</a><a href="joins.html">3.6 · Joins</a><a href="slice-categories.html">3.7 · Slice categories</a><a href="chapter-3-exercises.html">3.8 · Exercises</a></div></details></nav></aside>
+<main id="main" class="notes-page" tabindex="-1"><p class="coverage-note edition-notice">This supplementary note and its code links describe the earlier formalization. Its proof explanation has not been migrated to rebuild2. <a href="chapter01-code.html">Browse the current Chapter 1 code.</a></p><p class="agda-help"><span class="agda-invitation"><a class="agda-start" data-module="SCT.VolumeI.Chapter01.Section02.DerivedWhiskering" href="agda/SCT.VolumeI.Chapter01.Section02.DerivedWhiskering.html">Read the Agda code</a> alongside this note.</span><span class="agda-instructions">Click dotted-underlined statements to read their Agda code. <button type="button" class="agda-hide text-button">Hide links.</button> <a href="code-index.html">Browse all code.</a></span></p>
+   <h3 class="likesectionHead" id="putting-identity-identifications-into-the-inputs"><a id="x1-1000"></a>Putting identity identifications into the inputs</h3>
+<p class="noindent">The <a href="coherences.html#rmk:Isomorphisms_Of_Natural_Isomorphisms">remark following horizontal compatibility</a> says that the individual whiskering
+laws follow by taking some inputs to be identity identifications. There are
+endpoint comparisons in this substitution: inserting an identity identification
+produces whiskering, while inserting an identity functor changes the endpoints by
+a unitor. We display the resulting laws here.
+</p><p class="indent">   We use the structures and coherences of Sections 1.1–1.2. Write \(\tau \cdot \sigma \) for vertical
+composition, \(u\star \sigma \) and \(\sigma \star k\) for whiskering, and \(\tau \ast \sigma \) for horizontal composition. The
+right-hand identification in a vertical composite is applied first. These operations
+also apply to families with a common parameter category \(X\), namely functors from \(X\)
+into fixed identification animae. For an absolute identification \(\delta \), write \(\overline \delta \) for its
+constant family on \(X\).
+</p><p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1001r1"></a>
+<a class="agda-trigger" id="text-supp-horizontal-identity-inputs" data-agda="supp-horizontal-identity-inputs" href="#agda-supp-horizontal-identity-inputs"><span class="ecbx-1095">Supplementary Lemma 1.</span></a>  </span><span id="lem:Supplementary_Horizontal_Identity_Inputs">  </span><span class="ecti-1095">For</span>  \(f,f'\colon C\to D\)<span class="ecti-1095">,</span>  \(g,g'\colon D\to E\)<span class="ecti-1095">,  and  families</span>  \(\sigma \colon X\to (f=f')\)  <span class="ecti-1095">and</span>  \(\tau \colon X\to (g=g')\)<span class="ecti-1095">,  there  are
+identifications </span>\[ \overline {\mathrm {id}_g}\ast \sigma =g\star \sigma , \qquad \tau \ast \overline {\mathrm {id}_f}=\tau \star f. \] <span class="ecti-1095">In particular, </span>\[ \overline {\mathrm {id}_g}\ast \overline {\mathrm {id}_f} =\overline {\mathrm {id}_{g\circ f}}. \]
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    By definition, \[ \tau \ast \sigma =(\tau \star f')\cdot (g\star \sigma ). \] If \(\tau \) is the constant identity family, preservation
+of identities by prewhiskering identifies the first factor with the constant
+identity of \(g\circ f'\). Apply the left vertical unit law. For the second formula, use
+preservation of identities by postwhiskering and the right vertical unit law.
+Constant families are compared with their whiskerings using the associator.
+                                                                     
+
+                                                                     
+Combining the first formula with preservation of identities by postwhiskering
+gives the last formula.                                                                     □
+</p>
+   </div></details>
+<p class="noindent">
+</p>
+   <h3 class="likesectionHead" id="the-five-endpointcompatible-laws"><a id="x1-2000"></a>The five endpoint-compatible laws</h3>
+<p class="noindent">We use the book’s names for the structural identifications: \[ \lambda _f\colon \mathrm {id}\circ f=f,\qquad \rho _f\colon f\circ \mathrm {id}=f,\qquad \alpha _{f,g,h}\colon (h\circ g)\circ f=h\circ (g\circ f). \]
+</p><p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-2001r2"></a>
+<a class="agda-trigger" id="text-supp-five-whiskering-laws" data-agda="supp-five-whiskering-laws" href="#agda-supp-five-whiskering-laws"><span class="ecbx-1095">Supplementary Lemma 2.</span></a>  </span><span id="lem:Supplementary_Five_Whiskering_Laws"> </span><span class="ecti-1095">Let</span> \(f,g\colon C\to D\) <span class="ecti-1095">and put</span> \(X=(f=g)\)<span class="ecti-1095">, with universal family</span> \(\sigma =\mathrm {id}_{(f=g)}\)<span class="ecti-1095">. The
+unit comparisons give </span>\[ \overline {\lambda _g}\cdot (\mathrm {id}_D\star \sigma ) =\sigma \cdot \overline {\lambda _f}, \qquad \overline {\rho _g}\cdot (\sigma \star \mathrm {id}_C) =\sigma \cdot \overline {\rho _f}. \] <span class="ecti-1095">For</span> \(u\colon D\to E\) <span class="ecti-1095">and</span> \(v\colon E\to F\)<span class="ecti-1095">, there is an identification </span>\[ \overline {\alpha _{g,u,v}}\cdot ((v\circ u)\star \sigma ) =\bigl (v\star (u\star \sigma )\bigr )\cdot \overline {\alpha _{f,u,v}}. \] <span class="ecti-1095">For</span> \(k\colon B\to C\) <span class="ecti-1095">and</span> \(l\colon A\to B\)<span class="ecti-1095">, there
+is an identification </span>\[ \overline {\alpha _{l,k,g}}\cdot ((\sigma \star k)\star l) =(\sigma \star (k\circ l))\cdot \overline {\alpha _{l,k,f}}. \] <span class="ecti-1095">Finally, for</span> \(k\colon B\to C\) <span class="ecti-1095">and</span> \(u\colon D\to E\)<span class="ecti-1095">, there is an identification </span>\[ \overline {\alpha _{k,g,u}}\cdot ((u\star \sigma )\star k) =(u\star (\sigma \star k))\cdot \overline {\alpha _{k,f,u}}. \] <span class="ecti-1095">All five are
+identifications between functors on</span> \((f=g)\)<span class="ecti-1095">.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    For the unit formulas, start with the horizontal unit comparisons
+and use Supplementary Lemma <a href="#x1-1001r1">1</a> to replace horizontal composition with an
+identity identification by whiskering.
+</p><p class="indent">   For the postcomposition formula, substitute \(\overline {\mathrm {id}_v},\overline {\mathrm {id}_u},\sigma \) into horizontal associativity.
+The two parenthesizations become whiskering by \(v\circ u\) and successive whiskering
+by \(u\) and \(v\). The two vertical sides remain \(\overline {\alpha _{f,u,v}}\) and \(\overline {\alpha _{g,u,v}}\). The other two formulas use,
+respectively, \(\sigma ,\overline {\mathrm {id}_k},\overline {\mathrm {id}_l}\) and \(\overline {\mathrm {id}_u},\sigma ,\overline {\mathrm {id}_k}\). In each case the horizontal identity comparisons give the
+displayed boundary.                                                                       □
+                                                                     
+
+                                                                     
+</p>
+   </div></details>
+<p class="indent">   Precomposing these universal comparisons with a family \(R\to (f=g)\) gives the
+corresponding formulas for that family. The endpoint normalizations are
+the ones explained in <a href="supplementary-specializing-coherence-laws.html">Specializing coherence laws</a>. This derivation uses
+horizontal units and associativity together with the vertical laws and
+preservation of identity identifications by whiskering. It does not require
+interchange.
+</p><p class="noindent">
+</p>
+   <h3 class="likesectionHead" id="the-middle-interchange-in-a-composite"><a id="x1-3000"></a>The middle interchange in a composite</h3>
+<p class="noindent">The book also observes that horizontal composition preserves vertical
+composition. The following calculation makes explicit the single interchange
+needed for absolute identifications.
+</p><p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-3001r3"></a>
+<a class="agda-trigger" id="text-supp-horizontal-preserves-vertical" data-agda="supp-horizontal-preserves-vertical" href="#agda-supp-horizontal-preserves-vertical"><span class="ecbx-1095">Supplementary Lemma 3.</span></a>  </span><span id="lem:Supplementary_Horizontal_Preserves_Vertical"> </span><span class="ecti-1095">Let</span> \(f_0,f_1,f_2\colon C\to D\) <span class="ecti-1095">and</span> \(g_0,g_1,g_2\colon D\to E\)<span class="ecti-1095">. For absolute identifications</span> \(\sigma _i\colon f_{i-1}=f_i\) <span class="ecti-1095">and</span> \(\tau _i\colon g_{i-1}=g_i\)<span class="ecti-1095">,
+for</span> \(i=1,2\)<span class="ecti-1095">, there is an identification </span>\[ (\tau _2\cdot \tau _1)\ast (\sigma _2\cdot \sigma _1) =(\tau _2\ast \sigma _2)\cdot (\tau _1\ast \sigma _1). \] <span class="ecti-1095">Horizontal composition also preserves identity
+identifications:</span> \(\mathrm {id}_g\ast \mathrm {id}_f=\mathrm {id}_{g\circ f}\)<span class="ecti-1095">.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">     Expand  the  horizontal  composite  on  the  left  and  use
+preservation of vertical composition by each whiskering. This gives the four
+factors, in their order of vertical composition, \[ (\tau _2\star f_2),\quad (\tau _1\star f_2),\quad (g_0\star \sigma _2),\quad (g_0\star \sigma _1). \] The fixed-outer interchange
+                                                                     
+
+                                                                     
+comparison  for  \(\tau _1\),  specialized  at  \(\sigma _2\),  identifies  the  middle  composite  with  \[ (\tau _1\star f_2)\cdot (g_0\star \sigma _2) =(g_1\star \sigma _2)\cdot (\tau _1\star f_1). \]
+Reassociate the four factors before and after this replacement. The result is
+exactly the right-hand horizontal composite. Preservation of identities follows
+by expanding its two whiskerings and then applying a vertical unit law.   □
+</p>
+   </div></details>
+<p class="indent">   Here the inputs \(\tau _i,\sigma _i\) are absolute identifications. The proof uses the stated
+fixed-input interchange axiom. A comparison over a parameter category in which
+both interchange inputs vary is a stronger assertion; the formalization treats that
+assertion separately under an additional joint interchange hypothesis. The
+displayed result does not use that hypothesis.
+</p>
+    
+<section class="supplementary-targets"><h2>Checked declarations</h2><p>The linked Agda declarations were type-checked in the displayed edition. The explanatory prose and proof ideas are AI-generated and are not verified by that check.</p><ul><li id="agda-supp-horizontal-identity-inputs">Supplementary Lemma 1: Identity inputs: <a href="agda/SCT.VolumeI.Chapter01.Section02.DerivedWhiskering.html#2042"><code>horizontal-identityˡ</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section02.DerivedWhiskering.html#2373"><code>horizontal-identityʳ</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section02.DerivedWhiskering.html#2698"><code>horizontal-identities</code></a></li><li id="agda-supp-five-whiskering-laws">Supplementary Lemma 2: Five whiskering laws: <a href="agda/SCT.VolumeI.Chapter01.Section02.DerivedWhiskering.html#4426"><code>postWhisker-id</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section02.DerivedWhiskering.html#4717"><code>preWhisker-id</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section02.DerivedWhiskering.html#5002"><code>postWhisker-comp</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section02.DerivedWhiskering.html#5684"><code>preWhisker-comp</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section02.DerivedWhiskering.html#6363"><code>whisker-mixed</code></a></li><li id="agda-supp-horizontal-preserves-vertical">Supplementary Lemma 3: Horizontal composition preserves vertical composition: <a href="agda/SCT.VolumeI.Chapter01.Section02.Isomorphisms.html#2289"><code>hcomp-isoComp</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section02.Isomorphisms.html#1904"><code>hcomp-idIso</code></a></li></ul></section></main></div>
+<footer>Experimental web edition · Generated from annotated LaTeX and Agda sources. <a href="build-report.html">Build details</a></footer></body></html>

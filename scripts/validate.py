@@ -14,6 +14,9 @@ def validate_tex_log(path):
 
 
 def validate(site=SITE):
+    if (site/'chapter-edition.json').exists():
+        from chapter_edition import validate_overlay
+        return validate_overlay(site)
     info=json.loads(read(BUILD/'build-info.json'))
     require(info['correspondence_hash']==digest((ROOT/'correspondence.json').read_bytes()),'Correspondence changed since assembly; rebuild the pilot')
     for rel,sha in info['inputs']['files'].items():
@@ -72,7 +75,7 @@ def validate(site=SITE):
                 if not href: continue
                 url=urlsplit(href)
                 if url.scheme or url.netloc: continue
-                key=(file.parent,url.path)
+                key=(file if not url.path else file.parent,url.path)
                 if key not in targets:
                     target=(file.parent/unquote(url.path)).resolve() if url.path else file.resolve()
                     require(site.resolve() in target.parents or target==site.resolve(),f'Link leaves distribution: {file.name}: {href}')
@@ -179,6 +182,10 @@ def validate(site=SITE):
             parent=parent.parent
         require(tuple(ancestors)==expected_groups[entry.attrs['data-module']],
                 'Code index places module in wrong folder: '+entry.attrs['data-module'])
+    declarations_by_module={}
+    for pid,passage in reader['passages'].items():
+        for declaration in passage['declarations']:
+            declarations_by_module.setdefault(declaration['module'],[]).append((pid,passage,declaration))
     for module,payload in reader['modules'].items():
         src=SNAP/'agda/src'/Path(*module.split('.')).with_suffix('.lagda.md')
         if not src.exists(): src=src.with_suffix('').with_suffix('.agda')
@@ -194,12 +201,11 @@ def validate(site=SITE):
         require(payload['anchors']==compiler_anchors(compiled,{line['number'] for line in payload['lines']}),'Definition anchor index differs')
         for line in payload['lines']:
             expected_targets={}
-            for pid,p in reader['passages'].items():
-                for d in p['declarations']:
-                    if d['module']==module and line['number'] in d['range']:
-                        focused=line['number'] in d['focus']
-                        rank=[0 if p['reverse_only'] else 1 if focused else 2,len(d['focus']) if focused else len(d['range'])]
-                        if pid not in expected_targets or rank<expected_targets[pid]: expected_targets[pid]=rank
+            for pid,p,d in declarations_by_module.get(module,[]):
+                if line['number'] in d['range']:
+                    focused=line['number'] in d['focus']
+                    rank=[0 if p['reverse_only'] else 1 if focused else 2,len(d['focus']) if focused else len(d['range'])]
+                    if pid not in expected_targets or rank<expected_targets[pid]: expected_targets[pid]=rank
             require({t['id']:t['rank'] for t in line['targets']}==expected_targets,'Reverse line correspondence differs')
             fragment=parse(line['html'])
             require(fragment.text()==lines[line['number']-1],'Side-reader line differs from compiler source')
@@ -229,8 +235,26 @@ def validate(site=SITE):
     validate_distribution(info,site=site)
     from check_site_boundary import check
     check(site)
+    from supplementary import catalog, reader_metadata, NOTICE, fingerprint
+    from assemble import Agda
+    extra=json.loads(read(BUILD/'supplementary/reader.json'))
+    require(extra==reader_metadata(Agda()),'Supplementary targets differ from checked source')
+    require(read(site/'assets/supplementary.js')=='window.SCT_SUPPLEMENTARY = '+json.dumps(extra,ensure_ascii=False)+';\n',
+            'Supplementary reader metadata differs')
+    for note in catalog():
+        tree=trees[site/(note['slug']+'.html')]
+        require(next(tree.all('body')).has('supplementary-page'),'Missing supplementary page style')
+        require(NOTICE in tree.text() and 'AI-generated prose' in tree.text(),'Missing authorship notice')
+        require(extra['inputs'][note['slug']]==fingerprint(note),'Supplementary source changed after assembly')
+        for passage in note['passages']:
+            require(any(n.attrs.get('id')=='text-'+passage['id'] and n.has('agda-trigger') for n in tree.all('a')),
+                    'Missing supplementary passage: '+passage['id'])
+        require(any(a.attrs.get('href')==note['slug']+'.html' for a in trees[site/(note['section']+'.html')].all('a')),
+                'Missing book-to-note link')
+        validate_tex_log(BUILD/'supplementary'/note['slug']/'note.log')
     report={'status':'passed','html_pages':len(files),'local_links_checked':links,'passage_panels':len(panels),'declaration_mappings':len(declarations),'reverse_only_passages':len(manifest.get('reverse_only',[])),'underlined_statements':actual,'pdf_html_counters':len(pdf),'input_hashes':len(info['inputs']['files']),'source_modules':len(info['source_inventory']),'omitted_source_modules':sum(1 for p in (SNAP/'agda/src').rglob('*') if p.suffix=='.agda' or p.name.endswith('.lagda.md'))-len(info['source_inventory'])}
     dump(site/'validation.json',report); print(json.dumps(report))
+    return report
 
 def validate_distribution(info,site=SITE):
     """The only publishable tree must not contain private inputs or excess code."""

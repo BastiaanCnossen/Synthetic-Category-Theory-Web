@@ -189,7 +189,7 @@ def declaration_range(source,name,qualified=None):
         members=m[0].split(':',1)[0].split() if not m[2] else [name]
         if name not in members: continue
         enclosing=[s for s in ss if s['start']<m.start()<s['end']]
-        parts=[s['name'] for s in enclosing if '.' not in s['name']]
+        parts=[s['name'] for s in enclosing if '.' not in s['name'] and s['name']!='_']
         q='.'.join(parts+[name])
         if qualified and q!=qualified: continue
         candidates.append((m,enclosing,q,members))

@@ -33,15 +33,31 @@ module At {Γ C : CAT} {x y z w : MAP Γ C}
   {top : MorphismExpression x y} {right : MorphismExpression y z}
   {left : MorphismExpression x w} {bottom : MorphismExpression w z}
   (square : FramedSquare top right left bottom) where
-  module F = FramedSquare square
-  module N = MorphismExpression F.vertical
-  module T = MorphismExpression top
-  module R = MorphismExpression right
-  module L = MorphismExpression left
-  module B = MorphismExpression bottom
-  module Recover = Recovery.At 𝒯 M ℱ N.arrow
+  private
+    module F = FramedSquare square
+      using (vertical; top-edge; bottom-edge)
+  private
+    module N = MorphismExpression F.vertical
+      using (arrow; source-frame; target-frame)
+  private
+    module T = MorphismExpression top
+      using (source-frame; target-frame)
+  private
+    module R = MorphismExpression right
+      using (arrow; source-frame; target-frame)
+  private
+    module L = MorphismExpression left
+      using (arrow; source-frame; target-frame)
+  private
+    module B = MorphismExpression bottom
+      using (source-frame; target-frame)
+  private
+    module Recover = Recovery.At 𝒯 M ℱ N.arrow
+      using (square; module Curried; comparison)
   W = Recover.square
-  module Curried = Recover.Curried
+  private
+    module Curried = Recover.Curried
+      using (nested; module Vertical; module Horizontal)
   ε = Recover.comparison
   left-frame = N.source-frame ∙ (ev₀ ◁ ε)
   right-frame = N.target-frame ∙ (ev₁ ◁ ε)
@@ -68,10 +84,18 @@ module At {Γ C : CAT} {x y z w : MAP Γ C}
   top-side = ExpressionIso.comparison top-edge ∙ (Curried.Horizontal.comparison zero) ⁻¹
   bottom-side = ExpressionIso.comparison bottom-edge ∙ (Curried.Horizontal.comparison one) ⁻¹
 
-  module E₀₀ = Endpoints.At 𝒯 M ℱ P I E S W zero zero T.source-frame L.source-frame
-  module E₀₁ = Endpoints.At 𝒯 M ℱ P I E S W zero one T.target-frame R.source-frame
-  module E₁₀ = Endpoints.At 𝒯 M ℱ P I E S W one zero B.source-frame L.target-frame
-  module E₁₁ = Endpoints.At 𝒯 M ℱ P I E S W one one B.target-frame R.target-frame
+  private
+    module E₀₀ = Endpoints.At 𝒯 M ℱ P I E S W zero zero T.source-frame L.source-frame
+      using (from-endpoint)
+  private
+    module E₀₁ = Endpoints.At 𝒯 M ℱ P I E S W zero one T.target-frame R.source-frame
+      using (from-endpoint)
+  private
+    module E₁₀ = Endpoints.At 𝒯 M ℱ P I E S W one zero B.source-frame L.target-frame
+      using (from-endpoint)
+  private
+    module E₁₁ = Endpoints.At 𝒯 M ℱ P I E S W one one B.target-frame R.target-frame
+      using (from-endpoint)
 
   abstract
     top-image : (top-side ∙ Curried.Horizontal.comparison zero) =₂ ExpressionIso.comparison top-edge
@@ -79,16 +103,20 @@ module At {Γ C : CAT} {x y z w : MAP Γ C}
     bottom-image : (bottom-side ∙ Curried.Horizontal.comparison one) =₂ ExpressionIso.comparison bottom-edge
     bottom-image = cancel-inverse-tail (ExpressionIso.comparison bottom-edge) (Curried.Horizontal.comparison one)
 
-  module Boundary = Transfer.At 𝒯 M ℱ P I E S W top right left bottom
-  module Compared = Boundary.Identified top-side right-side left-side bottom-side
-    (E₀₀.from-endpoint top-side left-side
-      (ExpressionIso.source-compatible top-edge ∙ isoComp-cong (idIso T.source-frame) (postWhisker ev₀ ◁ top-image)))
-    (E₀₁.from-endpoint top-side right-side
-      (ExpressionIso.target-compatible top-edge ∙ isoComp-cong (idIso T.target-frame) (postWhisker ev₁ ◁ top-image)))
-    (E₁₀.from-endpoint bottom-side left-side
-      (ExpressionIso.source-compatible bottom-edge ∙ isoComp-cong (idIso B.source-frame) (postWhisker ev₀ ◁ bottom-image)))
-    (E₁₁.from-endpoint bottom-side right-side
-      (ExpressionIso.target-compatible bottom-edge ∙ isoComp-cong (idIso B.target-frame) (postWhisker ev₁ ◁ bottom-image)))
+  private
+    module Boundary = Transfer.At 𝒯 M ℱ P I E S W top right left bottom
+      using (module Identified)
+  private
+    module Compared = Boundary.Identified top-side right-side left-side bottom-side
+      (E₀₀.from-endpoint top-side left-side
+        (ExpressionIso.source-compatible top-edge ∙ isoComp-cong (idIso T.source-frame) (postWhisker ev₀ ◁ top-image)))
+      (E₀₁.from-endpoint top-side right-side
+        (ExpressionIso.target-compatible top-edge ∙ isoComp-cong (idIso T.target-frame) (postWhisker ev₁ ◁ top-image)))
+      (E₁₀.from-endpoint bottom-side left-side
+        (ExpressionIso.source-compatible bottom-edge ∙ isoComp-cong (idIso B.source-frame) (postWhisker ev₀ ◁ bottom-image)))
+      (E₁₁.from-endpoint bottom-side right-side
+        (ExpressionIso.target-compatible bottom-edge ∙ isoComp-cong (idIso B.target-frame) (postWhisker ev₁ ◁ bottom-image)))
+      using (comparison)
 
   comparison : ExpressionIso (compose-expression top right) (compose-expression left bottom)
   comparison = Compared.comparison

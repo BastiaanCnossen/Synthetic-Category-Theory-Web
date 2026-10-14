@@ -1,0 +1,157 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+
+\section*{Putting identity identifications into the inputs}
+
+The \href{coherences.html\#rmk:Isomorphisms_Of_Natural_Isomorphisms}{remark
+following horizontal compatibility} says that the individual whiskering
+laws follow by taking some inputs to be identity identifications.
+There are endpoint comparisons in this substitution: inserting an identity
+identification produces whiskering, while inserting an identity functor
+changes the endpoints by a unitor. We display the resulting laws here.
+
+We use the structures and coherences of Sections 1.1--1.2.
+Write $\tau\cdot\sigma$ for vertical composition, $u\star\sigma$ and
+$\sigma\star k$ for whiskering, and $\tau\ast\sigma$ for horizontal
+composition. The right-hand identification in a vertical composite is applied
+first. These operations also apply to families with a common parameter category
+$X$, namely functors from $X$ into fixed identification animae.
+For an absolute identification $\delta$, write $\overline\delta$ for its
+constant family on $X$.
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Horizontal_Identity_Inputs}
+For $f,f'\colon C\to D$, $g,g'\colon D\to E$, and families
+$\sigma\colon X\to(f=f')$ and $\tau\colon X\to(g=g')$, there are
+identifications
+\[
+ \overline{\mathrm{id}_g}\ast\sigma=g\star\sigma,
+ \qquad
+ \tau\ast\overline{\mathrm{id}_f}=\tau\star f.
+\]
+In particular,
+\[
+ \overline{\mathrm{id}_g}\ast\overline{\mathrm{id}_f}
+   =\overline{\mathrm{id}_{g\circ f}}.
+\]
+\end{lemma}
+\begin{proof}[Proof idea]
+By definition,
+\[
+ \tau\ast\sigma=(\tau\star f')\cdot(g\star\sigma).
+\]
+If $\tau$ is the constant identity family, preservation of identities by
+prewhiskering identifies the first factor with the constant identity of
+$g\circ f'$. Apply the left vertical unit law. For the second formula,
+use preservation of identities by postwhiskering and the right vertical unit
+law. Constant families are compared with their whiskerings using the
+associator. Combining the first formula with preservation of identities by
+postwhiskering gives the last formula.
+\end{proof}
+
+\section*{The five endpoint-compatible laws}
+
+We use the book's names for the structural identifications:
+\[
+ \lambda_f\colon\mathrm{id}\circ f=f,\qquad
+ \rho_f\colon f\circ\mathrm{id}=f,\qquad
+ \alpha_{f,g,h}\colon(h\circ g)\circ f=h\circ(g\circ f).
+\]
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Five_Whiskering_Laws}
+Let $f,g\colon C\to D$ and put $X=(f=g)$, with universal family
+$\sigma=\mathrm{id}_{(f=g)}$. The unit comparisons give
+\[
+ \overline{\lambda_g}\cdot(\mathrm{id}_D\star\sigma)
+     =\sigma\cdot\overline{\lambda_f},
+ \qquad
+ \overline{\rho_g}\cdot(\sigma\star\mathrm{id}_C)
+     =\sigma\cdot\overline{\rho_f}.
+\]
+For $u\colon D\to E$ and $v\colon E\to F$, there is an identification
+\[
+ \overline{\alpha_{g,u,v}}\cdot((v\circ u)\star\sigma)
+   =\bigl(v\star(u\star\sigma)\bigr)\cdot\overline{\alpha_{f,u,v}}.
+\]
+For $k\colon B\to C$ and $l\colon A\to B$, there is an identification
+\[
+ \overline{\alpha_{l,k,g}}\cdot((\sigma\star k)\star l)
+   =(\sigma\star(k\circ l))\cdot\overline{\alpha_{l,k,f}}.
+\]
+Finally, for $k\colon B\to C$ and $u\colon D\to E$, there is an identification
+\[
+ \overline{\alpha_{k,g,u}}\cdot((u\star\sigma)\star k)
+   =(u\star(\sigma\star k))\cdot\overline{\alpha_{k,f,u}}.
+\]
+All five are identifications between functors on $(f=g)$.
+\end{lemma}
+\begin{proof}[Proof idea]
+For the unit formulas, start with the horizontal unit comparisons and use
+\Cref{lem:Supplementary_Horizontal_Identity_Inputs} to replace horizontal
+composition with an identity identification by whiskering.
+
+For the postcomposition formula, substitute
+$\overline{\mathrm{id}_v},\overline{\mathrm{id}_u},\sigma$ into horizontal
+associativity. The two parenthesizations become whiskering by $v\circ u$
+and successive whiskering by $u$ and $v$. The two vertical sides remain
+$\overline{\alpha_{f,u,v}}$ and $\overline{\alpha_{g,u,v}}$.
+The other two formulas use, respectively,
+$\sigma,\overline{\mathrm{id}_k},\overline{\mathrm{id}_l}$ and
+$\overline{\mathrm{id}_u},\sigma,\overline{\mathrm{id}_k}$.
+In each case the horizontal identity comparisons give the displayed boundary.
+\end{proof}
+
+Precomposing these universal comparisons with a family
+$R\to(f=g)$ gives the corresponding formulas for that family. The endpoint
+normalizations are the ones explained in
+\href{supplementary-specializing-coherence-laws.html}{Specializing coherence laws}.
+This derivation uses horizontal units and associativity together with the
+vertical laws and preservation of identity identifications by whiskering.
+It does not require interchange.
+
+\section*{The middle interchange in a composite}
+
+The book also observes that horizontal composition preserves vertical
+composition. The following calculation makes explicit the single interchange
+needed for absolute identifications.
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Horizontal_Preserves_Vertical}
+Let $f_0,f_1,f_2\colon C\to D$ and $g_0,g_1,g_2\colon D\to E$.
+For absolute identifications $\sigma_i\colon f_{i-1}=f_i$ and
+$\tau_i\colon g_{i-1}=g_i$, for $i=1,2$, there is an identification
+\[
+ (\tau_2\cdot\tau_1)\ast(\sigma_2\cdot\sigma_1)
+   =(\tau_2\ast\sigma_2)\cdot(\tau_1\ast\sigma_1).
+\]
+Horizontal composition also preserves identity identifications:
+$\mathrm{id}_g\ast\mathrm{id}_f=\mathrm{id}_{g\circ f}$.
+\end{lemma}
+\begin{proof}[Proof idea]
+Expand the horizontal composite on the left and use preservation of vertical
+composition by each whiskering. This gives the four factors, in their order
+of vertical composition,
+\[
+ (\tau_2\star f_2),\quad(\tau_1\star f_2),\quad
+ (g_0\star\sigma_2),\quad(g_0\star\sigma_1).
+\]
+The fixed-outer interchange comparison for $\tau_1$, specialized at
+$\sigma_2$, identifies the middle composite with
+\[
+ (\tau_1\star f_2)\cdot(g_0\star\sigma_2)
+   =(g_1\star\sigma_2)\cdot(\tau_1\star f_1).
+\]
+Reassociate the four factors before and after this replacement. The result
+is exactly the right-hand horizontal composite. Preservation of identities
+follows by expanding its two whiskerings and then applying a vertical unit law.
+\end{proof}
+
+Here the inputs $\tau_i,\sigma_i$ are absolute identifications. The proof
+uses the stated fixed-input interchange axiom. A comparison over a parameter
+category in which both interchange inputs vary is a stronger assertion;
+the formalization treats that assertion separately under an additional joint
+interchange hypothesis. The displayed result does not use that hypothesis.
+
+\end{document}

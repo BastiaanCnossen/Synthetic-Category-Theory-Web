@@ -48,7 +48,7 @@ module Inverse {B C : CAT} {x y : MAP B C}
       u = F.input t
       fq = restrict-expression f q
       gq = restrict-expression g q
-      fg = F.composite t
+      fg = compose-expression u fq
       module FG = MorphismExpression fg
       w = G.composite (F.act t)
 

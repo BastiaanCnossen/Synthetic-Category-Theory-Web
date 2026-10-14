@@ -15,6 +15,7 @@ module SCT.VolumeI.Chapter01.Section06.Coordinates.ProductCones
 
 open import SCT.VolumeI.Chapter01.Section04.Setup 𝒯
 open import SCT.VolumeI.Chapter01.Section06.Cones 𝒯
+open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.ConeRestriction 𝒯 using (coneIso-compose; coneIso-inverse; coneIso-pre)
 open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.ComparisonSquares 𝒯
 open import SCT.VolumeI.Chapter01.Section06.Coordinates.ProjectedCones 𝒯
 open Pairing vocabulary terminal products productLaws composition vertical whiskering
@@ -96,4 +97,45 @@ module Coordinates {A₀ A₁ B₀ B₁ E₀ E₁ : CAT}
         (isoComp-cong (postWhisker g₁ ◁ right₁ ⁻¹) (idIso (Cone.match (Second.read s))) ∙
           (ConeIso.compatible Ψ ∙ isoComp-cong (idIso (Cone.match (Second.read t))) (postWhisker f₁ ◁ left₁))) ∙
         postWhisker-isoComp-at pr₂ (Cone.match t) (F ◁ L))
+
+
+  paired-iso : {T : CAT} {s₀ t₀ : Cone f₀ g₀ T} {s₁ t₁ : Cone f₁ g₁ T} →
+    ConeIso s₀ t₀ → ConeIso s₁ t₁ → ConeIso (Paired.cone s₀ s₁) (Paired.cone t₀ t₁)
+  paired-iso {s₀ = s₀} {t₀} {s₁} {t₁} Φ Ψ = reflect
+    (coneIso-compose (coneIso-inverse (Paired.first t₀ t₁))
+      (coneIso-compose Φ (Paired.first s₀ s₁)))
+    (coneIso-compose (coneIso-inverse (Paired.second t₀ t₁))
+      (coneIso-compose Ψ (Paired.second s₀ s₁)))
+
+  paired-pre : {S T : CAT} (r : MAP S T) (s₀ : Cone f₀ g₀ T) (s₁ : Cone f₁ g₁ T) →
+    ConeIso (conePre r (Paired.cone s₀ s₁)) (Paired.cone (conePre r s₀) (conePre r s₁))
+  paired-pre r s₀ s₁ = reflect
+    (coneIso-compose (coneIso-inverse (Paired.first (conePre r s₀) (conePre r s₁)))
+      (coneIso-compose (coneIso-pre r (Paired.first s₀ s₁)) (First.read-pre r (Paired.cone s₀ s₁))))
+    (coneIso-compose (coneIso-inverse (Paired.second (conePre r s₀) (conePre r s₁)))
+      (coneIso-compose (coneIso-pre r (Paired.second s₀ s₁)) (Second.read-pre r (Paired.cone s₀ s₁))))
+
+  paired-iso-left₀ : {T : CAT} {s₀ t₀ : Cone f₀ g₀ T} {s₁ t₁ : Cone f₁ g₁ T}
+    (Φ : ConeIso s₀ t₀) (Ψ : ConeIso s₁ t₁) →
+    (pr₁ ◁ ConeIso.leftIso (paired-iso Φ Ψ)) =₂
+      ((Paired.l₀ t₀ t₁) ⁻¹ ∙ (ConeIso.leftIso Φ ∙ Paired.l₀ s₀ s₁))
+  paired-iso-left₀ Φ Ψ = pair-iso-β₁ _ _
+
+  paired-iso-left₁ : {T : CAT} {s₀ t₀ : Cone f₀ g₀ T} {s₁ t₁ : Cone f₁ g₁ T}
+    (Φ : ConeIso s₀ t₀) (Ψ : ConeIso s₁ t₁) →
+    (pr₂ ◁ ConeIso.leftIso (paired-iso Φ Ψ)) =₂
+      ((Paired.l₁ t₀ t₁) ⁻¹ ∙ (ConeIso.leftIso Ψ ∙ Paired.l₁ s₀ s₁))
+  paired-iso-left₁ Φ Ψ = pair-iso-β₂ _ _
+
+  paired-iso-right₀ : {T : CAT} {s₀ t₀ : Cone f₀ g₀ T} {s₁ t₁ : Cone f₁ g₁ T}
+    (Φ : ConeIso s₀ t₀) (Ψ : ConeIso s₁ t₁) →
+    (pr₁ ◁ ConeIso.rightIso (paired-iso Φ Ψ)) =₂
+      ((Paired.r₀ t₀ t₁) ⁻¹ ∙ (ConeIso.rightIso Φ ∙ Paired.r₀ s₀ s₁))
+  paired-iso-right₀ Φ Ψ = pair-iso-β₁ _ _
+
+  paired-iso-right₁ : {T : CAT} {s₀ t₀ : Cone f₀ g₀ T} {s₁ t₁ : Cone f₁ g₁ T}
+    (Φ : ConeIso s₀ t₀) (Ψ : ConeIso s₁ t₁) →
+    (pr₂ ◁ ConeIso.rightIso (paired-iso Φ Ψ)) =₂
+      ((Paired.r₁ t₀ t₁) ⁻¹ ∙ (ConeIso.rightIso Ψ ∙ Paired.r₁ s₀ s₁))
+  paired-iso-right₁ Φ Ψ = pair-iso-β₂ _ _
 ```

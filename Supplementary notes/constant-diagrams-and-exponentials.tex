@@ -1,0 +1,101 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+\section*{Constant diagrams and the exponential law}
+
+The proof that \href{groupoids.html}{functor categories with groupoid target
+are groupoids} uses compatibility of the exponential law with constant
+diagrams. We describe the comparison of the actual functors and the
+product calculation giving it.
+
+For absolute categories $T,X$, let
+$\Delta_T^X\colon X\to\Fun(T,X)$ be the curry of
+$\pi_1\colon X\times T\to X$. Write
+\[
+ E_{T,C,X}\colon\Fun(T,\Fun(C,X))\longrightarrow\Fun(T\times C,X)
+\]
+for the chosen exponential equivalence. The first three statements use
+the Chapter 1 mapping-anima and functor-category structure.
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Constant_Naturality}
+For $F\colon C\to D$, one has an identification of functors
+\[
+ \Fun(T,F)\circ\Delta_T^C=\Delta_T^D\circ F.
+\]
+\end{lemma}
+\begin{proof}[Proof idea]
+Uncurry both sides. For the left side, postcomposition compatibility and
+the currying computation comparison identify the result with $F\pi_1$.
+For the right side, restriction compatibility gives
+$\pi_1(F\times\mathrm{id}_T)$, which the product projection comparison
+also identifies with $F\pi_1$. Reflect through uncurrying.
+\end{proof}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Constant_Exponential}
+Put $N=\Fun(C,X)$ and let $\sigma\colon C\times T\to T\times C$
+exchange the factors. The following functors $N\to\Fun(C\times T,X)$
+are identified:
+\[
+ \sigma^*\circ E_{T,C,X}\circ\Delta_T^N
+   =E_{C,T,X}\circ\Fun(C,\Delta_T^X).
+\]
+\end{lemma}
+\begin{proof}[Proof idea]
+Uncurry once. Both functors become evaluation $N\times C\to X$
+precomposed with a functor $N\times(C\times T)\to N\times C$.
+For the left side, exchange $C,T$, reassociate to $(N\times T)\times C$,
+and forget $T$. For the right side, reassociate to $(N\times C)\times T$
+and forget $T$.
+
+Compute their projections using the product comparisons. In both cases,
+the first projection is $\pi_1$ and the second is $\pi_1\pi_2$ on
+$N\times(C\times T)$. The product universal property compares the two
+argument functors. Postcompose with evaluation and reflect through uncurrying.
+\end{proof}
+
+\begin{corollary}
+\label[corollary]{cor:Supplementary_Constant_Equivalence}
+If $\Delta_T^X$ is an equivalence, then so is $\Delta_T^{\Fun(C,X)}$.
+\end{corollary}
+\begin{proof}[Proof idea]
+Postcomposition $\Fun(C,\Delta_T^X)$ is an equivalence, as are both
+exponential functors and precomposition by $\sigma$.
+Use \Cref{lem:Supplementary_Constant_Exponential} and cancel these
+equivalences. For $T=[1]$, this is the comparison used in the closure
+of groupoids under functor categories.
+\end{proof}
+
+\section*{The coproduct comparison}
+
+The following calculation is used in
+\href{recognizing-animae.html}{Section 2.5}. We work in that section's
+setup, including coproducts. Its linked Agda module also carries the Rezk
+and recognition assumptions needed for the subsequent closure results.
+The calculation itself uses naturality and the coproduct universal property.
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Constant_Coproduct}
+Put $d_C=\Delta_{[1]}^C\colon C\to\operatorname{Ar}(C)$, and let
+$i_C,i_D$ be the inclusions into $C\amalg D$.
+For the comparison
+\[
+ q=[\operatorname{Ar}(i_C),\operatorname{Ar}(i_D)]\colon
+ \operatorname{Ar}(C)\amalg\operatorname{Ar}(D)\to\operatorname{Ar}(C\amalg D),
+\]
+there is an identification
+\[
+ q\circ(d_C\amalg d_D)=d_{C\amalg D}.
+\]
+\end{lemma}
+\begin{proof}[Proof idea]
+Restrict the left side to each summand. The copairing computation and
+precomposition comparisons give $\operatorname{Ar}(i_C)d_C$ and
+$\operatorname{Ar}(i_D)d_D$. By \Cref{lem:Supplementary_Constant_Naturality},
+these identify with $d_{C\amalg D}i_C$ and $d_{C\amalg D}i_D$.
+The coproduct universal property assembles the two comparisons into the
+displayed identification. This computes the specific factorization
+used in the closure argument.
+\end{proof}
+\end{document}

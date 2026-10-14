@@ -1,0 +1,98 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+\section*{Restricting and pasting cone diagrams}
+
+The \href{pullbacks.html\#lem:Pasting_Lemma_Pullbacks}{pullback pasting lemma}
+uses compatibility of chosen factorizations with restriction and pasting.
+These calculations must retain the matching identification of each cone.
+All categories below are absolute, with the Chapter 1 coherence and
+pullback structure.
+
+For $f\colon C\to E$ and $g\colon D\to E$, a cone on $T$ is
+$s=(p,q,\tau)$ with $\tau\colon fp=gq$.
+A comparison to $s'=(p',q',\tau')$ consists of $L\colon p=p'$,
+$R\colon q=q'$, and
+\[
+ \tau'\cdot(f\star L)=(g\star R)\cdot\tau.
+\]
+The symbol $\star$ denotes whiskering; vertical composition applies the
+rightmost factor first. Write $\alpha_{r,p,f}\colon(fp)r=f(pr)$.
+These descriptions concern data of cones and comparisons, without requiring
+a category of all cones.
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Cone_Restriction}
+Restriction by $r\colon S\to T$ sends $s$ to the cone $r^*s$ with
+legs $pr,qr$ and matching
+\[
+ \alpha_{r,q,g}\cdot(\tau\star r)\cdot\alpha_{r,p,f}^{-1}.
+\]
+It takes cone comparisons to cone comparisons. There is a comparison
+$\mathrm{id}^*s\to s$ with the right unitors as leg comparisons.
+For $u\colon U\to T$ and $r\colon S\to U$, there is also a comparison
+$r^*(u^*s)\to(u\circ r)^*s$ with the associators as leg comparisons.
+\end{lemma}
+\begin{proof}[Proof idea]
+Prewhisker the two leg comparisons and their matching equation.
+The mixed whiskering law and associator compatibility put the resulting
+equation into the displayed form. For identity restriction, use
+compatibility of the right unitor with a composite. For successive
+restriction, the pentagon compares the associators on the two routes.
+Reassociate vertical composites to obtain the required matching equation.
+\end{proof}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Cone_Flattening}
+Let $f\colon A\to B$, $g\colon B\to Z$, $h\colon X\to Z$, and let
+$t=(u,v,\nu)$ be a cone over $(g,h)$ on $Q$.
+A cone $s=(p,q,\rho)$ over $(f,u)$ on $T$ determines a cone
+$\operatorname{Flat}_t(s)$ over $(gf,h)$ with legs $p,vq$ and matching
+\[
+ \operatorname{match}(q^*t)\cdot(g\star\rho)\cdot\alpha_{p,f,g}.
+\]
+Flattening takes cone comparisons to cone comparisons. Moreover,
+$r^*\operatorname{Flat}_t(s)$ compares with
+$\operatorname{Flat}_t(r^*s)$ by the identity on the left leg and
+$\alpha_{r,q,v}$ on the right leg.
+\end{lemma}
+\begin{proof}[Proof idea]
+Postwhisker the matching equation for a comparison of the inner cones by
+$g$, and paste it with the equation for the corresponding restrictions
+of $t$. The resulting equation is precisely compatibility of the
+flattened comparisons.
+
+For restriction, the intermediate cone obtained from $t$ can be restricted
+either successively by $q,r$, or by $qr$.
+Apply \Cref{lem:Supplementary_Cone_Restriction} to compare these cones,
+then flatten. The leg comparisons normalize to the identity and the
+displayed associator. Their matching equation is retained during this normalization.
+\end{proof}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Pasting_Factorization}
+Suppose $t$ is a pullback cone. Put $N=A\times_B Q$ and
+$O=A\times_Z X$. Flattening the defining cone of $N$ induces an equivalence
+$F\colon N\to O$. If $\ell_s\colon T\to N$ and
+$\ell_{\operatorname{Flat}_t(s)}\colon T\to O$ are the chosen factorization
+functors, then
+\[
+ \ell_{\operatorname{Flat}_t(s)}=F\circ\ell_s.
+\]
+Consequently, $s$ is a pullback cone if and only if
+$\operatorname{Flat}_t(s)$ is a pullback cone.
+\end{lemma}
+\begin{proof}[Proof idea]
+The defining cone of $O$ gives a cone over $(g,h)$. Factor it through $t$
+to obtain $O\to Q$, then lift the resulting cone over $(f,u)$ to obtain
+$O\to N$. The two inverse comparisons follow from the pullback universal
+properties, using full cone comparisons.
+
+For the displayed factorization, flatten the computation comparison for
+$\ell_s$ and apply \Cref{lem:Supplementary_Cone_Flattening} to its restriction.
+This compares the cone induced by $F\ell_s$ with the flattened input cone.
+Reflect through the pullback property of $O$. A cone is a pullback exactly
+when its factorization into the chosen pullback is an equivalence;
+cancellation with $F$ proves the final assertion.
+\end{proof}
+\end{document}

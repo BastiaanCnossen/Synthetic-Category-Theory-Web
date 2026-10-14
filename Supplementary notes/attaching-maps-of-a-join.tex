@@ -1,0 +1,90 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+\section*{The attaching maps of a join}
+
+The \href{joins.html}{mapping-out construction of a join} glues a cylinder
+to its two endpoint categories. To construct the map induced by functors
+on those categories, the two attaching squares must be compared with their
+specified restrictions. We describe this calculation for absolute joins.
+Assume the Chapter 1 structures, including universal coproducts, the walking
+morphism and the mapping-out join axiom.
+
+For $C,D$, put $W=C\times D$ and write
+\[
+ B=W\sqcup W,\qquad Z=W\times[1],\qquad E=C\sqcup D.
+\]
+Let $\iota_e=(\operatorname{id}_W,e)\colon W\to Z$ be endpoint insertion.
+The two attaching maps are
+\[
+ t=[\iota_0,\iota_1]\colon B\to Z,\qquad
+ b=[\operatorname{in}_C\operatorname{pr}_C,
+       \operatorname{in}_D\operatorname{pr}_D]\colon B\to E.
+\]
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Join_Product_Coordinates}
+The chosen join $C\star D$ is the pushout of $t$ and $b$.
+Its boundary map $a\colon E\to C\star D$ is the original join inclusion;
+its cylinder map $j\colon Z\to C\star D$ carries a specified matching
+$jt=ab$.
+\end{lemma}
+\begin{proof}[Proof idea]
+The comparison $C\times D\to C\times_\star D$ is an equivalence with
+specified projection computations. Use it on the cylinder, and use
+distributivity to replace its boundary by two copies of $W$.
+The projection computations identify the two attaching maps with $t,b$.
+Transport the whole universal cocone through these equivalences.
+Finally identify its boundary leg with the original join inclusion and
+transport the matching along that identification. This gives the claimed
+pushout with its specified legs.
+\end{proof}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Join_Attaching_Comparisons}
+For $f\colon C\to C'$ and $g\colon D\to D'$, put
+$v=f\times g$, $d=v\sqcup v$, $z=v\times\operatorname{id}_{[1]}$ and
+$e=f\sqcup g$. There are comparisons
+\[
+ t'd=zt,\qquad b'd=eb
+\]
+whose restrictions to the two summands are the endpoint-insertion and
+projection comparisons.
+\end{lemma}
+\begin{proof}[Proof idea]
+On each summand the first equation reduces to
+$\iota'_{\varepsilon}v=z\iota_{\varepsilon}$ for $\varepsilon=0,1$. Compare the product projections: the $W'$ projection
+is $v$ and the interval projection is the same constant endpoint.
+For the second equation, compute the $C'$ and $D'$ projections of $f\times g$
+and then apply the appropriate coproduct inclusion.
+
+These calculations initially compare the restrictions of $t'd,zt$ and
+$b'd,eb$. Lift each pair through the equivalence on identification animae
+induced by coproduct restriction. Its two computation laws retain the
+specified comparisons on each summand. This is the
+\href{supplementary-identifications-on-coproducts.html}{prescribed-image
+coproduct calculation}.
+\end{proof}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Join_Cocone_Computation}
+There is a functor $F\colon C\star D\to C'\star D'$ with comparisons
+\[
+ Fj=j'z,\qquad Fa=a'e,
+\]
+compatible with the specified matchings on $B$.
+\end{lemma}
+\begin{proof}[Proof idea]
+Restrict the target join cocone along the three maps $d,z,e$, using the
+two comparisons of \Cref{lem:Supplementary_Join_Attaching_Comparisons}.
+This is a cocone on the source span. Extend it through the source pushout.
+The computation law of the extension compares the entire resulting
+cocone with the one just constructed. Its two components are the displayed
+identifications, and its matching equation is their required compatibility.
+\end{proof}
+
+This is the pushout-defined action on joins. The checked declarations linked
+here do not supply its identity and composition laws or identify it with
+the separate action constructed using dependent products. General
+associativity of joins is also outside the scope of this note.
+\end{document}

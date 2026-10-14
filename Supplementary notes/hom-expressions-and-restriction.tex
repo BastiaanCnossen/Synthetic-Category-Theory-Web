@@ -1,0 +1,108 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+\section*{Hom expressions and restriction}
+
+The composition functors in the
+\href{chapter-2-exercises.html}{elementary Yoneda exercise} are built by
+passing between functors into a hom category and arrow families with fixed
+endpoints. This note explains the normalization involved in that passage.
+
+Assume the Chapter 1 structures, including pullbacks and functor categories,
+and the walking morphism. Fix an absolute category $C$ and absolute objects $x,y$. Put
+$H=\operatorname{Hom}_C(x,y)$, the pullback of endpoint evaluation
+$\operatorname{Ar}(C)\to C\times C$ along $(x,y)\colon\star\to C\times C$.
+A framed expression over an absolute category $\Gamma$ is a functor
+$A\colon\Gamma\to\operatorname{Ar}(C)$ with specified comparisons
+$p\colon e_0A=x!_\Gamma$ and $q\colon e_1A=y!_\Gamma$.
+An endpoint-preserving comparison is an identification of arrow families
+compatible with both frames, as in
+\href{supplementary-arrows-with-specified-endpoints.html}{Arrows with specified endpoints}.
+We write $\simeq$ between expressions for such comparison data.
+No category of all these expressions is required.
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Hom_Normalization}
+There are operations $\operatorname{intro}(f)\colon\Gamma\to H$ for
+framed expressions $f$, and $\operatorname{expr}(h)$ for functors
+$h\colon\Gamma\to H$, with comparisons
+\[
+ \operatorname{intro}(\operatorname{expr}(h))=h,
+ \qquad \operatorname{expr}(\operatorname{intro}(f))\simeq f.
+\]
+An identification of functors induces an endpoint-preserving comparison
+of their expressions; a comparison of expressions induces an identification
+of their introduction functors.
+\end{lemma}
+\begin{proof}[Proof idea]
+Introduction lifts the endpoint cone with terminal leg $!_\Gamma$.
+For extraction, compose $h$ with the arrow projection of $H$, and restrict
+the two universal endpoint frames. Their base leg is initially the
+composite of $h$ with the projection $H\to\star$. Normalize it to
+$!_\Gamma$ using the terminal comparison.
+
+Compare the original restricted cone and this normalized cone by the
+identity on the arrow leg and the terminal comparison on the base leg.
+The two projected matching equations verify a full cone comparison.
+Pullback reconstruction gives the first formula. Pullback computation,
+together with the inverse normalization comparison, gives the second;
+terminal uniqueness aligns its base comparison and retains both endpoint equations.
+
+Naturality of the original frames and of terminal normalization gives the
+assertion for identifications of functors. In the reverse direction, pair
+the two endpoint equations to form a cone comparison, then lift it through
+the pullback property.
+\end{proof}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Hom_Restriction}
+For $r\colon\Delta\to\Gamma$, let $r^*f$ be restriction of a framed
+expression, followed by normalization of its constant endpoints to
+$x!_\Delta,y!_\Delta$. Then
+\[
+ \operatorname{intro}(f)r=\operatorname{intro}(r^*f),
+ \qquad \operatorname{expr}(hr)\simeq r^*\operatorname{expr}(h).
+\]
+\end{lemma}
+\begin{proof}[Proof idea]
+The restricted endpoint cone has terminal leg $!_\Gamma r$; the cone
+encoded from $r^*f$ has terminal leg $!_\Delta$. Compare them by the
+identity on the arrow leg and the terminal identification on the base.
+Each matching coordinate includes the associator from restriction and
+the comparison between the two constant endpoints. Checking these two
+coordinates gives the whole cone comparison.
+Lift it and use compatibility of pullback factorization with restriction.
+This gives the first formula. Apply extraction and the two reconstruction
+comparisons of \Cref{lem:Supplementary_Hom_Normalization} to obtain the second.
+\end{proof}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Hom_Composition_Computation}
+Assume in addition the interval endpoint data and the Segal axiom.
+For $e\colon\star\to\operatorname{Hom}_C(x,y)$, let
+$f_\Gamma=\operatorname{expr}(e!_\Gamma)$.
+For every absolute object $z$ of $C$, there is a postcomposition functor
+$e_*\colon\operatorname{Hom}_C(z,x)\to\operatorname{Hom}_C(z,y)$
+with an endpoint-preserving computation comparison
+\[
+ \operatorname{expr}(e_*h)\simeq f_\Gamma\circ\operatorname{expr}(h)
+\]
+for every $h\colon\Gamma\to\operatorname{Hom}_C(z,x)$.
+There is a corresponding precomposition functor
+$e^*\colon\operatorname{Hom}_C(y,z)\to\operatorname{Hom}_C(x,z)$,
+with $\operatorname{expr}(e^*k)\simeq\operatorname{expr}(k)\circ f_\Gamma$
+for every $k\colon\Gamma\to\operatorname{Hom}_C(y,z)$.
+\end{lemma}
+\begin{proof}[Proof idea]
+For postcomposition, use the universal framed expression on
+$\operatorname{Hom}_C(z,x)$, compose it with the constant family of $e$,
+and apply introduction. Restrict this construction by $h$.
+\Cref{lem:Supplementary_Hom_Restriction} moves restriction through
+introduction and extraction. The
+\href{supplementary-substitution-in-morphism-expressions.html}{substitution comparison
+for composition} identifies the restricted composite with the composite
+of the restricted inputs. Normalize the constant input and use the
+introduction computation law. The result preserves both endpoints.
+Precomposition uses the same construction with the other input fixed.
+\end{proof}
+\end{document}

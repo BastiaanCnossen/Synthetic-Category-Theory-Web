@@ -1,0 +1,180 @@
+<!doctype html>
+
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Uncurrying and pullback squares | Synthetic category theory</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/reader-shell.css"><link rel="stylesheet" href="assets/reader.css?v=e77c6ba976bccda0"><link rel="stylesheet" href="assets/Agda.css">
+<script src="assets/math-config.js"></script><script defer src="vendor/mathjax/tex-chtml.js"></script><script defer src="assets/agda-context.js?v=f7bbb485904189a1"></script><script defer src="assets/supplementary.js?v=88f0eed0769c41c3-f7bbb485904189a1"></script><script defer src="assets/reader.js?v=bb4820fd39f58f55"></script></head>
+<body class="hide-agda-links has-passages supplementary-page"><a class="skip-link" href="#main">Skip to content</a><aside class="utility-dock" aria-label="Reading tools">
+<button id="reading-settings-button" class="utility-button" type="button" aria-label="Reading settings" title="Reading settings" aria-controls="reading-settings" aria-expanded="false"><span aria-hidden="true">⚙</span></button>
+<a class="utility-button" href="book.pdf" aria-label="Read the web edition PDF" title="Read the web edition PDF"><span aria-hidden="true">📖</span></a>
+<section id="reading-settings" class="settings-panel" aria-label="Reading preferences" hidden><h2>Reading preferences</h2>
+<label><input id="collapse-proofs" type="checkbox"> Collapse book proofs</label>
+<label><input id="show-agda-links" type="checkbox"> Show links to Agda code</label>
+</section></aside>
+<header class="site-header"><div class="header-top"><nav class="book-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Synthetic category theory</a></li><li><a href="chapter-introduction.html">Chapter 1</a></li><li><a href="functor-categories.html">Section 1.7</a></li><li><a href="supplementary-notes.html">Supplementary notes</a></li></ol></nav></div><p class="eyebrow">Supplementary note · AI-generated prose</p><h1>Uncurrying and pullback squares</h1><p class="ai-notice">AI-generated prose accompanying the Agda code. This note is supplementary to the book and is not part of the authors' manuscript.</p></header>
+<div class="reader-grid"><aside class="reader-nav" aria-label="Book navigation"><h2>Resources</h2><nav aria-label="Resources" class="reader-resources"><a href="code-index.html">All Agda code</a><a href="supplementary-notes.html">Supplementary notes</a><a href="formalization.html">Agda guide</a><a href="build-report.html">Build details</a></nav><h2>Contents</h2><nav aria-label="Contents"><a href="index.html">Overview</a><a href="introduction.html">Introduction</a><a href="overview-of-the-axioms.html">Overview of the axioms</a><details class="contents-chapter" open><summary><span class="chapter-number">Chapter 1</span><span class="chapter-name">The language of synthetic category theory</span></summary><div class="chapter-sections"><a href="chapter-introduction.html">Chapter introduction</a><a href="basic-vocabulary.html">1.1 · The basic vocabulary</a><a href="coherences.html">1.2 · Coherences</a><a href="equivalences.html">1.3 · Equivalences of categories</a><a href="mapping-animae.html">1.4 · Mapping animae</a><a href="initial-categories-and-coproducts.html">1.5 · Initial categories and coproducts</a><a href="pullbacks.html">1.6 · Pullbacks of categories</a><a aria-current="page" href="functor-categories.html">1.7 · Functor categories</a><a href="pushouts.html">1.8 · Pushout squares</a></div></details><details class="contents-chapter"><summary><span class="chapter-number">Chapter 2</span><span class="chapter-name">The internal structure of categories</span></summary><div class="chapter-sections"><a href="internal-structure-introduction.html">Chapter introduction</a><a href="morphisms-and-diagrams.html">2.1 · Morphisms and diagrams</a><a href="segal-axiom.html">2.2 · The Segal axiom</a><a href="rezk-axiom.html">2.3 · The Rezk axiom</a><a href="groupoids.html">2.4 · Groupoids</a><a href="recognizing-animae.html">2.5 · Recognizing animae</a><a href="chapter-2-exercises.html">2.6 · Exercises</a></div></details><details class="contents-chapter"><summary><span class="chapter-number">Chapter 3</span><span class="chapter-name">Constructions of categories</span></summary><div class="chapter-sections"><a href="constructions-introduction.html">Chapter introduction</a><a href="subcategories.html">3.1 · Subcategories</a><a href="full-subcategories.html">3.2 · Full subcategories</a><a href="localizations.html">3.3 · Localizations</a><a href="geometric-realizations.html">3.4 · Geometric realizations</a><a href="exponentiable-functors.html">3.5 · Exponentiable functors</a><a href="joins.html">3.6 · Joins</a><a href="slice-categories.html">3.7 · Slice categories</a><a href="chapter-3-exercises.html">3.8 · Exercises</a></div></details></nav></aside>
+<main id="main" class="notes-page" tabindex="-1"><p class="coverage-note edition-notice">This supplementary note and its code links describe the earlier formalization. Its proof explanation has not been migrated to rebuild2. <a href="chapter01-code.html">Browse the current Chapter 1 code.</a></p><p class="agda-help"><span class="agda-invitation"><a class="agda-start" data-module="SCT.VolumeI.Chapter01.Section07.PullbackCalculus.UncurryingSquares" href="agda/SCT.VolumeI.Chapter01.Section07.PullbackCalculus.UncurryingSquares.html">Read the Agda code</a> alongside this note.</span><span class="agda-instructions">Click dotted-underlined statements to read their Agda code. <button type="button" class="agda-hide text-button">Hide links.</button> <a href="code-index.html">Browse all code.</a></span></p>
+   <h3 class="likesectionHead" id="the-compatibility-hidden-in-the-short-proof"><a id="x1-1000"></a>The compatibility hidden in the short proof</h3>
+<p class="noindent">The book’s <a href="functor-categories.html#lem:Functor_Category_Preserves_Pullbacks">pullback-preservation lemma</a> proves that \(\Fun (T,-)\) preserves pullbacks by
+testing with \(\Map (S,-)\) and then uncurrying. The corner equivalences are \[ u_Z\colon \Map (S,\Fun (T,Z))\iso \Map (S\times T,Z). \] To use them, we
+must compare the specified commutativity identifications as well as the four
+arrows. This note expands that step and explains how the resulting comparison
+transfers the pullback property.
+</p><p class="indent">   We work with the absolute categories and the mapping-anima and
+functor-category structures of Sections 1.1–1.7. The cone conversion below does
+not require a pullback hypothesis. The later application also uses the pullback
+structure of Section 1.6. Statements about parameters \(X\) below explicitly require \(X\) to
+be an anima.
+</p><p class="noindent">
+</p>
+   <h3 class="likesectionHead" id="keeping-the-commutativity-data"><a id="x1-2000"></a>Keeping the commutativity data</h3>
+<p class="noindent">For a cospan \(C\xrightarrow {f}E\xleftarrow {g}D\), a cone on \(X\) consists of \(a\colon X\to C\), \(b\colon X\to D\), and an identification \(\theta \colon f\circ a=g\circ b\). A <a class="agda-trigger" data-agda="supp-cone-comparison" href="#agda-supp-cone-comparison" id="text-supp-cone-comparison">comparison of
+cones </a>from \((a,b,\theta )\) to \((a',b',\theta ')\) consists of identifications \(\alpha \colon a=a'\) and \(\beta \colon b=b'\), together with an identification \[ \theta '\cdot (f\circ \alpha )=(g\circ \beta )\cdot \theta . \]
+Here a dot denotes composition of identifications, with the right-hand
+identification applied first. Thus the comparison remembers a filling of the square
+between the two matchings. Precomposition of a cone uses the specified
+associativity identifications to give its new matching. We write \(h^*q\) for this cone and \(q\simeq q'\)
+for a comparison of cones in this sense.
+</p><p class="indent">   Fix categories \(S,T\) and put \[ A_Z=\Map (S,\Fun (T,Z)),\qquad B_Z=\Map (S\times T,Z). \] Write \(f_A,g_A\) and \(f_B,g_B\) for the induced postcomposition functors
+on these two families. These symbols name the cospans used below; we do not
+need to construct a category of all cones.
+</p><p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-2001r1"></a>
+<a class="agda-trigger" id="text-supp-cone-conversion" data-agda="supp-cone-conversion" href="#agda-supp-cone-conversion"><span class="ecbx-1095">Supplementary Lemma 1.</span></a>  </span><span id="lem:Supplementary_Cone_Conversion"> </span><span class="ecti-1095">For every anima</span> \(X\)<span class="ecti-1095">, there are conversions</span> \(U_X\) <span class="ecti-1095">and</span>
+\(V_X\) <span class="ecti-1095">between cones on</span> \(X\) <span class="ecti-1095">over</span> \((f_A,g_A)\) <span class="ecti-1095">and over</span> \((f_B,g_B)\)<span class="ecti-1095">. For a cone</span> \(r=(a,b,\theta )\)<span class="ecti-1095">, the legs of</span> \(U_X(r)\) <span class="ecti-1095">are</span> \(u_C\circ a\) <span class="ecti-1095">and</span> \(u_D\circ b\)<span class="ecti-1095">. Both
+conversions take comparisons of cones to comparisons of cones, and there
+                                                                     
+
+                                                                     
+are comparisons</span> \(V_X(U_X(r))\simeq r\) <span class="ecti-1095">and</span> \(U_X(V_X(t))\simeq t\)<span class="ecti-1095">. Moreover, a comparison</span> \(U_X(r)\simeq U_X(r')\) <span class="ecti-1095">gives a comparison</span> \(r\simeq r'\)<span class="ecti-1095">.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    Uncurry the legs and matching of \(r\) twice. This gives a cone
+over \((f,g)\) on \((X\times S)\times T\). Restrict along the associativity equivalence \(X\times (S\times T)\to (X\times S)\times T\), and curry into the
+mapping anima for \(S\times T\). The resulting legs are identified with \(u_C\circ a\) and \(u_D\circ b\). Transport
+the matching along these two identifications to obtain exactly these legs.
+</p><p class="indent">   For   the   reverse   conversion,   uncurry   a   cone   over   \((f_B,g_B)\),   change   the
+parenthesization in the opposite direction, and curry first into the functor
+category and then into the mapping anima. The evaluation comparisons and
+the inverse comparisons for product associativity give the two round trips.
+These are comparisons of whole cones, so they retain compatibility with the
+matchings. Uncurrying comparisons and reflecting them through the relevant
+mapping equivalences also gives the final reflection assertion.                  □
+</p>
+   </div></details>
+<p class="noindent">
+</p>
+   <h3 class="likesectionHead" id="comparing-the-specified-squares"><a id="x1-3000"></a>Comparing the specified squares</h3>
+<p class="noindent">Let \(q=(p,r,\eta )\) be any cone over \((f,g)\) with vertex \(W\). Denote the cones obtained by the
+specified postcomposition constructions by \(A(q)\) and \(B(q)\), with vertices \(A_W\) and \(B_W\)
+respectively.
+</p><p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-3001r2"></a>
+                                                                     
+
+                                                                     
+<a class="agda-trigger" id="text-supp-square-compatibility" data-agda="supp-square-compatibility" href="#agda-supp-square-compatibility"><span class="ecbx-1095">Supplementary Lemma 2.</span></a>  </span><span id="lem:Supplementary_Square_Compatibility"> </span><span class="ecti-1095">For  every  anima</span>  \(X\)  <span class="ecti-1095">and  every</span>  \(h\colon X\to A_W\)<span class="ecti-1095">,  there  is  a
+comparison </span>\[ U_X\bigl (h^*A(q)\bigr )\simeq (u_W\circ h)^*B(q). \] <span class="ecti-1095">In particular, converting</span> \(A(q)\) <span class="ecti-1095">gives a cone comparison with</span> \(u_W^*B(q)\)<span class="ecti-1095">. This
+assertion does not require</span> \(q\) <span class="ecti-1095">to be a pullback cone.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    Double  uncurrying  and  reassociation  turn  \(h\)  into  a  functor  \(\bar h\colon X\times (S\times T)\to W\).
+The  evaluation  comparison  for  the  specified  mapped  cone  identifies  the
+uncurried left-hand cone with \(\bar h^*q\). Uncurrying \(u_W\circ h\) gives a second functor into \(W\),
+equipped with the comparison expressing that \(u_W\) represents uncurrying. Acting
+on \(q\) by this comparison compares the two induced cones, including their
+matching identifications. Reflection through the mapping equivalence gives
+the asserted cone comparison.
+</p><p class="indent">   More explicitly, let \(\alpha \) and \(\beta \) be its two leg comparisons and let \(\mu \) and \(\nu \) be the
+source and target matchings. The compatibility supplied by the comparison
+is \[ \nu \cdot (f_B\circ \alpha )=(g_B\circ \beta )\cdot \mu . \] Equivalently, after transporting \(\mu \) along \(\alpha \) and \(\beta \), it is identified with \(\nu \). This is
+the precise matching obligation. Taking \(X=A_W\) and \(h\) the identity, and inserting the
+unit comparisons, gives the assertion about the square itself. The category \(A_W\)
+is an anima.                                                                                  □
+</p>
+   </div></details>
+<p class="indent">   The leg comparisons here are those constructed by this cone conversion. The
+argument does not require an additional identification with independently chosen
+postcomposition-naturality witnesses. Nor does it assert all higher coherence laws
+for a category of cone diagrams.
+</p><p class="noindent">
+</p>
+   <h3 class="likesectionHead" id="transferring-the-pullback-property"><a id="x1-4000"></a>Transferring the pullback property</h3>
+<p class="noindent"></p><section class="statement supplementary-statement">
+                                                                     
+
+                                                                     
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-4001r3"></a>
+<a class="agda-trigger" id="text-supp-pullback-transfer" data-agda="supp-pullback-transfer" href="#agda-supp-pullback-transfer"><span class="ecbx-1095">Supplementary Lemma 3.</span></a>  </span><span id="lem:Supplementary_Pullback_Transfer"> </span><span class="ecti-1095">Let</span> \(s\) <span class="ecti-1095">and</span> \(t\) <span class="ecti-1095">be cones over two cospans, with
+vertices</span> \(Y\) <span class="ecti-1095">and</span> \(Z\)<span class="ecti-1095">, and let</span> \(u\colon Y\to Z\) <span class="ecti-1095">be an equivalence. Suppose that, for every anima</span> \(X\)<span class="ecti-1095">, a
+conversion</span> \(K_X\) <span class="ecti-1095">between cones over the two cospans preserves and reflects cone
+comparisons, and is equipped, for every</span> \(h\colon X\to Y\)<span class="ecti-1095">, with a comparison </span>\[ K_X(h^*s)\simeq (u\circ h)^*t. \] <span class="ecti-1095">If</span> \(t\) <span class="ecti-1095">is a pullback
+cone,</span> \(Y\) <span class="ecti-1095">is an anima, and the chosen pullback of the source cospan is an anima,
+then</span> \(s\) <span class="ecti-1095">is a pullback cone.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    For a cone \(r\) on an anima \(X\) over the source cospan, factor \(K_X(r)\) through \(t\).
+Lift the factorizing functor through \(u\). The displayed comparison and reflection
+of cone comparisons identify the cone induced by this lift with \(r\).
+</p><p class="indent">   If two functors \(h,k\colon X\to Y\) induce comparable cones, applying \(K_X\) and the displayed
+comparisons gives comparable cones induced by \(u\circ h\) and \(u\circ k\). The pullback property
+of \(t\) gives an identification between these functors, which reflects through \(u\).
+</p><p class="indent">   Apply the first construction to the chosen pullback cone of the source
+cospan. It supplies a candidate inverse to the comparison from \(Y\) to that
+pullback. Its first inverse comparison follows from its cone computation and
+the universal property of the chosen pullback. The second follows from the
+reflection property just proved, applied with \(X=Y\). These two tests are legitimate
+by the anima hypotheses and prove that the comparison is an equivalence.   □
+</p>
+   </div></details>
+<p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+                                                                     
+
+                                                                     
+<p class="noindent"><span class="head">
+<a id="x1-4002r4"></a>
+<a class="agda-trigger" id="text-supp-functor-pullbacks" data-agda="supp-functor-pullbacks" href="#agda-supp-functor-pullbacks"><span class="ecbx-1095">Supplementary Corollary 4.</span></a>  </span><span id="cor:Supplementary_Functor_Pullbacks"> </span><span class="ecti-1095">For every category</span> \(T\)<span class="ecti-1095">, postcomposition sends
+a pullback cone</span> \(q\) <span class="ecti-1095">to a pullback cone under</span> \(\Fun (T,-)\)<span class="ecti-1095">, with its specified commutativity
+identification.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">     For  every  category  \(S\),  the  cone  \(B(q)\)  is  a  pullback  by  the
+mapping-anima  criterion  in  <a href="pullbacks.html">Section  1.6</a>.  Apply  Supplementary  Lemma <a href="#x1-4001r3">3</a>
+using  \(u_W\),  the  conversion  of  Supplementary  Lemma <a href="#x1-2001r1">1</a>,  and  the  comparison
+of  Supplementary  Lemma <a href="#x1-3001r2">2</a>.  Its  anima  hypotheses  hold:  \(A_W\)  is  a  mapping
+anima, and pullbacks of animae are animae. Thus \(A(q)\) is a pullback for every \(S\).
+Mapping-anima detection now shows that the specified \(\Fun (T,-)\) cone is a pullback.
+This recovers the short argument in the book with its compatibility step
+made explicit.                                                                               □
+</p>
+   </div></details>
+    
+<section class="supplementary-targets"><h2>Checked declarations</h2><p>The linked Agda declarations were type-checked in the displayed edition. The explanatory prose and proof ideas are AI-generated and are not verified by that check.</p><ul><li id="agda-supp-cone-comparison">Comparisons of cones: <a href="agda/SCT.VolumeI.Chapter01.Section06.Cones.html#1111"><code>ConeIso</code></a></li><li id="agda-supp-cone-conversion">Supplementary Lemma 1: Conversion of cones: <a href="agda/SCT.VolumeI.Chapter01.Section07.PullbackCalculus.UncurryingCones.html#5488"><code>Transport.forward</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section07.PullbackCalculus.UncurryingCones.html#6675"><code>Transport.forward-backward</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section07.PullbackCalculus.UncurryingCones.html#6964"><code>Transport.backward-forward</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section07.PullbackCalculus.UncurryingCones.html#6008"><code>Transport.forward-reflect</code></a></li><li id="agda-supp-square-compatibility">Supplementary Lemma 2: The specified square: <a href="agda/SCT.VolumeI.Chapter01.Section07.PullbackCalculus.UncurryingSquares.html#3040"><code>SquareComparison.comparison</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section07.PullbackCalculus.UncurryingSquares.html#3959"><code>SquareComparison.matching-comparison</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section07.PullbackCalculus.UncurryingSquares.html#4434"><code>SquareComparison.square-comparison</code></a></li><li id="agda-supp-pullback-transfer">Supplementary Lemma 3: Transfer of a pullback: <a href="agda/SCT.VolumeI.Chapter01.Section06.ConeCalculus.ConeTransportPullbacks.html#2522"><code>Transfer.source-isPullback</code></a></li><li id="agda-supp-functor-pullbacks">Supplementary Corollary 4: Functor categories preserve pullbacks: <a href="agda/SCT.VolumeI.Chapter01.Section07.PullbackCalculus.PullbackMappingTests.html#1893"><code>MappingTest.square-isPullback</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section07.FunctorPullbacks.html#1354"><code>fun-preserves-pullback</code></a></li></ul></section></main></div>
+<footer>Experimental web edition · Generated from annotated LaTeX and Agda sources. <a href="build-report.html">Build details</a></footer></body></html>

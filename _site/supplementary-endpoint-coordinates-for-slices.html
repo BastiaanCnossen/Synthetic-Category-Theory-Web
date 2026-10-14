@@ -1,0 +1,130 @@
+<!doctype html>
+
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Endpoint coordinates for slice categories | Synthetic category theory</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/reader-shell.css"><link rel="stylesheet" href="assets/reader.css?v=e77c6ba976bccda0"><link rel="stylesheet" href="assets/Agda.css">
+<script src="assets/math-config.js"></script><script defer src="vendor/mathjax/tex-chtml.js"></script><script defer src="assets/reader.js?v=bb4820fd39f58f55"></script></head>
+<body class="hide-agda-links has-passages supplementary-page"><a class="skip-link" href="#main">Skip to content</a><aside class="utility-dock" aria-label="Reading tools">
+<button id="reading-settings-button" class="utility-button" type="button" aria-label="Reading settings" title="Reading settings" aria-controls="reading-settings" aria-expanded="false"><span aria-hidden="true">⚙</span></button>
+<a class="utility-button" href="book.pdf" aria-label="Read the web edition PDF" title="Read the web edition PDF"><span aria-hidden="true">📖</span></a>
+<section id="reading-settings" class="settings-panel" aria-label="Reading preferences" hidden><h2>Reading preferences</h2>
+<label><input id="collapse-proofs" type="checkbox"> Collapse book proofs</label>
+
+</section></aside>
+<header class="site-header"><div class="header-top"><nav class="book-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Synthetic category theory</a></li><li><a href="constructions-introduction.html">Chapter 3</a></li><li><a href="slice-categories.html">Section 3.7</a></li><li><a href="supplementary-notes.html">Supplementary notes</a></li></ol></nav></div><p class="eyebrow">Supplementary note · AI-generated prose</p><h1>Endpoint coordinates for slice categories</h1><p class="ai-notice">AI-generated prose accompanying the Agda code. This note is supplementary to the book and is not part of the authors' manuscript.</p></header>
+<div class="reader-grid"><aside class="reader-nav" aria-label="Book navigation"><h2>Resources</h2><nav aria-label="Resources" class="reader-resources"><a href="code-index.html">All Agda code</a><a href="supplementary-notes.html">Supplementary notes</a><a href="formalization.html">Agda guide</a><a href="build-report.html">Build details</a></nav><h2>Contents</h2><nav aria-label="Contents"><a href="index.html">Overview</a><a href="introduction.html">Introduction</a><a href="overview-of-the-axioms.html">Overview of the axioms</a><details class="contents-chapter"><summary><span class="chapter-number">Chapter 1</span><span class="chapter-name">The language of synthetic category theory</span></summary><div class="chapter-sections"><a href="chapter-introduction.html">Chapter introduction</a><a href="basic-vocabulary.html">1.1 · The basic vocabulary</a><a href="coherences.html">1.2 · Coherences</a><a href="equivalences.html">1.3 · Equivalences of categories</a><a href="mapping-animae.html">1.4 · Mapping animae</a><a href="initial-categories-and-coproducts.html">1.5 · Initial categories and coproducts</a><a href="pullbacks.html">1.6 · Pullbacks of categories</a><a href="functor-categories.html">1.7 · Functor categories</a><a href="pushouts.html">1.8 · Pushout squares</a></div></details><details class="contents-chapter"><summary><span class="chapter-number">Chapter 2</span><span class="chapter-name">The internal structure of categories</span></summary><div class="chapter-sections"><a href="internal-structure-introduction.html">Chapter introduction</a><a href="morphisms-and-diagrams.html">2.1 · Morphisms and diagrams</a><a href="segal-axiom.html">2.2 · The Segal axiom</a><a href="rezk-axiom.html">2.3 · The Rezk axiom</a><a href="groupoids.html">2.4 · Groupoids</a><a href="recognizing-animae.html">2.5 · Recognizing animae</a><a href="chapter-2-exercises.html">2.6 · Exercises</a></div></details><details class="contents-chapter" open><summary><span class="chapter-number">Chapter 3</span><span class="chapter-name">Constructions of categories</span></summary><div class="chapter-sections"><a href="constructions-introduction.html">Chapter introduction</a><a href="subcategories.html">3.1 · Subcategories</a><a href="full-subcategories.html">3.2 · Full subcategories</a><a href="localizations.html">3.3 · Localizations</a><a href="geometric-realizations.html">3.4 · Geometric realizations</a><a href="exponentiable-functors.html">3.5 · Exponentiable functors</a><a href="joins.html">3.6 · Joins</a><a aria-current="page" href="slice-categories.html">3.7 · Slice categories</a><a href="chapter-3-exercises.html">3.8 · Exercises</a></div></details></nav></aside>
+<main id="main" class="notes-page" tabindex="-1"><p class="coverage-note edition-notice">Agda links are temporarily unavailable for Chapters 2 and 3 while their code is updated to the foundations used in Chapter 1.</p>
+   <h3 class="likesectionHead" id="endpoint-coordinates-for-slice-categories"><a id="x1-1000"></a>Endpoint coordinates for slice categories</h3>
+<p class="noindent">The proof describing <a href="slice-categories.html">functors into a slice</a> changes from a defining endpoint
+pullback to a cylinder description. Here are the coordinate calculations used in
+that change. Assume the Chapter 1 structures, including functor categories and
+pullbacks, and the walking morphism. All constructions in this note are
+absolute.
+</p><p class="indent">   Write \(\chi _{X,Y,C}\colon \Fun (X,\Fun (Y,C))\iso \Fun (X\times Y,C)\) for the exponential comparison, and \(u^*\) for precomposition by \(u\). For \(\psi \colon Y\to C\), use
+the direct absolute slice: the pullback of endpoint evaluation \[ \Fun ([1]\times Y,C)\longrightarrow \Fun (Y,C)\times \Fun (Y,C) \] along \(C\to \Fun (Y,C)^2\), \(c\mapsto (\operatorname {const}_c,\psi )\).
+This is the absolute slice implementation linked below. Its comparison
+with the separately chosen relative slice over \(\star \) is not exported by these
+declarations.
+</p><p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1001r1"></a>
+<span id="text-supp-slice-exponential-restriction"><span class="ecbx-1095">Supplementary Lemma 1.</span></span>  </span><span id="lem:Supplementary_Slice_Exponential_Restriction"> </span><span class="ecti-1095">For</span> \(u\colon Y\to Z\) <span class="ecti-1095">there is an identification of functors </span>\[ \chi _{X,Y,C}\,\Fun (X,u^*) = (\operatorname {id}_X\times u)^*\,\chi _{X,Z,C}. \]
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    Uncurry both sides. Each becomes double evaluation after a
+change of product coordinates. Compare the two reassociation routes by
+their three projections: the first two coordinates are unchanged and the last
+is postcomposed with \(u\). The exponential reflection rule gives the claimed
+identification. In particular this applies to either endpoint insertion \(Y\to [1]\times Y\).       □
+</p>
+   </div></details>
+                                                                     
+
+                                                                     
+<p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1002r2"></a>
+<span id="text-supp-slice-constants"><span class="ecbx-1095">Supplementary Lemma 2.</span></span>  </span><span id="lem:Supplementary_Slice_Constants">                                            </span><span class="ecti-1095">Under</span>
+\(\chi _{X,Y,C}\)<span class="ecti-1095">, postcomposition by the constant-family functor</span> \(C\to \Fun (Y,C)\) <span class="ecti-1095">becomes</span> \(\operatorname {pr}_X^*\colon \Fun (X,C)\to \Fun (X\times Y,C)\)<span class="ecti-1095">. Postcomposition
+by the constant functor</span> \(C\to \Fun (Y,C)\) <span class="ecti-1095">with value</span> \(\psi \) <span class="ecti-1095">becomes the constant functor with value</span>
+\(\psi \operatorname {pr}_Y\)<span class="ecti-1095">. These are identifications of functors on</span> \(\Fun (X,C)\)<span class="ecti-1095">.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">     Double  evaluation  of  the  first  construction  forgets  the  \(Y\)
+coordinate and evaluates the variable functor at \(X\). Double evaluation of the
+second forgets the variable functor and the \(X\) coordinate and evaluates \(\psi \) at \(Y\).
+The product-projection and constant-family computation laws identify these
+maps with the uncurrying of the two asserted functors. Reflect through the
+exponential equivalence.                                                                  □
+</p>
+   </div></details>
+<p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1003r3"></a>
+<span id="text-supp-slice-cylinder-endpoints"><span class="ecbx-1095">Supplementary Lemma 3.</span></span>  </span><span id="lem:Supplementary_Slice_Cylinder_Endpoints">  </span><span class="ecti-1095">The  equivalence  </span>\[ r\colon X\times ([1]\times Y)\iso (X\times Y)\times [1] \]  <span class="ecti-1095">given  by  symmetry  and
+reassociation preserves endpoint insertion: </span>\[ r\bigl (\operatorname {id}_X\times (e,\operatorname {id}_Y)\bigr ) = (\operatorname {id}_{X\times Y},e). \] <span class="ecti-1095">There is also a comparison for
+the chosen inverse of</span> \(r\) <span class="ecti-1095">with the insertion on the left.</span>
+                                                                     
+
+                                                                     
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    Compute the \(X,Y,[1]\) projections. The first two are the projections of
+\(X\times Y\); the third is the constant endpoint \(e\). Pair their comparisons to obtain the
+displayed identification. For the inverse comparison, compose with \(r\), use its
+retraction comparison, and reflect through the equivalence \(r\).                   □
+</p>
+   </div></details>
+<p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1004r4"></a>
+<span id="text-supp-tested-slice"><span class="ecbx-1095">Supplementary Corollary 4.</span></span>  </span><span id="cor:Supplementary_Tested_Slice"> </span><span class="ecti-1095">Put</span> \(A=\Fun (X,C)\)<span class="ecti-1095">,</span> \(Z=\Fun (X\times Y,C)\) <span class="ecti-1095">and</span> \(W=\Fun ((X\times Y)\times [1],C)\)<span class="ecti-1095">. There is a pullback square
+with corners </span>\[ \begin {matrix} \Fun (X,C_{/\psi })&amp;\longrightarrow&amp;W \\ \big \downarrow&amp;&amp; \big \downarrow \\ A&amp;\longrightarrow&amp;Z \times Z, \end {matrix} \] <span class="ecti-1095">where the right map is endpoint restriction, the lower map
+sends</span> \(f\) <span class="ecti-1095">to</span> \((f\operatorname {pr}_X,\psi \operatorname {pr}_Y)\)<span class="ecti-1095">, and the left map is postcomposition with the slice projection. Its
+commutativity identification is the one transported from the defining slice
+square by the preceding comparisons.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    Apply \(\Fun (X,-)\) to the defining slice pullback. It remains a pullback.
+Use the exponential and product comparisons on its corners. Supplementary
+                                                                     
+
+                                                                     
+Lemmas <a href="#x1-1001r1">1</a> and <a href="#x1-1003r3">3</a> identify the upper cospan map with endpoint restriction;
+Supplementary Lemma <a href="#x1-1002r2">2</a> identifies the lower one with the displayed pair.
+These computations give a comparison of cospans, including its specified
+squares. Transport the cone through that comparison. Pullback invariance
+supplies the assertion with the transported matching.
+</p><p class="indent">   The lower map factors through \(\Fun (X,C)\times \Fun (Y,C)\) by \(f\mapsto (f,\psi )\). With the mapping-out join axiom,
+nesting the two pullbacks and using the mapping-out description of the join
+gives the square in the book. The coordinate calculation above is what makes
+that nesting apply to the specified slice diagram.                                  □
+</p>
+   </div></details>
+    
+<span id="agda-supp-slice-exponential-restriction"></span><span id="agda-supp-slice-constants"></span><span id="agda-supp-slice-cylinder-endpoints"></span><span id="agda-supp-tested-slice"></span></main></div>
+<footer>Experimental web edition · Generated from annotated LaTeX and Agda sources. <a href="build-report.html">Build details</a></footer></body></html>

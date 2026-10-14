@@ -36,7 +36,9 @@ open ProductUnits vocabulary terminal products productLaws composition vertical 
 import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.Structural as Structural
 open Structural vocabulary terminal products productLaws composition whiskering using (postWhisker-id-at; whisker-mixed-at)
 open import SCT.VolumeI.Chapter01.Section04.ProductCalculus.ProductPairingComparisons 𝒯 M using (identity-coordinate)
-open import SCT.VolumeI.Chapter01.Section04.Substitution.IdentityParameterChange 𝒯 M using (terminal-Iso₂)
+import SCT.VolumeI.Chapter01.Section03.Equivalences as TerminalComparisons
+open TerminalComparisons.TerminalTargets vocabulary terminal products productLaws composition
+  using (terminal-Iso₂)
 module PS = Projections 𝒯
 
 abstract

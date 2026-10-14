@@ -1,0 +1,2207 @@
+[
+  {
+    "slug": "supplementary-specializing-coherence-laws",
+    "title": "Specializing coherence laws",
+    "source": "specializing-coherence-laws.tex",
+    "section": "coherences",
+    "chapter": 1,
+    "section_number": "1.2",
+    "entry_module": "Chapter01.Section02.Specialization",
+    "description": "Projection computations and endpoint comparisons when substituting into the universal coherence laws.",
+    "passages": [
+      {
+        "id": "supp-product-lift",
+        "title": "Supplementary Lemma 1: Lifting projection comparisons",
+        "tex_label": "lem:Supplementary_Product_Lift",
+        "declarations": [
+          {
+            "module": "Chapter01.Section02.Specialization",
+            "name": "lift",
+            "qualified": "ProductLift.lift",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section02.Specialization",
+            "name": "β₁",
+            "qualified": "ProductLift.β₁",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section02.Specialization",
+            "name": "β₂",
+            "qualified": "ProductLift.β₂",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-specializing-coherence-laws"
+      },
+      {
+        "id": "supp-substitution-comparisons",
+        "title": "Supplementary Lemma 2: Substitution through composition",
+        "tex_label": "lem:Supplementary_Substitution_Comparisons",
+        "declarations": [
+          {
+            "module": "Chapter01.Section02.Specialization",
+            "name": "pair-pre",
+            "qualified": "pair-pre",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section02.Specialization",
+            "name": "isoComp-pre",
+            "qualified": "isoComp-pre",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section02.Specialization",
+            "name": "isoComp-evaluate",
+            "qualified": "isoComp-evaluate",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-specializing-coherence-laws"
+      },
+      {
+        "id": "supp-normalized-specialization",
+        "title": "Supplementary Lemma 3: Keeping endpoint comparisons",
+        "tex_label": "lem:Supplementary_Normalized_Specialization",
+        "declarations": [
+          {
+            "module": "Chapter01.Section02.Specialization",
+            "name": "specialize",
+            "qualified": "specialize",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-specializing-coherence-laws"
+      },
+      {
+        "id": "supp-specialized-vertical-laws",
+        "title": "Supplementary Corollary 4: Specialized vertical laws",
+        "tex_label": "cor:Supplementary_Specialized_Vertical_Laws",
+        "declarations": [
+          {
+            "module": "Chapter01.Section02.Specialization",
+            "name": "isoComp-unitˡ-at",
+            "qualified": "Units.isoComp-unitˡ-at",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section02.Specialization",
+            "name": "isoComp-unitʳ-at",
+            "qualified": "Units.isoComp-unitʳ-at",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section02.Specialization",
+            "name": "isoComp-assoc-at",
+            "qualified": "Units.isoComp-assoc-at",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section02.Specialization",
+            "name": "isoComp-inverseˡ-at",
+            "qualified": "Units.isoComp-inverseˡ-at",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section02.Specialization",
+            "name": "isoComp-inverseʳ-at",
+            "qualified": "Units.isoComp-inverseʳ-at",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-specializing-coherence-laws"
+      }
+    ]
+  },
+  {
+    "slug": "supplementary-whiskering-and-horizontal-composition",
+    "title": "Whiskering and horizontal composition",
+    "source": "whiskering-and-horizontal-composition.tex",
+    "section": "coherences",
+    "chapter": 1,
+    "section_number": "1.2",
+    "entry_module": "Chapter01.Section02.DerivedWhiskering",
+    "description": "The five derived whiskering laws and the middle interchange in horizontal composition.",
+    "passages": [
+      {
+        "id": "supp-horizontal-identity-inputs",
+        "title": "Supplementary Lemma 1: Identity inputs",
+        "tex_label": "lem:Supplementary_Horizontal_Identity_Inputs",
+        "declarations": [
+          {
+            "module": "Chapter01.Section02.DerivedWhiskering",
+            "name": "horizontal-identityˡ",
+            "qualified": "horizontal-identityˡ",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section02.DerivedWhiskering",
+            "name": "horizontal-identityʳ",
+            "qualified": "horizontal-identityʳ",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section02.DerivedWhiskering",
+            "name": "horizontal-identities",
+            "qualified": "horizontal-identities",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-whiskering-and-horizontal-composition"
+      },
+      {
+        "id": "supp-five-whiskering-laws",
+        "title": "Supplementary Lemma 2: Five whiskering laws",
+        "tex_label": "lem:Supplementary_Five_Whiskering_Laws",
+        "declarations": [
+          {
+            "module": "Chapter01.Section02.DerivedWhiskering",
+            "name": "postWhisker-id",
+            "qualified": "postWhisker-id",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section02.DerivedWhiskering",
+            "name": "preWhisker-id",
+            "qualified": "preWhisker-id",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section02.DerivedWhiskering",
+            "name": "postWhisker-comp",
+            "qualified": "postWhisker-comp",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section02.DerivedWhiskering",
+            "name": "preWhisker-comp",
+            "qualified": "preWhisker-comp",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section02.DerivedWhiskering",
+            "name": "whisker-mixed",
+            "qualified": "whisker-mixed",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-whiskering-and-horizontal-composition"
+      },
+      {
+        "id": "supp-horizontal-preserves-vertical",
+        "title": "Supplementary Lemma 3: Horizontal composition preserves vertical composition",
+        "tex_label": "lem:Supplementary_Horizontal_Preserves_Vertical",
+        "declarations": [
+          {
+            "module": "Chapter01.Section02.Isomorphisms",
+            "name": "hcomp-isoComp",
+            "qualified": "hcomp-isoComp",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section02.Isomorphisms",
+            "name": "hcomp-idIso",
+            "qualified": "hcomp-idIso",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-whiskering-and-horizontal-composition"
+      }
+    ]
+  },
+  {
+    "slug": "supplementary-changing-endpoints",
+    "title": "Changing endpoints in identification animae",
+    "source": "changing-endpoints.tex",
+    "section": "equivalences",
+    "chapter": 1,
+    "section_number": "1.3",
+    "entry_module": "Chapter01.Section03.Whiskering",
+    "description": "Endpoint transport, equivalences of identification animae, and lifts with specified images.",
+    "passages": [
+      {
+        "id": "supp-endpoint-multiplication",
+        "title": "Supplementary Lemma 1: Composition with an identification",
+        "tex_label": "lem:Supplementary_Endpoint_Multiplication",
+        "declarations": [
+          {
+            "module": "Chapter01.Section03.Whiskering",
+            "name": "leftMultiply-isEquiv",
+            "qualified": "leftMultiply-isEquiv",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section03.Whiskering",
+            "name": "rightMultiply-isEquiv",
+            "qualified": "rightMultiply-isEquiv",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-changing-endpoints"
+      },
+      {
+        "id": "supp-endpoint-square",
+        "title": "Supplementary Lemma 2: Changing endpoints",
+        "tex_label": "lem:Supplementary_Endpoint_Square",
+        "declarations": [
+          {
+            "module": "Chapter01.Section03.Whiskering",
+            "name": "square-left",
+            "qualified": "square-left",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section03.Whiskering",
+            "name": "square-right",
+            "qualified": "square-right",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-changing-endpoints"
+      },
+      {
+        "id": "supp-whiskering-equivalence",
+        "title": "Supplementary Corollary 3: Whiskering by an equivalence",
+        "tex_label": "cor:Supplementary_Whiskering_Equivalence",
+        "declarations": [
+          {
+            "module": "Chapter01.Section03.Whiskering",
+            "name": "postWhisker-isEquiv",
+            "qualified": "postWhisker-isEquiv",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section03.Whiskering",
+            "name": "preWhisker-isEquiv",
+            "qualified": "preWhisker-isEquiv",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-changing-endpoints"
+      },
+      {
+        "id": "supp-whiskering-lift",
+        "title": "Supplementary Lemma 4: Lifting with a specified image",
+        "tex_label": "lem:Supplementary_Whiskering_Lift",
+        "declarations": [
+          {
+            "module": "Chapter01.Section03.Whiskering",
+            "name": "postWhisker-lift",
+            "qualified": "postWhisker-lift",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section03.Whiskering",
+            "name": "preWhisker-lift",
+            "qualified": "preWhisker-lift",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section03.Whiskering",
+            "name": "postWhisker-Iso₂-lift",
+            "qualified": "postWhisker-Iso₂-lift",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section03.Whiskering",
+            "name": "preWhisker-Iso₂-lift",
+            "qualified": "preWhisker-Iso₂-lift",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-changing-endpoints"
+      }
+    ]
+  },
+  {
+    "slug": "supplementary-pairing-and-precomposition",
+    "title": "Pairing and precomposition",
+    "source": "pairing-and-precomposition.tex",
+    "section": "equivalences",
+    "chapter": 1,
+    "section_number": "1.3",
+    "entry_module": "Chapter01.Section03.ProductCalculus.PairingCoherence",
+    "description": "Projection tests for pairing, naturality, and compatibility with successive and identity substitutions.",
+    "passages": [
+      {
+        "id": "supp-pairing-detection",
+        "title": "Supplementary Lemma 1: Detecting identifications by projections",
+        "tex_label": "lem:Supplementary_Pairing_Detection",
+        "declarations": [
+          {
+            "module": "Chapter01.Section03.ProductCalculus.PairingCoherence",
+            "name": "pair-iso-extensionality",
+            "qualified": "pair-iso-extensionality",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-pairing-and-precomposition"
+      },
+      {
+        "id": "supp-pairing-composition",
+        "title": "Supplementary Lemma 2: Pairing and vertical composition",
+        "tex_label": "lem:Supplementary_Pairing_Composition",
+        "declarations": [
+          {
+            "module": "Chapter01.Section03.ProductCalculus.PairingCoherence",
+            "name": "pair-cong-id",
+            "qualified": "pair-cong-id",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section03.ProductCalculus.PairingCoherence",
+            "name": "pair-cong-comp",
+            "qualified": "pair-cong-comp",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section03.ProductCalculus.PairingCoherence",
+            "name": "pair-cong-β₁",
+            "qualified": "pair-cong-β₁",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section03.ProductCalculus.PairingCoherence",
+            "name": "pair-cong-β₂",
+            "qualified": "pair-cong-β₂",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-pairing-and-precomposition"
+      },
+      {
+        "id": "supp-pairing-naturality",
+        "title": "Supplementary Lemma 3: Naturality of the precomposition comparison",
+        "tex_label": "lem:Supplementary_Pairing_Naturality",
+        "declarations": [
+          {
+            "module": "Chapter01.Section03.ProductCalculus.PairingNaturality",
+            "name": "pair-pre-natural-inputs",
+            "qualified": "pair-pre-natural-inputs",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section03.ProductCalculus.PairingNaturality",
+            "name": "pair-pre-natural-substitution",
+            "qualified": "pair-pre-natural-substitution",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section03.ProductCalculus.PairingNaturality",
+            "name": "pair-pre-natural",
+            "qualified": "pair-pre-natural",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-pairing-and-precomposition"
+      },
+      {
+        "id": "supp-pairing-substitution",
+        "title": "Supplementary Lemma 4: Successive and identity substitutions",
+        "tex_label": "lem:Supplementary_Pairing_Substitution",
+        "declarations": [
+          {
+            "module": "Chapter01.Section03.ProductCalculus.IteratedPairing",
+            "name": "pair-pre-iterated",
+            "qualified": "pair-pre-iterated",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section03.ProductCalculus.PairingUnits",
+            "name": "pair-pre-id",
+            "qualified": "pair-pre-id",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section03.IdentificationCalculus.FunctorCoherence",
+            "name": "right-unitor-comp",
+            "qualified": "right-unitor-comp",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-pairing-and-precomposition"
+      }
+    ]
+  },
+  {
+    "slug": "supplementary-decoding-and-restriction",
+    "title": "Decoding mapping animae and restriction",
+    "source": "decoding-and-restriction.tex",
+    "section": "mapping-animae",
+    "chapter": 1,
+    "section_number": "1.4",
+    "entry_module": "Chapter01.Section04.Substitution.DecodingNaturality",
+    "description": "The decoding equivalence on identification animae and its full compatibility square with restriction.",
+    "passages": [
+      {
+        "id": "supp-decoding-equivalence",
+        "title": "Supplementary Lemma 1: Decoding identifications",
+        "tex_label": "lem:Supplementary_Decoding_Equivalence",
+        "declarations": [
+          {
+            "module": "Chapter01.Section04.Points",
+            "name": "decodeMap-isoMap-isEquiv",
+            "qualified": "decodeMap-isoMap-isEquiv",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section04.Points",
+            "name": "decodeMap-reflect",
+            "qualified": "decodeMap-reflect",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section04.Points",
+            "name": "decodeMap-reflect-β",
+            "qualified": "decodeMap-reflect-β",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-decoding-and-restriction"
+      },
+      {
+        "id": "supp-decoding-restriction",
+        "title": "Supplementary Lemma 2: Decoding after restriction",
+        "tex_label": "lem:Supplementary_Decoding_Restriction",
+        "declarations": [
+          {
+            "module": "Chapter01.Section04.Substitution.DecodingNaturality",
+            "name": "oneProduct-natural",
+            "qualified": "oneProduct-natural",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section04.Substitution.DecodingNaturality",
+            "name": "decodePre",
+            "qualified": "decodePre",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-decoding-and-restriction"
+      },
+      {
+        "id": "supp-decoding-naturality",
+        "title": "Supplementary Lemma 3: The decoding square",
+        "tex_label": "lem:Supplementary_Decoding_Naturality",
+        "declarations": [
+          {
+            "module": "Chapter01.Section04.Substitution.DecodingNaturality",
+            "name": "decodePre-natural",
+            "qualified": "decodePre-natural",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section04.Substitution.DecodingNaturality",
+            "name": "decodePre-family",
+            "qualified": "decodePre-family",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-decoding-and-restriction"
+      }
+    ]
+  },
+  {
+    "slug": "supplementary-identifications-on-coproducts",
+    "title": "Identifications on coproducts",
+    "source": "identifications-on-coproducts.tex",
+    "section": "initial-categories-and-coproducts",
+    "chapter": 1,
+    "section_number": "1.5",
+    "entry_module": "Chapter01.Section05.IsomorphismRestriction",
+    "description": "From the mapping-anima universal property to restriction of identifications, with prescribed images on both summands.",
+    "passages": [
+      {
+        "id": "supp-paired-observation",
+        "title": "Supplementary Lemma 1: Paired postwhiskering",
+        "tex_label": "lem:Supplementary_Paired_Observation",
+        "declarations": [
+          {
+            "module": "Chapter01.Section05.RestrictionCalculus",
+            "name": "paired-post-isEquiv",
+            "qualified": "paired-post-isEquiv",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-identifications-on-coproducts"
+      },
+      {
+        "id": "supp-coproduct-restriction",
+        "title": "Supplementary Lemma 2: Restriction to the summands",
+        "tex_label": "lem:Supplementary_Coproduct_Restriction",
+        "declarations": [
+          {
+            "module": "Chapter01.Section05.IsomorphismRestriction",
+            "name": "coproductIsoRestriction-isEquiv",
+            "qualified": "coproductIsoRestriction-isEquiv",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section05.IsomorphismRestriction",
+            "name": "decoded-restriction-isEquiv",
+            "qualified": "decoded-restriction-isEquiv",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section05.IsomorphismRestriction",
+            "name": "decode-restriction-square",
+            "qualified": "decode-restriction-square",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section05.IsomorphismRestriction",
+            "name": "restriction-change-square",
+            "qualified": "restriction-change-square",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-identifications-on-coproducts"
+      },
+      {
+        "id": "supp-coproduct-lift",
+        "title": "Supplementary Corollary 3: Lifting prescribed restrictions",
+        "tex_label": "cor:Supplementary_Coproduct_Lift",
+        "declarations": [
+          {
+            "module": "Chapter01.Section05.IsomorphismRestriction",
+            "name": "lift",
+            "qualified": "RestrictionLift.lift",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section05.IsomorphismRestriction",
+            "name": "left-image",
+            "qualified": "RestrictionLift.left-image",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section05.IsomorphismRestriction",
+            "name": "right-image",
+            "qualified": "RestrictionLift.right-image",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-identifications-on-coproducts"
+      }
+    ]
+  },
+  {
+    "slug": "supplementary-restricting-and-pasting-cones",
+    "title": "Restricting and pasting cone diagrams",
+    "source": "restricting-and-pasting-cones.tex",
+    "section": "pullbacks",
+    "chapter": 1,
+    "section_number": "1.6",
+    "entry_module": "Chapter01.Section06.ConeCalculus.ConeRestriction",
+    "description": "Restriction comparisons, pasted matchings, and the factorization equation behind pullback pasting.",
+    "passages": [
+      {
+        "id": "supp-cone-restriction",
+        "title": "Supplementary Lemma 1: Restriction of cones",
+        "tex_label": "lem:Supplementary_Cone_Restriction",
+        "declarations": [
+          {
+            "module": "Chapter01.Section06.ConeCalculus.ConeRestriction",
+            "name": "coneIso-pre",
+            "qualified": "coneIso-pre",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section06.ConeCalculus.ConeRestriction",
+            "name": "conePre-id",
+            "qualified": "conePre-id",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section06.ConeCalculus.ConeRestriction",
+            "name": "conePre-assoc",
+            "qualified": "conePre-assoc",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-restricting-and-pasting-cones"
+      },
+      {
+        "id": "supp-cone-flattening",
+        "title": "Supplementary Lemma 2: Flattening cones",
+        "tex_label": "lem:Supplementary_Cone_Flattening",
+        "declarations": [
+          {
+            "module": "Chapter01.Section06.ConeCalculus.ConePasting",
+            "name": "flatten",
+            "qualified": "PasteCones.flatten",
+            "role": "definition"
+          },
+          {
+            "module": "Chapter01.Section06.ConeCalculus.ConePasting",
+            "name": "flatten-iso",
+            "qualified": "PasteCones.flatten-iso",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section06.ConeCalculus.ConePasting",
+            "name": "flatten-pre",
+            "qualified": "PasteCones.flatten-pre",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-restricting-and-pasting-cones"
+      },
+      {
+        "id": "supp-pasting-factorization",
+        "title": "Supplementary Lemma 3: Factorization for pasted cones",
+        "tex_label": "lem:Supplementary_Pasting_Factorization",
+        "declarations": [
+          {
+            "module": "Chapter01.Section06.Pasting.UniversalNestedPullbacks",
+            "name": "flatten-isEquiv",
+            "qualified": "Nested.flatten-isEquiv",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section06.PastingLemma",
+            "name": "factorization",
+            "qualified": "Pasting.factorization",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section06.PastingLemma",
+            "name": "paste-isPullback",
+            "qualified": "Pasting.paste-isPullback",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section06.PastingLemma",
+            "name": "cancel-isPullback",
+            "qualified": "Pasting.cancel-isPullback",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-restricting-and-pasting-cones"
+      }
+    ]
+  },
+  {
+    "slug": "supplementary-fiber-and-diagonal-squares",
+    "title": "Fiber squares and diagonal squares",
+    "source": "fiber-and-diagonal-squares.tex",
+    "section": "pullbacks",
+    "chapter": 1,
+    "section_number": "1.6",
+    "entry_module": "Chapter01.Section06.RepresentabilityDiagonal",
+    "description": "Recovering fiber cones from diagonal coordinates and deriving the specified diagonal representability square.",
+    "passages": [
+      {
+        "id": "supp-diagonal-coordinates",
+        "title": "Supplementary Lemma 1: Recovering fiber cones",
+        "tex_label": "lem:Supplementary_Diagonal_Coordinates",
+        "declarations": [
+          {
+            "module": "Chapter01.Section06.Coordinates.PointDiagonalCoordinates",
+            "name": "from",
+            "qualified": "Coordinates.from",
+            "role": "definition"
+          },
+          {
+            "module": "Chapter01.Section06.Coordinates.PointDiagonalCoordinates",
+            "name": "from-iso",
+            "qualified": "Coordinates.from-iso",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section06.Coordinates.PointDiagonalCoordinates",
+            "name": "from-reflect",
+            "qualified": "Coordinates.from-reflect",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-fiber-and-diagonal-squares"
+      },
+      {
+        "id": "supp-diagonal-restriction",
+        "title": "Supplementary Lemma 2: Recovery and restriction",
+        "tex_label": "lem:Supplementary_Diagonal_Restriction",
+        "declarations": [
+          {
+            "module": "Chapter01.Section06.Coordinates.PointDiagonalRestriction",
+            "name": "first",
+            "qualified": "Restriction.first",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section06.Coordinates.PointDiagonalRestriction",
+            "name": "second",
+            "qualified": "Restriction.second",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section06.Coordinates.PointDiagonalRestriction",
+            "name": "comparison",
+            "qualified": "Restriction.comparison",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-fiber-and-diagonal-squares"
+      },
+      {
+        "id": "supp-diagonal-representability",
+        "title": "Supplementary Lemma 3: The derived diagonal square",
+        "tex_label": "lem:Supplementary_Diagonal_Representability",
+        "declarations": [
+          {
+            "module": "Chapter01.Section06.RepresentabilityDiagonal",
+            "name": "diagonal-first",
+            "qualified": "Diagonal.diagonal-first",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section06.RepresentabilityDiagonal",
+            "name": "diagonal-second",
+            "qualified": "Diagonal.diagonal-second",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section06.RepresentabilityDiagonal",
+            "name": "diagonal-isPullback",
+            "qualified": "Diagonal.diagonal-isPullback",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-fiber-and-diagonal-squares"
+      }
+    ]
+  },
+  {
+    "slug": "supplementary-uncurrying-and-pullback-squares",
+    "title": "Uncurrying and pullback squares",
+    "source": "uncurrying-and-pullback-squares.tex",
+    "section": "functor-categories",
+    "chapter": 1,
+    "section_number": "1.7",
+    "entry_module": "Chapter01.Section07.PullbackCalculus.UncurryingSquares",
+    "description": "The cone comparisons and matching compatibility behind preservation of pullbacks by functor categories.",
+    "passages": [
+      {
+        "id": "supp-cone-comparison",
+        "title": "Comparisons of cones",
+        "page": "supplementary-uncurrying-and-pullback-squares",
+        "declarations": [
+          {
+            "module": "Chapter01.Section06.Cones",
+            "name": "ConeIso",
+            "qualified": "ConeIso",
+            "role": "definition"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose."
+      },
+      {
+        "id": "supp-cone-conversion",
+        "title": "Supplementary Lemma 1: Conversion of cones",
+        "page": "supplementary-uncurrying-and-pullback-squares",
+        "declarations": [
+          {
+            "module": "Chapter01.Section07.PullbackCalculus.UncurryingCones",
+            "name": "forward",
+            "qualified": "Transport.forward",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section07.PullbackCalculus.UncurryingCones",
+            "name": "forward-backward",
+            "qualified": "Transport.forward-backward",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section07.PullbackCalculus.UncurryingCones",
+            "name": "backward-forward",
+            "qualified": "Transport.backward-forward",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section07.PullbackCalculus.UncurryingCones",
+            "name": "forward-reflect",
+            "qualified": "Transport.forward-reflect",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "tex_label": "lem:Supplementary_Cone_Conversion"
+      },
+      {
+        "id": "supp-square-compatibility",
+        "title": "Supplementary Lemma 2: The specified square",
+        "page": "supplementary-uncurrying-and-pullback-squares",
+        "declarations": [
+          {
+            "module": "Chapter01.Section07.PullbackCalculus.UncurryingSquares",
+            "name": "comparison",
+            "qualified": "SquareComparison.comparison",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section07.PullbackCalculus.UncurryingSquares",
+            "name": "matching-comparison",
+            "qualified": "SquareComparison.matching-comparison",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section07.PullbackCalculus.UncurryingSquares",
+            "name": "square-comparison",
+            "qualified": "SquareComparison.square-comparison",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "tex_label": "lem:Supplementary_Square_Compatibility"
+      },
+      {
+        "id": "supp-pullback-transfer",
+        "title": "Supplementary Lemma 3: Transfer of a pullback",
+        "page": "supplementary-uncurrying-and-pullback-squares",
+        "declarations": [
+          {
+            "module": "Chapter01.Section06.ConeCalculus.ConeTransportPullbacks",
+            "name": "source-isPullback",
+            "qualified": "Transfer.source-isPullback",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "tex_label": "lem:Supplementary_Pullback_Transfer"
+      },
+      {
+        "id": "supp-functor-pullbacks",
+        "title": "Supplementary Corollary 4: Functor categories preserve pullbacks",
+        "page": "supplementary-uncurrying-and-pullback-squares",
+        "declarations": [
+          {
+            "module": "Chapter01.Section07.PullbackCalculus.PullbackMappingTests",
+            "name": "square-isPullback",
+            "qualified": "MappingTest.square-isPullback",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section07.FunctorPullbacks",
+            "name": "fun-preserves-pullback",
+            "qualified": "fun-preserves-pullback",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "tex_label": "cor:Supplementary_Functor_Pullbacks"
+      }
+    ]
+  },
+  {
+    "slug": "supplementary-mapping-out-of-pasted-squares",
+    "title": "Mapping out of pasted squares",
+    "source": "mapping-out-of-pasted-squares.tex",
+    "section": "pushouts",
+    "chapter": 1,
+    "section_number": "1.8",
+    "entry_module": "Chapter01.Section08.MappingCalculus.Restriction.MappingPastingComparison",
+    "description": "The full matching comparison needed to turn pushout pasting into pullback pasting on mapping animae.",
+    "passages": [
+      {
+        "id": "supp-product-pasting",
+        "title": "Supplementary Lemma 1: Products and specified pasting",
+        "tex_label": "lem:Supplementary_Product_Pasting",
+        "declarations": [
+          {
+            "module": "Chapter01.Section08.ProductCalculus.ProductRestrictionPasting",
+            "name": "matching",
+            "qualified": "Action.Pasting.matching",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section08.ProductCalculus.ProductRestrictionPasting",
+            "name": "comparison",
+            "qualified": "Action.Pasting.comparison",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section08.ProductCalculus.ProductRestrictionPasting",
+            "name": "postcomparison",
+            "qualified": "Action.Pasting.postcomparison",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-mapping-out-of-pasted-squares"
+      },
+      {
+        "id": "supp-mapping-pasting",
+        "title": "Supplementary Lemma 2: The mapping-out cone comparison",
+        "tex_label": "lem:Supplementary_Mapping_Pasting",
+        "declarations": [
+          {
+            "module": "Chapter01.Section08.MappingCalculus.Restriction.MappingPastingComparison",
+            "name": "evaluated-comparison",
+            "qualified": "Diagram.evaluated-comparison",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section08.MappingCalculus.Restriction.MappingPastingComparison",
+            "name": "comparison",
+            "qualified": "Diagram.comparison",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-mapping-out-of-pasted-squares"
+      },
+      {
+        "id": "supp-pushout-pasting",
+        "title": "Supplementary Corollary 3: Pushout pasting",
+        "tex_label": "cor:Supplementary_Pushout_Pasting",
+        "declarations": [
+          {
+            "module": "Chapter01.Section08.PushoutPasting",
+            "name": "paste-isPushout",
+            "qualified": "Pasting.paste-isPushout",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter01.Section08.PushoutPasting",
+            "name": "cancel-isPushout",
+            "qualified": "Pasting.cancel-isPushout",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-mapping-out-of-pasted-squares"
+      }
+    ]
+  },
+  {
+    "slug": "supplementary-arrows-with-specified-endpoints",
+    "title": "Arrows with specified endpoints",
+    "source": "arrows-with-specified-endpoints.tex",
+    "section": "morphisms-and-diagrams",
+    "chapter": 2,
+    "section_number": "2.1",
+    "entry_module": "Chapter02.Section01.EvaluationCalculus.EndpointFibers",
+    "description": "Endpoint frames and the full pullback computation law for families of arrows with prescribed source and target.",
+    "passages": [
+      {
+        "id": "supp-endpoint-frames",
+        "title": "Supplementary Lemma 1: The universal endpoint frames",
+        "tex_label": "lem:Supplementary_Endpoint_Frames",
+        "declarations": [
+          {
+            "module": "Chapter02.Section01.EvaluationCalculus.EndpointFibers",
+            "name": "source-frame",
+            "qualified": "EndpointFiber.source-frame",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter02.Section01.EvaluationCalculus.EndpointFibers",
+            "name": "target-frame",
+            "qualified": "EndpointFiber.target-frame",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-arrows-with-specified-endpoints"
+      },
+      {
+        "id": "supp-endpoint-lift",
+        "title": "Supplementary Lemma 2: Lifting an endpoint-framed family",
+        "tex_label": "lem:Supplementary_Endpoint_Lift",
+        "declarations": [
+          {
+            "module": "Chapter02.Section01.EvaluationCalculus.EndpointFibers",
+            "name": "cone",
+            "qualified": "EndpointFiber.cone",
+            "role": "definition"
+          },
+          {
+            "module": "Chapter02.Section01.EvaluationCalculus.EndpointFibers",
+            "name": "lift",
+            "qualified": "EndpointFiber.lift",
+            "role": "definition"
+          },
+          {
+            "module": "Chapter02.Section01.EvaluationCalculus.EndpointFibers",
+            "name": "lift-β",
+            "qualified": "EndpointFiber.lift-β",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-arrows-with-specified-endpoints"
+      }
+    ]
+  },
+  {
+    "slug": "supplementary-substitution-in-morphism-expressions",
+    "title": "Substitution in morphism expressions",
+    "source": "substitution-in-morphism-expressions.tex",
+    "section": "segal-axiom",
+    "chapter": 2,
+    "section_number": "2.2",
+    "entry_module": "Chapter02.Section02.MorphismCalculus.CompositionSubstitution",
+    "description": "Endpoint-preserving restriction, successive substitutions, and changes of parameters in chosen composite presentations.",
+    "passages": [
+      {
+        "id": "supp-expression-restriction",
+        "title": "Supplementary Lemma 1: Restricting endpoint comparisons",
+        "tex_label": "lem:Supplementary_Expression_Restriction",
+        "declarations": [
+          {
+            "module": "Chapter02.Section02.MorphismCalculus.ExpressionRestriction",
+            "name": "restrict-expressionIso",
+            "qualified": "restrict-expressionIso",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-substitution-in-morphism-expressions"
+      },
+      {
+        "id": "supp-expression-restriction-laws",
+        "title": "Supplementary Lemma 2: Identity and successive restrictions",
+        "tex_label": "lem:Supplementary_Expression_Restriction_Laws",
+        "declarations": [
+          {
+            "module": "Chapter02.Section02.MorphismCalculus.ExpressionRestriction",
+            "name": "restrict-expression-id",
+            "qualified": "restrict-expression-id",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter02.Section02.MorphismCalculus.ExpressionRestriction",
+            "name": "restrict-expression-compose",
+            "qualified": "restrict-expression-compose",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-substitution-in-morphism-expressions"
+      },
+      {
+        "id": "supp-composition-substitution",
+        "title": "Supplementary Lemma 3: Substitution in chosen composites",
+        "tex_label": "lem:Supplementary_Composition_Substitution",
+        "declarations": [
+          {
+            "module": "Chapter02.Section02.MorphismCalculus.CompositionSubstitution",
+            "name": "restrict-composition",
+            "qualified": "restrict-composition",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter02.Section02.MorphismCalculus.CompositionSubstitution",
+            "name": "retarget-composition",
+            "qualified": "retarget-composition",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter02.Section02.MorphismCalculus.PresentationSubstitution",
+            "name": "value",
+            "qualified": "Restrict.value",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter02.Section02.MorphismCalculus.PresentationSubstitution",
+            "name": "value",
+            "qualified": "Retarget.value",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-substitution-in-morphism-expressions"
+      }
+    ]
+  },
+  {
+    "slug": "supplementary-reordering-inverse-conditions",
+    "title": "Reordering inverse conditions",
+    "source": "reordering-inverse-conditions.tex",
+    "section": "rezk-axiom",
+    "chapter": 2,
+    "section_number": "2.3",
+    "entry_module": "Chapter02.Section03.PullbackCalculus.TwoStageFibers",
+    "description": "Changing the order of pullback constraints while retaining the projection to a family of invertible arrows.",
+    "passages": [
+      {
+        "id": "supp-two-stage-fibers",
+        "title": "Supplementary Lemma 1: Reordering two fiber conditions",
+        "tex_label": "lem:Supplementary_Two_Stage_Fibers",
+        "declarations": [
+          {
+            "module": "Chapter02.Section03.PullbackCalculus.TwoStageFibers",
+            "name": "comparison-isEquiv",
+            "qualified": "At.comparison-isEquiv",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter02.Section03.PullbackCalculus.TwoStageFibers",
+            "name": "base-comparison",
+            "qualified": "At.base-comparison",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter02.Section03.PullbackCalculus.TwoStageFibers",
+            "name": "projection-isEquiv",
+            "qualified": "At.projection-isEquiv",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-reordering-inverse-conditions"
+      },
+      {
+        "id": "supp-section-fiber",
+        "title": "Supplementary Lemma 2: Pulling back a section",
+        "tex_label": "lem:Supplementary_Section_Fiber",
+        "declarations": [
+          {
+            "module": "Chapter02.Section03.InverseCalculus.ConstantLongEdgeFiber",
+            "name": "projection-isEquiv",
+            "qualified": "At.projection-isEquiv",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-reordering-inverse-conditions"
+      },
+      {
+        "id": "supp-inverse-constraint-projection",
+        "title": "Supplementary Lemma 3: One-sided inverse projections",
+        "tex_label": "lem:Supplementary_Inverse_Constraint_Projection",
+        "declarations": [
+          {
+            "module": "Chapter02.Section03.InverseCalculus.OneSidedInverseFibers",
+            "name": "right-inverse-projection-isEquiv",
+            "qualified": "At.right-inverse-projection-isEquiv",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter02.Section03.InverseCalculus.OneSidedInverseFibers",
+            "name": "left-inverse-projection-isEquiv",
+            "qualified": "At.left-inverse-projection-isEquiv",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-reordering-inverse-conditions"
+      }
+    ]
+  },
+  {
+    "slug": "supplementary-constant-diagrams-and-exponentials",
+    "title": "Constant diagrams and the exponential law",
+    "source": "constant-diagrams-and-exponentials.tex",
+    "section": "groupoids",
+    "chapter": 2,
+    "section_number": "2.4",
+    "entry_module": "Chapter02.Section04.ConstantDiagrams.ConstantExponential",
+    "description": "Naturality and exponential compatibility of constant diagrams, with the coproduct comparison used in recognizing animae.",
+    "passages": [
+      {
+        "id": "supp-constant-naturality",
+        "title": "Supplementary Lemma 1: Naturality of constant diagrams",
+        "tex_label": "lem:Supplementary_Constant_Naturality",
+        "declarations": [
+          {
+            "module": "Chapter02.Section04.ConstantDiagrams.ConstantExponential",
+            "name": "constant-natural",
+            "qualified": "constant-natural",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-constant-diagrams-and-exponentials"
+      },
+      {
+        "id": "supp-constant-exponential",
+        "title": "Supplementary Lemma 2: The exponential comparison",
+        "tex_label": "lem:Supplementary_Constant_Exponential",
+        "declarations": [
+          {
+            "module": "Chapter02.Section04.ConstantDiagrams.ConstantExponential",
+            "name": "argument-comparison",
+            "qualified": "Constant.argument-comparison",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter02.Section04.ConstantDiagrams.ConstantExponential",
+            "name": "comparison",
+            "qualified": "Constant.comparison",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-constant-diagrams-and-exponentials"
+      },
+      {
+        "id": "supp-constant-equivalence",
+        "title": "Supplementary Corollary 3: Equivalences of constant diagrams",
+        "tex_label": "cor:Supplementary_Constant_Equivalence",
+        "declarations": [
+          {
+            "module": "Chapter02.Section04.ConstantDiagrams.ConstantExponential",
+            "name": "preserves-equivalence",
+            "qualified": "Constant.preserves-equivalence",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-constant-diagrams-and-exponentials"
+      },
+      {
+        "id": "supp-constant-coproduct",
+        "title": "Supplementary Lemma 4: The coproduct comparison",
+        "tex_label": "lem:Supplementary_Constant_Coproduct",
+        "declarations": [
+          {
+            "module": "Chapter02.Section05.ArrowCoproducts",
+            "name": "identity-copair",
+            "qualified": "identity-copair",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-constant-diagrams-and-exponentials"
+      }
+    ],
+    "related_sections": [
+      "recognizing-animae"
+    ]
+  },
+  {
+    "slug": "supplementary-hom-expressions-and-restriction",
+    "title": "Hom expressions and restriction",
+    "source": "hom-expressions-and-restriction.tex",
+    "section": "chapter-2-exercises",
+    "chapter": 2,
+    "section_number": "2.6",
+    "entry_module": "Chapter02.Section06.HomCalculus.HomNormalization",
+    "description": "Normalization of endpoint cones and computation of the hom-category composition functors under restriction.",
+    "passages": [
+      {
+        "id": "supp-hom-normalization",
+        "title": "Supplementary Lemma 1: Introduction and reconstruction",
+        "tex_label": "lem:Supplementary_Hom_Normalization",
+        "declarations": [
+          {
+            "module": "Chapter02.Section06.HomCalculus.HomNormalization",
+            "name": "hom-η",
+            "qualified": "hom-η",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter02.Section06.HomCalculus.HomNormalization",
+            "name": "hom-β",
+            "qualified": "hom-β",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter02.Section06.HomCalculus.HomCoordinates",
+            "name": "hom-expression-cong",
+            "qualified": "hom-expression-cong",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter02.Section06.HomCalculus.HomCoordinates",
+            "name": "hom-cong",
+            "qualified": "hom-cong",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-hom-expressions-and-restriction"
+      },
+      {
+        "id": "supp-hom-restriction",
+        "title": "Supplementary Lemma 2: Restriction of hom expressions",
+        "tex_label": "lem:Supplementary_Hom_Restriction",
+        "declarations": [
+          {
+            "module": "Chapter02.Section06.HomCalculus.HomRestriction",
+            "name": "hom-intro-restrict",
+            "qualified": "hom-intro-restrict",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter02.Section06.HomCalculus.HomRestriction",
+            "name": "hom-expression-restrict",
+            "qualified": "hom-expression-restrict",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-hom-expressions-and-restriction"
+      },
+      {
+        "id": "supp-hom-composition-computation",
+        "title": "Supplementary Lemma 3: Computation of composition functors",
+        "tex_label": "lem:Supplementary_Hom_Composition_Computation",
+        "declarations": [
+          {
+            "module": "Chapter02.Section06.HomComposition",
+            "name": "postcompose-β",
+            "qualified": "At.postcompose-β",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter02.Section06.HomComposition",
+            "name": "precompose-β",
+            "qualified": "At.precompose-β",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-hom-expressions-and-restriction"
+      }
+    ]
+  },
+  {
+    "slug": "supplementary-lifting-three-restrictions",
+    "title": "Lifting a family from three restrictions",
+    "source": "lifting-three-restrictions.tex",
+    "section": "subcategories",
+    "chapter": 3,
+    "section_number": "3.1",
+    "entry_module": "Chapter03.Section01.MappingCalculus.FiniteMappingLifts",
+    "description": "Gluing specified family lifts and recovering the arrows of a generated subcategory.",
+    "passages": [
+      {
+        "id": "supp-summand-lifting",
+        "title": "Supplementary Lemma 1: Lifting on two summands",
+        "tex_label": "lem:Supplementary_Summand_Lifting",
+        "declarations": [
+          {
+            "module": "Chapter03.Section01.Lifting.CoproductLifting",
+            "name": "restriction-post",
+            "qualified": "restriction-post",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.Section01.Lifting.CoproductLifting",
+            "name": "lift-coproduct",
+            "qualified": "lift-coproduct",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-lifting-three-restrictions"
+      },
+      {
+        "id": "supp-three-restrictions",
+        "title": "Supplementary Lemma 2: Three specified restrictions",
+        "tex_label": "lem:Supplementary_Three_Restrictions",
+        "declarations": [
+          {
+            "module": "Chapter03.Section01.MappingCalculus.FiniteMappingLifts",
+            "name": "factorization",
+            "qualified": "AlongEquivalence.factorization",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.Section01.MappingCalculus.FiniteMappingLifts",
+            "name": "lift-three",
+            "qualified": "ThreePoints.lift-three",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-lifting-three-restrictions"
+      },
+      {
+        "id": "supp-generated-arrows",
+        "title": "Supplementary Lemma 3: Recovering the arrow collection",
+        "tex_label": "lem:Supplementary_Generated_Arrows",
+        "declarations": [
+          {
+            "module": "Chapter03.Section01.GeneratedMorphisms",
+            "name": "action-lift",
+            "qualified": "Morphisms.action-lift",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.Section01.GeneratedMorphisms",
+            "name": "section-over-C",
+            "qualified": "Morphisms.section-over-C",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.Section01.GeneratedMorphisms",
+            "name": "comparison-isEquiv",
+            "qualified": "Morphisms.comparison-isEquiv",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-lifting-three-restrictions"
+      }
+    ]
+  },
+  {
+    "slug": "supplementary-object-and-arrow-families",
+    "title": "From object families to arrow families",
+    "source": "object-and-arrow-families.tex",
+    "section": "full-subcategories",
+    "chapter": 3,
+    "section_number": "3.2",
+    "entry_module": "Chapter03.Section02.Factorization.ObjectFactorizationFamilies",
+    "description": "Endpoint computations turning a coherent object-family factorization into a family of functors through a full subcategory.",
+    "passages": [
+      {
+        "id": "supp-object-endpoint-lift",
+        "title": "Supplementary Lemma 1: Lifting endpoint data",
+        "tex_label": "lem:Supplementary_Object_Endpoint_Lift",
+        "declarations": [
+          {
+            "module": "Chapter03.Section02.Factorization.ObjectCollectionClosure",
+            "name": "lift-endpoints",
+            "qualified": "Closure.lift-endpoints",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.Section02.Factorization.ObjectCollectionClosure",
+            "name": "identities",
+            "qualified": "Closure.identities",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.Section02.Factorization.ObjectCollectionClosure",
+            "name": "composition-lift",
+            "qualified": "Closure.composition-lift",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-object-and-arrow-families"
+      },
+      {
+        "id": "supp-object-family-factorization",
+        "title": "Supplementary Lemma 2: Factoring an anima-indexed family",
+        "tex_label": "lem:Supplementary_Object_Family_Factorization",
+        "declarations": [
+          {
+            "module": "Chapter03.Section02.Factorization.ObjectFactorizationFamilies",
+            "name": "endpoint",
+            "qualified": "Factor.endpoint",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.Section02.Factorization.ObjectFactorizationFamilies",
+            "name": "raw-endpoint",
+            "qualified": "Factor.raw-endpoint",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.Section02.Factorization.ObjectFactorizationFamilies",
+            "name": "factorization",
+            "qualified": "Factor.factorization",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-object-and-arrow-families"
+      },
+      {
+        "id": "supp-full-factorization",
+        "title": "Supplementary Corollary 3: Factoring a functor through a full subcategory",
+        "tex_label": "cor:Supplementary_Full_Factorization",
+        "declarations": [
+          {
+            "module": "Chapter03.Section02.Factorization.FullSubcategoryFactorization",
+            "name": "factorization",
+            "qualified": "Factor.factorization",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.Section02.Factorization.FullSubcategoryFactorization",
+            "name": "comparison",
+            "qualified": "Factor.comparison",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.Section02.Factorization.FullSubcategoryFactorization",
+            "name": "unique",
+            "qualified": "Factor.unique",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose. The uniqueness declaration compares the underlying factorizing functors; it does not export a prescribed comparison of their full triangles.",
+        "page": "supplementary-object-and-arrow-families"
+      }
+    ]
+  },
+  {
+    "slug": "supplementary-localization-identifications",
+    "title": "Lifting prescribed identifications through localization",
+    "source": "localization-identifications.tex",
+    "section": "localizations",
+    "chapter": 3,
+    "section_number": "3.3",
+    "entry_module": "Chapter03.Section03.MappingCalculus.RestrictionLifting",
+    "description": "Lifting identifications with their prescribed restrictions and reflecting the matching equations of cocones.",
+    "passages": [
+      {
+        "id": "supp-restriction-image",
+        "title": "Supplementary Lemma 1: The prescribed image of a lift",
+        "tex_label": "lem:Supplementary_Restriction_Image",
+        "declarations": [
+          {
+            "module": "Chapter03.Section03.MappingCalculus.RestrictionLifting",
+            "name": "lift",
+            "qualified": "Lift.lift",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.Section03.MappingCalculus.RestrictionLifting",
+            "name": "image",
+            "qualified": "Lift.image",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-localization-identifications"
+      },
+      {
+        "id": "supp-localization-image",
+        "title": "Supplementary Corollary 2: Restriction along a localization",
+        "tex_label": "cor:Supplementary_Localization_Image",
+        "declarations": [
+          {
+            "module": "Chapter03.Section03.MappingCalculus.LocalizationIdentificationLifting",
+            "name": "restriction-isEmbedding",
+            "qualified": "Identification.restriction-isEmbedding",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-localization-identifications"
+      },
+      {
+        "id": "supp-restriction-higher-reflection",
+        "title": "Supplementary Lemma 3: Reflecting higher identifications",
+        "tex_label": "lem:Supplementary_Restriction_Higher_Reflection",
+        "declarations": [
+          {
+            "module": "Chapter03.Section03.MappingCalculus.RestrictionReflection",
+            "name": "restriction-reflect-Iso₂",
+            "qualified": "restriction-reflect-Iso₂",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose. The linked higher-reflection result assumes restriction is an equivalence, not merely an embedding.",
+        "page": "supplementary-localization-identifications"
+      }
+    ],
+    "related_sections": [
+      "geometric-realizations",
+      "chapter-3-exercises"
+    ]
+  },
+  {
+    "slug": "supplementary-inverting-the-walking-morphism",
+    "title": "Inverting the walking morphism",
+    "source": "inverting-the-walking-morphism.tex",
+    "section": "geometric-realizations",
+    "chapter": 3,
+    "section_number": "3.4",
+    "entry_module": "Chapter03.Section04.RecognitionCalculus.InvertingInterval",
+    "description": "Evaluating the inversion data at the identity functor and identifying the localization of the interval.",
+    "passages": [
+      {
+        "id": "supp-interval-constants",
+        "title": "Supplementary Lemma 1: Constant arrows invert all arrows",
+        "tex_label": "lem:Supplementary_Interval_Constants",
+        "declarations": [
+          {
+            "module": "Chapter03.Section04.RecognitionCalculus.InvertingInterval",
+            "name": "constants",
+            "qualified": "Into.constants",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.Section04.RecognitionCalculus.InvertingInterval",
+            "name": "constants-comparison",
+            "qualified": "Into.constants-comparison",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-inverting-the-walking-morphism"
+      },
+      {
+        "id": "supp-inverted-identity",
+        "title": "Supplementary Lemma 2: Evaluating at the identity functor",
+        "tex_label": "lem:Supplementary_Inverted_Identity",
+        "declarations": [
+          {
+            "module": "Chapter03.Section04.RecognitionCalculus.InvertingInterval",
+            "name": "inverted-identity-comparison",
+            "qualified": "Into.inverted-identity-comparison",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.Section04.RecognitionCalculus.InvertingInterval",
+            "name": "object-comparison",
+            "qualified": "Into.object-comparison",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.Section04.RecognitionCalculus.InvertingInterval",
+            "name": "constants-isEquiv",
+            "qualified": "Into.constants-isEquiv",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-inverting-the-walking-morphism"
+      },
+      {
+        "id": "supp-interval-localization",
+        "title": "Supplementary Corollary 3: Contractibility of the localized interval",
+        "tex_label": "cor:Supplementary_Interval_Localization",
+        "declarations": [
+          {
+            "module": "Chapter03.Section04.RealizationOfInterval",
+            "name": "triangle",
+            "qualified": "Interval.Tested.triangle",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.Section04.RealizationOfInterval",
+            "name": "realization-interval-contractible",
+            "qualified": "Interval.realization-interval-contractible",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-inverting-the-walking-morphism"
+      }
+    ]
+  },
+  {
+    "slug": "supplementary-triangles-over-a-base",
+    "title": "Triangles over a base",
+    "source": "triangles-over-a-base.tex",
+    "section": "exponentiable-functors",
+    "chapter": 3,
+    "section_number": "3.5",
+    "entry_module": "Chapter03.RelativeCategories.Functors",
+    "description": "Naming, decoding and comparing functors while retaining their specified triangle over the base.",
+    "passages": [
+      {
+        "id": "supp-relative-names",
+        "title": "Supplementary Lemma 1: Naming and decoding triangles",
+        "tex_label": "lem:Supplementary_Relative_Names",
+        "declarations": [
+          {
+            "module": "Chapter03.RelativeCategories.Functors",
+            "name": "triangleNameMap-isEquiv",
+            "qualified": "Over.triangleNameMap-isEquiv",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.RelativeCategories.Functors",
+            "name": "name-decode-over",
+            "qualified": "Over.name-decode-over",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.RelativeCategories.IdentificationCalculus.NamingComparisons",
+            "name": "decode-name-native",
+            "qualified": "Triangles.decode-name-native",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-triangles-over-a-base"
+      },
+      {
+        "id": "supp-relative-comparisons",
+        "title": "Supplementary Lemma 2: Comparing named triangles",
+        "tex_label": "lem:Supplementary_Relative_Comparisons",
+        "declarations": [
+          {
+            "module": "Chapter03.RelativeCategories.Identifications",
+            "name": "FunctorOverIso",
+            "qualified": "FunctorOverIso",
+            "role": "definition"
+          },
+          {
+            "module": "Chapter03.RelativeCategories.IdentificationCalculus.NamingComparisons",
+            "name": "identification",
+            "qualified": "Triangles.Identification.identification",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.RelativeCategories.IdentificationCalculus.NamingComparisons",
+            "name": "identify-native",
+            "qualified": "Triangles.identify-native",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.RelativeCategories.IdentificationCalculus.NamingComparisons",
+            "name": "triangle-witness",
+            "qualified": "Triangles.Reflection.triangle-witness",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-triangles-over-a-base"
+      },
+      {
+        "id": "supp-relative-associator",
+        "title": "Supplementary Lemma 3: The associator and units over the base",
+        "tex_label": "lem:Supplementary_Relative_Associator",
+        "declarations": [
+          {
+            "module": "Chapter03.RelativeCategories.Identifications",
+            "name": "associator-over",
+            "qualified": "associator-over",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.RelativeCategories.Identifications",
+            "name": "left-unit-over",
+            "qualified": "left-unit-over",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.RelativeCategories.Identifications",
+            "name": "right-unit-over",
+            "qualified": "right-unit-over",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-triangles-over-a-base"
+      }
+    ]
+  },
+  {
+    "slug": "supplementary-base-change-of-triangles",
+    "title": "Base change of triangles",
+    "source": "base-change-of-triangles.tex",
+    "section": "exponentiable-functors",
+    "chapter": 3,
+    "section_number": "3.5",
+    "entry_module": "Chapter03.RelativeCategories.BaseChange.Identifications",
+    "description": "Base-change comparisons, including the full pullback-cone and base-triangle computations for composition.",
+    "passages": [
+      {
+        "id": "supp-base-change-comparison",
+        "title": "Supplementary Lemma 1: Base change of a comparison",
+        "tex_label": "lem:Supplementary_Base_Change_Comparison",
+        "declarations": [
+          {
+            "module": "Chapter03.RelativeCategories.BaseChange.Identifications",
+            "name": "restricted-square",
+            "qualified": "Change.Identification.restricted-square",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.RelativeCategories.BaseChange.Identifications",
+            "name": "matching",
+            "qualified": "Change.Identification.matching",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.RelativeCategories.BaseChange.Identifications",
+            "name": "comparison",
+            "qualified": "Change.Identification.comparison",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-base-change-of-triangles"
+      },
+      {
+        "id": "supp-reflecting-base-triangle",
+        "title": "Supplementary Lemma 2: Reflecting with the base triangle",
+        "tex_label": "lem:Supplementary_Reflecting_Base_Triangle",
+        "declarations": [
+          {
+            "module": "Chapter03.RelativeCategories.ConeCalculus.PullbackTriangles",
+            "name": "comparison",
+            "qualified": "Reflect.comparison",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.RelativeCategories.ConeCalculus.PullbackTriangles",
+            "name": "cone-computation",
+            "qualified": "Reflect.cone-computation",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.RelativeCategories.ConeCalculus.PullbackTriangles",
+            "name": "triangle-computation",
+            "qualified": "Reflect.triangle-computation",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-base-change-of-triangles"
+      },
+      {
+        "id": "supp-base-change-laws",
+        "title": "Supplementary Lemma 3: Identity and composition",
+        "tex_label": "lem:Supplementary_Base_Change_Laws",
+        "declarations": [
+          {
+            "module": "Chapter03.RelativeCategories.BaseChange.Identifications",
+            "name": "comparison",
+            "qualified": "Change.Identity.comparison",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.RelativeCategories.BaseChange.Identifications",
+            "name": "comparison",
+            "qualified": "Change.Composite.comparison",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.RelativeCategories.BaseChange.Identifications",
+            "name": "cone-computation",
+            "qualified": "Change.Composite.cone-computation",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.RelativeCategories.BaseChange.Identifications",
+            "name": "triangle-computation",
+            "qualified": "Change.Composite.triangle-computation",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-base-change-of-triangles"
+      }
+    ]
+  },
+  {
+    "slug": "supplementary-relative-currying-and-evaluation",
+    "title": "Relative currying and evaluation",
+    "source": "relative-currying-and-evaluation.tex",
+    "section": "exponentiable-functors",
+    "chapter": 3,
+    "section_number": "3.5",
+    "entry_module": "Chapter03.Section05.Currying.RelativeCurrying",
+    "description": "Computing relative uncurrying on named triangles and deriving the finite laws for the induced dependent-product action.",
+    "passages": [
+      {
+        "id": "supp-relative-named-evaluation",
+        "title": "Supplementary Lemma 1: Evaluation on a named triangle",
+        "tex_label": "lem:Supplementary_Relative_Named_Evaluation",
+        "declarations": [
+          {
+            "module": "Chapter03.Section05.Currying.RelativeCurrying",
+            "name": "named-computation",
+            "qualified": "Currying.named-computation",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-relative-currying-and-evaluation"
+      },
+      {
+        "id": "supp-relative-transposition",
+        "title": "Supplementary Lemma 2: Transposition and reflection over the base",
+        "tex_label": "lem:Supplementary_Relative_Transposition",
+        "declarations": [
+          {
+            "module": "Chapter03.Section05.Currying.RelativeTransposition",
+            "name": "over",
+            "qualified": "Transpose.over",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.Section05.Currying.RelativeCurrying",
+            "name": "factor-β",
+            "qualified": "Currying.FromComputation.factor-β",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.Section05.Currying.RelativeCurrying",
+            "name": "reflect",
+            "qualified": "Currying.FromComputation.reflect",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose. FromComputation is specialized to the proved Currying.named-computation through the Native module. Reflection here produces a native comparison without claiming a prescribed higher image.",
+        "page": "supplementary-relative-currying-and-evaluation"
+      },
+      {
+        "id": "supp-dependent-action-laws",
+        "title": "Supplementary Lemma 3: The induced action on dependent products",
+        "tex_label": "lem:Supplementary_Dependent_Action_Laws",
+        "declarations": [
+          {
+            "module": "Chapter03.Section05.DependentProductActionLaws",
+            "name": "evaluation-comparison",
+            "qualified": "Action.evaluation-comparison",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.Section05.DependentProductActionLaws",
+            "name": "identity",
+            "qualified": "Action.identity",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.Section05.DependentProductActionLaws",
+            "name": "comparison",
+            "qualified": "Action.Composite.comparison",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-relative-currying-and-evaluation"
+      }
+    ],
+    "related_sections": [
+      "chapter-3-exercises"
+    ]
+  },
+  {
+    "slug": "supplementary-attaching-maps-of-a-join",
+    "title": "The attaching maps of a join",
+    "source": "attaching-maps-of-a-join.tex",
+    "section": "joins",
+    "chapter": 3,
+    "section_number": "3.6",
+    "entry_module": "Chapter03.Section06.JoinPushoutAction",
+    "description": "Normalizing the join span and retaining the full cocone comparison for its pushout-defined action.",
+    "passages": [
+      {
+        "id": "supp-join-product-coordinates",
+        "title": "Supplementary Lemma 1: Product coordinates for a join",
+        "tex_label": "lem:Supplementary_Join_Product_Coordinates",
+        "declarations": [
+          {
+            "module": "Chapter03.Section06.PushoutCalculus.NormalizedJoinPushout",
+            "name": "isPushout",
+            "qualified": "Normalized.isPushout",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.Section06.PushoutCalculus.JoinSpanCoordinates",
+            "name": "top-comparison",
+            "qualified": "Coordinates.top-comparison",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.Section06.PushoutCalculus.JoinSpanCoordinates",
+            "name": "bottom-comparison",
+            "qualified": "Coordinates.bottom-comparison",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-attaching-maps-of-a-join"
+      },
+      {
+        "id": "supp-join-attaching-comparisons",
+        "title": "Supplementary Lemma 2: Comparing the attaching maps",
+        "tex_label": "lem:Supplementary_Join_Attaching_Comparisons",
+        "declarations": [
+          {
+            "module": "Chapter03.Section06.JoinPushoutAction",
+            "name": "insert-comparison",
+            "qualified": "Action.insert-comparison",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.Section06.JoinPushoutAction",
+            "name": "top-first",
+            "qualified": "Action.top-first",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.Section06.JoinPushoutAction",
+            "name": "top-second",
+            "qualified": "Action.top-second",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.Section06.JoinPushoutAction",
+            "name": "bottom-first-restriction",
+            "qualified": "Action.bottom-first-restriction",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.Section06.JoinPushoutAction",
+            "name": "bottom-second-restriction",
+            "qualified": "Action.bottom-second-restriction",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose. The complete attaching comparisons are the Top and Bottom restriction lifts assembled from these specified summand comparisons.",
+        "page": "supplementary-attaching-maps-of-a-join"
+      },
+      {
+        "id": "supp-join-cocone-computation",
+        "title": "Supplementary Lemma 3: The full cocone computation",
+        "tex_label": "lem:Supplementary_Join_Cocone_Computation",
+        "declarations": [
+          {
+            "module": "Chapter03.Section06.JoinPushoutAction",
+            "name": "comparison",
+            "qualified": "Action.comparison",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.Section06.JoinPushoutAction",
+            "name": "cylinder-comparison",
+            "qualified": "Action.cylinder-comparison",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.Section06.JoinPushoutAction",
+            "name": "boundary-comparison",
+            "qualified": "Action.boundary-comparison",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose. This is the pushout-defined action. Identity/composition laws and agreement with the separate dependent-product action are not asserted.",
+        "page": "supplementary-attaching-maps-of-a-join"
+      }
+    ]
+  },
+  {
+    "slug": "supplementary-endpoint-coordinates-for-slices",
+    "title": "Endpoint coordinates for slice categories",
+    "source": "endpoint-coordinates-for-slices.tex",
+    "section": "slice-categories",
+    "chapter": 3,
+    "section_number": "3.7",
+    "entry_module": "Chapter03.Section07.MappingCalculus.SliceFunctorPullback",
+    "description": "Exponential restriction, constant families and cylinder coordinates in the specified absolute slice pullback.",
+    "passages": [
+      {
+        "id": "supp-slice-exponential-restriction",
+        "title": "Supplementary Lemma 1: Restriction under the exponential comparison",
+        "tex_label": "lem:Supplementary_Slice_Exponential_Restriction",
+        "declarations": [
+          {
+            "module": "Chapter03.Section07.MappingCalculus.ExponentialRestriction",
+            "name": "comparison",
+            "qualified": "LastFactor.comparison",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.Section07.MappingCalculus.ExponentialRestriction",
+            "name": "comparison",
+            "qualified": "Restriction.comparison",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-endpoint-coordinates-for-slices"
+      },
+      {
+        "id": "supp-slice-constants",
+        "title": "Supplementary Lemma 2: The two constant families",
+        "tex_label": "lem:Supplementary_Slice_Constants",
+        "declarations": [
+          {
+            "module": "Chapter03.Section07.MappingCalculus.ExponentialConstants",
+            "name": "comparison",
+            "qualified": "Projection.comparison",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.Section07.MappingCalculus.ExponentialConstants",
+            "name": "comparison",
+            "qualified": "Fixed.comparison",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-endpoint-coordinates-for-slices"
+      },
+      {
+        "id": "supp-slice-cylinder-endpoints",
+        "title": "Supplementary Lemma 3: Changing cylinder coordinates",
+        "tex_label": "lem:Supplementary_Slice_Cylinder_Endpoints",
+        "declarations": [
+          {
+            "module": "Chapter03.Section07.MappingCalculus.SliceCylinderCoordinates",
+            "name": "reorder-isEquiv",
+            "qualified": "Coordinates.reorder-isEquiv",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.Section07.MappingCalculus.SliceCylinderCoordinates",
+            "name": "comparison",
+            "qualified": "Coordinates.Endpoint.comparison",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.Section07.MappingCalculus.SliceCylinderCoordinates",
+            "name": "inverse-comparison",
+            "qualified": "Coordinates.Endpoint.inverse-comparison",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose.",
+        "page": "supplementary-endpoint-coordinates-for-slices"
+      },
+      {
+        "id": "supp-tested-slice",
+        "title": "Supplementary Corollary 4: The tested slice square",
+        "tex_label": "cor:Supplementary_Tested_Slice",
+        "declarations": [
+          {
+            "module": "Chapter03.Section07.MappingCalculus.SliceFunctorPullback",
+            "name": "endpoint-comparison",
+            "qualified": "Tested.endpoint-comparison",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.Section07.MappingCalculus.SliceFunctorPullback",
+            "name": "lower-normal",
+            "qualified": "Tested.lower-normal",
+            "role": "derived"
+          },
+          {
+            "module": "Chapter03.Section07.MappingCalculus.SliceFunctorPullback",
+            "name": "isPullback",
+            "qualified": "Tested.isPullback",
+            "role": "derived"
+          }
+        ],
+        "note": "AI-generated explanation of the linked checked declarations. Type-checking verifies the Agda code, not this explanatory prose. This uses the direct absolute Slices implementation, with transported matching. No comparison with the chosen relative slice over One is asserted.",
+        "page": "supplementary-endpoint-coordinates-for-slices"
+      }
+    ]
+  }
+]

@@ -84,3 +84,24 @@ module At {C : CAT} {x y : Obj-abs C} (e : Obj-abs (Hom C x y)) where
     (expressionIso-compose (hom-restrict-composition (family _) (hom-expression (id _)) h)
       (expressionIso-compose (hom-restrict-cong (hom-β _) h) (hom-expression-restrict (precompose z) h)))
 ```
+
+
+The computation comparisons at the identity parameter expose each hom
+functor without unfolding its chosen universal lift.
+
+```agda
+module Computation {C : CAT} {x y : Obj-abs C} (e : Obj-abs (Hom C x y)) where
+  private
+    module Action = At e using (family; precompose; postcompose; precompose-β; postcompose-β)
+  abstract
+    precompose : (z : Obj-abs C) →
+      ExpressionIso (hom-expression (Action.precompose z))
+        (compose-expression (Action.family (Hom C y z)) (hom-expression (id (Hom C y z))))
+    precompose z = expressionIso-compose (Action.precompose-β z (id _))
+      (hom-expression-cong ((comp-unitʳ (Action.precompose z)) ⁻¹))
+    postcompose : (z : Obj-abs C) →
+      ExpressionIso (hom-expression (Action.postcompose z))
+        (compose-expression (hom-expression (id (Hom C z x))) (Action.family (Hom C z x)))
+    postcompose z = expressionIso-compose (Action.postcompose-β z (id _))
+      (hom-expression-cong ((comp-unitʳ (Action.postcompose z)) ⁻¹))
+```

@@ -1,0 +1,107 @@
+<!doctype html>
+
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Base change of triangles | Synthetic category theory</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/reader-shell.css"><link rel="stylesheet" href="assets/reader.css?v=e77c6ba976bccda0"><link rel="stylesheet" href="assets/Agda.css">
+<script src="assets/math-config.js"></script><script defer src="vendor/mathjax/tex-chtml.js"></script><script defer src="assets/reader.js?v=bb4820fd39f58f55"></script></head>
+<body class="hide-agda-links has-passages supplementary-page"><a class="skip-link" href="#main">Skip to content</a><aside class="utility-dock" aria-label="Reading tools">
+<button id="reading-settings-button" class="utility-button" type="button" aria-label="Reading settings" title="Reading settings" aria-controls="reading-settings" aria-expanded="false"><span aria-hidden="true">⚙</span></button>
+<a class="utility-button" href="book.pdf" aria-label="Read the web edition PDF" title="Read the web edition PDF"><span aria-hidden="true">📖</span></a>
+<section id="reading-settings" class="settings-panel" aria-label="Reading preferences" hidden><h2>Reading preferences</h2>
+<label><input id="collapse-proofs" type="checkbox"> Collapse book proofs</label>
+
+</section></aside>
+<header class="site-header"><div class="header-top"><nav class="book-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Synthetic category theory</a></li><li><a href="constructions-introduction.html">Chapter 3</a></li><li><a href="exponentiable-functors.html">Section 3.5</a></li><li><a href="supplementary-notes.html">Supplementary notes</a></li></ol></nav></div><p class="eyebrow">Supplementary note · AI-generated prose</p><h1>Base change of triangles</h1><p class="ai-notice">AI-generated prose accompanying the Agda code. This note is supplementary to the book and is not part of the authors' manuscript.</p></header>
+<div class="reader-grid"><aside class="reader-nav" aria-label="Book navigation"><h2>Resources</h2><nav aria-label="Resources" class="reader-resources"><a href="code-index.html">All Agda code</a><a href="supplementary-notes.html">Supplementary notes</a><a href="formalization.html">Agda guide</a><a href="build-report.html">Build details</a></nav><h2>Contents</h2><nav aria-label="Contents"><a href="index.html">Overview</a><a href="introduction.html">Introduction</a><a href="overview-of-the-axioms.html">Overview of the axioms</a><details class="contents-chapter"><summary><span class="chapter-number">Chapter 1</span><span class="chapter-name">The language of synthetic category theory</span></summary><div class="chapter-sections"><a href="chapter-introduction.html">Chapter introduction</a><a href="basic-vocabulary.html">1.1 · The basic vocabulary</a><a href="coherences.html">1.2 · Coherences</a><a href="equivalences.html">1.3 · Equivalences of categories</a><a href="mapping-animae.html">1.4 · Mapping animae</a><a href="initial-categories-and-coproducts.html">1.5 · Initial categories and coproducts</a><a href="pullbacks.html">1.6 · Pullbacks of categories</a><a href="functor-categories.html">1.7 · Functor categories</a><a href="pushouts.html">1.8 · Pushout squares</a></div></details><details class="contents-chapter"><summary><span class="chapter-number">Chapter 2</span><span class="chapter-name">The internal structure of categories</span></summary><div class="chapter-sections"><a href="internal-structure-introduction.html">Chapter introduction</a><a href="morphisms-and-diagrams.html">2.1 · Morphisms and diagrams</a><a href="segal-axiom.html">2.2 · The Segal axiom</a><a href="rezk-axiom.html">2.3 · The Rezk axiom</a><a href="groupoids.html">2.4 · Groupoids</a><a href="recognizing-animae.html">2.5 · Recognizing animae</a><a href="chapter-2-exercises.html">2.6 · Exercises</a></div></details><details class="contents-chapter" open><summary><span class="chapter-number">Chapter 3</span><span class="chapter-name">Constructions of categories</span></summary><div class="chapter-sections"><a href="constructions-introduction.html">Chapter introduction</a><a href="subcategories.html">3.1 · Subcategories</a><a href="full-subcategories.html">3.2 · Full subcategories</a><a href="localizations.html">3.3 · Localizations</a><a href="geometric-realizations.html">3.4 · Geometric realizations</a><a aria-current="page" href="exponentiable-functors.html">3.5 · Exponentiable functors</a><a href="joins.html">3.6 · Joins</a><a href="slice-categories.html">3.7 · Slice categories</a><a href="chapter-3-exercises.html">3.8 · Exercises</a></div></details></nav></aside>
+<main id="main" class="notes-page" tabindex="-1"><p class="coverage-note edition-notice">Agda links are temporarily unavailable for Chapters 2 and 3 while their code is updated to the foundations used in Chapter 1.</p>
+   <h3 class="likesectionHead" id="base-change-of-triangles"><a id="x1-1000"></a>Base change of triangles</h3>
+<p class="noindent">Base change must carry the specified triangle of a functor over the base, not just
+its underlying functor. We spell out the calculation supporting <a href="exponentiable-functors.html">base change of
+relative functors</a>. Use the Chapter 1 structures and the conventions of <a href="supplementary-triangles-over-a-base.html">Triangles
+over a base</a>.
+</p><p class="indent">   Fix \(p\colon S\to T\) and categories \(f\colon C\to T\) and \(g\colon D\to T\). Write \(r\colon C\times _T S\to C\), \(q\colon C\times _T S\to S\) and \(\tau \colon fr=pq\) for the chosen pullback data. If \(u=(h,\theta )\) is a
+functor from \(f\) to \(g\) over \(T\), form the cone with legs \(hr,q\) and matching \[ g(hr)\simeq (gh)r\xrightarrow {\theta r}fr\xrightarrow {\tau }pq. \] Its lift
+defines \(p^*u\). The second projection computation is its specified triangle over
+\(S\).
+</p><p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1001r1"></a>
+<span id="text-supp-base-change-comparison"><span class="ecbx-1095">Supplementary Lemma 1.</span></span>  </span><span id="lem:Supplementary_Base_Change_Comparison"> </span><span class="ecti-1095">A comparison</span> \(u\simeq _T v\) <span class="ecti-1095">induces a comparison</span> \(p^*u\simeq _S p^*v\)<span class="ecti-1095">.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    Write \(v=(k,\psi )\) and let \(\alpha \colon h=k\) be the given comparison. Restrict \(\psi \cdot (g\alpha )=\theta \) along \(r\), and
+compare the two associations of the resulting composites. Pasting with \(\tau \) gives
+the matching equation for the two cones. This retains the right leg \(q\) and its
+identity comparison.
+</p><p class="indent">   The  formal  construction  performs  this  lift  on  the  universal  family  of
+relative comparisons and evaluates at the given comparison. The resulting
+identification  carries  its  compatibility  over  \(S\).  This  construction  does  not
+require identifying it with an independently chosen pointwise lift.            □
+                                                                     
+
+                                                                     
+</p>
+   </div></details>
+<p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1002r2"></a>
+<span id="text-supp-reflecting-base-triangle"><span class="ecbx-1095">Supplementary Lemma 2.</span></span>  </span><span id="lem:Supplementary_Reflecting_Base_Triangle"> </span><span class="ecti-1095">Let</span> \(a,b\colon X\to D\times _T S\) <span class="ecti-1095">be equipped with triangles</span> \(\beta _a\colon q_Da=t\) <span class="ecti-1095">and</span> \(\beta _b\colon q_Db=t\)<span class="ecti-1095">, where</span> \(q_D\colon D\times _T S\to S\)
+<span class="ecti-1095">is the second projection and</span> \(t\colon X\to S\)<span class="ecti-1095">. Suppose</span> \(\Phi \) <span class="ecti-1095">compares their full induced pullback
+cones and its right component comes with a specified identification </span>\[ \beta _b\cdot \Phi _{\mathrm {right}}=\beta _a. \] <span class="ecti-1095">Then</span> \(\Phi \)
+<span class="ecti-1095">lifts to a comparison of</span> \(a\) <span class="ecti-1095">and</span> \(b\) <span class="ecti-1095">over</span> \(S\)<span class="ecti-1095">. The cone comparison induced by this lift
+is identified with</span> \(\Phi \)<span class="ecti-1095">, including its matching compatibility.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    Use the identification-anima universal property of the pullback
+to lift \(\Phi \) with its prescribed image. Its right projection computation transports
+the displayed equation to the triangle equation of the lifted identification.
+The full image computation also compares the matching witnesses. Thus the
+same lift serves both the pullback calculation and the calculation over the
+base.                                                                                           □
+</p>
+   </div></details>
+<p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1003r3"></a>
+                                                                     
+
+                                                                     
+<span id="text-supp-base-change-laws"><span class="ecbx-1095">Supplementary Lemma 3.</span></span>  </span><span id="lem:Supplementary_Base_Change_Laws"> </span><span class="ecti-1095">There are comparisons over</span> \(S\) \[ p^*(\operatorname {id})\simeq _S\operatorname {id}, \qquad (p^*v)(p^*u)\simeq _S p^*(vu) \] <span class="ecti-1095">for composable
+functors</span> \(u,v\) <span class="ecti-1095">over</span> \(T\)<span class="ecti-1095">. For composition, the resulting cone comparison recovers the
+comparison obtained by pasting the defining pullback computations.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    For the identity, compare its defining cone with the original
+pullback cone. The unitor on the first leg and the identity on the second
+satisfy the matching equation by the triangle law.
+</p><p class="indent">   For  composition,  restrict  the  defining  cone  of  \(p^*v\)  along  \(p^*u\).  Apply  its
+computation  comparison,  then  the  one  for  \(p^*u\),  and  use  the  restriction  and
+composition  comparisons  for  the  action  on  cones.  This  produces  a  full
+comparison  with  the  defining  cone  of  \(p^*(vu)\).  Its  right  component  satisfies  the
+equation  in  Supplementary  Lemma <a href="#x1-1002r2">2</a>;  checking  that  equation  uses  the
+actual  second-projection  computations  defining  the  triangles.  Reflection
+gives the desired comparison over \(S\), together with its full cone and triangle
+computations.                                                                               □
+</p>
+   </div></details>
+    
+<span id="agda-supp-base-change-comparison"></span><span id="agda-supp-reflecting-base-triangle"></span><span id="agda-supp-base-change-laws"></span></main></div>
+<footer>Experimental web edition · Generated from annotated LaTeX and Agda sources. <a href="build-report.html">Build details</a></footer></body></html>

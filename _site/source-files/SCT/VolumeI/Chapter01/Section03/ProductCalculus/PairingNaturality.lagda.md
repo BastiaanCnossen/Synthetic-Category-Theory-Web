@@ -15,6 +15,8 @@ import SCT.VolumeI.Chapter01.Section02.Specialization as Specialization
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingCoherence as PairingCoherence
 import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.Structural as Structural
 
+import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.Inverses as Inverses
+
 module SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingNaturality
   {c m a : Level} (V : Vocabulary c m a)
   (T : Terminal.TerminalStructure V) (P : Products.ProductData V)
@@ -34,25 +36,7 @@ open Specialization.Whiskering V T P PL S W
 open PairingCoherence V T P PL S VC W
 open Structural V T P PL S W
 
-cancel-left : {X C : CAT} {f g h : MAP X C}
-  (b : g =₁ h) (α : f =₁ g)
-  → (b ⁻¹ ∙ (b ∙ α)) =₂ α
-cancel-left b α = isoComp-unitˡ-at α ∙
-  (isoComp-cong (isoComp-inverseˡ-at b) (idIso α) ∙
-    (isoComp-assoc-at (b ⁻¹) b α) ⁻¹)
-
-cancel-right : {X C : CAT} {f g h : MAP X C}
-  (a : f =₁ g) (α : g =₁ h)
-  → ((α ∙ a) ∙ a ⁻¹) =₂ α
-cancel-right a α = isoComp-unitʳ-at α ∙
-  (isoComp-cong (idIso α) (isoComp-inverseʳ-at a) ∙
-    isoComp-assoc-at α a (a ⁻¹))
-
-cancel-left-reflect : {X C : CAT} {f g h : MAP X C}
-  (b : g =₁ h) {α β : f =₁ g}
-  → (b ∙ α) =₂ (b ∙ β) → α =₂ β
-cancel-left-reflect b {α} {β} p = cancel-left b β ∙
-  (isoComp-cong (idIso (b ⁻¹)) p ∙ (cancel-left b α) ⁻¹)
+open Inverses V T P PL S VC public using (cancel-left; cancel-right; cancel-left-reflect)
 
 move-square : {X C : CAT} {f g f′ g′ : MAP X C}
   (b : g =₁ g′) (u : f =₁ g) (v : f′ =₁ g′) (a : f =₁ f′)

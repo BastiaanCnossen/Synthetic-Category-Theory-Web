@@ -12,6 +12,8 @@ open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.Setup as Setup
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as MappingAnimae
 import SCT.VolumeI.Chapter01.Section04.Currying as Currying
+import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingInterface as PairingInterface
+import SCT.VolumeI.Chapter01.Section03.ProductCalculus.ChosenPairing as ChosenPairing
 
 module SCT.VolumeI.Chapter01.Section04.Uncurrying
   {c m a : Level} (𝒯 : Theory c m a)
@@ -20,14 +22,15 @@ module SCT.VolumeI.Chapter01.Section04.Uncurrying
 open Setup 𝒯
 open MappingAnimae.MappingAnimae M
 open Currying 𝒯 M
+private
+  module ProductPairing = PairingInterface.Constructions vocabulary terminal products composition
+    (ChosenPairing.operations vocabulary terminal products productLaws composition vertical whiskering)
+    using (productMap-pair)
 
 productMap-pair : {R C C′ D D′ : CAT}
   (f : MAP C C′) (g : MAP D D′) (u : MAP R C) (v : MAP R D)
   → (productMap f g ∘ pair u v) =₁ (pair (f ∘ u) (g ∘ v))
-productMap-pair f g u v = pair-cong
-  ((f ◁ pair-β₁ u v) ∙ comp-assoc (pair u v) pr₁ f)
-  ((g ◁ pair-β₂ u v) ∙ comp-assoc (pair u v) pr₂ g) ∙
-  pair-pre (f ∘ pr₁) (g ∘ pr₂) (pair u v)
+productMap-pair = ProductPairing.productMap-pair
 
 product-first : {R C C′ D D′ : CAT}
   (f : MAP C C′) (g : MAP D D′) (u : MAP R (C × D))

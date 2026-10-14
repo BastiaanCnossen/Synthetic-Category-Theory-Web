@@ -13,6 +13,7 @@ chosen comparison maps keep their definitions.
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.Setup as Setup
+import SCT.Calculus.Composition as Algebra
 
 module SCT.VolumeI.Chapter01.Section04.Substitution.ProofCalculus
   {c m a : Level} (𝒯 : Theory c m a) where
@@ -59,4 +60,21 @@ abstract
     (u : MAP D E) (β : g =₁ h) (α : f =₁ g)
     → (u ◁ (β ∙ α)) =₂ ((u ◁ β) ∙ (u ◁ α))
   postWhisker-isoComp-at = Original.postWhisker-isoComp-at
+```
+
+Generic pasting calculations use the same selected coherence witnesses as
+this module. In particular, the algebra below retains its opaque congruence
+and associativity comparisons. It does not replace them by another realization.
+
+```agda
+comparisonAlgebra : (X C : CAT) → Algebra.Composition m m m
+comparisonAlgebra X C = record
+  { Obj = MAP X C; Hom = _=₁_; _≈_ = _=₂_
+  ; id = idIso; _∘_ = _∙_; refl = idIso; sym = _⁻¹; trans = _∙_
+  ; congr = isoComp-cong }
+
+comparisonLaws : (X C : CAT) → Algebra.Laws (comparisonAlgebra X C)
+comparisonLaws X C = record
+  { assoc = isoComp-assoc-at
+  ; unitˡ = isoComp-unitˡ-at; unitʳ = isoComp-unitʳ-at }
 ```

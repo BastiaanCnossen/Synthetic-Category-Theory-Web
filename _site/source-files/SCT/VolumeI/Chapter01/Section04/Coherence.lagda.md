@@ -13,7 +13,7 @@ the route calculations in `UniversalCoherence`. Applying those
 identifications gives the book's coherence laws.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.Substitution.ProofCalculus as Setup

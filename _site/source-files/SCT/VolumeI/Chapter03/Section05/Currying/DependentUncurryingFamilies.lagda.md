@@ -3,7 +3,9 @@
 Evaluation of a relative family commutes with dependent-product
 uncurrying. The parameterized pullback cone retains the base triangle;
 its universal lift compares the chosen pullback with the product of the
-parameter and the original pullback.
+parameter and the original pullback. We specialize the relative-family
+comparison to the dependent product's projection and evaluation; its
+universal property is not needed for this comparison.
 
 ```agda
 {-# OPTIONS --safe --without-K #-}
@@ -30,7 +32,7 @@ module Evaluation {S T C K : CAT} (p : MAP S T) (f : MAP C S)
   (Π : DependentProduct p f) (k : MAP K T) where
   g = DependentProduct.projection Π
   ε = DependentProduct.evaluation Π
-  module Raw = Families.Evaluation 𝒯 M ℱ P p f g ε k using (functor; module At)
+  module Raw = Families.Evaluation 𝒯 M ℱ P p f g ε k using (evaluate; functor; module At)
   open Raw public using (functor)
   module Native = Currying p f Π using (evaluate)
   k′ : MAP (Pullback k p) S
@@ -41,6 +43,6 @@ module Evaluation {S T C K : CAT} (p : MAP S T) (f : MAP C S)
     abstract
       family-comparison : (F : MAP X (FunOver k g)) → FunctorOverIso
         (family k′ f (functor ∘ F))
-        (compose-over (Native.evaluate (family k g F)) inclusion)
-      family-comparison = RawAt.family-comparison
+        (compose-over (Raw.evaluate (family k g F)) inclusion)
+      family-comparison F = RawAt.family-comparison F
 ```

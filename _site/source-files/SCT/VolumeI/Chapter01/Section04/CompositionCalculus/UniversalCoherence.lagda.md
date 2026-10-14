@@ -10,7 +10,7 @@ The associator calculation pastes the four composition squares and the
 external associativity square, then cancels the fixed endpoint comparison.
 The explicit reflection step uses both product projections.
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.Substitution.ProofCalculus as Setup
@@ -31,7 +31,6 @@ import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingCoherence as Pairi
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingNaturality as PairingNaturality
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingUnits as PairingUnits
 import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.Structural as Structural
-import SCT.VolumeI.Chapter01.Section03.ProductCalculus.IteratedPairing as IteratedPairing
 
 import SCT.VolumeI.Chapter01.Section04.CompositionCalculus.UniversalCoherenceCalculus as UniversalCoherenceCalculus
 
@@ -51,7 +50,9 @@ open ParameterChange 𝒯 M using
   (mapReflect-specialize-image; mapReflect-pre-image-β; mapUncurryIso-inverse; retained-parameter-change)
 open ParameterChangeNaturality 𝒯 M using (retained-parameter-change-natural)
 open ParameterSquarePasting 𝒯 using (paste)
-open ParameterSquareNaturality 𝒯 using (paste-source-square; paste-source-normalization; paste-target-normalization)
+open ParameterSquareNaturality 𝒯 using (paste-source-square; paste-source-normalization; paste-target-normalization;
+    paste-natural-outer; paste-natural-inner; paste-comparison-chain;
+    paste-comparison-chain-outer; paste-comparison-chain-inner)
 open ParameterSquareUnits 𝒯 using (unit-square; paste-unitˡ; paste-unitʳ)
 open CompositionNaturality 𝒯 M using (chain-input-squares)
 open PairingCoherence vocabulary terminal products productLaws composition vertical whiskering
@@ -62,8 +63,6 @@ open PairingUnits vocabulary terminal products productLaws composition vertical 
   using (cancel-right-reflect)
 open Structural vocabulary terminal products productLaws composition whiskering
   using (postWhisker-comp-at; preWhisker-comp-at; whisker-mixed-at; postWhisker-id-at; preWhisker-id-at)
-open IteratedPairing vocabulary terminal products productLaws composition vertical whiskering pentagonTriangle
-  using (hcomp-idOuter; hcomp-idInner)
 
 open UniversalCoherenceCalculus 𝒯 M public
 
@@ -77,31 +76,27 @@ opaque
     → ((ψ ▷ x₁) ∙ β) =₂ (β′ ∙ (x₂ ◁ θ))
     → ((φ ▷ x₀) ∙ α) =₂ (α′ ∙ (x₁ ◁ η))
     → (((ψ ⋆ φ) ▷ x₀) ∙ paste β α) =₂ (paste β′ α′ ∙ (x₂ ◁ (θ ⋆ η)))
-  paste-natural {x₀ = x₀} {x₁} β β′ α α′ θ η ψ φ b a =
-    (paste-target-normalization β α ψ φ ∙
-      paste-source-square ((ψ ▷ x₁) ∙ β) β′ ((φ ▷ x₀) ∙ α) α′ θ η (b ⁻¹) (a ⁻¹)) ⁻¹
+  paste-natural = ParameterSquareNaturality.paste-natural 𝒯
 
   unchanged-parameter-square : {A B C D : CAT}
     {f : MAP A B} {F : MAP C D} {x : MAP A C} {y : MAP B D}
     (α : (y ∘ f) =₁ (F ∘ x))
     → ((idIso F ▷ x) ∙ α) =₂ (α ∙ (y ◁ idIso f))
-  unchanged-parameter-square {f = f} {F} {x} {y} α =
-    isoComp-cong (idIso α) ((postWhisker-idIso y f) ⁻¹) ∙
-    ((isoComp-unitʳ-at α) ⁻¹ ∙
-    (isoComp-unitˡ-at α ∙ isoComp-cong (preWhisker-idIso F x) (idIso α)))
+  unchanged-parameter-square = ParameterSquareNaturality.unchanged-parameter-square 𝒯
 
 module AssociatorChange {P Q A B C D : CAT} (σ : MAP Q P)
   (h : MAP P (Map C D)) (g : MAP P (Map B C)) (f : MAP P (Map A B))
   {h′ : MAP Q (Map C D)} {g′ : MAP Q (Map B C)} {f′ : MAP Q (Map A B)}
   (Lh : (h ∘ σ) =₁ h′) (Lg : (g ∘ σ) =₁ g′) (Lf : (f ∘ σ) =₁ f′) where
 
-  module RP = RetainedEvaluation P
-  module RQ = RetainedEvaluation Q
-  module N (X Y : CAT) = NormalizedChange {C = X} {D = Y} σ
-  module NC = NormalizedComposition σ
-  module RoutesP = RouteNaturality P
-  module RoutesQ = RouteNaturality Q
-  module Pasting = ParameterSquarePasting.Coherence 𝒯 M
+  private
+    module RP = RetainedEvaluation P
+    module RQ = RetainedEvaluation Q
+    module N (X Y : CAT) = NormalizedChange {C = X} {D = Y} σ
+    module NC = NormalizedComposition σ
+    module RoutesP = RouteNaturality P
+    module RoutesQ = RouteNaturality Q
+    module Pasting = ParameterSquarePasting.Coherence 𝒯 M
 
   s : (X : CAT) → MAP (Q × X) (P × X)
   s X = productMap σ (id X)
@@ -149,67 +144,25 @@ module AssociatorChange {P Q A B C D : CAT} (σ : MAP Q P)
     left-comparison-change : NC.BasicSquare h g → NC.BasicSquare (composeTerm h g) f
       → (paste (paste κh κg) κf ∙ (s D ◁ leftQ)) =₂ ((leftP ▷ s A) ∙ κleft)
     left-comparison-change hg outer =
-      let inner = NC.normalize h g Lh Lg hg
-          outerSquare = NC.normalize (composeTerm h g) f Lhg Lf outer
-          cp = RP.retained-compose h g
-          cq = RQ.retained-compose h′ g′
-          op = RP.retained-compose (composeTerm h g) f
-          oq = RQ.retained-compose (composeTerm h′ g′) f′
-          p : (s D ∘ (RQ.retained (composeTerm h′ g′) ∘ RQ.retained f′)) =₁
-            ((RP.retained (composeTerm h g) ∘ RP.retained f) ∘ s A)
-          p = paste κhg κf
-          p′ : (s D ∘ ((RQ.retained h′ ∘ RQ.retained g′) ∘ RQ.retained f′)) =₁
-            (((RP.retained h ∘ RP.retained g) ∘ RP.retained f) ∘ s A)
-          p′ = paste (paste κh κg) κf
-          natural : (((cp ▷ RP.retained f) ▷ s A) ∙ p) =₂
-            (p′ ∙ (s D ◁ (cq ▷ RQ.retained f′)))
-          natural = isoComp-cong (idIso p′) (postWhisker (s D) ◁ hcomp-idInner cq (RQ.retained f′)) ∙
-            (paste-natural
-              {f = RQ.retained f′} {f′ = RQ.retained f′}
-              {g = RQ.retained (composeTerm h′ g′)} {g′ = RQ.retained h′ ∘ RQ.retained g′}
-              {F = RP.retained f} {F′ = RP.retained f}
-              {G = RP.retained (composeTerm h g)} {G′ = RP.retained h ∘ RP.retained g}
-              {x₀ = s A} {x₁ = s B} {x₂ = s D}
-              κhg (paste κh κg) κf κf cq (idIso (RQ.retained f′))
-              cp (idIso (RP.retained f)) (inner ⁻¹) (unchanged-parameter-square κf) ∙
-              isoComp-cong (preWhisker (s A) ◁ (hcomp-idInner cp (RP.retained f)) ⁻¹) (idIso p))
-      in isoComp-cong ((preWhisker-isoComp-at (cp ▷ RP.retained f) op (s A)) ⁻¹) (idIso κleft) ∙
-        ((paste-squares (s D ◁ oq) (op ▷ s A)
-          (s D ◁ (cq ▷ RQ.retained f′)) ((cp ▷ RP.retained f) ▷ s A)
-          κleft p p′ (outerSquare ⁻¹) natural) ⁻¹ ∙
-          isoComp-cong (idIso p′) (postWhisker-isoComp-at (s D) (cq ▷ RQ.retained f′) oq))
+      paste-comparison-chain-outer
+        κleft κhg (paste κh κg) κf
+        (RQ.retained-compose (composeTerm h′ g′) f′)
+        (RP.retained-compose (composeTerm h g) f)
+        (RQ.retained-compose h′ g′) (RP.retained-compose h g)
+        (NC.normalize (composeTerm h g) f Lhg Lf outer)
+        ((NC.normalize h g Lh Lg hg) ⁻¹)
+
     right-comparison-change : NC.BasicSquare g f → NC.BasicSquare h (composeTerm g f)
       → (paste κh (paste κg κf) ∙ (s D ◁ rightQ)) =₂ ((rightP ▷ s A) ∙ κright)
     right-comparison-change gf outer =
-      let inner = NC.normalize g f Lg Lf gf
-          outerSquare = NC.normalize h (composeTerm g f) Lh Lgf outer
-          cp = RP.retained-compose g f
-          cq = RQ.retained-compose g′ f′
-          op = RP.retained-compose h (composeTerm g f)
-          oq = RQ.retained-compose h′ (composeTerm g′ f′)
-          p : (s D ∘ (RQ.retained h′ ∘ RQ.retained (composeTerm g′ f′))) =₁
-            ((RP.retained h ∘ RP.retained (composeTerm g f)) ∘ s A)
-          p = paste κh κgf
-          p′ : (s D ∘ (RQ.retained h′ ∘ (RQ.retained g′ ∘ RQ.retained f′))) =₁
-            ((RP.retained h ∘ (RP.retained g ∘ RP.retained f)) ∘ s A)
-          p′ = paste κh (paste κg κf)
-          natural : (((RP.retained h ◁ cp) ▷ s A) ∙ p) =₂
-            (p′ ∙ (s D ◁ (RQ.retained h′ ◁ cq)))
-          natural = isoComp-cong (idIso p′) (postWhisker (s D) ◁ hcomp-idOuter (RQ.retained h′) cq) ∙
-            (paste-natural
-              {f = RQ.retained (composeTerm g′ f′)} {f′ = RQ.retained g′ ∘ RQ.retained f′}
-              {g = RQ.retained h′} {g′ = RQ.retained h′}
-              {F = RP.retained (composeTerm g f)} {F′ = RP.retained g ∘ RP.retained f}
-              {G = RP.retained h} {G′ = RP.retained h}
-              {x₀ = s A} {x₁ = s C} {x₂ = s D}
-              κh κh κgf (paste κg κf) (idIso (RQ.retained h′)) cq
-              (idIso (RP.retained h)) cp (unchanged-parameter-square κh) (inner ⁻¹) ∙
-              isoComp-cong (preWhisker (s A) ◁ (hcomp-idOuter (RP.retained h) cp) ⁻¹) (idIso p))
-      in isoComp-cong ((preWhisker-isoComp-at (RP.retained h ◁ cp) op (s A)) ⁻¹) (idIso κright) ∙
-        ((paste-squares (s D ◁ oq) (op ▷ s A)
-          (s D ◁ (RQ.retained h′ ◁ cq)) ((RP.retained h ◁ cp) ▷ s A)
-          κright p p′ (outerSquare ⁻¹) natural) ⁻¹ ∙
-          isoComp-cong (idIso p′) (postWhisker-isoComp-at (s D) (RQ.retained h′ ◁ cq) oq))
+      paste-comparison-chain-inner
+        κright κh κgf (paste κg κf)
+        (RQ.retained-compose h′ (composeTerm g′ f′))
+        (RP.retained-compose h (composeTerm g f))
+        (RQ.retained-compose g′ f′) (RP.retained-compose g f)
+        (NC.normalize h (composeTerm g f) Lh Lgf outer)
+        ((NC.normalize g f Lg Lf gf) ⁻¹)
+
     route : NC.BasicSquare h g → NC.BasicSquare g f
       → NC.BasicSquare (composeTerm h g) f → NC.BasicSquare h (composeTerm g f)
       → (κright ∙ (s D ◁ RQ.associator-route h′ g′ f′)) =₂
@@ -284,9 +237,10 @@ module UnitRestriction {Q C D : CAT} (f : MAP Q (Map C D)) where
   right-image-β = specialized-image (map-isAn C D) _ _
     (evaluate-retained-right-unit universal) f right-boundary (comp-unitˡ f)
 
-  module N = NormalizedChange {C = C} {D = D} f
-  module RP = RetainedEvaluation (Map C D)
-  module RQ = RetainedEvaluation Q
+  private
+    module N = NormalizedChange {C = C} {D = D} f
+    module RP = RetainedEvaluation (Map C D)
+    module RQ = RetainedEvaluation Q
 
   LeftRouteSquare : Set m
   LeftRouteSquare =
@@ -346,9 +300,10 @@ module AssocRestriction {Q A B C D : CAT}
   image-β = specialized-image pAn _ _
     (evaluate-assoc universal-h universal-g universal-f) point left-boundary right-boundary
 
-  module N = NormalizedChange {C = A} {D = D} point
-  module RP = RetainedEvaluation P
-  module RQ = RetainedEvaluation Q
+  private
+    module N = NormalizedChange {C = A} {D = D} point
+    module RP = RetainedEvaluation P
+    module RQ = RetainedEvaluation Q
 
   RouteSquare : Set m
   RouteSquare =
@@ -359,10 +314,17 @@ module AssocRestriction {Q A B C D : CAT}
 
   from-route-square : (qAn : isAn Q) → RouteSquare
     → (internalAssoc h g f) =₂ (compose-assoc qAn h g f)
-  from-route-square qAn = N.reflect-route (mapComp-assoc A B C D) left-boundary right-boundary
+  from-route-square qAn = N.reflect-route
+    {f = composeTerm (composeTerm universal-h universal-g) universal-f}
+    {g = composeTerm universal-h (composeTerm universal-g universal-f)}
+    (mapComp-assoc A B C D)
+    {f′ = composeTerm (composeTerm h g) f}
+    {g′ = composeTerm h (composeTerm g f)}
+    left-boundary right-boundary
     qAn (RP.associator-route universal-h universal-g universal-f) (RQ.associator-route h g f)
-    (RetainedSquares.compose-assoc-retained-β P pAn universal-h universal-g universal-f)
-    (RetainedSquares.associator-route-base Q h g f)
+    (RetainedSquares.compose-assoc-retained-β P {A = A} {B = B} {C = C} {D = D}
+      pAn universal-h universal-g universal-f)
+    (RetainedSquares.associator-route-base Q {A = A} {B = B} {C = C} {D = D} h g f)
 
 universal-left-unit-from-image : {P C D : CAT} (pAn : isAn P) (f : MAP P (Map C D))
   → (mapUncurryIso (internalUnitˡ f)) =₂ (evaluate-retained-left-unit f)
@@ -436,7 +398,9 @@ module RetainedTests {P Q : CAT} (pAn : isAn P) (σ : MAP P Q) where
 The transferred statements below have precisely the boundaries of
 `Triangle.Statement` and `Pentagon.Statement` in `InternalCoherence`.
 Their comparison inputs are proof obligations, not replacements for those
-boundaries by different choices.
+boundaries by different choices. The triangle and pentagon transfer laws
+assemble their three and five specified edge comparisons. Their transparent
+pastings and higher computation statements record the resulting witnesses.
 
 ```agda
 universal-triangle-from-comparisons : {P A B C : CAT} (pAn : isAn P)
@@ -445,9 +409,16 @@ universal-triangle-from-comparisons : {P A B C : CAT} (pAn : isAn P)
   → (internalUnitˡ f) =₂ (compose-unitˡ pAn f)
   → (internalAssoc g (identityTerm B) f) =₂ (compose-assoc pAn g (identityTerm B) f)
   → Triangle.Statement g f
-universal-triangle-from-comparisons pAn g f right-unit left-unit assoc =
-  (isoComp-cong (composeTerm-Iso₂ (idIso (idIso g)) left-unit) assoc) ⁻¹ ∙
-    (compose-triangle pAn g f ∙ composeTerm-Iso₂ right-unit (idIso (idIso f)))
+universal-triangle-from-comparisons {B = B} pAn g f right-unit left-unit assoc =
+  ComparisonCancellation.TriangleTransport.transport 𝒯
+    (composeTerm-cong (internalUnitʳ g) (idIso f))
+    (composeTerm-cong (compose-unitʳ pAn g) (idIso f))
+    (internalAssoc g (identityTerm B) f) (compose-assoc pAn g (identityTerm B) f)
+    (composeTerm-cong (idIso g) (internalUnitˡ f))
+    (composeTerm-cong (idIso g) (compose-unitˡ pAn f))
+    (composeTerm-Iso₂ right-unit (idIso (idIso f))) assoc
+    (composeTerm-Iso₂ (idIso (idIso g)) left-unit)
+    (compose-triangle pAn g f)
 
 universal-pentagon-from-comparisons : {P A B C D E : CAT} (pAn : isAn P)
   (k : MAP P (Map D E)) (h : MAP P (Map C D))
@@ -459,8 +430,15 @@ universal-pentagon-from-comparisons : {P A B C D E : CAT} (pAn : isAn P)
   → (internalAssoc h g f) =₂ (compose-assoc pAn h g f)
   → Pentagon.Statement k h g f
 universal-pentagon-from-comparisons pAn k h g f a b c d e =
-  let long-comparison = isoComp-cong
-        (isoComp-cong (composeTerm-Iso₂ (idIso (idIso k)) e) d)
-        (composeTerm-Iso₂ c (idIso (idIso f)))
-  in long-comparison ⁻¹ ∙ (compose-pentagon pAn k h g f ∙ isoComp-cong b a)
+  ComparisonCancellation.PentagonTransport.transport 𝒯
+    (internalAssoc (composeTerm k h) g f) (compose-assoc pAn (composeTerm k h) g f)
+    (internalAssoc k h (composeTerm g f)) (compose-assoc pAn k h (composeTerm g f))
+    (composeTerm-cong (internalAssoc k h g) (idIso f))
+    (composeTerm-cong (compose-assoc pAn k h g) (idIso f))
+    (internalAssoc k (composeTerm h g) f) (compose-assoc pAn k (composeTerm h g) f)
+    (composeTerm-cong (idIso k) (internalAssoc h g f))
+    (composeTerm-cong (idIso k) (compose-assoc pAn h g f))
+    a b (composeTerm-Iso₂ c (idIso (idIso f))) d
+    (composeTerm-Iso₂ (idIso (idIso k)) e)
+    (compose-pentagon pAn k h g f)
 ```

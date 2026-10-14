@@ -1,0 +1,94 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+\section*{Relative currying and evaluation}
+
+The mapping-anima definition of a
+\href{exponentiable-functors.html}{dependent product} gives an equivalence.
+To use it in calculations with actual functors over a base, one must identify
+its value on the names of those functors. That is the subject of this note.
+We use the Chapter 1 structures and the comparison convention of
+\href{supplementary-triangles-over-a-base.html}{Triangles over a base}.
+
+Fix $p\colon S\to T$, $f\colon C\to S$ and a chosen dependent product
+$\Pi C\to T$, with evaluation
+$\varepsilon_C\colon p^*(\Pi C)\to C$ over $S$.
+For $t\colon E\to T$, denote the defining equivalence by
+\[
+ U_t\colon\Map_T(E,\Pi C)\iso\Map_S(p^*E,C).
+\]
+For a functor $u\colon E\to\Pi C$ over $T$, write
+$\operatorname{ev}(u)=\varepsilon_Cp^*u$, with its pasted triangle over $S$.
+Only the displayed dependent products are assumed to exist.
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Relative_Named_Evaluation}
+There is an identification
+\[
+ U_t(\ulcorner u\urcorner)=\ulcorner\operatorname{ev}(u)\urcorner
+\]
+in the relative mapping anima.
+\end{lemma}
+\begin{proof}[Proof idea]
+The actual functor $U_t$ is the composite of base change on relative
+mapping animae with postcomposition by $\varepsilon_C$.
+Base change on a named triangle names the pullback lift together with its
+second-projection triangle. Postcomposition on a named triangle names
+the pasted composite. Combine these two computations and the associator.
+The resulting equality is in the relative mapping anima, so the base
+triangle is retained throughout.
+\end{proof}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Relative_Transposition}
+Every functor $w\colon p^*E\to C$ over $S$ has a transpose
+$\lambda w\colon E\to\Pi C$ over $T$ with a comparison
+$\operatorname{ev}(\lambda w)\simeq_S w$.
+A comparison $\operatorname{ev}(u)\simeq_S\operatorname{ev}(v)$ induces
+a comparison $u\simeq_T v$.
+\end{lemma}
+\begin{proof}[Proof idea]
+Lift the name of $w$ through $U_t$, and decode the resulting point to a
+triangle. The naming roundtrip and
+\Cref{lem:Supplementary_Relative_Named_Evaluation} identify the name of its
+evaluation with the name of $w$. Convert that identification to a comparison
+of triangles.
+
+For reflection, name the given comparison, use
+\Cref{lem:Supplementary_Relative_Named_Evaluation} at both endpoints, and
+reflect through $U_t$. Decoding gives a comparison over $T$.
+This asserts the existence of that comparison; it does not prescribe its
+image as higher comparison data under a separately chosen evaluation action.
+The named evaluation computation used in both arguments is proved in
+\Cref{lem:Supplementary_Relative_Named_Evaluation}.
+\end{proof}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Dependent_Action_Laws}
+Given chosen dependent products for categories $C,D$ over $S$ and a
+functor $a\colon C\to D$ over $S$, put
+$\Pi a=\lambda(a\varepsilon_C)$. There is a comparison
+\[
+ \varepsilon_Dp^*(\Pi a)\simeq_S a\varepsilon_C.
+\]
+The induced functors satisfy
+$\Pi(\operatorname{id})\simeq_T\operatorname{id}$ and, whenever the three
+required dependent products are supplied,
+$(\Pi b)(\Pi a)\simeq_T\Pi(ba)$.
+\end{lemma}
+\begin{proof}[Proof idea]
+The evaluation comparison is the transposition computation of
+\Cref{lem:Supplementary_Relative_Transposition}. For the identity law,
+compare both evaluations with $\varepsilon_C$, using the base-change
+identity comparison and the unit laws over the base, and reflect.
+
+For composition, evaluation of a composite is compared with the evaluation
+of its second factor after base change of its first. This uses the
+\href{supplementary-base-change-of-triangles.html}{base-change composition
+comparison}, including its base triangle. Apply the two evaluation
+comparisons, reassociate over $S$, and obtain $(ba)\varepsilon_C$.
+Reflection now gives the composition comparison over $T$.
+These are the stated identity and composition comparisons, without an
+assertion of additional higher coherence.
+\end{proof}
+\end{document}

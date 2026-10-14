@@ -43,3 +43,11 @@ import SCT.VolumeI.Chapter02.Section01.TrianglesAndComposites
 import SCT.VolumeI.Chapter02.Section01.UniversalArrows
 import SCT.VolumeI.Chapter02.Section01.WalkingMorphism
 import SCT.VolumeI.Chapter02.Section01.WalkingTriangle
+
+import SCT.VolumeI.Chapter02.Section01.EvaluationCalculus.ConstantDiagramNaturality
+
+import SCT.VolumeI.Chapter02.Section01.EvaluationCalculus.ConstantConeComparison
+
+import SCT.VolumeI.Chapter02.Section01.EvaluationCalculus.ConstantConeFrames
+
+import SCT.VolumeI.Chapter02.Section01.EvaluationCalculus.ConstantConeNaturality

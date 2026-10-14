@@ -45,7 +45,7 @@ def build(frozen=False, reuse=False, incremental=False, manuscript_only=False):
             if stale.is_file() and stale.suffix in ('.html','.css'): stale.unlink()
         # In incremental mode Agda validates cached interface fingerprints and
         # rechecks changed modules and their affected dependants itself.
-        args=['agda','--no-libraries','--safe','--without-K']
+        args=['agda','--transliterate','--no-libraries','--safe','--without-K']
         if not incremental: args.append('--ignore-interfaces')
         args+=['-i','src','--html','--html-highlight=all','--html-dir='+str(BUILD/'agda'),'src/SCT/WebEdition.agda']
         output=run(args,SNAP/'agda')
@@ -68,6 +68,8 @@ def build(frozen=False, reuse=False, incremental=False, manuscript_only=False):
         publish_generated_pages(stage,SITE,ROOT)
 
 def convert(site=SITE):
+    from supplementary import convert_notes
+    convert_notes()
     # Actual LaTeX, Biber and TeX4ht determine numbering and citations.
     external=json.loads(read(BUILD/'external.json'))
     references={}

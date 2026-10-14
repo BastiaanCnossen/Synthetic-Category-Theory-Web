@@ -41,14 +41,14 @@ def focused_lines(source, loc, declaration):
     return sorted({number for number in selected
                    if not raw_lines[number - 1].lstrip().startswith('--!')})
 
-def module_lines(source,pre):
+def module_lines(source,pre,href_prefix='agda/'):
     """Split highlighted tokens without copying compiler IDs into the page."""
     region_ranges(source)  # Fail on malformed source markers before hiding them.
     rendered=['']
     for child in pre.children:
         raw=child if isinstance(child,str) else child.text()
         attrs={} if isinstance(child,str) else {k:v for k,v in child.attrs.items() if k not in ('id','name')}
-        if 'href' in attrs: attrs['href']='agda/'+attrs['href']
+        if 'href' in attrs: attrs['href']=href_prefix+attrs['href']
         attributes=''.join(f' {k}="{escape(v or "",quote=True)}"' for k,v in attrs.items())
         for i,part in enumerate(raw.split('\n')):
             if i: rendered.append('')
@@ -76,7 +76,7 @@ def compiler_anchors(pre,available):
         line+=(child if isinstance(child,str) else child.text()).count('\n')
     return anchors
 
-def build_reader_data(agda,manifest,site=SITE):
+def build_reader_data(agda,manifest,site=SITE,*,output_path=None,asset_name='agda-context.js',retained=None):
     data={'modules':{},'passages':{},'scope_note':manifest.get('scope_note','')}
     all_passages=manifest['passages']+manifest.get('reverse_only',[])
     for p in all_passages:
@@ -84,7 +84,7 @@ def build_reader_data(agda,manifest,site=SITE):
         for d in p['declarations']:
             name,source,pre,src=agda.module(d['module'])
             if name not in data['modules']:
-                data['modules'][name]={'lines':module_lines(source,pre),'source_sha256':digest(source)}
+                data['modules'][name]={'lines':module_lines(source,pre,agda.href_prefix),'source_sha256':digest(source)}
             loc=declaration_range(source,d['name'],d['qualified'])
             focus=focused_lines(source,loc,d)
             available={line['number'] for line in data['modules'][name]['lines']}
@@ -93,35 +93,41 @@ def build_reader_data(agda,manifest,site=SITE):
             body=list(range(source.count('\n',0,loc['start'])+1,source.count('\n',0,loc['end']-1)+2))
             declarations.append({'module':name,'name':d['name'],'qualified':d['qualified'],'range':body,
                 'role':d['role'],'focus':focus,'regions':d.get('regions',[]),
-                'href':'agda/'+name+'.html#'+str(loc['namepos']+1)})
+                'href':agda.href_prefix+name+'.html#'+str(loc['namepos']+1)})
         data['passages'][p['id']]={'title':p['title'],'note':p['note'],'page':p['page'],
             'reverse_only':p in manifest.get('reverse_only',[]),'declarations':declarations}
     # Include the entire checked dependency closure for in-panel definition jumps.
-    for file in (BUILD/'agda').glob('*.html'):
+    for file in agda.compiler_dir.glob('*.html'):
         pre=next(parse(read(file)).all('pre')); source=pre.text()
         if file.stem not in data['modules']:
-            data['modules'][file.stem]={'lines':module_lines(source,pre),'source_sha256':digest(source)}
+            data['modules'][file.stem]={'lines':module_lines(source,pre,agda.href_prefix),'source_sha256':digest(source)}
         payload=data['modules'][file.stem]
         payload['checked']=True
-        payload['href']='agda/'+file.name
+        payload['href']=agda.href_prefix+file.name
         payload['anchors']=compiler_anchors(pre,{line['number'] for line in payload['lines']})
+    # Index the small declared ranges once instead of scanning every passage
+    # for every line in the complete compiler bundle.
+    targets={}
+    for pid,p in data['passages'].items():
+        for d in p['declarations']:
+            focus=set(d['focus'])
+            for number in d['range']:
+                candidates=targets.setdefault((d['module'],number),{})
+                direct=number in focus
+                rank=(0 if p['reverse_only'] else 1 if direct else 2,
+                      len(d['focus']) if direct else len(d['range']))
+                if pid not in candidates or rank<candidates[pid]: candidates[pid]=rank
     for module,payload in data['modules'].items():
         for line in payload['lines']:
-            candidates={}
-            for pid,p in data['passages'].items():
-                for d in p['declarations']:
-                    if d['module']!=module or line['number'] not in d['range']: continue
-                    direct=line['number'] in d['focus']
-                    rank=(0 if p['reverse_only'] else 1 if direct else 2,
-                          len(d['focus']) if direct else len(d['range']))
-                    if pid not in candidates or rank<candidates[pid]: candidates[pid]=rank
+            candidates=targets.get((module,line['number']),{})
             line['targets']=[{'id':pid,'rank':list(rank)} for pid,rank in sorted(candidates.items(),key=lambda item:(item[1],item[0]))]
     from module_navigation import module_tree, module_label
     from checked_code import verify_checked_code
-    retained=verify_checked_code(json.loads(read(SNAP/'inputs.json')))=='updated manuscript with previously checked Agda snapshot'
+    if retained is None:
+        retained=verify_checked_code(json.loads(read(SNAP/'inputs.json')))=='updated manuscript with previously checked Agda snapshot'
     data['module_tree']=module_tree(data['modules'],retained=retained)
     for module,payload in data['modules'].items():
         payload['label']=module_label(module)
-    dump(BUILD/'agda-context.json',data)
-    write(site/'assets/agda-context.js','window.SCT_AGDA = '+json.dumps(data,ensure_ascii=False)+';\n')
+    dump(output_path or BUILD/'agda-context.json',data)
+    write(site/'assets'/asset_name,'window.SCT_AGDA = '+json.dumps(data,ensure_ascii=False)+';\n')
     return data

@@ -27,6 +27,7 @@ module SCT.VolumeI.Chapter03.Section03.LocalizationFunctoriality
   (R : Rezk.RezkAxiom 𝒯 M ℱ P I E) where
 
 open import SCT.VolumeI.Chapter01.Section05.Setup 𝒯 M
+  using (CAT; MAP; _∘_; _=₁_; _⁻¹; _∙_)
 open import SCT.VolumeI.Chapter03.Section01.MorphismCollections 𝒯 M P I
   using (MorphismCollection; PreservesMorphisms; composition-preserves)
 open import SCT.VolumeI.Chapter03.Section01.SubcategoryAxiom 𝒯 M ℱ P I E S using (SubcategoryAxiom)

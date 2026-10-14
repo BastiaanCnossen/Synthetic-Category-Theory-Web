@@ -13,6 +13,7 @@ All chosen comparisons are retained in the resulting identification.
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.Substitution.ProofCalculus as Setup
+import SCT.Calculus.Squares as Squares
 import SCT.VolumeI.Chapter01.Section04.CompositionCalculus.CompositionInputBaseCalculus as Base
 import SCT.VolumeI.Chapter01.Section04.SquareCalculus.RetainedParameterChangeProjections as ProjectionCancellation
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
@@ -92,26 +93,9 @@ opaque
     → (WQ ∙ (C ∙ η)) =₂ (inverseApplication ∙ application-route)
     → (application ∙ inverseApplication) =₂ (idIso z)
     → (T ∙ (R ∙ (A ∙ (G ∙ (C ∙ η))))) =₂ application-route
-  final-pasting T R A G C η n W WQ changed corner application inverseApplication application-route
-    normal inputChange cancelCorner cancelEvaluation cancelApplication =
-    let tail = C ∙ η
-        finish = isoComp-unitˡ-at application-route ∙
-          (isoComp-cong cancelApplication (idIso application-route) ∙
-          ((isoComp-assoc-at application inverseApplication application-route) ⁻¹ ∙
-            isoComp-cong (idIso application) cancelEvaluation))
-        normalizeTail = isoComp-cong cancelCorner (idIso (WQ ∙ tail)) ∙
-          ((isoComp-assoc-at changed corner (WQ ∙ tail)) ⁻¹ ∙
-          (isoComp-cong (idIso changed) (isoComp-assoc-at corner WQ tail) ∙
-            isoComp-cong (idIso changed) (isoComp-cong (inputChange ⁻¹) (idIso tail))))
-        regroupInner = (isoComp-assoc-at W (n ∙ (A ∙ G)) tail) ⁻¹ ∙
-          (isoComp-cong (idIso W) ((isoComp-assoc-at n (A ∙ G) tail) ⁻¹) ∙
-            isoComp-cong (idIso W) (isoComp-cong (idIso n) ((isoComp-assoc-at A G tail) ⁻¹)))
-        regroup = isoComp-cong (idIso changed) regroupInner ∙
-          (isoComp-assoc-at changed W (n ∙ (A ∙ (G ∙ tail))) ∙
-            isoComp-assoc-at (changed ∙ W) n (A ∙ (G ∙ tail)))
-        normalizeStart = isoComp-cong normal (idIso (A ∙ (G ∙ tail))) ∙
-          (isoComp-assoc-at T R (A ∙ (G ∙ tail))) ⁻¹
-    in finish ∙ (normalizeTail ∙ (regroup ∙ normalizeStart))
+  final-pasting {X} {Y} =
+    Squares.comparison-route-pasting (comparisonAlgebra X Y) (comparisonLaws X Y)
+
 module InputNormalization {P Q C D E : CAT}
   (g : MAP P (Map D E)) (f : MAP P (Map C D)) (σ : MAP Q P) where
 
@@ -143,16 +127,11 @@ module InputNormalization {P Q C D E : CAT}
               (inner-application ∙ inner-change ⁻¹) inner-change) ⁻¹
           natural : (W ∙ input) =₂ (action ∙ W′)
           natural = mapUncurry-at-inner g (idIso (σ ∘ pr₁)) inner-change
-      in (isoComp-assoc-at changed-action W′ tail) ⁻¹ ∙
-        (isoComp-cong cancelAction (idIso (W′ ∙ tail)) ∙
-        ((isoComp-assoc-at common-action action (W′ ∙ tail)) ⁻¹ ∙
-        (isoComp-cong (idIso common-action) (isoComp-assoc-at action W′ tail) ∙
-        (isoComp-cong (idIso common-action) (isoComp-cong natural (idIso tail)) ∙
-        (isoComp-cong (idIso common-action) ((isoComp-assoc-at W input tail) ⁻¹) ∙
-        (isoComp-assoc-at common-action W (input ∙ tail) ∙
-          isoComp-cong (idIso common-normalization)
-            (postWhisker-isoComp-at (mapUncurry g) pairChange input-pair ∙
-              (postWhisker (mapUncurry g) ◁ input-factor))))))))
+      in Squares.factored-square (comparisonAlgebra (Q × C) E) (comparisonLaws (Q × C) E)
+        common-action W W′ input action changed-action tail (mapUncurry g ◁ input-route f)
+        cancelAction natural
+        (postWhisker-isoComp-at (mapUncurry g) pairChange input-pair ∙
+          (postWhisker (mapUncurry g) ◁ input-factor))
 
   opaque
     remove-output-route :

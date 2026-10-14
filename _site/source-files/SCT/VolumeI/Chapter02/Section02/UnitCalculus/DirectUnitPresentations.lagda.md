@@ -10,7 +10,7 @@ with the separately defined global composition and its prescribed
 endpoint comparisons is a further step.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
@@ -35,48 +35,73 @@ open import SCT.VolumeI.Chapter02.Section02.MorphismCalculus.TriangleVertices �
   using (module Vertices; CompositePresentation; compose-expression)
 
 module Universal (C : CAT) where
-  module U = Direct.Universal 𝒯 M ℱ P I E C
-  module End = EndpointsProof.Universal 𝒯 M ℱ P I E C
+  private
+    module U = Direct.Universal 𝒯 M ℱ P I E C
+      using (arrow; module Left; module Right)
+    module End = EndpointsProof.Universal 𝒯 M ℱ P I E C
+      using (module Degeneracy)
 
   module Left where
-    module D = End.Degeneracy s₀
-    module F₀ = D.ConstantEdge d₂ zero s₀-d₂ zero
-    module F₁ = D.ConstantEdge d₂ zero s₀-d₂ one
-    module G₀ = D.IdentityEdge d₀ s₀-d₀ zero
-    module G₁ = D.IdentityEdge d₀ s₀-d₀ one
-    module H₀ = D.IdentityEdge d₁ s₀-d₁ zero
-    module H₁ = D.IdentityEdge d₁ s₀-d₁ one
+    private
+      module D = End.Degeneracy s₀
+        using (module ConstantEdge; module IdentityEdge)
+      module F₀ = D.ConstantEdge d₂ zero s₀-d₂ zero
+        using (endpoint; module Route)
+      module F₁ = D.ConstantEdge d₂ zero s₀-d₂ one
+        using (endpoint; module Route)
+      module G₀ = D.IdentityEdge d₀ s₀-d₀ zero
+        using (endpoint; module Route)
+      module G₁ = D.IdentityEdge d₀ s₀-d₀ one
+        using (endpoint; module Route)
+      module H₀ = D.IdentityEdge d₁ s₀-d₁ zero
+        using (endpoint; module Route)
+      module H₁ = D.IdentityEdge d₁ s₀-d₁ one
+        using (endpoint; module Route)
     first = identity-expression (ev₀ {C})
     second = U.arrow
-    module F = MorphismExpression first
-    module G = MorphismExpression second
-    module H = MorphismExpression U.arrow
-    module V = Vertices first second U.arrow U.Left.Triangle.triangle
-      U.Left.First.comparison U.Left.Second.comparison U.Left.Long.comparison
+    private
+      module F = MorphismExpression first
+        using (source-frame; target-frame)
+      module G = MorphismExpression second
+        using (source-frame; target-frame)
+      module H = MorphismExpression U.arrow
+        using (source-frame; target-frame)
+      module V = Vertices first second U.arrow U.Left.Triangle.triangle
+        U.Left.First.comparison U.Left.Second.comparison U.Left.Long.comparison
+        using (MiddleVertex; SourceVertex; TargetVertex; presentation; composite-comparison)
 
-    module MiddleShape = Shapes.At 𝒯 (comp-assoc one d₂ s₀) (comp-assoc zero d₀ s₀)
-      (s₀-d₂ ▷ one) (s₀-d₀ ▷ zero) (constant-boundary one zero) (comp-unitˡ zero)
-      (s₀ ◁ (face-middle ⁻¹)) (CoconeIso.compatible left-degeneracy)
-    module SourceShape = Shapes.At 𝒯 (comp-assoc zero d₁ s₀) (comp-assoc zero d₂ s₀)
-      (s₀-d₁ ▷ zero) (s₀-d₂ ▷ zero) (comp-unitˡ zero) (constant-boundary zero zero)
-      (s₀ ◁ face-bottom) (CoconeIso.compatible left-source)
-    module TargetShape = Shapes.At 𝒯 (comp-assoc one d₀ s₀) (comp-assoc one d₁ s₀)
-      (s₀-d₀ ▷ one) (s₀-d₁ ▷ one) (comp-unitˡ one) (comp-unitˡ one)
-      (s₀ ◁ face-top) (CoconeIso.compatible left-target)
+      module MiddleShape = Shapes.At 𝒯 (comp-assoc one d₂ s₀) (comp-assoc zero d₀ s₀)
+        (s₀-d₂ ▷ one) (s₀-d₀ ▷ zero) (constant-boundary one zero) (comp-unitˡ zero)
+        (s₀ ◁ (face-middle ⁻¹)) (CoconeIso.compatible left-degeneracy)
+        using (comparison)
+      module SourceShape = Shapes.At 𝒯 (comp-assoc zero d₁ s₀) (comp-assoc zero d₂ s₀)
+        (s₀-d₁ ▷ zero) (s₀-d₂ ▷ zero) (comp-unitˡ zero) (constant-boundary zero zero)
+        (s₀ ◁ face-bottom) (CoconeIso.compatible left-source)
+        using (comparison)
+      module TargetShape = Shapes.At 𝒯 (comp-assoc one d₀ s₀) (comp-assoc one d₁ s₀)
+        (s₀-d₀ ▷ one) (s₀-d₁ ▷ one) (comp-unitˡ one) (comp-unitˡ one)
+        (s₀ ◁ face-top) (CoconeIso.compatible left-target)
+        using (comparison)
 
-    module Middle = Corners.At 𝒯 M ℱ P {C = C} one zero d₂ d₀ s₀ (face-middle ⁻¹)
-    module Source = Corners.At 𝒯 M ℱ P {C = C} zero zero d₁ d₂ s₀ face-bottom
-    module Target = Corners.At 𝒯 M ℱ P {C = C} one one d₁ d₀ s₀ (face-top ⁻¹)
-    module MiddleVertex = Middle.Framed F₁.Route.endpoint G₀.Route.endpoint MiddleShape.comparison
-      F.target-frame G.source-frame (ev₁ ◁ U.Left.First.comparison) (ev₀ ◁ U.Left.Second.comparison)
-      F₁.endpoint G₀.endpoint
-    module SourceVertex = Source.Framed H₀.Route.endpoint F₀.Route.endpoint SourceShape.comparison
-      H.source-frame F.source-frame (ev₀ ◁ U.Left.Long.comparison) (ev₀ ◁ U.Left.First.comparison)
-      H₀.endpoint F₀.endpoint
-    module TargetVertex = Target.Framed H₁.Route.endpoint G₁.Route.endpoint
-      (Shapes.reverse-shape 𝒯 s₀ face-top G₁.Route.endpoint H₁.Route.endpoint TargetShape.comparison)
-      H.target-frame G.target-frame (ev₁ ◁ U.Left.Long.comparison) (ev₁ ◁ U.Left.Second.comparison)
-      H₁.endpoint G₁.endpoint
+      module Middle = Corners.At 𝒯 M ℱ P {C = C} one zero d₂ d₀ s₀ (face-middle ⁻¹)
+        using (module Framed)
+      module Source = Corners.At 𝒯 M ℱ P {C = C} zero zero d₁ d₂ s₀ face-bottom
+        using (module Framed)
+      module Target = Corners.At 𝒯 M ℱ P {C = C} one one d₁ d₀ s₀ (face-top ⁻¹)
+        using (module Framed)
+      module MiddleVertex = Middle.Framed F₁.Route.endpoint G₀.Route.endpoint MiddleShape.comparison
+        F.target-frame G.source-frame (ev₁ ◁ U.Left.First.comparison) (ev₀ ◁ U.Left.Second.comparison)
+        F₁.endpoint G₀.endpoint
+        using (vertex-equation)
+      module SourceVertex = Source.Framed H₀.Route.endpoint F₀.Route.endpoint SourceShape.comparison
+        H.source-frame F.source-frame (ev₀ ◁ U.Left.Long.comparison) (ev₀ ◁ U.Left.First.comparison)
+        H₀.endpoint F₀.endpoint
+        using (vertex-equation)
+      module TargetVertex = Target.Framed H₁.Route.endpoint G₁.Route.endpoint
+        (Shapes.reverse-shape 𝒯 s₀ face-top G₁.Route.endpoint H₁.Route.endpoint TargetShape.comparison)
+        H.target-frame G.target-frame (ev₁ ◁ U.Left.Long.comparison) (ev₁ ◁ U.Left.Second.comparison)
+        H₁.endpoint G₁.endpoint
+        using (vertex-equation)
 
     middle-vertex : V.MiddleVertex
     middle-vertex = MiddleVertex.vertex-equation
@@ -93,44 +118,66 @@ module Universal (C : CAT) where
     comparison : ExpressionIso (compose-expression (identity-expression ev₀) U.arrow) U.arrow
     comparison = V.composite-comparison middle-vertex source-vertex target-vertex
   module Right where
-    module D = End.Degeneracy s₁
-    module F₀ = D.IdentityEdge d₂ s₁-d₂ zero
-    module F₁ = D.IdentityEdge d₂ s₁-d₂ one
-    module G₀ = D.ConstantEdge d₀ one s₁-d₀ zero
-    module G₁ = D.ConstantEdge d₀ one s₁-d₀ one
-    module H₀ = D.IdentityEdge d₁ s₁-d₁ zero
-    module H₁ = D.IdentityEdge d₁ s₁-d₁ one
+    private
+      module D = End.Degeneracy s₁
+        using (module ConstantEdge; module IdentityEdge)
+      module F₀ = D.IdentityEdge d₂ s₁-d₂ zero
+        using (endpoint; module Route)
+      module F₁ = D.IdentityEdge d₂ s₁-d₂ one
+        using (endpoint; module Route)
+      module G₀ = D.ConstantEdge d₀ one s₁-d₀ zero
+        using (endpoint; module Route)
+      module G₁ = D.ConstantEdge d₀ one s₁-d₀ one
+        using (endpoint; module Route)
+      module H₀ = D.IdentityEdge d₁ s₁-d₁ zero
+        using (endpoint; module Route)
+      module H₁ = D.IdentityEdge d₁ s₁-d₁ one
+        using (endpoint; module Route)
     first = U.arrow
     second = identity-expression (ev₁ {C})
-    module F = MorphismExpression first
-    module G = MorphismExpression second
-    module H = MorphismExpression U.arrow
-    module V = Vertices first second U.arrow U.Right.Triangle.triangle
-      U.Right.First.comparison U.Right.Second.comparison U.Right.Long.comparison
+    private
+      module F = MorphismExpression first
+        using (source-frame; target-frame)
+      module G = MorphismExpression second
+        using (source-frame; target-frame)
+      module H = MorphismExpression U.arrow
+        using (source-frame; target-frame)
+      module V = Vertices first second U.arrow U.Right.Triangle.triangle
+        U.Right.First.comparison U.Right.Second.comparison U.Right.Long.comparison
+        using (MiddleVertex; SourceVertex; TargetVertex; presentation; composite-comparison)
 
-    module MiddleShape = Shapes.At 𝒯 (comp-assoc one d₂ s₁) (comp-assoc zero d₀ s₁)
-      (s₁-d₂ ▷ one) (s₁-d₀ ▷ zero) (comp-unitˡ one) (constant-boundary zero one)
-      (s₁ ◁ (face-middle ⁻¹)) (CoconeIso.compatible right-degeneracy)
-    module SourceShape = Shapes.At 𝒯 (comp-assoc zero d₁ s₁) (comp-assoc zero d₂ s₁)
-      (s₁-d₁ ▷ zero) (s₁-d₂ ▷ zero) (comp-unitˡ zero) (comp-unitˡ zero)
-      (s₁ ◁ face-bottom) (CoconeIso.compatible right-source)
-    module TargetShape = Shapes.At 𝒯 (comp-assoc one d₀ s₁) (comp-assoc one d₁ s₁)
-      (s₁-d₀ ▷ one) (s₁-d₁ ▷ one) (constant-boundary one one) (comp-unitˡ one)
-      (s₁ ◁ face-top) (CoconeIso.compatible right-target)
+      module MiddleShape = Shapes.At 𝒯 (comp-assoc one d₂ s₁) (comp-assoc zero d₀ s₁)
+        (s₁-d₂ ▷ one) (s₁-d₀ ▷ zero) (comp-unitˡ one) (constant-boundary zero one)
+        (s₁ ◁ (face-middle ⁻¹)) (CoconeIso.compatible right-degeneracy)
+        using (comparison)
+      module SourceShape = Shapes.At 𝒯 (comp-assoc zero d₁ s₁) (comp-assoc zero d₂ s₁)
+        (s₁-d₁ ▷ zero) (s₁-d₂ ▷ zero) (comp-unitˡ zero) (comp-unitˡ zero)
+        (s₁ ◁ face-bottom) (CoconeIso.compatible right-source)
+        using (comparison)
+      module TargetShape = Shapes.At 𝒯 (comp-assoc one d₀ s₁) (comp-assoc one d₁ s₁)
+        (s₁-d₀ ▷ one) (s₁-d₁ ▷ one) (constant-boundary one one) (comp-unitˡ one)
+        (s₁ ◁ face-top) (CoconeIso.compatible right-target)
+        using (comparison)
 
-    module Middle = Corners.At 𝒯 M ℱ P {C = C} one zero d₂ d₀ s₁ (face-middle ⁻¹)
-    module Source = Corners.At 𝒯 M ℱ P {C = C} zero zero d₁ d₂ s₁ face-bottom
-    module Target = Corners.At 𝒯 M ℱ P {C = C} one one d₁ d₀ s₁ (face-top ⁻¹)
-    module MiddleVertex = Middle.Framed F₁.Route.endpoint G₀.Route.endpoint MiddleShape.comparison
-      F.target-frame G.source-frame (ev₁ ◁ U.Right.First.comparison) (ev₀ ◁ U.Right.Second.comparison)
-      F₁.endpoint G₀.endpoint
-    module SourceVertex = Source.Framed H₀.Route.endpoint F₀.Route.endpoint SourceShape.comparison
-      H.source-frame F.source-frame (ev₀ ◁ U.Right.Long.comparison) (ev₀ ◁ U.Right.First.comparison)
-      H₀.endpoint F₀.endpoint
-    module TargetVertex = Target.Framed H₁.Route.endpoint G₁.Route.endpoint
-      (Shapes.reverse-shape 𝒯 s₁ face-top G₁.Route.endpoint H₁.Route.endpoint TargetShape.comparison)
-      H.target-frame G.target-frame (ev₁ ◁ U.Right.Long.comparison) (ev₁ ◁ U.Right.Second.comparison)
-      H₁.endpoint G₁.endpoint
+      module Middle = Corners.At 𝒯 M ℱ P {C = C} one zero d₂ d₀ s₁ (face-middle ⁻¹)
+        using (module Framed)
+      module Source = Corners.At 𝒯 M ℱ P {C = C} zero zero d₁ d₂ s₁ face-bottom
+        using (module Framed)
+      module Target = Corners.At 𝒯 M ℱ P {C = C} one one d₁ d₀ s₁ (face-top ⁻¹)
+        using (module Framed)
+      module MiddleVertex = Middle.Framed F₁.Route.endpoint G₀.Route.endpoint MiddleShape.comparison
+        F.target-frame G.source-frame (ev₁ ◁ U.Right.First.comparison) (ev₀ ◁ U.Right.Second.comparison)
+        F₁.endpoint G₀.endpoint
+        using (vertex-equation)
+      module SourceVertex = Source.Framed H₀.Route.endpoint F₀.Route.endpoint SourceShape.comparison
+        H.source-frame F.source-frame (ev₀ ◁ U.Right.Long.comparison) (ev₀ ◁ U.Right.First.comparison)
+        H₀.endpoint F₀.endpoint
+        using (vertex-equation)
+      module TargetVertex = Target.Framed H₁.Route.endpoint G₁.Route.endpoint
+        (Shapes.reverse-shape 𝒯 s₁ face-top G₁.Route.endpoint H₁.Route.endpoint TargetShape.comparison)
+        H.target-frame G.target-frame (ev₁ ◁ U.Right.Long.comparison) (ev₁ ◁ U.Right.Second.comparison)
+        H₁.endpoint G₁.endpoint
+        using (vertex-equation)
 
     middle-vertex : V.MiddleVertex
     middle-vertex = MiddleVertex.vertex-equation

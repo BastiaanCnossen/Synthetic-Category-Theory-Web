@@ -59,6 +59,10 @@ module Action {C D E C′ D′ E′ : CAT}
         (isoComp-assoc-at Rassoc (b ∙ A ⁻¹) rest ∙ isoComp-cong inverse-right (idIso rest))
       comparison : ConeIso (normalized s) (mapCone s)
       comparison = cone-match-change _ _ _ _ matching
+      comparison-left : ConeIso.leftIso comparison =₂ idIso (u ∘ Cone.left s)
+      comparison-left = idIso _
+      comparison-right : ConeIso.rightIso comparison =₂ idIso (v ∘ Cone.right s)
+      comparison-right = idIso _
 
   module Identification {X : CAT} {s t : Cone f g X} (Φ : ConeIso s t) where
     δ = ConeIso.leftIso Φ

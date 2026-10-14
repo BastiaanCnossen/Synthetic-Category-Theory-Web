@@ -1,0 +1,116 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+\section*{Endpoint coordinates for slice categories}
+
+The proof describing \href{slice-categories.html}{functors into a slice}
+changes from a defining endpoint pullback to a cylinder description.
+Here are the coordinate calculations used in that change.
+Assume the Chapter 1 structures, including functor categories and pullbacks,
+and the walking morphism. All constructions in this note are absolute.
+
+Write
+$\chi_{X,Y,C}\colon\Fun(X,\Fun(Y,C))\iso\Fun(X\times Y,C)$
+for the exponential comparison, and $u^*$ for precomposition by $u$.
+For $\psi\colon Y\to C$, use the direct absolute slice: the pullback of
+endpoint evaluation
+\[
+ \Fun([1]\times Y,C)\longrightarrow\Fun(Y,C)\times\Fun(Y,C)
+\]
+along $C\to\Fun(Y,C)^2$, $c\mapsto(\operatorname{const}_c,\psi)$.
+This is the absolute slice implementation linked below. Its comparison
+with the separately chosen relative slice over $\star$ is not exported
+by these declarations.
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Slice_Exponential_Restriction}
+For $u\colon Y\to Z$ there is an identification of functors
+\[
+ \chi_{X,Y,C}\,\Fun(X,u^*)
+ = (\operatorname{id}_X\times u)^*\,\chi_{X,Z,C}.
+\]
+\end{lemma}
+\begin{proof}[Proof idea]
+Uncurry both sides. Each becomes double evaluation after a change of
+product coordinates. Compare the two reassociation routes by their three
+projections: the first two coordinates are unchanged and the last is
+postcomposed with $u$. The exponential reflection rule gives the claimed
+identification. In particular this applies to either endpoint insertion
+$Y\to[1]\times Y$.
+\end{proof}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Slice_Constants}
+Under $\chi_{X,Y,C}$, postcomposition by the constant-family functor
+$C\to\Fun(Y,C)$ becomes
+$\operatorname{pr}_X^*\colon\Fun(X,C)\to\Fun(X\times Y,C)$.
+Postcomposition by the constant functor $C\to\Fun(Y,C)$ with value
+$\psi$ becomes the constant functor with value $\psi\operatorname{pr}_Y$.
+These are identifications of functors on $\Fun(X,C)$.
+\end{lemma}
+\begin{proof}[Proof idea]
+Double evaluation of the first construction forgets the $Y$ coordinate
+and evaluates the variable functor at $X$. Double evaluation of the second
+forgets the variable functor and the $X$ coordinate and evaluates $\psi$
+at $Y$. The product-projection and constant-family computation laws
+identify these maps with the uncurrying of the two asserted functors.
+Reflect through the exponential equivalence.
+\end{proof}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Slice_Cylinder_Endpoints}
+The equivalence
+\[
+ r\colon X\times([1]\times Y)\iso(X\times Y)\times[1]
+\]
+given by symmetry and reassociation preserves endpoint insertion:
+\[
+ r\bigl(\operatorname{id}_X\times(e,\operatorname{id}_Y)\bigr)
+ = (\operatorname{id}_{X\times Y},e).
+\]
+There is also a comparison for the chosen inverse of $r$ with the
+insertion on the left.
+\end{lemma}
+\begin{proof}[Proof idea]
+Compute the $X,Y,[1]$ projections. The first two are the projections of
+$X\times Y$; the third is the constant endpoint $e$.
+Pair their comparisons to obtain the displayed identification.
+For the inverse comparison, compose with $r$, use its retraction
+comparison, and reflect through the equivalence $r$.
+\end{proof}
+
+\begin{corollary}
+\label[corollary]{cor:Supplementary_Tested_Slice}
+Put $A=\Fun(X,C)$, $Z=\Fun(X\times Y,C)$ and
+$W=\Fun((X\times Y)\times[1],C)$.
+There is a pullback square with corners
+\[
+ \begin{matrix}
+ \Fun(X,C_{/\psi})&\longrightarrow&W\\
+ \big\downarrow&&\big\downarrow\\
+ A&\longrightarrow&Z\times Z,
+ \end{matrix}
+\]
+where the right map is endpoint restriction, the lower map sends $f$ to
+$(f\operatorname{pr}_X,\psi\operatorname{pr}_Y)$, and the left map is
+postcomposition with the slice projection. Its commutativity
+identification is the one transported from the defining slice square
+by the preceding comparisons.
+\end{corollary}
+\begin{proof}[Proof idea]
+Apply $\Fun(X,-)$ to the defining slice pullback. It remains a pullback.
+Use the exponential and product comparisons on its corners.
+\Cref{lem:Supplementary_Slice_Exponential_Restriction,lem:Supplementary_Slice_Cylinder_Endpoints}
+identify the upper cospan map with endpoint restriction;
+\Cref{lem:Supplementary_Slice_Constants} identifies the lower one with
+the displayed pair. These computations give a comparison of cospans,
+including its specified squares. Transport the cone through that comparison.
+Pullback invariance supplies the assertion with the transported matching.
+
+The lower map factors through
+$\Fun(X,C)\times\Fun(Y,C)$ by $f\mapsto(f,\psi)$.
+With the mapping-out join axiom, nesting the two pullbacks and using
+the mapping-out description of the join gives the square in the book. The coordinate calculation above is
+what makes that nesting apply to the specified slice diagram.
+\end{proof}
+\end{document}

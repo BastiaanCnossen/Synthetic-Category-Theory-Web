@@ -1,0 +1,81 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+\section*{Lifting prescribed identifications through localization}
+
+When using the universal property of a
+\href{localizations.html}{localization}, it can matter which identification
+is obtained after restriction. Merely identifying the two extended functors
+does not compute the image of that identification. This note records the
+stronger calculation used in the formalization.
+Assume the Chapter 1 mapping-anima and pullback structures.
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Restriction_Image}
+Let $r\colon B\to C$ and suppose
+$r^*\colon\Map(C,D)\to\Map(B,D)$ is an embedding.
+For functors $f,g\colon C\to D$ and a specified identification
+$\alpha\colon fr=gr$, there is an identification $\widetilde\alpha\colon f=g$
+with a specified higher identification
+\[
+ \widetilde\alpha|_r=\alpha.
+\]
+\end{lemma}
+\begin{proof}[Proof idea]
+Name $f$ and $g$ in $\Map(C,D)$. Move $\alpha$ across the comparisons
+between restriction of their names and names of their restrictions.
+The embedding $r^*$ induces an equivalence of identification animae,
+so the resulting identification lifts with its prescribed image.
+Decode the lift and transport its endpoints back to $f,g$.
+
+The computation law for this decoding, together with its compatibility
+with restriction, proves the displayed image formula. The final endpoint
+transports are essential: the lifted identification initially has the
+decoded named functors as its endpoints. See also
+\href{supplementary-decoding-and-restriction.html}{Decoding mapping animae
+and restriction}.
+\end{proof}
+
+\begin{corollary}
+\label[corollary]{cor:Supplementary_Localization_Image}
+Let $l\colon C\to L$ be a localization at a collection $W$, in the
+setting of the book's localization definition. For every target $D$,
+restriction $\Map(L,D)\to\Map(C,D)$ is an embedding.
+Consequently every specified identification between the restrictions of
+two functors $L\to D$ lifts as in
+\Cref{lem:Supplementary_Restriction_Image}.
+\end{corollary}
+\begin{proof}[Proof idea]
+Restriction factors through the equivalence
+$\Map(L,D)\iso\Map^W(C,D)$ and the inclusion of this subanima in
+$\Map(C,D)$. A composite of an equivalence and an embedding is an
+embedding. The ordinary restriction map need not be an equivalence:
+its image consists of functors inverting $W$.
+\end{proof}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Restriction_Higher_Reflection}
+If $r^*\colon\Map(C,D)\to\Map(B,D)$ is an equivalence, then for
+$\alpha,\beta\colon f=g$, an identification
+$\alpha|_r=\beta|_r$ induces an identification $\alpha=\beta$.
+\end{lemma}
+\begin{proof}[Proof idea]
+Encode $\alpha$ and $\beta$ as identifications between the names of
+$f$ and $g$. Naturality of decoding turns the hypothesis into an
+identification of their restricted encodings. Reflect through the
+induced equivalence of identification animae, decode, and cancel the
+endpoint comparisons. The equivalence hypothesis is the one used by
+this higher-reflection declaration.
+\end{proof}
+
+These two levels of calculation occur in
+\href{geometric-realizations.html}{preservation of pushouts by geometric
+realization}. When reconstructing a cocone through restriction equivalences,
+first lift the legs and then lift the specified matching with
+\Cref{lem:Supplementary_Restriction_Image}. For a comparison of cocones,
+lift both leg comparisons with prescribed images. Its matching equation
+can then be checked after restriction and reflected by
+\Cref{lem:Supplementary_Restriction_Higher_Reflection}. Thus the comparison
+retains the whole cocone. The same distinction is useful when reading the
+\href{chapter-3-exercises.html}{uniqueness exercise for localizations}.
+\end{document}

@@ -1,0 +1,98 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+\section*{Reordering inverse conditions}
+
+In the \href{rezk-axiom.html}{construction of inverse data}, a triangle
+has one short edge prescribed and its long edge identified with an identity.
+One can impose these constraints in either order. The comparison must
+preserve the projection to the original family of arrows.
+
+The first two lemmas use only the absolute pullback structure of Chapter 1.
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Two_Stage_Fibers}
+Let $f\colon B\to A$, $g\colon T\to A$, $h\colon T\to E$,
+and $s\colon D\to E$. Put $R=B\times_A T$, with projections $p,q$,
+and $J=T\times_E D$, with projection $j\colon J\to T$.
+There is a specified equivalence
+\[
+ \Phi\colon R\times_E D\longrightarrow J\times_A B,
+ \qquad \pi_B\Phi=p\pi_R,
+\]
+where the two fiber products use $(hq,s)$ and $(gj,f)$ respectively.
+In particular, if $p\pi_R$ is an equivalence, so is $\pi_B$.
+\end{lemma}
+\begin{proof}[Proof idea]
+Nested pullback comparison first gives
+$R\times_E D\simeq R\times_T J$. Exchange the two legs to obtain
+$J\times_T R$, then flatten using the defining pullback of $R$, with
+its legs exchanged, to obtain $J\times_A B$.
+All three comparison functors are equivalences by pullback pasting.
+
+Trace the projection to $B$ through the three stages. Their specified
+projection comparisons give $\pi_B\Phi=p\pi_R$.
+The two-out-of-three property then gives the last assertion. This step
+uses the projection comparison in addition to equivalence of the categories.
+\end{proof}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Section_Fiber}
+Let $e\colon E\to C$ and $c\colon C\to E$ be equipped with an
+identification $ec=\mathrm{id}_C$. Let $T$ be a pullback of $e$ along
+$b\colon B\to C$, with projections $h\colon T\to E$ and
+$t\colon T\to B$. Then
+\[
+ t\pi_T\colon T\times_E C\longrightarrow B
+\]
+ is an equivalence, where the pullback uses $h$ and $c$.
+\end{lemma}
+\begin{proof}[Proof idea]
+Paste the defining pullback of $T\times_E C$ with the given pullback
+square for $T$. The outer rectangle is a pullback of $ec$ along $b$.
+Since $ec$ is identified with the identity, its pullback projection is
+an equivalence. Pullback symmetry supplies the orientation used in the
+nested construction.
+\end{proof}
+
+\section*{Application to inverse triangles}
+
+Write $\operatorname{Triang}(C)$ for the triangle category,
+$\operatorname{Ar}(C)$ for the arrow category, and $d_C\colon C\to
+\operatorname{Ar}(C)$ for the identity-arrow functor. Put
+\[
+ J(C)=\operatorname{Triang}(C)\times_{\operatorname{Ar}(C)} C,
+\]
+using long-edge restriction and $d_C$. Its two short-edge maps to
+$\operatorname{Ar}(C)$ describe the given arrow in one-sided inverse data.
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Inverse_Constraint_Projection}
+Assume the Segal and commutative-square axioms and their interval endpoint
+data. Let $f\colon B\to\operatorname{Ar}(C)$ be a family. Its canonical
+morphism expression has endpoints $e_0f,e_1f$ and identity frames, where
+$e_0,e_1$ are endpoint evaluations. Suppose this expression is equipped
+with invertibility data. For either
+short-edge map $J(C)\to\operatorname{Ar}(C)$, the projection
+\[
+ J(C)\times_{\operatorname{Ar}(C)}B\longrightarrow B
+\]
+ is an equivalence.
+\end{lemma}
+\begin{proof}[Proof idea]
+Fix the relevant short edge first. Composition by that invertible arrow
+is an equivalence, so the corresponding long-edge square is a pullback.
+Apply \Cref{lem:Supplementary_Section_Fiber} using the identity-arrow
+section of the relevant endpoint evaluation functor. This proves the
+projection is an equivalence when the long edge is made constant second.
+
+Apply \Cref{lem:Supplementary_Two_Stage_Fibers} to reverse the order of
+the two constraints. Its projection equation identifies the tested map
+with the displayed projection from one-sided inverse data. This proves
+the assertion for each short edge. The Rezk axiom is not used here.
+\end{proof}
+
+The later isomorphism-embedding argument combines the two inverse
+conditions. This note isolates the pullback calculation supplying their
+individual projections.
+\end{document}

@@ -1,0 +1,83 @@
+<!doctype html>
+
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Arrows with specified endpoints | Synthetic category theory</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/reader-shell.css"><link rel="stylesheet" href="assets/reader.css?v=e77c6ba976bccda0"><link rel="stylesheet" href="assets/Agda.css">
+<script src="assets/math-config.js"></script><script defer src="vendor/mathjax/tex-chtml.js"></script><script defer src="assets/reader.js?v=bb4820fd39f58f55"></script></head>
+<body class="hide-agda-links has-passages supplementary-page"><a class="skip-link" href="#main">Skip to content</a><aside class="utility-dock" aria-label="Reading tools">
+<button id="reading-settings-button" class="utility-button" type="button" aria-label="Reading settings" title="Reading settings" aria-controls="reading-settings" aria-expanded="false"><span aria-hidden="true">⚙</span></button>
+<a class="utility-button" href="book.pdf" aria-label="Read the web edition PDF" title="Read the web edition PDF"><span aria-hidden="true">📖</span></a>
+<section id="reading-settings" class="settings-panel" aria-label="Reading preferences" hidden><h2>Reading preferences</h2>
+<label><input id="collapse-proofs" type="checkbox"> Collapse book proofs</label>
+
+</section></aside>
+<header class="site-header"><div class="header-top"><nav class="book-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Synthetic category theory</a></li><li><a href="internal-structure-introduction.html">Chapter 2</a></li><li><a href="morphisms-and-diagrams.html">Section 2.1</a></li><li><a href="supplementary-notes.html">Supplementary notes</a></li></ol></nav></div><p class="eyebrow">Supplementary note · AI-generated prose</p><h1>Arrows with specified endpoints</h1><p class="ai-notice">AI-generated prose accompanying the Agda code. This note is supplementary to the book and is not part of the authors' manuscript.</p></header>
+<div class="reader-grid"><aside class="reader-nav" aria-label="Book navigation"><h2>Resources</h2><nav aria-label="Resources" class="reader-resources"><a href="code-index.html">All Agda code</a><a href="supplementary-notes.html">Supplementary notes</a><a href="formalization.html">Agda guide</a><a href="build-report.html">Build details</a></nav><h2>Contents</h2><nav aria-label="Contents"><a href="index.html">Overview</a><a href="introduction.html">Introduction</a><a href="overview-of-the-axioms.html">Overview of the axioms</a><details class="contents-chapter"><summary><span class="chapter-number">Chapter 1</span><span class="chapter-name">The language of synthetic category theory</span></summary><div class="chapter-sections"><a href="chapter-introduction.html">Chapter introduction</a><a href="basic-vocabulary.html">1.1 · The basic vocabulary</a><a href="coherences.html">1.2 · Coherences</a><a href="equivalences.html">1.3 · Equivalences of categories</a><a href="mapping-animae.html">1.4 · Mapping animae</a><a href="initial-categories-and-coproducts.html">1.5 · Initial categories and coproducts</a><a href="pullbacks.html">1.6 · Pullbacks of categories</a><a href="functor-categories.html">1.7 · Functor categories</a><a href="pushouts.html">1.8 · Pushout squares</a></div></details><details class="contents-chapter" open><summary><span class="chapter-number">Chapter 2</span><span class="chapter-name">The internal structure of categories</span></summary><div class="chapter-sections"><a href="internal-structure-introduction.html">Chapter introduction</a><a aria-current="page" href="morphisms-and-diagrams.html">2.1 · Morphisms and diagrams</a><a href="segal-axiom.html">2.2 · The Segal axiom</a><a href="rezk-axiom.html">2.3 · The Rezk axiom</a><a href="groupoids.html">2.4 · Groupoids</a><a href="recognizing-animae.html">2.5 · Recognizing animae</a><a href="chapter-2-exercises.html">2.6 · Exercises</a></div></details><details class="contents-chapter"><summary><span class="chapter-number">Chapter 3</span><span class="chapter-name">Constructions of categories</span></summary><div class="chapter-sections"><a href="constructions-introduction.html">Chapter introduction</a><a href="subcategories.html">3.1 · Subcategories</a><a href="full-subcategories.html">3.2 · Full subcategories</a><a href="localizations.html">3.3 · Localizations</a><a href="geometric-realizations.html">3.4 · Geometric realizations</a><a href="exponentiable-functors.html">3.5 · Exponentiable functors</a><a href="joins.html">3.6 · Joins</a><a href="slice-categories.html">3.7 · Slice categories</a><a href="chapter-3-exercises.html">3.8 · Exercises</a></div></details></nav></aside>
+<main id="main" class="notes-page" tabindex="-1"><p class="coverage-note edition-notice">Agda links are temporarily unavailable for Chapters 2 and 3 while their code is updated to the foundations used in Chapter 1.</p>
+   <h3 class="likesectionHead" id="arrows-with-specified-endpoints"><a id="x1-1000"></a>Arrows with specified endpoints</h3>
+<p class="noindent">The hom and slice constructions in <a href="morphisms-and-diagrams.html">Section 2.1</a> use a common pullback of the
+endpoint functor. This note explains how the endpoint identifications are
+recovered from its matching, and how a family of arrows gives a functor into that
+pullback.
+</p><p class="indent">   Write \(\operatorname {Ar}(C)=\Fun ([1],C)\) and let \(e_0,e_1\) be the two evaluation functors. For \(u,v\colon B\to C\), put \[ F(u,v)=\operatorname {Ar}(C)\times _{C\times C}B, \] where the maps to \(C\times C\)
+are \((e_0,e_1)\) and \((u,v)\). Denote its projections by \(a\) and \(b\), and its specified matching by \(\mu \colon (e_0,e_1)a=(u,v)b\). All
+categories here are absolute; a parameter category \(\Gamma \) describes a functor into these
+fixed categories.
+</p><p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1001r1"></a>
+<span id="text-supp-endpoint-frames"><span class="ecbx-1095">Supplementary Lemma 1.</span></span>  </span><span id="lem:Supplementary_Endpoint_Frames">      </span><span class="ecti-1095">The       matching</span>       \(\mu \)       <span class="ecti-1095">determines
+specified identifications </span>\[ p_0\colon e_0a=ub,\qquad p_1\colon e_1a=vb. \] <span class="ecti-1095">They are obtained by projecting</span> \(\mu \) <span class="ecti-1095">and composing with
+the projection comparisons for the pairings on its two sides.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    For the first coordinate, let \(L_0\colon \pi _1((e_0,e_1)a)=e_0a\) and \(R_0\colon \pi _1((u,v)b)=ub\) be the product comparisons,
+including reassociation. Then \[ p_0=R_0\cdot (\pi _1\star \mu )\cdot L_0^{-1}. \] The second coordinate has the same formula
+using  \(\pi _2\).  Here  \(\star \)  denotes  whiskering  and  vertical  composition  applies  the
+rightmost  identification  first.  These  formulas  give  the  source  and  target
+frames of the universal arrow family.                                                  □
+</p>
+   </div></details>
+                                                                     
+
+                                                                     
+<p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1002r2"></a>
+<span id="text-supp-endpoint-lift"><span class="ecbx-1095">Supplementary Lemma 2.</span></span>  </span><span id="lem:Supplementary_Endpoint_Lift">       </span><span class="ecti-1095">Suppose</span>       \(y\colon \Gamma \to B\)       <span class="ecti-1095">and</span>       \(A\colon \Gamma \to \operatorname {Ar}(C)\)       <span class="ecti-1095">are
+equipped with identifications</span> \(s\colon e_0A=uy\) <span class="ecti-1095">and</span> \(t\colon e_1A=vy\)<span class="ecti-1095">. There is a functor</span> \(\ell \colon \Gamma \to F(u,v)\)<span class="ecti-1095">, with comparisons</span> \(a\ell =A\)
+<span class="ecti-1095">and</span> \(b\ell =y\)<span class="ecti-1095">, compatible with the specified endpoint identifications</span> \(s,t\)<span class="ecti-1095">.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    Write \(\kappa (f,g,r)\colon (f,g)r=(fr,gr)\) for the pairing and precomposition comparison. The cone
+matching determined by \(s,t\) is \[ (e_0,e_1)A \xrightarrow {\kappa (e_0,e_1,A)}(e_0A,e_1A) \xrightarrow {(s,t)}(uy,vy) \xrightarrow {\kappa (u,v,y)^{-1}}(u,v)y. \] Apply the pullback lifting operation to this cone.
+Its computation law compares the entire induced cone with the displayed one.
+In particular, it supplies both projection comparisons and their compatibility
+with the matching. Project that compatibility to recover the two endpoint
+equations.                                                                                    □
+</p>
+   </div></details>
+<p class="indent">   For absolute objects \(x,y\) of \(C\), take \(B=\star \), \(u=x\), and \(v=y\). The resulting endpoint fiber is the hom
+category \(\operatorname {Hom}_C(x,y)\). Taking \(B=C\), one of \(u,v\) to be the identity, and the other to be constant at a
+chosen object gives the corresponding slice construction. In each case, an input
+includes the identifications with the specified endpoints. The full lifting
+comparison is what permits subsequent calculations to use those same
+endpoints.
+</p><p class="indent">   The normalization of the terminal parameter in the hom case is explained
+further in <a href="supplementary-hom-expressions-and-restriction.html">Hom expressions and restriction</a>.
+</p>
+    
+<span id="agda-supp-endpoint-frames"></span><span id="agda-supp-endpoint-lift"></span></main></div>
+<footer>Experimental web edition · Generated from annotated LaTeX and Agda sources. <a href="build-report.html">Build details</a></footer></body></html>

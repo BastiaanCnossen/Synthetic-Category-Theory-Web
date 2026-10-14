@@ -5,6 +5,204 @@ from pilot_model import declaration_range,tex_markers
 from reader_context import focused_lines,module_lines,compiler_anchors
 
 class PipelineTests(unittest.TestCase):
+    def test_suspended_chapter_preserves_prose_and_bookmarks_without_code_controls(self):
+        from chapter_availability import disable_page, prune_tree
+        from chapter_edition import body_prose
+        tree=parse('<main><p><a id="text-example" class="agda-trigger" data-agda="example" href="#agda-example">A <em>category</em>.</a></p><details class="agda-panel" id="agda-example"><summary>Agda</summary><pre>old code</pre></details><p class="agda-help">Read code</p></main><label><input id="show-agda-links">Show links</label><script src="assets/agda-context.js"></script>')
+        prose=body_prose(tree)
+        disable_page(tree)
+        self.assertEqual(body_prose(tree),prose)
+        self.assertFalse(list(tree.all('a')))
+        self.assertFalse(list(tree.all('script')))
+        self.assertTrue({'text-example','agda-example'} <= {n.attrs.get('id') for n in tree.all()})
+        menu={'key':'','modules':[],'children':[{'key':f'SCT.VolumeI.Chapter{n:02d}','modules':[], 'children':[]} for n in (1,2,3)]}
+        self.assertEqual([n['key'] for n in prune_tree(menu)['children']],['SCT.VolumeI.Chapter01'])
+
+    def test_numeric_anonymous_definition_requires_exact_compiler_self_link(self):
+        from assemble import Agda
+        source='module SCT.VolumeI.Chapter01.Example where\nmodule _ {A : Set} where\n  identity : A → A\n  identity x = x\n'
+        at=source.index('identity'); name='SCT.VolumeI.Chapter01.Example'
+        def compiler(href):
+            return parse('<pre>'+escape(source[:at])+'<a id="'+str(at+1)+'" href="'+href+'" class="Function">identity</a>'+escape(source[at+8:])+'</pre>')
+        a=Agda();src=a.source_root/'SCT/VolumeI/Chapter01/Example.lagda.md'
+        d={'module':'Chapter01.Example','name':'identity','qualified':'identity','role':'definition'}
+        a.cache[name]=(name,source,next(compiler(name+'.html#'+str(at+1)).all('pre')),src)
+        self.assertIn('Open full module',a.declaration(d))
+        a.cache[name]=(name,source,next(compiler(name+'.html#999').all('pre')),src)
+        with self.assertRaises(ValueError):a.declaration(d)
+
+    def test_rebuild2_links_have_current_scope_and_no_old_proof_regions(self):
+        from chapter_edition import chapter_manifest
+        manifest=chapter_manifest('rebuild2')
+        self.assertEqual(manifest['development'],'rebuild2')
+        passages=manifest['passages']+manifest['reverse_only']
+        self.assertTrue(all(p['declarations'] for p in passages))
+        self.assertTrue(all('regions' not in d and d['module'].startswith('Chapter01.')
+                            and d['role'] in ('assumption','definition','derived')
+                            for p in passages for d in p['declarations']))
+        by_id={p['id']:p for p in passages}
+        self.assertEqual(by_id['functor-uncurrying']['declarations'][0]['module'],'Chapter01.Section07.Currying')
+        self.assertIn('not a literal implementation',by_id['pushout-transpose-square']['note'])
+        self.assertIn('No general closure of isAn under equivalence',manifest['scope_note'])
+
+    def test_export_continuation_rejects_changed_sources_and_compilers(self):
+        import tempfile
+        from export_chapter_html import reuse_export_interfaces,sha
+        with tempfile.TemporaryDirectory() as folder:
+            previous=Path(folder)/'previous'; work=Path(folder)/'next'
+            files={'src/SCT/X.agda':b'source','src/SCT/WebChapter01.agda':b'aggregate','sct-web-export.agda-lib':b'library'}
+            for name,value in files.items():
+                p=previous/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(value)
+            record={'sources':{'SCT.X':{'path':'src/SCT/X.agda','sha256':sha(b'source')}},'aggregate':'SCT.WebChapter01','aggregate_sha256':sha(b'aggregate'),'library_sha256':sha(b'library')}
+            dump(previous/'receipt.json',{**record,'compiler_sha256':'compiler','agda_version':'2.8.0','status':'timeout'})
+            interface=previous/'_build/2.8.0/agda/src/SCT/X.agdai';interface.parent.mkdir(parents=True);interface.write_bytes(b'hint')
+            r=reuse_export_interfaces(previous,work,record,'compiler','2.8.0')
+            self.assertEqual(set(r['interfaces']),{'SCT.X'})
+            self.assertEqual(r['previous_status'],'timeout')
+            with self.assertRaises(ValueError):reuse_export_interfaces(previous,work,record,'other compiler','2.8.0')
+            (previous/'src/SCT/X.agda').write_bytes(b'changed')
+            with self.assertRaises(ValueError):reuse_export_interfaces(previous,work,record,'compiler','2.8.0')
+
+    def test_anonymous_parameter_modules_do_not_qualify_public_names(self):
+        source='module Example where\nmodule _ {A : Set} where\n  record Cone : Set where\n    field\n      apex : A\n'
+        self.assertEqual(declaration_range(source,'apex','Cone.apex')['qualified'],'Cone.apex')
+
+    def test_rebuild2_export_uses_committed_extraction_and_ambient_flags(self):
+        import tempfile
+        from unittest.mock import patch
+        from export_chapter_html import prepare, sha
+        with tempfile.TemporaryDirectory() as folder:
+            base=Path(folder); repo=base/'repo'; frozen=base/'frozen'; work=base/'export'
+            relative=Path('SCT/VolumeI/Chapter01/Example.agda')
+            original=b'{-# OPTIONS --without-K #-}\nmodule SCT.VolumeI.Chapter01.Example where\n'
+            target=frozen/relative; target.parent.mkdir(parents=True); target.write_bytes(original)
+            dirty=repo/'rebuild2/src'/relative; dirty.parent.mkdir(parents=True); dirty.write_bytes(b'ongoing unrelated work')
+            name='SCT.VolumeI.Chapter01.Example'
+            selection={'chapter':1,'selected_modules':[name],'excluded_modules':[], 'source_hashes':{name:sha(original)}}
+            with patch('export_chapter_html.committed_sources',return_value=('revision',{'src/'+relative.as_posix():original})), patch('export_chapter_html.subprocess.check_output',return_value=b'Exact assumption inventory'):
+                result=prepare(repo,'revision',selection,work,'rebuild2',frozen)
+                self.assertEqual(result['repository_source_root'],'rebuild2/src')
+                self.assertEqual(result['assumption_inventory']['sha256'],sha(b'Exact assumption inventory'))
+                self.assertNotIn('--safe',(work/'src/SCT/WebChapter01.agda').read_text())
+                self.assertEqual(dirty.read_bytes(),b'ongoing unrelated work')
+                target.write_bytes(original+b'changed')
+                with self.assertRaises(ValueError): prepare(repo,'revision',selection,base/'bad','rebuild2',frozen)
+
+    def test_chapter_overlay_preserves_prose_and_limits_conditional_targets(self):
+        from chapter_edition import body_prose, chapter_manifest
+        original=parse('<main><p>A category <em>C</em>.</p><details class="agda-panel">Old code</details></main>')
+        updated=parse('<main><p class="edition-notice">New edition</p><p>A category <em>C</em>.</p><details class="agda-panel">New code</details></main>')
+        self.assertEqual(body_prose(original),body_prose(updated))
+        manifest=chapter_manifest()
+        self.assertTrue(all(d['module'].startswith('Chapter01.') for p in manifest['passages'] for d in p['declarations']))
+        p=next(p for p in manifest['passages'] if p['id']=='horizontal-preservation')
+        self.assertEqual([d['name'] for d in p['declarations']],['hcomp-idIso'])
+        self.assertIn('additional interchange hypothesis',p['note'])
+
+    def test_chapter_export_seeds_only_matching_versioned_interfaces(self):
+        import tempfile
+        from export_chapter_html import seed_versioned_interfaces, sha
+        name='SCT.VolumeI.Chapter01.Example'
+        relative=Path('src/SCT/VolumeI/Chapter01/Example.agda')
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder); repo=root/'repo'; work=root/'export'
+            source=repo/relative; source.parent.mkdir(parents=True)
+            source.write_bytes(b'current')
+            record={'sources':{name:{'path':relative.as_posix(),'sha256':sha(b'current')}}}
+            interface=repo/'_build/2.8.0/agda/src/SCT/VolumeI/Chapter01/Example.agdai'
+            interface.parent.mkdir(parents=True); interface.write_bytes(b'cache hint')
+            copied=seed_versioned_interfaces(repo,work,record,'2.8.0-test',{})
+            self.assertEqual(set(copied),{name})
+            self.assertEqual((work/'_build/2.8.0/agda/src/SCT/VolumeI/Chapter01/Example.agdai').read_bytes(),b'cache hint')
+            self.assertFalse((work/relative.with_suffix('.agdai')).exists())
+            profile=root/'profile.agdai'; profile.write_bytes(b'older profile hint')
+            seeds={name:(profile,sha(b'current'),sha(profile.read_bytes()))}
+            preferred=seed_versioned_interfaces(repo,root/'preferred',record,'2.8.0',seeds)
+            self.assertEqual(preferred[name]['origin'],str(interface))
+            interface.unlink()
+            fallback=seed_versioned_interfaces(repo,root/'fallback',record,'2.8.0',seeds)
+            self.assertEqual(fallback[name]['origin'],str(profile))
+            source.write_bytes(b'changed')
+            self.assertEqual(seed_versioned_interfaces(repo,root/'changed',record,'2.8.0',{}),{})
+            bad_seed={name:(interface,sha(b'current'),'wrong hash')}
+            self.assertEqual(seed_versioned_interfaces(repo,root/'bad',record,'2.8.0',bad_seed),{})
+
+    def test_chapter_export_preparation_pins_commit_and_preserves_checked_bytes(self):
+        import tempfile
+        from unittest.mock import patch
+        from export_chapter_html import prepare, sha
+        name='SCT.VolumeI.Chapter01.Example'
+        relative='src/SCT/VolumeI/Chapter01/Example.agda'
+        raw=b'{-# OPTIONS --safe --without-K #-}\nmodule SCT.VolumeI.Chapter01.Example where\n'
+        selection={'chapter':1,'selected_modules':[name],'source_hashes':{name:sha(raw)},'excluded_modules':{}}
+        with tempfile.TemporaryDirectory() as folder:
+            base=Path(folder); repo=base/'repo'
+            source=repo/relative; source.parent.mkdir(parents=True)
+            source.write_bytes(raw.replace(b'\n',b'\r\n'))
+            with patch('export_chapter_html.committed_sources',return_value=('exact-commit',{relative:raw})):
+                result=prepare(repo,'requested',selection,base/'export')
+                self.assertEqual(result['commit'],'exact-commit')
+                self.assertEqual((base/'export'/relative).read_bytes(),source.read_bytes())
+                self.assertNotIn('checked',result)
+                self.assertFalse((base/'export/receipt.json').exists())
+                source.write_bytes(raw+b'-- a new working edit\n')
+                with self.assertRaisesRegex(ValueError,'differs from commit'):
+                    prepare(repo,'requested',selection,base/'rejected')
+                self.assertFalse((base/'rejected').exists())
+
+    def test_chapter_selection_excludes_transitive_dependents(self):
+        from chapter_publication import select_chapter
+        p='SCT.VolumeI.Chapter01.'
+        graph={p+'Slow':set(),p+'Consumer':{p+'Slow'},p+'Top':{p+'Consumer'},
+               p+'Fast':{'SCT.Calculus.Core'},'SCT.Calculus.Core':set(),
+               p+'Everything':{p+'Fast',p+'Top'},'SCT.VolumeI.Chapter02.Example':{p+'Fast'}}
+        modules={n:{'imports':deps,'sha256':n} for n,deps in graph.items()}
+        result=select_chapter(modules,1,{p+'Slow'})
+        self.assertEqual(set(result['selected_modules']),{p+'Fast','SCT.Calculus.Core'})
+        self.assertEqual(result['excluded_modules'][p+'Top'],[p+'Slow'])
+        self.assertIn(p+'Everything',result['excluded_modules'])
+        with self.assertRaisesRegex(ValueError,'Unknown exclusion'):
+            select_chapter(modules,1,{'Typo'})
+        modules[p+'Fast']['imports']={'Missing'}
+        with self.assertRaisesRegex(ValueError,'Missing prerequisite'):
+            select_chapter(modules,1,{p+'Slow'})
+
+    def test_chapter_selection_distinguishes_missing_and_omitted_targets(self):
+        from chapter_publication import passage_impact, compare_checked_sources
+        p='SCT.VolumeI.Chapter01.'
+        passage={'id':'test','page':'test','declarations':[
+            {'module':'Chapter01.Omitted','qualified':'proof'},
+            {'module':'Chapter01.Moved','qualified':'proof'},
+            {'module':'Chapter02.Retained','qualified':'proof'}]}
+        impact=passage_impact([('book',{'passages':[passage]})],{p+'Omitted':{}},set(),1)
+        self.assertEqual([d['reason'] for d in impact[0]['targets']],['omitted','missing-or-moved'])
+        committed={p+'A':{'sha256':'LF','text_sha256':'same'}}
+        checked={p+'A':{'sha256':'CRLF','text_sha256':'same'}}
+        self.assertEqual(compare_checked_sources(committed,{p+'A'},{p+'A':'CRLF'},checked),([],[p+'A']))
+        # Matching normalized text alone cannot excuse a changed receipt hash.
+        self.assertEqual(compare_checked_sources(committed,{p+'A'},{p+'A':'other'},checked),([p+'A'],[]))
+
+    def test_standalone_module_peers_follow_sections_including_subfolders(self):
+        from module_navigation import module_neighbors, standalone_navigation
+        here='SCT.VolumeI.Chapter01.Section03.Core'
+        sibling='SCT.VolumeI.Chapter01.Section03.Factors.Left'
+        other='SCT.VolumeI.Chapter01.Section04.Core'
+        names=[here,sibling,other,'SCT.VolumeI.Chapter01.Theory']
+        title,prefix,peers=module_neighbors(here,names)
+        self.assertEqual(peers,[sibling])
+        tree=parse(standalone_navigation(here,names))
+        links=[a.attrs['href'] for a in tree.all('a')]
+        self.assertEqual(links,['../code-index.html',sibling+'.html'])
+        self.assertIn('Factors.Left',tree.text())
+        self.assertNotIn(other+'.html',tree.html())
+
+    def test_standalone_chapter_and_support_peers_do_not_leak_sections(self):
+        from module_navigation import module_neighbors
+        names=['SCT.VolumeI.Chapter01.Theory','SCT.VolumeI.Chapter01.Everything',
+               'SCT.VolumeI.Chapter01.Section01.Vocabulary','Agda.Primitive','Agda.Builtin.Nat']
+        self.assertEqual(module_neighbors(names[0],names)[2],[names[1]])
+        self.assertEqual(module_neighbors('Agda.Primitive',names)[2],[])
+
     def test_reading_tools_default_to_opt_in_links_and_have_a_relative_pdf(self):
         from book_navigation import reading_tools,book_sidebar
         tree=parse(reading_tools('../'))
@@ -20,7 +218,7 @@ class PipelineTests(unittest.TestCase):
         self.assertEqual([n.tag for n in sidebar.children if isinstance(n,Node)],['h2','nav','h2','nav'])
         self.assertEqual([n.text() for n in sidebar.all('h2')],['Resources','Contents'])
         resources,contents=list(sidebar.all('nav'))
-        self.assertEqual([a.attrs['href'] for a in resources.all('a')],['code-index.html','formalization.html','build-report.html'])
+        self.assertEqual([a.attrs['href'] for a in resources.all('a')],['code-index.html','supplementary-notes.html','formalization.html','build-report.html'])
         self.assertNotIn('All Agda code',contents.text())
         self.assertNotIn('Reading preferences',sidebar.text())
 
@@ -35,6 +233,19 @@ class PipelineTests(unittest.TestCase):
             self.assertEqual(entry.attrs['href'],'agda/'+module+'.html')
         self.assertIn('SCT.VolumeI.Chapter03.Section01.Subcategories',agda_invitation('subcategories',MANIFEST))
         self.assertEqual(agda_invitation('introduction',MANIFEST),'')
+
+    def test_supplementary_sources_are_separate_and_markers_resolve(self):
+        from supplementary import catalog, NOTES, section_notes
+        all_ids=[]
+        for note in catalog():
+            source=read(NOTES/note['source'])
+            _,markers=tex_markers(source,registry=note)
+            self.assertEqual(set(markers),{p['id'] for p in note['passages']})
+            self.assertNotIn(note['slug'],{slug for slug,_,_ in BOOK_PAGES})
+            self.assertIn('AI-generated',section_notes(note['section']))
+            all_ids.extend(markers)
+        self.assertEqual(len(all_ids),len(set(all_ids)))
+        self.assertEqual(section_notes('introduction'),'')
 
     def test_public_anchors_preserve_existing_ids_and_encode_whitespace(self):
         from source_anchors import public_anchor

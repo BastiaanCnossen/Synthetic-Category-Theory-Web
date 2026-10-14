@@ -1,0 +1,94 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+\section*{Substitution in morphism expressions}
+
+The \href{segal-axiom.html}{Segal section} uses composition in a common
+parameter category. The supporting calculation is that restriction and
+changes of endpoints preserve the chosen composite, with its endpoint data.
+
+Write $\operatorname{Ar}(C)=\Fun([1],C)$, with endpoint evaluations $e_0,e_1$.
+A morphism expression from $x$ to $y$, for $x,y\colon\Gamma\to C$,
+consists of $A\colon\Gamma\to\operatorname{Ar}(C)$ and frames
+$p\colon e_0A=x$, $q\colon e_1A=y$.
+An endpoint-preserving comparison from $(A,p,q)$ to $(A',p',q')$ is an
+identification $\eta\colon A=A'$ together with
+\[
+ p'\cdot(e_0\star\eta)=p,\qquad q'\cdot(e_1\star\eta)=q.
+\]
+Retargeting along $a\colon x=x'$ and $b\colon y=y'$ replaces the frames
+$p,q$ by $a\cdot p,b\cdot q$ and leaves the arrow family unchanged.
+We use $\star$ for whiskering and $\cdot$ for vertical composition,
+rightmost factor first. All categories involved are fixed absolute categories.
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Expression_Restriction}
+For $r\colon\Delta\to\Gamma$, restriction takes endpoint-preserving
+comparisons to endpoint-preserving comparisons. The restricted arrow is
+$Ar$ and its source frame is
+\[
+ (p\star r)\cdot\alpha_{r,A,e_0}^{-1}\colon e_0(Ar)=xr,
+\]
+with the analogous formula at the target.
+Here $\alpha_{r,A,e_0}\colon(e_0A)r=e_0(Ar)$ is the associator.
+\end{lemma}
+\begin{proof}[Proof idea]
+Restrict the underlying comparison to $\eta\star r$.
+Whisker each endpoint equation by $r$ and use compatibility of
+whiskering with vertical composition and the associator. The inverse
+associators in the displayed frames convert the result to exactly the
+endpoint equations for the restricted expressions.
+\end{proof}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Expression_Restriction_Laws}
+Restricting an expression by $\mathrm{id}_{\Gamma}$ and retargeting its
+endpoints by the right unitors gives an endpoint-preserving comparison
+to the original expression. For $r\colon\Delta\to\Gamma$ and
+$s\colon\Theta\to\Delta$, successive restriction by $r$ and $s$,
+retargeted by $\alpha_{s,r,x}$ and $\alpha_{s,r,y}$, compares with
+restriction by $r\circ s$.
+\end{lemma}
+\begin{proof}[Proof idea]
+Use the right unitor of $A$ for the first underlying arrow comparison,
+and $\alpha_{s,r,A}$ for the second. Their endpoint equations are the
+unit and successive-substitution equations for transport through a
+fixed functor $e_0$ or $e_1$. The finite unitor and associator compatibility calculations, derived
+from the pentagon and triangle, establish these equations while retaining
+the given frames.
+These are the same product-calculus comparisons discussed in
+\href{supplementary-pairing-and-precomposition.html}{Pairing and precomposition}.
+\end{proof}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Composition_Substitution}
+Assume the Segal axiom. For composable expressions $f\colon x\to y$,
+$g\colon y\to z$, and $r\colon\Delta\to\Gamma$, there is an
+endpoint-preserving comparison
+\[
+ (g|_r)\circ(f|_r)\simeq(g\circ f)|_r.
+\]
+If $a\colon x=x'$, $b\colon y=y'$, and $c\colon z=z'$ change the
+endpoints, composing the retargeted expressions compares with retargeting
+$g\circ f$ by $a,c$.
+\end{lemma}
+\begin{proof}[Proof idea]
+A presentation of $g\circ f$ consists of its chosen triangle, comparisons
+of the short edges with $f,g$, and the long edge with the composite.
+It includes compatibility at all three vertices.
+Restrict this entire presentation by $r$. The endpoint calculation of
+\Cref{lem:Supplementary_Expression_Restriction} supplies its new boundary
+comparisons. It is now a presentation of $(g\circ f)|_r$ as a composite
+of $f|_r,g|_r$. Recognition of composites through the Segal equivalence
+compares it with the chosen composite of those inputs.
+
+For retargeting, change the three vertex frames and retain the triangle.
+The common change $b$ at the middle vertex occurs on both short edges;
+its compatibility is retained in the new presentation. Apply the same
+recognition argument. The comparison preserves the two outer endpoints.
+\end{proof}
+
+These lemmas provide the individual substitution comparisons used in
+specializing the unit and associativity arguments. They do not assert
+an additional coherence theorem for all choices of Segal inverses.
+\end{document}

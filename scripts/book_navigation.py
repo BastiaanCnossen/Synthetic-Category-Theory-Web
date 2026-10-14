@@ -36,7 +36,7 @@ def reading_tools(prefix=''):
 
 def book_sidebar(current='', prefix=''):
     resources=''.join(f'<a href="{prefix}{slug}.html"'+(' aria-current="page"' if current==slug else '')+f'>{title}</a>'
-                      for slug,title in [('code-index','All Agda code'),('formalization','Agda guide'),('build-report','Build details')])
+                      for slug,title in [('code-index','All Agda code'),('supplementary-notes','Supplementary notes'),('formalization','Agda guide'),('build-report','Build details')])
     return '<aside class="reader-nav" aria-label="Book navigation"><h2>Resources</h2><nav aria-label="Resources" class="reader-resources">'+resources+'</nav><h2>Contents</h2><nav aria-label="Contents">'+contents(current,prefix)+'</nav></aside>'
 
 

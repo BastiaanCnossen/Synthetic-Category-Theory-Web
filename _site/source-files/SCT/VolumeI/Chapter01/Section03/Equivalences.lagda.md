@@ -202,3 +202,21 @@ two-out-of-six f g h egf ehg =
             ; composite = equiv-compose (g ∘ f) h egf eh }
       --! end two-out-of-six-conclusion
 ```
+
+
+## Identifications with terminal codomain
+
+The terminal axiom makes each identification category between two functors
+into `One` contractible. Reflecting an identification through its equivalence
+with `One` therefore compares any two of its absolute objects. This needs no
+mapping-anima structure or higher whiskering coherence.
+
+```agda
+module TerminalTargets where
+  open Terminal.TerminalStructure T using (terminalIso-isEquiv)
+  open Terminal.Constructions V T using (terminal-iso)
+
+  terminal-Iso₂ : {X : CAT} {f g : MAP X One} (α β : f =₁ g) → α =₂ β
+  terminal-Iso₂ {f = f} {g} α β =
+    equiv-reflect (terminalIso-isEquiv f g) α β (terminal-iso _ _)
+```

@@ -8,6 +8,7 @@ composition and the already proved naturality of that application.
 {-# OPTIONS --safe --without-K #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.Calculus.Squares as Squares
 import SCT.VolumeI.Chapter01.Section04.Substitution.ProofCalculus as Setup
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
 import SCT.VolumeI.Chapter01.Section04.Composition as MapComposition
@@ -17,6 +18,8 @@ import SCT.VolumeI.Chapter01.Section04.CompositionCalculus.CompositionRestrictio
 module SCT.VolumeI.Chapter01.Section04.Substitution.NestedApplicationRestriction
   {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯) where
 open Setup 𝒯
+private
+  module Paste (X Y : CAT) = Squares (comparisonAlgebra X Y) (comparisonLaws X Y)
 open Mapping.MappingAnimae M
 open MapComposition 𝒯 M
 open MappingProof 𝒯 M
@@ -69,6 +72,14 @@ module Assembly {Γ R C D E : CAT}
     Uact = applyTerm-cong (d ▷ s) (idIso (x₀ ∘ s))
     base = Psource ∙ tail
 
+    private
+      module Route = Paste.NestedRoute R E
+        N Pg (((C₀ ∙ (D₀ ∙ A₀)) ▷ s) ∙ B₀)
+        changed restricted (C₀ ▷ s) rest C₁ middle-route C₂ Qact
+        Ract Uact base
+        (applyTerm-cong (e ∙ (d ▷ s)) (idIso (x₀ ∘ s)))
+        (applyTerm-cong source-coordinate b)
+
     opaque
       expandV : (((C₀ ∙ (D₀ ∙ A₀)) ▷ s) ∙ B₀) =₂ ((C₀ ▷ s) ∙ rest)
       expandV = isoComp-cong (idIso (C₀ ▷ s)) (isoComp-assoc-at (D₀ ▷ s) (A₀ ▷ s) B₀) ∙
@@ -82,15 +93,12 @@ module Assembly {Γ R C D E : CAT}
         (apply-cong-Iso₂ (isoComp-unitʳ-at ag) (idIso (applyTerm-cong af b ∙ Pf))) ⁻¹
     opaque
       useRestriction : (restricted ∙ (Pg ∙ ((C₀ ▷ s) ∙ rest))) =₂ (C₁ ∙ (middle-route ∙ rest))
-      useRestriction = isoComp-assoc-at C₁ middle-route rest ∙
-        (isoComp-cong (restriction ⁻¹) (idIso rest) ∙
-          ((isoComp-assoc-at (restricted ∙ Pg) (C₀ ▷ s) rest) ⁻¹ ∙
-            (isoComp-assoc-at restricted Pg ((C₀ ▷ s) ∙ rest)) ⁻¹))
+      useRestriction = Paste.composite-square-with-tail R E
+        restricted Pg (C₀ ▷ s) C₁ middle-route rest (restriction ⁻¹)
     opaque
       useNaturality : (changed ∙ (C₁ ∙ (middle-route ∙ rest))) =₂ (C₂ ∙ (Qact ∙ (middle-route ∙ rest)))
-      useNaturality = isoComp-assoc-at C₂ Qact (middle-route ∙ rest) ∙
-        (isoComp-cong (naturality ⁻¹) (idIso (middle-route ∙ rest)) ∙
-          (isoComp-assoc-at changed C₁ (middle-route ∙ rest)) ⁻¹)
+      useNaturality = Paste.square-with-tail R E
+        changed C₁ C₂ Qact (middle-route ∙ rest) (naturality ⁻¹)
     opaque
       projectionNatural : (Pmid ∙ (D₀ ▷ s)) =₂ (Uact ∙ Psource)
       projectionNatural = isoComp-cong
@@ -98,9 +106,8 @@ module Assembly {Γ R C D E : CAT}
         binary-pre-inputs mapEval d (idIso x₀) s
     opaque
       exchange : (Pmid ∙ rest) =₂ (Uact ∙ base)
-      exchange = isoComp-assoc-at Uact Psource tail ∙
-        (isoComp-cong projectionNatural (idIso tail) ∙
-          (isoComp-assoc-at Pmid (D₀ ▷ s) tail) ⁻¹)
+      exchange = Paste.square-with-tail R E
+        Pmid (D₀ ▷ s) Uact Psource tail projectionNatural
     opaque
       useProjection : (middle-route ∙ rest) =₂ (Ract ∙ (Uact ∙ base))
       useProjection = isoComp-cong (idIso Ract) exchange ∙
@@ -118,16 +125,13 @@ module Assembly {Γ R C D E : CAT}
         combine-apply (composeTerm-cong ag af) b (e ∙ (d ▷ s)) (idIso (x₀ ∘ s)) base
     opaque
       finish : (C₂ ∙ (Qact ∙ (middle-route ∙ rest))) =₂ after
-      finish = isoComp-cong (idIso C₂)
-        (combineOuter ∙
-          isoComp-cong (idIso Qact) (combineInner ∙ useProjection))
+      finish = Route.finish useProjection combineInner combineOuter
     opaque
       begin : before =₂ (changed ∙ (restricted ∙ (Pg ∙ ((C₀ ▷ s) ∙ rest))))
-      begin = isoComp-assoc-at changed restricted (Pg ∙ ((C₀ ▷ s) ∙ rest)) ∙
-        isoComp-cong splitN (isoComp-cong (idIso Pg) expandV)
+      begin = Route.begin splitN expandV
     opaque
       result : before =₂ after
-      result = finish ∙ (useNaturality ∙ (isoComp-cong (idIso changed) useRestriction ∙ begin))
+      result = Route.result finish useNaturality useRestriction begin
   opaque
     comparison :
       (C₁ ∙

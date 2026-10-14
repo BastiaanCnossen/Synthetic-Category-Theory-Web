@@ -8,22 +8,22 @@ comparisons are those already selected in the earlier construction.
 The higher proof bodies are opaque. Their boundaries remain visible,
 and later proofs can use them without expanding their calculations again.
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.Calculus.Squares as Squares
 import SCT.VolumeI.Chapter01.Section04.Substitution.ProofCalculus as Setup
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as MappingAnimae
 import SCT.VolumeI.Chapter01.Section04.Currying as Currying
 import SCT.VolumeI.Chapter01.Section04.Composition as MapComposition
 import SCT.VolumeI.Chapter01.Section04.CompositionCalculus.InternalCoherence as InternalCoherence
 import SCT.VolumeI.Chapter01.Section04.CompositionCalculus.RetainedComparisonLaws as RetainedComparisonLaws
-import SCT.VolumeI.Chapter01.Section04.CompositionCalculus.InternalPentagon as InternalPentagon
+import SCT.VolumeI.Chapter01.Section03.IdentificationCalculus.CoordinateNaturality as CoordinateNaturality
 import SCT.VolumeI.Chapter01.Section04.Substitution.ParameterChange as ParameterChange
 import SCT.VolumeI.Chapter01.Section04.CompositionCalculus.CompositionNaturality as CompositionNaturality
 import SCT.VolumeI.Chapter01.Section04.Substitution.ParameterChangeNaturality as ParameterChangeNaturality
 import SCT.VolumeI.Chapter01.Section04.SquareCalculus.ParameterSquarePasting as ParameterSquarePasting
 import SCT.VolumeI.Chapter01.Section04.SquareCalculus.ParameterSquareNaturality as ParameterSquareNaturality
-import SCT.VolumeI.Chapter01.Section04.SquareCalculus.ParameterSquareUnits as ParameterSquareUnits
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingCoherence as PairingCoherence
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingNaturality as PairingNaturality
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingUnits as PairingUnits
@@ -35,19 +35,21 @@ module SCT.VolumeI.Chapter01.Section04.CompositionCalculus.UniversalCoherenceCal
   (M : MappingAnimae.MappingAnimae 𝒯) where
 
 open Setup 𝒯
+private
+  module Paste (X Y : CAT) = Squares (comparisonAlgebra X Y) (comparisonLaws X Y)
 open MappingAnimae.MappingAnimae M
 open Currying 𝒯 M
 open MapComposition 𝒯 M
 open InternalCoherence 𝒯 M
 open RetainedComparisonLaws 𝒯 M using
   (compose-triangle; module RetainedSquares; module RetainedNaturality; cancel-two-front)
-open InternalPentagon 𝒯 M using (compose-pentagon; extend-square)
+private
+  module Coordinate = CoordinateNaturality vocabulary terminal products productLaws composition vertical whiskering
 open ParameterChange 𝒯 M using
   (mapReflect-specialize-image; mapReflect-pre-image-β; mapUncurryIso-inverse; retained-parameter-change)
 open ParameterChangeNaturality 𝒯 M using (retained-parameter-change-natural)
 open ParameterSquarePasting 𝒯 using (paste)
 open ParameterSquareNaturality 𝒯 using (paste-source-square; paste-source-normalization; paste-target-normalization)
-open ParameterSquareUnits 𝒯 using (unit-square; paste-unitˡ; paste-unitʳ)
 open CompositionNaturality 𝒯 M using (chain-input-squares)
 open PairingCoherence vocabulary terminal products productLaws composition vertical whiskering
   using (pair-cong-Iso₂; pair-iso-extensionality; pair-cong-comp)
@@ -117,12 +119,88 @@ opaque
 
 ```
 
+A unit route first normalizes a composite, then compares its identity
+factor with the identity functor, and finally applies the unitor. The
+following two pastings prove its naturality for arbitrary functors and a
+specified identity comparison. Each uses the specified interchange and
+unitor-naturality witnesses. The named pasting records the calculation;
+the packaged lemma comes with its computation identification.
+
+```agda
+left-unit-naturality-pasting : {X Y : CAT} {u u′ : MAP X Y}
+  (F F′ : MAP X Y) (J : MAP Y Y) (ε : J =₁ id Y)
+  (z : F =₁ F′) (c : u =₁ (J ∘ F)) (c′ : u′ =₁ (J ∘ F′)) (a : u =₁ u′)
+  (natural : (c′ ∙ a) =₂ ((J ◁ z) ∙ c))
+  → ((comp-unitˡ F′ ∙ ((ε ▷ F′) ∙ c′)) ∙ a) =₂
+      (z ∙ (comp-unitˡ F ∙ ((ε ▷ F) ∙ c)))
+left-unit-naturality-pasting {X} {Y} F F′ J ε z c c′ a natural =
+  let e = ε ▷ F
+      e′ = ε ▷ F′
+      b = J ◁ z
+      d = id Y ◁ z
+      first = Coordinate.paste-squares c c′ e e′ a b d natural (interchange-at ε z)
+  in Coordinate.paste-squares (e ∙ c) (e′ ∙ c′) (comp-unitˡ F) (comp-unitˡ F′) a d z
+    first (postWhisker-id-at z)
+
+opaque
+  paste-left-unit-naturality : {X Y : CAT} {u u′ : MAP X Y}
+    (F F′ : MAP X Y) (J : MAP Y Y) (ε : J =₁ id Y)
+    (z : F =₁ F′) (c : u =₁ (J ∘ F)) (c′ : u′ =₁ (J ∘ F′)) (a : u =₁ u′)
+    (natural : (c′ ∙ a) =₂ ((J ◁ z) ∙ c))
+    → ((comp-unitˡ F′ ∙ ((ε ▷ F′) ∙ c′)) ∙ a) =₂
+        (z ∙ (comp-unitˡ F ∙ ((ε ▷ F) ∙ c)))
+  paste-left-unit-naturality F F′ J ε z c c′ a natural =
+    left-unit-naturality-pasting F F′ J ε z c c′ a natural
+
+  paste-left-unit-naturality-computation : {X Y : CAT} {u u′ : MAP X Y}
+    (F F′ : MAP X Y) (J : MAP Y Y) (ε : J =₁ id Y)
+    (z : F =₁ F′) (c : u =₁ (J ∘ F)) (c′ : u′ =₁ (J ∘ F′)) (a : u =₁ u′)
+    (natural : (c′ ∙ a) =₂ ((J ◁ z) ∙ c))
+    → (paste-left-unit-naturality F F′ J ε z c c′ a natural) =₃
+        (left-unit-naturality-pasting F F′ J ε z c c′ a natural)
+  paste-left-unit-naturality-computation F F′ J ε z c c′ a natural = idIso _
+
+
+right-unit-naturality-pasting : {X Y : CAT} {u u′ : MAP X Y}
+  (F F′ : MAP X Y) (J : MAP X X) (ε : J =₁ id X)
+  (z : F =₁ F′) (c : u =₁ (F ∘ J)) (c′ : u′ =₁ (F′ ∘ J)) (a : u =₁ u′)
+  (natural : (c′ ∙ a) =₂ ((z ▷ J) ∙ c))
+  → ((comp-unitʳ F′ ∙ ((F′ ◁ ε) ∙ c′)) ∙ a) =₂
+      (z ∙ (comp-unitʳ F ∙ ((F ◁ ε) ∙ c)))
+right-unit-naturality-pasting {X} {Y} F F′ J ε z c c′ a natural =
+  let e = F ◁ ε
+      e′ = F′ ◁ ε
+      b = z ▷ J
+      d = z ▷ id X
+      first = Coordinate.paste-squares c c′ e e′ a b d natural ((interchange-at z ε) ⁻¹)
+  in Coordinate.paste-squares (e ∙ c) (e′ ∙ c′) (comp-unitʳ F) (comp-unitʳ F′) a d z
+    first (preWhisker-id-at z)
+
+opaque
+  paste-right-unit-naturality : {X Y : CAT} {u u′ : MAP X Y}
+    (F F′ : MAP X Y) (J : MAP X X) (ε : J =₁ id X)
+    (z : F =₁ F′) (c : u =₁ (F ∘ J)) (c′ : u′ =₁ (F′ ∘ J)) (a : u =₁ u′)
+    (natural : (c′ ∙ a) =₂ ((z ▷ J) ∙ c))
+    → ((comp-unitʳ F′ ∙ ((F′ ◁ ε) ∙ c′)) ∙ a) =₂
+        (z ∙ (comp-unitʳ F ∙ ((F ◁ ε) ∙ c)))
+  paste-right-unit-naturality F F′ J ε z c c′ a natural =
+    right-unit-naturality-pasting F F′ J ε z c c′ a natural
+
+  paste-right-unit-naturality-computation : {X Y : CAT} {u u′ : MAP X Y}
+    (F F′ : MAP X Y) (J : MAP X X) (ε : J =₁ id X)
+    (z : F =₁ F′) (c : u =₁ (F ∘ J)) (c′ : u′ =₁ (F′ ∘ J)) (a : u =₁ u′)
+    (natural : (c′ ∙ a) =₂ ((z ▷ J) ∙ c))
+    → (paste-right-unit-naturality F F′ J ε z c c′ a natural) =₃
+        (right-unit-naturality-pasting F F′ J ε z c c′ a natural)
+  paste-right-unit-naturality-computation F F′ J ε z c c′ a natural = idIso _
+
+```
+
 The two normalizations of a triple composite are natural in all three
 mapping terms. After these normalization squares are pasted with the
-external associator square, their common target comparison cancels. The
-unit routes use the same argument with the external unitors. These
-calculations are between retained evaluations and require no anima
-hypothesis on the common parameter.
+external associator square, their common target comparison cancels. For
+units, supply the retained composition square to the preceding pasting.
+These calculations require no anima hypothesis on the common parameter.
 
 ```agda
 module RouteNaturality (P : CAT) where
@@ -157,7 +235,7 @@ module RouteNaturality (P : CAT) where
       → (left-comparison h′ g′ f′ ∙ retainedIso (composeTerm-cong (composeTerm-cong γ β) α)) =₂
           (((retainedIso γ ⋆ retainedIso β) ⋆ retainedIso α) ∙ left-comparison h g f)
     left-natural {h = h} {h′} {g} {g′} {f} {f′} γ β α =
-      extend-square _ _ _ _ _ _ _
+      Coordinate.paste-squares _ _ _ _ _ _ _
         (retained-compose-natural (composeTerm-cong γ β) α)
         (precomparison-square (retained-compose h g) (retained-compose h′ g′)
           (retainedIso (composeTerm-cong γ β)) (retainedIso γ ⋆ retainedIso β)
@@ -169,7 +247,7 @@ module RouteNaturality (P : CAT) where
       → (right-comparison h′ g′ f′ ∙ retainedIso (composeTerm-cong γ (composeTerm-cong β α))) =₂
           ((retainedIso γ ⋆ (retainedIso β ⋆ retainedIso α)) ∙ right-comparison h g f)
     right-natural {h = h} {h′} {g} {g′} {f} {f′} γ β α =
-      extend-square _ _ _ _ _ _ _
+      Coordinate.paste-squares _ _ _ _ _ _ _
         (retained-compose-natural γ (composeTerm-cong β α))
         (postcomparison-square (retained-compose g f) (retained-compose g′ f′)
           (retainedIso (composeTerm-cong β α)) (retainedIso β ⋆ retainedIso α)
@@ -180,7 +258,7 @@ module RouteNaturality (P : CAT) where
       (γ : h =₁ h′) (β : g =₁ g′) (α : f =₁ f′)
       → (associator-route h′ g′ f′ ∙ retainedIso (composeTerm-cong (composeTerm-cong γ β) α)) =₂
           (retainedIso (composeTerm-cong γ (composeTerm-cong β α)) ∙ associator-route h g f)
-    associator-natural {h = h} {h′} {g} {g′} {f} {f′} γ β α =
+    associator-natural {A = X} {D = Y} {h = h} {h′} {g} {g′} {f} {f′} γ β α =
       let L = left-comparison h g f
           L′ = left-comparison h′ g′ f′
           R = right-comparison h g f
@@ -194,17 +272,11 @@ module RouteNaturality (P : CAT) where
           A = comp-assoc (retained f) (retained g) (retained h)
           A′ = comp-assoc (retained f′) (retained g′) (retained h′)
       in cancel-left-reflect R′
-        (isoComp-assoc-at R′ T a ∙
-        (isoComp-cong ((right-natural γ β α) ⁻¹) (idIso a) ∙
-        ((isoComp-assoc-at r R a) ⁻¹ ∙
-        (isoComp-cong (idIso r) ((route-square h g f) ⁻¹) ∙
-        (isoComp-assoc-at r A L ∙
-        (isoComp-cong (external-associator-natural (retainedIso γ) (retainedIso β) (retainedIso α)) (idIso L) ∙
-        ((isoComp-assoc-at A′ l L) ⁻¹ ∙
-        (isoComp-cong (idIso A′) (left-natural γ β α) ∙
-        (isoComp-assoc-at A′ L′ S ∙
-        (isoComp-cong (route-square h′ g′ f′) (idIso S) ∙
-          (isoComp-assoc-at R′ a′ S) ⁻¹))))))))))
+        (Paste.normalization-naturality (P × X) (P × Y)
+          a a′ S T L L′ R R′ l r A A′
+          (route-square h g f) (route-square h′ g′ f′)
+          (left-natural γ β α) (right-natural γ β α)
+          (external-associator-natural (retainedIso γ) (retainedIso β) (retainedIso α)))
 
     left-unit-natural : {C D : CAT} {f f′ : MAP P (Map C D)} (α : f =₁ f′)
       → (left-unit-route f′ ∙ retainedIso (composeTerm-cong (idIso (identityTerm D)) α)) =₂
@@ -215,19 +287,13 @@ module RouteNaturality (P : CAT) where
           J = retained (identityTerm D)
           ε = retained-identity D
           a = retainedIso (composeTerm-cong (idIso (identityTerm D)) α)
-          b = J ◁ retainedIso α
-          d = id (P × D) ◁ retainedIso α
           z = retainedIso α
           c = retained-compose (identityTerm D) f
           c′ = retained-compose (identityTerm D) f′
-          e = ε ▷ F
-          e′ = ε ▷ F′
           natural = isoComp-cong
             (hcomp-idOuter J z ∙ hcomp-cong (retainedIso-id (identityTerm D)) (idIso z)) (idIso c) ∙
             retained-compose-natural (idIso (identityTerm D)) α
-          first = extend-square a b d c c′ e e′ natural (interchange-at ε z)
-      in extend-square a d z (e ∙ c) (e′ ∙ c′) (comp-unitˡ F) (comp-unitˡ F′)
-        first (postWhisker-id-at z)
+      in paste-left-unit-naturality F F′ J ε z c c′ a natural
 
     right-unit-natural : {C D : CAT} {f f′ : MAP P (Map C D)} (α : f =₁ f′)
       → (right-unit-route f′ ∙ retainedIso (composeTerm-cong α (idIso (identityTerm C)))) =₂
@@ -238,19 +304,13 @@ module RouteNaturality (P : CAT) where
           J = retained (identityTerm C)
           ε = retained-identity C
           a = retainedIso (composeTerm-cong α (idIso (identityTerm C)))
-          b = retainedIso α ▷ J
-          d = retainedIso α ▷ id (P × C)
           z = retainedIso α
           c = retained-compose f (identityTerm C)
           c′ = retained-compose f′ (identityTerm C)
-          e = F ◁ ε
-          e′ = F′ ◁ ε
           natural = isoComp-cong
             (hcomp-idInner z J ∙ hcomp-cong (idIso z) (retainedIso-id (identityTerm C))) (idIso c) ∙
             retained-compose-natural α (idIso (identityTerm C))
-          first = extend-square a b d c c′ e e′ natural ((interchange-at z ε) ⁻¹)
-      in extend-square a d z (e ∙ c) (e′ ∙ c′) (comp-unitʳ F) (comp-unitʳ F′)
-        first (preWhisker-id-at z)
+      in paste-right-unit-naturality F F′ J ε z c c′ a natural
 
 ```
 
@@ -376,10 +436,11 @@ module ParameterReflection {Q P : CAT} (σ : MAP Q P) where
     (second-component p)
 
 module NormalizedChange {P Q C D : CAT} (σ : MAP Q P) where
-  module RP = RetainedEvaluation P
-  module RQ = RetainedEvaluation Q
-  module SQ = RetainedSquares Q
-  module SP = RetainedSquares P
+  private
+    module RP = RetainedEvaluation P
+    module RQ = RetainedEvaluation Q
+    module SQ = RetainedSquares Q
+    module SP = RetainedSquares P
   s = productMap σ (id C)
   t = productMap σ (id D)
 
@@ -453,12 +514,10 @@ module NormalizedChange {P Q C D : CAT} (σ : MAP Q P) where
           v = image R
           z = image (α ▷ σ)
           w = RP.retainedIso α ▷ s
-      in isoComp-assoc-at w k (u ⁻¹) ∙
-        (isoComp-cong (retained-parameter-change-natural α σ) (idIso (u ⁻¹)) ∙
-        ((isoComp-assoc-at k′ z (u ⁻¹)) ⁻¹ ∙
-        (isoComp-cong (idIso k′) (cancel-left v (z ∙ u ⁻¹)) ∙
-        (isoComp-assoc-at k′ (v ⁻¹) (v ∙ (z ∙ u ⁻¹)) ∙
-          isoComp-cong (idIso (change g R)) (image-specialize α L R)))))
+      in Paste.normalized-frame-square (Q × C) (P × D)
+        k k′ (u ⁻¹) v (v ⁻¹) z w (image (specialize α σ L R))
+        (retained-parameter-change-natural α σ)
+        (cancel-left v (z ∙ u ⁻¹)) (image-specialize α L R)
 
     reflect-route : {f g : MAP P (Map C D)} (α : f =₁ g)
       {f′ g′ : MAP Q (Map C D)} (L : (f ∘ σ) =₁ f′) (R : (g ∘ σ) =₁ g′)
@@ -476,10 +535,11 @@ module NormalizedChange {P Q C D : CAT} (σ : MAP Q P) where
       in SQ.retainedIso-reflect qAn _ _ ((RQ.retained-reflect-β qAn routeQ base-compatible) ⁻¹ ∙ retained)
 
 module NormalizedComposition {P Q : CAT} (σ : MAP Q P) where
-  module RP = RetainedEvaluation P
-  module RQ = RetainedEvaluation Q
-  module Natural = RetainedNaturality Q
-  module N (A B : CAT) = NormalizedChange {C = A} {D = B} σ
+  private
+    module RP = RetainedEvaluation P
+    module RQ = RetainedEvaluation Q
+    module Natural = RetainedNaturality Q
+    module N (A B : CAT) = NormalizedChange {C = A} {D = B} σ
 
   s : (A : CAT) → MAP (Q × A) (P × A)
   s A = productMap σ (id A)

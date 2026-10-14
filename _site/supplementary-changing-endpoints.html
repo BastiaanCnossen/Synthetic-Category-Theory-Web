@@ -1,0 +1,145 @@
+<!doctype html>
+
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Changing endpoints in identification animae | Synthetic category theory</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/reader-shell.css"><link rel="stylesheet" href="assets/reader.css?v=e77c6ba976bccda0"><link rel="stylesheet" href="assets/Agda.css">
+<script src="assets/math-config.js"></script><script defer src="vendor/mathjax/tex-chtml.js"></script><script defer src="assets/agda-context.js?v=f7bbb485904189a1"></script><script defer src="assets/supplementary.js?v=88f0eed0769c41c3-f7bbb485904189a1"></script><script defer src="assets/reader.js?v=bb4820fd39f58f55"></script></head>
+<body class="hide-agda-links has-passages supplementary-page"><a class="skip-link" href="#main">Skip to content</a><aside class="utility-dock" aria-label="Reading tools">
+<button id="reading-settings-button" class="utility-button" type="button" aria-label="Reading settings" title="Reading settings" aria-controls="reading-settings" aria-expanded="false"><span aria-hidden="true">⚙</span></button>
+<a class="utility-button" href="book.pdf" aria-label="Read the web edition PDF" title="Read the web edition PDF"><span aria-hidden="true">📖</span></a>
+<section id="reading-settings" class="settings-panel" aria-label="Reading preferences" hidden><h2>Reading preferences</h2>
+<label><input id="collapse-proofs" type="checkbox"> Collapse book proofs</label>
+<label><input id="show-agda-links" type="checkbox"> Show links to Agda code</label>
+</section></aside>
+<header class="site-header"><div class="header-top"><nav class="book-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Synthetic category theory</a></li><li><a href="chapter-introduction.html">Chapter 1</a></li><li><a href="equivalences.html">Section 1.3</a></li><li><a href="supplementary-notes.html">Supplementary notes</a></li></ol></nav></div><p class="eyebrow">Supplementary note · AI-generated prose</p><h1>Changing endpoints in identification animae</h1><p class="ai-notice">AI-generated prose accompanying the Agda code. This note is supplementary to the book and is not part of the authors' manuscript.</p></header>
+<div class="reader-grid"><aside class="reader-nav" aria-label="Book navigation"><h2>Resources</h2><nav aria-label="Resources" class="reader-resources"><a href="code-index.html">All Agda code</a><a href="supplementary-notes.html">Supplementary notes</a><a href="formalization.html">Agda guide</a><a href="build-report.html">Build details</a></nav><h2>Contents</h2><nav aria-label="Contents"><a href="index.html">Overview</a><a href="introduction.html">Introduction</a><a href="overview-of-the-axioms.html">Overview of the axioms</a><details class="contents-chapter" open><summary><span class="chapter-number">Chapter 1</span><span class="chapter-name">The language of synthetic category theory</span></summary><div class="chapter-sections"><a href="chapter-introduction.html">Chapter introduction</a><a href="basic-vocabulary.html">1.1 · The basic vocabulary</a><a href="coherences.html">1.2 · Coherences</a><a aria-current="page" href="equivalences.html">1.3 · Equivalences of categories</a><a href="mapping-animae.html">1.4 · Mapping animae</a><a href="initial-categories-and-coproducts.html">1.5 · Initial categories and coproducts</a><a href="pullbacks.html">1.6 · Pullbacks of categories</a><a href="functor-categories.html">1.7 · Functor categories</a><a href="pushouts.html">1.8 · Pushout squares</a></div></details><details class="contents-chapter"><summary><span class="chapter-number">Chapter 2</span><span class="chapter-name">The internal structure of categories</span></summary><div class="chapter-sections"><a href="internal-structure-introduction.html">Chapter introduction</a><a href="morphisms-and-diagrams.html">2.1 · Morphisms and diagrams</a><a href="segal-axiom.html">2.2 · The Segal axiom</a><a href="rezk-axiom.html">2.3 · The Rezk axiom</a><a href="groupoids.html">2.4 · Groupoids</a><a href="recognizing-animae.html">2.5 · Recognizing animae</a><a href="chapter-2-exercises.html">2.6 · Exercises</a></div></details><details class="contents-chapter"><summary><span class="chapter-number">Chapter 3</span><span class="chapter-name">Constructions of categories</span></summary><div class="chapter-sections"><a href="constructions-introduction.html">Chapter introduction</a><a href="subcategories.html">3.1 · Subcategories</a><a href="full-subcategories.html">3.2 · Full subcategories</a><a href="localizations.html">3.3 · Localizations</a><a href="geometric-realizations.html">3.4 · Geometric realizations</a><a href="exponentiable-functors.html">3.5 · Exponentiable functors</a><a href="joins.html">3.6 · Joins</a><a href="slice-categories.html">3.7 · Slice categories</a><a href="chapter-3-exercises.html">3.8 · Exercises</a></div></details></nav></aside>
+<main id="main" class="notes-page" tabindex="-1"><p class="coverage-note edition-notice">This supplementary note and its code links describe the earlier formalization. Its proof explanation has not been migrated to rebuild2. <a href="chapter01-code.html">Browse the current Chapter 1 code.</a></p><p class="agda-help"><span class="agda-invitation"><a class="agda-start" data-module="SCT.VolumeI.Chapter01.Section03.Whiskering" href="agda/SCT.VolumeI.Chapter01.Section03.Whiskering.html">Read the Agda code</a> alongside this note.</span><span class="agda-instructions">Click dotted-underlined statements to read their Agda code. <button type="button" class="agda-hide text-button">Hide links.</button> <a href="code-index.html">Browse all code.</a></span></p>
+   <h3 class="likesectionHead" id="why-the-endpoints-matter"><a id="x1-1000"></a>Why the endpoints matter</h3>
+<p class="noindent">The proof that <a href="equivalences.html#lem:Whiskering_By_Equivalence">whiskering by an equivalence induces an equivalence</a> uses unitors,
+associators, and identifications of functors. Consequently, some intermediate
+comparisons have different endpoints. The relevant elementary fact is that
+composition with a fixed identification gives an equivalence between identification
+animae.
+</p><p class="indent">   We work with the absolute categories and the structures of Sections 1.1–1.3.
+Write \(\beta \cdot \alpha \) for vertical composition, with \(\alpha \) applied first. Whiskering is denoted by \(\star \). An
+expression such as \(\beta \cdot -\) is a functor: the fixed identification is used as a constant input
+to vertical composition.
+</p><p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1001r1"></a>
+<a class="agda-trigger" id="text-supp-endpoint-multiplication" data-agda="supp-endpoint-multiplication" href="#agda-supp-endpoint-multiplication"><span class="ecbx-1095">Supplementary Lemma 1.</span></a>  </span><span id="lem:Supplementary_Endpoint_Multiplication">  </span><span class="ecti-1095">For  functors</span>  \(f,g,h\colon C\to D\)  <span class="ecti-1095">and  an  identification</span>  \(\beta \colon g=h\)<span class="ecti-1095">,  the
+functor </span>\[ L_\beta \colon (f=g)\longrightarrow (f=h),\qquad L_\beta (\sigma )=\beta \cdot \sigma , \] <span class="ecti-1095">is an equivalence, with inverse given by composition with</span> \(\beta ^{-1}\)<span class="ecti-1095">. Likewise,
+for</span> \(\alpha \colon f=g\)<span class="ecti-1095">, the functor </span>\[ R_\alpha \colon (g=h)\longrightarrow (f=h),\qquad R_\alpha (\tau )=\tau \cdot \alpha , \] <span class="ecti-1095">is an equivalence, with inverse given by composition with</span> \(\alpha ^{-1}\)<span class="ecti-1095">.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">     For  the  first  assertion,  the  two  inverse  calculations  are  \[ \beta ^{-1}\cdot (\beta \cdot \sigma )=\sigma , \qquad \beta \cdot (\beta ^{-1}\cdot \tau )=\tau . \]
+Reassociate, apply the corresponding inverse comparison, and remove the
+identity  identification  by  a  unit  comparison.  These  calculations  hold  as
+identifications of functors on the relevant identification animae: apply the
+vertical laws to the universal input, keeping the fixed identification as a
+constant  family.  The  right-composition  assertion  uses  the  right  unit  and
+                                                                     
+
+                                                                     
+the  same  inverse  laws.  Evaluating  the  composite  functors  also  uses  the
+substitution comparisons from <a href="supplementary-specializing-coherence-laws.html">Specializing coherence laws</a>.                    □
+</p>
+   </div></details>
+<p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1002r2"></a>
+<a class="agda-trigger" id="text-supp-endpoint-square" data-agda="supp-endpoint-square" href="#agda-supp-endpoint-square"><span class="ecbx-1095">Supplementary Lemma 2.</span></a>  </span><span id="lem:Supplementary_Endpoint_Square"> </span><span class="ecti-1095">Let</span> \(f,g,f',g'\colon C\to D\)<span class="ecti-1095">, with identifications</span> \(\alpha \colon f=f'\) <span class="ecti-1095">and</span> \(\beta \colon g=g'\)<span class="ecti-1095">. Suppose that
+functors </span>\[ u\colon X\to (f=g),\qquad v\colon X\to (f'=g') \] <span class="ecti-1095">are equipped with an identification of functors on</span> \(X\) \[ \overline \beta \cdot u=v\cdot \overline \alpha , \] <span class="ecti-1095">where the
+bars denote constant families. Then</span> \(u\) <span class="ecti-1095">is an equivalence if and only if</span> \(v\) <span class="ecti-1095">is an
+equivalence.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">     After  the  substitution  comparisons,  the  given  identification
+reads \(L_\beta \circ u=R_\alpha \circ v\), with common target \((f=g')\). Both \(L_\beta \) and \(R_\alpha \) are equivalences by Supplementary
+Lemma <a href="#x1-1001r1">1</a>. Apply the two-out-of-three property and invariance of equivalence
+under identification of functors, in either direction.                               □
+</p>
+   </div></details>
+<p class="noindent">
+</p>
+   <h3 class="likesectionHead" id="whiskering-by-an-equivalence"><a id="x1-2000"></a>Whiskering by an equivalence</h3>
+<p class="noindent"></p><section class="statement supplementary-statement">
+<p></p>
+                                                                     
+
+                                                                     
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-2001r3"></a>
+<a class="agda-trigger" id="text-supp-whiskering-equivalence" data-agda="supp-whiskering-equivalence" href="#agda-supp-whiskering-equivalence"><span class="ecbx-1095">Supplementary Corollary 3.</span></a>  </span><span id="cor:Supplementary_Whiskering_Equivalence"> </span><span class="ecti-1095">If</span> \(F\colon C\to D\) <span class="ecti-1095">is an equivalence, then both functors </span>\[ F\star -\colon (f=g)\longrightarrow (F\circ f=F\circ g) \]
+<span class="ecti-1095">for</span> \(f,g\colon B\to C\)<span class="ecti-1095">, and </span>\[ -\star F\colon (h=k)\longrightarrow (h\circ F=k\circ F) \] <span class="ecti-1095">for</span> \(h,k\colon D\to E\)<span class="ecti-1095">, are equivalences.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">     Choose  an  inverse  \(G\)  of  \(F\).  For  postwhiskering,  consider  three
+successive functors on identification animae: postwhiskering by \(F\), then by
+\(G\), then by \(F\) again. The first two compose to an equivalence: the associator
+comparison  relates  their  composite  to  postwhiskering  by  \(GF\),  the  supplied
+identification \(GF=\mathrm {id}_C\) relates that to postwhiskering by the identity, and the unitor
+comparison  relates  the  latter  to  the  identity  functor  on  \((f=g)\).  At  each  step,
+Supplementary Lemma <a href="#x1-1002r2">2</a> handles the changing endpoints. The second and
+third functors also compose to an equivalence, using \(FG=\mathrm {id}_D\). Two-out-of-six now
+implies that the first functor is an equivalence. The prewhiskering proof uses
+the corresponding comparisons on the other side.
+</p><p class="indent">   The comparisons for composite and identity whiskering are displayed
+in  <a href="supplementary-whiskering-and-horizontal-composition.html">Whiskering  and  horizontal  composition</a>.  Replacing  \(GF\)  by  the  identity
+uses fixed-outer interchange; the analogous change for prewhiskering uses
+fixed-inner interchange.                                                                   □
+</p>
+   </div></details>
+<p class="noindent">
+</p>
+   <h3 class="likesectionHead" id="lifting-a-specified-identification"><a id="x1-3000"></a>Lifting a specified identification</h3>
+<p class="noindent"></p><section class="statement supplementary-statement">
+                                                                     
+
+                                                                     
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-3001r4"></a>
+<a class="agda-trigger" id="text-supp-whiskering-lift" data-agda="supp-whiskering-lift" href="#agda-supp-whiskering-lift"><span class="ecbx-1095">Supplementary Lemma 4.</span></a>  </span><span id="lem:Supplementary_Whiskering_Lift"> </span><span class="ecti-1095">Let</span> \(F\colon C\to D\) <span class="ecti-1095">be an equivalence and</span> \(f,g\colon B\to C\)<span class="ecti-1095">. Every specified
+identification</span>  \(\delta \colon F\circ f=F\circ g\)  <span class="ecti-1095">admits  an  identification</span>  \(\widetilde \delta \colon f=g\)  <span class="ecti-1095">together  with  an  identification  </span>\[ F\star \widetilde \delta =\delta . \]
+<span class="ecti-1095">Moreover, for</span> \(\sigma ,\tau \colon f=g\) <span class="ecti-1095">and a specified identification</span> \(p\colon F\star \sigma =F\star \tau \)<span class="ecti-1095">, there is an identification</span> \(\widetilde p\colon \sigma =\tau \)
+<span class="ecti-1095">equipped with a comparison between its image under postwhiskering by</span> \(F\star -\) <span class="ecti-1095">and</span>
+\(p\)<span class="ecti-1095">. The corresponding assertions hold for prewhiskering by</span> \(F\)<span class="ecti-1095">.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    Apply a chosen inverse of the equivalence \(F\star -\) to the absolute object
+\(\delta \). Its inverse comparison, together with the associator and unitor, gives the
+specified image comparison. For the higher assertion, apply Supplementary
+Corollary <a href="#x1-2001r3">3</a> to the equivalence \(F\star -\) itself, and repeat the same lifting construction
+on the resulting identification animae.                                                □
+</p>
+   </div></details>
+<p class="indent">   The image comparison is part of the conclusion. It is needed, for example,
+when a lifted identification must fill a prescribed square. Keeping it avoids
+replacing that square by an unspecified comparison with the same endpoints.
+</p>
+    
+<section class="supplementary-targets"><h2>Checked declarations</h2><p>The linked Agda declarations were type-checked in the displayed edition. The explanatory prose and proof ideas are AI-generated and are not verified by that check.</p><ul><li id="agda-supp-endpoint-multiplication">Supplementary Lemma 1: Composition with an identification: <a href="agda/SCT.VolumeI.Chapter01.Section03.Whiskering.html#2066"><code>leftMultiply-isEquiv</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section03.Whiskering.html#2408"><code>rightMultiply-isEquiv</code></a></li><li id="agda-supp-endpoint-square">Supplementary Lemma 2: Changing endpoints: <a href="agda/SCT.VolumeI.Chapter01.Section03.Whiskering.html#2928"><code>square-left</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section03.Whiskering.html#3347"><code>square-right</code></a></li><li id="agda-supp-whiskering-equivalence">Supplementary Corollary 3: Whiskering by an equivalence: <a href="agda/SCT.VolumeI.Chapter01.Section03.Whiskering.html#6300"><code>postWhisker-isEquiv</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section03.Whiskering.html#6847"><code>preWhisker-isEquiv</code></a></li><li id="agda-supp-whiskering-lift">Supplementary Lemma 4: Lifting with a specified image: <a href="agda/SCT.VolumeI.Chapter01.Section03.Whiskering.html#7833"><code>postWhisker-lift</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section03.Whiskering.html#8050"><code>preWhisker-lift</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section03.Whiskering.html#8263"><code>postWhisker-Iso₂-lift</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section03.Whiskering.html#8549"><code>preWhisker-Iso₂-lift</code></a></li></ul></section></main></div>
+<footer>Experimental web edition · Generated from annotated LaTeX and Agda sources. <a href="build-report.html">Build details</a></footer></body></html>

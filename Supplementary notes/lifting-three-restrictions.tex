@@ -1,0 +1,86 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+\section*{Lifting a family from three restrictions}
+
+To recover the morphisms of a \href{subcategories.html}{generated subcategory},
+the formalization uses the three endomorphisms of the walking morphism.
+The calculation is about a whole family of arrows. Here is how its three
+restrictions are assembled, using specified lifts rather than a choice
+made separately at every point.
+
+Assume the Chapter 1 mapping-anima and coproduct structures. For a functor
+$m\colon X\to Y$, write $m_*$ for postcomposition on mapping animae.
+A lift of $h$ through $m_*$ includes a functor $\widetilde h$ and an
+identification $m_*\widetilde h=h$.
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Summand_Lifting}
+Let $h\colon\Gamma\to\Map(A\sqcup B,Y)$, where $\Gamma$ is any absolute
+category. If the restrictions of $h$ to $A$ and $B$ have specified lifts
+through $m_*$, then $h$ has a lift through
+$\Map(A\sqcup B,X)\to\Map(A\sqcup B,Y)$.
+\end{lemma}
+\begin{proof}[Proof idea]
+Pair the two supplied lifts and lift this pair through the equivalence
+\[
+ \Map(A\sqcup B,X)\iso\Map(A,X)\times\Map(B,X).
+\]
+Restriction to the two summands commutes with postcomposition by $m$.
+Consequently, the two supplied comparison identifications give an
+identification of the restrictions of $m_*\widetilde h$ and $h$.
+Reflect it through the corresponding restriction equivalence for $Y$.
+This gives the required comparison for the whole family. The argument
+does not require $m$ to be an embedding.
+\end{proof}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Three_Restrictions}
+Suppose $x_0,x_1,x_2\colon\star\to K$ induce an equivalence
+$(\star\sqcup\star)\sqcup\star\iso K$.
+A family $h\colon\Gamma\to\Map(K,Y)$ lifts through $m_*$ if its
+three restrictions to $\Map(\star,Y)$ have specified lifts.
+\end{lemma}
+\begin{proof}[Proof idea]
+Apply \Cref{lem:Supplementary_Summand_Lifting} twice. At each step,
+transport the supplied comparisons along the computation identifications
+for the coproduct inclusions. This lifts the restriction of $h$ along
+the displayed equivalence. Precomposition by that equivalence is itself
+an equivalence on mapping animae. Lift back through it and reflect the
+comparison with $h$. Notice that the three restrictions take values in
+$\Map(\star,Y)=Y^\simeq$; we keep these core-valued restrictions explicit, rather than identifying
+$\Map(\star,Y)$ with $Y$.
+\end{proof}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Generated_Arrows}
+Assume also the walking-morphism, endpoint, Segal, commutative-square,
+interval-core and coproduct-universality structures of the preceding
+chapters. Let $m\colon M\hookrightarrow\Map([1],C)$ be a collection
+closed under source and target identities, and let $i\colon A\to C$
+be a subcategory presentation of $M$. The comparison
+\[
+ \Map([1],A)\longrightarrow M
+\]
+is an equivalence.
+\end{lemma}
+\begin{proof}[Proof idea]
+Use the established three-point presentation of $\Map([1],[1])$,
+whose points name the constant functor at $0$, the identity functor,
+and the constant functor at $1$.
+The family $M\to\Map([1],C)$ acts by postcomposition on this anima.
+Its three restrictions are the source identity, the given arrow, and the
+target identity. The two closure witnesses supply the first and third
+lifts; the middle lift is the identity. The naming and evaluation
+comparisons put these lifts in the form needed by
+\Cref{lem:Supplementary_Three_Restrictions}.
+
+The resulting lift of the whole action supplies a cone for the defining
+subcategory pullback, tested at $[1]$. Its factorization gives a section
+of $\Map([1],A)\to M$. The comparison is an embedding because both maps
+into $\Map([1],C)$ are embeddings. An embedding with a section is an
+equivalence. Closure under composition is needed to obtain the presentation
+from the subcategory axiom, but this calculation, with a presentation
+already supplied, uses only closure under identities.
+\end{proof}
+\end{document}

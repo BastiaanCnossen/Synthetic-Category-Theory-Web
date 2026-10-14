@@ -1,0 +1,118 @@
+<!doctype html>
+
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Hom expressions and restriction | Synthetic category theory</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/reader-shell.css"><link rel="stylesheet" href="assets/reader.css?v=e77c6ba976bccda0"><link rel="stylesheet" href="assets/Agda.css">
+<script src="assets/math-config.js"></script><script defer src="vendor/mathjax/tex-chtml.js"></script><script defer src="assets/reader.js?v=bb4820fd39f58f55"></script></head>
+<body class="hide-agda-links has-passages supplementary-page"><a class="skip-link" href="#main">Skip to content</a><aside class="utility-dock" aria-label="Reading tools">
+<button id="reading-settings-button" class="utility-button" type="button" aria-label="Reading settings" title="Reading settings" aria-controls="reading-settings" aria-expanded="false"><span aria-hidden="true">⚙</span></button>
+<a class="utility-button" href="book.pdf" aria-label="Read the web edition PDF" title="Read the web edition PDF"><span aria-hidden="true">📖</span></a>
+<section id="reading-settings" class="settings-panel" aria-label="Reading preferences" hidden><h2>Reading preferences</h2>
+<label><input id="collapse-proofs" type="checkbox"> Collapse book proofs</label>
+
+</section></aside>
+<header class="site-header"><div class="header-top"><nav class="book-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Synthetic category theory</a></li><li><a href="internal-structure-introduction.html">Chapter 2</a></li><li><a href="chapter-2-exercises.html">Section 2.6</a></li><li><a href="supplementary-notes.html">Supplementary notes</a></li></ol></nav></div><p class="eyebrow">Supplementary note · AI-generated prose</p><h1>Hom expressions and restriction</h1><p class="ai-notice">AI-generated prose accompanying the Agda code. This note is supplementary to the book and is not part of the authors' manuscript.</p></header>
+<div class="reader-grid"><aside class="reader-nav" aria-label="Book navigation"><h2>Resources</h2><nav aria-label="Resources" class="reader-resources"><a href="code-index.html">All Agda code</a><a href="supplementary-notes.html">Supplementary notes</a><a href="formalization.html">Agda guide</a><a href="build-report.html">Build details</a></nav><h2>Contents</h2><nav aria-label="Contents"><a href="index.html">Overview</a><a href="introduction.html">Introduction</a><a href="overview-of-the-axioms.html">Overview of the axioms</a><details class="contents-chapter"><summary><span class="chapter-number">Chapter 1</span><span class="chapter-name">The language of synthetic category theory</span></summary><div class="chapter-sections"><a href="chapter-introduction.html">Chapter introduction</a><a href="basic-vocabulary.html">1.1 · The basic vocabulary</a><a href="coherences.html">1.2 · Coherences</a><a href="equivalences.html">1.3 · Equivalences of categories</a><a href="mapping-animae.html">1.4 · Mapping animae</a><a href="initial-categories-and-coproducts.html">1.5 · Initial categories and coproducts</a><a href="pullbacks.html">1.6 · Pullbacks of categories</a><a href="functor-categories.html">1.7 · Functor categories</a><a href="pushouts.html">1.8 · Pushout squares</a></div></details><details class="contents-chapter" open><summary><span class="chapter-number">Chapter 2</span><span class="chapter-name">The internal structure of categories</span></summary><div class="chapter-sections"><a href="internal-structure-introduction.html">Chapter introduction</a><a href="morphisms-and-diagrams.html">2.1 · Morphisms and diagrams</a><a href="segal-axiom.html">2.2 · The Segal axiom</a><a href="rezk-axiom.html">2.3 · The Rezk axiom</a><a href="groupoids.html">2.4 · Groupoids</a><a href="recognizing-animae.html">2.5 · Recognizing animae</a><a aria-current="page" href="chapter-2-exercises.html">2.6 · Exercises</a></div></details><details class="contents-chapter"><summary><span class="chapter-number">Chapter 3</span><span class="chapter-name">Constructions of categories</span></summary><div class="chapter-sections"><a href="constructions-introduction.html">Chapter introduction</a><a href="subcategories.html">3.1 · Subcategories</a><a href="full-subcategories.html">3.2 · Full subcategories</a><a href="localizations.html">3.3 · Localizations</a><a href="geometric-realizations.html">3.4 · Geometric realizations</a><a href="exponentiable-functors.html">3.5 · Exponentiable functors</a><a href="joins.html">3.6 · Joins</a><a href="slice-categories.html">3.7 · Slice categories</a><a href="chapter-3-exercises.html">3.8 · Exercises</a></div></details></nav></aside>
+<main id="main" class="notes-page" tabindex="-1"><p class="coverage-note edition-notice">Agda links are temporarily unavailable for Chapters 2 and 3 while their code is updated to the foundations used in Chapter 1.</p>
+   <h3 class="likesectionHead" id="hom-expressions-and-restriction"><a id="x1-1000"></a>Hom expressions and restriction</h3>
+<p class="noindent">The composition functors in the <a href="chapter-2-exercises.html">elementary Yoneda exercise</a> are built by
+passing between functors into a hom category and arrow families with
+fixed endpoints. This note explains the normalization involved in that
+passage.
+</p><p class="indent">   Assume the Chapter 1 structures, including pullbacks and functor categories,
+and the walking morphism. Fix an absolute category \(C\) and absolute objects \(x,y\). Put \(H=\operatorname {Hom}_C(x,y)\),
+the pullback of endpoint evaluation \(\operatorname {Ar}(C)\to C\times C\) along \((x,y)\colon \star \to C\times C\). A framed expression over an
+absolute category \(\Gamma \) is a functor \(A\colon \Gamma \to \operatorname {Ar}(C)\) with specified comparisons \(p\colon e_0A=x!_\Gamma \) and \(q\colon e_1A=y!_\Gamma \). An
+endpoint-preserving comparison is an identification of arrow families compatible
+with both frames, as in <a href="supplementary-arrows-with-specified-endpoints.html">Arrows with specified endpoints</a>. We write \(\simeq \) between
+expressions for such comparison data. No category of all these expressions is
+required.
+</p><p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1001r1"></a>
+<span id="text-supp-hom-normalization"><span class="ecbx-1095">Supplementary Lemma 1.</span></span>  </span><span id="lem:Supplementary_Hom_Normalization"> </span><span class="ecti-1095">There are operations</span> \(\operatorname {intro}(f)\colon \Gamma \to H\) <span class="ecti-1095">for framed expressions</span>
+\(f\)<span class="ecti-1095">, and</span> \(\operatorname {expr}(h)\) <span class="ecti-1095">for functors</span> \(h\colon \Gamma \to H\)<span class="ecti-1095">, with comparisons </span>\[ \operatorname {intro}(\operatorname {expr}(h))=h, \qquad \operatorname {expr}(\operatorname {intro}(f))\simeq f. \] <span class="ecti-1095">An identification of functors induces
+an  endpoint-preserving  comparison  of  their  expressions;  a  comparison  of
+expressions induces an identification of their introduction functors.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    Introduction lifts the endpoint cone with terminal leg \(!_\Gamma \). For
+extraction, compose \(h\) with the arrow projection of \(H\), and restrict the two
+                                                                     
+
+                                                                     
+universal endpoint frames. Their base leg is initially the composite of \(h\) with
+the projection \(H\to \star \). Normalize it to \(!_\Gamma \) using the terminal comparison.
+</p><p class="indent">   Compare the original restricted cone and this normalized cone by the
+identity on the arrow leg and the terminal comparison on the base leg. The
+two projected matching equations verify a full cone comparison. Pullback
+reconstruction gives the first formula. Pullback computation, together with
+the inverse normalization comparison, gives the second; terminal uniqueness
+aligns its base comparison and retains both endpoint equations.
+</p><p class="indent">   Naturality of the original frames and of terminal normalization gives the
+assertion for identifications of functors. In the reverse direction, pair the
+two endpoint equations to form a cone comparison, then lift it through the
+pullback property.                                                                          □
+</p>
+   </div></details>
+<p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1002r2"></a>
+<span id="text-supp-hom-restriction"><span class="ecbx-1095">Supplementary Lemma 2.</span></span>  </span><span id="lem:Supplementary_Hom_Restriction">  </span><span class="ecti-1095">For</span>  \(r\colon \Delta \to \Gamma \)<span class="ecti-1095">,  let</span>  \(r^*f\)  <span class="ecti-1095">be  restriction  of  a  framed
+expression, followed by normalization of its constant endpoints to</span> \(x!_\Delta ,y!_\Delta \)<span class="ecti-1095">. Then </span>\[ \operatorname {intro}(f)r=\operatorname {intro}(r^*f), \qquad \operatorname {expr}(hr)\simeq r^*\operatorname {expr}(h). \]
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    The restricted endpoint cone has terminal leg \(!_\Gamma r\); the cone encoded
+from \(r^*f\) has terminal leg \(!_\Delta \). Compare them by the identity on the arrow leg and
+the terminal identification on the base. Each matching coordinate includes
+the associator from restriction and the comparison between the two constant
+endpoints. Checking these two coordinates gives the whole cone comparison.
+Lift  it  and  use  compatibility  of  pullback  factorization  with  restriction.
+                                                                     
+
+                                                                     
+This gives the first formula. Apply extraction and the two reconstruction
+comparisons of Supplementary Lemma <a href="#x1-1001r1">1</a> to obtain the second.               □
+</p>
+   </div></details>
+<p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1003r3"></a>
+<span id="text-supp-hom-composition-computation"><span class="ecbx-1095">Supplementary Lemma 3.</span></span>  </span><span id="lem:Supplementary_Hom_Composition_Computation">  </span><span class="ecti-1095">Assume  in  addition  the  interval  endpoint
+data  and  the  Segal  axiom.  For</span>  \(e\colon \star \to \operatorname {Hom}_C(x,y)\)<span class="ecti-1095">,  let</span>  \(f_\Gamma =\operatorname {expr}(e!_\Gamma )\)<span class="ecti-1095">.  For  every  absolute  object</span>  \(z\)  <span class="ecti-1095">of</span>  \(C\)<span class="ecti-1095">,
+there is a postcomposition functor</span> \(e_*\colon \operatorname {Hom}_C(z,x)\to \operatorname {Hom}_C(z,y)\) <span class="ecti-1095">with an endpoint-preserving computation
+comparison </span>\[ \operatorname {expr}(e_*h)\simeq f_\Gamma \circ \operatorname {expr}(h) \] <span class="ecti-1095">for every</span> \(h\colon \Gamma \to \operatorname {Hom}_C(z,x)\)<span class="ecti-1095">. There is a corresponding precomposition functor</span> \(e^*\colon \operatorname {Hom}_C(y,z)\to \operatorname {Hom}_C(x,z)\)<span class="ecti-1095">,
+with</span> \(\operatorname {expr}(e^*k)\simeq \operatorname {expr}(k)\circ f_\Gamma \) <span class="ecti-1095">for every</span> \(k\colon \Gamma \to \operatorname {Hom}_C(y,z)\)<span class="ecti-1095">.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    For postcomposition, use the universal framed expression on \(\operatorname {Hom}_C(z,x)\),
+compose it with the constant family of \(e\), and apply introduction. Restrict
+this construction by \(h\). Supplementary Lemma <a href="#x1-1002r2">2</a> moves restriction through
+introduction and extraction. The <a href="supplementary-substitution-in-morphism-expressions.html">substitution comparison for composition</a>
+identifies the restricted composite with the composite of the restricted inputs.
+Normalize the constant input and use the introduction computation law. The
+result preserves both endpoints. Precomposition uses the same construction
+with the other input fixed.                                                               □
+</p>
+   </div></details>
+    
+<span id="agda-supp-hom-normalization"></span><span id="agda-supp-hom-restriction"></span><span id="agda-supp-hom-composition-computation"></span></main></div>
+<footer>Experimental web edition · Generated from annotated LaTeX and Agda sources. <a href="build-report.html">Build details</a></footer></body></html>

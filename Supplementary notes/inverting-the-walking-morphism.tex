@@ -1,0 +1,76 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+\section*{Inverting the walking morphism}
+
+The \href{geometric-realizations.html}{geometric realization of $[1]$}
+is contractible. The checked proof identifies the functors out of $[1]$
+that invert every arrow by evaluating their inversion data at the identity
+functor $[1]\to[1]$. This is an alternative to the manuscript's
+argument enumerating the three arrows of $[1]$.
+
+Use the Chapter 1 structures, walking-morphism and endpoint data,
+the Segal and commutative-square axioms, and Rezk.
+For a category $D$, write
+\[
+ V_D=\Map^{\Map([1],[1])}([1],D),\qquad
+ u\colon V_D\hookrightarrow\Map([1],D).
+\]
+Thus $V_D$ consists of functors inverting all arrows of $[1]$.
+Let $c\colon D^\simeq\to\Map([1],D)$ be the constant-arrow functor.
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Interval_Constants}
+There is a functor $k\colon D^\simeq\to V_D$ with $uk=c$.
+\end{lemma}
+\begin{proof}[Proof idea]
+Constant arrows factor through the terminal category. That category is a
+groupoid, and a functor out of a groupoid inverts every arrow. Apply this
+to the universal family of objects of $D$, then restrict the inverting
+family along $[1]\to\star$. The restriction computation identifies its
+underlying family with $c$.
+\end{proof}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Inverted_Identity}
+There is a functor $o\colon V_D\to D^\simeq$ with $co=u$.
+The functor $k$ of \Cref{lem:Supplementary_Interval_Constants} is an
+equivalence with inverse $o$.
+\end{lemma}
+\begin{proof}[Proof idea]
+The defining pullback of $V_D$ supplies a family of isomorphisms indexed
+by the arrows of $[1]$. Evaluate this family at the point of
+$\Map([1],[1])$ naming the identity functor. Its underlying arrow is the
+original functor $[1]\to D$: this is the identity computation for the
+mapping action, with the naming comparisons included.
+
+Rezk identifies the anima of isomorphisms in $D$ with $D^\simeq$, by
+sending an object to its identity. Lifting the evaluated family through
+this equivalence gives $o$ and the comparison $co=u$.
+Both $u$ and $c$ are embeddings; for $c$ this follows from Rezk and the
+embedding of isomorphisms among all arrows. The equations $uk=c$ and
+$co=u$ therefore imply $ok=\operatorname{id}$ and
+$ko=\operatorname{id}$ by reflection. These are identifications, not
+strict equalities of the chosen functors.
+\end{proof}
+
+\begin{corollary}
+\label[corollary]{cor:Supplementary_Interval_Localization}
+In the setting of the localization definition, let $l\colon[1]\to T$
+be a localization at all arrows of $[1]$. Then $T$ is contractible.
+\end{corollary}
+\begin{proof}[Proof idea]
+For every $D$, the localization property gives an equivalence
+$\rho_D\colon\Map(T,D)\iso V_D$.
+The composite of restriction along $T\to\star$ with $\rho_D$ is
+identified with $k$. To check this comparison, compose with the embedding
+$u$: both routes become the constant-arrow family, using the unit and
+composition comparisons for restriction and the terminal comparison
+$(T\to\star)l=([1]\to\star)$. Reflect through $u$.
+
+Since $k$ and $\rho_D$ are equivalences, restriction along $T\to\star$
+is an equivalence for every $D$. Detection by mapping animae shows that
+$T\to\star$ is an equivalence. No assumption that $T$ is already a
+groupoid is used.
+\end{proof}
+\end{document}

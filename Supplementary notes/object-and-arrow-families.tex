@@ -1,0 +1,84 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+\section*{From object families to arrow families}
+
+The \href{full-subcategories.html}{full subcategory spanned by a collection
+of objects} contains exactly the arrows whose endpoints belong to that
+collection. The formalization uses this observation for coherent families
+of functors. We explain the endpoint calculation that makes this possible.
+Use the Chapter 1 structures, the walking morphism, its endpoint data and
+the Segal axiom. All categories are absolute.
+
+Let $j\colon J\hookrightarrow C^\simeq$ be a collection of objects, with
+$J$ an anima. Let $M_J$ be the pullback of
+$\Map([1],C)\to C^\simeq\times C^\simeq$ along $j\times j$.
+Write $e_0,e_1\colon\Map([1],C)\to C^\simeq$ for the endpoint maps and
+$m\colon M_J\to\Map([1],C)$ for its inclusion.
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Object_Endpoint_Lift}
+Given $a\colon T\to\Map([1],C)$, maps $x,y\colon T\to J$ and
+specified comparisons $e_0a=jx$ and $e_1a=jy$, there is a lift
+$\widetilde a\colon T\to M_J$ with $m\widetilde a=a$.
+The collection $M_J$ is closed under identities and composition.
+\end{lemma}
+\begin{proof}[Proof idea]
+Pair the endpoint comparisons. Together with $a$ and $(x,y)$ this gives
+the full cone defining $M_J$. Pullback factorization supplies the lift and
+its first-projection computation.
+For an identity, use the same chosen object for both endpoints.
+For a composable pair, the source of its composite is compared with the
+first source and its target with the second target by the endpoint laws
+for composition. These supply the required cone for the composite family.
+\end{proof}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Object_Family_Factorization}
+Let $i\colon A\to C$ be a subcategory presentation of $M_J$.
+Suppose $\Gamma$ is an anima and we have functors
+\[
+ h\colon\Gamma\to\Map(D,C),\qquad
+ k\colon\Gamma\to\Map(D^\simeq,J),
+\]
+together with an identification $j_*k=r_Dh$, where $r_D$ is the action
+on objects. Then there is a family
+$\widetilde h\colon\Gamma\to\Map(D,A)$ with $i_*\widetilde h=h$.
+\end{lemma}
+\begin{proof}[Proof idea]
+Let $a(h)$ be the action of $h$ on arrows, with values in
+$\Map(\Map([1],D),\Map([1],C))$.
+For either endpoint $e$, naturality of the mapping action under restriction
+gives
+\[
+ (e^*)_*a(h)=j_*(e^*)^*k.
+\]
+The $e^*$ on the left is endpoint evaluation in $C$; the one on the right
+is endpoint evaluation in $D$. This equation retains the given
+comparison on objects.
+
+Uncurry $a(h)$ to obtain a family of arrows indexed by
+$\Gamma\times\Map([1],D)$. The two endpoint equations allow
+\Cref{lem:Supplementary_Object_Endpoint_Lift} to lift this family through
+$M_J$. Curry back, using that $\Gamma$ is an anima. Now $h$ and its
+lifted arrow action form a cone for the subcategory presentation tested
+at $D$. Factor that cone; its first computation is $i_*\widetilde h=h$.
+\end{proof}
+
+\begin{corollary}
+\label[corollary]{cor:Supplementary_Full_Factorization}
+Let $i\colon A\to C$ be a full subcategory and $f\colon D\to C$ a
+functor. A specified factorization of $f^\simeq$ through $i^\simeq$
+gives a factorization $\widetilde f\colon D\to A$ with
+$i\widetilde f=f$. Any two such factorizing functors are identified.
+\end{corollary}
+\begin{proof}[Proof idea]
+Name $f$ and its coherent object factorization. They give a cone for the
+mapping-anima pullback characterizing the full subcategory. Factor this
+cone and decode its first-projection comparison. For two factorizations,
+combine their comparisons with $f$ and reflect through the embedding $i$.
+The uniqueness declaration linked here compares the underlying functors;
+a prescribed comparison between the complete factorization triangles is
+not separately asserted by it.
+\end{proof}
+\end{document}

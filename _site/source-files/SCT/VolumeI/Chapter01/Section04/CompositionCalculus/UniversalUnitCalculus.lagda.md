@@ -6,7 +6,7 @@ lifted directly at the new parameter. The identity comparison and every
 composition comparison used here are the previously specified ones.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.Substitution.ProofCalculus as Setup
@@ -15,11 +15,11 @@ import SCT.VolumeI.Chapter01.Section04.Composition as MapComposition
 import SCT.VolumeI.Chapter01.Section04.CompositionCalculus.InternalCoherence as Internal
 import SCT.VolumeI.Chapter01.Section04.CompositionCalculus.UniversalCoherence as Universal
 import SCT.VolumeI.Chapter01.Section04.Substitution.RetainedIdentityParameterChange as IdentityChange
+import SCT.VolumeI.Chapter01.Section04.SquareCalculus.ParameterSquareNaturality as ParameterSquareNaturality
 import SCT.VolumeI.Chapter01.Section04.SquareCalculus.ParameterSquarePasting as ParameterSquarePasting
 import SCT.VolumeI.Chapter01.Section04.SquareCalculus.ParameterSquareUnits as ParameterSquareUnits
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingNaturality as PairingNaturality
 import SCT.VolumeI.Chapter01.Section03.ProductCalculus.PairingUnits as PairingUnits
-import SCT.VolumeI.Chapter01.Section03.ProductCalculus.IteratedPairing as IteratedPairing
 
 module SCT.VolumeI.Chapter01.Section04.CompositionCalculus.UniversalUnitCalculus
   {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯) where
@@ -29,17 +29,15 @@ open Mapping.MappingAnimae M
 open MapComposition 𝒯 M
 open Internal 𝒯 M
 open Universal 𝒯 M using
-  (module NormalizedChange; module NormalizedComposition; module UnitRestriction;
-   paste-natural; unchanged-parameter-square)
+  (module NormalizedChange; module NormalizedComposition; module UnitRestriction)
 open IdentityChange 𝒯 M using (retained-identity-parameter-change)
 open ParameterSquarePasting 𝒯 using (paste)
+open ParameterSquareNaturality 𝒯 using (paste-natural-outer; paste-natural-inner)
 open ParameterSquareUnits 𝒯 using (unit-square; unit-square-cancel; paste-unitˡ; paste-unitʳ)
 open PairingNaturality vocabulary terminal products productLaws composition vertical whiskering
   using (cancel-left-reflect)
 open PairingUnits vocabulary terminal products productLaws composition vertical whiskering pentagonTriangle
   using (cancel-right-reflect)
-open IteratedPairing vocabulary terminal products productLaws composition vertical whiskering pentagonTriangle
-  using (hcomp-idInner; hcomp-idOuter)
 
 opaque
   pre-three : {W X Y : CAT} (r : MAP W X) {a b c d : MAP X Y}
@@ -54,10 +52,69 @@ opaque
   post-three r γ β α = isoComp-cong (idIso (r ◁ γ)) (postWhisker-isoComp-at r β α) ∙
     postWhisker-isoComp-at r γ (β ∙ α)
 
+```
+
+To compare the two unit routes, paste the composition, identity, and
+unit squares, then combine their three whiskered edges. This calculation
+uses their specified comparisons and keeps the right-associated route.
+The construction `three-comparison-pasting` displays the chosen calculation;
+the computation statement identifies the packaged lemma with this pasting.
+
+```agda
+three-comparison-pasting : {X Y Z W : CAT}
+  {f₀ f₁ f₂ f₃ : MAP X Y} {g₀ g₁ g₂ g₃ : MAP Z W}
+  (s : MAP X Z) (t : MAP Y W)
+  (α₁ : f₀ =₁ f₁) (α₂ : f₁ =₁ f₂) (α₃ : f₂ =₁ f₃)
+  (β₁ : g₀ =₁ g₁) (β₂ : g₁ =₁ g₂) (β₃ : g₂ =₁ g₃)
+  (p₀ : (t ∘ f₀) =₁ (g₀ ∘ s)) (p₁ : (t ∘ f₁) =₁ (g₁ ∘ s))
+  (p₂ : (t ∘ f₂) =₁ (g₂ ∘ s)) (p₃ : (t ∘ f₃) =₁ (g₃ ∘ s))
+  → ((β₁ ▷ s) ∙ p₀) =₂ (p₁ ∙ (t ◁ α₁))
+  → ((β₂ ▷ s) ∙ p₁) =₂ (p₂ ∙ (t ◁ α₂))
+  → ((β₃ ▷ s) ∙ p₂) =₂ (p₃ ∙ (t ◁ α₃))
+  → (p₃ ∙ (t ◁ (α₃ ∙ (α₂ ∙ α₁)))) =₂ (((β₃ ∙ (β₂ ∙ β₁)) ▷ s) ∙ p₀)
+three-comparison-pasting s t α₁ α₂ α₃ β₁ β₂ β₃ p₀ p₁ p₂ p₃ first second third =
+  let two = paste-squares (t ◁ α₁) (β₁ ▷ s) (t ◁ α₂) (β₂ ▷ s)
+        p₀ p₁ p₂ first second
+      three = paste-squares ((t ◁ α₂) ∙ (t ◁ α₁)) ((β₂ ▷ s) ∙ (β₁ ▷ s))
+        (t ◁ α₃) (β₃ ▷ s) p₀ p₂ p₃ two third
+  in isoComp-cong ((pre-three s β₃ β₂ β₁) ⁻¹) (idIso p₀) ∙
+    (three ⁻¹ ∙ isoComp-cong (idIso p₃) (post-three t α₃ α₂ α₁))
+
+opaque
+  paste-three-comparisons : {X Y Z W : CAT}
+    {f₀ f₁ f₂ f₃ : MAP X Y} {g₀ g₁ g₂ g₃ : MAP Z W}
+    (s : MAP X Z) (t : MAP Y W)
+    (α₁ : f₀ =₁ f₁) (α₂ : f₁ =₁ f₂) (α₃ : f₂ =₁ f₃)
+    (β₁ : g₀ =₁ g₁) (β₂ : g₁ =₁ g₂) (β₃ : g₂ =₁ g₃)
+    (p₀ : (t ∘ f₀) =₁ (g₀ ∘ s)) (p₁ : (t ∘ f₁) =₁ (g₁ ∘ s))
+    (p₂ : (t ∘ f₂) =₁ (g₂ ∘ s)) (p₃ : (t ∘ f₃) =₁ (g₃ ∘ s))
+    → ((β₁ ▷ s) ∙ p₀) =₂ (p₁ ∙ (t ◁ α₁))
+    → ((β₂ ▷ s) ∙ p₁) =₂ (p₂ ∙ (t ◁ α₂))
+    → ((β₃ ▷ s) ∙ p₂) =₂ (p₃ ∙ (t ◁ α₃))
+    → (p₃ ∙ (t ◁ (α₃ ∙ (α₂ ∙ α₁)))) =₂ (((β₃ ∙ (β₂ ∙ β₁)) ▷ s) ∙ p₀)
+  paste-three-comparisons s t α₁ α₂ α₃ β₁ β₂ β₃ p₀ p₁ p₂ p₃ first second third =
+    three-comparison-pasting s t α₁ α₂ α₃ β₁ β₂ β₃ p₀ p₁ p₂ p₃ first second third
+
+  paste-three-comparisons-computation : {X Y Z W : CAT}
+    {f₀ f₁ f₂ f₃ : MAP X Y} {g₀ g₁ g₂ g₃ : MAP Z W}
+    (s : MAP X Z) (t : MAP Y W)
+    (α₁ : f₀ =₁ f₁) (α₂ : f₁ =₁ f₂) (α₃ : f₂ =₁ f₃)
+    (β₁ : g₀ =₁ g₁) (β₂ : g₁ =₁ g₂) (β₃ : g₂ =₁ g₃)
+    (p₀ : (t ∘ f₀) =₁ (g₀ ∘ s)) (p₁ : (t ∘ f₁) =₁ (g₁ ∘ s))
+    (p₂ : (t ∘ f₂) =₁ (g₂ ∘ s)) (p₃ : (t ∘ f₃) =₁ (g₃ ∘ s))
+    (first : ((β₁ ▷ s) ∙ p₀) =₂ (p₁ ∙ (t ◁ α₁)))
+    (second : ((β₂ ▷ s) ∙ p₁) =₂ (p₂ ∙ (t ◁ α₂)))
+    (third : ((β₃ ▷ s) ∙ p₂) =₂ (p₃ ∙ (t ◁ α₃)))
+    → (paste-three-comparisons s t α₁ α₂ α₃ β₁ β₂ β₃ p₀ p₁ p₂ p₃ first second third) =₃
+      (three-comparison-pasting s t α₁ α₂ α₃ β₁ β₂ β₃ p₀ p₁ p₂ p₃ first second third)
+  paste-three-comparisons-computation s t α₁ α₂ α₃ β₁ β₂ β₃ p₀ p₁ p₂ p₃ first second third = idIso _
+
+
 module Identity {P Q : CAT} (σ : MAP Q P) (C : CAT) where
-  module N = NormalizedChange {C = C} {D = C} σ
-  module RP = RetainedEvaluation P
-  module RQ = RetainedEvaluation Q
+  private
+    module N = NormalizedChange {C = C} {D = C} σ
+    module RP = RetainedEvaluation P
+    module RQ = RetainedEvaluation Q
   s = productMap σ (id C)
   J = identityTerm {Γ = P} C
   δ = const-pre (mapId C) σ
@@ -86,10 +143,11 @@ module Identity {P Q : CAT} (σ : MAP Q P) (C : CAT) where
 
 module UnitChange {P Q C D : CAT} (σ : MAP Q P)
   (f : MAP P (Map C D)) {f′ : MAP Q (Map C D)} (Lf : (f ∘ σ) =₁ f′) where
-  module RP = RetainedEvaluation P
-  module RQ = RetainedEvaluation Q
-  module N (A B : CAT) = NormalizedChange {C = A} {D = B} σ
-  module NC = NormalizedComposition σ
+  private
+    module RP = RetainedEvaluation P
+    module RQ = RetainedEvaluation Q
+    module N (A B : CAT) = NormalizedChange {C = A} {D = B} σ
+    module NC = NormalizedComposition σ
   sC = productMap σ (id C)
   sD = productMap σ (id D)
   F = RP.retained f
@@ -120,20 +178,10 @@ module UnitChange {P Q C D : CAT} (σ : MAP Q P)
           cSquare : ((cP ▷ sC) ∙ κleft) =₂ (p ∙ (sD ◁ cQ))
           cSquare = (NC.normalize (identityTerm D) f (const-pre (mapId D) σ) Lf basic) ⁻¹
           eSquare : ((eP ▷ sC) ∙ p) =₂ (pUnit ∙ (sD ◁ eQ))
-          eSquare = isoComp-cong (idIso pUnit) (postWhisker sD ◁ hcomp-idInner (RQ.retained-identity D) F′) ∙
-            (paste-natural
-              {f = F′} {f′ = F′} {g = RQ.retained (identityTerm D)} {g′ = id (Q × D)}
-              {F = F} {F′ = F} {G = RP.retained (identityTerm D)} {G′ = id (P × D)}
-              {x₀ = sC} {x₁ = sD} {x₂ = sD}
-              I.κ I.u κf κf (RQ.retained-identity D) (idIso F′)
-              (RP.retained-identity D) (idIso F) I.natural (unchanged-parameter-square κf) ∙
-              isoComp-cong (preWhisker sC ◁ (hcomp-idInner (RP.retained-identity D) F) ⁻¹) (idIso p))
-          two = paste-squares (sD ◁ cQ) (cP ▷ sC) (sD ◁ eQ) (eP ▷ sC)
-            κleft p pUnit cSquare eSquare
-          three = paste-squares ((sD ◁ eQ) ∙ (sD ◁ cQ)) ((eP ▷ sC) ∙ (cP ▷ sC))
-            (sD ◁ uQ) (uP ▷ sC) κleft pUnit κf two (paste-unitˡ κf)
-      in isoComp-cong ((pre-three sC uP eP cP) ⁻¹) (idIso κleft) ∙
-        (three ⁻¹ ∙ isoComp-cong (idIso κf) (post-three sD uQ eQ cQ))
+          eSquare = paste-natural-outer I.κ I.u κf
+            (RQ.retained-identity D) (RP.retained-identity D) I.natural
+      in paste-three-comparisons sC sD cQ eQ uQ cP eP uP
+        κleft p pUnit κf cSquare eSquare (paste-unitˡ κf)
 
     right-route : NC.BasicSquare f (identityTerm C)
       → (κf ∙ (sD ◁ RQ.right-unit-route f′)) =₂ ((RP.right-unit-route f ▷ sC) ∙ κright)
@@ -153,20 +201,10 @@ module UnitChange {P Q C D : CAT} (σ : MAP Q P)
           cSquare : ((cP ▷ sC) ∙ κright) =₂ (p ∙ (sD ◁ cQ))
           cSquare = (NC.normalize f (identityTerm C) Lf (const-pre (mapId C) σ) basic) ⁻¹
           eSquare : ((eP ▷ sC) ∙ p) =₂ (pUnit ∙ (sD ◁ eQ))
-          eSquare = isoComp-cong (idIso pUnit) (postWhisker sD ◁ hcomp-idOuter F′ (RQ.retained-identity C)) ∙
-            (paste-natural
-              {f = RQ.retained (identityTerm C)} {f′ = id (Q × C)} {g = F′} {g′ = F′}
-              {F = RP.retained (identityTerm C)} {F′ = id (P × C)} {G = F} {G′ = F}
-              {x₀ = sC} {x₁ = sC} {x₂ = sD}
-              κf κf I.κ I.u (idIso F′) (RQ.retained-identity C)
-              (idIso F) (RP.retained-identity C) (unchanged-parameter-square κf) I.natural ∙
-              isoComp-cong (preWhisker sC ◁ (hcomp-idOuter F (RP.retained-identity C)) ⁻¹) (idIso p))
-          two = paste-squares (sD ◁ cQ) (cP ▷ sC) (sD ◁ eQ) (eP ▷ sC)
-            κright p pUnit cSquare eSquare
-          three = paste-squares ((sD ◁ eQ) ∙ (sD ◁ cQ)) ((eP ▷ sC) ∙ (cP ▷ sC))
-            (sD ◁ uQ) (uP ▷ sC) κright pUnit κf two (paste-unitʳ κf)
-      in isoComp-cong ((pre-three sC uP eP cP) ⁻¹) (idIso κright) ∙
-        (three ⁻¹ ∙ isoComp-cong (idIso κf) (post-three sD uQ eQ cQ))
+          eSquare = paste-natural-inner κf I.κ I.u
+            (RQ.retained-identity C) (RP.retained-identity C) I.natural
+      in paste-three-comparisons sC sD cQ eQ uQ cP eP uP
+        κright p pUnit κf cSquare eSquare (paste-unitʳ κf)
 ```
 
 

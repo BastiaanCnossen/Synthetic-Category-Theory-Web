@@ -1,0 +1,141 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+
+\section*{Why the endpoints matter}
+
+The proof that \href{equivalences.html\#lem:Whiskering_By_Equivalence}{whiskering
+by an equivalence induces an equivalence} uses unitors, associators, and
+identifications of functors. Consequently, some intermediate comparisons have
+different endpoints. The relevant elementary fact is that composition with
+a fixed identification gives an equivalence between identification animae.
+
+We work with the absolute categories and the structures of Sections 1.1--1.3.
+Write $\beta\cdot\alpha$ for vertical composition, with $\alpha$ applied
+first. Whiskering is denoted by $\star$. An expression such as
+$\beta\cdot-$ is a functor: the fixed identification is used as a constant
+input to vertical composition.
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Endpoint_Multiplication}
+For functors $f,g,h\colon C\to D$ and an identification $\beta\colon g=h$,
+the functor
+\[
+ L_\beta\colon(f=g)\longrightarrow(f=h),\qquad
+ L_\beta(\sigma)=\beta\cdot\sigma,
+\]
+is an equivalence, with inverse given by composition with $\beta^{-1}$.
+Likewise, for $\alpha\colon f=g$, the functor
+\[
+ R_\alpha\colon(g=h)\longrightarrow(f=h),\qquad
+ R_\alpha(\tau)=\tau\cdot\alpha,
+\]
+is an equivalence, with inverse given by composition with $\alpha^{-1}$.
+\end{lemma}
+\begin{proof}[Proof idea]
+For the first assertion, the two inverse calculations are
+\[
+ \beta^{-1}\cdot(\beta\cdot\sigma)=\sigma,
+ \qquad
+ \beta\cdot(\beta^{-1}\cdot\tau)=\tau.
+\]
+Reassociate, apply the corresponding inverse comparison, and remove the
+identity identification by a unit comparison. These calculations hold as
+identifications of functors on the relevant identification animae: apply the
+vertical laws to the universal input, keeping the fixed identification as a
+constant family. The right-composition assertion uses the right unit and
+the same inverse laws. Evaluating the composite functors also uses the
+substitution comparisons from
+\href{supplementary-specializing-coherence-laws.html}{Specializing coherence laws}.
+\end{proof}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Endpoint_Square}
+Let $f,g,f',g'\colon C\to D$, with identifications
+$\alpha\colon f=f'$ and $\beta\colon g=g'$. Suppose that functors
+\[
+ u\colon X\to(f=g),\qquad v\colon X\to(f'=g')
+\]
+are equipped with an identification of functors on $X$
+\[
+ \overline\beta\cdot u=v\cdot\overline\alpha,
+\]
+where the bars denote constant families. Then $u$ is an equivalence if and
+only if $v$ is an equivalence.
+\end{lemma}
+\begin{proof}[Proof idea]
+After the substitution comparisons, the given identification reads
+$L_\beta\circ u=R_\alpha\circ v$, with common target $(f=g')$.
+Both $L_\beta$ and $R_\alpha$ are equivalences by
+\Cref{lem:Supplementary_Endpoint_Multiplication}.
+Apply the two-out-of-three property and invariance of equivalence under
+identification of functors, in either direction.
+\end{proof}
+
+\section*{Whiskering by an equivalence}
+
+\begin{corollary}
+\label[corollary]{cor:Supplementary_Whiskering_Equivalence}
+If $F\colon C\to D$ is an equivalence, then both functors
+\[
+ F\star-\colon(f=g)\longrightarrow(F\circ f=F\circ g)
+\]
+for $f,g\colon B\to C$, and
+\[
+ -\star F\colon(h=k)\longrightarrow(h\circ F=k\circ F)
+\]
+for $h,k\colon D\to E$, are equivalences.
+\end{corollary}
+\begin{proof}[Proof idea]
+Choose an inverse $G$ of $F$. For postwhiskering, consider three successive
+functors on identification animae: postwhiskering by $F$, then by $G$, then
+by $F$ again. The first two compose to an equivalence: the associator
+comparison relates their composite to postwhiskering by $GF$, the supplied
+identification $GF=\mathrm{id}_C$ relates that to postwhiskering by the
+identity, and the unitor comparison relates the latter to the identity
+functor on $(f=g)$. At each step,
+\Cref{lem:Supplementary_Endpoint_Square} handles the changing endpoints.
+The second and third functors also compose to an equivalence, using
+$FG=\mathrm{id}_D$. Two-out-of-six now implies that the first functor is
+an equivalence. The prewhiskering proof uses the corresponding comparisons
+on the other side.
+
+The comparisons for composite and identity whiskering are displayed in
+\href{supplementary-whiskering-and-horizontal-composition.html}{Whiskering and
+horizontal composition}. Replacing $GF$ by the identity uses fixed-outer
+interchange; the analogous change for prewhiskering uses fixed-inner
+interchange.
+\end{proof}
+
+\section*{Lifting a specified identification}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Whiskering_Lift}
+Let $F\colon C\to D$ be an equivalence and $f,g\colon B\to C$.
+Every specified identification $\delta\colon F\circ f=F\circ g$ admits
+an identification $\widetilde\delta\colon f=g$ together with an
+identification
+\[
+ F\star\widetilde\delta=\delta.
+\]
+Moreover, for $\sigma,\tau\colon f=g$ and a specified identification
+$p\colon F\star\sigma=F\star\tau$, there is an identification
+$\widetilde p\colon\sigma=\tau$ equipped with a comparison between its
+image under postwhiskering by $F\star-$ and $p$.
+The corresponding assertions hold for prewhiskering by $F$.
+\end{lemma}
+\begin{proof}[Proof idea]
+Apply a chosen inverse of the equivalence $F\star-$ to the absolute object
+$\delta$. Its inverse comparison, together with the associator and unitor,
+gives the specified image comparison. For the higher assertion, apply
+\Cref{cor:Supplementary_Whiskering_Equivalence} to the equivalence $F\star-$
+itself, and repeat the same lifting construction on the resulting
+identification animae.
+\end{proof}
+
+The image comparison is part of the conclusion. It is needed, for example,
+when a lifted identification must fill a prescribed square. Keeping it
+avoids replacing that square by an unspecified comparison with the same
+endpoints.
+
+\end{document}

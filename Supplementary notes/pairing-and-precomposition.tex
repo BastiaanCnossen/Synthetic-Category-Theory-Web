@@ -1,0 +1,150 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+\section*{Pairing and precomposition}
+
+The proof of \href{equivalences.html\#lem:Finite_Compatibility_Of_Products}{pairing and precomposition}
+reduces several calculations to the two projections of a product. This note
+spells out that reduction and the comparisons it must retain.
+All categories and functors in the statements below are absolute.
+We write $\beta_1(f,g)\colon\pi_1\circ(f,g)=f$ and
+$\beta_2(f,g)\colon\pi_2\circ(f,g)=g$ for the chosen projection
+identifications, and
+\[
+ \kappa(f,g,r)\colon(f,g)\circ r=(f\circ r,g\circ r)
+\]
+for the precomposition comparison. Vertical composition $\delta\cdot\gamma$
+applies $\gamma$ first. The symbol $\star$ denotes whiskering.
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Pairing_Detection}
+Let $h,k\colon X\to C\times D$ and $\sigma,\tau\colon h=k$.
+Identifications
+\[
+ \pi_1\star\sigma=\pi_1\star\tau,
+ \qquad \pi_2\star\sigma=\pi_2\star\tau
+\]
+give an identification $\sigma=\tau$.
+\end{lemma}
+\begin{proof}[Proof idea]
+The product axiom gives an equivalence
+\[
+ (h=k)\longrightarrow
+ (\pi_1\circ h=\pi_1\circ k)\times(\pi_2\circ h=\pi_2\circ k)
+\]
+whose components are the two postwhiskering functors. Pair the given
+identifications, using the precomposition comparison to identify the
+images of $\sigma$ and $\tau$ with their paired projections, and reflect
+the resulting identification through this equivalence. The conclusion is
+an identification between $\sigma$ and $\tau$, not a strict equality of
+expressions.
+\end{proof}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Pairing_Composition}
+The chosen pairing of identifications satisfies
+\[
+ (\mathrm{id}_f,\mathrm{id}_g)=\mathrm{id}_{(f,g)},
+\]
+and, for composable identifications $\sigma_1,\sigma_2$ and
+$\tau_1,\tau_2$,
+\[
+ (\sigma_2\cdot\sigma_1,\tau_2\cdot\tau_1)
+   =(\sigma_2,\tau_2)\cdot(\sigma_1,\tau_1).
+\]
+\end{lemma}
+\begin{proof}[Proof idea]
+For $\sigma\colon f=f'$ and $\tau\colon g=g'$, the first projection
+of the chosen pairing is
+\[
+ \pi_1\star(\sigma,\tau)
+ =\beta_1(f',g')^{-1}\cdot
+       \bigl(\sigma\cdot\beta_1(f,g)\bigr).
+\]
+Thus the first projection of the identity assertion follows by cancelling
+$\beta_1(f,g)$ with its inverse. For composition, substitute the displayed
+formula twice, reassociate, and cancel the two occurrences of the
+intermediate projection comparison. The result is precisely the formula
+for $\sigma_2\cdot\sigma_1$. Postwhiskering preserves vertical
+composition, so this computes the projection of the right-hand side as
+well. Repeat with the second projection and apply
+\Cref{lem:Supplementary_Pairing_Detection}.
+\end{proof}
+
+\section*{Changing the inputs}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Pairing_Naturality}
+Let $f,f'\colon X\to C$, $g,g'\colon X\to D$, and
+$r,s\colon R\to X$. For identifications $\sigma\colon f=f'$,
+$\tau\colon g=g'$, and $\gamma\colon r=s$, there is an identification
+\[
+ (\sigma\ast\gamma,\tau\ast\gamma)\cdot\kappa(f,g,r)
+ =\kappa(f',g',s)\cdot\bigl((\sigma,\tau)\ast\gamma\bigr),
+\]
+where $\sigma\ast\gamma=(\sigma\star s)\cdot(f\star\gamma)$
+is horizontal composition.
+\end{lemma}
+\begin{proof}[Proof idea]
+First hold $r$ fixed and vary $f,g$. Then hold $f,g$ fixed and vary
+$r$. For either square, postcompose with a projection and then with the
+target projection comparison. The projection formulas for pairing and
+$\kappa$ reduce the desired square to the corresponding whiskering and
+associator comparisons. Cancel the target comparison and use
+\Cref{lem:Supplementary_Pairing_Detection}.
+
+Paste these two squares. The composition formula in
+\Cref{lem:Supplementary_Pairing_Composition} combines their paired sides
+into $(\sigma\ast\gamma,\tau\ast\gamma)$, and the other sides combine
+into the displayed horizontal composite. This argument retains the
+chosen $\kappa$ at both ends.
+\end{proof}
+
+\section*{Successive substitution}
+
+Write $\alpha_{r,s,f}\colon(f\circ s)\circ r=f\circ(s\circ r)$
+for the associator and $\rho_f\colon f\circ\mathrm{id}=f$ for the
+right unitor.
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Pairing_Substitution}
+For $f\colon X\to C$, $g\colon X\to D$, $s\colon R\to X$,
+and $r\colon Q\to R$, the two identifications
+from $((f,g)\circ s)\circ r$ to
+$(f\circ(s\circ r),g\circ(s\circ r))$ satisfy
+\[
+\begin{aligned}
+ &\kappa(f,g,s\circ r)\cdot\alpha_{r,s,(f,g)}\\
+ &\quad=(\alpha_{r,s,f},\alpha_{r,s,g})\cdot
+   \bigl(\kappa(f\circ s,g\circ s,r)\cdot
+                    (\kappa(f,g,s)\star r)\bigr).
+\end{aligned}
+\]
+For the identity substitution one has
+\[
+ (\rho_f,\rho_g)\cdot\kappa(f,g,\mathrm{id})=\rho_{(f,g)}.
+\]
+\end{lemma}
+\begin{proof}[Proof idea]
+Project the two substitution paths. The projection formulas for $\kappa$
+leave the same projection comparison, transported through two different
+strings of associators. The pentagon identifies those strings. After
+cancelling the common comparison, apply
+\Cref{lem:Supplementary_Pairing_Detection}.
+
+The identity case uses the compatibility of the right unitor with a
+composite:
+\[
+ \rho_{\pi\circ h}
+   =(\pi\star\rho_h)\cdot\alpha_{\mathrm{id},h,\pi}.
+\]
+This compatibility follows from the pentagon and triangle, followed by
+cancellation after prewhiskering by the identity. Insert it into each
+projected identity square, cancel its projection comparisons, and again
+reflect through the product equivalence.
+\end{proof}
+
+These are comparisons for the specified pairing and substitution
+operations. They do not replace those operations by strictly associative
+or strictly unital ones.
+\end{document}

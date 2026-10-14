@@ -1,0 +1,112 @@
+<!doctype html>
+
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Substitution in morphism expressions | Synthetic category theory</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/reader-shell.css"><link rel="stylesheet" href="assets/reader.css?v=e77c6ba976bccda0"><link rel="stylesheet" href="assets/Agda.css">
+<script src="assets/math-config.js"></script><script defer src="vendor/mathjax/tex-chtml.js"></script><script defer src="assets/reader.js?v=bb4820fd39f58f55"></script></head>
+<body class="hide-agda-links has-passages supplementary-page"><a class="skip-link" href="#main">Skip to content</a><aside class="utility-dock" aria-label="Reading tools">
+<button id="reading-settings-button" class="utility-button" type="button" aria-label="Reading settings" title="Reading settings" aria-controls="reading-settings" aria-expanded="false"><span aria-hidden="true">⚙</span></button>
+<a class="utility-button" href="book.pdf" aria-label="Read the web edition PDF" title="Read the web edition PDF"><span aria-hidden="true">📖</span></a>
+<section id="reading-settings" class="settings-panel" aria-label="Reading preferences" hidden><h2>Reading preferences</h2>
+<label><input id="collapse-proofs" type="checkbox"> Collapse book proofs</label>
+
+</section></aside>
+<header class="site-header"><div class="header-top"><nav class="book-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Synthetic category theory</a></li><li><a href="internal-structure-introduction.html">Chapter 2</a></li><li><a href="segal-axiom.html">Section 2.2</a></li><li><a href="supplementary-notes.html">Supplementary notes</a></li></ol></nav></div><p class="eyebrow">Supplementary note · AI-generated prose</p><h1>Substitution in morphism expressions</h1><p class="ai-notice">AI-generated prose accompanying the Agda code. This note is supplementary to the book and is not part of the authors' manuscript.</p></header>
+<div class="reader-grid"><aside class="reader-nav" aria-label="Book navigation"><h2>Resources</h2><nav aria-label="Resources" class="reader-resources"><a href="code-index.html">All Agda code</a><a href="supplementary-notes.html">Supplementary notes</a><a href="formalization.html">Agda guide</a><a href="build-report.html">Build details</a></nav><h2>Contents</h2><nav aria-label="Contents"><a href="index.html">Overview</a><a href="introduction.html">Introduction</a><a href="overview-of-the-axioms.html">Overview of the axioms</a><details class="contents-chapter"><summary><span class="chapter-number">Chapter 1</span><span class="chapter-name">The language of synthetic category theory</span></summary><div class="chapter-sections"><a href="chapter-introduction.html">Chapter introduction</a><a href="basic-vocabulary.html">1.1 · The basic vocabulary</a><a href="coherences.html">1.2 · Coherences</a><a href="equivalences.html">1.3 · Equivalences of categories</a><a href="mapping-animae.html">1.4 · Mapping animae</a><a href="initial-categories-and-coproducts.html">1.5 · Initial categories and coproducts</a><a href="pullbacks.html">1.6 · Pullbacks of categories</a><a href="functor-categories.html">1.7 · Functor categories</a><a href="pushouts.html">1.8 · Pushout squares</a></div></details><details class="contents-chapter" open><summary><span class="chapter-number">Chapter 2</span><span class="chapter-name">The internal structure of categories</span></summary><div class="chapter-sections"><a href="internal-structure-introduction.html">Chapter introduction</a><a href="morphisms-and-diagrams.html">2.1 · Morphisms and diagrams</a><a aria-current="page" href="segal-axiom.html">2.2 · The Segal axiom</a><a href="rezk-axiom.html">2.3 · The Rezk axiom</a><a href="groupoids.html">2.4 · Groupoids</a><a href="recognizing-animae.html">2.5 · Recognizing animae</a><a href="chapter-2-exercises.html">2.6 · Exercises</a></div></details><details class="contents-chapter"><summary><span class="chapter-number">Chapter 3</span><span class="chapter-name">Constructions of categories</span></summary><div class="chapter-sections"><a href="constructions-introduction.html">Chapter introduction</a><a href="subcategories.html">3.1 · Subcategories</a><a href="full-subcategories.html">3.2 · Full subcategories</a><a href="localizations.html">3.3 · Localizations</a><a href="geometric-realizations.html">3.4 · Geometric realizations</a><a href="exponentiable-functors.html">3.5 · Exponentiable functors</a><a href="joins.html">3.6 · Joins</a><a href="slice-categories.html">3.7 · Slice categories</a><a href="chapter-3-exercises.html">3.8 · Exercises</a></div></details></nav></aside>
+<main id="main" class="notes-page" tabindex="-1"><p class="coverage-note edition-notice">Agda links are temporarily unavailable for Chapters 2 and 3 while their code is updated to the foundations used in Chapter 1.</p>
+   <h3 class="likesectionHead" id="substitution-in-morphism-expressions"><a id="x1-1000"></a>Substitution in morphism expressions</h3>
+<p class="noindent">The <a href="segal-axiom.html">Segal section</a> uses composition in a common parameter category. The
+supporting calculation is that restriction and changes of endpoints preserve the
+chosen composite, with its endpoint data.
+</p><p class="indent">   Write \(\operatorname {Ar}(C)=\Fun ([1],C)\), with endpoint evaluations \(e_0,e_1\). A morphism expression from \(x\) to \(y\), for \(x,y\colon \Gamma \to C\),
+consists of \(A\colon \Gamma \to \operatorname {Ar}(C)\) and frames \(p\colon e_0A=x\), \(q\colon e_1A=y\). An endpoint-preserving comparison from \((A,p,q)\) to \((A',p',q')\) is an
+identification \(\eta \colon A=A'\) together with \[ p'\cdot (e_0\star \eta )=p,\qquad q'\cdot (e_1\star \eta )=q. \] Retargeting along \(a\colon x=x'\) and \(b\colon y=y'\) replaces the frames \(p,q\) by \(a\cdot p,b\cdot q\) and
+leaves the arrow family unchanged. We use \(\star \) for whiskering and \(\cdot \) for vertical
+composition, rightmost factor first. All categories involved are fixed absolute
+categories.
+</p><p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1001r1"></a>
+<span id="text-supp-expression-restriction"><span class="ecbx-1095">Supplementary Lemma 1.</span></span>  </span><span id="lem:Supplementary_Expression_Restriction"> </span><span class="ecti-1095">For</span>  \(r\colon \Delta \to \Gamma \)<span class="ecti-1095">,  restriction  takes  endpoint-preserving
+comparisons to endpoint-preserving comparisons. The restricted arrow is</span> \(Ar\)
+<span class="ecti-1095">and its source frame is </span>\[ (p\star r)\cdot \alpha _{r,A,e_0}^{-1}\colon e_0(Ar)=xr, \] <span class="ecti-1095">with the analogous formula at the target. Here</span> \(\alpha _{r,A,e_0}\colon (e_0A)r=e_0(Ar)\) <span class="ecti-1095">is
+the associator.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    Restrict the underlying comparison to \(\eta \star r\). Whisker each endpoint
+equation by \(r\) and use compatibility of whiskering with vertical composition
+and the associator. The inverse associators in the displayed frames convert
+the result to exactly the endpoint equations for the restricted expressions.   □
+                                                                     
+
+                                                                     
+</p>
+   </div></details>
+<p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1002r2"></a>
+<span id="text-supp-expression-restriction-laws"><span class="ecbx-1095">Supplementary Lemma 2.</span></span>  </span><span id="lem:Supplementary_Expression_Restriction_Laws"> </span><span class="ecti-1095">Restricting an expression by</span> \(\mathrm {id}_{\Gamma }\) <span class="ecti-1095">and retargeting
+its endpoints by the right unitors gives an endpoint-preserving comparison to
+the original expression. For</span> \(r\colon \Delta \to \Gamma \) <span class="ecti-1095">and</span> \(s\colon \Theta \to \Delta \)<span class="ecti-1095">, successive restriction by</span> \(r\) <span class="ecti-1095">and</span> \(s\)<span class="ecti-1095">, retargeted
+by</span> \(\alpha _{s,r,x}\) <span class="ecti-1095">and</span> \(\alpha _{s,r,y}\)<span class="ecti-1095">, compares with restriction by</span> \(r\circ s\)<span class="ecti-1095">.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">     Use  the  right  unitor  of  \(A\)  for  the  first  underlying  arrow
+comparison, and \(\alpha _{s,r,A}\) for the second. Their endpoint equations are the unit and
+successive-substitution equations for transport through a fixed functor \(e_0\) or
+\(e_1\). The finite unitor and associator compatibility calculations, derived from
+the  pentagon  and  triangle,  establish  these  equations  while  retaining  the
+given frames. These are the same product-calculus comparisons discussed in
+<a href="supplementary-pairing-and-precomposition.html">Pairing and precomposition</a>.                                                             □
+</p>
+   </div></details>
+<p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1003r3"></a>
+                                                                     
+
+                                                                     
+<span id="text-supp-composition-substitution"><span class="ecbx-1095">Supplementary Lemma 3.</span></span>  </span><span id="lem:Supplementary_Composition_Substitution">  </span><span class="ecti-1095">Assume  the  Segal  axiom.  For  composable
+expressions</span> \(f\colon x\to y\)<span class="ecti-1095">,</span> \(g\colon y\to z\)<span class="ecti-1095">, and</span> \(r\colon \Delta \to \Gamma \)<span class="ecti-1095">, there is an endpoint-preserving comparison </span>\[ (g|_r)\circ (f|_r)\simeq (g\circ f)|_r. \] <span class="ecti-1095">If</span> \(a\colon x=x'\)<span class="ecti-1095">,</span> \(b\colon y=y'\)<span class="ecti-1095">, and</span>
+\(c\colon z=z'\) <span class="ecti-1095">change the endpoints, composing the retargeted expressions compares with
+retargeting</span> \(g\circ f\) <span class="ecti-1095">by</span> \(a,c\)<span class="ecti-1095">.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    A presentation of \(g\circ f\) consists of its chosen triangle, comparisons
+of the short edges with \(f,g\), and the long edge with the composite. It includes
+compatibility at all three vertices. Restrict this entire presentation by \(r\). The
+endpoint calculation of Supplementary Lemma <a href="#x1-1001r1">1</a> supplies its new boundary
+comparisons. It is now a presentation of \((g\circ f)|_r\) as a composite of \(f|_r,g|_r\). Recognition
+of composites through the Segal equivalence compares it with the chosen
+composite of those inputs.
+</p><p class="indent">   For retargeting, change the three vertex frames and retain the triangle.
+The common change \(b\) at the middle vertex occurs on both short edges; its
+compatibility is retained in the new presentation. Apply the same recognition
+argument. The comparison preserves the two outer endpoints.                □
+</p>
+   </div></details>
+<p class="indent">   These lemmas provide the individual substitution comparisons used in
+specializing the unit and associativity arguments. They do not assert an
+additional coherence theorem for all choices of Segal inverses.
+</p>
+    
+<span id="agda-supp-expression-restriction"></span><span id="agda-supp-expression-restriction-laws"></span><span id="agda-supp-composition-substitution"></span></main></div>
+<footer>Experimental web edition · Generated from annotated LaTeX and Agda sources. <a href="build-report.html">Build details</a></footer></body></html>

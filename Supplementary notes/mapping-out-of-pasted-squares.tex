@@ -1,0 +1,96 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+\section*{Mapping out of pasted squares}
+
+The \href{pushouts.html\#lem:Pasting_Lemma_Pushouts}{pushout pasting proof}
+applies the pullback pasting lemma after mapping out.
+This requires comparing the specified matching identifications on the two
+routes. The calculation uses the Chapter 1 mapping-anima and pullback
+structure; functor categories are not needed.
+
+Consider adjacent squares $L,R$ with top arrows
+$g_1\colon A_1\to A_2$, $g_2\colon A_2\to A_3$, bottom arrows
+$h_1\colon B_1\to B_2$, $h_2\colon B_2\to B_3$, vertical arrows
+$f_i\colon A_i\to B_i$, and matchings
+\[
+ \lambda\colon f_2g_1=h_1f_1,\qquad
+ \rho\colon f_3g_2=h_2f_2.
+\]
+Their pasted square $O$ uses the matching from $f_3(g_2g_1)$ to
+$(h_2h_1)f_1$ obtained by reassociating, applying $\rho$ along $g_1$,
+reassociating, applying $h_2$ to $\lambda$, and reassociating back.
+The matching is part of the input, as well as the four boundary functors.
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Product_Pasting}
+For an absolute category $X$, put $L_X(f)=\mathrm{id}_X\times f$, and
+write $\kappa_X(f,g)\colon L_X(g)L_X(f)=L_X(gf)$ for its chosen composition
+comparison. The product images of $L,R$ paste to a cocone which compares
+with the product image of $O$, after changing the upper span arrow by
+$\kappa_X(g_1,g_2)$. The comparison has the identity on the left leg and
+$\kappa_X(h_1,h_2)$ on the right leg, with compatibility of the matchings.
+\end{lemma}
+\begin{proof}[Proof idea]
+Expand the pasted matching into its five stages. Compatibility with inverse
+associators handles the first and last stages. Naturality of the product
+composition comparison handles the two whiskered matchings, and its
+associativity comparison handles the middle stage. Paste these five
+comparison squares and cancel the common outer composition comparison.
+Postcomposition by any functor $X\times B_3\to E$ preserves the
+resulting whole-cocone comparison.
+\end{proof}
+
+For $k\colon A\to B$, write $k^*\colon\Map(B,E)\to\Map(A,E)$
+for precomposition by $k$.
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Mapping_Pasting}
+For an absolute category $E$, let $M_E(L)$, $M_E(R)$, and $M_E(O)$ be
+the mapping-out cones. Pasting $M_E(R)$ and $M_E(L)$, in this reversed
+order, and changing its left cospan arrow by
+\[
+ \kappa_g\colon g_1^*g_2^*=(g_2g_1)^*
+\]
+produces a cone with a specified comparison to $M_E(O)$.
+This comparison includes its matching equation, without any pushout
+hypothesis on $L$ or $R$.
+\end{lemma}
+\begin{proof}[Proof idea]
+Use the universal parameter $X=\Map(B_3,E)$ and uncurry the mapping-out
+cones at its identity. The composition comparison for precomposition on
+mapping animae evaluates to the product comparison $\kappa_X$.
+The two square matchings evaluate to the corresponding product cocones,
+postcomposed with evaluation $X\times B_3\to E$.
+
+Apply \Cref{lem:Supplementary_Product_Pasting} and reflect the resulting
+whole-cocone comparison through uncurrying. This reflection is available
+because $X$ is an anima. Finally remove restriction by the identity with
+the cone unit comparison.
+
+If $U,V$ denote the source and target cones over a common cospan $(p,q)$,
+and $a,b$ the constructed leg comparisons, the retained equation is
+\[
+ \operatorname{match}(V)\cdot(p\star a)
+   =(q\star b)\cdot\operatorname{match}(U).
+\]
+Here $\star$ denotes whiskering and vertical composition applies the
+rightmost factor first. The witnesses $a,b$ are those constructed by
+uncurrying and reflection; the assertion includes their compatibility.
+\end{proof}
+
+\begin{corollary}
+\label[corollary]{cor:Supplementary_Pushout_Pasting}
+If $L$ is a pushout, then $R$ is a pushout if and only if the specified
+pasted square $O$ is a pushout.
+\end{corollary}
+\begin{proof}[Proof idea]
+For every $E$, the mapping-out cone $M_E(L)$ is a pullback. Contravariance
+makes it the fixed right square in the pullback pasting argument.
+Pasting and cancellation therefore identify the pullback conditions for
+$M_E(R)$ and the pasted mapping cone. Changing the cospan arrow by
+$\kappa_g$ preserves the pullback property.
+\Cref{lem:Supplementary_Mapping_Pasting} transfers it to $M_E(O)$,
+including the specified matching. Quantify over $E$.
+\end{proof}
+\end{document}

@@ -9,7 +9,7 @@ This is the algebraic part of the associativity construction. Converting
 a square family into such a framed square is a separate geometric step.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping

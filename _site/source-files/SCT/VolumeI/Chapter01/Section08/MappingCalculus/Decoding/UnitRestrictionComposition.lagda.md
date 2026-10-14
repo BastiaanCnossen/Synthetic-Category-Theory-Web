@@ -24,7 +24,9 @@ open import SCT.VolumeI.Chapter01.Section05.Setup 𝒯 M
 open import SCT.VolumeI.Chapter01.Section08.ProductCalculus.ProjectionBaseCalculus 𝒯
 open import SCT.VolumeI.Chapter01.Section08.ProductSquares 𝒯
 open import SCT.VolumeI.Chapter01.Section04.SquareCalculus.ParameterSquarePasting 𝒯 using (paste)
-open import SCT.VolumeI.Chapter01.Section04.Substitution.IdentityParameterChange 𝒯 M using (terminal-Iso₂)
+import SCT.VolumeI.Chapter01.Section03.Equivalences as TerminalComparisons
+open TerminalComparisons.TerminalTargets vocabulary terminal products productLaws composition
+  using (terminal-Iso₂)
 open PN vocabulary terminal products productLaws composition vertical whiskering using (cancel-right; cancel-left-reflect)
 open Pairing vocabulary terminal products productLaws composition vertical whiskering using (pair-iso-extensionality)
 open PairingUnits vocabulary terminal products productLaws composition vertical whiskering pentagonTriangle

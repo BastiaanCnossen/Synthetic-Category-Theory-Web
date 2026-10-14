@@ -22,7 +22,9 @@ open import SCT.VolumeI.Chapter02.Section01.EvaluationCalculus.EndpointEvaluatio
 open import SCT.VolumeI.Chapter01.Section04.SquareCalculus.SplitProjectionCalculus 𝒯
 open import SCT.VolumeI.Chapter01.Section04.SquareCalculus.ProjectionSquares 𝒯 using (lift-base; compose-base)
 open import SCT.VolumeI.Chapter01.Section08.ProductCalculus.ProjectionBaseCalculus 𝒯 using (lift-assoc)
-open import SCT.VolumeI.Chapter01.Section04.Substitution.IdentityParameterChange 𝒯 M using (terminal-Iso₂)
+import SCT.VolumeI.Chapter01.Section03.Equivalences as TerminalComparisons
+open TerminalComparisons.TerminalTargets vocabulary terminal products productLaws composition
+  using (terminal-Iso₂)
 
 module At {A B : CAT} (X : CAT) (x : Obj-abs A) (z : Obj-abs B) where
   π = pr₁ {C = X} {D = A}

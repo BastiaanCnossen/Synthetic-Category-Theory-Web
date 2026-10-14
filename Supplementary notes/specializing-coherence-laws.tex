@@ -1,0 +1,148 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+
+\section*{From a universal law to a particular calculation}
+
+In \href{coherences.html\#post:Composition_Of_Identifications}{Section 1.2},
+the laws for composition of identifications are stated as identifications of
+functors on animae of inputs. Applying such a law involves a small calculation:
+substitute the desired inputs, and compare the resulting endpoints with the
+expressions in the statement one wants to prove. This note makes that procedure
+explicit.
+
+We use the primitives, terminal category, products, and composition structure
+of Sections 1.1--1.2, together with the vertical coherence laws where indicated.
+All categories and functors below are absolute. A family with parameter $X$
+means an ordinary functor from $X$ into a fixed identification anima.
+It does not mean a category varying over $X$.
+
+We write $\beta\cdot\alpha$ for vertical composition, with $\alpha$ applied
+first, and $u\star\alpha$ and $\alpha\star r$ for postwhiskering and
+prewhiskering. For functor composition we retain $\circ$.
+
+\section*{Lifting two projection comparisons}
+
+The \href{basic-vocabulary.html\#post:Product_Of_Categories}{product axiom}
+specifies an equivalence
+\[
+ q_{F,G}\colon(F=G)\iso
+   (\pi_1F=\pi_1G)\times(\pi_2F=\pi_2G)
+\]
+for functors $F,G\colon X\to C\times D$. Its components are postwhiskering
+with the two projections.
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Product_Lift}
+For specified identifications $a\colon\pi_1F=\pi_1G$ and
+$b\colon\pi_2F=\pi_2G$, there is an identification $\ell\colon F=G$
+equipped with identifications
+\[
+ \pi_1\star\ell=a,\qquad \pi_2\star\ell=b.
+\]
+\end{lemma}
+\begin{proof}[Proof idea]
+Choose the inverse $q_{F,G}^{-1}$ supplied with the equivalence and put
+$\ell=q_{F,G}^{-1}\circ\langle a,b\rangle$.
+The inverse comparison, the associator, and the left unitor give
+\[
+ q_{F,G}\circ\ell=\langle a,b\rangle.
+\]
+Postwhisker this comparison with each projection. The product projection
+comparisons, including those defining the components of $q_{F,G}$, give the
+two asserted identifications. Thus the construction supplies the projection
+computations as well as the lift itself.
+\end{proof}
+
+\section*{Substitution through pairing and composition}
+
+For $a\colon X\to C$, $b\colon X\to D$, and $r\colon R\to X$, the
+projection comparisons and associator identify the projections of
+$\langle a,b\rangle\circ r$ with those of
+$\langle a\circ r,b\circ r\rangle$.
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Substitution_Comparisons}
+There are identifications
+\[
+ \langle a,b\rangle\circ r=\langle a\circ r,b\circ r\rangle.
+\]
+For families $\sigma\colon X\to(f=g)$ and $\tau\colon X\to(g=h)$,
+there is also an identification
+\[
+ (\tau\cdot\sigma)\circ r
+   =(\tau\circ r)\cdot(\sigma\circ r).
+\]
+More generally, specified comparisons
+$\tau\circ r=\tau'$ and $\sigma\circ r=\sigma'$ give
+\[
+ (\tau\cdot\sigma)\circ r=\tau'\cdot\sigma'.
+\]
+\end{lemma}
+\begin{proof}[Proof idea]
+Apply \Cref{lem:Supplementary_Product_Lift} to the two projection comparisons
+to obtain the pairing formula. Vertical composition of families is defined
+by composing their pairing with the composition functor
+$(g=h)\times(f=g)\to(f=h)$. Reassociate, apply the pairing formula, and
+postwhisker it with this composition functor. For the last assertion, pair
+the two specified comparisons and apply the same composition functor.
+\end{proof}
+
+\section*{Keeping the endpoint comparisons}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Normalized_Specialization}
+Suppose $F,G\colon X\to Y$ are equipped with an identification
+$\kappa\colon F=G$. Let $r\colon R\to X$, and suppose that
+$F',G'\colon R\to Y$ are equipped with specified identifications
+\[
+ l\colon F\circ r=F',\qquad t\colon G\circ r=G'.
+\]
+Then there is an identification $F'=G'$, given by
+\[
+ \bigl(t\cdot(\kappa\star r)\bigr)\cdot l^{-1}.
+\]
+\end{lemma}
+\begin{proof}[Proof idea]
+The inverse of $l$ goes from $F'$ to $F\circ r$, prewhiskering $\kappa$
+goes from $F\circ r$ to $G\circ r$, and $t$ goes from $G\circ r$ to $G'$.
+Compose these three identifications with the displayed parenthesization.
+\end{proof}
+
+\begin{corollary}
+\label[corollary]{cor:Supplementary_Specialized_Vertical_Laws}
+For absolute identifications $\sigma\colon f=g$, $\tau\colon g=h$, and
+$\upsilon\colon h=k$, the universal vertical coherence laws give
+\[
+ \mathrm{id}_g\cdot\sigma=\sigma,
+ \qquad \sigma\cdot\mathrm{id}_f=\sigma,
+\]
+\[
+ (\upsilon\cdot\tau)\cdot\sigma
+   =\upsilon\cdot(\tau\cdot\sigma),
+\]
+\[
+ \sigma^{-1}\cdot\sigma=\mathrm{id}_f,
+ \qquad \sigma\cdot\sigma^{-1}=\mathrm{id}_g.
+\]
+These are identifications between the displayed absolute objects of
+identification animae.
+\end{corollary}
+\begin{proof}[Proof idea]
+For a unit or inverse law, precompose the universal comparison with
+$\sigma\colon *\to(f=g)$. Use
+\Cref{lem:Supplementary_Substitution_Comparisons} to compare the substituted
+composite with the displayed composite. Constants specialize to their
+specified values using uniqueness of functors to $*$ and the unitors.
+For associativity, use the point whose three projections are
+$\upsilon,\tau,\sigma$, retaining the product projection comparisons at
+each step. Apply \Cref{lem:Supplementary_Normalized_Specialization} to the
+resulting comparisons of both endpoints.
+\end{proof}
+
+The same procedure works with a functor from any parameter category into
+the relevant input anima. Each application retains its own endpoint
+comparisons. No choice of a universal normal form for all expressions is
+needed for these finite calculations.
+
+\end{document}

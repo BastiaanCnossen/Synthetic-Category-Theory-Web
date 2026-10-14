@@ -1,0 +1,103 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+\section*{Identifications on coproducts}
+
+The \href{initial-categories-and-coproducts.html}{coproduct universal property} is stated using
+mapping animae. To glue identifications of functors, we need the
+corresponding assertion for their identification animae, with the
+specified restriction functor. The passage between these formulations
+uses the decoding square from
+\href{supplementary-decoding-and-restriction.html}{Decoding mapping animae and restriction}.
+All categories and functors below are absolute. We write $\star$ for
+whiskering, $D(u)$ for the functor decoded from a point $u$ of a mapping
+anima, and $D_{u,v}$ for the decoding functor on identification animae.
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Paired_Observation}
+Let $F\colon X\to Y$ and $G\colon X\to Z$ be functors such that
+$(F,G)\colon X\to Y\times Z$ is an equivalence. For $u,v\colon T\to X$,
+the functor
+\[
+ (F\star-,G\star-)\colon(u=v)\longrightarrow
+       (F\circ u=F\circ v)\times(G\circ u=G\circ v)
+\]
+is an equivalence.
+\end{lemma}
+\begin{proof}[Proof idea]
+Put $H=(F,G)$. Postwhiskering by $H$ is an equivalence on identification
+animae. Apply the product comparison to its target $(H\circ u=H\circ v)$.
+The two resulting components are successive postwhiskerings by $H$ and
+by a projection. Associator compatibility and the projection
+identifications $\pi_1\circ H=F$ and $\pi_2\circ H=G$ compare these
+components with postwhiskering by $F$ and $G$.
+
+Each comparison is a square with possibly different endpoints. Changing
+endpoints by the specified comparisons gives equivalences of the target
+identification animae. Pair the two squares and transfer equivalence
+across them. Thus it is the displayed paired postwhiskering functor
+itself that is an equivalence.
+\end{proof}
+
+\section*{Restricting to the two summands}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Coproduct_Restriction}
+For $h,k\colon C\amalg D\to E$, restriction along the inclusions
+$i_C\colon C\to C\amalg D$ and $i_D\colon D\to C\amalg D$ is an
+equivalence
+\[
+ R_{h,k}\colon(h=k)\longrightarrow
+ (h\circ i_C=k\circ i_C)\times(h\circ i_D=k\circ i_D),
+ \qquad R_{h,k}=(-\star i_C,-\star i_D).
+\]
+\end{lemma}
+\begin{proof}[Proof idea]
+First suppose $h=D(u)$ and $k=D(v)$ are decoded absolute objects of
+$\Map(C\amalg D,E)$. The coproduct axiom says that
+\[
+ (i_C^*,i_D^*)\colon\Map(C\amalg D,E)
+                  \longrightarrow\Map(C,E)\times\Map(D,E)
+\]
+is an equivalence. Apply \Cref{lem:Supplementary_Paired_Observation}
+to this functor and to $u,v$. Decode the two target identification
+animae, using that decoding acts by equivalences.
+
+The decoding square identifies these two components with restriction
+of decoded identifications, retaining the comparisons
+$D(i_C^*u)=D(u)\circ i_C$ and $D(i_D^*u)=D(u)\circ i_D$, and the
+corresponding comparisons for $v$. Pair the two squares, change endpoints,
+and cancel the equivalence $D_{u,v}$. This proves that
+$R_{D(u),D(v)}$ is an equivalence.
+
+For general $h,k$, take their names in the mapping anima. The decoding
+comparisons give $D(\operatorname{name}(h))=h$ and
+$D(\operatorname{name}(k))=k$. Restriction commutes with changing these
+endpoints: prewhisker the endpoint-change square by each inclusion.
+Transport the decoded result across the resulting paired square to
+obtain the asserted equivalence $R_{h,k}$.
+\end{proof}
+
+\begin{corollary}
+\label[corollary]{cor:Supplementary_Coproduct_Lift}
+Given identifications $\sigma\colon h\circ i_C=k\circ i_C$ and
+$\tau\colon h\circ i_D=k\circ i_D$, there is an identification
+$\lambda\colon h=k$ equipped with comparisons
+\[
+ \lambda\star i_C=\sigma,
+ \qquad \lambda\star i_D=\tau.
+\]
+\end{corollary}
+\begin{proof}[Proof idea]
+Lift the absolute object $(\sigma,\tau)$ along the equivalence $R_{h,k}$
+of \Cref{lem:Supplementary_Coproduct_Restriction}. This produces both
+$\lambda$ and a comparison $R_{h,k}(\lambda)=(\sigma,\tau)$.
+Postcompose with each projection and apply the pairing projection
+comparisons. These are the two specified restriction comparisons.
+\end{proof}
+
+Keeping these comparisons makes the construction usable when gluing
+data with prescribed restrictions. The argument uses the mapping-anima
+universal property of $C\amalg D$; it does not require the coproduct
+itself to be an anima.
+\end{document}

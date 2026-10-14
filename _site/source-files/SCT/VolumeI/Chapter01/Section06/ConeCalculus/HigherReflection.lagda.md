@@ -6,7 +6,7 @@ reflects it to an identification of the original identifications. Both
 leg comparisons and the matching witness are required.
 
 ```agda
-{-# OPTIONS --safe --without-K #-}
+{-# OPTIONS --safe --without-K --lossy-unification #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section06.PullbackLaws as Pullbacks
@@ -17,6 +17,8 @@ module SCT.VolumeI.Chapter01.Section06.ConeCalculus.HigherReflection
 
 open import SCT.VolumeI.Chapter01.Section04.Setup 𝒯
 open Pullbacks.PullbackStructure P
+import SCT.VolumeI.Chapter01.Section06.ConeCalculus.PullbackLifting as Lifting
+open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.ConeAction 𝒯 using (cone-action)
 open import SCT.VolumeI.Chapter01.Section06.Cones 𝒯
 open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.ConeComparisonEncoding 𝒯 using (module Encoding)
 open import SCT.VolumeI.Chapter01.Section06.ConeCalculus.ComparisonSquares 𝒯
@@ -83,4 +85,12 @@ module Reflection {C D E T : CAT} {f : MAP C E} {g : MAP D E}
     reflect {α} {β} Ξ = Universal.reflect {S = One} α β
       (Enc.reflect-decoding {z = conePre α Compared.comparisonCone}
         {z′ = conePre β Compared.comparisonCone} Ξ)
+
+  -- Recover the supplied identification from its complete native action.
+  -- No composition or inverse law for that action is needed.
+  opaque
+    recover : (α : h =₁ k) →
+      Lifting.Lift.lift 𝒯 P h k (cone-action (pullbackCone f g) α) =₂ α
+    recover α = reflect
+      (Lifting.Lift.comparison-image 𝒯 P h k (cone-action (pullbackCone f g) α))
 ```

@@ -1,0 +1,117 @@
+<!doctype html>
+
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Decoding mapping animae and restriction | Synthetic category theory</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/reader-shell.css"><link rel="stylesheet" href="assets/reader.css?v=e77c6ba976bccda0"><link rel="stylesheet" href="assets/Agda.css">
+<script src="assets/math-config.js"></script><script defer src="vendor/mathjax/tex-chtml.js"></script><script defer src="assets/agda-context.js?v=f7bbb485904189a1"></script><script defer src="assets/supplementary.js?v=88f0eed0769c41c3-f7bbb485904189a1"></script><script defer src="assets/reader.js?v=bb4820fd39f58f55"></script></head>
+<body class="hide-agda-links has-passages supplementary-page"><a class="skip-link" href="#main">Skip to content</a><aside class="utility-dock" aria-label="Reading tools">
+<button id="reading-settings-button" class="utility-button" type="button" aria-label="Reading settings" title="Reading settings" aria-controls="reading-settings" aria-expanded="false"><span aria-hidden="true">⚙</span></button>
+<a class="utility-button" href="book.pdf" aria-label="Read the web edition PDF" title="Read the web edition PDF"><span aria-hidden="true">📖</span></a>
+<section id="reading-settings" class="settings-panel" aria-label="Reading preferences" hidden><h2>Reading preferences</h2>
+<label><input id="collapse-proofs" type="checkbox"> Collapse book proofs</label>
+<label><input id="show-agda-links" type="checkbox"> Show links to Agda code</label>
+</section></aside>
+<header class="site-header"><div class="header-top"><nav class="book-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Synthetic category theory</a></li><li><a href="chapter-introduction.html">Chapter 1</a></li><li><a href="mapping-animae.html">Section 1.4</a></li><li><a href="supplementary-notes.html">Supplementary notes</a></li></ol></nav></div><p class="eyebrow">Supplementary note · AI-generated prose</p><h1>Decoding mapping animae and restriction</h1><p class="ai-notice">AI-generated prose accompanying the Agda code. This note is supplementary to the book and is not part of the authors' manuscript.</p></header>
+<div class="reader-grid"><aside class="reader-nav" aria-label="Book navigation"><h2>Resources</h2><nav aria-label="Resources" class="reader-resources"><a href="code-index.html">All Agda code</a><a href="supplementary-notes.html">Supplementary notes</a><a href="formalization.html">Agda guide</a><a href="build-report.html">Build details</a></nav><h2>Contents</h2><nav aria-label="Contents"><a href="index.html">Overview</a><a href="introduction.html">Introduction</a><a href="overview-of-the-axioms.html">Overview of the axioms</a><details class="contents-chapter" open><summary><span class="chapter-number">Chapter 1</span><span class="chapter-name">The language of synthetic category theory</span></summary><div class="chapter-sections"><a href="chapter-introduction.html">Chapter introduction</a><a href="basic-vocabulary.html">1.1 · The basic vocabulary</a><a href="coherences.html">1.2 · Coherences</a><a href="equivalences.html">1.3 · Equivalences of categories</a><a aria-current="page" href="mapping-animae.html">1.4 · Mapping animae</a><a href="initial-categories-and-coproducts.html">1.5 · Initial categories and coproducts</a><a href="pullbacks.html">1.6 · Pullbacks of categories</a><a href="functor-categories.html">1.7 · Functor categories</a><a href="pushouts.html">1.8 · Pushout squares</a></div></details><details class="contents-chapter"><summary><span class="chapter-number">Chapter 2</span><span class="chapter-name">The internal structure of categories</span></summary><div class="chapter-sections"><a href="internal-structure-introduction.html">Chapter introduction</a><a href="morphisms-and-diagrams.html">2.1 · Morphisms and diagrams</a><a href="segal-axiom.html">2.2 · The Segal axiom</a><a href="rezk-axiom.html">2.3 · The Rezk axiom</a><a href="groupoids.html">2.4 · Groupoids</a><a href="recognizing-animae.html">2.5 · Recognizing animae</a><a href="chapter-2-exercises.html">2.6 · Exercises</a></div></details><details class="contents-chapter"><summary><span class="chapter-number">Chapter 3</span><span class="chapter-name">Constructions of categories</span></summary><div class="chapter-sections"><a href="constructions-introduction.html">Chapter introduction</a><a href="subcategories.html">3.1 · Subcategories</a><a href="full-subcategories.html">3.2 · Full subcategories</a><a href="localizations.html">3.3 · Localizations</a><a href="geometric-realizations.html">3.4 · Geometric realizations</a><a href="exponentiable-functors.html">3.5 · Exponentiable functors</a><a href="joins.html">3.6 · Joins</a><a href="slice-categories.html">3.7 · Slice categories</a><a href="chapter-3-exercises.html">3.8 · Exercises</a></div></details></nav></aside>
+<main id="main" class="notes-page" tabindex="-1"><p class="coverage-note edition-notice">This supplementary note and its code links describe the earlier formalization. Its proof explanation has not been migrated to rebuild2. <a href="chapter01-code.html">Browse the current Chapter 1 code.</a></p><p class="agda-help"><span class="agda-invitation"><a class="agda-start" data-module="SCT.VolumeI.Chapter01.Section04.Substitution.DecodingNaturality" href="agda/SCT.VolumeI.Chapter01.Section04.Substitution.DecodingNaturality.html">Read the Agda code</a> alongside this note.</span><span class="agda-instructions">Click dotted-underlined statements to read their Agda code. <button type="button" class="agda-hide text-button">Hide links.</button> <a href="code-index.html">Browse all code.</a></span></p>
+   <h3 class="likesectionHead" id="decoding-mapping-animae-and-restriction"><a id="x1-1000"></a>Decoding mapping animae and restriction</h3>
+<p class="noindent"><a href="mapping-animae.html#con:Functors_As_Points_Of_Mapping_Animae">Naming and decoding</a> relate functors \(C\to D\) to absolute objects of \(\Map (C,D)\). When this
+correspondence is used in a universal-property argument, one also needs its action
+on identification animae and its compatibility with restriction. This note explains
+those two ingredients.
+</p><p class="indent">   Put \(j_C=(!,\mathrm {id}_C)\colon C\to \star \times C\). For an absolute object \(u\colon \star \to \Map (C,D)\), write \[ D(u)=\operatorname {uncurry}(u)\circ j_C\colon C\to D. \] Here \(D(u)\) abbreviates the decoded functor in
+this note. For \(i\colon B\to C\), write \(i^*\colon \Map (C,D)\to \Map (B,D)\) for precomposition. All the categories and endpoints in the
+following statements are absolute.
+</p><p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1001r1"></a>
+<a class="agda-trigger" id="text-supp-decoding-equivalence" data-agda="supp-decoding-equivalence" href="#agda-supp-decoding-equivalence"><span class="ecbx-1095">Supplementary Lemma 1.</span></a>  </span><span id="lem:Supplementary_Decoding_Equivalence"> </span><span class="ecti-1095">For absolute objects</span> \(u,v\) <span class="ecti-1095">of</span> \(\Map (C,D)\)<span class="ecti-1095">, decoding induces
+an  equivalence  </span>\[ D_{u,v}\colon (u=v)\longrightarrow (D(u)=D(v)). \]  <span class="ecti-1095">Consequently,  each  specified  identification</span>  \(\delta \colon D(u)=D(v)\)  <span class="ecti-1095">admits  an
+identification</span> \(\widetilde \delta \colon u=v\) <span class="ecti-1095">equipped with a comparison</span> \(D_{u,v}(\widetilde \delta )=\delta \)<span class="ecti-1095">.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    The functor \(D_{u,v}\) is the composite of the action of uncurrying on
+identifications with prewhiskering by \(j_C\). The first is an equivalence by the
+mapping-anima axiom, applied to the anima \(\star \). The second is an equivalence
+because  \(j_C\)  is  an  equivalence:  its  inverse  is  the  second  projection,  with
+the  two  comparisons  obtained  from  the  product  and  terminal  universal
+properties. Whiskering by an equivalence is treated in <a href="supplementary-changing-endpoints.html">Changing endpoints
+in identification animae</a>. Applying a chosen inverse of \(D_{u,v}\) gives the lift and its
+specified image comparison.                                                             □
+                                                                     
+
+                                                                     
+</p>
+   </div></details>
+<p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1002r2"></a>
+<a class="agda-trigger" id="text-supp-decoding-restriction" data-agda="supp-decoding-restriction" href="#agda-supp-decoding-restriction"><span class="ecbx-1095">Supplementary Lemma 2.</span></a>  </span><span id="lem:Supplementary_Decoding_Restriction"> </span><span class="ecti-1095">For</span> \(i\colon B\to C\) <span class="ecti-1095">and an absolute object</span> \(u\) <span class="ecti-1095">of</span> \(\Map (C,D)\)<span class="ecti-1095">, there is a
+specified identification </span>\[ e_i(u)\colon D(i^*\circ u)=D(u)\circ i. \]
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    First compare the two functors from \(B\) to \(\star \times C\): \[ (\mathrm {id}_{\star }\times i)\circ j_B=j_C\circ i. \] Their first projections
+are identified by the terminal universal property. Their second projections
+are identified with \(i\) by the projection comparisons and unitors. The product
+universal property therefore supplies the displayed identification.
+</p><p class="indent">   Uncurrying \(i^*\circ u\) gives \(\operatorname {uncurry}(u)\circ (\mathrm {id}_{\star }\times i)\). Precompose this comparison with \(j_B\), reassociate, apply
+the preceding product comparison, and reassociate back. The resulting chain
+is the chosen \(e_i(u)\).                                                                               □
+</p>
+   </div></details>
+<p class="noindent">
+</p>
+   <h3 class="likesectionHead" id="the-square-on-identification-animae"><a id="x1-2000"></a>The square on identification animae</h3>
+<p class="noindent">Write \(\star \) for whiskering and \(\cdot \) for vertical composition, with the rightmost factor
+applied first. A bar denotes a constant family.
+</p><p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+                                                                     
+
+                                                                     
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-2001r3"></a>
+<a class="agda-trigger" id="text-supp-decoding-naturality" data-agda="supp-decoding-naturality" href="#agda-supp-decoding-naturality"><span class="ecbx-1095">Supplementary Lemma 3.</span></a>  </span><span id="lem:Supplementary_Decoding_Naturality"> </span><span class="ecti-1095">For</span> \(i\colon B\to C\)<span class="ecti-1095">, absolute objects</span> \(u,v\) <span class="ecti-1095">of</span> \(\Map (C,D)\)<span class="ecti-1095">, and a functor</span> \(\gamma \colon A\to (u=v)\)<span class="ecti-1095">,
+one has an identification of functors on</span> \(A\) \[ \begin {aligned} &amp;\overline {e_i(v)}\cdot \bigl (D_{i^*u,i^*v}\circ (i^*\star \gamma )\bigr )\\ &amp;\qquad =\bigl ((D_{u,v}\circ \gamma )\star i\bigr ) \cdot \overline {e_i(u)}. \end {aligned} \] <span class="ecti-1095">Here</span> \(i^*u\) <span class="ecti-1095">abbreviates</span> \(i^*\circ u\)<span class="ecti-1095">. Both sides take
+values in</span> \((D(i^*u)=D(v)\circ i)\)<span class="ecti-1095">.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">     Follow  the  four  stages  constructing  \(e_i\)  in  Supplementary
+Lemma <a href="#x1-1002r2">2</a>, now with the family \(\gamma \) inserted. Compatibility of uncurrying with
+precomposition gives the first square. Compatibility of prewhiskering with
+composition gives the reassociation square. Fixed-inner interchange gives the
+square for the comparison \((\mathrm {id}_{\star }\times i)\circ j_B=j_C\circ i\). A final reassociation square handles the inverse
+associator at the end.
+</p><p class="indent">   Paste  the  four  squares.  This  first  proves  the  formula  for  the  explicit
+family obtained by uncurrying \(\gamma \) and then prewhiskering by \(j_C\). The evaluation
+comparison for the composite defining \(D_{u,v}\) identifies that family with \(D_{u,v}\circ \gamma \), yielding
+the displayed formula.                                                                    □
+</p>
+   </div></details>
+<p class="indent">   Taking \(A=(u=v)\) and \(\gamma =\mathrm {id}_{(u=v)}\), and removing the resulting identity precompositions by the unit
+comparisons, gives the square between the actual restriction functors on
+identification animae. This is stronger than comparing their values on individual
+absolute identifications: it is the square used to transfer equivalence of restriction
+from mapping animae to decoded functors. Its application to coproducts is
+explained in <a href="supplementary-identifications-on-coproducts.html">Identifications on coproducts</a>.
+</p>
+    
+<section class="supplementary-targets"><h2>Checked declarations</h2><p>The linked Agda declarations were type-checked in the displayed edition. The explanatory prose and proof ideas are AI-generated and are not verified by that check.</p><ul><li id="agda-supp-decoding-equivalence">Supplementary Lemma 1: Decoding identifications: <a href="agda/SCT.VolumeI.Chapter01.Section04.Points.html#2960"><code>decodeMap-isoMap-isEquiv</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section04.Points.html#3703"><code>decodeMap-reflect</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section04.Points.html#3895"><code>decodeMap-reflect-β</code></a></li><li id="agda-supp-decoding-restriction">Supplementary Lemma 2: Decoding after restriction: <a href="agda/SCT.VolumeI.Chapter01.Section04.Substitution.DecodingNaturality.html#2157"><code>oneProduct-natural</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section04.Substitution.DecodingNaturality.html#3020"><code>decodePre</code></a></li><li id="agda-supp-decoding-naturality">Supplementary Lemma 3: The decoding square: <a href="agda/SCT.VolumeI.Chapter01.Section04.Substitution.DecodingNaturality.html#5090"><code>decodePre-natural</code></a>, <a href="agda/SCT.VolumeI.Chapter01.Section04.Substitution.DecodingNaturality.html#3375"><code>decodePre-family</code></a></li></ul></section></main></div>
+<footer>Experimental web edition · Generated from annotated LaTeX and Agda sources. <a href="build-report.html">Build details</a></footer></body></html>

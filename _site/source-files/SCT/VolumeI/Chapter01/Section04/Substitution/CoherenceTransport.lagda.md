@@ -11,12 +11,14 @@ does not assume any mapping-composition coherence.
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
 import SCT.VolumeI.Chapter01.Section04.Setup as Setup
+import SCT.VolumeI.Chapter01.Section02.Isomorphisms as Isomorphisms
 import SCT.VolumeI.Chapter01.Section03.Whiskering as WhiskeringEquivalences
 
 module SCT.VolumeI.Chapter01.Section04.Substitution.CoherenceTransport
   {c m a : Level} (𝒯 : Theory c m a) where
 
 open Setup 𝒯
+open Isomorphisms vocabulary terminal products productLaws composition vertical whiskering using (cancel-inverse)
 open WhiskeringEquivalences vocabulary terminal products productLaws composition vertical whiskering
   using (leftMultiply; rightMultiply; leftMultiply-isEquiv; rightMultiply-isEquiv)
 
@@ -176,4 +178,72 @@ pentagon-left-corner A B C′ D′ E pentagon =
   in cancel-inverse-pair D′ (E ∙ B ⁻¹) ∙
     (isoComp-cong (idIso (D′ ⁻¹)) (cancel-inverse-pair C′ (D′ ∙ (E ∙ B ⁻¹))) ∙
       isoComp-cong (idIso (D′ ⁻¹)) (isoComp-cong (idIso (C′ ⁻¹)) expandCorner))
+```
+
+A route with two inverse target comparisons recovers its central edge after
+changing endpoints. The comparison with that route remains an explicit input;
+in particular, this calculation does not choose an associator or a reflector.
+
+```agda
+cancel-two-inverses : {X C : CAT} {f g h k : MAP X C}
+  (b : h =₁ k) (a : g =₁ h) (x : f =₁ k)
+  → ((b ∙ a) ∙ (a ⁻¹ ∙ (b ⁻¹ ∙ x))) =₂ x
+cancel-two-inverses b a x = cancel-inverse b x ∙
+  (isoComp-cong (idIso b) (cancel-inverse a (b ⁻¹ ∙ x)) ∙
+    isoComp-assoc-at b a (a ⁻¹ ∙ (b ⁻¹ ∙ x)))
+
+inverse-route-pasting : {C D : CAT} {f f′ g h g′ : MAP C D}
+  (p : f =₁ f′) (q : h =₁ g′) (r : g =₁ h)
+  (α : f =₁ g) (β : f′ =₁ g′)
+  → α =₂ (r ⁻¹ ∙ (q ⁻¹ ∙ (β ∙ p)))
+  → (changeEndpoints p (q ∙ r) α) =₂ β
+inverse-route-pasting p q r α β computation =
+  square-to-changeEndpoints p (q ∙ r) α β
+    (cancel-two-inverses q r (β ∙ p) ∙
+      isoComp-cong (idIso (q ∙ r)) computation)
+
+abstract
+  inverse-route-square : {C D : CAT} {f f′ g h g′ : MAP C D}
+    (p : f =₁ f′) (q : h =₁ g′) (r : g =₁ h)
+    (α : f =₁ g) (β : f′ =₁ g′)
+    → α =₂ (r ⁻¹ ∙ (q ⁻¹ ∙ (β ∙ p)))
+    → ((q ∙ r) ∙ α) =₂ (β ∙ p)
+  inverse-route-square p q r α β computation =
+    cancel-two-inverses q r (β ∙ p) ∙
+      isoComp-cong (idIso (q ∙ r)) computation
+
+  inverse-route-image : {C D : CAT} {f f′ g h g′ : MAP C D}
+    (p : f =₁ f′) (q : h =₁ g′) (r : g =₁ h)
+    (α : f =₁ g) (β : f′ =₁ g′)
+    → α =₂ (r ⁻¹ ∙ (q ⁻¹ ∙ (β ∙ p)))
+    → (changeEndpoints p (q ∙ r) α) =₂ β
+  inverse-route-image p q r α β computation =
+    inverse-route-pasting p q r α β computation
+
+  inverse-route-image-computation : {C D : CAT} {f f′ g h g′ : MAP C D}
+    (p : f =₁ f′) (q : h =₁ g′) (r : g =₁ h)
+    (α : f =₁ g) (β : f′ =₁ g′)
+    (computation : α =₂ (r ⁻¹ ∙ (q ⁻¹ ∙ (β ∙ p))))
+    → (inverse-route-image p q r α β computation) =₃
+        (inverse-route-pasting p q r α β computation)
+  inverse-route-image-computation p q r α β computation = idIso _
+```
+
+Whiskering a composite comparison and then following an incoming comparison
+can be calculated before inserting the concrete diagram. These two laws keep
+the whiskering computation followed by the specified reassociation.
+
+```agda
+abstract
+  prewhiskered-composite : {B C D : CAT} {a b c : MAP C D} {x : MAP B D}
+    (k : MAP B C) (α : b =₁ c) (β : a =₁ b) (γ : x =₁ (a ∘ k))
+    → (((α ∙ β) ▷ k) ∙ γ) =₂ ((α ▷ k) ∙ ((β ▷ k) ∙ γ))
+  prewhiskered-composite k α β γ = isoComp-assoc-at (α ▷ k) (β ▷ k) γ ∙
+    isoComp-cong (preWhisker-isoComp-at α β k) (idIso γ)
+
+  postwhiskered-composite : {A B C : CAT} {a b c : MAP A B} {x : MAP A C}
+    (k : MAP B C) (α : b =₁ c) (β : a =₁ b) (γ : x =₁ (k ∘ a))
+    → ((k ◁ (α ∙ β)) ∙ γ) =₂ ((k ◁ α) ∙ ((k ◁ β) ∙ γ))
+  postwhiskered-composite k α β γ = isoComp-assoc-at (k ◁ α) (k ◁ β) γ ∙
+    isoComp-cong (postWhisker-isoComp-at k α β) (idIso γ)
 ```

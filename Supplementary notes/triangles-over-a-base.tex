@@ -1,0 +1,88 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+\section*{Triangles over a base}
+
+The definition of \href{exponentiable-functors.html}{functors over a base}
+remembers the identification making the triangle commute. This note explains
+how that identification is retained when passing to the relative mapping anima.
+Assume the Chapter 1 structures, including mapping animae, functor categories
+and pullbacks. All categories and functors below are absolute.
+
+Fix $f\colon C\to S$ and $g\colon D\to S$. Write a functor over $S$ as
+$u=(h,\theta)$, where $h\colon C\to D$ and $\theta\colon gh=f$.
+We orient the triangle towards $f$, as in the code; inverting $\theta$
+gives the convention in the book. For $v=(k,\psi)$, a comparison $u\simeq_S v$
+consists of $\alpha\colon h=k$ and a specified identification
+\[
+ \psi\cdot(g\alpha)=\theta.
+\]
+Here $g\alpha$ denotes postcomposition of the identification by $g$, and
+$\beta\cdot\alpha$ means first $\alpha$, then $\beta$.
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Relative_Names}
+A triangle $u$ has a name $\ulcorner u\urcorner$ in $\Map_S(C,D)$.
+A point $x$ of this anima determines a triangle $\operatorname{decode}(x)$.
+There are comparisons
+\[
+ \ulcorner\operatorname{decode}(x)\urcorner=x,
+ \qquad \operatorname{decode}(\ulcorner u\urcorner)\simeq_S u.
+\]
+\end{lemma}
+\begin{proof}[Proof idea]
+The category $\Fun_S(C,D)$ is the pullback of
+$g_*\colon\Fun(C,D)\to\Fun(C,S)$ along the point naming $f$.
+Name $h$ in the first factor and use the identity of the terminal category
+in the second. Naming $\theta$, followed by the postcomposition and unit
+comparisons, supplies the matching of this cone. The map converting
+$\theta$ into that matching is an equivalence of identification animae.
+
+Conversely, decode the first leg of a point of the pullback, normalize its
+terminal leg, and lift its matching through this equivalence. The pullback
+computation and reconstruction comparisons give the two displayed formulas.
+For the second formula, the matching comparison also recovers the specified
+triangle. Passing to the core gives the statement for $\Map_S(C,D)$.
+\end{proof}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Relative_Comparisons}
+A comparison $u\simeq_S v$ gives an identification
+$\ulcorner u\urcorner=\ulcorner v\urcorner$. Conversely, an identification
+of these names gives a comparison $u\simeq_S v$.
+\end{lemma}
+\begin{proof}[Proof idea]
+Name the underlying identification $\alpha$. Its equation over $S$ becomes
+the matching equation for a comparison of the two named pullback cones.
+Lift that whole cone comparison and then name the result in the core.
+
+In the reverse direction, extract a cone comparison from the identification
+of names. Its terminal component is identified with the identity. Lift the
+other component through the naming equivalence. Reflecting the matching
+equation through the equivalence used in \Cref{lem:Supplementary_Relative_Names}
+gives exactly $\psi\cdot(g\alpha)=\theta$.
+These constructions provide comparisons in both directions; the linked
+results here do not identify the two operations on comparison data as
+mutual inverses with their specified higher witnesses.
+\end{proof}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Relative_Associator}
+Compose functors over $S$ by pasting their triangles, with the associator
+inserted at the composite. The ordinary associator and the left and right
+unit identifications then give comparisons over $S$.
+\end{lemma}
+\begin{proof}[Proof idea]
+For $u=(h,\theta)\colon f\to g$ and $v=(k,\psi)\colon g\to l$, the
+composite triangle follows the route
+\[
+ l(kh)\simeq(lk)h\xrightarrow{\psi h}gh\xrightarrow{\theta}f.
+\]
+For three functors, the two pasted routes are compared by the
+projection-square pentagon calculation. The unit cases use the corresponding
+triangle and unit calculations. These prove compatibility of the displayed
+associator and unit identifications with the triangles over $S$.
+A pentagon among these relative associators is a further assertion, not part
+of this lemma.
+\end{proof}
+\end{document}

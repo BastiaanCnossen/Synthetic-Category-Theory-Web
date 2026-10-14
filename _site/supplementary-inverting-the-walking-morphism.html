@@ -1,0 +1,102 @@
+<!doctype html>
+
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Inverting the walking morphism | Synthetic category theory</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/reader-shell.css"><link rel="stylesheet" href="assets/reader.css?v=e77c6ba976bccda0"><link rel="stylesheet" href="assets/Agda.css">
+<script src="assets/math-config.js"></script><script defer src="vendor/mathjax/tex-chtml.js"></script><script defer src="assets/reader.js?v=bb4820fd39f58f55"></script></head>
+<body class="hide-agda-links has-passages supplementary-page"><a class="skip-link" href="#main">Skip to content</a><aside class="utility-dock" aria-label="Reading tools">
+<button id="reading-settings-button" class="utility-button" type="button" aria-label="Reading settings" title="Reading settings" aria-controls="reading-settings" aria-expanded="false"><span aria-hidden="true">⚙</span></button>
+<a class="utility-button" href="book.pdf" aria-label="Read the web edition PDF" title="Read the web edition PDF"><span aria-hidden="true">📖</span></a>
+<section id="reading-settings" class="settings-panel" aria-label="Reading preferences" hidden><h2>Reading preferences</h2>
+<label><input id="collapse-proofs" type="checkbox"> Collapse book proofs</label>
+
+</section></aside>
+<header class="site-header"><div class="header-top"><nav class="book-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Synthetic category theory</a></li><li><a href="constructions-introduction.html">Chapter 3</a></li><li><a href="geometric-realizations.html">Section 3.4</a></li><li><a href="supplementary-notes.html">Supplementary notes</a></li></ol></nav></div><p class="eyebrow">Supplementary note · AI-generated prose</p><h1>Inverting the walking morphism</h1><p class="ai-notice">AI-generated prose accompanying the Agda code. This note is supplementary to the book and is not part of the authors' manuscript.</p></header>
+<div class="reader-grid"><aside class="reader-nav" aria-label="Book navigation"><h2>Resources</h2><nav aria-label="Resources" class="reader-resources"><a href="code-index.html">All Agda code</a><a href="supplementary-notes.html">Supplementary notes</a><a href="formalization.html">Agda guide</a><a href="build-report.html">Build details</a></nav><h2>Contents</h2><nav aria-label="Contents"><a href="index.html">Overview</a><a href="introduction.html">Introduction</a><a href="overview-of-the-axioms.html">Overview of the axioms</a><details class="contents-chapter"><summary><span class="chapter-number">Chapter 1</span><span class="chapter-name">The language of synthetic category theory</span></summary><div class="chapter-sections"><a href="chapter-introduction.html">Chapter introduction</a><a href="basic-vocabulary.html">1.1 · The basic vocabulary</a><a href="coherences.html">1.2 · Coherences</a><a href="equivalences.html">1.3 · Equivalences of categories</a><a href="mapping-animae.html">1.4 · Mapping animae</a><a href="initial-categories-and-coproducts.html">1.5 · Initial categories and coproducts</a><a href="pullbacks.html">1.6 · Pullbacks of categories</a><a href="functor-categories.html">1.7 · Functor categories</a><a href="pushouts.html">1.8 · Pushout squares</a></div></details><details class="contents-chapter"><summary><span class="chapter-number">Chapter 2</span><span class="chapter-name">The internal structure of categories</span></summary><div class="chapter-sections"><a href="internal-structure-introduction.html">Chapter introduction</a><a href="morphisms-and-diagrams.html">2.1 · Morphisms and diagrams</a><a href="segal-axiom.html">2.2 · The Segal axiom</a><a href="rezk-axiom.html">2.3 · The Rezk axiom</a><a href="groupoids.html">2.4 · Groupoids</a><a href="recognizing-animae.html">2.5 · Recognizing animae</a><a href="chapter-2-exercises.html">2.6 · Exercises</a></div></details><details class="contents-chapter" open><summary><span class="chapter-number">Chapter 3</span><span class="chapter-name">Constructions of categories</span></summary><div class="chapter-sections"><a href="constructions-introduction.html">Chapter introduction</a><a href="subcategories.html">3.1 · Subcategories</a><a href="full-subcategories.html">3.2 · Full subcategories</a><a href="localizations.html">3.3 · Localizations</a><a aria-current="page" href="geometric-realizations.html">3.4 · Geometric realizations</a><a href="exponentiable-functors.html">3.5 · Exponentiable functors</a><a href="joins.html">3.6 · Joins</a><a href="slice-categories.html">3.7 · Slice categories</a><a href="chapter-3-exercises.html">3.8 · Exercises</a></div></details></nav></aside>
+<main id="main" class="notes-page" tabindex="-1"><p class="coverage-note edition-notice">Agda links are temporarily unavailable for Chapters 2 and 3 while their code is updated to the foundations used in Chapter 1.</p>
+   <h3 class="likesectionHead" id="inverting-the-walking-morphism"><a id="x1-1000"></a>Inverting the walking morphism</h3>
+<p class="noindent">The <a href="geometric-realizations.html">geometric realization of \([1]\)</a> is contractible. The checked proof identifies the
+functors out of \([1]\) that invert every arrow by evaluating their inversion data at the
+identity functor \([1]\to [1]\). This is an alternative to the manuscript’s argument
+enumerating the three arrows of \([1]\).
+</p><p class="indent">   Use the Chapter 1 structures, walking-morphism and endpoint data, the Segal
+and commutative-square axioms, and Rezk. For a category \(D\), write \[ V_D=\Map ^{\Map ([1],[1])}([1],D),\qquad u\colon V_D\hookrightarrow \Map ([1],D). \] Thus \(V_D\)
+consists of functors inverting all arrows of \([1]\). Let \(c\colon D^\simeq \to \Map ([1],D)\) be the constant-arrow
+functor.
+</p><p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1001r1"></a>
+<span id="text-supp-interval-constants"><span class="ecbx-1095">Supplementary Lemma 1.</span></span>  </span><span id="lem:Supplementary_Interval_Constants"> </span><span class="ecti-1095">There is a functor</span> \(k\colon D^\simeq \to V_D\) <span class="ecti-1095">with</span> \(uk=c\)<span class="ecti-1095">.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    Constant arrows factor through the terminal category. That
+category is a groupoid, and a functor out of a groupoid inverts every arrow.
+Apply this to the universal family of objects of \(D\), then restrict the inverting
+family along \([1]\to \star \). The restriction computation identifies its underlying family
+with \(c\).                                                                                          □
+</p>
+   </div></details>
+<p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+                                                                     
+
+                                                                     
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1002r2"></a>
+<span id="text-supp-inverted-identity"><span class="ecbx-1095">Supplementary Lemma 2.</span></span>  </span><span id="lem:Supplementary_Inverted_Identity"> </span><span class="ecti-1095">There is a functor</span> \(o\colon V_D\to D^\simeq \) <span class="ecti-1095">with</span> \(co=u\)<span class="ecti-1095">. The functor</span> \(k\) <span class="ecti-1095">of
+Supplementary Lemma </span><a href="#x1-1001r1"><span class="ecti-1095">1</span></a> <span class="ecti-1095">is an equivalence with inverse</span> \(o\)<span class="ecti-1095">.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    The defining pullback of \(V_D\) supplies a family of isomorphisms
+indexed by the arrows of \([1]\). Evaluate this family at the point of \(\Map ([1],[1])\) naming the
+identity functor. Its underlying arrow is the original functor \([1]\to D\): this is the
+identity computation for the mapping action, with the naming comparisons
+included.
+</p><p class="indent">   Rezk identifies the anima of isomorphisms in \(D\) with \(D^\simeq \), by sending an object
+to its identity. Lifting the evaluated family through this equivalence gives
+\(o\) and the comparison \(co=u\). Both \(u\) and \(c\) are embeddings; for \(c\) this follows from
+Rezk and the embedding of isomorphisms among all arrows. The equations \(uk=c\)
+and \(co=u\) therefore imply \(ok=\operatorname {id}\) and \(ko=\operatorname {id}\) by reflection. These are identifications, not strict
+equalities of the chosen functors.                                                       □
+</p>
+   </div></details>
+<p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1003r3"></a>
+<span id="text-supp-interval-localization"><span class="ecbx-1095">Supplementary Corollary 3.</span></span>  </span><span id="cor:Supplementary_Interval_Localization"> </span><span class="ecti-1095">In the setting of the localization definition,
+let</span> \(l\colon [1]\to T\) <span class="ecti-1095">be a localization at all arrows of</span> \([1]\)<span class="ecti-1095">. Then</span> \(T\) <span class="ecti-1095">is contractible.</span>
+                                                                     
+
+                                                                     
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    For  every  \(D\),  the  localization  property  gives  an  equivalence  \(\rho _D\colon \Map (T,D)\iso V_D\).
+The  composite  of  restriction  along  \(T\to \star \)  with  \(\rho _D\)  is  identified  with  \(k\).  To  check
+this comparison, compose with the embedding \(u\): both routes become the
+constant-arrow  family,  using  the  unit  and  composition  comparisons  for
+restriction and the terminal comparison \((T\to \star )l=([1]\to \star )\). Reflect through \(u\).
+</p><p class="indent">   Since \(k\) and \(\rho _D\) are equivalences, restriction along \(T\to \star \) is an equivalence for every
+\(D\). Detection by mapping animae shows that \(T\to \star \) is an equivalence. No assumption
+that \(T\) is already a groupoid is used.                                                    □
+</p>
+   </div></details>
+    
+<span id="agda-supp-interval-constants"></span><span id="agda-supp-inverted-identity"></span><span id="agda-supp-interval-localization"></span></main></div>
+<footer>Experimental web edition · Generated from annotated LaTeX and Agda sources. <a href="build-report.html">Build details</a></footer></body></html>

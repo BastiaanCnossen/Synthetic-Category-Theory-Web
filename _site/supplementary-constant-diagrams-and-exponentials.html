@@ -1,0 +1,118 @@
+<!doctype html>
+
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Constant diagrams and the exponential law | Synthetic category theory</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/reader-shell.css"><link rel="stylesheet" href="assets/reader.css?v=e77c6ba976bccda0"><link rel="stylesheet" href="assets/Agda.css">
+<script src="assets/math-config.js"></script><script defer src="vendor/mathjax/tex-chtml.js"></script><script defer src="assets/reader.js?v=bb4820fd39f58f55"></script></head>
+<body class="hide-agda-links has-passages supplementary-page"><a class="skip-link" href="#main">Skip to content</a><aside class="utility-dock" aria-label="Reading tools">
+<button id="reading-settings-button" class="utility-button" type="button" aria-label="Reading settings" title="Reading settings" aria-controls="reading-settings" aria-expanded="false"><span aria-hidden="true">⚙</span></button>
+<a class="utility-button" href="book.pdf" aria-label="Read the web edition PDF" title="Read the web edition PDF"><span aria-hidden="true">📖</span></a>
+<section id="reading-settings" class="settings-panel" aria-label="Reading preferences" hidden><h2>Reading preferences</h2>
+<label><input id="collapse-proofs" type="checkbox"> Collapse book proofs</label>
+
+</section></aside>
+<header class="site-header"><div class="header-top"><nav class="book-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Synthetic category theory</a></li><li><a href="internal-structure-introduction.html">Chapter 2</a></li><li><a href="groupoids.html">Section 2.4</a></li><li><a href="supplementary-notes.html">Supplementary notes</a></li></ol></nav></div><p class="eyebrow">Supplementary note · AI-generated prose</p><h1>Constant diagrams and the exponential law</h1><p class="ai-notice">AI-generated prose accompanying the Agda code. This note is supplementary to the book and is not part of the authors' manuscript.</p></header>
+<div class="reader-grid"><aside class="reader-nav" aria-label="Book navigation"><h2>Resources</h2><nav aria-label="Resources" class="reader-resources"><a href="code-index.html">All Agda code</a><a href="supplementary-notes.html">Supplementary notes</a><a href="formalization.html">Agda guide</a><a href="build-report.html">Build details</a></nav><h2>Contents</h2><nav aria-label="Contents"><a href="index.html">Overview</a><a href="introduction.html">Introduction</a><a href="overview-of-the-axioms.html">Overview of the axioms</a><details class="contents-chapter"><summary><span class="chapter-number">Chapter 1</span><span class="chapter-name">The language of synthetic category theory</span></summary><div class="chapter-sections"><a href="chapter-introduction.html">Chapter introduction</a><a href="basic-vocabulary.html">1.1 · The basic vocabulary</a><a href="coherences.html">1.2 · Coherences</a><a href="equivalences.html">1.3 · Equivalences of categories</a><a href="mapping-animae.html">1.4 · Mapping animae</a><a href="initial-categories-and-coproducts.html">1.5 · Initial categories and coproducts</a><a href="pullbacks.html">1.6 · Pullbacks of categories</a><a href="functor-categories.html">1.7 · Functor categories</a><a href="pushouts.html">1.8 · Pushout squares</a></div></details><details class="contents-chapter" open><summary><span class="chapter-number">Chapter 2</span><span class="chapter-name">The internal structure of categories</span></summary><div class="chapter-sections"><a href="internal-structure-introduction.html">Chapter introduction</a><a href="morphisms-and-diagrams.html">2.1 · Morphisms and diagrams</a><a href="segal-axiom.html">2.2 · The Segal axiom</a><a href="rezk-axiom.html">2.3 · The Rezk axiom</a><a aria-current="page" href="groupoids.html">2.4 · Groupoids</a><a href="recognizing-animae.html">2.5 · Recognizing animae</a><a href="chapter-2-exercises.html">2.6 · Exercises</a></div></details><details class="contents-chapter"><summary><span class="chapter-number">Chapter 3</span><span class="chapter-name">Constructions of categories</span></summary><div class="chapter-sections"><a href="constructions-introduction.html">Chapter introduction</a><a href="subcategories.html">3.1 · Subcategories</a><a href="full-subcategories.html">3.2 · Full subcategories</a><a href="localizations.html">3.3 · Localizations</a><a href="geometric-realizations.html">3.4 · Geometric realizations</a><a href="exponentiable-functors.html">3.5 · Exponentiable functors</a><a href="joins.html">3.6 · Joins</a><a href="slice-categories.html">3.7 · Slice categories</a><a href="chapter-3-exercises.html">3.8 · Exercises</a></div></details></nav></aside>
+<main id="main" class="notes-page" tabindex="-1"><p class="coverage-note edition-notice">Agda links are temporarily unavailable for Chapters 2 and 3 while their code is updated to the foundations used in Chapter 1.</p>
+   <h3 class="likesectionHead" id="constant-diagrams-and-the-exponential-law"><a id="x1-1000"></a>Constant diagrams and the exponential law</h3>
+<p class="noindent">The proof that <a href="groupoids.html">functor categories with groupoid target are groupoids</a> uses
+compatibility of the exponential law with constant diagrams. We describe the
+comparison of the actual functors and the product calculation giving
+it.
+</p><p class="indent">   For absolute categories \(T,X\), let \(\Delta _T^X\colon X\to \Fun (T,X)\) be the curry of \(\pi _1\colon X\times T\to X\). Write \[ E_{T,C,X}\colon \Fun (T,\Fun (C,X))\longrightarrow \Fun (T\times C,X) \] for the chosen
+exponential equivalence. The first three statements use the Chapter 1
+mapping-anima and functor-category structure.
+</p><p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1001r1"></a>
+<span id="text-supp-constant-naturality"><span class="ecbx-1095">Supplementary Lemma 1.</span></span>  </span><span id="lem:Supplementary_Constant_Naturality"> </span><span class="ecti-1095">For</span> \(F\colon C\to D\)<span class="ecti-1095">, one has an identification of functors </span>\[ \Fun (T,F)\circ \Delta _T^C=\Delta _T^D\circ F. \]
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">     Uncurry  both  sides.  For  the  left  side,  postcomposition
+compatibility and the currying computation comparison identify the result
+with \(F\pi _1\). For the right side, restriction compatibility gives \(\pi _1(F\times \mathrm {id}_T)\), which the product
+projection comparison also identifies with \(F\pi _1\). Reflect through uncurrying.    □
+</p>
+   </div></details>
+<p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+                                                                     
+
+                                                                     
+<a id="x1-1002r2"></a>
+<span id="text-supp-constant-exponential"><span class="ecbx-1095">Supplementary Lemma 2.</span></span>  </span><span id="lem:Supplementary_Constant_Exponential">  </span><span class="ecti-1095">Put</span>  \(N=\Fun (C,X)\)  <span class="ecti-1095">and  let</span>  \(\sigma \colon C\times T\to T\times C\)  <span class="ecti-1095">exchange  the  factors.  The
+following functors</span> \(N\to \Fun (C\times T,X)\) <span class="ecti-1095">are identified: </span>\[ \sigma ^*\circ E_{T,C,X}\circ \Delta _T^N =E_{C,T,X}\circ \Fun (C,\Delta _T^X). \]
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    Uncurry once. Both functors become evaluation \(N\times C\to X\) precomposed
+with a functor \(N\times (C\times T)\to N\times C\). For the left side, exchange \(C,T\), reassociate to \((N\times T)\times C\), and forget \(T\). For
+the right side, reassociate to \((N\times C)\times T\) and forget \(T\).
+</p><p class="indent">   Compute their projections using the product comparisons. In both cases,
+the first projection is \(\pi _1\) and the second is \(\pi _1\pi _2\) on \(N\times (C\times T)\). The product universal property
+compares  the  two  argument  functors.  Postcompose  with  evaluation  and
+reflect through uncurrying.                                                              □
+</p>
+   </div></details>
+<p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-1003r3"></a>
+<span id="text-supp-constant-equivalence"><span class="ecbx-1095">Supplementary Corollary 3.</span></span>  </span><span id="cor:Supplementary_Constant_Equivalence"> </span><span class="ecti-1095">If</span> \(\Delta _T^X\) <span class="ecti-1095">is an equivalence, then so is</span> \(\Delta _T^{\Fun (C,X)}\)<span class="ecti-1095">.</span>
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">    Postcomposition \(\Fun (C,\Delta _T^X)\) is an equivalence, as are both exponential
+functors and precomposition by \(\sigma \). Use Supplementary Lemma <a href="#x1-1002r2">2</a> and cancel
+these  equivalences.  For  \(T=[1]\),  this  is  the  comparison  used  in  the  closure  of
+groupoids under functor categories.                                                   □
+</p>
+   </div></details>
+<p class="noindent">
+</p>
+   <h3 class="likesectionHead" id="the-coproduct-comparison"><a id="x1-2000"></a>The coproduct comparison</h3>
+<p class="noindent">The following calculation is used in <a href="recognizing-animae.html">Section 2.5</a>. We work in that section’s setup,
+including coproducts. Its linked Agda module also carries the Rezk and
+recognition assumptions needed for the subsequent closure results. The
+calculation itself uses naturality and the coproduct universal property.
+</p><p class="indent">   </p><section class="statement supplementary-statement">
+<p></p>
+   <div class="newtheorem">
+<p class="noindent"><span class="head">
+<a id="x1-2001r4"></a>
+<span id="text-supp-constant-coproduct"><span class="ecbx-1095">Supplementary Lemma 4.</span></span>  </span><span id="lem:Supplementary_Constant_Coproduct"> </span><span class="ecti-1095">Put</span> \(d_C=\Delta _{[1]}^C\colon C\to \operatorname {Ar}(C)\)<span class="ecti-1095">, and let</span> \(i_C,i_D\) <span class="ecti-1095">be the inclusions into</span> \(C\amalg D\)<span class="ecti-1095">. For the
+comparison </span>\[ q=[\operatorname {Ar}(i_C),\operatorname {Ar}(i_D)]\colon \operatorname {Ar}(C)\amalg \operatorname {Ar}(D)\to \operatorname {Ar}(C\amalg D), \] <span class="ecti-1095">there is an identification </span>\[ q\circ (d_C\amalg d_D)=d_{C\amalg D}. \]
+</p>
+   </div>
+<p class="indent">
+</p><p class="indent">   </p></section>
+<p></p>
+   <details class="book-proof" open><summary>Proof idea</summary><div class="proof-content">
+<p class="indent">     Restrict  the  left  side  to  each  summand.  The  copairing
+computation and precomposition comparisons give \(\operatorname {Ar}(i_C)d_C\) and \(\operatorname {Ar}(i_D)d_D\). By Supplementary
+Lemma <a href="#x1-1001r1">1</a>,  these  identify  with  \(d_{C\amalg D}i_C\)  and  \(d_{C\amalg D}i_D\).  The  coproduct  universal  property
+assembles  the  two  comparisons  into  the  displayed  identification.  This
+                                                                     
+
+                                                                     
+computes the specific factorization used in the closure argument.            □
+</p>
+   </div></details>
+    
+<span id="agda-supp-constant-naturality"></span><span id="agda-supp-constant-exponential"></span><span id="agda-supp-constant-equivalence"></span><span id="agda-supp-constant-coproduct"></span></main></div>
+<footer>Experimental web edition · Generated from annotated LaTeX and Agda sources. <a href="build-report.html">Build details</a></footer></body></html>

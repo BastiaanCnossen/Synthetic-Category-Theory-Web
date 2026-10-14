@@ -7,6 +7,7 @@ applied. Its hypotheses are the already specified endpoint comparisons.
 {-# OPTIONS --safe --without-K #-}
 open import Agda.Primitive using (Level)
 open import SCT.VolumeI.Chapter01.Theory using (Theory)
+import SCT.Calculus.Squares as Squares
 import SCT.VolumeI.Chapter01.Section04.Substitution.ProofCalculus as Setup
 import SCT.VolumeI.Chapter01.Section04.MappingAnimae as Mapping
 import SCT.VolumeI.Chapter01.Section04.Composition as MapComposition
@@ -15,6 +16,8 @@ import SCT.VolumeI.Chapter01.Section04.Substitution.MappingProofCalculus as Mapp
 module SCT.VolumeI.Chapter01.Section04.Substitution.ApplicationRouteNormalization
   {c m a : Level} (𝒯 : Theory c m a) (M : Mapping.MappingAnimae 𝒯) where
 open Setup 𝒯
+private
+  module Paste (X Y : CAT) = Squares (comparisonAlgebra X Y) (comparisonLaws X Y)
 open Mapping.MappingAnimae M
 open MapComposition 𝒯 M
 open MappingProof 𝒯 M
@@ -46,10 +49,8 @@ module Assembly {Γ C D : CAT}
           joinOuter = isoComp-cong
               (apply-cong-Iso₂ coordinate-law (isoComp-unitˡ-at ξ)) (idIso tail) ∙
             combine-apply α (idIso v) (β ∙ γ) ξ tail
-          normalize = joinOuter ∙
-            isoComp-cong (idIso first) (joinInner ∙ isoComp-cong (idIso second) restrict)
-          expand = isoComp-cong (idIso outer)
-              (isoComp-cong (idIso first) natural ∙ isoComp-assoc-at first after e) ∙
-            isoComp-assoc-at outer (first ∙ after) e
-      in isoComp-cong (idIso outer) normalize ∙ expand
+      in Paste.normalize-comparison-route Γ D
+        outer first second third after e sourceAfter tail
+        (applyTerm-cong (β ∙ γ) ξ) (applyTerm-cong coordinate ξ)
+        joinInner joinOuter natural restrict
 ```

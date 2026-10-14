@@ -1,0 +1,113 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+\section*{Decoding mapping animae and restriction}
+
+\href{mapping-animae.html\#con:Functors_As_Points_Of_Mapping_Animae}{Naming and decoding}
+relate functors $C\to D$ to absolute objects of $\Map(C,D)$.
+When this correspondence is used in a universal-property argument, one
+also needs its action on identification animae and its compatibility with
+restriction. This note explains those two ingredients.
+
+Put $j_C=(!,\mathrm{id}_C)\colon C\to\star\times C$. For an absolute
+object $u\colon\star\to\Map(C,D)$, write
+\[
+ D(u)=\operatorname{uncurry}(u)\circ j_C\colon C\to D.
+\]
+Here $D(u)$ abbreviates the decoded functor in this note. For
+$i\colon B\to C$, write $i^*\colon\Map(C,D)\to\Map(B,D)$ for
+precomposition. All the categories and endpoints in the following
+statements are absolute.
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Decoding_Equivalence}
+For absolute objects $u,v$ of $\Map(C,D)$, decoding induces an equivalence
+\[
+ D_{u,v}\colon(u=v)\longrightarrow(D(u)=D(v)).
+\]
+Consequently, each specified identification $\delta\colon D(u)=D(v)$
+admits an identification $\widetilde\delta\colon u=v$ equipped with
+a comparison $D_{u,v}(\widetilde\delta)=\delta$.
+\end{lemma}
+\begin{proof}[Proof idea]
+The functor $D_{u,v}$ is the composite of the action of uncurrying on
+identifications with prewhiskering by $j_C$. The first is an equivalence
+by the mapping-anima axiom, applied to the anima $\star$.
+The second is an equivalence because $j_C$ is an equivalence: its inverse
+is the second projection, with the two comparisons obtained from the
+product and terminal universal properties. Whiskering by an equivalence
+is treated in \href{supplementary-changing-endpoints.html}{Changing endpoints
+in identification animae}. Applying a chosen inverse of $D_{u,v}$ gives
+the lift and its specified image comparison.
+\end{proof}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Decoding_Restriction}
+For $i\colon B\to C$ and an absolute object $u$ of $\Map(C,D)$,
+there is a specified identification
+\[
+ e_i(u)\colon D(i^*\circ u)=D(u)\circ i.
+\]
+\end{lemma}
+\begin{proof}[Proof idea]
+First compare the two functors from $B$ to $\star\times C$:
+\[
+ (\mathrm{id}_{\star}\times i)\circ j_B=j_C\circ i.
+\]
+Their first projections are identified by the terminal universal
+property. Their second projections are identified with $i$ by the
+projection comparisons and unitors. The product universal property
+therefore supplies the displayed identification.
+
+Uncurrying $i^*\circ u$ gives
+$\operatorname{uncurry}(u)\circ(\mathrm{id}_{\star}\times i)$.
+Precompose this comparison with $j_B$, reassociate, apply the preceding
+product comparison, and reassociate back. The resulting chain is the
+chosen $e_i(u)$.
+\end{proof}
+
+\section*{The square on identification animae}
+
+Write $\star$ for whiskering and $\cdot$ for vertical composition,
+with the rightmost factor applied first. A bar denotes a constant family.
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Decoding_Naturality}
+For $i\colon B\to C$, absolute objects $u,v$ of $\Map(C,D)$,
+and a functor $\gamma\colon A\to(u=v)$, one has an identification
+of functors on $A$
+\[
+\begin{aligned}
+ &\overline{e_i(v)}\cdot
+       \bigl(D_{i^*u,i^*v}\circ(i^*\star\gamma)\bigr)\\
+ &\qquad=\bigl((D_{u,v}\circ\gamma)\star i\bigr)
+                    \cdot\overline{e_i(u)}.
+\end{aligned}
+\]
+Here $i^*u$ abbreviates $i^*\circ u$. Both sides take values in
+$(D(i^*u)=D(v)\circ i)$.
+\end{lemma}
+\begin{proof}[Proof idea]
+Follow the four stages constructing $e_i$ in
+\Cref{lem:Supplementary_Decoding_Restriction}, now with the family
+$\gamma$ inserted. Compatibility of uncurrying with precomposition gives
+the first square. Compatibility of prewhiskering with composition gives
+the reassociation square. Fixed-inner interchange gives the square for
+the comparison $(\mathrm{id}_{\star}\times i)\circ j_B=j_C\circ i$.
+A final reassociation square handles the inverse associator at the end.
+
+Paste the four squares. This first proves the formula for the explicit
+family obtained by uncurrying $\gamma$ and then prewhiskering by $j_C$.
+The evaluation comparison for the composite defining $D_{u,v}$ identifies
+that family with $D_{u,v}\circ\gamma$, yielding the displayed formula.
+\end{proof}
+
+Taking $A=(u=v)$ and $\gamma=\mathrm{id}_{(u=v)}$, and removing the
+resulting identity precompositions by the unit comparisons, gives the square
+between the actual restriction functors on identification animae.
+This is stronger than comparing their values on individual absolute
+identifications: it is the square used to transfer equivalence of
+restriction from mapping animae to decoded functors. Its application to
+coproducts is explained in
+\href{supplementary-identifications-on-coproducts.html}{Identifications on coproducts}.
+\end{document}

@@ -1,0 +1,75 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+\section*{Arrows with specified endpoints}
+
+The hom and slice constructions in \href{morphisms-and-diagrams.html}{Section 2.1}
+use a common pullback of the endpoint functor. This note explains how the
+endpoint identifications are recovered from its matching, and how a family
+of arrows gives a functor into that pullback.
+
+Write $\operatorname{Ar}(C)=\Fun([1],C)$ and let $e_0,e_1$ be the two
+evaluation functors. For $u,v\colon B\to C$, put
+\[
+ F(u,v)=\operatorname{Ar}(C)\times_{C\times C}B,
+\]
+where the maps to $C\times C$ are $(e_0,e_1)$ and $(u,v)$.
+Denote its projections by $a$ and $b$, and its specified matching by
+$\mu\colon(e_0,e_1)a=(u,v)b$. All categories here are absolute;
+a parameter category $\Gamma$ describes a functor into these fixed categories.
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Endpoint_Frames}
+The matching $\mu$ determines specified identifications
+\[
+ p_0\colon e_0a=ub,\qquad p_1\colon e_1a=vb.
+\]
+They are obtained by projecting $\mu$ and composing with the projection
+comparisons for the pairings on its two sides.
+\end{lemma}
+\begin{proof}[Proof idea]
+For the first coordinate, let $L_0\colon\pi_1((e_0,e_1)a)=e_0a$
+and $R_0\colon\pi_1((u,v)b)=ub$ be the product comparisons, including
+reassociation. Then
+\[
+ p_0=R_0\cdot(\pi_1\star\mu)\cdot L_0^{-1}.
+\]
+The second coordinate has the same formula using $\pi_2$.
+Here $\star$ denotes whiskering and vertical composition applies the
+rightmost identification first. These formulas give the source and target
+frames of the universal arrow family.
+\end{proof}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Endpoint_Lift}
+Suppose $y\colon\Gamma\to B$ and $A\colon\Gamma\to\operatorname{Ar}(C)$
+are equipped with identifications $s\colon e_0A=uy$ and
+$t\colon e_1A=vy$. There is a functor $\ell\colon\Gamma\to F(u,v)$,
+with comparisons $a\ell=A$ and $b\ell=y$, compatible with the specified
+endpoint identifications $s,t$.
+\end{lemma}
+\begin{proof}[Proof idea]
+Write $\kappa(f,g,r)\colon(f,g)r=(fr,gr)$ for the pairing and
+precomposition comparison. The cone matching determined by $s,t$ is
+\[
+ (e_0,e_1)A
+ \xrightarrow{\kappa(e_0,e_1,A)}(e_0A,e_1A)
+ \xrightarrow{(s,t)}(uy,vy)
+ \xrightarrow{\kappa(u,v,y)^{-1}}(u,v)y.
+\]
+Apply the pullback lifting operation to this cone. Its computation law
+compares the entire induced cone with the displayed one. In particular,
+it supplies both projection comparisons and their compatibility with
+the matching. Project that compatibility to recover the two endpoint equations.
+\end{proof}
+
+For absolute objects $x,y$ of $C$, take $B=\star$, $u=x$, and $v=y$.
+The resulting endpoint fiber is the hom category $\operatorname{Hom}_C(x,y)$.
+Taking $B=C$, one of $u,v$ to be the identity, and the other to be
+constant at a chosen object gives the corresponding slice construction. In each case, an input includes the identifications
+with the specified endpoints. The full lifting comparison is what permits
+subsequent calculations to use those same endpoints.
+
+The normalization of the terminal parameter in the hom case is explained
+further in \href{supplementary-hom-expressions-and-restriction.html}{Hom expressions and restriction}.
+\end{document}

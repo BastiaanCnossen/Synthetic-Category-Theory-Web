@@ -1,0 +1,93 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+\section*{Fiber squares and diagonal squares}
+
+The \href{pullbacks.html\#post:Representability_Of_Identifications}{representability axiom}
+states a fiber square for the primitive identification anima.
+The diagonal formulation is a consequence. Its proof compares entire cones,
+including the identification expressing commutativity.
+
+Fix absolute objects $a,b\colon\star\to E$, and put
+$F=(a,b)\colon\star\to E\times E$ and
+$\Delta=(\mathrm{id}_E,\mathrm{id}_E)\colon E\to E\times E$.
+Vertical composition applies the rightmost factor first; $\star$ denotes whiskering.
+All cones below lie in the absolute Chapter 1 setting.
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Diagonal_Coordinates}
+A cone $t=(u,v,\theta)$ over $(F,\Delta)$ on $T$ has two normalized
+coordinates $x\colon au=v$ and $y\colon bu=v$, obtained by projecting
+$\theta\colon Fu=\Delta v$ and inserting the product and unit comparisons.
+It determines a cone $R(t)$ over $(a,b)$ with both legs $u$ and matching
+$y^{-1}\cdot x$.
+Cone comparisons induce comparisons of the recovered cones. Conversely,
+a comparison $R(s)\to R(t)$ supplies a comparison $s\to t$.
+\end{lemma}
+\begin{proof}[Proof idea]
+Project the matching equation of a cone comparison to its two coordinates.
+The two resulting equations imply the equation for $y^{-1}\cdot x$.
+
+Conversely, write the two leg comparisons of a recovered comparison as
+$l,r\colon u_s=u_t$. Terminal uniqueness identifies $r$ with $l$.
+Choose the comparison between the original right legs to be
+\[
+ y_t\cdot(b\star l)\cdot y_s^{-1}\colon v_s=v_t.
+\]
+Its second coordinate equation follows by cancellation. Its first coordinate
+equation is the recovered matching equation, after replacing $r$ by $l$.
+Detection by the two product projections gives the full cone comparison.
+This establishes preservation and reflection of the existence of comparisons.
+\end{proof}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Diagonal_Restriction}
+For $r\colon S\to T$, recovery commutes with restriction by a cone
+comparison $R(r^*t)\to r^*R(t)$ whose two leg comparisons are identities.
+\end{lemma}
+\begin{proof}[Proof idea]
+With $\alpha_{r,u,a}\colon(au)r=a(ur)$, the normalized coordinates satisfy
+\[
+ x_{r^*t}=(x_t\star r)\cdot\alpha_{r,u,a}^{-1},\qquad
+ y_{r^*t}=(y_t\star r)\cdot\alpha_{r,u,b}^{-1}.
+\]
+Insert these formulas into $y_{r^*t}^{-1}\cdot x_{r^*t}$.
+The inverse-of-composite and whiskering comparisons yield
+\[
+ \alpha_{r,u,b}\cdot((y_t^{-1}\cdot x_t)\star r)
+                       \cdot\alpha_{r,u,a}^{-1},
+\]
+which is the matching of the restricted fiber cone. Unit comparisons
+turn this identification of matchings into the claimed cone comparison.
+\end{proof}
+
+\begin{lemma}
+\label[lemma]{lem:Supplementary_Diagonal_Representability}
+Let $I=(a=b)$ and let $\varepsilon\colon a!=b!$ be the specified
+identification supplied by representability. There is a pullback cone over
+$(\Delta,F)$ on $I$, with legs $a!\colon I\to E$ and $!\colon I\to\star$,
+whose matching has normalized coordinates
+\[
+ (\mathrm{id}_{a!},\varepsilon).
+\]
+\end{lemma}
+\begin{proof}[Proof idea]
+First work with the reversed cospan $(F,\Delta)$. Choose its matching
+with normalized coordinates $(\mathrm{id}_{a!},\varepsilon^{-1})$.
+Recovery gives a fiber cone whose matching is
+$(\varepsilon^{-1})^{-1}$. Representability, pullback symmetry, and
+transport of the matching show that this recovered cone is a pullback.
+
+Recover the chosen pullback cone over $(F,\Delta)$ and factor it through
+this fiber cone. \Cref{lem:Supplementary_Diagonal_Restriction} compares
+recovery before and after restriction, and
+\Cref{lem:Supplementary_Diagonal_Coordinates} lifts the resulting cone
+comparison back to the diagonal coordinates. Applying the same reflection
+to comparisons of factorizations proves the pullback criterion.
+
+Finally exchange the two legs. The matching is inverted; its normalized
+coordinates become $(\mathrm{id}_{a!},\varepsilon)$ by the inverse and
+double-inverse comparisons. Thus the result concerns this specified
+matching, and introduces no further representability axiom.
+\end{proof}
+\end{document}
