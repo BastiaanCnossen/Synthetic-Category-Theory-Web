@@ -6,19 +6,19 @@ NOTICE = ('Agda links are temporarily unavailable for Chapters 2 and 3 while '
           'their code is updated to the foundations used in Chapter 1.')
 
 
-def suspended_module(name):
-    return any(f'.Chapter{n:02d}.' in name for n in DISABLED_CHAPTERS)
+def suspended_module(name, disabled=DISABLED_CHAPTERS):
+    return any(f'.Chapter{n:02d}.' in name for n in disabled)
 
 
-def prune_tree(node):
-    node['modules'] = [name for name in node['modules'] if not suspended_module(name)]
-    node['children'] = [prune_tree(child) for child in node['children']
+def prune_tree(node, disabled=DISABLED_CHAPTERS):
+    node['modules'] = [name for name in node['modules'] if not suspended_module(name,disabled)]
+    node['children'] = [prune_tree(child,disabled) for child in node['children']
                         if not any(child['key'] == f'SCT.VolumeI.Chapter{n:02d}'
-                                   for n in DISABLED_CHAPTERS)]
+                                   for n in disabled)]
     return node
 
 
-def disable_page(tree):
+def disable_page(tree, notice_text=NOTICE):
     # Keep fragment destinations, including old bookmarks, without code controls.
     for node in list(tree.all()):
         if any(node.has(cls) for cls in ('agda-panel', 'supplementary-targets', 'agda-help')):
@@ -33,15 +33,18 @@ def disable_page(tree):
         elif node.tag == 'input' and node.attrs.get('id') == 'show-agda-links':
             node.parent.replace('')
     main = next(tree.all('main'))
-    notice = parse('<p class="coverage-note edition-notice">'+NOTICE+'</p>').children[0]
+    notice = parse('<p class="coverage-note edition-notice">'+notice_text+'</p>').children[0]
     notice.parent = main
     main.children.insert(0, notice)
 
 
-def suspend(site):
+def suspend(site, *, enabled=()):
     from chapter_edition import body_prose
     from supplementary import catalog
-    slugs = {slug for chapter in BOOK_CHAPTERS if chapter['number'] in DISABLED_CHAPTERS
+    disabled=tuple(n for n in DISABLED_CHAPTERS if n not in enabled)
+    notice_text=NOTICE if not enabled else ('Chapters 1 and 2 use the rebuild2 formalization. '
+                'Agda links for Chapter 3 remain temporarily unavailable.')
+    slugs = {slug for chapter in BOOK_CHAPTERS if chapter['number'] in disabled
              for slug in [chapter['slug'], *(s[0] for s in chapter['sections'])]}
     slugs.update(note['slug'] for note in catalog() if note['chapter'] in DISABLED_CHAPTERS)
     prose = {}
@@ -49,7 +52,10 @@ def suspend(site):
     for slug in sorted(slugs):
         path = site/(slug+'.html'); tree = parse(read(path))
         prose[slug] = body_prose(tree)
-        disable_page(tree)
+        note=next((n for n in catalog() if n['slug']==slug),None)
+        note_text=('This supplementary note describes an earlier formalization. Its code links are temporarily disabled pending review for rebuild2.'
+                   if note and note['chapter'] in enabled else notice_text)
+        disable_page(tree,note_text)
         if body_prose(tree) != prose[slug]:
             raise ValueError('Suspending code changed book prose: '+slug)
         write(path, '<!doctype html>\n'+tree.html())
@@ -60,22 +66,22 @@ def suspend(site):
         path = site/'assets'/filename
         source = read(path)
         data = json.loads(source.split(' = ',1)[1].rstrip(';\n'))
-        prune_tree(data[key])
-        data['disabled_chapters'] = list(DISABLED_CHAPTERS)
+        prune_tree(data[key],disabled)
+        data['disabled_chapters'] = list(disabled)
         write(path,'window.'+variable+' = '+json.dumps(data,ensure_ascii=False)+';\n')
         changed.add(path.relative_to(site).as_posix())
     # Remove both the hierarchical listing and the flat symbol search results.
     path = site/'code-index.html'; tree = parse(read(path))
     for node in list(tree.all()):
-        if node.attrs.get('data-module-group') in {f'SCT.VolumeI.Chapter{n:02d}' for n in DISABLED_CHAPTERS}:
+        if node.attrs.get('data-module-group') in {f'SCT.VolumeI.Chapter{n:02d}' for n in disabled}:
             node.replace('')
-        elif node.has('symbol-entry') and suspended_module(node.text()):
+        elif node.has('symbol-entry') and suspended_module(node.text(),disabled):
             node.replace('')
         elif node.tag == 'p' and ('Later chapters and their supporting dependency pages retain' in node.text()
                                  or 'Chapters 2–3 and their dependency pages retain' in node.text()):
-            node.replace('<p>Chapter 1 uses the current rebuild2 edition. <a href="chapter01-code.html">Read its scope and module list.</a></p>')
+            node.replace('' if enabled else '<p>Chapter 1 uses the current rebuild2 edition. <a href="chapter01-code.html">Read its scope and module list.</a></p>')
     main = next(tree.all('main'))
-    notice = parse('<p class="coverage-note edition-notice">'+NOTICE+'</p>').children[0]
+    notice = parse('<p class="coverage-note edition-notice">'+notice_text+'</p>').children[0]
     notice.parent = main; main.children.insert(0,notice)
     write(path,'<!doctype html>\n'+tree.html())
     changed.add('code-index.html')
@@ -87,6 +93,8 @@ def suspend(site):
 
 
 def validate_suspension(site, files):
+    info=json.loads(read(site/'chapter-edition.json'))
+    disabled=tuple(info.get('disabled_chapters',DISABLED_CHAPTERS))
     for relative in files:
         if relative.endswith('.html') and relative not in ('code-index.html','chapter01-code.html'):
             tree=parse(read(site/relative))
@@ -98,11 +106,11 @@ def validate_suspension(site, files):
         data=json.loads(read(site/relative).split(' = ',1)[1].rstrip(';\n'))
         tree=data.get('tree',data.get('module_tree'))
         def check(node):
-            if any(suspended_module(name) for name in node['modules']):
+            if any(suspended_module(name,disabled) for name in node['modules']):
                 raise ValueError('Suspended module in browser: '+relative)
             for child in node['children']: check(child)
         check(tree)
     tree=parse(read(site/'code-index.html'))
-    if any((n.has('code-index-entry') or n.has('symbol-entry')) and suspended_module(n.text())
+    if any((n.has('code-index-entry') or n.has('symbol-entry')) and suspended_module(n.text(),disabled)
            for n in tree.all()):
         raise ValueError('Suspended chapter in code index')

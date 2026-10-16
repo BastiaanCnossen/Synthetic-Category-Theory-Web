@@ -1,0 +1,3733 @@
+{
+  "schema": 3,
+  "module_prefix": "SCT.VolumeI.",
+  "scope_note": "Compiler-checked rebuild2 declarations with their explicit ambient assumptions and hypotheses.",
+  "coverage_notes": [],
+  "source_commit": "e07b94cde8a88a7595fd28a1749aa9beb9de5d37",
+  "passages": [
+    {
+      "id": "initial-anima",
+      "title": "The initial category is an anima",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section05.Recognition",
+          "name": "zero-isAn",
+          "qualified": "zero-isAn",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "recognizing-animae"
+    },
+    {
+      "id": "coproduct-anima",
+      "title": "Coproducts of animae",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section05.ArrowCoproducts",
+          "name": "coproduct-isAn",
+          "qualified": "coproduct-isAn",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "recognizing-animae"
+    },
+    {
+      "id": "diagrams-interval",
+      "title": "The walking morphism",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.WalkingMorphism",
+          "name": "[1]",
+          "qualified": "[1]",
+          "role": "assumption"
+        },
+        {
+          "module": "Chapter02.Section01.WalkingMorphism",
+          "name": "zero",
+          "qualified": "zero",
+          "role": "assumption"
+        },
+        {
+          "module": "Chapter02.Section01.WalkingMorphism",
+          "name": "one",
+          "qualified": "one",
+          "role": "assumption"
+        },
+        {
+          "module": "Chapter02.Section01.WalkingMorphism",
+          "name": "intervalCore-isEquiv",
+          "qualified": "intervalCore-isEquiv",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams",
+      "tex_label": "post:Directed_Interval"
+    },
+    {
+      "id": "diagrams-morphisms",
+      "title": "Morphisms and their endpoints",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.Morphisms",
+          "name": "Mor",
+          "qualified": "Mor",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.Morphisms",
+          "name": "Morphism",
+          "qualified": "Morphism",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.Morphisms",
+          "name": "source",
+          "qualified": "source",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.Morphisms",
+          "name": "target",
+          "qualified": "target",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.Morphisms",
+          "name": "ev₀",
+          "qualified": "ev₀",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.Morphisms",
+          "name": "ev₁",
+          "qualified": "ev₁",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams",
+      "tex_label": "def:Morphisms"
+    },
+    {
+      "id": "diagrams-natural-transformations",
+      "title": "Natural transformations",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.Morphisms",
+          "name": "NatTrans",
+          "qualified": "NatTrans",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.Morphisms",
+          "name": "transformation-diagram",
+          "qualified": "transformation-diagram",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.Morphisms",
+          "name": "diagram-transformation",
+          "qualified": "diagram-transformation",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.Morphisms",
+          "name": "transformation-β",
+          "qualified": "transformation-β",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.Morphisms",
+          "name": "transformation-η",
+          "qualified": "transformation-η",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams",
+      "tex_label": "def:Natural_Transformations"
+    },
+    {
+      "id": "diagrams-hom",
+      "title": "Arrow categories and hom categories",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.Morphisms",
+          "name": "Ar",
+          "qualified": "Ar",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.HomAndSlices",
+          "name": "Hom",
+          "qualified": "Hom",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.HomAndSlices",
+          "name": "endpointMap",
+          "qualified": "endpointMap",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams",
+      "tex_label": "def:Hom_Groupoid"
+    },
+    {
+      "id": "diagrams-expressions",
+      "title": "Morphism expressions with endpoint comparisons",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.Morphisms",
+          "name": "Morphism",
+          "qualified": "Morphism",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.Morphisms",
+          "name": "DiagramFamily",
+          "qualified": "DiagramFamily",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.Morphisms",
+          "name": "encode",
+          "qualified": "encode",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.Morphisms",
+          "name": "decode",
+          "qualified": "decode",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams",
+      "tex_label": "con:Morphism_Expressions"
+    },
+    {
+      "id": "diagrams-identifications",
+      "title": "From primitive identifications to morphisms",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.Morphisms",
+          "name": "identification-family",
+          "qualified": "identification-family",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams",
+      "tex_label": "con:Natural_Isomorphism_As_Morphism"
+    },
+    {
+      "id": "diagrams-hom-post",
+      "title": "Functoriality of hom categories",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.MorphismFunctor",
+          "name": "map-hom",
+          "qualified": "map-hom",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams",
+      "tex_label": "cons:Induced_Map_On_Hom_Groupoids"
+    },
+    {
+      "id": "diagrams-slices",
+      "title": "Slice and coslice categories",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.HomAndSlices",
+          "name": "Slice",
+          "qualified": "Slice",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.HomAndSlices",
+          "name": "Coslice",
+          "qualified": "Coslice",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.HomAndSlices",
+          "name": "slice-projection",
+          "qualified": "slice-projection",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.HomAndSlices",
+          "name": "coslice-projection",
+          "qualified": "coslice-projection",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams",
+      "tex_label": "def:Slice_Categories"
+    },
+    {
+      "id": "diagrams-initial-terminal",
+      "title": "Initial and terminal objects",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.HomAndSlices",
+          "name": "IsTerminal",
+          "qualified": "IsTerminal",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.HomAndSlices",
+          "name": "IsInitial",
+          "qualified": "IsInitial",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams",
+      "tex_label": "def:Initial_Object"
+    },
+    {
+      "id": "diagrams-endpoint-axioms",
+      "title": "The endpoints are initial and terminal",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.HomAndSlices",
+          "name": "interval-zero-initial",
+          "qualified": "interval-zero-initial",
+          "role": "assumption"
+        },
+        {
+          "module": "Chapter02.Section01.HomAndSlices",
+          "name": "interval-one-terminal",
+          "qualified": "interval-one-terminal",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams",
+      "tex_label": "axiom:Initial_Terminal_Objects_Interval"
+    },
+    {
+      "id": "diagrams-lattice",
+      "title": "Minimum and maximum",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "min",
+          "qualified": "min",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "max",
+          "qualified": "max",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams",
+      "tex_label": "cons:Lattice_Structure"
+    },
+    {
+      "id": "diagrams-lattice-laws",
+      "title": "Endpoint identities for minimum and maximum",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "min-right-zero",
+          "qualified": "min-right-zero",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "min-right-one",
+          "qualified": "min-right-one",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "max-right-zero",
+          "qualified": "max-right-zero",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "max-right-one",
+          "qualified": "max-right-one",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "min-left-zero",
+          "qualified": "min-left-zero",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "min-left-one",
+          "qualified": "min-left-one",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "max-left-zero",
+          "qualified": "max-left-zero",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "max-left-one",
+          "qualified": "max-left-one",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams",
+      "tex_label": "lem:Lattice_Structure"
+    },
+    {
+      "id": "diagrams-triangle-shape",
+      "title": "The walking commutative triangle",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.WalkingTriangle",
+          "name": "[2]",
+          "qualified": "[2]",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.WalkingTriangle",
+          "name": "vertex₀",
+          "qualified": "vertex₀",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.WalkingTriangle",
+          "name": "vertex₁",
+          "qualified": "vertex₁",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.WalkingTriangle",
+          "name": "vertex₂",
+          "qualified": "vertex₂",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams",
+      "tex_label": "def:Walking_Commutative_Triangle"
+    },
+    {
+      "id": "diagrams-faces",
+      "title": "Faces and degeneracies",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.WalkingTriangle",
+          "name": "d₀",
+          "qualified": "d₀",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.WalkingTriangle",
+          "name": "d₁",
+          "qualified": "d₁",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.WalkingTriangle",
+          "name": "d₂",
+          "qualified": "d₂",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.WalkingTriangle",
+          "name": "s₀",
+          "qualified": "s₀",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.WalkingTriangle",
+          "name": "s₁",
+          "qualified": "s₁",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams",
+      "tex_label": "con:Face_Maps_Of_The_Walking_Triangle"
+    },
+    {
+      "id": "diagrams-simplicial-identities",
+      "title": "Simplicial identities and vertex compatibility",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.WalkingTriangle",
+          "name": "face-top",
+          "qualified": "face-top",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.WalkingTriangle",
+          "name": "face-middle",
+          "qualified": "face-middle",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.WalkingTriangle",
+          "name": "face-bottom",
+          "qualified": "face-bottom",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.WalkingTriangle",
+          "name": "s₀-d₀",
+          "qualified": "s₀-d₀",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.WalkingTriangle",
+          "name": "s₀-d₁",
+          "qualified": "s₀-d₁",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.WalkingTriangle",
+          "name": "s₀-d₂",
+          "qualified": "s₀-d₂",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.WalkingTriangle",
+          "name": "s₁-d₀",
+          "qualified": "s₁-d₀",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.WalkingTriangle",
+          "name": "s₁-d₁",
+          "qualified": "s₁-d₁",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.WalkingTriangle",
+          "name": "s₁-d₂",
+          "qualified": "s₁-d₂",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.WalkingTriangle",
+          "name": "source-compatible",
+          "qualified": "MiddleVertex.source-compatible",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.WalkingTriangle",
+          "name": "target-compatible",
+          "qualified": "MiddleVertex.target-compatible",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.WalkingTriangle",
+          "name": "source-compatible",
+          "qualified": "BottomVertex.source-compatible",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.WalkingTriangle",
+          "name": "target-compatible",
+          "qualified": "BottomVertex.target-compatible",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.WalkingTriangle",
+          "name": "source-compatible",
+          "qualified": "TopVertex.source-compatible",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.WalkingTriangle",
+          "name": "target-compatible",
+          "qualified": "TopVertex.target-compatible",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams",
+      "tex_label": "lem:Simplicial_Identities"
+    },
+    {
+      "id": "diagrams-triangles",
+      "title": "Commutative triangles",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.Triangles",
+          "name": "Triangle",
+          "qualified": "Triangle",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.Triangles",
+          "name": "Triangles",
+          "qualified": "Triangles",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.Triangles",
+          "name": "edge₀",
+          "qualified": "edge₀",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.Triangles",
+          "name": "edge₁",
+          "qualified": "edge₁",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.Triangles",
+          "name": "edge₂",
+          "qualified": "edge₂",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams",
+      "tex_label": "def:Commutative_Triangle"
+    },
+    {
+      "id": "diagrams-composites",
+      "title": "The category of composites",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.Triangles",
+          "name": "Composites",
+          "qualified": "Composites",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.Triangles",
+          "name": "Composable",
+          "qualified": "Composable",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.Triangles",
+          "name": "short-edges",
+          "qualified": "short-edges",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams",
+      "tex_label": "def:Composite"
+    },
+    {
+      "id": "diagrams-identity-composites",
+      "title": "Composites with an identity",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.MorphismCompositionUnits",
+          "name": "source",
+          "qualified": "UniversalUnitPresentations.source",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section02.MorphismCompositionUnits",
+          "name": "target",
+          "qualified": "UniversalUnitPresentations.target",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams",
+      "tex_label": "ex:Composite_With_Identity"
+    },
+    {
+      "id": "diagrams-squares",
+      "title": "Commutative squares",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "Squares",
+          "qualified": "Squares",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams",
+      "tex_label": "def:Commutative_Square"
+    },
+    {
+      "id": "diagrams-square-triangles",
+      "title": "The two triangles in a square",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "j₀",
+          "qualified": "j₀",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "j₁",
+          "qualified": "j₁",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams",
+      "tex_label": "def:Commutative_Squares_Auxiliary1"
+    },
+    {
+      "id": "diagrams-square-axiom",
+      "title": "The commutative square axiom",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "square-isPushout",
+          "qualified": "square-isPushout",
+          "role": "assumption"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "square-functor-pullback",
+          "qualified": "square-functor-pullback",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams",
+      "tex_label": "axiom:Commutative_Square_Axiom"
+    },
+    {
+      "id": "diagrams-gluing",
+      "title": "Gluing two triangles",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "glue",
+          "qualified": "Absolute.glue",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "glue-β",
+          "qualified": "Absolute.glue-β",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "glue",
+          "qualified": "Families.glue",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "glue-β",
+          "qualified": "Families.glue-β",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "glue-left",
+          "qualified": "glue-left",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "glue-right",
+          "qualified": "glue-right",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams",
+      "tex_label": "cons:Commutative_Square_From_Commutative_Triangles"
+    },
+    {
+      "id": "diagrams-retractions",
+      "title": "The two square retractions",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "p₀",
+          "qualified": "p₀",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "p₂",
+          "qualified": "p₂",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "lower-cocone",
+          "qualified": "lower-cocone",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "upper-cocone",
+          "qualified": "upper-cocone",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "p₀-j₀",
+          "qualified": "p₀-j₀",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "p₀-j₁",
+          "qualified": "p₀-j₁",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "p₂-j₀",
+          "qualified": "p₂-j₀",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "p₂-j₁",
+          "qualified": "p₂-j₁",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams",
+      "tex_label": "cons:Commutative_Squares_Auxiliary2"
+    },
+    {
+      "id": "diagrams-square-projections",
+      "title": "Projections as glued squares",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "square-first-projection",
+          "qualified": "square-first-projection",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "square-second-projection",
+          "qualified": "square-second-projection",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams",
+      "tex_label": "lem:Commutative_Squares_Auxiliary4"
+    },
+    {
+      "id": "diagrams-square-min-max",
+      "title": "Minimum and maximum as glued squares",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "square-minimum",
+          "qualified": "square-minimum",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "square-maximum",
+          "qualified": "square-maximum",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams",
+      "tex_label": "lem:Minimum_And_Maximum_As_Commutative_Squares"
+    },
+    {
+      "id": "diagrams-square-coordinates",
+      "title": "Coordinates of the square retractions",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "j₀-p₀",
+          "qualified": "j₀-p₀",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "j₁-p₀",
+          "qualified": "j₁-p₀",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "j₀-p₂",
+          "qualified": "j₀-p₂",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "j₁-p₂",
+          "qualified": "j₁-p₂",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "s₀-p₀",
+          "qualified": "s₀-p₀",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "s₁-p₀",
+          "qualified": "s₁-p₀",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "s₀-p₂",
+          "qualified": "s₀-p₂",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "s₁-p₂",
+          "qualified": "s₁-p₂",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams",
+      "tex_label": "lem:Commutative_Squares_Auxiliary3"
+    },
+    {
+      "id": "diagrams-interval-category",
+      "title": "The interval category",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.WalkingMorphism",
+          "name": "[1]",
+          "qualified": "[1]",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-interval-objects",
+      "title": "The two distinguished objects",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.WalkingMorphism",
+          "name": "zero",
+          "qualified": "zero",
+          "role": "assumption"
+        },
+        {
+          "module": "Chapter02.Section01.WalkingMorphism",
+          "name": "one",
+          "qualified": "one",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-arrow",
+      "title": "A morphism is an interval diagram",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.Morphisms",
+          "name": "Mor",
+          "qualified": "Mor",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-source",
+      "title": "Source of a morphism",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.Morphisms",
+          "name": "source",
+          "qualified": "source",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-target",
+      "title": "Target of a morphism",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.Morphisms",
+          "name": "target",
+          "qualified": "target",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-fixed-endpoints",
+      "title": "A morphism with fixed endpoints",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.Morphisms",
+          "name": "Morphism",
+          "qualified": "Morphism",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-evaluation",
+      "title": "Source and target functors",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.Morphisms",
+          "name": "ev₀",
+          "qualified": "ev₀",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.Morphisms",
+          "name": "ev₁",
+          "qualified": "ev₁",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-transformation",
+      "title": "Natural transformations as morphisms",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.Morphisms",
+          "name": "NatTrans",
+          "qualified": "NatTrans",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-uncurried-transformation",
+      "title": "The uncurried transformation diagram",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.Morphisms",
+          "name": "transformation-diagram",
+          "qualified": "transformation-diagram",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.Morphisms",
+          "name": "diagram-transformation",
+          "qualified": "diagram-transformation",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-arrow-category",
+      "title": "The arrow category",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.Morphisms",
+          "name": "Ar",
+          "qualified": "Ar",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-hom-category",
+      "title": "The hom pullback",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.HomAndSlices",
+          "name": "Hom",
+          "qualified": "Hom",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-expression-comparison",
+      "title": "Identifications between morphism expressions",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.Morphisms",
+          "name": "MorphismFamilyIdentification",
+          "qualified": "MorphismFamilyIdentification",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.Morphisms",
+          "name": "DiagramFamilyIdentification",
+          "qualified": "DiagramFamilyIdentification",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-identity",
+      "title": "Identity morphisms",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.Morphisms",
+          "name": "identity-family",
+          "qualified": "identity-family",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.Morphisms",
+          "name": "identityArrow",
+          "qualified": "identityArrow",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-identity-preservation",
+      "title": "Functors preserve identities",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.IdentityFamilyPostcomposition",
+          "name": "post-identity-family",
+          "qualified": "post-identity-family",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-slice-category",
+      "title": "The slice and coslice",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.HomAndSlices",
+          "name": "Slice",
+          "qualified": "Slice",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.HomAndSlices",
+          "name": "Coslice",
+          "qualified": "Coslice",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-terminal-object",
+      "title": "Terminal objects",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.HomAndSlices",
+          "name": "IsTerminal",
+          "qualified": "IsTerminal",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-initial-object",
+      "title": "Initial objects",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.HomAndSlices",
+          "name": "IsInitial",
+          "qualified": "IsInitial",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-slice-fiber",
+      "title": "The fiber of the slice projection",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.SliceFibers",
+          "name": "fiber-to-hom-isEquiv",
+          "qualified": "EndpointFiberAt.fiber-to-hom-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-terminal-hom",
+      "title": "Hom into a terminal object",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.SliceFibers",
+          "name": "terminal-hom-contractible",
+          "qualified": "terminal-hom-contractible",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-initial-hom",
+      "title": "Hom out of an initial object",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.SliceFibers",
+          "name": "initial-hom-contractible",
+          "qualified": "initial-hom-contractible",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-zero-initial",
+      "title": "The initial endpoint",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.HomAndSlices",
+          "name": "interval-zero-initial",
+          "qualified": "interval-zero-initial",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-one-terminal",
+      "title": "The terminal endpoint",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.HomAndSlices",
+          "name": "interval-one-terminal",
+          "qualified": "interval-one-terminal",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-square-matching",
+      "title": "The specified common diagonal",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "gluing-square",
+          "qualified": "gluing-square",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "j₀-diagonal",
+          "qualified": "j₀-diagonal",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "j₁-diagonal",
+          "qualified": "j₁-diagonal",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-implicit-matching",
+      "title": "Leaving the gluing comparison implicit",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "glue",
+          "qualified": "Absolute.glue",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "glue-β",
+          "qualified": "Absolute.glue-β",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-walking-triangle",
+      "title": "The walking triangle",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.WalkingTriangle",
+          "name": "[2]",
+          "qualified": "[2]",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-vertices",
+      "title": "The three vertices",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.WalkingTriangle",
+          "name": "vertex₀",
+          "qualified": "vertex₀",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.WalkingTriangle",
+          "name": "vertex₁",
+          "qualified": "vertex₁",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.WalkingTriangle",
+          "name": "vertex₂",
+          "qualified": "vertex₂",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-face-zero",
+      "title": "The zeroth face",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.WalkingTriangle",
+          "name": "d₀",
+          "qualified": "d₀",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-face-one",
+      "title": "The middle face",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.WalkingTriangle",
+          "name": "d₁",
+          "qualified": "d₁",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-face-two",
+      "title": "The second face",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.WalkingTriangle",
+          "name": "d₂",
+          "qualified": "d₂",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-degeneracy-zero",
+      "title": "The zeroth degeneracy",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.WalkingTriangle",
+          "name": "s₀",
+          "qualified": "s₀",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-degeneracy-one",
+      "title": "The first degeneracy",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.WalkingTriangle",
+          "name": "s₁",
+          "qualified": "s₁",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-zero-simplex",
+      "title": "The terminal category as the zero simplex",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter01.Section01.Vocabulary",
+          "name": "One",
+          "qualified": "One",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-triangle",
+      "title": "A triangle as a diagram",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.Triangles",
+          "name": "Triangle",
+          "qualified": "Triangle",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-triangle-edges",
+      "title": "The three edges of a triangle",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.Triangles",
+          "name": "edge₂",
+          "qualified": "edge₂",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.Triangles",
+          "name": "edge₀",
+          "qualified": "edge₀",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.Triangles",
+          "name": "edge₁",
+          "qualified": "edge₁",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-composite-witness",
+      "title": "A composite with its witnessing triangle",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.FramedTrianglePresentations",
+          "name": "TrianglePresentation",
+          "qualified": "TrianglePresentation",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-composite-category",
+      "title": "The category of composites",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.Triangles",
+          "name": "Composites",
+          "qualified": "Composites",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-composable-restriction",
+      "title": "Restriction to a composable pair",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.Triangles",
+          "name": "short-edges",
+          "qualified": "short-edges",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.Triangles",
+          "name": "triangle-cone",
+          "qualified": "triangle-cone",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-square",
+      "title": "A square as a diagram",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "Squares",
+          "qualified": "Squares",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-inclusions",
+      "title": "The triangle inclusions",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "j₀",
+          "qualified": "j₀",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "j₁",
+          "qualified": "j₁",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-lower-retraction",
+      "title": "The lower square retraction",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "p₀",
+          "qualified": "p₀",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "lower-cocone",
+          "qualified": "lower-cocone",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-upper-retraction",
+      "title": "The upper square retraction",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "p₂",
+          "qualified": "p₂",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "upper-cocone",
+          "qualified": "upper-cocone",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "segal-axiom",
+      "title": "The Segal axiom",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.SegalAxiom",
+          "name": "segal-isEquiv",
+          "qualified": "segal-isEquiv",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom",
+      "tex_label": "axiom:B_Segal_Axiom"
+    },
+    {
+      "id": "segal-contractible-composites",
+      "title": "The category of composites is contractible",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.SegalAxiom",
+          "name": "composites-contractible",
+          "qualified": "composites-contractible",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-unique-composite",
+      "title": "The chosen composite",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.MorphismComposition",
+          "name": "compose",
+          "qualified": "Composition.compose",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-chosen-triangle",
+      "title": "A triangle presenting the composite",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.MorphismCompositionComparisons",
+          "name": "composition-presentation",
+          "qualified": "CompositionComparisons.composition-presentation",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-products",
+      "title": "Composition in products",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.ProductMorphismFamilies",
+          "name": "product-composition",
+          "qualified": "ProductComposition.product-composition",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom",
+      "tex_label": "obs:Composites_In_Products"
+    },
+    {
+      "id": "segal-functoriality",
+      "title": "Composition is functorial",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.MorphismComposition",
+          "name": "value",
+          "qualified": "HomComposition.value",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-composition-functor",
+      "title": "The composition functor",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.MorphismComposition",
+          "name": "compose",
+          "qualified": "Composition.compose",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section02.MorphismComposition",
+          "name": "value",
+          "qualified": "HomComposition.value",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom",
+      "tex_label": "cons:Composition_Functor"
+    },
+    {
+      "id": "segal-segal-inverse",
+      "title": "The chosen Segal inverse",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.SegalComposition",
+          "name": "completion",
+          "qualified": "ChosenComposition.completion",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-segal-counit",
+      "title": "The short-edge counit",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.SegalComposition",
+          "name": "completion-image",
+          "qualified": "ChosenComposition.completion-image",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-long-edge",
+      "title": "Take the long edge",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.SegalComposition",
+          "name": "composition",
+          "qualified": "ChosenComposition.composition",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-long-endpoints",
+      "title": "Endpoints of composition",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.MorphismComposition",
+          "name": "endpoint-frame",
+          "qualified": "Composition.Composite.endpoint-frame",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-fixed-endpoints",
+      "title": "The fixed-endpoint composition functor",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.MorphismComposition",
+          "name": "value",
+          "qualified": "HomComposition.value",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-composition-frames",
+      "title": "The specified endpoint identifications",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.MorphismComposition",
+          "name": "endpoint-frame",
+          "qualified": "Composition.Composite.endpoint-frame",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-expressions",
+      "title": "Composition of morphism expressions",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.MorphismComposition",
+          "name": "compose",
+          "qualified": "Composition.compose",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom",
+      "tex_label": "con:Composition_Of_Morphism_Expressions"
+    },
+    {
+      "id": "segal-expression-pair",
+      "title": "A composable pair of expressions",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.MorphismComposition",
+          "name": "pair-map",
+          "qualified": "ComposableFamilies.pair-map",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section02.MorphismComposition",
+          "name": "pair-image",
+          "qualified": "ComposableFamilies.pair-image",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-expression-identifications",
+      "title": "Composition acts on endpoint-preserving identifications",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.MorphismCompositionComparisons",
+          "name": "composition-comparison",
+          "qualified": "CompositionComparisons.composition-comparison",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-preservation",
+      "title": "Functors preserve composition",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.MorphismCompositionPostcomposition",
+          "name": "preserves-composition",
+          "qualified": "FunctorComposition.preserves-composition",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom",
+      "tex_label": "lem:Functors_Preserve_Composition"
+    },
+    {
+      "id": "segal-post-triangle",
+      "title": "Apply the functor to the composition triangle",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.TrianglePresentationPostcomposition",
+          "name": "value",
+          "qualified": "PostPresentation.value",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-post-uniqueness",
+      "title": "Compare the two composition triangles",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.FramedTrianglePresentations",
+          "name": "presented-composition",
+          "qualified": "presented-composition",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-post-endpoints",
+      "title": "Preservation retains endpoint comparisons",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.MorphismCompositionPostcomposition",
+          "name": "preserves-composition",
+          "qualified": "FunctorComposition.preserves-composition",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-post-naturality",
+      "title": "The universal composable pair",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.MorphismCompositionPostcomposition",
+          "name": "preserves-composition",
+          "qualified": "FunctorComposition.preserves-composition",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-units",
+      "title": "Unitality with fixed endpoints",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.MorphismCompositionUnits",
+          "name": "source-unit",
+          "qualified": "MorphismCompositionUnits.source-unit",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section02.MorphismCompositionUnits",
+          "name": "target-unit",
+          "qualified": "MorphismCompositionUnits.target-unit",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom",
+      "tex_label": "lem:Composition_Is_Unital"
+    },
+    {
+      "id": "segal-degenerate-triangle",
+      "title": "The degenerate unit triangle",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.MorphismCompositionUnits",
+          "name": "source",
+          "qualified": "UniversalUnitPresentations.source",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-unit-vertex-compatibility",
+      "title": "The unit triangle retains its vertices",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.MorphismCompositionUnits",
+          "name": "source",
+          "qualified": "UniversalUnitPresentations.source",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-unit-short-edges",
+      "title": "Compare chosen and degenerate triangles",
+      "note": "This constructs the degenerate unit-triangle presentation. The comparison with the chosen composite is packaged in presented-composition; the individual short-edge comparison is not exposed here under the manuscript’s proof-step name.",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.MorphismCompositionUnits",
+          "name": "source",
+          "qualified": "FamilyUnitPresentations.source",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-unit-long-edge",
+      "title": "The unit identification",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.MorphismCompositionUnits",
+          "name": "source-unit",
+          "qualified": "MorphismCompositionUnits.source-unit",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-unit-endpoints",
+      "title": "The unit identification preserves endpoints",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.MorphismCompositionUnits",
+          "name": "source-unit",
+          "qualified": "MorphismCompositionUnits.source-unit",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-other-unit",
+      "title": "The other unit identification",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.MorphismCompositionUnits",
+          "name": "target-unit",
+          "qualified": "MorphismCompositionUnits.target-unit",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-unit-naturality",
+      "title": "The universal arrow gives natural unit laws",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.MorphismCompositionUnits",
+          "name": "source-unit",
+          "qualified": "MorphismCompositionUnits.source-unit",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section02.MorphismCompositionUnits",
+          "name": "target-unit",
+          "qualified": "MorphismCompositionUnits.target-unit",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-associativity",
+      "title": "Associativity with fixed endpoints",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.MorphismCompositionAssociativity",
+          "name": "associativity",
+          "qualified": "associativity",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section02.MorphismCompositionAssociativity",
+          "name": "naturality",
+          "qualified": "UniversalTriple.naturality",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom",
+      "tex_label": "prop:Composition_Is_Associative"
+    },
+    {
+      "id": "segal-universal-triple",
+      "title": "The universal composable triple",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.MorphismCompositionAssociativity",
+          "name": "Triples",
+          "qualified": "UniversalTriple.Triples",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section02.MorphismCompositionAssociativity",
+          "name": "first",
+          "qualified": "UniversalTriple.first",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section02.MorphismCompositionAssociativity",
+          "name": "second",
+          "qualified": "UniversalTriple.second",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section02.MorphismCompositionAssociativity",
+          "name": "third",
+          "qualified": "UniversalTriple.third",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-gluing",
+      "title": "Glue triangles along the specified long edge",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.GluedFramedSquares",
+          "name": "value",
+          "qualified": "Glue.value",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section02.GluedFramedSquares",
+          "name": "common-diagonal",
+          "qualified": "Glue.common-diagonal",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-gluing-matching",
+      "title": "The gluing comparison retains the diagonal matching",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.GluedFramedSquares",
+          "name": "common-diagonal",
+          "qualified": "Glue.common-diagonal",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-gluing-endpoints",
+      "title": "The glued square retains its four endpoints",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.GluedFramedSquares",
+          "name": "corner₀₀",
+          "qualified": "Glue.corner₀₀",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section02.GluedFramedSquares",
+          "name": "corner₀₁",
+          "qualified": "Glue.corner₀₁",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section02.GluedFramedSquares",
+          "name": "corner₁₀",
+          "qualified": "Glue.corner₁₀",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section02.GluedFramedSquares",
+          "name": "corner₁₁",
+          "qualified": "Glue.corner₁₁",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-second-gluing",
+      "title": "The second glued square",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.MorphismCompositionAssociativity",
+          "name": "second-square",
+          "qualified": "AssociativitySquare.second-square",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-squares-as-arrows",
+      "title": "Squares as arrows in the arrow category",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.FramedSquares",
+          "name": "FramedSquare",
+          "qualified": "FramedSquare",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section02.FramedSquares",
+          "name": "vertical",
+          "qualified": "SquareFamily.vertical",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-compose-squares",
+      "title": "Compose the two squares",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.MorphismCompositionAssociativity",
+          "name": "value",
+          "qualified": "AssociativitySquare.value",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-evaluation-composition",
+      "title": "Evaluation identifies the outer edges",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.FramedSquares",
+          "name": "evaluated-composition",
+          "qualified": "SquareComposition.evaluated-composition",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-square-diagonal",
+      "title": "Compare the two routes through the outside square",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.FramedSquareCommutativity",
+          "name": "comparison",
+          "qualified": "comparison",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-associativity-conclusion",
+      "title": "Remove identity edges",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.MorphismCompositionAssociativity",
+          "name": "associativity",
+          "qualified": "associativity",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-pullback-form",
+      "title": "The Segal pullback square",
+      "note": "IsPullback for this specified cone is defined by the equivalence of its comparison functor. The displayed Segal equivalence is therefore the pullback formulation for triangle-cone.",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.SegalAxiom",
+          "name": "segal-isEquiv",
+          "qualified": "segal-isEquiv",
+          "role": "assumption"
+        },
+        {
+          "module": "Chapter02.Section01.Triangles",
+          "name": "triangle-cone",
+          "qualified": "triangle-cone",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-triangles-as-squares",
+      "title": "Triangles as squares with a constant side",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.TrianglePullbacks",
+          "name": "vertex-square-isPullback",
+          "qualified": "At.Left.vertex-square-isPullback",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section02.TrianglePullbacks",
+          "name": "vertex-square-isPullback",
+          "qualified": "At.Right.vertex-square-isPullback",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom",
+      "tex_label": "cor:Commutative_Triangles"
+    },
+    {
+      "id": "segal-triangle-upper-pasting",
+      "title": "Cancel the square-axiom pullback",
+      "note": "This points to the corresponding pullback conclusion in rebuild2; the intermediate pasting steps are organized differently.",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.TrianglePullbacks",
+          "name": "square-isPullback",
+          "qualified": "At.Left.square-isPullback",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-triangle-lower-pasting",
+      "title": "Cancel the Segal pullback",
+      "note": "This points to the corresponding pullback conclusion in rebuild2; the intermediate pasting steps are organized differently.",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.TrianglePullbacks",
+          "name": "left-constant-isPullback",
+          "qualified": "At.left-constant-isPullback",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-naturality-square",
+      "title": "The naturality square",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.NaturalTransformationNaturality",
+          "name": "value",
+          "qualified": "NaturalitySquare.value",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-naturality-comparison",
+      "title": "The naturality identification",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.NaturalTransformationNaturality",
+          "name": "naturality",
+          "qualified": "naturality",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-interchange",
+      "title": "Interchange of natural transformations",
+      "note": "The rebuild2 proof compares both composites with the image of a paired family using product composition and unit laws, then supplies the corresponding square. It does not follow the manuscript’s double-currying proof.",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.Interchange",
+          "name": "interchange",
+          "qualified": "interchange",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section02.Interchange",
+          "name": "interchange-square",
+          "qualified": "interchange-square",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom",
+      "tex_label": "lem:Interchange_Natural_Transformations"
+    },
+    {
+      "id": "segal-interchange-edges",
+      "title": "The four whiskered transformations",
+      "note": "The rebuild2 proof compares both composites with the image of a paired family using product composition and unit laws, then supplies the corresponding square. It does not follow the manuscript’s double-currying proof.",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.NaturalTransformationWhiskering",
+          "name": "pre-whisker",
+          "qualified": "pre-whisker",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section02.NaturalTransformationWhiskering",
+          "name": "post-whisker",
+          "qualified": "post-whisker",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-primitive-composition",
+      "title": "Primitive identifications respect composition",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.PrimitiveIdentificationComposition",
+          "name": "identification-composition",
+          "qualified": "identification-composition",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "segal-primitive-second-edge",
+      "title": "Identify the second constant edge",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.PrimitiveIdentificationComposition",
+          "name": "second",
+          "qualified": "ConvertedTriangle.second",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "rezk-invertible",
+      "title": "Invertible morphisms",
+      "note": "The book uses two inverse triangles. Rebuild2 packages left and right inverses with composition laws in InverseFamily; inverse-family-lift and lift-inverse-family relate this presentation to the category of pairs of inverse triangles.",
+      "declarations": [
+        {
+          "module": "Chapter02.Section03.InverseMorphismFamilies",
+          "name": "InverseFamily",
+          "qualified": "InverseFamily",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section03.InvertibleMorphismFamilies",
+          "name": "inverse-family-lift",
+          "qualified": "inverse-family-lift",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section03.InvertibleMorphismFamilies",
+          "name": "lift-inverse-family",
+          "qualified": "lift-inverse-family",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "rezk-axiom",
+      "tex_label": "def:Isomorphism"
+    },
+    {
+      "id": "rezk-inverse-triangles",
+      "title": "The two inverse triangles",
+      "note": "The book uses two inverse triangles. Rebuild2 packages left and right inverses with composition laws in InverseFamily; inverse-family-lift and lift-inverse-family relate this presentation to the category of pairs of inverse triangles.",
+      "declarations": [
+        {
+          "module": "Chapter02.Section03.InverseMorphismFamilies",
+          "name": "left-inverse",
+          "qualified": "InverseFamily.left-inverse",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section03.InverseMorphismFamilies",
+          "name": "right-inverse",
+          "qualified": "InverseFamily.right-inverse",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section03.InverseMorphismFamilies",
+          "name": "left-law",
+          "qualified": "InverseFamily.left-law",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section03.InverseMorphismFamilies",
+          "name": "right-law",
+          "qualified": "InverseFamily.right-law",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section03.InvertibleMorphismFamilies",
+          "name": "inverse-family-lift",
+          "qualified": "inverse-family-lift",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section03.InvertibleMorphismFamilies",
+          "name": "lift-inverse-family",
+          "qualified": "lift-inverse-family",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "rezk-axiom"
+    },
+    {
+      "id": "rezk-natural-isomorphism",
+      "title": "Invertible natural transformations",
+      "note": "The book uses two inverse triangles. Rebuild2 packages left and right inverses with composition laws in InverseFamily; inverse-family-lift and lift-inverse-family relate this presentation to the category of pairs of inverse triangles.",
+      "declarations": [
+        {
+          "module": "Chapter02.Section03.InverseMorphismFamilies",
+          "name": "InverseFamily",
+          "qualified": "InverseFamily",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section03.InvertibleMorphismFamilies",
+          "name": "inverse-family-lift",
+          "qualified": "inverse-family-lift",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section03.InvertibleMorphismFamilies",
+          "name": "lift-inverse-family",
+          "qualified": "lift-inverse-family",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "rezk-axiom"
+    },
+    {
+      "id": "rezk-iso-category",
+      "title": "The category of isomorphisms",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section03.Isomorphisms",
+          "name": "Iso",
+          "qualified": "Iso",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section03.Isomorphisms",
+          "name": "InverseTriangles",
+          "qualified": "InverseTriangles",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section03.Isomorphisms",
+          "name": "inverseLongEdges",
+          "qualified": "inverseLongEdges",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section03.Isomorphisms",
+          "name": "inverseIdentityEdges",
+          "qualified": "inverseIdentityEdges",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "rezk-axiom",
+      "tex_label": "def:Iso_C"
+    },
+    {
+      "id": "rezk-iso-object-data",
+      "title": "The two triangles and two objects",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section03.Isomorphisms",
+          "name": "isoTriangles",
+          "qualified": "isoTriangles",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section03.Isomorphisms",
+          "name": "isoObjects",
+          "qualified": "isoObjects",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "rezk-axiom"
+    },
+    {
+      "id": "rezk-iso-projection",
+      "title": "The underlying arrow",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section03.Isomorphisms",
+          "name": "isoArrow",
+          "qualified": "isoArrow",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "rezk-axiom"
+    },
+    {
+      "id": "rezk-lift",
+      "title": "A lift to the isomorphism category",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section03.InvertibleMorphismFamilies",
+          "name": "IsoLift",
+          "qualified": "IsoLift",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section03.InvertibleMorphismFamilies",
+          "name": "inverse-family-lift",
+          "qualified": "inverse-family-lift",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section03.InvertibleMorphismFamilies",
+          "name": "lift-inverse-family",
+          "qualified": "lift-inverse-family",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "rezk-axiom"
+    },
+    {
+      "id": "rezk-identity-invertible",
+      "title": "Identity morphisms are invertible",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section03.Isomorphisms",
+          "name": "identityIso",
+          "qualified": "identityIso",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section03.Isomorphisms",
+          "name": "identityIso-arrow",
+          "qualified": "identityIso-arrow",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section03.InvertibleMorphismFamilies",
+          "name": "lift-inverse-family",
+          "qualified": "lift-inverse-family",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "rezk-axiom"
+    },
+    {
+      "id": "rezk-identity-functor",
+      "title": "The identity-isomorphism functor",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section03.Isomorphisms",
+          "name": "identityIso",
+          "qualified": "identityIso",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section03.Isomorphisms",
+          "name": "identityIso-arrow",
+          "qualified": "identityIso-arrow",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "rezk-axiom",
+      "tex_label": "con:Identity_Isomorphism_Functor"
+    },
+    {
+      "id": "rezk-constant-triangles",
+      "title": "The constant triangle",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section03.Isomorphisms",
+          "name": "triangle",
+          "qualified": "Identity.triangle",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "rezk-axiom"
+    },
+    {
+      "id": "rezk-pair-of-triangles",
+      "title": "Two constant triangles with a common edge",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section03.Isomorphisms",
+          "name": "triangles",
+          "qualified": "Identity.triangles",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section03.Isomorphisms",
+          "name": "common-edge",
+          "qualified": "Identity.common-edge",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "rezk-axiom"
+    },
+    {
+      "id": "rezk-identity-long-edges",
+      "title": "Both long edges are identities",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section03.Isomorphisms",
+          "name": "first-long",
+          "qualified": "Identity.first-long",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section03.Isomorphisms",
+          "name": "second-long",
+          "qualified": "Identity.second-long",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "rezk-axiom"
+    },
+    {
+      "id": "rezk-identity-factorization",
+      "title": "Factor through the isomorphism category",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section03.Isomorphisms",
+          "name": "identities",
+          "qualified": "Identity.identities",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section03.Isomorphisms",
+          "name": "identityIso",
+          "qualified": "identityIso",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "rezk-axiom"
+    },
+    {
+      "id": "rezk-axiom",
+      "title": "The Rezk axiom",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section03.RezkAxiom",
+          "name": "rezk-isEquiv",
+          "qualified": "rezk-isEquiv",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "rezk-axiom",
+      "tex_label": "axiom:C_Rezk_Axiom"
+    },
+    {
+      "id": "rezk-diagonal-pullback",
+      "title": "The diagonal square representing identifications",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section03.RezkFibers",
+          "name": "diagonal-cone",
+          "qualified": "IdentificationFiber.diagonal-cone",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section03.RezkFibers",
+          "name": "diagonal-isPullback",
+          "qualified": "IdentificationFiber.diagonal-isPullback",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "rezk-axiom"
+    },
+    {
+      "id": "rezk-replace-by-iso",
+      "title": "The Rezk equivalence used in the fiber comparison",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section03.RezkFibers",
+          "name": "identification-to-iso",
+          "qualified": "IdentificationFiber.identification-to-iso",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section03.RezkFibers",
+          "name": "identification-to-iso-isEquiv",
+          "qualified": "IdentificationFiber.identification-to-iso-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "rezk-axiom"
+    },
+    {
+      "id": "rezk-embedding-factorization",
+      "title": "Factor the identity-arrow functor",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section03.Isomorphisms",
+          "name": "identityIso-arrow",
+          "qualified": "identityIso-arrow",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "rezk-axiom"
+    },
+    {
+      "id": "rezk-embedding-rezk",
+      "title": "The first factor is an equivalence",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section03.RezkAxiom",
+          "name": "rezk-isEquiv",
+          "qualified": "rezk-isEquiv",
+          "role": "assumption"
+        },
+        {
+          "module": "Chapter02.Section03.RezkAxiom",
+          "name": "identityArrow-isEmbedding",
+          "qualified": "identityArrow-isEmbedding",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "rezk-axiom"
+    },
+    {
+      "id": "diagrams-triangle-core",
+      "title": "The core of the walking triangle",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.TriangleCore",
+          "name": "triangleCore-isEquiv",
+          "qualified": "triangleCore-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams",
+      "tex_label": "cor:Groupoid_Core_Walking_Commutative_Triangle"
+    },
+    {
+      "id": "diagrams-core-coproducts",
+      "title": "Cores preserve coproducts",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.CoreCoproducts",
+          "name": "coreCopair-isEquiv",
+          "qualified": "coreCopair-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams",
+      "tex_label": "lem:Groupoid_Core_Preserves_Disjoint_Unions"
+    },
+    {
+      "id": "diagrams-three-morphisms",
+      "title": "The three interval endomorphisms",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.TriangleCore",
+          "name": "intervalEndomorphisms-isEquiv",
+          "qualified": "intervalEndomorphisms-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams",
+      "tex_label": "ex:Walking_Morphisms_Has_Three_Morphisms"
+    },
+    {
+      "id": "diagrams-interval-core",
+      "title": "The specified interval core equivalence",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.WalkingMorphism",
+          "name": "intervalCore",
+          "qualified": "intervalCore",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.WalkingMorphism",
+          "name": "intervalCore-isEquiv",
+          "qualified": "intervalCore-isEquiv",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-two-points",
+      "title": "The two-point category is an anima",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section05.ArrowCoproducts",
+          "name": "two-point-isAn",
+          "qualified": "two-point-isAn",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "segal-choice-independence",
+      "title": "Independence of the composition choice",
+      "note": "Related supporting result only: presented-composition compares a fixed chosen composition with a supplied triangle presentation for one Segal witness. It does not prove the manuscript’s comparison between arbitrary choices of the Segal inverse as functors over C × C.",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.FramedTrianglePresentations",
+          "name": "presented-composition",
+          "qualified": "presented-composition",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "segal-axiom"
+    },
+    {
+      "id": "rezk-isomorphism-embedding",
+      "title": "Isomorphisms embed into arrows",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section03.IsomorphismEmbedding",
+          "name": "isoArrow-isEmbedding",
+          "qualified": "isoArrow-isEmbedding",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "rezk-axiom",
+      "tex_label": "lem:Isomorphisms_Embed_Into_All_Morphisms"
+    },
+    {
+      "id": "rezk-identification-fiber",
+      "title": "Identifications and invertible arrows",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section03.RezkFibers",
+          "name": "identification-to-iso-isEquiv",
+          "qualified": "IdentificationFiber.identification-to-iso-isEquiv",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section03.RezkFibers",
+          "name": "IsoBetween",
+          "qualified": "IsoBetween",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "rezk-axiom",
+      "tex_label": "cor:Invertible_Morphisms_Induce_Isomorphisms"
+    },
+    {
+      "id": "rezk-natural-identification",
+      "title": "Identifications and natural isomorphisms",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section03.NaturalIsomorphisms",
+          "name": "identification-to-natural-iso-isEquiv",
+          "qualified": "NaturalIdentification.identification-to-natural-iso-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "rezk-axiom",
+      "tex_label": "cor:Identifications_And_Natural_Isomorphisms"
+    },
+    {
+      "id": "rezk-constant-embedding",
+      "title": "Constant arrows form an embedding",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section03.RezkAxiom",
+          "name": "identityArrow-isEmbedding",
+          "qualified": "identityArrow-isEmbedding",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "rezk-axiom",
+      "tex_label": "cor:Inclusion_Into_Arrow_Category_Embedding"
+    },
+    {
+      "id": "rezk-natural-currying",
+      "title": "Currying identifications of functors",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section03.NaturalIsomorphisms",
+          "name": "naming",
+          "qualified": "IdentificationNames.naming",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section03.NaturalIsomorphisms",
+          "name": "naming-isEquiv",
+          "qualified": "IdentificationNames.naming-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "rezk-axiom"
+    },
+    {
+      "id": "rezk-natural-fiber",
+      "title": "The natural-isomorphism fiber",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section03.NaturalIsomorphisms",
+          "name": "NatIsoBetween",
+          "qualified": "NatIsoBetween",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section03.NaturalIsomorphisms",
+          "name": "identification-to-natural-iso",
+          "qualified": "NaturalIdentification.identification-to-natural-iso",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "rezk-axiom"
+    },
+    {
+      "id": "groupoid-definition",
+      "title": "Groupoids",
+      "note": "The formalization packages invertibility as lifting each arrow family through Iso. The equivalence with inverse-family data is proved in InvertibleMorphismFamilies.",
+      "declarations": [
+        {
+          "module": "Chapter02.Section04.GroupoidCharacterization",
+          "name": "AllArrowsInvertible",
+          "qualified": "AllArrowsInvertible",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "groupoids",
+      "tex_label": "def:Groupoid"
+    },
+    {
+      "id": "groupoid-characterizations",
+      "title": "Characterizations of groupoids",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section04.GroupoidCharacterization",
+          "name": "lifting-to-groupoid",
+          "qualified": "lifting-to-groupoid",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section04.GroupoidCharacterization",
+          "name": "groupoid-to-lifting",
+          "qualified": "groupoid-to-lifting",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section04.GroupoidCharacterization",
+          "name": "lifting-to-section",
+          "qualified": "lifting-to-section",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section04.GroupoidCharacterization",
+          "name": "section-to-lifting",
+          "qualified": "section-to-lifting",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section04.GroupoidCharacterization",
+          "name": "iso-section-to-identity-section",
+          "qualified": "iso-section-to-identity-section",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section04.GroupoidCharacterization",
+          "name": "identity-section-to-iso-section",
+          "qualified": "identity-section-to-iso-section",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section04.Groupoids",
+          "name": "identity-section-to-groupoid",
+          "qualified": "identity-section-to-groupoid",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section04.Groupoids",
+          "name": "groupoid-to-identity-section",
+          "qualified": "groupoid-to-identity-section",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "groupoids",
+      "tex_label": "prop:Characterization_Groupoids"
+    },
+    {
+      "id": "groupoid-working-definition",
+      "title": "The constant-arrow definition",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section04.Groupoids",
+          "name": "IsGroupoid",
+          "qualified": "IsGroupoid",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "groupoids"
+    },
+    {
+      "id": "groupoid-terminal",
+      "title": "The terminal category is a groupoid",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section04.BasicClosure",
+          "name": "terminal-isGroupoid",
+          "qualified": "terminal-isGroupoid",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "groupoids",
+      "tex_label": "ex:Terminal_Category_Is_Groupoid"
+    },
+    {
+      "id": "groupoid-products",
+      "title": "Products of groupoids",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section04.BasicClosure",
+          "name": "product-isGroupoid",
+          "qualified": "product-isGroupoid",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "groupoids",
+      "tex_label": "ex:Products_Of_Groupoids_Is_Groupoid"
+    },
+    {
+      "id": "groupoid-equivalence",
+      "title": "Invariance under equivalence",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section04.BasicClosure",
+          "name": "equivalence-preserves-groupoid",
+          "qualified": "equivalence-preserves-groupoid",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section04.BasicClosure",
+          "name": "equivalence-reflects-groupoid",
+          "qualified": "equivalence-reflects-groupoid",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "groupoids",
+      "tex_label": "lem:Groupoids_Closed_Under_Equivalence"
+    },
+    {
+      "id": "groupoid-functors",
+      "title": "Functor categories into groupoids",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section04.FunctorGroupoids",
+          "name": "functor-isGroupoid",
+          "qualified": "functor-isGroupoid",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "groupoids",
+      "tex_label": "lem:Functor_Category_Into_Groupoid_Is_Groupoid"
+    },
+    {
+      "id": "groupoid-retracts",
+      "title": "Retracts of groupoids",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section04.RetractGroupoids",
+          "name": "retract-isGroupoid",
+          "qualified": "retract-isGroupoid",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "groupoids",
+      "tex_label": "lem:Groupoids_Closed_Under_Retracts"
+    },
+    {
+      "id": "groupoid-pullbacks",
+      "title": "Pullbacks of groupoids over a category",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section04.PullbackGroupoids",
+          "name": "pullback-isGroupoid",
+          "qualified": "pullback-isGroupoid",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "groupoids",
+      "tex_label": "lem:Pullback_Of_Groupoids_Is_Groupoid"
+    },
+    {
+      "id": "groupoid-pullback-squares",
+      "title": "Pullback squares of groupoids",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section04.PullbackGroupoids",
+          "name": "pullback-square-isGroupoid",
+          "qualified": "pullback-square-isGroupoid",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "groupoids",
+      "tex_label": "lem:Groupoids_Closed_Under_Pullback"
+    },
+    {
+      "id": "groupoid-empty",
+      "title": "The empty category is a groupoid",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section04.Groupoids",
+          "name": "empty-isGroupoid",
+          "qualified": "empty-isGroupoid",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "groupoids",
+      "tex_label": "lem:Empty_Category_Is_Groupoid"
+    },
+    {
+      "id": "groupoid-universal-arrow",
+      "title": "The groupoid lifting criterion",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section04.GroupoidCharacterization",
+          "name": "lifting-to-section",
+          "qualified": "lifting-to-section",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "groupoids"
+    },
+    {
+      "id": "groupoid-section-lift",
+      "title": "The groupoid lifting criterion",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section04.GroupoidCharacterization",
+          "name": "section-to-lifting",
+          "qualified": "section-to-lifting",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "groupoids"
+    },
+    {
+      "id": "recognition-axiom",
+      "title": "Groupoid recognition",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section05.Recognition",
+          "name": "anima-isGroupoid",
+          "qualified": "anima-isGroupoid",
+          "role": "assumption"
+        },
+        {
+          "module": "Chapter02.Section05.Recognition",
+          "name": "groupoid-isAn",
+          "qualified": "groupoid-isAn",
+          "role": "assumption"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "recognizing-animae",
+      "tex_label": "axiom:D_Groupoid_Core"
+    },
+    {
+      "id": "recognition-mapping",
+      "title": "Mapping into an anima",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section05.AnimaTargets",
+          "name": "mappingInclusion-isEquiv",
+          "qualified": "mappingInclusion-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "recognizing-animae",
+      "tex_label": "Map_is_Fun_for_groupoids"
+    },
+    {
+      "id": "recognition-pullbacks",
+      "title": "Pullbacks of animae",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section05.PullbackAnimae",
+          "name": "pullback-of-animae",
+          "qualified": "pullback-of-animae",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "recognizing-animae",
+      "tex_label": "lem:Pullback_Of_Animae_Over_Category"
+    },
+    {
+      "id": "recognition-core-embedding",
+      "title": "The core inclusion is an embedding",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section05.PullbackAnimae",
+          "name": "coreInclusion-isEmbedding",
+          "qualified": "coreInclusion-isEmbedding",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "recognizing-animae",
+      "tex_label": "prop:Groupoid_Core_Embeds_Into_C"
+    },
+    {
+      "id": "recognition-arrow-coproducts",
+      "title": "Arrows in a coproduct",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section05.ArrowCoproducts",
+          "name": "arrowCopair-isEquiv",
+          "qualified": "arrowCopair-isEquiv",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "recognizing-animae",
+      "tex_label": "cor:1_Simplex_Is_Connected"
+    },
+    {
+      "id": "recognition-groupoid-coproducts",
+      "title": "Coproducts of groupoids",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section05.ArrowCoproducts",
+          "name": "coproduct-isGroupoid",
+          "qualified": "coproduct-isGroupoid",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "recognizing-animae",
+      "tex_label": "cor:Groupoids_Closed_Under_Disjoint_Unions"
+    },
+    {
+      "id": "recognition-initial-coproducts",
+      "title": "Initial category and coproducts of animae",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section05.Recognition",
+          "name": "zero-isAn",
+          "qualified": "zero-isAn",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section05.ArrowCoproducts",
+          "name": "coproduct-isAn",
+          "qualified": "coproduct-isAn",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "recognizing-animae",
+      "tex_label": "cor:Initial_And_Coproduct_Animae"
+    },
+    {
+      "id": "recognition-two-points",
+      "title": "The two-point case",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section05.ArrowCoproducts",
+          "name": "two-point-isAn",
+          "qualified": "two-point-isAn",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section05.ArrowCoproducts",
+          "name": "two-point-cover",
+          "qualified": "two-point-cover",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "recognizing-animae"
+    },
+    {
+      "id": "exercise-product-composition",
+      "title": "Composition in a product",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section02.ProductMorphismFamilies",
+          "name": "product-composition",
+          "qualified": "ProductComposition.product-composition",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "chapter-2-exercises",
+      "tex_label": "exercise:Composites_In_Products_2"
+    },
+    {
+      "id": "exercise-elementary-yoneda",
+      "title": "The elementary Yoneda criterion",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section06.HomIsomorphisms",
+          "name": "isomorphism-postcompose",
+          "qualified": "Criterion.isomorphism-postcompose",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section06.HomIsomorphisms",
+          "name": "isomorphism-precompose",
+          "qualified": "Criterion.isomorphism-precompose",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section06.HomIsomorphisms",
+          "name": "postcompose-isomorphism",
+          "qualified": "Criterion.postcompose-isomorphism",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section06.HomIsomorphisms",
+          "name": "precompose-isomorphism",
+          "qualified": "Criterion.precompose-isomorphism",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "chapter-2-exercises",
+      "tex_label": "exercise:elementary_Yoneda_iso"
+    }
+  ],
+  "reverse_only": [
+    {
+      "id": "diagrams-projection-proof",
+      "title": "Projection proof support",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "first-projection-cocone",
+          "qualified": "first-projection-cocone",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "second-projection-cocone",
+          "qualified": "second-projection-cocone",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "diagrams-minimum-proof",
+      "title": "Minimum and maximum proof support",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "recognize-min",
+          "qualified": "recognize-min",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.SquareGluing",
+          "name": "recognize-max",
+          "qualified": "recognize-max",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "morphisms-and-diagrams"
+    },
+    {
+      "id": "rezk-inverse-witness-lift",
+      "title": "Construct the lift from inverse triangles",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section03.InvertibleMorphismFamilies",
+          "name": "inner-cone",
+          "qualified": "FromInverseFamily.inner-cone",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section03.InvertibleMorphismFamilies",
+          "name": "outer-cone",
+          "qualified": "FromInverseFamily.outer-cone",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section03.InvertibleMorphismFamilies",
+          "name": "lift",
+          "qualified": "FromInverseFamily.lift",
+          "role": "definition"
+        },
+        {
+          "module": "Chapter02.Section03.InvertibleMorphismFamilies",
+          "name": "arrow-comparison",
+          "qualified": "FromInverseFamily.arrow-comparison",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section03.InvertibleMorphismFamilies",
+          "name": "value",
+          "qualified": "FromLift.value",
+          "role": "definition"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "rezk-axiom"
+    },
+    {
+      "id": "rezk-identity-arrow-compatibility",
+      "title": "The underlying arrow of the identity isomorphism",
+      "note": "",
+      "declarations": [
+        {
+          "module": "Chapter02.Section03.Isomorphisms",
+          "name": "identityIso-arrow",
+          "qualified": "identityIso-arrow",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.Morphisms",
+          "name": "identity-source",
+          "qualified": "identity-source",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section01.Morphisms",
+          "name": "identity-target",
+          "qualified": "identity-target",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section03.Isomorphisms",
+          "name": "identityIso-endpoints",
+          "qualified": "identityIso-endpoints",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "rezk-axiom"
+    },
+    {
+      "id": "rezk-recovery",
+      "title": "Recover an identification from a lifted arrow",
+      "note": "This is the equivalence between the identification anima and the category of isomorphisms with the specified endpoints.",
+      "declarations": [
+        {
+          "module": "Chapter02.Section03.RezkFibers",
+          "name": "identification-to-iso-isEquiv",
+          "qualified": "IdentificationFiber.identification-to-iso-isEquiv",
+          "role": "derived"
+        },
+        {
+          "module": "Chapter02.Section03.RezkFibers",
+          "name": "comparison-image",
+          "qualified": "IdentificationFiber.comparison-image",
+          "role": "derived"
+        }
+      ],
+      "tex_file": "Volume I - Synthetic Category Theory/2_Groupoids.tex",
+      "page": "rezk-axiom"
+    }
+  ]
+}

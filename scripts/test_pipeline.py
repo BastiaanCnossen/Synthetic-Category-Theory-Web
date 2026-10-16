@@ -5,6 +5,28 @@ from pilot_model import declaration_range,tex_markers
 from reader_context import focused_lines,module_lines,compiler_anchors
 
 class PipelineTests(unittest.TestCase):
+    def test_chapter2_reenable_keeps_chapter3_hidden(self):
+        from chapter_availability import prune_tree
+        from module_navigation import module_tree
+        names=['SCT.VolumeI.Chapter01.Section01.Vocabulary',
+               'SCT.VolumeI.Chapter02.Section02.SquareCalculus.EvaluationFrameTransport',
+               'SCT.VolumeI.Chapter03.Section01.Subcategories']
+        menu=prune_tree(module_tree(names),(3,))
+        def modules(node):
+            return node['modules']+[name for child in node['children'] for name in modules(child)]
+        self.assertEqual(set(modules(menu)),set(names[:2]))
+        self.assertIn('SquareCalculus',json.dumps(menu))
+
+    def test_incomplete_chapter_bundle_cannot_be_installed(self):
+        import tempfile
+        from chapter_edition import verify_bundle
+        with tempfile.TemporaryDirectory() as directory:
+            bundle=Path(directory)
+            for receipt in ({'status':'timeout','checked':False}, {'status':'passed','checked':False}):
+                dump(bundle/'receipt.json',receipt)
+                with self.assertRaisesRegex(ValueError,'incomplete'):
+                    verify_bundle(bundle)
+
     def test_suspended_chapter_preserves_prose_and_bookmarks_without_code_controls(self):
         from chapter_availability import disable_page, prune_tree
         from chapter_edition import body_prose

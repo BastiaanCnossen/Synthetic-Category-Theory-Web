@@ -1,7 +1,7 @@
-"""Install a separately checked Chapter 1 reader over the retained book edition.
+"""Install independently checked chapter readers over the retained book edition.
 
-Later chapters keep their original compiler pages, offsets and receipts. Only
-generated artifacts are duplicated; mathematical sources remain commit-pinned.
+Chapter 2 may supply a separate bundle, while other chapters retain their original
+compiler pages and receipts. Mathematical sources remain commit-pinned.
 """
 from common import *
 from urllib.parse import urlsplit, unquote, quote
@@ -31,8 +31,9 @@ def rebuild2_code_introduction(checked_date):
 def clear_generated_overlay(site):
     """Remove only the known overlay artifacts before validating a fresh baseline."""
     candidates=[site/'chapter-edition.json',site/'chapter01-code.html']
-    candidates += [site/'assets'/name for name in (CONTEXT,EXTRA,NAV)]
-    for prefix in (CODE,RAW):
+    candidates += [site/'assets'/name for name in (CONTEXT,EXTRA,NAV,
+        'chapter02-agda-context.js','chapter02-supplementary.js','chapter02-module-navigation-data.js')]
+    for prefix in (CODE,RAW,'agda/chapter02/','source-files/chapter02/'):
         folder=(site/prefix).resolve()
         if site.resolve() not in folder.parents: raise ValueError('Unsafe edition directory')
         candidates += [p for p in folder.rglob('*') if p.is_file()]
@@ -100,7 +101,7 @@ def body_prose(tree):
     return re.sub(r'\s+',' ',clone.text()).strip()
 
 
-def apply(bundle, site=SITE):
+def apply(bundle, site=SITE, *, chapter2_bundle=None):
     from assemble import Agda, page, unique_agda_ids
     from reader_context import build_reader_data
     from supplementary import catalog, module_explanations
@@ -281,7 +282,17 @@ def apply(bundle, site=SITE):
             'retained_chapters':[2,3],
             'retained_supplementary_pages':[n['slug'] for n in chapter_notes] if development=='rebuild2' else []}
     dump(site/'chapter-edition.json',public)
-    info=json.loads(read(site/'build-info.json')); info['chapter_editions']=[public]; dump(site/'build-info.json',info)
+    if chapter2_bundle is None and CONFIG.exists():
+        configured=json.loads(read(CONFIG)).get('chapter2_bundle')
+        if configured: chapter2_bundle=ROOT/configured
+    second=None
+    if chapter2_bundle:
+        from chapter02_edition import apply as apply_chapter2
+        second=apply_chapter2(chapter2_bundle,site)
+        public['retained_chapters']=[3]
+        public['additional_editions']=[second['public']]
+        dump(site/'chapter-edition.json',public)
+    info=json.loads(read(site/'build-info.json')); info['chapter_editions']=[public]+([second['public']] if second else []); dump(site/'build-info.json',info)
     hashes={p.relative_to(site).as_posix():digest(p.read_bytes()) for p in site.rglob('*') if p.is_file() and p.name!='validation.json'}
     report={'bundle':str(bundle),'baseline':baseline,'baseline_hashes':baseline_hashes,'files':hashes,
             'prose':prose,'reader_sha256':digest((bundle/'reader.json').read_bytes()),
@@ -291,6 +302,7 @@ def apply(bundle, site=SITE):
         if chapter_manifest(development)!=manifest:
             raise ValueError('Correspondences changed during assembly; rebuild the stage')
         report['rebuild2_correspondence_sha256']=correspondence_digest
+    if second: report['chapter2']=second
     dump(REPORT,report)
     if development=='rebuild2':
         apply_availability(site)
@@ -306,13 +318,14 @@ def apply_availability(site):
         raise ValueError('Edition changed before availability update')
     if report.get('availability_files'):
         raise ValueError('Availability policy already applied; reassemble before changing it')
-    prose,changed=suspend(site)
+    enabled=(2,) if report.get('chapter2') else ()
+    prose,changed=suspend(site,enabled=enabled)
     report['prose'].update(prose)
     report['availability_files']=changed
     info=json.loads(read(site/'chapter-edition.json'))
-    info['disabled_chapters']=list(DISABLED_CHAPTERS)
+    info['disabled_chapters']=[n for n in DISABLED_CHAPTERS if n not in enabled]
     dump(site/'chapter-edition.json',info)
-    build=json.loads(read(site/'build-info.json')); build['chapter_editions']=[info]
+    build=json.loads(read(site/'build-info.json')); build['chapter_editions']=[info]+info.get('additional_editions',[])
     dump(site/'build-info.json',build)
     report['files']={p.relative_to(site).as_posix():digest(p.read_bytes()) for p in site.rglob('*') if p.is_file() and p.name!='validation.json'}
     dump(REPORT,report)
@@ -342,6 +355,7 @@ def validate_overlay(site=SITE):
     for name,sha in report['baseline_hashes'].items():
         if name in {'build-info.json','validation.json'} or name in {s+'.html' for s in changed}: continue
         if name in report.get('availability_files',[]): continue
+        if name in report.get('chapter2',{}).get('changed',[]): continue
         if actual.get(name)!=sha: raise ValueError('Retained edition artifact changed: '+name)
     trees={p:parse(read(p)) for p in site.rglob('*.html')}; ids={}
     for file,tree in trees.items():
@@ -390,12 +404,17 @@ def validate_overlay(site=SITE):
         for d in p['declarations']: link(site/(p['page']+'.html'),d['href'])
     for slug,text in report['prose'].items():
         if body_prose(trees[site/(slug+'.html')])!=text: raise ValueError('Book prose changed')
+    chapter2=None
+    if report.get('chapter2'):
+        from chapter02_edition import validate as validate_chapter2
+        chapter2=validate_chapter2(report['chapter2'],site,trees,link)
     check(site)
     result={'status':'passed','html_pages':len(trees),'local_links_checked':links,
             'chapter_1_source_modules':len(receipt['sources']),'chapter_1_omissions':len(receipt['excluded_modules']),
-            'chapter_1_commit':receipt['commit'],'retained_chapters':[2,3],
+            'chapter_1_commit':receipt['commit'],'retained_chapters':info['retained_chapters'],
             'disabled_chapters':info.get('disabled_chapters',[]),
             'baseline_validation':report['baseline']}
+    if chapter2: result['chapter_2']=chapter2
     dump(site/'validation.json',result)
     return result
 

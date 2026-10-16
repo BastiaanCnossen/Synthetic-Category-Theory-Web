@@ -26,6 +26,8 @@ def check(site):
     if editions:
         root_files.update({'chapter01-code.html','chapter-edition.json'})
         asset_files.update({'chapter01-agda-context.js','chapter01-supplementary.js','chapter01-module-navigation-data.js'})
+    if any(e['chapter']==2 for e in editions):
+        asset_files.update({'chapter02-agda-context.js','chapter02-supplementary.js','chapter02-module-navigation-data.js'})
     asset_files.update('diagrams/'+name+'.svg' for name in info.get('diagrams',[]))
     compiled=set(info.get('compiled_modules',allowed))
     vendor_files=json.loads((Path(__file__).resolve().parent/'vendor-files.json').read_text(encoding='utf-8'))

@@ -1,16 +1,14 @@
 {
   "status": "passed",
-  "html_pages": 1222,
-  "local_links_checked": 1016697,
+  "html_pages": 1441,
+  "local_links_checked": 1553918,
   "chapter_1_source_modules": 135,
   "chapter_1_omissions": 0,
   "chapter_1_commit": "b982f5a32e1eb5e471c22de7d012d3c7558be09d",
   "retained_chapters": [
-    2,
     3
   ],
   "disabled_chapters": [
-    2,
     3
   ],
   "baseline_validation": {
@@ -25,5 +23,11 @@
     "input_hashes": 1467,
     "source_modules": 1024,
     "omitted_source_modules": 596
+  },
+  "chapter_2": {
+    "source_modules": 216,
+    "chapter_modules": 106,
+    "commit": "e07b94cde8a88a7595fd28a1749aa9beb9de5d37",
+    "passages": 177
   }
 }
